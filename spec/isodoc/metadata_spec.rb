@@ -195,7 +195,7 @@ RSpec.describe IsoDoc do
         vote_starteddate: "2021",
         xml: "URL C" }
     expect(metadata(c.info(Nokogiri::XML(input), nil)))
-      .to be_equivalent_to output
+      .to be_string_equivalent_to output
 
     m = metadata(c.info(Nokogiri::XML(input
       .sub("<stage-published>false</stage-published>", "")), nil))
@@ -325,7 +325,7 @@ RSpec.describe IsoDoc do
         vote_endeddate: "XXX",
         vote_starteddate: "XXX" }
     expect(metadata(c.info(Nokogiri::XML(input), nil)))
-      .to be_equivalent_to output
+      .to be_string_equivalent_to output
   end
 
   it "processes logos" do
@@ -407,9 +407,9 @@ RSpec.describe IsoDoc do
     input1 = input.sub("IMAGE1", img1uri).sub("IMAGE2", svg1uri)
     input2 = input.sub("IMAGE1", img1datauri).sub("IMAGE2", svg1datauri)
     expect(metadata(c.info(Nokogiri::XML(input1), nil))[:copublisher_logos])
-      .to be_equivalent_to [img1uri, svg1uri]
+      .to be_string_equivalent_to [img1uri, svg1uri]
     expect(metadata(c.info(Nokogiri::XML(input2), nil))[:copublisher_logos])
-      .to be_equivalent_to [img1datauri, svg1datauri]
+      .to be_string_equivalent_to [img1datauri, svg1datauri]
     c = IsoDoc::WordConvert.new({})
     c.convert_init(<<~INPUT, "test", false)
       <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -419,17 +419,18 @@ RSpec.describe IsoDoc do
     expect(m[1]).to end_with ".emf"
     m = metadata(c.info(Nokogiri::XML(input2), nil))
     expect(m[:copublisher_logos])
-      .not_to be_equivalent_to [img1datauri, svg1datauri]
+      .not_to be_string_equivalent_to [img1datauri, svg1datauri]
     expect(m[:copublisher_logos][0])
       .to end_with ".gif"
     expect(m[:copublisher_logos][1])
       .to end_with ".emf"
     expect(m[:copublisher_logo_attrs])
-      .to be_equivalent_to [
+      .to be_string_equivalent_to [
         { "doc" => { "height" => "1" } },
         nil,
         { "doc" => { "height" => "2" }, "html" => { "width" => "3" } },
-        { "html" => { "width" => "4" } } ]
+        { "html" => { "width" => "4" } },
+      ]
   end
 
   it "processes IsoXML metadata language variants" do
@@ -484,7 +485,7 @@ RSpec.describe IsoDoc do
         vote_endeddate: "XXX",
         vote_starteddate: "XXX" }
     expect(metadata(c.info(Nokogiri::XML(input), nil)))
-      .to be_equivalent_to output
+      .to be_string_equivalent_to output
   end
 
   it "processes IsoXML metadata in French" do
@@ -609,7 +610,7 @@ RSpec.describe IsoDoc do
         vote_endeddate: "XXX",
         vote_starteddate: "XXX" }
     expect(metadata(c.info(Nokogiri::XML(input), nil)))
-      .to be_equivalent_to output
+      .to be_string_equivalent_to output
   end
 
   it "processes metadata with embedded objects" do
@@ -632,6 +633,6 @@ RSpec.describe IsoDoc do
     OUTPUT
     c.info(Nokogiri::XML(input), nil)
     expect(c.populate_template(template).gsub(" => ", "=>"))
-      .to be_equivalent_to output
+      .to be_string_equivalent_to output
   end
 end

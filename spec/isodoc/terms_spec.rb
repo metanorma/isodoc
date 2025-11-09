@@ -73,7 +73,7 @@ RSpec.describe IsoDoc do
 
     html = <<~"OUTPUT"
       #{HTML_HDR}
-                   <div id="H"><h1>1.\\u00a0 Terms, Definitions, Symbols and Abbreviated Terms</h1>
+                   <div id="H"><h1>1.\u00a0 Terms, Definitions, Symbols and Abbreviated Terms</h1>
            <p class="TermNum" id="J">1.1.</p>
              <p class="Terms" style="text-align:left;"><b>Term2</b></p>
            </div>
@@ -84,11 +84,11 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(pres_output)).to be_xml_equivalent_to presxml
+
+    html_output = IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)
+    expect(strip_guid(html_output)).to be_html5_equivalent_to html
   end
 
   it "processes IsoXML terms" do
@@ -260,7 +260,7 @@ RSpec.describe IsoDoc do
                                  <locality type="clause">
                                     <referenceFrom>3.1</referenceFrom>
                                  </locality>
-                                 ISO\\u00a07301:2011, Clause 3.1
+                                 ISO\u00a07301:2011, Clause 3.1
                               </fmt-origin>
                            </semx>
                            , modified —
@@ -600,7 +600,7 @@ RSpec.describe IsoDoc do
                               <locality type="clause">
                                  <referenceFrom>3.1</referenceFrom>
                               </locality>
-                              ISO\\u00a07301:2011, 3.1
+                              ISO\u00a07301:2011, 3.1
                            </fmt-origin>
                         </semx>
                         <origin bibitemid="ISO7301" type="inline" case="lowercase" citeas="ISO 7301:2011" id="_">
@@ -613,7 +613,7 @@ RSpec.describe IsoDoc do
                               <locality type="clause">
                                  <referenceFrom>3.1</referenceFrom>
                               </locality>
-                              ISO\\u00a07301:2011, clause 3.1
+                              ISO\u00a07301:2011, clause 3.1
                            </fmt-origin>
                         </semx>
                      </semx>
@@ -628,12 +628,12 @@ RSpec.describe IsoDoc do
     html = <<~"OUTPUT"
       #{HTML_HDR}
                 <div id="terms_and_definitions">
-                   <h1>1.\\u00a0 Terms and Definitions</h1>
+                   <h1>1.\u00a0 Terms and Definitions</h1>
                    <p>For the purposes of this document, the following terms and definitions apply.</p>
                    <p class="TermNum" id="paddy1">1.1.</p>
                    <p class="Terms" style="text-align:left;">
                       <b>paddy</b>
-                      , &lt;in agriculture, dated&gt; [SOURCE: ISO\\u00a07301:2011, Clause 3.1, modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]
+                      , &lt;in agriculture, dated&gt; [SOURCE: ISO\u00a07301:2011, Clause 3.1, modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]
                    </p>
                    <p id="_">&lt;rice&gt;  rice retaining its husk after threshing</p>
                    <div id="_" class="example" style="page-break-after: avoid;page-break-inside: avoid;">
@@ -687,7 +687,7 @@ RSpec.describe IsoDoc do
                       </div>
                       <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
                    </div>
-                   <p>[SOURCE: ISO\\u00a07301:2011, 3.1ISO\\u00a07301:2011, clause 3.1]</p>
+                   <p>[SOURCE: ISO\u00a07301:2011, 3.1ISO\u00a07301:2011, clause 3.1]</p>
                 </div>
              </div>
           </body>
@@ -696,7 +696,7 @@ RSpec.describe IsoDoc do
 
     word = <<~"WORD"
       #{WORD_HDR}
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
       </div>
       <p class="section-break">
          <br clear="all" class="section"/>
@@ -705,14 +705,14 @@ RSpec.describe IsoDoc do
                 <div id="terms_and_definitions">
                    <h1>
                       1.
-                      <span style="mso-tab-count:1">\\u00a0 </span>
+                      <span style="mso-tab-count:1">\u00a0 </span>
                       Terms and Definitions
                    </h1>
                    <p>For the purposes of this document, the following terms and definitions apply.</p>
                    <p class="TermNum" id="paddy1">1.1.</p>
                    <p class="Terms" style="text-align:left;">
                       <b>paddy</b>
-                      , &lt;in agriculture, dated&gt; [SOURCE: ISO\\u00a07301:2011, Clause 3.1, modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]
+                      , &lt;in agriculture, dated&gt; [SOURCE: ISO\u00a07301:2011, Clause 3.1, modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]
                    </p>
                    <p id="_">&lt;rice&gt;  rice retaining its husk after threshing</p>
                    <div id="_" class="example" style="page-break-after: avoid;page-break-inside: avoid;">
@@ -766,7 +766,7 @@ RSpec.describe IsoDoc do
                       </div>
                       <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
                    </div>
-                   <p>[SOURCE: ISO\\u00a07301:2011, 3.1ISO\\u00a07301:2011, clause 3.1]</p>
+                   <p>[SOURCE: ISO\u00a07301:2011, 3.1ISO\u00a07301:2011, clause 3.1]</p>
                 </div>
              </div>
           </body>
@@ -775,14 +775,15 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(pres_output)).to be_xml_equivalent_to presxml
+
+    html_output = IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)
+    expect(strip_guid(html_output)).to be_html5_equivalent_to html
+
+    word_output = IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)
+    expect(strip_guid(word_output)).to be_html4_equivalent_to word
   end
 
   it "processes IsoXML term with multiple definitions" do
@@ -925,7 +926,7 @@ RSpec.describe IsoDoc do
                                   <locality type="clause">
                                      <referenceFrom>3.1</referenceFrom>
                                   </locality>
-                                  ISO\\u00a07301:2011, Clause 3.1
+                                  ISO\u00a07301:2011, Clause 3.1
                                </fmt-origin>
                             </semx>
                             , modified —
@@ -1042,11 +1043,11 @@ RSpec.describe IsoDoc do
           </term>
        </terms>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-       .convert("test", input, true))
-      .at("//xmlns:terms").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .convert("test", input, true)
+    terms_xml = Nokogiri::XML(pres_output).at("//xmlns:terms").to_xml
+    expect(strip_guid(terms_xml)).to be_xml_equivalent_to presxml
   end
 
   it "processes IsoXML term with nonverbal definitions" do
@@ -1434,11 +1435,11 @@ RSpec.describe IsoDoc do
          </term>
       </terms>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-       .convert("test", input, true))
-      .at("//xmlns:terms").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .convert("test", input, true)
+    terms_xml = Nokogiri::XML(pres_output).at("//xmlns:terms").to_xml
+    expect(strip_guid(terms_xml)).to be_xml_equivalent_to presxml
   end
 
   it "processes IsoXML term with different term source statuses" do
@@ -1678,11 +1679,11 @@ RSpec.describe IsoDoc do
          </term>
       </terms>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
-          .new(presxml_options)
-           .convert("test", input, true))
-          .at("//xmlns:terms").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    terms_xml = Nokogiri::XML(pres_output).at("//xmlns:terms").to_xml
+    expect(strip_guid(terms_xml)).to be_xml_equivalent_to output
     output = <<~OUTPUT
       <terms id="terms_and_definitions" obligation="normative" displayorder="2">
          <title id="_">Terms and Definitions</title>
@@ -1857,12 +1858,12 @@ RSpec.describe IsoDoc do
          </term>
       </terms>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
-          .new(presxml_options)
-          .convert("test", input.sub(%r{<language>en</language>},
-                                     "<language>de</language>"), true))
-          .at("//xmlns:terms").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    pres_output_de = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input.sub(%r{<language>en</language>},
+                                 "<language>de</language>"), true)
+    terms_xml_de = Nokogiri::XML(pres_output_de).at("//xmlns:terms").to_xml
+    expect(strip_guid(terms_xml_de)).to be_xml_equivalent_to output
   end
 
   # also applies to postprocessing of indexes
@@ -1984,10 +1985,10 @@ RSpec.describe IsoDoc do
          </term>
       </terms>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-       .convert("test", input, true))
-      .at("//xmlns:terms").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .convert("test", input, true)
+    terms_xml = Nokogiri::XML(pres_output).at("//xmlns:terms").to_xml
+    expect(strip_guid(terms_xml)).to be_xml_equivalent_to output
   end
 end

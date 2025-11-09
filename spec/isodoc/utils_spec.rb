@@ -10,21 +10,29 @@ RSpec.describe IsoDoc::ClassUtils do
       .to eq "Abc cde"
     expect(::IsoDoc::Common.case_strict("abc cde", "allcaps", "Latn"))
       .to eq "ABC cde"
-    expect(::IsoDoc::Common.case_strict("ABC CDE", "lowercase", "Hans", firstonly: true))
+    expect(::IsoDoc::Common.case_strict("ABC CDE", "lowercase", "Hans",
+                                        firstonly: true))
       .to eq "ABC CDE"
-    expect(::IsoDoc::Common.case_strict("ABC CDE", "lowercase", "Latn", firstonly: true))
+    expect(::IsoDoc::Common.case_strict("ABC CDE", "lowercase", "Latn",
+                                        firstonly: true))
       .to eq "aBC CDE"
-    expect(::IsoDoc::Common.case_strict("abc cde", "capital", "Latn", firstonly: true))
+    expect(::IsoDoc::Common.case_strict("abc cde", "capital", "Latn",
+                                        firstonly: true))
       .to eq "Abc cde"
-    expect(::IsoDoc::Common.case_strict("abc cde", "allcaps", "Latn", firstonly: true))
+    expect(::IsoDoc::Common.case_strict("abc cde", "allcaps", "Latn",
+                                        firstonly: true))
       .to eq "ABC cde"
-    expect(::IsoDoc::Common.case_strict("ABC CDE", "lowercase", "Hans", firstonly: false))
+    expect(::IsoDoc::Common.case_strict("ABC CDE", "lowercase", "Hans",
+                                        firstonly: false))
       .to eq "ABC CDE"
-    expect(::IsoDoc::Common.case_strict("ABC CDE", "lowercase", "Latn", firstonly: false))
+    expect(::IsoDoc::Common.case_strict("ABC CDE", "lowercase", "Latn",
+                                        firstonly: false))
       .to eq "aBC cDE"
-    expect(::IsoDoc::Common.case_strict("abc cde", "capital", "Latn", firstonly: false))
+    expect(::IsoDoc::Common.case_strict("abc cde", "capital", "Latn",
+                                        firstonly: false))
       .to eq "Abc Cde"
-    expect(::IsoDoc::Common.case_strict("abc cde", "allcaps", "Latn", firstonly: false))
+    expect(::IsoDoc::Common.case_strict("abc cde", "allcaps", "Latn",
+                                        firstonly: false))
       .to eq "ABC CDE"
   end
 

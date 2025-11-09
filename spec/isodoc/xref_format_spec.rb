@@ -92,19 +92,22 @@ RSpec.describe IsoDoc do
               <p>
       <a href="a.doc#b">a#b</a>
       </p>
-            </div><p>\\u00a0</p></div>
+            </div><p>\u00a0</p></div>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::WordConvert.new({})
-      .convert("test", presxml, true))
-      .at("//div[@class = 'WordSection2']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(doc)
+      .convert("test", input, true)
+    expect(strip_guid(pres_output)).to be_xml_equivalent_to presxml
+
+    html_output = IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true)
+    expect(strip_guid(html_output)).to be_html5_equivalent_to html
+
+    word_output = IsoDoc::WordConvert.new({})
+      .convert("test", presxml, true)
+    word_section = Nokogiri::XML(word_output)
+      .at("//div[@class = 'WordSection2']").to_xml
+    expect(strip_guid(word_section)).to be_html4_equivalent_to doc
   end
 
   it "droplocs xrefs" do
@@ -123,67 +126,68 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <clause id="C" displayorder="3">
-          <fmt-title id="_" depth="1">
-             <span class="fmt-caption-label">
-                <semx element="autonum" source="C">2</semx>
-                <span class="fmt-autonum-delim">.</span>
-             </span>
-          </fmt-title>
-          <fmt-xref-label>
-             <span class="fmt-element-name">klaŭzo</span>
-             <semx element="autonum" source="C">2</semx>
-          </fmt-xref-label>
-          <p>
-             This is
-             <xref target="A" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref target="A">
-                   <span class="fmt-element-name">klaŭzo</span>
-                   <semx element="autonum" source="A">1</semx>
-                </fmt-xref>
-             </semx>
-             and
-             <xref target="B" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref target="B">
-                   <span class="fmt-xref-container">
-                      <span class="fmt-element-name">klaŭzo</span>
-                      <semx element="autonum" source="A">1</semx>
-                   </span>
-                   <span class="fmt-comma">—</span>
-                   <span class="fmt-element-name">Formula</span>
-                   <span class="fmt-autonum-delim">(</span>
-                   <semx element="autonum" source="B">1</semx>
-                   <span class="fmt-autonum-delim">)</span>
-                </fmt-xref>
-             </semx>
-             . This is
-             <xref target="A" droploc="true" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref target="A" droploc="true">
-                   <semx element="autonum" source="A">1</semx>
-                </fmt-xref>
-             </semx>
-             and
-             <xref target="B" droploc="true" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref target="B" droploc="true">
-                   <span class="fmt-autonum-delim">(</span>
-                   1
-                   <span class="fmt-autonum-delim">)</span>
-                </fmt-xref>
-             </semx>
-             .
-          </p>
-       </clause>
+      <clause id="C" displayorder="3">
+         <fmt-title id="_" depth="1">
+            <span class="fmt-caption-label">
+               <semx element="autonum" source="C">2</semx>
+               <span class="fmt-autonum-delim">.</span>
+            </span>
+         </fmt-title>
+         <fmt-xref-label>
+            <span class="fmt-element-name">klaŭzo</span>
+            <semx element="autonum" source="C">2</semx>
+         </fmt-xref-label>
+         <p>
+            This is
+            <xref target="A" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref target="A">
+                  <span class="fmt-element-name">klaŭzo</span>
+                  <semx element="autonum" source="A">1</semx>
+               </fmt-xref>
+            </semx>
+            and
+            <xref target="B" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref target="B">
+                  <span class="fmt-xref-container">
+                     <span class="fmt-element-name">klaŭzo</span>
+                     <semx element="autonum" source="A">1</semx>
+                  </span>
+                  <span class="fmt-comma">—</span>
+                  <span class="fmt-element-name">Formula</span>
+                  <span class="fmt-autonum-delim">(</span>
+                  <semx element="autonum" source="B">1</semx>
+                  <span class="fmt-autonum-delim">)</span>
+               </fmt-xref>
+            </semx>
+            . This is
+            <xref target="A" droploc="true" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref target="A" droploc="true">
+                  <semx element="autonum" source="A">1</semx>
+               </fmt-xref>
+            </semx>
+            and
+            <xref target="B" droploc="true" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref target="B" droploc="true">
+                  <span class="fmt-autonum-delim">(</span>
+                  1
+                  <span class="fmt-autonum-delim">)</span>
+               </fmt-xref>
+            </semx>
+            .
+         </p>
+      </clause>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
-    .new({ i18nyaml: "spec/assets/i18n.yaml" }
-    .merge(presxml_options))
-    .convert("test", input, true))
-    .at("//xmlns:clause[@id = 'C']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new({ i18nyaml: "spec/assets/i18n.yaml" }
+      .merge(presxml_options))
+      .convert("test", input, true)
+    clause_xml = Nokogiri::XML(pres_output)
+      .at("//xmlns:clause[@id = 'C']").to_xml
+    expect(strip_guid(clause_xml)).to be_xml_equivalent_to output
   end
 
   it "puts custom labels on xrefs" do
@@ -201,51 +205,52 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <clause id="C" displayorder="3">
-          <fmt-title id="_" depth="1">
-             <span class="fmt-caption-label">
-                <semx element="autonum" source="C">2</semx>
-                <span class="fmt-autonum-delim">.</span>
-             </span>
-          </fmt-title>
-          <fmt-xref-label>
-             <span class="fmt-element-name">klaŭzo</span>
-             <semx element="autonum" source="C">2</semx>
-          </fmt-xref-label>
-          <p>
-             This is
-             <xref target="A" label="Klauze" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref target="A" label="Klauze">
-                   <span class="fmt-element-name">Klauze</span>
-                   <semx element="autonum" source="A">1</semx>
-                </fmt-xref>
-             </semx>
-             and
-             <xref target="B" label="Formulen" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref target="B" label="Formulen">
-                   <span class="fmt-xref-container">
-                      <span class="fmt-element-name">klaŭzo</span>
-                      <semx element="autonum" source="A">1</semx>
-                   </span>
-                   <span class="fmt-comma">—</span>
-                   <span class="fmt-element-name">Formulen</span>
-                   <span class="fmt-autonum-delim">(</span>
-                   1
-                   <span class="fmt-autonum-delim">)</span>
-                </fmt-xref>
-             </semx>
-             .
-          </p>
-       </clause>
+      <clause id="C" displayorder="3">
+         <fmt-title id="_" depth="1">
+            <span class="fmt-caption-label">
+               <semx element="autonum" source="C">2</semx>
+               <span class="fmt-autonum-delim">.</span>
+            </span>
+         </fmt-title>
+         <fmt-xref-label>
+            <span class="fmt-element-name">klaŭzo</span>
+            <semx element="autonum" source="C">2</semx>
+         </fmt-xref-label>
+         <p>
+            This is
+            <xref target="A" label="Klauze" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref target="A" label="Klauze">
+                  <span class="fmt-element-name">Klauze</span>
+                  <semx element="autonum" source="A">1</semx>
+               </fmt-xref>
+            </semx>
+            and
+            <xref target="B" label="Formulen" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref target="B" label="Formulen">
+                  <span class="fmt-xref-container">
+                     <span class="fmt-element-name">klaŭzo</span>
+                     <semx element="autonum" source="A">1</semx>
+                  </span>
+                  <span class="fmt-comma">—</span>
+                  <span class="fmt-element-name">Formulen</span>
+                  <span class="fmt-autonum-delim">(</span>
+                  1
+                  <span class="fmt-autonum-delim">)</span>
+               </fmt-xref>
+            </semx>
+            .
+         </p>
+      </clause>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new({ i18nyaml: "spec/assets/i18n.yaml" }
       .merge(presxml_options))
-      .convert("test", input, true))
-      .at("//xmlns:clause[@id = 'C']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .convert("test", input, true)
+    clause_xml = Nokogiri::XML(pres_output)
+      .at("//xmlns:clause[@id = 'C']").to_xml
+    expect(strip_guid(clause_xml)).to be_xml_equivalent_to output
   end
 
   it "renders xrefs with style" do
@@ -268,180 +273,181 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <clause id="C" displayorder="3">
-          <fmt-title id="_" depth="1">
-             <span class="fmt-caption-label">
-                <semx element="autonum" source="C">2</semx>
-                <span class="fmt-autonum-delim">.</span>
-             </span>
-          </fmt-title>
-          <fmt-xref-label>
-             <span class="fmt-element-name">Clause</span>
-             <semx element="autonum" source="C">2</semx>
-          </fmt-xref-label>
-          <p>
-             This is
-             <xref target="A" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref target="A">
-                   <span class="fmt-element-name">Clause</span>
-                   <semx element="autonum" source="A">1</semx>
-                </fmt-xref>
-             </semx>
-             and
-             <xref target="B" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref target="B">
-                   <span class="fmt-xref-container">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="A">1</semx>
-                   </span>
-                   <span class="fmt-comma">,</span>
-                   <span class="fmt-element-name">Formula</span>
-                   <span class="fmt-autonum-delim">(</span>
-                   <semx element="autonum" source="B">1</semx>
-                   <span class="fmt-autonum-delim">)</span>
-                </fmt-xref>
-             </semx>
-             and
-             <xref target="C" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref target="C">
-                   <span class="fmt-element-name">Clause</span>
-                   <semx element="autonum" source="C">2</semx>
-                </fmt-xref>
-             </semx>
-             .
-          </p>
-          <p>
-             This is
-             <xref style="id" target="A" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref style="id" target="A">A</fmt-xref>
-             </semx>
-             and
-             <xref style="id" target="B" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref style="id" target="B">B</fmt-xref>
-             </semx>
-             and
-             <xref style="id" target="C" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref style="id" target="C">C</fmt-xref>
-             </semx>
-             .
-          </p>
-          <p>
-             This is
-             <xref style="basic" target="A" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref style="basic" target="A">
-                   <semx element="title" source="A">My section</semx>
-                </fmt-xref>
-             </semx>
-             and
-             <xref style="basic" target="B" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref style="basic" target="B">
-                   <span class="fmt-xref-container">
-                      <semx element="title" source="A">My section</semx>
-                   </span>
-                   <span class="fmt-comma">,</span>
-                   <span class="fmt-element-name">Formula</span>
-                   <span class="fmt-autonum-delim">(</span>
-                   <semx element="autonum" source="B">1</semx>
-                   <span class="fmt-autonum-delim">)</span>
-                </fmt-xref>
-             </semx>
-             and
-             <xref style="basic" target="C" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref style="basic" target="C">
-                   <span class="fmt-element-name">Clause</span>
-                   <semx element="autonum" source="C">2</semx>
-                </fmt-xref>
-             </semx>
-             .
-          </p>
-          <p>
-             This is
-             <xref style="short" target="A" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref style="short" target="A">
-                   <span class="fmt-element-name">Clause</span>
-                   <semx element="autonum" source="A">1</semx>
-                </fmt-xref>
-             </semx>
-             and
-             <xref style="short" target="B" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref style="short" target="B">
-                   <span class="fmt-xref-container">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="A">1</semx>
-                   </span>
-                   <span class="fmt-comma">,</span>
-                   <span class="fmt-element-name">Formula</span>
-                   <span class="fmt-autonum-delim">(</span>
-                   <semx element="autonum" source="B">1</semx>
-                   <span class="fmt-autonum-delim">)</span>
-                </fmt-xref>
-             </semx>
-             and
-             <xref style="short" target="C" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref style="short" target="C">
-                   <span class="fmt-element-name">Clause</span>
-                   <semx element="autonum" source="C">2</semx>
-                </fmt-xref>
-             </semx>
-             .
-          </p>
-          <p>
-             This is
-             <xref style="full" target="A" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref style="full" target="A">
-                   <span class="fmt-element-name">Clause</span>
-                   <semx element="autonum" source="A">1</semx>
-                   <span class="fmt-comma">,</span>
-                   <semx element="title" source="A">My section</semx>
-                </fmt-xref>
-             </semx>
-             and
-             <xref style="full" target="B" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref style="full" target="B">
-                   <span class="fmt-xref-container">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="A">1</semx>
-                      <span class="fmt-comma">,</span>
-                      <semx element="title" source="A">My section</semx>
-                   </span>
-                   <span class="fmt-comma">,</span>
-                   <span class="fmt-element-name">Formula</span>
-                   <span class="fmt-autonum-delim">(</span>
-                   <semx element="autonum" source="B">1</semx>
-                   <span class="fmt-autonum-delim">)</span>
-                </fmt-xref>
-             </semx>
-             and
-             <xref style="full" target="C" id="_"/>
-             <semx element="xref" source="_">
-                <fmt-xref style="full" target="C">
-                   <span class="fmt-element-name">Clause</span>
-                   <semx element="autonum" source="C">2</semx>
-                </fmt-xref>
-             </semx>
-             .
-          </p>
-       </clause>
+      <clause id="C" displayorder="3">
+         <fmt-title id="_" depth="1">
+            <span class="fmt-caption-label">
+               <semx element="autonum" source="C">2</semx>
+               <span class="fmt-autonum-delim">.</span>
+            </span>
+         </fmt-title>
+         <fmt-xref-label>
+            <span class="fmt-element-name">Clause</span>
+            <semx element="autonum" source="C">2</semx>
+         </fmt-xref-label>
+         <p>
+            This is
+            <xref target="A" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref target="A">
+                  <span class="fmt-element-name">Clause</span>
+                  <semx element="autonum" source="A">1</semx>
+               </fmt-xref>
+            </semx>
+            and
+            <xref target="B" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref target="B">
+                  <span class="fmt-xref-container">
+                     <span class="fmt-element-name">Clause</span>
+                     <semx element="autonum" source="A">1</semx>
+                  </span>
+                  <span class="fmt-comma">,</span>
+                  <span class="fmt-element-name">Formula</span>
+                  <span class="fmt-autonum-delim">(</span>
+                  <semx element="autonum" source="B">1</semx>
+                  <span class="fmt-autonum-delim">)</span>
+               </fmt-xref>
+            </semx>
+            and
+            <xref target="C" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref target="C">
+                  <span class="fmt-element-name">Clause</span>
+                  <semx element="autonum" source="C">2</semx>
+               </fmt-xref>
+            </semx>
+            .
+         </p>
+         <p>
+            This is
+            <xref style="id" target="A" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref style="id" target="A">A</fmt-xref>
+            </semx>
+            and
+            <xref style="id" target="B" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref style="id" target="B">B</fmt-xref>
+            </semx>
+            and
+            <xref style="id" target="C" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref style="id" target="C">C</fmt-xref>
+            </semx>
+            .
+         </p>
+         <p>
+            This is
+            <xref style="basic" target="A" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref style="basic" target="A">
+                  <semx element="title" source="A">My section</semx>
+               </fmt-xref>
+            </semx>
+            and
+            <xref style="basic" target="B" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref style="basic" target="B">
+                  <span class="fmt-xref-container">
+                     <semx element="title" source="A">My section</semx>
+                  </span>
+                  <span class="fmt-comma">,</span>
+                  <span class="fmt-element-name">Formula</span>
+                  <span class="fmt-autonum-delim">(</span>
+                  <semx element="autonum" source="B">1</semx>
+                  <span class="fmt-autonum-delim">)</span>
+               </fmt-xref>
+            </semx>
+            and
+            <xref style="basic" target="C" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref style="basic" target="C">
+                  <span class="fmt-element-name">Clause</span>
+                  <semx element="autonum" source="C">2</semx>
+               </fmt-xref>
+            </semx>
+            .
+         </p>
+         <p>
+            This is
+            <xref style="short" target="A" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref style="short" target="A">
+                  <span class="fmt-element-name">Clause</span>
+                  <semx element="autonum" source="A">1</semx>
+               </fmt-xref>
+            </semx>
+            and
+            <xref style="short" target="B" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref style="short" target="B">
+                  <span class="fmt-xref-container">
+                     <span class="fmt-element-name">Clause</span>
+                     <semx element="autonum" source="A">1</semx>
+                  </span>
+                  <span class="fmt-comma">,</span>
+                  <span class="fmt-element-name">Formula</span>
+                  <span class="fmt-autonum-delim">(</span>
+                  <semx element="autonum" source="B">1</semx>
+                  <span class="fmt-autonum-delim">)</span>
+               </fmt-xref>
+            </semx>
+            and
+            <xref style="short" target="C" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref style="short" target="C">
+                  <span class="fmt-element-name">Clause</span>
+                  <semx element="autonum" source="C">2</semx>
+               </fmt-xref>
+            </semx>
+            .
+         </p>
+         <p>
+            This is
+            <xref style="full" target="A" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref style="full" target="A">
+                  <span class="fmt-element-name">Clause</span>
+                  <semx element="autonum" source="A">1</semx>
+                  <span class="fmt-comma">,</span>
+                  <semx element="title" source="A">My section</semx>
+               </fmt-xref>
+            </semx>
+            and
+            <xref style="full" target="B" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref style="full" target="B">
+                  <span class="fmt-xref-container">
+                     <span class="fmt-element-name">Clause</span>
+                     <semx element="autonum" source="A">1</semx>
+                     <span class="fmt-comma">,</span>
+                     <semx element="title" source="A">My section</semx>
+                  </span>
+                  <span class="fmt-comma">,</span>
+                  <span class="fmt-element-name">Formula</span>
+                  <span class="fmt-autonum-delim">(</span>
+                  <semx element="autonum" source="B">1</semx>
+                  <span class="fmt-autonum-delim">)</span>
+               </fmt-xref>
+            </semx>
+            and
+            <xref style="full" target="C" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref style="full" target="C">
+                  <span class="fmt-element-name">Clause</span>
+                  <semx element="autonum" source="C">2</semx>
+               </fmt-xref>
+            </semx>
+            .
+         </p>
+      </clause>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))
-      .at("//xmlns:clause[@id = 'C']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .convert("test", input, true)
+    clause_xml = Nokogiri::XML(pres_output)
+      .at("//xmlns:clause[@id = 'C']").to_xml
+    expect(strip_guid(clause_xml)).to be_xml_equivalent_to output
   end
 
   it "cases xrefs" do
@@ -610,12 +616,13 @@ RSpec.describe IsoDoc do
           </p>
        </clause>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new({ i18nyaml: "spec/assets/i18n.yaml" }
       .merge(presxml_options))
-      .convert("test", input, true))
-      .at("//xmlns:clause[@id = 'C']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .convert("test", input, true)
+    clause_xml = Nokogiri::XML(pres_output)
+      .at("//xmlns:clause[@id = 'C']").to_xml
+    expect(strip_guid(clause_xml)).to be_xml_equivalent_to output
   end
 
   it "ignores casing of xrefs in unicameral scripts" do
@@ -731,12 +738,13 @@ RSpec.describe IsoDoc do
        </clause>
     OUTPUT
     # We pretend this is Chinese—so no capitalisation is applied
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new({ i18nyaml: "spec/assets/i18n.yaml", script: "Hans" }
       .merge(presxml_options))
-      .convert("test", input, true))
-      .at("//xmlns:clause[@id = 'C']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .convert("test", input, true)
+    clause_xml = Nokogiri::XML(pres_output)
+      .at("//xmlns:clause[@id = 'C']").to_xml
+    expect(strip_guid(clause_xml)).to be_xml_equivalent_to output
   end
 
   it "ignores locations in xrefs" do
@@ -750,31 +758,31 @@ RSpec.describe IsoDoc do
               </itu-standard>
     INPUT
     presxml = <<~OUTPUT
-       <itu-standard xmlns="https://www.calconnect.org/standards/itu" type="presentation">
-          <preface>
-             <clause type="toc" id="_" displayorder="1">
-                <fmt-title id="_" depth="1">Table of contents</fmt-title>
-             </clause>
-             <foreword id="_" displayorder="2">
-                <title id="_">Foreword</title>
-                <fmt-title id="_" depth="1">Foreword</fmt-title>
-                <p id="_">
-                   <xref target="item_6-4-a" id="_">
-                      <location target="item_6-4-a" connective="from"/>
-                      <location target="item_6-4-i" connective="to"/>
-                      6.4 List 1.a) to 2.b)
-                   </xref>
-                   <semx element="xref" source="_">
-                      <fmt-xref target="item_6-4-a">
-                         <location target="item_6-4-a" connective="from"/>
-                         <location target="item_6-4-i" connective="to"/>
-                         6.4 List 1.a) to 2.b)
-                      </fmt-xref>
-                   </semx>
-                </p>
-             </foreword>
-          </preface>
-       </itu-standard>
+      <itu-standard xmlns="https://www.calconnect.org/standards/itu" type="presentation">
+         <preface>
+            <clause type="toc" id="_" displayorder="1">
+               <fmt-title id="_" depth="1">Table of contents</fmt-title>
+            </clause>
+            <foreword id="_" displayorder="2">
+               <title id="_">Foreword</title>
+               <fmt-title id="_" depth="1">Foreword</fmt-title>
+               <p id="_">
+                  <xref target="item_6-4-a" id="_">
+                     <location target="item_6-4-a" connective="from"/>
+                     <location target="item_6-4-i" connective="to"/>
+                     6.4 List 1.a) to 2.b)
+                  </xref>
+                  <semx element="xref" source="_">
+                     <fmt-xref target="item_6-4-a">
+                        <location target="item_6-4-a" connective="from"/>
+                        <location target="item_6-4-i" connective="to"/>
+                        6.4 List 1.a) to 2.b)
+                     </fmt-xref>
+                  </semx>
+               </p>
+            </foreword>
+         </preface>
+      </itu-standard>
     OUTPUT
     html = <<~OUTPUT
       <div><h1 class='ForewordTitle'>Foreword</h1>
@@ -793,15 +801,18 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-    .convert("test", pres_output, true))
-    .sub(/^.*<h1/m, "<div><h1").sub(%r{</div>.*$}m, "</div>"))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true))
-      .sub(/^.*<h1/m, "<div><h1").sub(%r{</div>.*$}m, "</div>"))
-      .to be_equivalent_to Canon.format_xml(doc)
+    expect(strip_guid(pres_output)).to be_xml_equivalent_to presxml
+
+    html_output = IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)
+    html_cleaned = html_output
+      .sub(/^.*<h1/m, "<div><h1").sub(%r{</div>.*$}m, "</div>")
+    expect(html_cleaned).to be_html5_equivalent_to html
+
+    word_output = IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)
+    word_cleaned = word_output
+      .sub(/^.*<h1/m, "<div><h1").sub(%r{</div>.*$}m, "</div>")
+    expect(word_cleaned).to be_html4_equivalent_to doc
   end
 end

@@ -10,7 +10,7 @@ RSpec.describe IsoDoc::CssBorderParser::BorderParser do
       it "preserves non-border properties" do
         css = "div { color: blue; font-size: 12px; border: 2px solid red; margin: 5px; }"
         result = parser.parse(css)
-        
+
         # Check that border properties are parsed correctly
         expect(result["div"]["border"])
           .to eq({
@@ -18,7 +18,7 @@ RSpec.describe IsoDoc::CssBorderParser::BorderParser do
                    "style" => "solid",
                    "color" => "#FF0000",
                  })
-        
+
         # Check that non-border properties are preserved
         expect(result["div"]["other_properties"])
           .to eq({
@@ -342,33 +342,33 @@ RSpec.describe IsoDoc::CssBorderParser::BorderParser do
           "border" => {
             "width" => "2px",
             "style" => "solid",
-            "color" => "#FF0000"
-          }
+            "color" => "#FF0000",
+          },
         }
-        
+
         css_string = parser.to_css_string(parsed_properties)
-        
+
         expect(css_string).to include("border-width: 2px;")
         expect(css_string).to include("border-style: solid;")
         expect(css_string).to include("border-color: #FF0000;")
       end
-      
+
       it "generates CSS string with direction-specific border properties" do
         parsed_properties = {
           "border-top" => {
             "width" => "1px",
             "style" => "solid",
-            "color" => "#000000"
+            "color" => "#000000",
           },
           "border-bottom" => {
             "width" => "3px",
             "style" => "dotted",
-            "color" => "#0000FF"
-          }
+            "color" => "#0000FF",
+          },
         }
-        
+
         css_string = parser.to_css_string(parsed_properties)
-        
+
         expect(css_string).to include("border-top-width: 1px;")
         expect(css_string).to include("border-top-style: solid;")
         expect(css_string).to include("border-top-color: #000000;")
@@ -376,23 +376,23 @@ RSpec.describe IsoDoc::CssBorderParser::BorderParser do
         expect(css_string).to include("border-bottom-style: dotted;")
         expect(css_string).to include("border-bottom-color: #0000FF;")
       end
-      
+
       it "includes non-border properties in the CSS string" do
         parsed_properties = {
           "border" => {
             "width" => "2px",
             "style" => "solid",
-            "color" => "#FF0000"
+            "color" => "#FF0000",
           },
           "other_properties" => {
             "color" => "blue",
             "font-size" => "12px",
-            "margin" => "5px"
-          }
+            "margin" => "5px",
+          },
         }
-        
+
         css_string = parser.to_css_string(parsed_properties)
-        
+
         expect(css_string).to include("border-width: 2px;")
         expect(css_string).to include("border-style: solid;")
         expect(css_string).to include("border-color: #FF0000;")
@@ -401,23 +401,24 @@ RSpec.describe IsoDoc::CssBorderParser::BorderParser do
         expect(css_string).to include("margin: 5px;")
       end
     end
-    
+
     context "with rule_set format" do
       it "generates a CSS rule set" do
         parsed_properties = {
           "border" => {
             "width" => "2px",
             "style" => "solid",
-            "color" => "#FF0000"
+            "color" => "#FF0000",
           },
           "other_properties" => {
             "color" => "blue",
-            "font-size" => "12px"
-          }
+            "font-size" => "12px",
+          },
         }
-        
-        css_string = parser.to_css_string(parsed_properties, format: :rule_set, selector: "div")
-        
+
+        css_string = parser.to_css_string(parsed_properties, format: :rule_set,
+                                                             selector: "div")
+
         expect(css_string).to start_with("div {")
         expect(css_string).to include("border-width: 2px;")
         expect(css_string).to include("border-style: solid;")
