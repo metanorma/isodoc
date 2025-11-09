@@ -1,7 +1,7 @@
-require_relative "word_function/comments.rb"
-require_relative "word_function/footnotes.rb"
-require_relative "word_function/body.rb"
-require_relative "word_function/postprocess.rb"
+require_relative "word_function/comments"
+require_relative "word_function/footnotes"
+require_relative "word_function/body"
+require_relative "word_function/postprocess"
 
 module IsoDoc
   class WordConvert < ::IsoDoc::Convert

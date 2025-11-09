@@ -117,354 +117,354 @@ RSpec.describe IsoDoc do
     INPUT
 
     presxml = <<~OUTPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface>
-             <clause type="toc" id="_8" displayorder="1">
-                <fmt-title depth="1" id="_24">Table of contents</fmt-title>
-             </clause>
-             <foreword id="fwd" displayorder="2">
-                <title id="_11">Foreword</title>
-                <fmt-title depth="1" id="_25">
-                   <semx element="title" source="_11">Foreword</semx>
-                </fmt-title>
-                <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true" autonum="1">
-                   <name id="_14">
-                      Repeatability and reproducibility of
-                      <em>husked</em>
-                      rice yield
-                      <fn original-id="_1" original-reference="1">
-                         <p>X</p>
-                      </fn>
-                   </name>
-                   <fmt-name id="_26">
-                      <span class="fmt-caption-label">
-                         <span class="fmt-element-name">Table</span>
-                         <semx element="autonum" source="tableD-1">1</semx>
-                      </span>
-                      <span class="fmt-caption-delim">\\u00a0— </span>
-                      <semx element="name" source="_14">
-                         Repeatability and reproducibility of
-                         <em>husked</em>
-                         rice yield
-                         <fn reference="1" id="_1" original-reference="1" target="_19">
-                            <p>X</p>
-                            <fmt-fn-label>
-                               <span class="fmt-caption-label">
-                                  <sup>
-                                     <semx element="autonum" source="_1">1</semx>
-                                  </sup>
-                               </span>
-                            </fmt-fn-label>
-                         </fn>
-                      </semx>
-                   </fmt-name>
-                   <fmt-xref-label>
-                      <span class="fmt-element-name">Table</span>
-                      <semx element="autonum" source="tableD-1">1</semx>
-                   </fmt-xref-label>
-                   <colgroup>
-                      <col width="30%"/>
-                      <col width="20%"/>
-                      <col width="20%"/>
-                      <col width="20%"/>
-                      <col width="10%"/>
-                   </colgroup>
-                   <thead>
-                      <tr style="background-color: red;">
-                         <td rowspan="2" align="left">Description</td>
-                         <td colspan="4" align="center">Rice sample</td>
-                      </tr>
-                      <tr>
-                         <td valign="top" align="left" style="background-color: green;">Arborio</td>
-                         <td valign="middle" align="center">
-                            Drago
-                            <fn reference="a" id="_2" target="_13">
-                               <p original-id="_">Parboiled rice.</p>
-                               <fmt-fn-label>
-                                  <span class="fmt-caption-label">
-                                     <sup>
-                                        <semx element="autonum" source="_2">a</semx>
-                                     </sup>
-                                  </span>
-                               </fmt-fn-label>
-                            </fn>
-                         </td>
-                         <td valign="bottom" align="center">
-                            Balilla
-                            <fn reference="a" id="_3" target="_13">
-                               <p id="_">Parboiled rice.</p>
-                               <fmt-fn-label>
-                                  <span class="fmt-caption-label">
-                                     <sup>
-                                        <semx element="autonum" source="_3">a</semx>
-                                     </sup>
-                                  </span>
-                               </fmt-fn-label>
-                            </fn>
-                            <fn reference="a" id="_4" target="_13">
-                               <p id="_">Parboiled rice.</p>
-                               <fmt-fn-label>
-                                  <span class="fmt-caption-label">
-                                     <sup>
-                                        <semx element="autonum" source="_4">a</semx>
-                                     </sup>
-                                  </span>
-                               </fmt-fn-label>
-                            </fn>
-                         </td>
-                         <td align="center">Thaibonnet</td>
-                      </tr>
-                   </thead>
-                   <tbody>
-                      <tr>
-                         <th align="left">Number of laboratories retained after eliminating outliers</th>
-                         <td align="center">13</td>
-                         <td align="center">11</td>
-                         <td align="center">13</td>
-                         <td align="center">13</td>
-                      </tr>
-                      <tr>
-                         <td align="left">Mean value, g/100 g</td>
-                         <td align="center">81,2</td>
-                         <td align="center">82,0</td>
-                         <td align="center">81,8</td>
-                         <td align="center">77,7</td>
-                      </tr>
-                   </tbody>
-                   <tfoot>
-                      <tr>
-                         <td align="left">
-                            Reproducibility limit,
-                            <stem type="AsciiMath" id="_22">R</stem>
-                            <fmt-stem type="AsciiMath">
-                               <semx element="stem" source="_22">R</semx>
-                            </fmt-stem>
-                            (= 2,83
-                            <stem type="AsciiMath" id="_23">s_R</stem>
-                            <fmt-stem type="AsciiMath">
-                               <semx element="stem" source="_23">s_R</semx>
-                            </fmt-stem>
-                            )
-                         </td>
-                         <td align="center">2,89</td>
-                         <td align="center">0,57</td>
-                         <td align="center">2,26</td>
-                         <td align="center">
-                            <dl>
-                               <dt>6,06</dt>
-                               <dd>Definition</dd>
-                            </dl>
-                         </td>
-                      </tr>
-                   </tfoot>
-                   <dl key="true">
-                      <name id="_18">Key</name>
-                      <fmt-name id="_27">
-                         <semx element="name" source="_18">Key</semx>
-                      </fmt-name>
-                      <dt>Drago</dt>
-                      <dd>A type of rice</dd>
-                   </dl>
-                   <source status="generalisation" id="_5">
-                      <origin bibitemid="ISO712" type="inline" citeas="">
-                         <localityStack>
-                            <locality type="section">
-                               <referenceFrom>1</referenceFrom>
-                            </locality>
-                         </localityStack>
-                      </origin>
-                      <modification id="_6">
-                         <p id="_">with adjustments</p>
-                      </modification>
-                   </source>
-                   <fmt-source>
-                      [SOURCE:
-                      <semx element="source" source="_5">
-                         <origin bibitemid="ISO712" type="inline" citeas="" id="_20">
-                            <localityStack>
-                               <locality type="section">
-                                  <referenceFrom>1</referenceFrom>
-                               </locality>
-                            </localityStack>
-                         </origin>
-                         <semx element="origin" source="_20">
-                            <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Section 1</fmt-xref>
-                         </semx>
-                         —
-                         <semx element="modification" source="_6">with adjustments</semx>
-                      </semx>
-                      ;
-                      <semx element="source" source="_7">
-                         <origin bibitemid="ISO712" type="inline" citeas="" id="_21">
-                            <localityStack>
-                               <locality type="section">
-                                  <referenceFrom>2</referenceFrom>
-                               </locality>
-                            </localityStack>
-                         </origin>
-                         <semx element="origin" source="_21">
-                            <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Section 2</fmt-xref>
-                         </semx>
-                      </semx>
-                      ]
-                   </fmt-source>
-                   <source status="specialisation" id="_7">
-                      <origin bibitemid="ISO712" type="inline" citeas="">
-                         <localityStack>
-                            <locality type="section">
-                               <referenceFrom>2</referenceFrom>
-                            </locality>
-                         </localityStack>
-                      </origin>
-                   </source>
-                   <note>
-                      <fmt-name id="_28">
-                         <span class="fmt-caption-label">
-                            <span class="fmt-element-name">NOTE</span>
-                         </span>
-                         <span class="fmt-label-delim">
-                            <tab/>
-                         </span>
-                      </fmt-name>
-                      <p>This is a table about rice</p>
-                   </note>
-                   <fmt-footnote-container>
-                      <fmt-fn-body id="_13" target="_2" reference="a">
-                         <semx element="fn" source="_2">
-                            <p id="_">
-                               <fmt-fn-label>
-                                  <span class="fmt-caption-label">
-                                     <sup>
-                                        <semx element="autonum" source="_2">a</semx>
-                                     </sup>
-                                  </span>
-                                  <span class="fmt-caption-delim">
-                                     <tab/>
-                                  </span>
-                               </fmt-fn-label>
-                               Parboiled rice.
-                            </p>
-                         </semx>
-                      </fmt-fn-body>
-                   </fmt-footnote-container>
-                </table>
-                <table id="tableD-2" unnumbered="true" style="border-width:2px;">
-                   <tbody>
-                      <tr>
-                         <td>A</td>
-                      </tr>
-                   </tbody>
-                </table>
-             </foreword>
-          </preface>
-          <sections>
-             <references id="_normative_references" obligation="informative" normative="true" displayorder="3">
-                <title id="_12">Normative References</title>
-                <fmt-title depth="1" id="_29">
-                   <span class="fmt-caption-label">
-                      <semx element="autonum" source="_normative_references">1</semx>
-                      <span class="fmt-autonum-delim">.</span>
-                   </span>
-                   <span class="fmt-caption-delim">
-                      <tab/>
-                   </span>
-                   <semx element="title" source="_12">Normative References</semx>
-                </fmt-title>
-                <fmt-xref-label>
-                   <span class="fmt-element-name">Clause</span>
-                   <semx element="autonum" source="_normative_references">1</semx>
-                </fmt-xref-label>
-                <bibitem id="ISO712" type="standard">
-                   <biblio-tag>ISO\\u00a0712, </biblio-tag>
-                   <formattedref>
-                      International Organization for Standardization.
-                      <em>Cereals and cereal products</em>
-                      .
-                   </formattedref>
-                   <title format="text/plain">Cereals or cereal products</title>
-                   <title type="main" format="text/plain">Cereals and cereal products</title>
-                   <docidentifier type="ISO">ISO\\u00a0712</docidentifier>
-                   <docidentifier scope="biblio-tag">ISO\\u00a0712</docidentifier>
-                   <contributor>
-                      <role type="publisher"/>
-                      <organization>
-                         <name>International Organization for Standardization</name>
-                      </organization>
-                   </contributor>
-                </bibitem>
-             </references>
-          </sections>
-          <annex id="Annex1" autonum="A" displayorder="4">
-             <fmt-title id="_30">
-                <strong>
-                   <span class="fmt-caption-label">
-                      <span class="fmt-element-name">Annex</span>
-                      <semx element="autonum" source="Annex1">A</semx>
-                   </span>
-                </strong>
-                <br/>
-                <span class="fmt-obligation">(informative)</span>
-             </fmt-title>
-             <fmt-xref-label>
-                <span class="fmt-element-name">Annex</span>
-                <semx element="autonum" source="Annex1">A</semx>
-             </fmt-xref-label>
-             <table id="AnnexTable" autonum="A.1">
-                <fmt-name id="_31">
-                   <span class="fmt-caption-label">
-                      <span class="fmt-element-name">Table</span>
-                      <semx element="autonum" source="Annex1">A</semx>
-                      <span class="fmt-autonum-delim">.</span>
-                      <semx element="autonum" source="AnnexTable">1</semx>
-                   </span>
-                </fmt-name>
-                <fmt-xref-label>
-                   <span class="fmt-element-name">Table</span>
-                   <semx element="autonum" source="Annex1">A</semx>
-                   <span class="fmt-autonum-delim">.</span>
-                   <semx element="autonum" source="AnnexTable">1</semx>
-                </fmt-xref-label>
-                <tbody>
-                   <tr>
-                      <td>A</td>
-                   </tr>
-                </tbody>
-             </table>
-             <table>
-                <fmt-name id="_32">
-                   <span class="fmt-caption-label">
-                      <span class="fmt-element-name">Table</span>
-                   </span>
-                </fmt-name>
-                <tbody>
-                   <tr>
-                      <td>B</td>
-                   </tr>
-                </tbody>
-             </table>
-          </annex>
-          <bibliography>
-         </bibliography>
-          <fmt-footnote-container>
-             <fmt-fn-body id="_19" target="_1" reference="1">
-                <semx element="fn" source="_1">
-                   <p>
-                      <fmt-fn-label>
-                         <span class="fmt-caption-label">
-                            <sup>
-                               <semx element="autonum" source="_1">1</semx>
-                            </sup>
-                         </span>
-                         <span class="fmt-caption-delim">
-                            <tab/>
-                         </span>
-                      </fmt-fn-label>
-                      X
-                   </p>
-                </semx>
-             </fmt-fn-body>
-          </fmt-footnote-container>
-       </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+            <clause type="toc" id="_8" displayorder="1">
+               <fmt-title depth="1" id="_24">Table of contents</fmt-title>
+            </clause>
+            <foreword id="fwd" displayorder="2">
+               <title id="_11">Foreword</title>
+               <fmt-title depth="1" id="_25">
+                  <semx element="title" source="_11">Foreword</semx>
+               </fmt-title>
+               <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true" autonum="1">
+                  <name id="_14">
+                     Repeatability and reproducibility of
+                     <em>husked</em>
+                     rice yield
+                     <fn original-id="_1" original-reference="1">
+                        <p>X</p>
+                     </fn>
+                  </name>
+                  <fmt-name id="_26">
+                     <span class="fmt-caption-label">
+                        <span class="fmt-element-name">Table</span>
+                        <semx element="autonum" source="tableD-1">1</semx>
+                     </span>
+                     <span class="fmt-caption-delim">\u00a0— </span>
+                     <semx element="name" source="_14">
+                        Repeatability and reproducibility of
+                        <em>husked</em>
+                        rice yield
+                        <fn reference="1" id="_1" original-reference="1" target="_19">
+                           <p>X</p>
+                           <fmt-fn-label>
+                              <span class="fmt-caption-label">
+                                 <sup>
+                                    <semx element="autonum" source="_1">1</semx>
+                                 </sup>
+                              </span>
+                           </fmt-fn-label>
+                        </fn>
+                     </semx>
+                  </fmt-name>
+                  <fmt-xref-label>
+                     <span class="fmt-element-name">Table</span>
+                     <semx element="autonum" source="tableD-1">1</semx>
+                  </fmt-xref-label>
+                  <colgroup>
+                     <col width="30%"/>
+                     <col width="20%"/>
+                     <col width="20%"/>
+                     <col width="20%"/>
+                     <col width="10%"/>
+                  </colgroup>
+                  <thead>
+                     <tr style="background-color: red;">
+                        <td rowspan="2" align="left">Description</td>
+                        <td colspan="4" align="center">Rice sample</td>
+                     </tr>
+                     <tr>
+                        <td valign="top" align="left" style="background-color: green;">Arborio</td>
+                        <td valign="middle" align="center">
+                           Drago
+                           <fn reference="a" id="_2" target="_13">
+                              <p original-id="_">Parboiled rice.</p>
+                              <fmt-fn-label>
+                                 <span class="fmt-caption-label">
+                                    <sup>
+                                       <semx element="autonum" source="_2">a</semx>
+                                    </sup>
+                                 </span>
+                              </fmt-fn-label>
+                           </fn>
+                        </td>
+                        <td valign="bottom" align="center">
+                           Balilla
+                           <fn reference="a" id="_3" target="_13">
+                              <p id="_">Parboiled rice.</p>
+                              <fmt-fn-label>
+                                 <span class="fmt-caption-label">
+                                    <sup>
+                                       <semx element="autonum" source="_3">a</semx>
+                                    </sup>
+                                 </span>
+                              </fmt-fn-label>
+                           </fn>
+                           <fn reference="a" id="_4" target="_13">
+                              <p id="_">Parboiled rice.</p>
+                              <fmt-fn-label>
+                                 <span class="fmt-caption-label">
+                                    <sup>
+                                       <semx element="autonum" source="_4">a</semx>
+                                    </sup>
+                                 </span>
+                              </fmt-fn-label>
+                           </fn>
+                        </td>
+                        <td align="center">Thaibonnet</td>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <th align="left">Number of laboratories retained after eliminating outliers</th>
+                        <td align="center">13</td>
+                        <td align="center">11</td>
+                        <td align="center">13</td>
+                        <td align="center">13</td>
+                     </tr>
+                     <tr>
+                        <td align="left">Mean value, g/100 g</td>
+                        <td align="center">81,2</td>
+                        <td align="center">82,0</td>
+                        <td align="center">81,8</td>
+                        <td align="center">77,7</td>
+                     </tr>
+                  </tbody>
+                  <tfoot>
+                     <tr>
+                        <td align="left">
+                           Reproducibility limit,
+                           <stem type="AsciiMath" id="_22">R</stem>
+                           <fmt-stem type="AsciiMath">
+                              <semx element="stem" source="_22">R</semx>
+                           </fmt-stem>
+                           (= 2,83
+                           <stem type="AsciiMath" id="_23">s_R</stem>
+                           <fmt-stem type="AsciiMath">
+                              <semx element="stem" source="_23">s_R</semx>
+                           </fmt-stem>
+                           )
+                        </td>
+                        <td align="center">2,89</td>
+                        <td align="center">0,57</td>
+                        <td align="center">2,26</td>
+                        <td align="center">
+                           <dl>
+                              <dt>6,06</dt>
+                              <dd>Definition</dd>
+                           </dl>
+                        </td>
+                     </tr>
+                  </tfoot>
+                  <dl key="true">
+                     <name id="_18">Key</name>
+                     <fmt-name id="_27">
+                        <semx element="name" source="_18">Key</semx>
+                     </fmt-name>
+                     <dt>Drago</dt>
+                     <dd>A type of rice</dd>
+                  </dl>
+                  <source status="generalisation" id="_5">
+                     <origin bibitemid="ISO712" type="inline" citeas="">
+                        <localityStack>
+                           <locality type="section">
+                              <referenceFrom>1</referenceFrom>
+                           </locality>
+                        </localityStack>
+                     </origin>
+                     <modification id="_6">
+                        <p id="_">with adjustments</p>
+                     </modification>
+                  </source>
+                  <fmt-source>
+                     [SOURCE:
+                     <semx element="source" source="_5">
+                        <origin bibitemid="ISO712" type="inline" citeas="" id="_20">
+                           <localityStack>
+                              <locality type="section">
+                                 <referenceFrom>1</referenceFrom>
+                              </locality>
+                           </localityStack>
+                        </origin>
+                        <semx element="origin" source="_20">
+                           <fmt-xref type="inline" target="ISO712">ISO\u00a0712, Section 1</fmt-xref>
+                        </semx>
+                        —
+                        <semx element="modification" source="_6">with adjustments</semx>
+                     </semx>
+                     ;
+                     <semx element="source" source="_7">
+                        <origin bibitemid="ISO712" type="inline" citeas="" id="_21">
+                           <localityStack>
+                              <locality type="section">
+                                 <referenceFrom>2</referenceFrom>
+                              </locality>
+                           </localityStack>
+                        </origin>
+                        <semx element="origin" source="_21">
+                           <fmt-xref type="inline" target="ISO712">ISO\u00a0712, Section 2</fmt-xref>
+                        </semx>
+                     </semx>
+                     ]
+                  </fmt-source>
+                  <source status="specialisation" id="_7">
+                     <origin bibitemid="ISO712" type="inline" citeas="">
+                        <localityStack>
+                           <locality type="section">
+                              <referenceFrom>2</referenceFrom>
+                           </locality>
+                        </localityStack>
+                     </origin>
+                  </source>
+                  <note>
+                     <fmt-name id="_28">
+                        <span class="fmt-caption-label">
+                           <span class="fmt-element-name">NOTE</span>
+                        </span>
+                        <span class="fmt-label-delim">
+                           <tab/>
+                        </span>
+                     </fmt-name>
+                     <p>This is a table about rice</p>
+                  </note>
+                  <fmt-footnote-container>
+                     <fmt-fn-body id="_13" target="_2" reference="a">
+                        <semx element="fn" source="_2">
+                           <p id="_">
+                              <fmt-fn-label>
+                                 <span class="fmt-caption-label">
+                                    <sup>
+                                       <semx element="autonum" source="_2">a</semx>
+                                    </sup>
+                                 </span>
+                                 <span class="fmt-caption-delim">
+                                    <tab/>
+                                 </span>
+                              </fmt-fn-label>
+                              Parboiled rice.
+                           </p>
+                        </semx>
+                     </fmt-fn-body>
+                  </fmt-footnote-container>
+               </table>
+               <table id="tableD-2" unnumbered="true" style="border-width:2px;">
+                  <tbody>
+                     <tr>
+                        <td>A</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </foreword>
+         </preface>
+         <sections>
+            <references id="_normative_references" obligation="informative" normative="true" displayorder="3">
+               <title id="_12">Normative References</title>
+               <fmt-title depth="1" id="_29">
+                  <span class="fmt-caption-label">
+                     <semx element="autonum" source="_normative_references">1</semx>
+                     <span class="fmt-autonum-delim">.</span>
+                  </span>
+                  <span class="fmt-caption-delim">
+                     <tab/>
+                  </span>
+                  <semx element="title" source="_12">Normative References</semx>
+               </fmt-title>
+               <fmt-xref-label>
+                  <span class="fmt-element-name">Clause</span>
+                  <semx element="autonum" source="_normative_references">1</semx>
+               </fmt-xref-label>
+               <bibitem id="ISO712" type="standard">
+                  <biblio-tag>ISO\u00a0712, </biblio-tag>
+                  <formattedref>
+                     International Organization for Standardization.
+                     <em>Cereals and cereal products</em>
+                     .
+                  </formattedref>
+                  <title format="text/plain">Cereals or cereal products</title>
+                  <title type="main" format="text/plain">Cereals and cereal products</title>
+                  <docidentifier type="ISO">ISO\u00a0712</docidentifier>
+                  <docidentifier scope="biblio-tag">ISO\u00a0712</docidentifier>
+                  <contributor>
+                     <role type="publisher"/>
+                     <organization>
+                        <name>International Organization for Standardization</name>
+                     </organization>
+                  </contributor>
+               </bibitem>
+            </references>
+         </sections>
+         <annex id="Annex1" autonum="A" displayorder="4">
+            <fmt-title id="_30">
+               <strong>
+                  <span class="fmt-caption-label">
+                     <span class="fmt-element-name">Annex</span>
+                     <semx element="autonum" source="Annex1">A</semx>
+                  </span>
+               </strong>
+               <br/>
+               <span class="fmt-obligation">(informative)</span>
+            </fmt-title>
+            <fmt-xref-label>
+               <span class="fmt-element-name">Annex</span>
+               <semx element="autonum" source="Annex1">A</semx>
+            </fmt-xref-label>
+            <table id="AnnexTable" autonum="A.1">
+               <fmt-name id="_31">
+                  <span class="fmt-caption-label">
+                     <span class="fmt-element-name">Table</span>
+                     <semx element="autonum" source="Annex1">A</semx>
+                     <span class="fmt-autonum-delim">.</span>
+                     <semx element="autonum" source="AnnexTable">1</semx>
+                  </span>
+               </fmt-name>
+               <fmt-xref-label>
+                  <span class="fmt-element-name">Table</span>
+                  <semx element="autonum" source="Annex1">A</semx>
+                  <span class="fmt-autonum-delim">.</span>
+                  <semx element="autonum" source="AnnexTable">1</semx>
+               </fmt-xref-label>
+               <tbody>
+                  <tr>
+                     <td>A</td>
+                  </tr>
+               </tbody>
+            </table>
+            <table>
+               <fmt-name id="_32">
+                  <span class="fmt-caption-label">
+                     <span class="fmt-element-name">Table</span>
+                  </span>
+               </fmt-name>
+               <tbody>
+                  <tr>
+                     <td>B</td>
+                  </tr>
+               </tbody>
+            </table>
+         </annex>
+         <bibliography>
+        </bibliography>
+         <fmt-footnote-container>
+            <fmt-fn-body id="_19" target="_1" reference="1">
+               <semx element="fn" source="_1">
+                  <p>
+                     <fmt-fn-label>
+                        <span class="fmt-caption-label">
+                           <sup>
+                              <semx element="autonum" source="_1">1</semx>
+                           </sup>
+                        </span>
+                        <span class="fmt-caption-delim">
+                           <tab/>
+                        </span>
+                     </fmt-fn-label>
+                     X
+                  </p>
+               </semx>
+            </fmt-fn-body>
+         </fmt-footnote-container>
+      </iso-standard>
     OUTPUT
 
     html = <<~OUTPUT
@@ -473,7 +473,7 @@ RSpec.describe IsoDoc do
                <div id="fwd">
                   <h1 class="ForewordTitle">Foreword</h1>
                   <p class="TableTitle" style="text-align:center;">
-                     Table 1\\u00a0— Repeatability and reproducibility of
+                     Table 1\u00a0— Repeatability and reproducibility of
                      <i>husked</i>
                      rice yield
                      <a class="FootnoteRef" href="#fn:_19">
@@ -562,22 +562,22 @@ RSpec.describe IsoDoc do
                      <div class="BlockSource">
                         <p>
                            [SOURCE:
-                           <a href="#ISO712">ISO\\u00a0712, Section 1</a>
+                           <a href="#ISO712">ISO\u00a0712, Section 1</a>
                            — with adjustments;
-                           <a href="#ISO712">ISO\\u00a0712, Section 2</a>
+                           <a href="#ISO712">ISO\u00a0712, Section 2</a>
                            ]
                         </p>
                      </div>
                      <div class="Note">
                         <p>
-                           <span class="note_label">NOTE\\u00a0 </span>
+                           <span class="note_label">NOTE\u00a0 </span>
                            This is a table about rice
                         </p>
                      </div>
                      <aside id="fn:tableD-1a" class="footnote">
                         <p id="_">
                            <span class="TableFootnoteRef">a</span>
-                           \\u00a0 Parboiled rice.
+                           \u00a0 Parboiled rice.
                         </p>
                      </aside>
                   </table>
@@ -590,9 +590,9 @@ RSpec.describe IsoDoc do
                   </table>
                </div>
                <div>
-                  <h1>1.\\u00a0 Normative References</h1>
+                  <h1>1.\u00a0 Normative References</h1>
                   <p id="ISO712" class="NormRef">
-                     ISO\\u00a0712, International Organization for Standardization.
+                     ISO\u00a0712, International Organization for Standardization.
                      <i>Cereals and cereal products</i>
                      .
                   </p>
@@ -637,7 +637,7 @@ RSpec.describe IsoDoc do
              <div id="fwd">
                <h1 class="ForewordTitle">Foreword</h1>
                <p class="TableTitle" style="text-align:center;">
-                       Table 1\\u00a0— Repeatability and reproducibility of
+                       Table 1\u00a0— Repeatability and reproducibility of
                        <i>husked</i>
                         rice yield
                        <span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" href="#ftn_19" epub:type="footnote">1</a></span>
@@ -700,26 +700,26 @@ RSpec.describe IsoDoc do
                        <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">2,26</td>
                        <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">
                          <div class="figdl">
-                           <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">6,06<span style="mso-tab-count:1">\\u00a0 </span>Definition</p>
+                           <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">6,06<span style="mso-tab-count:1">\u00a0 </span>Definition</p>
                          </div>
                        </td>
                      </tr>
                    </tfoot>
                    <div class="figdl">
                      <p class="ListTitle">Key</p>
-                     <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">Drago<span style="mso-tab-count:1">\\u00a0 </span>A type of rice</p>
+                     <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">Drago<span style="mso-tab-count:1">\u00a0 </span>A type of rice</p>
                    </div>
                    <div class="BlockSource">
-                     <p>[SOURCE: <a href="#ISO712">ISO\\u00a0712, Section 1</a>
-             — with adjustments; <a href="#ISO712">ISO\\u00a0712, Section 2</a>]</p>
+                     <p>[SOURCE: <a href="#ISO712">ISO\u00a0712, Section 1</a>
+             — with adjustments; <a href="#ISO712">ISO\u00a0712, Section 2</a>]</p>
                    </div>
                    <div class="Note">
-                     <p class="Note"><span class="note_label">NOTE<span style="mso-tab-count:1">\\u00a0 </span></span>This is a table about rice</p>
+                     <p class="Note"><span class="note_label">NOTE<span style="mso-tab-count:1">\u00a0 </span></span>This is a table about rice</p>
                    </div>
                    <aside id="ftntableD-1a">
                      <p id="_">
                         <span class="TableFootnoteRef">a</span>
-                        <span style="mso-tab-count:1">\\u00a0 </span>
+                        <span style="mso-tab-count:1">\u00a0 </span>
                         Parboiled rice.
                      </p>
                   </aside>
@@ -735,7 +735,7 @@ RSpec.describe IsoDoc do
                  </table>
                </div>
              </div>
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <p class="section-break">
              <br clear="all" class="section"/>
@@ -744,11 +744,11 @@ RSpec.describe IsoDoc do
                 <div>
                    <h1>
                       1.
-                      <span style="mso-tab-count:1">\\u00a0 </span>
+                      <span style="mso-tab-count:1">\u00a0 </span>
                       Normative References
                    </h1>
                    <p id="ISO712" class="NormRef">
-                      ISO\\u00a0712, International Organization for Standardization.
+                      ISO\u00a0712, International Organization for Standardization.
                       <i>Cereals and cereal products</i>
                       .
                    </p>
@@ -790,22 +790,22 @@ RSpec.describe IsoDoc do
           </body>
        </html>
     OUTPUT
-    pres_output = IsoDoc::PresentationXMLConvert
-      .new(presxml_options)
+
+    pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))
+    expect(strip_guid(pres_output)).to be_xml_equivalent_to(presxml)
+
+    html_output = IsoDoc::HtmlConvert.new({}).convert("test", pres_output, true)
+    output = Nokogiri::HTML5(html_output)
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
-    output = Nokogiri::XML(IsoDoc::WordConvert.new({})
-    .convert("test", pres_output, true))
+    expect(Nokogiri::HTML5.fragment(strip_guid(output.to_html))).to be_html5_equivalent_to(html)
+
+    word_output = IsoDoc::WordConvert.new({}).convert("test", pres_output, true)
+    output = Nokogiri::HTML4(word_output)
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(word)
+    word_output_cleaned = strip_guid(output.to_html)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
+    expect(Nokogiri::HTML4(word_output_cleaned)).to be_html4_equivalent_to(word)
   end
 
   it "processes plain IsoXML tables" do
@@ -895,263 +895,263 @@ RSpec.describe IsoDoc do
       </foreword></preface></iso-standard>
     INPUT
     presxml = <<~OUTPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface>
-             <clause type="toc" id="_7" displayorder="1">
-                <fmt-title depth="1" id="_19">Table of contents</fmt-title>
-             </clause>
-             <foreword id="fwd" displayorder="2">
-                <title id="_9">Foreword</title>
-                <fmt-title depth="1" id="_20">
-                   <semx element="title" source="_9">Foreword</semx>
-                </fmt-title>
-                <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true" plain="true" autonum="1">
-                   <name id="_11">
-                      Repeatability and reproducibility of
-                      <em>husked</em>
-                      rice yield
-                      <fn original-id="_1" original-reference="1">
-                         <p>X</p>
-                      </fn>
-                   </name>
-                   <fmt-name id="_21">
-                      <span class="fmt-caption-label">
-                         <span class="fmt-element-name">Table</span>
-                         <semx element="autonum" source="tableD-1">1</semx>
-                      </span>
-                      <span class="fmt-caption-delim">\\u00a0— </span>
-                      <semx element="name" source="_11">
-                         Repeatability and reproducibility of
-                         <em>husked</em>
-                         rice yield
-                         <fn reference="1" id="_1" original-reference="1" target="_14">
-                            <p>X</p>
-                            <fmt-fn-label>
-                               <span class="fmt-caption-label">
-                                  <sup>
-                                     <semx element="autonum" source="_1">1</semx>
-                                  </sup>
-                               </span>
-                            </fmt-fn-label>
-                         </fn>
-                      </semx>
-                   </fmt-name>
-                   <fmt-xref-label>
-                      <span class="fmt-element-name">Table</span>
-                      <semx element="autonum" source="tableD-1">1</semx>
-                   </fmt-xref-label>
-                   <colgroup>
-                      <col width="30%"/>
-                      <col width="20%"/>
-                      <col width="20%"/>
-                      <col width="20%"/>
-                      <col width="10%"/>
-                   </colgroup>
-                   <thead>
-                      <tr style="background-color: red;">
-                         <td rowspan="2" align="left">Description</td>
-                         <td colspan="4" align="center">Rice sample</td>
-                      </tr>
-                      <tr>
-                         <td valign="top" align="left" style="background-color: green;">Arborio</td>
-                         <td valign="middle" align="center">
-                            Drago
-                            <fn reference="a" id="_2" target="_10">
-                               <p original-id="_">Parboiled rice.</p>
-                               <fmt-fn-label>
-                                  <span class="fmt-caption-label">
-                                     <sup>
-                                        <semx element="autonum" source="_2">a</semx>
-                                     </sup>
-                                  </span>
-                               </fmt-fn-label>
-                            </fn>
-                         </td>
-                         <td valign="bottom" align="center">
-                            Balilla
-                            <fn reference="a" id="_3" target="_10">
-                               <p id="_">Parboiled rice.</p>
-                               <fmt-fn-label>
-                                  <span class="fmt-caption-label">
-                                     <sup>
-                                        <semx element="autonum" source="_3">a</semx>
-                                     </sup>
-                                  </span>
-                               </fmt-fn-label>
-                            </fn>
-                         </td>
-                         <td align="center">Thaibonnet</td>
-                      </tr>
-                   </thead>
-                   <tbody>
-                      <tr>
-                         <th align="left">Number of laboratories retained after eliminating outliers</th>
-                         <td align="center">13</td>
-                         <td align="center">11</td>
-                         <td align="center">13</td>
-                         <td align="center">13</td>
-                      </tr>
-                      <tr>
-                         <td align="left">Mean value, g/100 g</td>
-                         <td align="center">81,2</td>
-                         <td align="center">82,0</td>
-                         <td align="center">81,8</td>
-                         <td align="center">77,7</td>
-                      </tr>
-                   </tbody>
-                   <tfoot>
-                      <tr>
-                         <td align="left">
-                            Reproducibility limit,
-                            <stem type="AsciiMath" id="_17">R</stem>
-                            <fmt-stem type="AsciiMath">
-                               <semx element="stem" source="_17">R</semx>
-                            </fmt-stem>
-                            (= 2,83
-                            <stem type="AsciiMath" id="_18">s_R</stem>
-                            <fmt-stem type="AsciiMath">
-                               <semx element="stem" source="_18">s_R</semx>
-                            </fmt-stem>
-                            )
-                         </td>
-                         <td align="center">2,89</td>
-                         <td align="center">0,57</td>
-                         <td align="center">2,26</td>
-                         <td align="center">
-                            <dl>
-                               <dt>6,06</dt>
-                               <dd>Definition</dd>
-                            </dl>
-                         </td>
-                      </tr>
-                   </tfoot>
-                   <dl key="true">
-                      <name id="_13">Key</name>
-                      <fmt-name id="_22">
-                         <semx element="name" source="_13">Key</semx>
-                      </fmt-name>
-                      <dt>Drago</dt>
-                      <dd>A type of rice</dd>
-                   </dl>
-                   <source status="generalisation" id="_4">
-                      <origin bibitemid="ISO712" type="inline" citeas="">
-                         <localityStack>
-                            <locality type="section">
-                               <referenceFrom>1</referenceFrom>
-                            </locality>
-                         </localityStack>
-                      </origin>
-                      <modification id="_5">
-                         <p id="_">with adjustments</p>
-                      </modification>
-                   </source>
-                   <fmt-source>
-                      [SOURCE:
-                      <semx element="source" source="_4">
-                         <origin bibitemid="ISO712" type="inline" citeas="" id="_15">
-                            <localityStack>
-                               <locality type="section">
-                                  <referenceFrom>1</referenceFrom>
-                               </locality>
-                            </localityStack>
-                         </origin>
-                         <semx element="origin" source="_15">
-                            <fmt-origin bibitemid="ISO712" type="inline" citeas="">
-                               <localityStack>
-                                  <locality type="section">
-                                     <referenceFrom>1</referenceFrom>
-                                  </locality>
-                               </localityStack>
-                               , Section 1
-                            </fmt-origin>
-                         </semx>
-                         —
-                         <semx element="modification" source="_5">with adjustments</semx>
-                      </semx>
-                      ;
-                      <semx element="source" source="_6">
-                         <origin bibitemid="ISO712" type="inline" citeas="" id="_16">
-                            <localityStack>
-                               <locality type="section">
-                                  <referenceFrom>2</referenceFrom>
-                               </locality>
-                            </localityStack>
-                         </origin>
-                         <semx element="origin" source="_16">
-                            <fmt-origin bibitemid="ISO712" type="inline" citeas="">
-                               <localityStack>
-                                  <locality type="section">
-                                     <referenceFrom>2</referenceFrom>
-                                  </locality>
-                               </localityStack>
-                               , Section 2
-                            </fmt-origin>
-                         </semx>
-                      </semx>
-                      ]
-                   </fmt-source>
-                   <source status="specialisation" id="_6">
-                      <origin bibitemid="ISO712" type="inline" citeas="">
-                         <localityStack>
-                            <locality type="section">
-                               <referenceFrom>2</referenceFrom>
-                            </locality>
-                         </localityStack>
-                      </origin>
-                   </source>
-                   <note>
-                      <fmt-name id="_23">
-                         <span class="fmt-caption-label">
-                            <span class="fmt-element-name">NOTE</span>
-                         </span>
-                         <span class="fmt-label-delim">
-                            <tab/>
-                         </span>
-                      </fmt-name>
-                      <p>This is a table about rice</p>
-                   </note>
-                   <fmt-footnote-container>
-                      <fmt-fn-body id="_10" target="_2" reference="a">
-                         <semx element="fn" source="_2">
-                            <p id="_">
-                               <fmt-fn-label>
-                                  <span class="fmt-caption-label">
-                                     <sup>
-                                        <semx element="autonum" source="_2">a</semx>
-                                     </sup>
-                                  </span>
-                                  <span class="fmt-caption-delim">
-                                     <tab/>
-                                  </span>
-                               </fmt-fn-label>
-                               Parboiled rice.
-                            </p>
-                         </semx>
-                      </fmt-fn-body>
-                   </fmt-footnote-container>
-                </table>
-             </foreword>
-          </preface>
-          <fmt-footnote-container>
-             <fmt-fn-body id="_14" target="_1" reference="1">
-                <semx element="fn" source="_1">
-                   <p>
-                      <fmt-fn-label>
-                         <span class="fmt-caption-label">
-                            <sup>
-                               <semx element="autonum" source="_1">1</semx>
-                            </sup>
-                         </span>
-                         <span class="fmt-caption-delim">
-                            <tab/>
-                         </span>
-                      </fmt-fn-label>
-                      X
-                   </p>
-                </semx>
-             </fmt-fn-body>
-          </fmt-footnote-container>
-       </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+            <clause type="toc" id="_7" displayorder="1">
+               <fmt-title depth="1" id="_19">Table of contents</fmt-title>
+            </clause>
+            <foreword id="fwd" displayorder="2">
+               <title id="_9">Foreword</title>
+               <fmt-title depth="1" id="_20">
+                  <semx element="title" source="_9">Foreword</semx>
+               </fmt-title>
+               <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true" plain="true" autonum="1">
+                  <name id="_11">
+                     Repeatability and reproducibility of
+                     <em>husked</em>
+                     rice yield
+                     <fn original-id="_1" original-reference="1">
+                        <p>X</p>
+                     </fn>
+                  </name>
+                  <fmt-name id="_21">
+                     <span class="fmt-caption-label">
+                        <span class="fmt-element-name">Table</span>
+                        <semx element="autonum" source="tableD-1">1</semx>
+                     </span>
+                     <span class="fmt-caption-delim">\u00a0— </span>
+                     <semx element="name" source="_11">
+                        Repeatability and reproducibility of
+                        <em>husked</em>
+                        rice yield
+                        <fn reference="1" id="_1" original-reference="1" target="_14">
+                           <p>X</p>
+                           <fmt-fn-label>
+                              <span class="fmt-caption-label">
+                                 <sup>
+                                    <semx element="autonum" source="_1">1</semx>
+                                 </sup>
+                              </span>
+                           </fmt-fn-label>
+                        </fn>
+                     </semx>
+                  </fmt-name>
+                  <fmt-xref-label>
+                     <span class="fmt-element-name">Table</span>
+                     <semx element="autonum" source="tableD-1">1</semx>
+                  </fmt-xref-label>
+                  <colgroup>
+                     <col width="30%"/>
+                     <col width="20%"/>
+                     <col width="20%"/>
+                     <col width="20%"/>
+                     <col width="10%"/>
+                  </colgroup>
+                  <thead>
+                     <tr style="background-color: red;">
+                        <td rowspan="2" align="left">Description</td>
+                        <td colspan="4" align="center">Rice sample</td>
+                     </tr>
+                     <tr>
+                        <td valign="top" align="left" style="background-color: green;">Arborio</td>
+                        <td valign="middle" align="center">
+                           Drago
+                           <fn reference="a" id="_2" target="_10">
+                              <p original-id="_">Parboiled rice.</p>
+                              <fmt-fn-label>
+                                 <span class="fmt-caption-label">
+                                    <sup>
+                                       <semx element="autonum" source="_2">a</semx>
+                                    </sup>
+                                 </span>
+                              </fmt-fn-label>
+                           </fn>
+                        </td>
+                        <td valign="bottom" align="center">
+                           Balilla
+                           <fn reference="a" id="_3" target="_10">
+                              <p id="_">Parboiled rice.</p>
+                              <fmt-fn-label>
+                                 <span class="fmt-caption-label">
+                                    <sup>
+                                       <semx element="autonum" source="_3">a</semx>
+                                    </sup>
+                                 </span>
+                              </fmt-fn-label>
+                           </fn>
+                        </td>
+                        <td align="center">Thaibonnet</td>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <th align="left">Number of laboratories retained after eliminating outliers</th>
+                        <td align="center">13</td>
+                        <td align="center">11</td>
+                        <td align="center">13</td>
+                        <td align="center">13</td>
+                     </tr>
+                     <tr>
+                        <td align="left">Mean value, g/100 g</td>
+                        <td align="center">81,2</td>
+                        <td align="center">82,0</td>
+                        <td align="center">81,8</td>
+                        <td align="center">77,7</td>
+                     </tr>
+                  </tbody>
+                  <tfoot>
+                     <tr>
+                        <td align="left">
+                           Reproducibility limit,
+                           <stem type="AsciiMath" id="_17">R</stem>
+                           <fmt-stem type="AsciiMath">
+                              <semx element="stem" source="_17">R</semx>
+                           </fmt-stem>
+                           (= 2,83
+                           <stem type="AsciiMath" id="_18">s_R</stem>
+                           <fmt-stem type="AsciiMath">
+                              <semx element="stem" source="_18">s_R</semx>
+                           </fmt-stem>
+                           )
+                        </td>
+                        <td align="center">2,89</td>
+                        <td align="center">0,57</td>
+                        <td align="center">2,26</td>
+                        <td align="center">
+                           <dl>
+                              <dt>6,06</dt>
+                              <dd>Definition</dd>
+                           </dl>
+                        </td>
+                     </tr>
+                  </tfoot>
+                  <dl key="true">
+                     <name id="_13">Key</name>
+                     <fmt-name id="_22">
+                        <semx element="name" source="_13">Key</semx>
+                     </fmt-name>
+                     <dt>Drago</dt>
+                     <dd>A type of rice</dd>
+                  </dl>
+                  <source status="generalisation" id="_4">
+                     <origin bibitemid="ISO712" type="inline" citeas="">
+                        <localityStack>
+                           <locality type="section">
+                              <referenceFrom>1</referenceFrom>
+                           </locality>
+                        </localityStack>
+                     </origin>
+                     <modification id="_5">
+                        <p id="_">with adjustments</p>
+                     </modification>
+                  </source>
+                  <fmt-source>
+                     [SOURCE:
+                     <semx element="source" source="_4">
+                        <origin bibitemid="ISO712" type="inline" citeas="" id="_15">
+                           <localityStack>
+                              <locality type="section">
+                                 <referenceFrom>1</referenceFrom>
+                              </locality>
+                           </localityStack>
+                        </origin>
+                        <semx element="origin" source="_15">
+                           <fmt-origin bibitemid="ISO712" type="inline" citeas="">
+                              <localityStack>
+                                 <locality type="section">
+                                    <referenceFrom>1</referenceFrom>
+                                 </locality>
+                              </localityStack>
+                              , Section 1
+                           </fmt-origin>
+                        </semx>
+                        —
+                        <semx element="modification" source="_5">with adjustments</semx>
+                     </semx>
+                     ;
+                     <semx element="source" source="_6">
+                        <origin bibitemid="ISO712" type="inline" citeas="" id="_16">
+                           <localityStack>
+                              <locality type="section">
+                                 <referenceFrom>2</referenceFrom>
+                              </locality>
+                           </localityStack>
+                        </origin>
+                        <semx element="origin" source="_16">
+                           <fmt-origin bibitemid="ISO712" type="inline" citeas="">
+                              <localityStack>
+                                 <locality type="section">
+                                    <referenceFrom>2</referenceFrom>
+                                 </locality>
+                              </localityStack>
+                              , Section 2
+                           </fmt-origin>
+                        </semx>
+                     </semx>
+                     ]
+                  </fmt-source>
+                  <source status="specialisation" id="_6">
+                     <origin bibitemid="ISO712" type="inline" citeas="">
+                        <localityStack>
+                           <locality type="section">
+                              <referenceFrom>2</referenceFrom>
+                           </locality>
+                        </localityStack>
+                     </origin>
+                  </source>
+                  <note>
+                     <fmt-name id="_23">
+                        <span class="fmt-caption-label">
+                           <span class="fmt-element-name">NOTE</span>
+                        </span>
+                        <span class="fmt-label-delim">
+                           <tab/>
+                        </span>
+                     </fmt-name>
+                     <p>This is a table about rice</p>
+                  </note>
+                  <fmt-footnote-container>
+                     <fmt-fn-body id="_10" target="_2" reference="a">
+                        <semx element="fn" source="_2">
+                           <p id="_">
+                              <fmt-fn-label>
+                                 <span class="fmt-caption-label">
+                                    <sup>
+                                       <semx element="autonum" source="_2">a</semx>
+                                    </sup>
+                                 </span>
+                                 <span class="fmt-caption-delim">
+                                    <tab/>
+                                 </span>
+                              </fmt-fn-label>
+                              Parboiled rice.
+                           </p>
+                        </semx>
+                     </fmt-fn-body>
+                  </fmt-footnote-container>
+               </table>
+            </foreword>
+         </preface>
+         <fmt-footnote-container>
+            <fmt-fn-body id="_14" target="_1" reference="1">
+               <semx element="fn" source="_1">
+                  <p>
+                     <fmt-fn-label>
+                        <span class="fmt-caption-label">
+                           <sup>
+                              <semx element="autonum" source="_1">1</semx>
+                           </sup>
+                        </span>
+                        <span class="fmt-caption-delim">
+                           <tab/>
+                        </span>
+                     </fmt-fn-label>
+                     X
+                  </p>
+               </semx>
+            </fmt-fn-body>
+         </fmt-footnote-container>
+      </iso-standard>
     OUTPUT
     html = <<~OUTPUT
                 #{HTML_HDR}
@@ -1159,7 +1159,7 @@ RSpec.describe IsoDoc do
               <div id="fwd">
                   <h1 class="ForewordTitle">Foreword</h1>
                   <p class="TableTitle" style="text-align:center;">
-                     Table 1\\u00a0— Repeatability and reproducibility of
+                     Table 1\u00a0— Repeatability and reproducibility of
                      <i>husked</i>
                      rice yield
                      <a class="FootnoteRef" href="#fn:_14">
@@ -1251,14 +1251,14 @@ RSpec.describe IsoDoc do
                      </div>
                      <div class="Note">
                         <p>
-                           <span class="note_label">NOTE\\u00a0 </span>
+                           <span class="note_label">NOTE\u00a0 </span>
                            This is a table about rice
                         </p>
                      </div>
                      <aside id="fn:tableD-1a" class="footnote">
                         <p id="_">
                            <span class="TableFootnoteRef">a</span>
-                           \\u00a0 Parboiled rice.
+                           \u00a0 Parboiled rice.
                         </p>
                      </aside>
                   </table>
@@ -1278,7 +1278,7 @@ RSpec.describe IsoDoc do
               <div id="fwd">
                   <h1 class="ForewordTitle">Foreword</h1>
                   <p class="TableTitle" style="text-align:center;">
-                     Table 1\\u00a0— Repeatability and reproducibility of
+                     Table 1\u00a0— Repeatability and reproducibility of
                      <i>husked</i>
                      rice yield
                      <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
@@ -1344,7 +1344,7 @@ RSpec.describe IsoDoc do
                                  <div class="figdl">
                                     <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">
                                        6,06
-                                       <span style="mso-tab-count:1">\\u00a0 </span>
+                                       <span style="mso-tab-count:1">\u00a0 </span>
                                        Definition
                                     </p>
                                  </div>
@@ -1355,7 +1355,7 @@ RSpec.describe IsoDoc do
                            <p class="ListTitle">Key</p>
                            <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">
                               Drago
-                              <span style="mso-tab-count:1">\\u00a0 </span>
+                              <span style="mso-tab-count:1">\u00a0 </span>
                               A type of rice
                            </p>
                         </div>
@@ -1368,7 +1368,7 @@ RSpec.describe IsoDoc do
                            <p class="Note">
                               <span class="note_label">
                                  NOTE
-                                 <span style="mso-tab-count:1">\\u00a0 </span>
+                                 <span style="mso-tab-count:1">\u00a0 </span>
                               </span>
                               This is a table about rice
                            </p>
@@ -1376,14 +1376,14 @@ RSpec.describe IsoDoc do
                         <aside id="ftntableD-1a">
                            <p id="_">
                               <span class="TableFootnoteRef">a</span>
-                              <span style="mso-tab-count:1">\\u00a0 </span>
+                              <span style="mso-tab-count:1">\u00a0 </span>
                               Parboiled rice.
                            </p>
                         </aside>
                      </table>
                   </div>
                </div>
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
             </div>
             <p class="section-break">
                <br clear="all" class="section"/>
@@ -1399,19 +1399,21 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))
+    expect(strip_guid(pres_output)).to be_xml_equivalent_to(presxml)
+
+    html_output = IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)
+    output = Nokogiri::HTML5(html_output)
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
-    output = Nokogiri::XML(IsoDoc::WordConvert.new({})
-    .convert("test", pres_output, true))
+    expect(strip_guid(output.to_html)).to be_html5_equivalent_to(html)
+
+    word_output = IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)
+    output = Nokogiri::HTML4(word_output)
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(word)
+    word_output_cleaned = strip_guid(output.to_html)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
+    expect(word_output_cleaned).to be_html4_equivalent_to(word)
   end
 
   it "breaks down CSS border shorthand attributes" do
@@ -1456,8 +1458,7 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(pres_output)).to be_xml_equivalent_to presxml
   end
 
   it "passes on classes of tables from Presentation XML" do
@@ -1511,7 +1512,7 @@ RSpec.describe IsoDoc do
                  <table id='tableD-1' class='MsoISOTable' style='mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;' title='tool tip' summary='long desc' width='70%'/>
                </div>
              </div>
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <p class="section-break">
              <br clear='all' class='section'/>
@@ -1521,13 +1522,15 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
+    html_output = IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true)
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(html_output)).to be_html5_equivalent_to html
+
+    word_output = IsoDoc::WordConvert.new({})
+      .convert("test", presxml, true)
+    word_output_cleaned = strip_guid(word_output)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
+    expect(word_output_cleaned).to be_html4_equivalent_to word
   end
 
   it "processes tables with big cells" do
@@ -1591,14 +1594,13 @@ RSpec.describe IsoDoc do
     INPUT
 
     output = <<~OUTPUT
-      <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
+      <html xmlns:epub="http://www.idpf.org/2007/ops" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" lang="en">
            <head>
-             <style>
-             </style>
+             <style></style>
            </head>
            <body lang='EN-US' link='blue' vlink='#954F72'>
              <div class='WordSection1'>
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
              </div>
              <p class="section-break">
                <br clear='all' class='section'/>
@@ -1609,88 +1611,52 @@ RSpec.describe IsoDoc do
                </p>
                <div>
                  <h1 class='ForewordTitle'>Foreword</h1>
-                 <p class='TableTitle' style='text-align:center;'>
-                   Repeatability and reproducibility of
-                   <i>husked</i>
-                    rice yield
-                 </p>
+                 <p class='TableTitle' style='text-align:center;'>Repeatability and reproducibility of <i>husked</i> rice yield</p>
                  <div align='center' class='table_container'>
                    <table id='tableD-1' class='MsoISOTableBig' style='mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;' title='tool tip' summary='long desc' width='70%'>
                      <thead>
                        <tr>
                        <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">
-                            Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
-                           Description Description Description Description Description
+                            Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
+                           Description Description Description Description Description Description Description Description Description
                          </td>
                          <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">Rice sample</td>
                        </tr>
@@ -1698,7 +1664,7 @@ RSpec.describe IsoDoc do
                    </table>
                  </div>
                </div>
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
              </div>
              <p class="section-break">
                <br clear='all' class='section'/>
@@ -1707,10 +1673,11 @@ RSpec.describe IsoDoc do
            </body>
          </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", input, true))
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(output)
+    word_output = IsoDoc::WordConvert.new({})
+      .convert("test", input, true)
+    word_output_cleaned = strip_guid(word_output)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
+    expect(word_output_cleaned).to be_html4_equivalent_to output
   end
 
   it "processes tables with many rows" do
@@ -1750,7 +1717,7 @@ RSpec.describe IsoDoc do
         </head>
         <body lang="EN-US" link="blue" vlink="#954F72">
           <div class="WordSection1">
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <p class="section-break">
             <br clear="all" class="section"/>
@@ -1804,7 +1771,7 @@ RSpec.describe IsoDoc do
                 </table>
               </div>
             </div>
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <p class="section-break">
             <br clear="all" class="section"/>
@@ -1813,10 +1780,11 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-        .convert("test", input, true))
-        .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(output)
+    word_output = IsoDoc::WordConvert.new({})
+      .convert("test", input, true)
+    word_output_cleaned = strip_guid(word_output)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
+    expect(word_output_cleaned).to be_html4_equivalent_to output
 
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -1856,7 +1824,7 @@ RSpec.describe IsoDoc do
         </head>
         <body lang="EN-US" link="blue" vlink="#954F72">
           <div class="WordSection1">
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <p class="section-break">
             <br clear="all" class="section"/>
@@ -1917,7 +1885,7 @@ RSpec.describe IsoDoc do
                 </table>
               </div>
             </div>
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <p class="section-break">
             <br clear="all" class="section"/>
@@ -1925,12 +1893,14 @@ RSpec.describe IsoDoc do
           <div class="WordSection3"/>
         </body>
       </html>
-
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-        .convert("test", input, true))
-        .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(output)
+
+    word_output = IsoDoc::WordConvert.new({}).convert("test", input, true)
+
+    word_output_cleaned = strip_guid(word_output)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
+
+      expect(word_output_cleaned).to be_html4_equivalent_to(output)
   end
 
   it "processes tables with large rows" do
@@ -1963,7 +1933,7 @@ RSpec.describe IsoDoc do
         <head> <style> </style> </head>
                <body lang="EN-US" link="blue" vlink="#954F72">
            <div class="WordSection1">
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <p class="section-break">
              <br clear="all" class="section"/>
@@ -2025,7 +1995,7 @@ RSpec.describe IsoDoc do
                  </table>
                </div>
              </div>
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <p class="section-break">
              <br clear="all" class="section"/>
@@ -2034,10 +2004,11 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-           .convert("test", input, true))
-           .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(output)
+    word_output = IsoDoc::WordConvert.new({})
+      .convert("test", input, true)
+    word_output_cleaned = strip_guid(word_output)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
+    expect(word_output_cleaned).to be_html4_equivalent_to output
 
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -2068,7 +2039,7 @@ RSpec.describe IsoDoc do
         <head> <style> </style> </head>
                      <body lang="EN-US" link="blue" vlink="#954F72">
            <div class="WordSection1">
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <p class="section-break">
              <br clear="all" class="section"/>
@@ -2137,7 +2108,7 @@ RSpec.describe IsoDoc do
                  </table>
                </div>
              </div>
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <p class="section-break">
              <br clear="all" class="section"/>
@@ -2146,9 +2117,10 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-               .convert("test", input, true))
-               .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(output)
+    word_output = IsoDoc::WordConvert.new({})
+      .convert("test", input, true)
+    word_output_cleaned = strip_guid(word_output)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
+    expect(word_output_cleaned).to be_html4_equivalent_to output
   end
 end

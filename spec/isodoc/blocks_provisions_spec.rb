@@ -64,7 +64,7 @@ RSpec.describe IsoDoc do
           </annex>
           <bibliography><references id="_bibliography" obligation="informative" normative="false" displayorder="3">
       <title>Bibliography</title>
-      <bibitem id="rfc2616" type="standard">  <fetched>2020-03-27</fetched>  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol\\u2009—\\u2009HTTP/1.1</title>  <docidentifier type="IETF">RFC 2616</docidentifier>  <docidentifier type="IETF" scope="anchor">RFC2616</docidentifier>  <docidentifier type="DOI">10.17487/RFC2616</docidentifier>  <date type="published">    <on>1999-06</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">R. Fielding</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Gettys</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Mogul</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">H. Frystyk</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">L. Masinter</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">P. Leach</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">T. Berners-Lee</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as “HTTP/1.1”, and is an update to RFC 2068.  [STANDARDS-TRACK]</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>2616</number>  </series>  <place>Fremont, CA</place></bibitem>
+      <bibitem id="rfc2616" type="standard">  <fetched>2020-03-27</fetched>  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol\u2009—\u2009HTTP/1.1</title>  <docidentifier type="IETF">RFC 2616</docidentifier>  <docidentifier type="IETF" scope="anchor">RFC2616</docidentifier>  <docidentifier type="DOI">10.17487/RFC2616</docidentifier>  <date type="published">    <on>1999-06</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">R. Fielding</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Gettys</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Mogul</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">H. Frystyk</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">L. Masinter</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">P. Leach</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">T. Berners-Lee</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as “HTTP/1.1”, and is an update to RFC 2068.  [STANDARDS-TRACK]</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>2616</number>  </series>  <place>Fremont, CA</place></bibitem>
       </references></bibliography>
           </iso-standard>
     INPUT
@@ -337,16 +337,16 @@ RSpec.describe IsoDoc do
                <bibitem id="rfc2616" type="standard">
                   <formattedref>
                      R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE.
-                     <em>Hypertext Transfer Protocol\\u2009—\\u2009HTTP/1.1</em>
+                     <em>Hypertext Transfer Protocol\u2009—\u2009HTTP/1.1</em>
                      . 1999. Fremont, CA.
                   </formattedref>
                   <fetched>2020-03-27</fetched>
-                  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol\\u2009—\\u2009HTTP/1.1</title>
+                  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol\u2009—\u2009HTTP/1.1</title>
                   <docidentifier type="metanorma-ordinal">[1]</docidentifier>
-                  <docidentifier type="IETF">IETF\\u00a0RFC\\u00a02616</docidentifier>
-                  <docidentifier type="IETF" scope="anchor">IETF\\u00a0RFC2616</docidentifier>
-                  <docidentifier type="DOI">DOI\\u00a010.17487/RFC2616</docidentifier>
-                  <docidentifier scope="biblio-tag">IETF\\u00a0RFC\\u00a02616</docidentifier>
+                  <docidentifier type="IETF">IETF\u00a0RFC\u00a02616</docidentifier>
+                  <docidentifier type="IETF" scope="anchor">IETF\u00a0RFC2616</docidentifier>
+                  <docidentifier type="DOI">DOI\u00a010.17487/RFC2616</docidentifier>
+                  <docidentifier scope="biblio-tag">IETF\u00a0RFC\u00a02616</docidentifier>
                   <date type="published">
                      <on>1999-06</on>
                   </date>
@@ -459,7 +459,7 @@ RSpec.describe IsoDoc do
                   <biblio-tag>
                      [1]
                      <tab/>
-                     IETF\\u00a0RFC\\u00a02616,
+                     IETF\u00a0RFC\u00a02616,
                   </biblio-tag>
                </bibitem>
             </references>
@@ -489,11 +489,11 @@ RSpec.describe IsoDoc do
               </div>
               <div class="requirement-measurement-target">
                 <p id="_">The measurement target shall be measured as:</p>
-                <div id="B"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>\\u00a0 (1)</p></div></div>
+                <div id="B"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>\u00a0 (1)</p></div></div>
               </div>
               <div class="requirement-verification">
                 <p id="_">The following code will be run for verification:</p>
-                <pre id="C" class="sourcecode">CoreRoot(success): HttpResponse<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 if (success)<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 recommendation(label: success-response)<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 end<br/>\\u00a0\\u00a0\\u00a0 </pre>
+                <pre id="C" class="sourcecode">CoreRoot(success): HttpResponse<br/>\u00a0\u00a0\u00a0\u00a0\u00a0 if (success)<br/>\u00a0\u00a0\u00a0\u00a0\u00a0 recommendation(label: success-response)<br/>\u00a0\u00a0\u00a0\u00a0\u00a0 end<br/>\u00a0\u00a0\u00a0 </pre>
               </div>
               <div class='requirement-component1'> <p id='_'>Hello</p>
                </div>
@@ -516,7 +516,7 @@ RSpec.describe IsoDoc do
                    <br/>
              <div>
                <h1 class='Section3'>Bibliography</h1>
-               <p id="rfc2616" class="Biblio">[1]\\u00a0 IETF\\u00a0RFC\\u00a02616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <i>Hypertext Transfer Protocol\\u2009—\\u2009HTTP/1.1</i>. 1999. Fremont, CA.</p>
+               <p id="rfc2616" class="Biblio">[1]\u00a0 IETF\u00a0RFC\u00a02616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <i>Hypertext Transfer Protocol\u2009—\u2009HTTP/1.1</i>. 1999. Fremont, CA.</p>
              </div>
                 </div>
               </body>
@@ -525,11 +525,11 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to output
   end
 
   it "processes requirements" do
@@ -747,11 +747,11 @@ RSpec.describe IsoDoc do
                   </div>
                   <div class="requirement-measurement-target"  style='page-break-after: avoid;page-break-inside: avoid;'>
                     <p id="_">The measurement target shall be measured as:</p>
-                    <div id="B"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span> \\u00a0 (1)</p></div></div>
+                    <div id="B"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span> \u00a0 (1)</p></div></div>
                   </div>
                   <div class="requirement-verification">
                     <p id="_">The following code will be run for verification:</p>
-                    <pre id="C" class="sourcecode">CoreRoot(success): HttpResponse<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 if (success)<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 recommendation(label: success-response)<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 end<br/>\\u00a0\\u00a0\\u00a0 </pre>
+                    <pre id="C" class="sourcecode">CoreRoot(success): HttpResponse<br/>\u00a0\u00a0\u00a0\u00a0\u00a0 if (success)<br/>\u00a0\u00a0\u00a0\u00a0\u00a0 recommendation(label: success-response)<br/>\u00a0\u00a0\u00a0\u00a0\u00a0 end<br/>\u00a0\u00a0\u00a0 </pre>
                   </div>
               <div class='requirement-component1'> <p id='_'>Hello</p> </div>
                 </div>
@@ -763,11 +763,11 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to output
   end
 
   it "processes recommendation" do
@@ -1022,11 +1022,11 @@ RSpec.describe IsoDoc do
                   </div>
                   <div class="requirement-measurement-target">
                     <p id="_">The measurement target shall be measured as:</p>
-                    <div id="B"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>\\u00a0 (1)</p></div></div>
+                    <div id="B"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>\u00a0 (1)</p></div></div>
                   </div>
                   <div class="requirement-verification">
                     <p id="_">The following code will be run for verification:</p>
-                    <pre id="C" class="sourcecode">CoreRoot(success): HttpResponse<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 if (success)<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 recommendation(label: success-response)<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 end<br/>\\u00a0\\u00a0\\u00a0 </pre>
+                    <pre id="C" class="sourcecode">CoreRoot(success): HttpResponse<br/>\u00a0\u00a0\u00a0\u00a0\u00a0 if (success)<br/>\u00a0\u00a0\u00a0\u00a0\u00a0 recommendation(label: success-response)<br/>\u00a0\u00a0\u00a0\u00a0\u00a0 end<br/>\u00a0\u00a0\u00a0 </pre>
                   </div>
                           <div class='requirement-component1'> <p id='_'>Hello</p> </div>
                 </div>
@@ -1038,10 +1038,10 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to output
   end
 end

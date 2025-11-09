@@ -170,8 +170,6 @@ RSpec.describe IsoDoc do
   end
 end
 
-private
-
 def stylesheet_mock(dir)
   allow_any_instance_of(::IsoDoc::XslfoPdfConvert)
     .to receive(:pdf_stylesheet)

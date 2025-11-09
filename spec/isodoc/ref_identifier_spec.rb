@@ -38,25 +38,25 @@ RSpec.describe IsoDoc do
       <eref bibitemid="ISO712" id="_"/>
       <semx element="eref" source="_">
          <fmt-xref target="ISO712">
-            ISO\\u00a0712
+            ISO\u00a0712
             <sup>1</sup>
          </fmt-xref>
       </semx>
       <eref bibitemid="ISO712" citeas="x" id="_"/>
       <semx element="eref" source="_">
          <fmt-xref target="ISO712">
-            ISO\\u00a0712
+            ISO\u00a0712
             <sup>1</sup>
          </fmt-xref>
       </semx>
         </p>
       </foreword>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
-      IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true),
-    ).at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    foreword_xml = Nokogiri::XML(pres_output).at("//xmlns:foreword").to_xml
+    expect(strip_guid(foreword_xml))
+      .to be_xml_equivalent_to presxml
 
     presxml = <<~PRESXML
       <foreword displayorder='2' id="_">
@@ -68,14 +68,14 @@ RSpec.describe IsoDoc do
       <eref bibitemid="ISO712" id="_"/>
       <semx element="eref" source="_">
          <fmt-link target="https://www.bipm.org/en/committees/ci/cipm/43-1950">
-            ISO\\u00a0712
+            ISO\u00a0712
             <sup>1</sup>
          </fmt-link>
       </semx>
       <eref bibitemid="ISO712" citeas="x" id="_"/>
       <semx element="eref" source="_">
          <fmt-link target="https://www.bipm.org/en/committees/ci/cipm/43-1950">
-            ISO\\u00a0712
+            ISO\u00a0712
             <sup>1</sup>
          </fmt-link>
       </semx>
@@ -85,11 +85,11 @@ RSpec.describe IsoDoc do
     input = input.sub("</bibitem>", <<~XML)
       <uri type="citation" language="en" script="Latn">https://www.bipm.org/en/committees/ci/cipm/43-1950</uri></bibitem>
     XML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
-      IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true),
-    ).at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    foreword_xml = Nokogiri::XML(pres_output).at("//xmlns:foreword").to_xml
+    expect(strip_guid(foreword_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "selects the primary identifier" do
@@ -128,16 +128,16 @@ RSpec.describe IsoDoc do
           <p id="_">
         <eref bibitemid="ISO712" id="_"/>
       <semx element="eref" source="_">
-         <fmt-xref target="ISO712">IEC\\u00a0217</fmt-xref>
+         <fmt-xref target="ISO712">IEC\u00a0217</fmt-xref>
       </semx>
         </p>
       </foreword>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
-      IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true),
-    ).at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    foreword_xml = Nokogiri::XML(pres_output).at("//xmlns:foreword").to_xml
+    expect(strip_guid(foreword_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "selects multiple primary identifiers" do
@@ -191,16 +191,16 @@ RSpec.describe IsoDoc do
           <p id="_">
         <eref bibitemid="ISO712" id="_"/>
       <semx element="eref" source="_">
-         <fmt-xref target="ISO712">ISO\\u00a0712\\u00a0/\\u00a0IEC\\u00a0217</fmt-xref>
+         <fmt-xref target="ISO712">ISO\u00a0712\u00a0/\u00a0IEC\u00a0217</fmt-xref>
       </semx>
         </p>
       </foreword>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
-      IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true),
-    ).at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    foreword_xml = Nokogiri::XML(pres_output).at("//xmlns:foreword").to_xml
+    expect(strip_guid(foreword_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "renders references with no identifier" do
@@ -238,87 +238,87 @@ RSpec.describe IsoDoc do
       </bibliography></iso-standard>
     INPUT
     presxml = <<~PRESXML
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <bibdata>
-             <language current="true">en</language>
-          </bibdata>
-          <preface>
-             <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1" id="_">Table of contents</fmt-title>
-             </clause>
-          </preface>
-          <sections>
-             <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
-                <title id="_">Normative References</title>
-                <fmt-title depth="1" id="_">
-                   <span class="fmt-caption-label">
-                      <semx element="autonum" source="_normative_references">1</semx>
-                      <span class="fmt-autonum-delim">.</span>
-                   </span>
-                   <span class="fmt-caption-delim">
-                      <tab/>
-                   </span>
-                   <semx element="title" source="_">Normative References</semx>
-                </fmt-title>
-                <fmt-xref-label>
-                   <span class="fmt-element-name">Clause</span>
-                   <semx element="autonum" source="_normative_references">1</semx>
-                </fmt-xref-label>
-                <bibitem id="ISO712" type="standard">
-                   <biblio-tag/>
-                   <formattedref>
-                      International Organization for Standardization.
-                      <em>Cereals and cereal products</em>
-                      .
-                   </formattedref>
-                   <title format="text/plain">Cereals or cereal products</title>
-                   <title type="main" format="text/plain">Cereals and cereal products</title>
-                   <contributor>
-                      <role type="publisher"/>
-                      <organization>
-                         <name>International Organization for Standardization</name>
-                      </organization>
-                   </contributor>
-                </bibitem>
-             </references>
-          </sections>
-          <bibliography>
-             <references id="_bibliography" obligation="informative" normative="false" displayorder="3">
-                <title id="_">Bibliography</title>
-                <fmt-title depth="1" id="_">
-                   <semx element="title" source="_">Bibliography</semx>
-                </fmt-title>
-                <bibitem id="ISO713" type="standard">
-                   <biblio-tag>
-                      [1]
-                      <tab/>
-                   </biblio-tag>
-                   <docidentifier type="metanorma-ordinal">[1]</docidentifier>
-                   <formattedref>
-                      International Organization for Standardization.
-                      <em>Cereals and cereal products</em>
-                      .
-                   </formattedref>
-                   <title format="text/plain">Cereals or cereal products</title>
-                   <title type="main" format="text/plain">Cereals and cereal products</title>
-                   <contributor>
-                      <role type="publisher"/>
-                      <organization>
-                         <name>International Organization for Standardization</name>
-                      </organization>
-                   </contributor>
-                </bibitem>
-             </references>
-          </bibliography>
-       </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata>
+            <language current="true">en</language>
+         </bibdata>
+         <preface>
+            <clause type="toc" id="_" displayorder="1">
+               <fmt-title depth="1" id="_">Table of contents</fmt-title>
+            </clause>
+         </preface>
+         <sections>
+            <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
+               <title id="_">Normative References</title>
+               <fmt-title depth="1" id="_">
+                  <span class="fmt-caption-label">
+                     <semx element="autonum" source="_normative_references">1</semx>
+                     <span class="fmt-autonum-delim">.</span>
+                  </span>
+                  <span class="fmt-caption-delim">
+                     <tab/>
+                  </span>
+                  <semx element="title" source="_">Normative References</semx>
+               </fmt-title>
+               <fmt-xref-label>
+                  <span class="fmt-element-name">Clause</span>
+                  <semx element="autonum" source="_normative_references">1</semx>
+               </fmt-xref-label>
+               <bibitem id="ISO712" type="standard">
+                  <biblio-tag/>
+                  <formattedref>
+                     International Organization for Standardization.
+                     <em>Cereals and cereal products</em>
+                     .
+                  </formattedref>
+                  <title format="text/plain">Cereals or cereal products</title>
+                  <title type="main" format="text/plain">Cereals and cereal products</title>
+                  <contributor>
+                     <role type="publisher"/>
+                     <organization>
+                        <name>International Organization for Standardization</name>
+                     </organization>
+                  </contributor>
+               </bibitem>
+            </references>
+         </sections>
+         <bibliography>
+            <references id="_bibliography" obligation="informative" normative="false" displayorder="3">
+               <title id="_">Bibliography</title>
+               <fmt-title depth="1" id="_">
+                  <semx element="title" source="_">Bibliography</semx>
+               </fmt-title>
+               <bibitem id="ISO713" type="standard">
+                  <biblio-tag>
+                     [1]
+                     <tab/>
+                  </biblio-tag>
+                  <docidentifier type="metanorma-ordinal">[1]</docidentifier>
+                  <formattedref>
+                     International Organization for Standardization.
+                     <em>Cereals and cereal products</em>
+                     .
+                  </formattedref>
+                  <title format="text/plain">Cereals or cereal products</title>
+                  <title type="main" format="text/plain">Cereals and cereal products</title>
+                  <contributor>
+                     <role type="publisher"/>
+                     <organization>
+                        <name>International Organization for Standardization</name>
+                     </organization>
+                  </contributor>
+               </bibitem>
+            </references>
+         </bibliography>
+      </iso-standard>
     PRESXML
     xml = Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     )
     xml.at("//xmlns:localized-strings").remove
-    expect(strip_guid(Canon.format_xml(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
     it "renders references with title and author-date identifier" do
@@ -357,7 +357,7 @@ RSpec.describe IsoDoc do
       </references>
       </bibliography></iso-standard>
     INPUT
-presxml = <<~OUTPUT
+    presxml = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <bibdata>
              <language current="true">en</language>
@@ -385,7 +385,7 @@ presxml = <<~OUTPUT
                    <semx element="autonum" source="_normative_references">1</semx>
                 </fmt-xref-label>
                 <bibitem id="ISO712" type="standard">
-                   <biblio-tag>Cereals\\u00a0or\\u00a0cereal\\u00a0products </biblio-tag>
+                   <biblio-tag>Cereals\u00a0or\u00a0cereal\u00a0products </biblio-tag>
                    <formattedref>
                       International Organization for Standardization.
                       <em>Cereals and cereal products</em>
@@ -393,7 +393,7 @@ presxml = <<~OUTPUT
                    </formattedref>
                    <title format="text/plain">Cereals or cereal products</title>
                    <title type="main" format="text/plain">Cereals and cereal products</title>
-                   <docidentifier type="title" primary="true">Cereals\\u00a0or\\u00a0cereal\\u00a0products</docidentifier>
+                   <docidentifier type="title" primary="true">Cereals\u00a0or\u00a0cereal\u00a0products</docidentifier>
                    <contributor>
                       <role type="publisher"/>
                       <organization>
@@ -422,7 +422,7 @@ presxml = <<~OUTPUT
                    <title format="text/plain">Cereals or cereal products</title>
                    <title type="main" format="text/plain">Cereals and cereal products</title>
                    <docidentifier type="metanorma-ordinal">[1]</docidentifier>
-                   <docidentifier type="title" primary="true">Cereals\\u00a0or\\u00a0cereal\\u00a0products\\u00a0#2</docidentifier>
+                   <docidentifier type="title" primary="true">Cereals\u00a0or\u00a0cereal\u00a0products\u00a0#2</docidentifier>
                    <contributor>
                       <role type="publisher"/>
                       <organization>
@@ -433,14 +433,14 @@ presxml = <<~OUTPUT
              </references>
           </bibliography>
        </iso-standard>
-OUTPUT
- xml = Nokogiri::XML(
+    OUTPUT
+    xml = Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true),
+        .convert("test", input, true),
     )
     xml.at("//xmlns:localized-strings").remove
-    expect(strip_guid(Canon.format_xml(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to(presxml)
 
     input.sub!('<docidentifier type="title" primary="true">Cereals or cereal products</docidentifier>',
                '<docidentifier type="author-date" primary="true">Cereals or cereal products</docidentifier>')
@@ -449,9 +449,8 @@ OUTPUT
       .convert("test", input, true),
     )
     xml.at("//xmlns:localized-strings").remove
-    expect(strip_guid(Canon.format_xml(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml
-      .sub('type="title"', 'type="author-date"'))
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to(presxml.sub('type="title"', 'type="author-date"'))
   end
 
   it "enforces consistent metanorma-ordinal numbering" do
@@ -524,9 +523,9 @@ OUTPUT
                        .
                     </formattedref>
                     <title format="text/plain">Cereals or cereal products</title>
-                    <docidentifier type="IEC">IEC\\u00a0217</docidentifier>
-                    <docidentifier scope="biblio-tag">IEC\\u00a0217</docidentifier>
-                    <biblio-tag>IEC\\u00a0217, </biblio-tag>
+                    <docidentifier type="IEC">IEC\u00a0217</docidentifier>
+                    <docidentifier scope="biblio-tag">IEC\u00a0217</docidentifier>
+                    <biblio-tag>IEC\u00a0217, </biblio-tag>
                  </bibitem>
                  <bibitem id="ref2" type="standard">
                     <formattedref>
@@ -562,12 +561,12 @@ OUTPUT
                     </formattedref>
                     <title format="text/plain">Cereals or cereal products</title>
                     <docidentifier type="metanorma-ordinal">[2]</docidentifier>
-                    <docidentifier type="IEC">IEC\\u00a0217</docidentifier>
-                    <docidentifier scope="biblio-tag">IEC\\u00a0217</docidentifier>
+                    <docidentifier type="IEC">IEC\u00a0217</docidentifier>
+                    <docidentifier scope="biblio-tag">IEC\u00a0217</docidentifier>
                     <biblio-tag>
                        [2]
                        <tab/>
-                       IEC\\u00a0217,
+                       IEC\u00a0217,
                     </biblio-tag>
                  </bibitem>
                  <bibitem id="ref5" type="standard">
@@ -606,8 +605,8 @@ OUTPUT
       .convert("test", input, true),
     )
     xml.at("//xmlns:localized-strings")&.remove
-    expect(strip_guid(Canon.format_xml(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "enforces consistent references numbering with hidden items: metanorma identifiers" do
@@ -672,11 +671,11 @@ OUTPUT
          </references>
       </bibliography>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
-      IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true),
-    ).at("//xmlns:bibliography").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    bibliography_xml = Nokogiri::XML(pres_output).at("//xmlns:bibliography").to_xml
+    expect(strip_guid(bibliography_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "enforces consistent references numbering with hidden items: metanorma-ordinal identifiers" do
@@ -749,11 +748,11 @@ OUTPUT
          </references>
       </bibliography>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
-      IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true),
-    ).at("//xmlns:bibliography").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    bibliography_xml = Nokogiri::XML(pres_output).at("//xmlns:bibliography").to_xml
+    expect(strip_guid(bibliography_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "suppresses document identifier if requested to" do
@@ -810,7 +809,7 @@ OUTPUT
             </formattedref>
             <title format="text/plain">Cereals or cereal products</title>
             <title type="main" format="text/plain">Cereals and cereal products</title>
-            <docidentifier type="ISO">ISO\\u00a0712</docidentifier>
+            <docidentifier type="ISO">ISO\u00a0712</docidentifier>
             <contributor>
                <role type="publisher"/>
                <organization>
@@ -837,7 +836,7 @@ OUTPUT
     html = <<~OUTPUT
       #{HTML_HDR}
              <div>
-               <h1>1.\\u00a0 Normative References</h1>
+               <h1>1.\u00a0 Normative References</h1>
                <p>
                  The following documents are referred to in the text in such a way that
                  some or all of their content constitutes requirements of this
@@ -870,12 +869,14 @@ OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
-      .at("//xmlns:references").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+    references_xml = Nokogiri::XML(pres_output).at("//xmlns:references").to_xml
+    expect(strip_guid(references_xml))
+      .to be_xml_equivalent_to presxml
+
+    html_output = IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)
+    expect(strip_guid(html_output))
+      .to be_html5_equivalent_to html
   end
 
   it "renders footnote in metanorma docidentifier" do
@@ -937,7 +938,7 @@ OUTPUT
           <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
           <bibitem id="ISO712" type="standard">
              <biblio-tag>
-                [ISO/IEC\\u00a0Guide\\u00a099:2007], ISO/IEC\\u00a0Guide\\u00a099:2007
+                [ISO/IEC\u00a0Guide\u00a099:2007], ISO/IEC\u00a0Guide\u00a099:2007
                 <fn reference="1" id="_1" original-reference="1" target="_6">
                    <p original-id="_">Also known as JCGM 200</p>
                    <fmt-fn-label>
@@ -952,22 +953,22 @@ OUTPUT
              </biblio-tag>
              <formattedref>
                 International Organization for Standardization and International Electrotechnical Commission.
-                <em>International vocabulary of metrology\\u2009—\\u2009Basic and general concepts and associated terms (VIM)</em>
+                <em>International vocabulary of metrology\u2009—\u2009Basic and general concepts and associated terms (VIM)</em>
                 . First edition. 2007.
                 <fmt-link target="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</fmt-link>
                 .
              </formattedref>
              <title type="title-intro" format="text/plain" language="en" script="Latn">International vocabulary of metrology</title>
              <title type="title-main" format="text/plain" language="en" script="Latn">Basic and general concepts and associated terms (VIM)</title>
-             <title type="main" format="text/plain" language="en" script="Latn">International vocabulary of metrology\\u2009—\\u2009Basic and general concepts and associated terms (VIM)</title>
+             <title type="main" format="text/plain" language="en" script="Latn">International vocabulary of metrology\u2009—\u2009Basic and general concepts and associated terms (VIM)</title>
              <uri type="src">https://www.iso.org/standard/45324.html</uri>
              <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>
              <uri type="rss">https://www.iso.org/contents/data/standard/04/53/45324.detail.rss</uri>
              <uri type="pub">https://isotc.iso.org/livelink/livelink/Open/8389141</uri>
-             <docidentifier type="ISO" primary="true">ISO/IEC\\u00a0Guide\\u00a099:2007</docidentifier>
-             <docidentifier type="metanorma">[ISO/IEC\\u00a0Guide\\u00a099:2007]</docidentifier>
-             <docidentifier type="URN">URN\\u00a0urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
-             <docidentifier scope="biblio-tag">ISO/IEC\\u00a0Guide\\u00a099:2007</docidentifier>
+             <docidentifier type="ISO" primary="true">ISO/IEC\u00a0Guide\u00a099:2007</docidentifier>
+             <docidentifier type="metanorma">[ISO/IEC\u00a0Guide\u00a099:2007]</docidentifier>
+             <docidentifier type="URN">URN\u00a0urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
+             <docidentifier scope="biblio-tag">ISO/IEC\u00a0Guide\u00a099:2007</docidentifier>
              <docnumber>99</docnumber>
              <date type="published">
                 <on>2007-12</on>
@@ -994,7 +995,7 @@ OUTPUT
           </bibitem>
           <bibitem id="ISO713" type="standard">
              <biblio-tag>
-                [ISO/IEC\\u00a0Guide\\u00a099:2007], ISO/IEC\\u00a0Guide\\u00a099:2007
+                [ISO/IEC\u00a0Guide\u00a099:2007], ISO/IEC\u00a0Guide\u00a099:2007
                 <fn reference="2" id="_2" original-reference="2" target="_7">
                    <p original-id="_">
                       Also known as JCGM 200 (
@@ -1021,10 +1022,10 @@ OUTPUT
              </formattedref>
              <title type="title-main" format="text/plain" language="en" script="Latn">Another title</title>
              <title type="main" format="text/plain" language="en" script="Latn">Another title</title>
-             <docidentifier type="ISO" primary="true">ISO/IEC\\u00a0Guide\\u00a099:2007</docidentifier>
-             <docidentifier type="metanorma">[ISO/IEC\\u00a0Guide\\u00a099:2007]</docidentifier>
-             <docidentifier type="URN">URN\\u00a0urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
-             <docidentifier scope="biblio-tag">ISO/IEC\\u00a0Guide\\u00a099:2007</docidentifier>
+             <docidentifier type="ISO" primary="true">ISO/IEC\u00a0Guide\u00a099:2007</docidentifier>
+             <docidentifier type="metanorma">[ISO/IEC\u00a0Guide\u00a099:2007]</docidentifier>
+             <docidentifier type="URN">URN\u00a0urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
+             <docidentifier scope="biblio-tag">ISO/IEC\u00a0Guide\u00a099:2007</docidentifier>
              <docnumber>99</docnumber>
              <date type="published">
                 <on>2007-12</on>
@@ -1054,21 +1055,21 @@ OUTPUT
     html = <<~OUTPUT
       #{HTML_HDR}
                 <div>
-                   <h1>1.\\u00a0 Normative References</h1>
+                   <h1>1.\u00a0 Normative References</h1>
                    <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                    <p id="ISO712" class="NormRef">
-                      [ISO/IEC\\u00a0Guide\\u00a099:2007], ISO/IEC\\u00a0Guide\\u00a099:2007
+                      [ISO/IEC\u00a0Guide\u00a099:2007], ISO/IEC\u00a0Guide\u00a099:2007
                       <a class="FootnoteRef" href="#fn:_6">
                          <sup>1</sup>
                       </a>
                       , International Organization for Standardization and International Electrotechnical Commission.
-                      <i>International vocabulary of metrology\\u2009—\\u2009Basic and general concepts and associated terms (VIM)</i>
+                      <i>International vocabulary of metrology\u2009—\u2009Basic and general concepts and associated terms (VIM)</i>
                       . First edition. 2007.
                       <a href="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</a>
                       .
                    </p>
                    <p id="ISO713" class="NormRef">
-                      [ISO/IEC\\u00a0Guide\\u00a099:2007], ISO/IEC\\u00a0Guide\\u00a099:2007
+                      [ISO/IEC\u00a0Guide\u00a099:2007], ISO/IEC\u00a0Guide\u00a099:2007
                       <a class="FootnoteRef" href="#fn:_7">
                          <sup>2</sup>
                       </a>
@@ -1094,14 +1095,15 @@ OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
-      .at("//xmlns:references").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    references_xml = Nokogiri::XML(pres_output).at("//xmlns:references").to_xml
+    expect(strip_guid(references_xml))
+      .to be_xml_equivalent_to presxml
+
+    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(output.to_html))
+      .to be_html5_equivalent_to html
   end
 
   it "emend citeas" do
@@ -1132,9 +1134,9 @@ OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
-      .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    foreword_xml = Nokogiri::XML(pres_output).at("//xmlns:foreword").to_xml
+    expect(strip_guid(foreword_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   xit "sets NO ID to nil" do
@@ -1189,10 +1191,11 @@ OUTPUT
        </bibliography>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    expect(strip_guid(pres_output)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to presxml
 
     mock_i18n
     presxml = <<~OUTPUT
@@ -1232,10 +1235,11 @@ OUTPUT
        </bibliography>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input.sub(">en<", ">eo<"), true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input.sub(">en<", ">eo<"), true)
+    expect(strip_guid(pres_output)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to presxml
   end
 
   private

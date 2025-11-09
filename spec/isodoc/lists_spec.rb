@@ -94,11 +94,11 @@ RSpec.describe IsoDoc do
           <head/>
           <body lang="en">
              <div class="title-section">
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <br/>
              <div class="prefatory-section">
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <br/>
              <div class="main-section">
@@ -147,55 +147,58 @@ RSpec.describe IsoDoc do
        </html>
     OUTPUT
     word = <<~OUTPUT
-       <div id="fwd">
-          <h1 class="ForewordTitle">Foreword</h1>
-          <div class="ul_wrap">
-             <p class="ListTitle">Caption</p>
-             <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                <li id="_">
-                   <p id="_">Level 1</p>
-                </li>
-                <li id="_">
-                   <p id="_">deletion of 4.3.</p>
-                   <div class="ul_wrap">
-                      <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                         <li id="_">
-                            <p id="_">Level 2</p>
-                            <div class="ul_wrap">
-                               <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                                  <li id="_">
-                                     <p id="_">Level 3</p>
-                                     <div class="ul_wrap">
-                                        <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                                           <li id="_">
-                                              <p id="_">Level 4</p>
-                                           </li>
-                                        </ul>
-                                     </div>
-                                  </li>
-                               </ul>
-                            </div>
-                         </li>
-                      </ul>
-                   </div>
-                </li>
-             </ul>
-          </div>
-       </div>
+      <div id="fwd">
+         <h1 class="ForewordTitle">Foreword</h1>
+         <div class="ul_wrap">
+            <p class="ListTitle">Caption</p>
+            <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
+               <li id="_">
+                  <p id="_">Level 1</p>
+               </li>
+               <li id="_">
+                  <p id="_">deletion of 4.3.</p>
+                  <div class="ul_wrap">
+                     <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
+                        <li id="_">
+                           <p id="_">Level 2</p>
+                           <div class="ul_wrap">
+                              <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
+                                 <li id="_">
+                                    <p id="_">Level 3</p>
+                                    <div class="ul_wrap">
+                                       <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
+                                          <li id="_">
+                                             <p id="_">Level 4</p>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+            </ul>
+         </div>
+      </div>
     OUTPUT
+
     pres_output = IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output
-      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    xml = Nokogiri::XML(IsoDoc::WordConvert.new({})
+    expect(strip_guid(pres_output
+      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")))
+      .to be_xml_equivalent_to presxml
+
+    expect(Nokogiri::HTML5(strip_guid(IsoDoc::HtmlConvert.new({}))
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
+
+    word_output = Nokogiri::HTML4(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
-    xml = xml.at("//div[@id = 'fwd']")
-    expect(strip_guid(Canon.format_xml(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(word)
+    word_output = word_output.at("//div[@id = 'fwd']")
+    expect(strip_guid(word_output.to_html))
+      .to be_html4_equivalent_to word
   end
 
   it "processes unordered checklists" do
@@ -260,7 +263,7 @@ RSpec.describe IsoDoc do
                       </ul>
                     </div>
                     </div>
-                    <p>\\u00a0</p>
+                    <p>\u00a0</p>
                   </div>
                   <p class="section-break">
                     <br clear='all' class='section'/>
@@ -270,12 +273,12 @@ RSpec.describe IsoDoc do
                 </body>
               </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", input, true)))
+      .to be_html4_equivalent_to word
   end
 
   it "processes ordered lists" do
@@ -318,75 +321,75 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~INPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface>
-             <clause type="toc" id="_" displayorder="1">
-                <fmt-title id="_" depth="1">Table of contents</fmt-title>
-             </clause>
-             <foreword id="_" displayorder="2">
-                <title id="_">Foreword</title>
-                <fmt-title id="_" depth="1">
-                   <semx element="title" source="_">Foreword</semx>
-                </fmt-title>
-                <ol id="_" type="alphabet" keep-with-next="true" keep-lines-together="true" autonum="1">
-                   <name id="_">Caption</name>
-                   <fmt-name id="_">
-                      <semx element="name" source="_">Caption</semx>
-                   </fmt-name>
-                   <li id="_">
-                      <fmt-name id="_">
-                         <semx element="autonum" source="_">a</semx>
-                         <span class="fmt-label-delim">)</span>
-                      </fmt-name>
-                      <p id="_">Level 1</p>
-                   </li>
-                </ol>
-                <ol id="A" type="alphabet">
-                   <li id="_">
-                      <fmt-name id="_">
-                         <semx element="autonum" source="_">a</semx>
-                         <span class="fmt-label-delim">)</span>
-                      </fmt-name>
-                      <p id="_">Level 1</p>
-                   </li>
-                   <li id="_">
-                      <fmt-name id="_">
-                         <semx element="autonum" source="_">b</semx>
-                         <span class="fmt-label-delim">)</span>
-                      </fmt-name>
-                      <p id="_">Level 1</p>
-                      <ol type="arabic">
-                         <li id="_">
-                            <fmt-name id="_">
-                               <semx element="autonum" source="_">1</semx>
-                               <span class="fmt-label-delim">)</span>
-                            </fmt-name>
-                            <p id="_">Level 2</p>
-                            <ol type="roman" start="3">
-                               <li id="_">
-                                  <fmt-name id="_">
-                                     <semx element="autonum" source="_">iii</semx>
-                                     <span class="fmt-label-delim">)</span>
-                                  </fmt-name>
-                                  <p id="_">Level 3</p>
-                                  <ol type="alphabet_upper">
-                                     <li id="_">
-                                        <fmt-name id="_">
-                                           <semx element="autonum" source="_">A</semx>
-                                           <span class="fmt-label-delim">.</span>
-                                        </fmt-name>
-                                        <p id="_">Level 4</p>
-                                     </li>
-                                  </ol>
-                               </li>
-                            </ol>
-                         </li>
-                      </ol>
-                   </li>
-                </ol>
-             </foreword>
-          </preface>
-       </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+            <clause type="toc" id="_" displayorder="1">
+               <fmt-title id="_" depth="1">Table of contents</fmt-title>
+            </clause>
+            <foreword id="_" displayorder="2">
+               <title id="_">Foreword</title>
+               <fmt-title id="_" depth="1">
+                  <semx element="title" source="_">Foreword</semx>
+               </fmt-title>
+               <ol id="_" type="alphabet" keep-with-next="true" keep-lines-together="true" autonum="1">
+                  <name id="_">Caption</name>
+                  <fmt-name id="_">
+                     <semx element="name" source="_">Caption</semx>
+                  </fmt-name>
+                  <li id="_">
+                     <fmt-name id="_">
+                        <semx element="autonum" source="_">a</semx>
+                        <span class="fmt-label-delim">)</span>
+                     </fmt-name>
+                     <p id="_">Level 1</p>
+                  </li>
+               </ol>
+               <ol id="A" type="alphabet">
+                  <li id="_">
+                     <fmt-name id="_">
+                        <semx element="autonum" source="_">a</semx>
+                        <span class="fmt-label-delim">)</span>
+                     </fmt-name>
+                     <p id="_">Level 1</p>
+                  </li>
+                  <li id="_">
+                     <fmt-name id="_">
+                        <semx element="autonum" source="_">b</semx>
+                        <span class="fmt-label-delim">)</span>
+                     </fmt-name>
+                     <p id="_">Level 1</p>
+                     <ol type="arabic">
+                        <li id="_">
+                           <fmt-name id="_">
+                              <semx element="autonum" source="_">1</semx>
+                              <span class="fmt-label-delim">)</span>
+                           </fmt-name>
+                           <p id="_">Level 2</p>
+                           <ol type="roman" start="3">
+                              <li id="_">
+                                 <fmt-name id="_">
+                                    <semx element="autonum" source="_">iii</semx>
+                                    <span class="fmt-label-delim">)</span>
+                                 </fmt-name>
+                                 <p id="_">Level 3</p>
+                                 <ol type="alphabet_upper">
+                                    <li id="_">
+                                       <fmt-name id="_">
+                                          <semx element="autonum" source="_">A</semx>
+                                          <span class="fmt-label-delim">.</span>
+                                       </fmt-name>
+                                       <p id="_">Level 4</p>
+                                    </li>
+                                 </ol>
+                              </li>
+                           </ol>
+                        </li>
+                     </ol>
+                  </li>
+               </ol>
+            </foreword>
+         </preface>
+      </iso-standard>
     INPUT
 
     html = <<~OUTPUT
@@ -485,7 +488,7 @@ RSpec.describe IsoDoc do
                       </ol>
                    </div>
                 </div>
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
@@ -496,18 +499,18 @@ RSpec.describe IsoDoc do
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output
-      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(pres_output
+      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html4_equivalent_to word
   end
 
-   it "processes mixed ordered and unordered lists" do
+  it "processes mixed ordered and unordered lists" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
@@ -595,10 +598,10 @@ RSpec.describe IsoDoc do
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output
-      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
-   end
+    expect(strip_guid(pres_output
+      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")))
+      .to be_xml_equivalent_to presxml
+  end
 
   it "processes Roman Upper ordered lists" do
     input = <<~INPUT
@@ -644,9 +647,9 @@ RSpec.describe IsoDoc do
                </body>
            </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true)))
+      .to be_html5_equivalent_to output
   end
 
   it "processes definition lists" do
@@ -670,51 +673,51 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~INPUT
-        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-           <preface>
-              <clause type="toc" id="_" displayorder="1">
-                 <fmt-title id="_" depth="1">Table of contents</fmt-title>
-              </clause>
-              <foreword id="_" displayorder="2">
-                 <title id="_">Foreword</title>
-                 <fmt-title id="_" depth="1">
-                    <semx element="title" source="_">Foreword</semx>
-                 </fmt-title>
-                 <dl id="_" keep-with-next="true" keep-lines-together="true" autonum="">
-                    <name id="_">Caption</name>
-                    <fmt-name id="_">
-                       <semx element="name" source="_">Caption</semx>
-                    </fmt-name>
-                    <dt>
-            W
-          </dt>
-                    <dd>
-                       <p id="_">mass fraction of gelatinized kernels, expressed in per cent</p>
-                    </dd>
-                    <dt>
-               <stem type="AsciiMath" id="_">w</stem>
-               <fmt-stem type="AsciiMath">
-                  <semx element="stem" source="_">w</semx>
-               </fmt-stem>
-                    </dt>
-                    <dd>
-                       <p>??</p>
-                    </dd>
-                    <note>
-                       <fmt-name id="_">
-                          <span class="fmt-caption-label">
-                             <span class="fmt-element-name">NOTE</span>
-                          </span>
-                          <span class="fmt-label-delim">
-                             <tab/>
-                          </span>
-                       </fmt-name>
-                       <p>This is a note</p>
-                    </note>
-                 </dl>
-              </foreword>
-           </preface>
-        </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+            <clause type="toc" id="_" displayorder="1">
+               <fmt-title id="_" depth="1">Table of contents</fmt-title>
+            </clause>
+            <foreword id="_" displayorder="2">
+               <title id="_">Foreword</title>
+               <fmt-title id="_" depth="1">
+                  <semx element="title" source="_">Foreword</semx>
+               </fmt-title>
+               <dl id="_" keep-with-next="true" keep-lines-together="true" autonum="">
+                  <name id="_">Caption</name>
+                  <fmt-name id="_">
+                     <semx element="name" source="_">Caption</semx>
+                  </fmt-name>
+                  <dt>
+          W
+        </dt>
+                  <dd>
+                     <p id="_">mass fraction of gelatinized kernels, expressed in per cent</p>
+                  </dd>
+                  <dt>
+             <stem type="AsciiMath" id="_">w</stem>
+             <fmt-stem type="AsciiMath">
+                <semx element="stem" source="_">w</semx>
+             </fmt-stem>
+                  </dt>
+                  <dd>
+                     <p>??</p>
+                  </dd>
+                  <note>
+                     <fmt-name id="_">
+                        <span class="fmt-caption-label">
+                           <span class="fmt-element-name">NOTE</span>
+                        </span>
+                        <span class="fmt-label-delim">
+                           <tab/>
+                        </span>
+                     </fmt-name>
+                     <p>This is a note</p>
+                  </note>
+               </dl>
+            </foreword>
+         </preface>
+      </iso-standard>
     INPUT
     html = <<~OUTPUT
          #{HTML_HDR}
@@ -740,7 +743,7 @@ RSpec.describe IsoDoc do
                   </dd>
                 </dl>
                 <div class="Note">
-           <p><span class="note_label">NOTE\\u00a0 </span>This is a note</p>
+           <p><span class="note_label">NOTE\u00a0 </span>This is a note</p>
          </div>
          </div>
               </div>
@@ -782,7 +785,7 @@ RSpec.describe IsoDoc do
                                   <p class="Note">
                                      <span class="note_label">
                                         NOTE
-                                        <span style="mso-tab-count:1">\\u00a0 </span>
+                                        <span style="mso-tab-count:1">\u00a0 </span>
                                      </span>
                                      This is a note
                                   </p>
@@ -792,7 +795,7 @@ RSpec.describe IsoDoc do
                       </table>
                    </div>
                 </div>
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
@@ -803,15 +806,15 @@ RSpec.describe IsoDoc do
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output
-      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(pres_output
+      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html4_equivalent_to word
   end
 
   it "processes nested definition lists (Word)" do
@@ -850,7 +853,7 @@ RSpec.describe IsoDoc do
        </head>
           <body lang="EN-US" link="blue" vlink="#954F72">
              <div class="WordSection1">
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
@@ -872,7 +875,7 @@ RSpec.describe IsoDoc do
                                   <a id="_"/>
                                   <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">
                                      W
-                                     <span style="mso-tab-count:1">\\u00a0 </span>
+                                     <span style="mso-tab-count:1">\u00a0 </span>
                                      mass fraction of gelatinized kernels
                                   </p>
                                </div>
@@ -889,7 +892,7 @@ RSpec.describe IsoDoc do
                                      <a id="_"/>
                                      <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">
                                         X
-                                        <span style="mso-tab-count:1">\\u00a0 </span>
+                                        <span style="mso-tab-count:1">\u00a0 </span>
                                         expressed in per cent
                                      </p>
                                   </div>
@@ -899,7 +902,7 @@ RSpec.describe IsoDoc do
                       </table>
                    </div>
                 </div>
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
@@ -908,8 +911,8 @@ RSpec.describe IsoDoc do
           </body>
        </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", input, true)))
+      .to be_html4_equivalent_to output
   end
 end
