@@ -60,7 +60,8 @@ module IsoDoc
         c == "'" and in_quotes = !in_quotes
         processed << if c == "," && in_quotes
                        COMMA_PLACEHOLDER
-                     else c end
+                     else c
+                     end
       end
       processed
     end

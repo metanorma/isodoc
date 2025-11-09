@@ -266,11 +266,11 @@ RSpec.describe IsoDoc do
          </term>
       </terms>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-       .convert("test", input, true))
-      .at("//xmlns:terms").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .convert("test", input, true)
+    terms_xml = Nokogiri::XML(pres_output).at("//xmlns:terms").to_xml
+    expect(strip_guid(terms_xml)).to be_xml_equivalent_to presxml
   end
 
   it "processes IsoXML term with grammatical information" do
@@ -392,11 +392,11 @@ RSpec.describe IsoDoc do
          </term>
       </terms>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-       .convert("test", input, true))
-      .at("//xmlns:terms").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .convert("test", input, true)
+    terms_xml = Nokogiri::XML(pres_output).at("//xmlns:terms").to_xml
+    expect(strip_guid(terms_xml)).to be_xml_equivalent_to presxml
   end
 
   it "processes IsoXML term with empty, mathematical, or graphical designations" do
@@ -572,11 +572,11 @@ RSpec.describe IsoDoc do
          </term>
       </terms>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-       .convert("test", input, true))
-      .at("//xmlns:terms").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .convert("test", input, true)
+    terms_xml = Nokogiri::XML(pres_output).at("//xmlns:terms").to_xml
+    expect(strip_guid(terms_xml)).to be_xml_equivalent_to presxml
   end
 
   it "processes related terms" do
@@ -639,190 +639,190 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-       <terms id="A" obligation="normative" displayorder="2">
-          <title id="_">Terms and definitions</title>
-          <fmt-title depth="1" id="_">
-             <span class="fmt-caption-label">
-                <semx element="autonum" source="A">1</semx>
-                <span class="fmt-autonum-delim">.</span>
-             </span>
-             <span class="fmt-caption-delim">
-                <tab/>
-             </span>
-             <semx element="title" source="_">Terms and definitions</semx>
-          </fmt-title>
-          <fmt-xref-label>
-             <span class="fmt-element-name">Clause</span>
-             <semx element="autonum" source="A">1</semx>
-          </fmt-xref-label>
-          <term id="second">
-             <fmt-name id="_">
-                <span class="fmt-caption-label">
-                   <semx element="autonum" source="A">1</semx>
-                   <span class="fmt-autonum-delim">.</span>
-                   <semx element="autonum" source="second">1</semx>
-                   <span class="fmt-autonum-delim">.</span>
-                </span>
-             </fmt-name>
-             <fmt-xref-label>
-                <span class="fmt-element-name">Clause</span>
-                <semx element="autonum" source="A">1</semx>
-                <span class="fmt-autonum-delim">.</span>
-                <semx element="autonum" source="second">1</semx>
-             </fmt-xref-label>
-             <preferred id="_">
-                <expression>
-                   <name>Second Term</name>
-                </expression>
-                <field-of-application id="_">Field</field-of-application>
-                <usage-info id="_">Usage Info 1</usage-info>
-             </preferred>
-             <fmt-preferred>
-                <p>
-                   <semx element="preferred" source="_">
-                      <strong>Second Term</strong>
-                      <span class="fmt-designation-field">
-                         , &lt;
-                         <semx element="field-of-application" source="_">Field</semx>
-                         ,
-                         <semx element="usage-info" source="_">Usage Info 1</semx>
-                         &gt;
-                      </span>
-                   </semx>
-                </p>
-             </fmt-preferred>
-             <definition id="_">
-                <verbal-definition>Definition 1</verbal-definition>
-             </definition>
-             <fmt-definition id="_">
-                <semx element="definition" source="_">Definition 1</semx>
-             </fmt-definition>
-          </term>
-          <term id="C">
-             <fmt-name id="_">
-                <span class="fmt-caption-label">
-                   <semx element="autonum" source="A">1</semx>
-                   <span class="fmt-autonum-delim">.</span>
-                   <semx element="autonum" source="C">2</semx>
-                   <span class="fmt-autonum-delim">.</span>
-                </span>
-             </fmt-name>
-             <fmt-xref-label>
-                <span class="fmt-element-name">Clause</span>
-                <semx element="autonum" source="A">1</semx>
-                <span class="fmt-autonum-delim">.</span>
-                <semx element="autonum" source="C">2</semx>
-             </fmt-xref-label>
-             <preferred language="fr" script="Latn" type="prefix" id="_">
-                <expression>
-                   <name>First Designation</name>
-                </expression>
-             </preferred>
-             <fmt-preferred>
-                <p>
-                   <semx element="preferred" source="_">
-                      <strong>First Designation</strong>
-                   </semx>
-                </p>
-             </fmt-preferred>
-             <related type="contrast" id="_">
-                <preferred id="_">
-                   <expression>
-                      <name>Fifth Designation</name>
-                      <grammar>
-                         <gender>neuter</gender>
-                      </grammar>
-                   </expression>
-                </preferred>
-                <xref target="second"/>
-             </related>
-             <related type="see" id="_">
-                <preferred id="_">
-                   <expression>
-                      <name>Fifth Designation</name>
-                      <grammar>
-                         <gender>neuter</gender>
-                      </grammar>
-                   </expression>
-                </preferred>
-             </related>
-             <related type="seealso" id="_">
-                <xref target="second"/>
-             </related>
-             <related type="contrast" id="_">
-                <preferred id="_">
-                   <expression>
-                      <name>Fifth Designation</name>
-                   </expression>
-                </preferred>
-                <xref target="second">Fifth Designation</xref>
-             </related>
-             <fmt-related>
-                <semx element="related" source="_">
-                   <p>
-                      <strong>CONTRAST:</strong>
-                      <em>
-                         <semx element="preferred" source="_">
-                            <strong>Fifth Designation</strong>
-                            , n
-                         </semx>
-                      </em>
-                      (
-                      <xref target="second" id="_"/>
-                      <semx element="xref" source="_">
-                         <fmt-xref target="second">
-                            <span class="fmt-element-name">Clause</span>
-                            <semx element="autonum" source="A">1</semx>
-                            <span class="fmt-autonum-delim">.</span>
-                            <semx element="autonum" source="second">1</semx>
-                         </fmt-xref>
-                      </semx>
-                      )
-                   </p>
-                </semx>
-                <semx element="related" source="_">
-                   <p>
-                      <strong>SEE:</strong>
-                      <strong>**RELATED TERM NOT FOUND**</strong>
-                   </p>
-                </semx>
-                <semx element="related" source="_">
-                   <p>
-                      <strong>SEE ALSO:</strong>
-                      <strong>**RELATED TERM NOT FOUND**</strong>
-                   </p>
-                </semx>
-                <semx element="related" source="_">
-                   <p>
-                      <strong>CONTRAST:</strong>
-                      <em>
-                         <xref target="second" id="_">Fifth Designation</xref>
-                         <semx element="xref" source="_">
-                            <fmt-xref target="second">Fifth Designation</fmt-xref>
-                         </semx>
-                      </em>
-                   </p>
-                </semx>
-             </fmt-related>
-             <definition id="_">
-                <verbal-definition>Definition 2</verbal-definition>
-             </definition>
-             <fmt-definition id="_">
-                <semx element="definition" source="_">Definition 2</semx>
-             </fmt-definition>
-          </term>
-       </terms>
+      <terms id="A" obligation="normative" displayorder="2">
+         <title id="_">Terms and definitions</title>
+         <fmt-title depth="1" id="_">
+            <span class="fmt-caption-label">
+               <semx element="autonum" source="A">1</semx>
+               <span class="fmt-autonum-delim">.</span>
+            </span>
+            <span class="fmt-caption-delim">
+               <tab/>
+            </span>
+            <semx element="title" source="_">Terms and definitions</semx>
+         </fmt-title>
+         <fmt-xref-label>
+            <span class="fmt-element-name">Clause</span>
+            <semx element="autonum" source="A">1</semx>
+         </fmt-xref-label>
+         <term id="second">
+            <fmt-name id="_">
+               <span class="fmt-caption-label">
+                  <semx element="autonum" source="A">1</semx>
+                  <span class="fmt-autonum-delim">.</span>
+                  <semx element="autonum" source="second">1</semx>
+                  <span class="fmt-autonum-delim">.</span>
+               </span>
+            </fmt-name>
+            <fmt-xref-label>
+               <span class="fmt-element-name">Clause</span>
+               <semx element="autonum" source="A">1</semx>
+               <span class="fmt-autonum-delim">.</span>
+               <semx element="autonum" source="second">1</semx>
+            </fmt-xref-label>
+            <preferred id="_">
+               <expression>
+                  <name>Second Term</name>
+               </expression>
+               <field-of-application id="_">Field</field-of-application>
+               <usage-info id="_">Usage Info 1</usage-info>
+            </preferred>
+            <fmt-preferred>
+               <p>
+                  <semx element="preferred" source="_">
+                     <strong>Second Term</strong>
+                     <span class="fmt-designation-field">
+                        , &lt;
+                        <semx element="field-of-application" source="_">Field</semx>
+                        ,
+                        <semx element="usage-info" source="_">Usage Info 1</semx>
+                        &gt;
+                     </span>
+                  </semx>
+               </p>
+            </fmt-preferred>
+            <definition id="_">
+               <verbal-definition>Definition 1</verbal-definition>
+            </definition>
+            <fmt-definition id="_">
+               <semx element="definition" source="_">Definition 1</semx>
+            </fmt-definition>
+         </term>
+         <term id="C">
+            <fmt-name id="_">
+               <span class="fmt-caption-label">
+                  <semx element="autonum" source="A">1</semx>
+                  <span class="fmt-autonum-delim">.</span>
+                  <semx element="autonum" source="C">2</semx>
+                  <span class="fmt-autonum-delim">.</span>
+               </span>
+            </fmt-name>
+            <fmt-xref-label>
+               <span class="fmt-element-name">Clause</span>
+               <semx element="autonum" source="A">1</semx>
+               <span class="fmt-autonum-delim">.</span>
+               <semx element="autonum" source="C">2</semx>
+            </fmt-xref-label>
+            <preferred language="fr" script="Latn" type="prefix" id="_">
+               <expression>
+                  <name>First Designation</name>
+               </expression>
+            </preferred>
+            <fmt-preferred>
+               <p>
+                  <semx element="preferred" source="_">
+                     <strong>First Designation</strong>
+                  </semx>
+               </p>
+            </fmt-preferred>
+            <related type="contrast" id="_">
+               <preferred id="_">
+                  <expression>
+                     <name>Fifth Designation</name>
+                     <grammar>
+                        <gender>neuter</gender>
+                     </grammar>
+                  </expression>
+               </preferred>
+               <xref target="second"/>
+            </related>
+            <related type="see" id="_">
+               <preferred id="_">
+                  <expression>
+                     <name>Fifth Designation</name>
+                     <grammar>
+                        <gender>neuter</gender>
+                     </grammar>
+                  </expression>
+               </preferred>
+            </related>
+            <related type="seealso" id="_">
+               <xref target="second"/>
+            </related>
+            <related type="contrast" id="_">
+               <preferred id="_">
+                  <expression>
+                     <name>Fifth Designation</name>
+                  </expression>
+               </preferred>
+               <xref target="second">Fifth Designation</xref>
+            </related>
+            <fmt-related>
+               <semx element="related" source="_">
+                  <p>
+                     <strong>CONTRAST:</strong>
+                     <em>
+                        <semx element="preferred" source="_">
+                           <strong>Fifth Designation</strong>
+                           , n
+                        </semx>
+                     </em>
+                     (
+                     <xref target="second" id="_"/>
+                     <semx element="xref" source="_">
+                        <fmt-xref target="second">
+                           <span class="fmt-element-name">Clause</span>
+                           <semx element="autonum" source="A">1</semx>
+                           <span class="fmt-autonum-delim">.</span>
+                           <semx element="autonum" source="second">1</semx>
+                        </fmt-xref>
+                     </semx>
+                     )
+                  </p>
+               </semx>
+               <semx element="related" source="_">
+                  <p>
+                     <strong>SEE:</strong>
+                     <strong>**RELATED TERM NOT FOUND**</strong>
+                  </p>
+               </semx>
+               <semx element="related" source="_">
+                  <p>
+                     <strong>SEE ALSO:</strong>
+                     <strong>**RELATED TERM NOT FOUND**</strong>
+                  </p>
+               </semx>
+               <semx element="related" source="_">
+                  <p>
+                     <strong>CONTRAST:</strong>
+                     <em>
+                        <xref target="second" id="_">Fifth Designation</xref>
+                        <semx element="xref" source="_">
+                           <fmt-xref target="second">Fifth Designation</fmt-xref>
+                        </semx>
+                     </em>
+                  </p>
+               </semx>
+            </fmt-related>
+            <definition id="_">
+               <verbal-definition>Definition 2</verbal-definition>
+            </definition>
+            <fmt-definition id="_">
+               <semx element="definition" source="_">Definition 2</semx>
+            </fmt-definition>
+         </term>
+      </terms>
     OUTPUT
     html = <<~OUTPUT
       <html lang="en">
          <head/>
          <body lang="en">
             <div class="title-section">
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
             </div>
             <br/>
             <div class="prefatory-section">
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
             </div>
             <br/>
             <div class="main-section">
@@ -831,7 +831,7 @@ RSpec.describe IsoDoc do
                   <h1 class="IntroTitle">Table of contents</h1>
                </div>
                <div id="A">
-                  <h1>1.\\u00a0 Terms and definitions</h1>
+                  <h1>1.\u00a0 Terms and definitions</h1>
                   <p class="TermNum" id="second">1.1.</p>
                   <p class="Terms" style="text-align:left;">
                      <b>Second Term</b>
@@ -877,11 +877,11 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
-      .at("//xmlns:terms").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+    terms_xml = Nokogiri::XML(pres_output).at("//xmlns:terms").to_xml
+    expect(strip_guid(terms_xml)).to be_xml_equivalent_to presxml
+
+    html_output = IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)
+    expect(strip_guid(html_output)).to be_html5_equivalent_to html
   end
 end

@@ -184,7 +184,7 @@ RSpec.describe IsoDoc do
                       <em>term</em>
                       <semx element="eref" source="_">
                          (
-                         <fmt-xref type="inline" target="ISO712">ISO\\u00a0712</fmt-xref>
+                         <fmt-xref type="inline" target="ISO712">ISO\u00a0712</fmt-xref>
                          )
                       </semx>
                    </semx>
@@ -231,7 +231,7 @@ RSpec.describe IsoDoc do
                       <em>word</em>
                       <semx element="eref" source="_">
                          (
-                         <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Clause 3.1, Figure a</fmt-xref>
+                         <fmt-xref type="inline" target="ISO712">ISO\u00a0712, Clause 3.1, Figure a</fmt-xref>
                          )
                       </semx>
                    </semx>
@@ -263,7 +263,7 @@ RSpec.describe IsoDoc do
                       <semx element="eref" source="_">
                          (
                          <fmt-xref type="inline" target="ISO712">
-                            ISO\\u00a0712, Clause 3.1
+                            ISO\u00a0712, Clause 3.1
                             <span class="fmt-conn">and</span>
                             Figure b
                          </fmt-xref>
@@ -299,8 +299,8 @@ RSpec.describe IsoDoc do
                       <semx element="eref" source="_">
                          (
                          <fmt-xref type="inline" target="ISO712">
-               
-               
+
+
                The Aforementioned Citation
                </fmt-xref>
                          )
@@ -361,87 +361,87 @@ RSpec.describe IsoDoc do
        </p>
     OUTPUT
     html = <<~OUTPUT
-       <p id="A">
-          <div class="ul_wrap">
-             <ul>
-                <li id="_">
-                   (
-                   <a href="#clause1">Clause 2</a>
-                   )
-                </li>
-                <li id="_">
-                   <i>term</i>
-                   (
-                   <a href="#clause1">Clause 2</a>
-                   )
-                </li>
-                <li id="_">
-                   <i>w[o]rd</i>
-                   (
-                   <a href="#clause1">Clause #1</a>
-                   )
-                </li>
-                <li id="_">
-                   <i>term</i>
-                   (
-                   <a href="#ISO712">ISO\\u00a0712</a>
-                   )
-                </li>
-                <li id="_">
-                   <i>word</i>
-                   (
-                   <a href="#ISO712">The Aforementioned Citation</a>
-                   )
-                </li>
-                <li id="_">
-                   <i>word</i>
-                   (
-                   <a href="#ISO712">ISO\\u00a0712, Clause 3.1, Figure a</a>
-                   )
-                </li>
-                <li id="_">
-                   <i>word</i>
-                   (
-                   <a href="#ISO712">ISO\\u00a0712, Clause 3.1 and Figure b</a>
-                   )
-                </li>
-                <li id="_">
-                   <i>word</i>
-                   (
-                   <a href="#ISO712">
-     
-     
-               The Aforementioned Citation
-               </a>
-                   )
-                </li>
-                <li id="_">
-                   <i>word</i>
-                   [Termbase IEV, term ID 135-13-13]
-                </li>
-                <li id="_">
-                   <i>word</i>
-                   (The IEV database)
-                </li>
-                <li id="_">
-                   <b>error!</b>
-                </li>
-             </ul>
-          </div>
-       </p>
+      <p id="A">
+         <div class="ul_wrap">
+            <ul>
+               <li id="_">
+                  (
+                  <a href="#clause1">Clause 2</a>
+                  )
+               </li>
+               <li id="_">
+                  <i>term</i>
+                  (
+                  <a href="#clause1">Clause 2</a>
+                  )
+               </li>
+               <li id="_">
+                  <i>w[o]rd</i>
+                  (
+                  <a href="#clause1">Clause #1</a>
+                  )
+               </li>
+               <li id="_">
+                  <i>term</i>
+                  (
+                  <a href="#ISO712">ISO\u00a0712</a>
+                  )
+               </li>
+               <li id="_">
+                  <i>word</i>
+                  (
+                  <a href="#ISO712">The Aforementioned Citation</a>
+                  )
+               </li>
+               <li id="_">
+                  <i>word</i>
+                  (
+                  <a href="#ISO712">ISO\u00a0712, Clause 3.1, Figure a</a>
+                  )
+               </li>
+               <li id="_">
+                  <i>word</i>
+                  (
+                  <a href="#ISO712">ISO\u00a0712, Clause 3.1 and Figure b</a>
+                  )
+               </li>
+               <li id="_">
+                  <i>word</i>
+                  (
+                  <a href="#ISO712">
+
+
+              The Aforementioned Citation
+              </a>
+                  )
+               </li>
+               <li id="_">
+                  <i>word</i>
+                  [Termbase IEV, term ID 135-13-13]
+               </li>
+               <li id="_">
+                  <i>word</i>
+                  (The IEV database)
+               </li>
+               <li id="_">
+                  <b>error!</b>
+               </li>
+            </ul>
+         </div>
+      </p>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
-      .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
+    expect(strip_guid(Nokogiri::XML(pres_output)
+      .at("//xmlns:p[@id = 'A']").to_xml))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
-      .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+      .at("//p[@id = 'A']").to_xml))
+      .to be_html5_equivalent_to html
   end
 
   it "processes concept attributes" do
@@ -849,116 +849,116 @@ RSpec.describe IsoDoc do
        </p>
     OUTPUT
     html = <<~OUTPUT
-       <p id="A">
-          <div class="ul_wrap">
-             <ul>
-                <li id="_">
-                   <i>term</i>
-                   (
-                   <a href="#clause1">Clause 1</a>
-                   ),
-                </li>
-                <li id="_">
-                   <b>term</b>
-                   (
-                   <a href="#clause1">Clause 1</a>
-                   ),
-                </li>
-                <li id="_">
-                   <i>term</i>
-                   (
-                   <a href="#clause1">Clause 1</a>
-                   ),
-                </li>
-                <li id="_">
-                   <i>term</i>
-                   (
-                   <a href="#clause1">Clause 1</a>
-                   ),
-                </li>
-                <li id="_">
-                   <b>
-                      <i>term</i>
-                   </b>
-                   (
-                   <a href="#clause1">Clause 1</a>
-                   ),
-                </li>
-                <li id="_">
-                   <b>term</b>
-                   (
-                   <a href="#clause1">Clause 1</a>
-                   ),
-                </li>
-                <li id="_">
-                   <i>term</i>
-                   ,
-                </li>
-                <li id="_">term,</li>
-                <li id="_">
-                   <a href="#clause1">
-                      <i>term</i>
-                   </a>
-                   (
-                   <a href="#clause1">Clause 1</a>
-                   ),
-                </li>
-                <li id="_">
-                   <a href="#clause1">
-                      <b>term</b>
-                   </a>
-                   (
-                   <a href="#clause1">Clause 1</a>
-                   ),
-                </li>
-                <li id="_">
-                   <a href="#clause1">
-                      <b>
-                         <i>term</i>
-                      </b>
-                   </a>
-                   (
-                   <a href="#clause1">Clause 1</a>
-                   ),
-                </li>
-                <li id="_">
-                   <a href="#clause1">
-                      <i>term</i>
-                   </a>
-                   (Clause 1),
-                </li>
-                <li id="_">
-                   <i>term</i>
-                   (
-                   <a href="#clause1">Clause 1</a>
-                   ),
-                </li>
-                <li id="_">
-                   <i>term</i>
-                   (Clause 1),
-                </li>
-                <li id="_">
-                   <b>error!</b>
-                </li>
-                <li id="_">
-                   <a href="#term-cv_discretecoverage">CV_DiscreteCoverage</a>
-                </li>
-             </ul>
-          </div>
-       </p>
+      <p id="A">
+         <div class="ul_wrap">
+            <ul>
+               <li id="_">
+                  <i>term</i>
+                  (
+                  <a href="#clause1">Clause 1</a>
+                  ),
+               </li>
+               <li id="_">
+                  <b>term</b>
+                  (
+                  <a href="#clause1">Clause 1</a>
+                  ),
+               </li>
+               <li id="_">
+                  <i>term</i>
+                  (
+                  <a href="#clause1">Clause 1</a>
+                  ),
+               </li>
+               <li id="_">
+                  <i>term</i>
+                  (
+                  <a href="#clause1">Clause 1</a>
+                  ),
+               </li>
+               <li id="_">
+                  <b>
+                     <i>term</i>
+                  </b>
+                  (
+                  <a href="#clause1">Clause 1</a>
+                  ),
+               </li>
+               <li id="_">
+                  <b>term</b>
+                  (
+                  <a href="#clause1">Clause 1</a>
+                  ),
+               </li>
+               <li id="_">
+                  <i>term</i>
+                  ,
+               </li>
+               <li id="_">term,</li>
+               <li id="_">
+                  <a href="#clause1">
+                     <i>term</i>
+                  </a>
+                  (
+                  <a href="#clause1">Clause 1</a>
+                  ),
+               </li>
+               <li id="_">
+                  <a href="#clause1">
+                     <b>term</b>
+                  </a>
+                  (
+                  <a href="#clause1">Clause 1</a>
+                  ),
+               </li>
+               <li id="_">
+                  <a href="#clause1">
+                     <b>
+                        <i>term</i>
+                     </b>
+                  </a>
+                  (
+                  <a href="#clause1">Clause 1</a>
+                  ),
+               </li>
+               <li id="_">
+                  <a href="#clause1">
+                     <i>term</i>
+                  </a>
+                  (Clause 1),
+               </li>
+               <li id="_">
+                  <i>term</i>
+                  (
+                  <a href="#clause1">Clause 1</a>
+                  ),
+               </li>
+               <li id="_">
+                  <i>term</i>
+                  (Clause 1),
+               </li>
+               <li id="_">
+                  <b>error!</b>
+               </li>
+               <li id="_">
+                  <a href="#term-cv_discretecoverage">CV_DiscreteCoverage</a>
+               </li>
+            </ul>
+         </div>
+      </p>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
-      .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
+    expect(strip_guid(Nokogiri::XML(pres_output)
+      .at("//xmlns:p[@id = 'A']").to_xml))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
-      .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+      .at("//p[@id = 'A']").to_xml))
+      .to be_html5_equivalent_to html
   end
 
   it "processes concept markup for symbols" do
@@ -983,23 +983,23 @@ RSpec.describe IsoDoc do
         </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-       <p id="A">
-          <ul>
-             <li id="_">
-                <fmt-name id="_">
-                   <semx element="autonum" source="_">—</semx>
-                </fmt-name>
-                <concept id="_">
-                   <refterm>term</refterm>
-                   <renderterm>ISO</renderterm>
-                   <xref target="d1" id="_"/>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">ISO</semx>
-                </fmt-concept>
-             </li>
-          </ul>
-       </p>
+      <p id="A">
+         <ul>
+            <li id="_">
+               <fmt-name id="_">
+                  <semx element="autonum" source="_">—</semx>
+               </fmt-name>
+               <concept id="_">
+                  <refterm>term</refterm>
+                  <renderterm>ISO</renderterm>
+                  <xref target="d1" id="_"/>
+               </concept>
+               <fmt-concept>
+                  <semx element="concept" source="_">ISO</semx>
+               </fmt-concept>
+            </li>
+         </ul>
+      </p>
     OUTPUT
     html = <<~OUTPUT
       <p id="A">
@@ -1013,18 +1013,18 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
-      .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
+    expect(strip_guid(Nokogiri::XML(pres_output)
+      .at("//xmlns:p[@id = 'A']").to_xml))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
-      .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+      .at("//p[@id = 'A']").to_xml))
+      .to be_html5_equivalent_to html
   end
 
-    it "do not process concept markup in Semantic XML" do
+  it "do not process concept markup in Semantic XML" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
           <bibdata><language>en</language></bibdata>
@@ -1048,112 +1048,112 @@ RSpec.describe IsoDoc do
       </sections></iso-standard>
     INPUT
     output = <<~OUTPUT
-       <terms id="terms_and_definitions" obligation="normative" displayorder="2">
-          <title id="_">Terms and Definitions</title>
-          <fmt-title depth="1" id="_">
-             <span class="fmt-caption-label">
-                <semx element="autonum" source="terms_and_definitions">1</semx>
-                <span class="fmt-autonum-delim">.</span>
-             </span>
-             <span class="fmt-caption-delim">
-                <tab/>
-             </span>
-             <semx element="title" source="_">Terms and Definitions</semx>
-          </fmt-title>
-          <fmt-xref-label>
-             <span class="fmt-element-name">Clause</span>
-             <semx element="autonum" source="terms_and_definitions">1</semx>
-          </fmt-xref-label>
-          <term id="paddy1">
-             <fmt-name id="_">
-                <span class="fmt-caption-label">
-                   <semx element="autonum" source="terms_and_definitions">1</semx>
-                   <span class="fmt-autonum-delim">.</span>
-                   <semx element="autonum" source="paddy1">1</semx>
-                   <span class="fmt-autonum-delim">.</span>
-                </span>
-             </fmt-name>
-             <fmt-xref-label>
-                <span class="fmt-element-name">Clause</span>
-                <semx element="autonum" source="terms_and_definitions">1</semx>
-                <span class="fmt-autonum-delim">.</span>
-                <semx element="autonum" source="paddy1">1</semx>
-             </fmt-xref-label>
-             <preferred id="_">
-                <expression>
-                   <name>paddy</name>
-                </expression>
-             </preferred>
-             <fmt-preferred>
-                <p>
-                   <semx element="preferred" source="_">
-                      <strong>paddy</strong>
-                   </semx>
-                </p>
-             </fmt-preferred>
-             <definition id="_">
-                <verbal-definition>
-                   <ul>
-                      <concept>
-                         <refterm>term1</refterm>
-                         <renderterm>term</renderterm>
-                         <xref target="clause1"/>
-                      </concept>
-                   </ul>
-                   <li original-id="_">
-                      <concept>
-                         <refterm>term1</refterm>
-                         <renderterm>term</renderterm>
-                         <xref target="clause1"/>
-                      </concept>
-                   </li>
-                </verbal-definition>
-             </definition>
-             <fmt-definition id="_">
-                <semx element="definition" source="_">
-                   <ul>
-                      <concept id="_">
-                         <refterm>term1</refterm>
-                         <renderterm>term</renderterm>
-                         <xref target="clause1" id="_"/>
-                      </concept>
-                      <fmt-concept>
-                         <semx element="concept" source="_">
-                            <em>term</em>
-                            <semx element="xref" source="_">
-                               (
-                               <fmt-xref target="clause1">[clause1]</fmt-xref>
-                               )
-                            </semx>
-                         </semx>
-                      </fmt-concept>
-                   </ul>
-                   <li id="_">
-                      <concept id="_">
-                         <refterm>term1</refterm>
-                         <renderterm>term</renderterm>
-                         <xref target="clause1" id="_"/>
-                      </concept>
-                      <fmt-concept>
-                         <semx element="concept" source="_">
-                            <em>term</em>
-                            <semx element="xref" source="_">
-                               (
-                               <fmt-xref target="clause1">[clause1]</fmt-xref>
-                               )
-                            </semx>
-                         </semx>
-                      </fmt-concept>
-                   </li>
-                </semx>
-             </fmt-definition>
-          </term>
-       </terms>
+      <terms id="terms_and_definitions" obligation="normative" displayorder="2">
+         <title id="_">Terms and Definitions</title>
+         <fmt-title depth="1" id="_">
+            <span class="fmt-caption-label">
+               <semx element="autonum" source="terms_and_definitions">1</semx>
+               <span class="fmt-autonum-delim">.</span>
+            </span>
+            <span class="fmt-caption-delim">
+               <tab/>
+            </span>
+            <semx element="title" source="_">Terms and Definitions</semx>
+         </fmt-title>
+         <fmt-xref-label>
+            <span class="fmt-element-name">Clause</span>
+            <semx element="autonum" source="terms_and_definitions">1</semx>
+         </fmt-xref-label>
+         <term id="paddy1">
+            <fmt-name id="_">
+               <span class="fmt-caption-label">
+                  <semx element="autonum" source="terms_and_definitions">1</semx>
+                  <span class="fmt-autonum-delim">.</span>
+                  <semx element="autonum" source="paddy1">1</semx>
+                  <span class="fmt-autonum-delim">.</span>
+               </span>
+            </fmt-name>
+            <fmt-xref-label>
+               <span class="fmt-element-name">Clause</span>
+               <semx element="autonum" source="terms_and_definitions">1</semx>
+               <span class="fmt-autonum-delim">.</span>
+               <semx element="autonum" source="paddy1">1</semx>
+            </fmt-xref-label>
+            <preferred id="_">
+               <expression>
+                  <name>paddy</name>
+               </expression>
+            </preferred>
+            <fmt-preferred>
+               <p>
+                  <semx element="preferred" source="_">
+                     <strong>paddy</strong>
+                  </semx>
+               </p>
+            </fmt-preferred>
+            <definition id="_">
+               <verbal-definition>
+                  <ul>
+                     <concept>
+                        <refterm>term1</refterm>
+                        <renderterm>term</renderterm>
+                        <xref target="clause1"/>
+                     </concept>
+                  </ul>
+                  <li original-id="_">
+                     <concept>
+                        <refterm>term1</refterm>
+                        <renderterm>term</renderterm>
+                        <xref target="clause1"/>
+                     </concept>
+                  </li>
+               </verbal-definition>
+            </definition>
+            <fmt-definition id="_">
+               <semx element="definition" source="_">
+                  <ul>
+                     <concept id="_">
+                        <refterm>term1</refterm>
+                        <renderterm>term</renderterm>
+                        <xref target="clause1" id="_"/>
+                     </concept>
+                     <fmt-concept>
+                        <semx element="concept" source="_">
+                           <em>term</em>
+                           <semx element="xref" source="_">
+                              (
+                              <fmt-xref target="clause1">[clause1]</fmt-xref>
+                              )
+                           </semx>
+                        </semx>
+                     </fmt-concept>
+                  </ul>
+                  <li id="_">
+                     <concept id="_">
+                        <refterm>term1</refterm>
+                        <renderterm>term</renderterm>
+                        <xref target="clause1" id="_"/>
+                     </concept>
+                     <fmt-concept>
+                        <semx element="concept" source="_">
+                           <em>term</em>
+                           <semx element="xref" source="_">
+                              (
+                              <fmt-xref target="clause1">[clause1]</fmt-xref>
+                              )
+                           </semx>
+                        </semx>
+                     </fmt-concept>
+                  </li>
+               </semx>
+            </fmt-definition>
+         </term>
+      </terms>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
        .convert("test", input, true))
-      .at("//xmlns:terms").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .at("//xmlns:terms").to_xml))
+      .to be_xml_equivalent_to output
   end
 end
