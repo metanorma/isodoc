@@ -18,3 +18,8 @@ h1 {
 p.note {
   font-size: $smallerfontsize;
 }
+
+.document-type-band > :first-child {
+  writing-mode: tb-rl;
+  transform: rotate(180deg);
+}

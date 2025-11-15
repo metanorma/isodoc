@@ -10,27 +10,29 @@ module IsoDoc
           .gsub(%r{\]\]>\s*</script>}, "</script>")
           .gsub(%r{<!\[CDATA\[\s*<script([^<>]*)>}m, "<script\\1>")
           .gsub(%r{</script>\s*\]\]>}, "</script>")
+          .gsub(%r{<style([^<>]*)>\s*<!\[CDATA\[}m, "<style\\1>")
+          .gsub(%r{\]\]>\s*</style>}, "</style>")
+          .gsub(%r{<!\[CDATA\[\s*<style([^<>]*)>}m, "<style\\1>")
+          .gsub(%r{</style>\s*\]\]>}, "</style>")
       end
 
       def htmlstylesheet(file)
         file.nil? and return
         file.open if file.is_a?(Tempfile)
         stylesheet = file.read
-        xml = Nokogiri::XML("<style/>")
-        xml.children.first << stylesheet
         file.close
         file.unlink if file.is_a?(Tempfile)
-        xml.root.to_s
+        stylesheet
       end
 
       def htmlstyle(docxml)
         @htmlstylesheet or return docxml
         head = docxml.at("//*[local-name() = 'head']")
-        head << htmlstylesheet(@htmlstylesheet)
-        s = htmlstylesheet(@htmlstylesheet_override) and head << s
+        head << Nokogiri::HTML.fragment("<style>#{htmlstylesheet(@htmlstylesheet)}</style>")
+        s = htmlstylesheet(@htmlstylesheet_override) and head << Nokogiri::HTML.fragment("<style>#{s}</style>")
         s = @meta.get[:code_css] and
-          head << "<style><!--#{s.gsub(/sourcecode/,
-                                       'pre.sourcecode')}--></style>"
+          head << Nokogiri::HTML.fragment("<style>#{s.gsub(/sourcecode/,
+                                                           'pre.sourcecode')}</style>")
         @bare and
           head << "<style>body {margin-left: 2em; margin-right: 2em;}</style>"
         docxml

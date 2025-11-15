@@ -218,6 +218,8 @@ RSpec.describe IsoDoc do
     expect(html).to match(/This is > a script/)
     expect(html).to match(/This is > also a script/)
     expect(have_cdata_in_script_tags(html)).to be false
+    expect(html).to match(/\.document-type-band > :first-child/)
+    expect(have_cdata_in_style_tags(html)).to be false
     expect(html).to match(%r{html-override})
   end
 
@@ -959,20 +961,20 @@ RSpec.describe IsoDoc do
       .sub(%r{</main>.*$}m, "</main>")
     expect(strip_guid(Canon.format_xml(html)))
       .to be_equivalent_to Canon.format_xml(<<~OUTPUT)
-      <main class="main-section">
-         <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-         <br/>
-         <div>
-            <h1 class="ForewordTitle">Foreword</h1>
-            <pre id="samplecode" class="sourcecode">
-               <br/>
-               \\u00a0 &lt;xml&gt; &amp;
-               <br/>
-            </pre>
-            <p class="SourceTitle" style="text-align:center;">XML code</p>
-         </div>
-      </main>
-    OUTPUT
+        <main class="main-section">
+           <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+           <br/>
+           <div>
+              <h1 class="ForewordTitle">Foreword</h1>
+              <pre id="samplecode" class="sourcecode">
+                 <br/>
+                 \\u00a0 &lt;xml&gt; &amp;
+                 <br/>
+              </pre>
+              <p class="SourceTitle" style="text-align:center;">XML code</p>
+           </div>
+        </main>
+      OUTPUT
 
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
@@ -1363,49 +1365,49 @@ RSpec.describe IsoDoc do
       </html>
     INPUT
     output = <<~OUTPUT
-       <main class="main-section">
-          <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-          <ul>
-             <li>
-                A
-                <a class="FootnoteRef" href="#1a" id="fnref:1">1, </a>
-                <a class="FootnoteRef" href="#2a" id="fnref:2">2</a>
-             </li>
-          </ul>
-          <table>
-             <tbody>
-                <tr>
-                   <td>
-                      A
-                      <a class="TableFootnoteRef">a, </a>
-                      <a class="TableFootnoteRef">b</a>
-                   </td>
-                </tr>
-             </tbody>
-          </table>
-       </main>
+      <main class="main-section">
+         <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+         <ul>
+            <li>
+               A
+               <a class="FootnoteRef" href="#1a" id="fnref:1">1, </a>
+               <a class="FootnoteRef" href="#2a" id="fnref:2">2</a>
+            </li>
+         </ul>
+         <table>
+            <tbody>
+               <tr>
+                  <td>
+                     A
+                     <a class="TableFootnoteRef">a, </a>
+                     <a class="TableFootnoteRef">b</a>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </main>
     OUTPUT
     output1 = <<~OUTPUT
-       <div id="footnote-container">
-          <aside>
-             <a id="1a">
-                <a class="FootnoteRef" href="#1a">1</a>
-                <a href="#fnref:1">↩</a>
-             </a>
-             Footnote 1
-          </aside>
-          <aside>
-             <a id="2a">
-                <a class="FootnoteRef" href="#2a">2</a>
-                <a href="#fnref:2">↩</a>
-             </a>
-             Footnote 2
-          </aside>
-       </div>
+      <div id="footnote-container">
+         <aside>
+            <a id="1a">
+               <a class="FootnoteRef" href="#1a">1</a>
+               <a href="#fnref:1">↩</a>
+            </a>
+            Footnote 1
+         </aside>
+         <aside>
+            <a id="2a">
+               <a class="FootnoteRef" href="#2a">2</a>
+               <a href="#fnref:2">↩</a>
+            </a>
+            Footnote 2
+         </aside>
+      </div>
     OUTPUT
     html = IsoDoc::HtmlConvert
-  .new(htmlstylesheet: "spec/assets/html.scss", filename: "test")
-  .html_cleanup(Nokogiri::XML(input)).to_xml
+      .new(htmlstylesheet: "spec/assets/html.scss", filename: "test")
+      .html_cleanup(Nokogiri::XML(input)).to_xml
     expect(Canon.format_xml(html
   .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>")))
       .to be_equivalent_to Canon.format_xml(output)
@@ -1417,19 +1419,36 @@ RSpec.describe IsoDoc do
   private
 
   def have_cdata_in_script_tags(html)
-  # Split on <script> tags
-  parts = html.split(/<script[^>]*>/)
+    # Split on <script> tags
+    parts = html.split(/<script[^>]*>/)
 
-  # For each part (except the first, which is before any script tag)
-  parts[1..].each do |part|
-    # Get content before closing </script> tag
-    script_content = part.split('</script>').first
-    next unless script_content
+    # For each part (except the first, which is before any script tag)
+    parts[1..].each do |part|
+      # Get content before closing </script> tag
+      script_content = part.split("</script>").first
+      next unless script_content
 
-    # Check if CDATA appears in the script content
-    return true if script_content.include?('CDATA')
+      # Check if CDATA appears in the script content
+      return true if script_content.include?("CDATA")
+    end
+
+    false
   end
 
-  false
-end
+  def have_cdata_in_style_tags(html)
+    # Split on <style> tags
+    parts = html.split(/<style[^>]*>/)
+
+    # For each part (except the first, which is before any style tag)
+    parts[1..].each do |part|
+      # Get content before closing </style> tag
+      style_content = part.split("</style>").first
+      next unless style_content
+
+      # Check if CDATA appears in the style content
+      return true if style_content.include?("CDATA")
+    end
+
+    false
+  end
 end
