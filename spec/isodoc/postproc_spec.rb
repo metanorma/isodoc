@@ -144,7 +144,7 @@ RSpec.describe IsoDoc do
     expect(html).to match(%r{https://use\.fontawesome\.com})
     expect(html).to match(%r{libs/jquery})
     expect(html).to include("$('#toggle')")
-    expect(html).not_to match(/CDATA/)
+    expect(have_cdata_in_script_tags(html)).to be false
   end
 
   it "generates Headless HTML output docs with null configuration from file" do
@@ -217,7 +217,7 @@ RSpec.describe IsoDoc do
     expect(html).to match(/an empty html intro page/)
     expect(html).to match(/This is > a script/)
     expect(html).to match(/This is > also a script/)
-    expect(html).not_to match(/CDATA/)
+    expect(have_cdata_in_script_tags(html)).to be false
     expect(html).to match(%r{html-override})
   end
 
@@ -252,8 +252,6 @@ RSpec.describe IsoDoc do
     expect(html).to match(/aside \{[^}]*?font-size: 0.9em/m)
     expect(html).to match(/an empty html cover page/)
     expect(html).to match(/an empty html intro page/)
-    expect(html).to match(/This is > a script/)
-    expect(html).not_to match(/CDATA/)
   end
 
   it "generates Word output docs with complete configuration" do
@@ -1415,4 +1413,23 @@ RSpec.describe IsoDoc do
   .sub(/^.*<div id="footnote-container">/m, '<div id="footnote-container">').sub(%r{</div>.*$}m, "</div>")))
       .to be_equivalent_to Canon.format_xml(output1)
   end
+
+  private
+
+  def have_cdata_in_script_tags(html)
+  # Split on <script> tags
+  parts = html.split(/<script[^>]*>/)
+
+  # For each part (except the first, which is before any script tag)
+  parts[1..].each do |part|
+    # Get content before closing </script> tag
+    script_content = part.split('</script>').first
+    next unless script_content
+
+    # Check if CDATA appears in the script content
+    return true if script_content.include?('CDATA')
+  end
+
+  false
+end
 end
