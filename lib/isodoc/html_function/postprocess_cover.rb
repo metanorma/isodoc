@@ -17,7 +17,7 @@ module IsoDoc
         file.open if file.is_a?(Tempfile)
         stylesheet = file.read
         xml = Nokogiri::XML("<style/>")
-        xml.children.first.content = stylesheet
+        xml.children.first << stylesheet
         file.close
         file.unlink if file.is_a?(Tempfile)
         xml.root.to_s
