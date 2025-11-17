@@ -908,140 +908,137 @@ OUTPUT
     INPUT
     presxml = <<~PRESXML
       <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
-         <title id="_5">Normative References</title>
-         <fmt-title depth="1" id="_12">
-            <span class="fmt-caption-label">
-               <semx element="autonum" source="_normative_references">1</semx>
-               <span class="fmt-autonum-delim">.</span>
-            </span>
-            <span class="fmt-caption-delim">
-               <tab/>
-            </span>
-            <semx element="title" source="_5">Normative References</semx>
-         </fmt-title>
-         <fmt-xref-label>
-            <span class="fmt-element-name">Clause</span>
-            <semx element="autonum" source="_normative_references">1</semx>
-         </fmt-xref-label>
-         <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-         <bibitem id="ISO712" type="standard">
-            <formattedref>
-               International Organization for Standardization and International Electrotechnical Commission.
-               <em>International vocabulary of metrology\\u2009—\\u2009Basic and general concepts and associated terms (VIM)</em>
-               . First edition. 2007.
-               <link target="https://www.iso.org/standard/45324.html" id="_8">https://www.iso.org/standard/45324.html</link>
-               <semx element="link" source="_8">
-                  <fmt-link target="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</fmt-link>
-               </semx>
-               .
-            </formattedref>
-            <title type="title-intro" format="text/plain" language="en" script="Latn">International vocabulary of metrology</title>
-            <title type="title-main" format="text/plain" language="en" script="Latn">Basic and general concepts and associated terms (VIM)</title>
-            <title type="main" format="text/plain" language="en" script="Latn">International vocabulary of metrology\\u2009—\\u2009Basic and general concepts and associated terms (VIM)</title>
-            <uri type="src">https://www.iso.org/standard/45324.html</uri>
-            <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>
-            <uri type="rss">https://www.iso.org/contents/data/standard/04/53/45324.detail.rss</uri>
-            <uri type="pub">https://isotc.iso.org/livelink/livelink/Open/8389141</uri>
-            <docidentifier type="ISO" primary="true">ISO/IEC\\u00a0Guide\\u00a099:2007</docidentifier>
-            <docidentifier type="metanorma">[ISO/IEC\\u00a0Guide\\u00a099:2007]</docidentifier>
-            <docidentifier type="URN">URN\\u00a0urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
-            <docidentifier scope="biblio-tag">ISO/IEC\\u00a0Guide\\u00a099:2007</docidentifier>
-            <docnumber>99</docnumber>
-            <date type="published">
-               <on>2007-12</on>
-            </date>
-            <contributor>
-               <role type="publisher"/>
-               <organization>
-                  <name>International Organization for Standardization</name>
-                  <abbreviation>ISO</abbreviation>
-                  <uri>www.iso.org</uri>
-               </organization>
-            </contributor>
-            <contributor>
-               <role type="publisher"/>
-               <organization>
-                  <name>International Electrotechnical Commission</name>
-                  <abbreviation>IEC</abbreviation>
-                  <uri>www.iec.ch</uri>
-               </organization>
-            </contributor>
-            <edition>1</edition>
-            <language>en</language>
-            <script>Latn</script>
-            <biblio-tag>
-               ISO/IEC\\u00a0Guide\\u00a099:2007, ISO/IEC\\u00a0Guide\\u00a099:2007
-               <fn reference="1" id="_1" original-reference="1" target="_6">
-                  <p original-id="_">Also known as JCGM 200</p>
-                  <fmt-fn-label>
-                     <span class="fmt-caption-label">
-                        <sup>
-                           <semx element="autonum" source="_1">1</semx>
-                        </sup>
-                     </span>
-                  </fmt-fn-label>
-               </fn>
-               ,
-            </biblio-tag>
-         </bibitem>
-         <bibitem id="ISO713" type="standard">
-            <formattedref>
-               International Organization for Standardization and International Electrotechnical Commission.
-               <em>Another title</em>
-               . First edition. 2007.
-            </formattedref>
-            <title type="title-main" format="text/plain" language="en" script="Latn">Another title</title>
-            <title type="main" format="text/plain" language="en" script="Latn">Another title</title>
-            <docidentifier type="ISO" primary="true">ISO/IEC\\u00a0Guide\\u00a099:2007</docidentifier>
-            <docidentifier type="metanorma">[ISO/IEC\\u00a0Guide\\u00a099:2007]</docidentifier>
-            <docidentifier type="URN">URN\\u00a0urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
-            <docidentifier scope="biblio-tag">ISO/IEC\\u00a0Guide\\u00a099:2007</docidentifier>
-            <docnumber>99</docnumber>
-            <date type="published">
-               <on>2007-12</on>
-            </date>
-            <contributor>
-               <role type="publisher"/>
-               <organization>
-                  <name>International Organization for Standardization</name>
-                  <abbreviation>ISO</abbreviation>
-                  <uri>www.iso.org</uri>
-               </organization>
-            </contributor>
-            <contributor>
-               <role type="publisher"/>
-               <organization>
-                  <name>International Electrotechnical Commission</name>
-                  <abbreviation>IEC</abbreviation>
-                  <uri>www.iec.ch</uri>
-               </organization>
-            </contributor>
-            <edition>1</edition>
-            <language>en</language>
-            <script>Latn</script>
-            <biblio-tag>
-               ISO/IEC\\u00a0Guide\\u00a099:2007, ISO/IEC\\u00a0Guide\\u00a099:2007
-               <fn reference="2" id="_2" original-reference="2" target="_7">
-                  <p original-id="_">
-                     Also known as JCGM 200 (
-                     <link target="https://www.iso.org/" id="_9"/>
-                     <semx element="link" source="_9">
-                        <fmt-link target="https://www.iso.org/"/>
-                     </semx>
-                     )
-                  </p>
-                  <fmt-fn-label>
-                     <span class="fmt-caption-label">
-                        <sup>
-                           <semx element="autonum" source="_2">2</semx>
-                        </sup>
-                     </span>
-                  </fmt-fn-label>
-               </fn>
-               ,
-            </biblio-tag>
-         </bibitem>
-      </references>
+          <title id="_5">Normative References</title>
+          <fmt-title depth="1" id="_11">
+             <span class="fmt-caption-label">
+                <semx element="autonum" source="_normative_references">1</semx>
+                <span class="fmt-autonum-delim">.</span>
+             </span>
+             <span class="fmt-caption-delim">
+                <tab/>
+             </span>
+             <semx element="title" source="_5">Normative References</semx>
+          </fmt-title>
+          <fmt-xref-label>
+             <span class="fmt-element-name">Clause</span>
+             <semx element="autonum" source="_normative_references">1</semx>
+          </fmt-xref-label>
+          <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+          <bibitem id="ISO712" type="standard">
+             <biblio-tag>
+                ISO/IEC\\u00a0Guide\\u00a099:2007, ISO/IEC\\u00a0Guide\\u00a099:2007
+                <fn reference="1" id="_1" original-reference="1" target="_6">
+                   <p original-id="_">Also known as JCGM 200</p>
+                   <fmt-fn-label>
+                      <span class="fmt-caption-label">
+                         <sup>
+                            <semx element="autonum" source="_1">1</semx>
+                         </sup>
+                      </span>
+                   </fmt-fn-label>
+                </fn>
+                ,
+             </biblio-tag>
+             <formattedref>
+                International Organization for Standardization and International Electrotechnical Commission.
+                <em>International vocabulary of metrology\\u2009—\\u2009Basic and general concepts and associated terms (VIM)</em>
+                . First edition. 2007.
+                <fmt-link target="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</fmt-link>
+                .
+             </formattedref>
+             <title type="title-intro" format="text/plain" language="en" script="Latn">International vocabulary of metrology</title>
+             <title type="title-main" format="text/plain" language="en" script="Latn">Basic and general concepts and associated terms (VIM)</title>
+             <title type="main" format="text/plain" language="en" script="Latn">International vocabulary of metrology\\u2009—\\u2009Basic and general concepts and associated terms (VIM)</title>
+             <uri type="src">https://www.iso.org/standard/45324.html</uri>
+             <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>
+             <uri type="rss">https://www.iso.org/contents/data/standard/04/53/45324.detail.rss</uri>
+             <uri type="pub">https://isotc.iso.org/livelink/livelink/Open/8389141</uri>
+             <docidentifier type="ISO" primary="true">ISO/IEC\\u00a0Guide\\u00a099:2007</docidentifier>
+             <docidentifier type="metanorma">[ISO/IEC\\u00a0Guide\\u00a099:2007]</docidentifier>
+             <docidentifier type="URN">URN\\u00a0urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
+             <docidentifier scope="biblio-tag">ISO/IEC\\u00a0Guide\\u00a099:2007</docidentifier>
+             <docnumber>99</docnumber>
+             <date type="published">
+                <on>2007-12</on>
+             </date>
+             <contributor>
+                <role type="publisher"/>
+                <organization>
+                   <name>International Organization for Standardization</name>
+                   <abbreviation>ISO</abbreviation>
+                   <uri>www.iso.org</uri>
+                </organization>
+             </contributor>
+             <contributor>
+                <role type="publisher"/>
+                <organization>
+                   <name>International Electrotechnical Commission</name>
+                   <abbreviation>IEC</abbreviation>
+                   <uri>www.iec.ch</uri>
+                </organization>
+             </contributor>
+             <edition>1</edition>
+             <language>en</language>
+             <script>Latn</script>
+          </bibitem>
+          <bibitem id="ISO713" type="standard">
+             <biblio-tag>
+                ISO/IEC\\u00a0Guide\\u00a099:2007, ISO/IEC\\u00a0Guide\\u00a099:2007
+                <fn reference="2" id="_2" original-reference="2" target="_7">
+                   <p original-id="_">
+                      Also known as JCGM 200 (
+                      <link target="https://www.iso.org/" id="_8"/>
+                      <semx element="link" source="_8">
+                         <fmt-link target="https://www.iso.org/"/>
+                      </semx>
+                      )
+                   </p>
+                   <fmt-fn-label>
+                      <span class="fmt-caption-label">
+                         <sup>
+                            <semx element="autonum" source="_2">2</semx>
+                         </sup>
+                      </span>
+                   </fmt-fn-label>
+                </fn>
+                ,
+             </biblio-tag>
+             <formattedref>
+                International Organization for Standardization and International Electrotechnical Commission.
+                <em>Another title</em>
+                . First edition. 2007.
+             </formattedref>
+             <title type="title-main" format="text/plain" language="en" script="Latn">Another title</title>
+             <title type="main" format="text/plain" language="en" script="Latn">Another title</title>
+             <docidentifier type="ISO" primary="true">ISO/IEC\\u00a0Guide\\u00a099:2007</docidentifier>
+             <docidentifier type="metanorma">[ISO/IEC\\u00a0Guide\\u00a099:2007]</docidentifier>
+             <docidentifier type="URN">URN\\u00a0urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
+             <docidentifier scope="biblio-tag">ISO/IEC\\u00a0Guide\\u00a099:2007</docidentifier>
+             <docnumber>99</docnumber>
+             <date type="published">
+                <on>2007-12</on>
+             </date>
+             <contributor>
+                <role type="publisher"/>
+                <organization>
+                   <name>International Organization for Standardization</name>
+                   <abbreviation>ISO</abbreviation>
+                   <uri>www.iso.org</uri>
+                </organization>
+             </contributor>
+             <contributor>
+                <role type="publisher"/>
+                <organization>
+                   <name>International Electrotechnical Commission</name>
+                   <abbreviation>IEC</abbreviation>
+                   <uri>www.iec.ch</uri>
+                </organization>
+             </contributor>
+             <edition>1</edition>
+             <language>en</language>
+             <script>Latn</script>
+          </bibitem>
+       </references>
     PRESXML
     html = <<~OUTPUT
       #{HTML_HDR}
