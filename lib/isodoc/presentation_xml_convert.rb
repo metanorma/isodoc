@@ -22,6 +22,7 @@ module IsoDoc
       @format = :presentation
       @suffix = "presentation.xml"
       @new_ids = {} # guids assigned within Presentation XML
+      warning "THIS IS AN OBNOXIOUS DIAGNOSTIC"
       super
     end
 
