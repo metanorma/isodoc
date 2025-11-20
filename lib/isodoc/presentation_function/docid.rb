@@ -64,6 +64,12 @@ module IsoDoc
       num
     end
 
+    def bracket(num)
+      num.nil? and return nil
+      num = xml_to_string_skip_fn(num).sub(/^\[/, "").sub(/\]$/, "")
+      "[#{num}]"
+    end
+
     def unbracket1(ident)
       ident.nil? and return nil
       ident.is_a?(String) or ident = xml_to_string_skip_fn(ident)
@@ -78,10 +84,10 @@ module IsoDoc
     end
 
     def render_identifier(ident)
-      { metanorma: bracket_if_num(ident[0]),
+      { metanorma: bracket(ident[0]),
         sdo: unbracket(ident[1]),
         doi: unbracket(ident[2]),
-        ordinal: bracket_if_num(ident[3]) }
+        ordinal: bracket(ident[3]) }
     end
   end
 end

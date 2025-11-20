@@ -385,7 +385,7 @@ presxml = <<~OUTPUT
                    <semx element="autonum" source="_normative_references">1</semx>
                 </fmt-xref-label>
                 <bibitem id="ISO712" type="standard">
-                   <biblio-tag>Cereals\\u00a0or\\u00a0cereal\\u00a0products </biblio-tag>
+                   <biblio-tag>[Cereals\\u00a0or\\u00a0cereal\\u00a0products] </biblio-tag>
                    <formattedref>
                       International Organization for Standardization.
                       <em>Cereals and cereal products</em>
@@ -926,7 +926,7 @@ OUTPUT
           <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
           <bibitem id="ISO712" type="standard">
              <biblio-tag>
-                ISO/IEC\\u00a0Guide\\u00a099:2007, ISO/IEC\\u00a0Guide\\u00a099:2007
+                [ISO/IEC\\u00a0Guide\\u00a099:2007], ISO/IEC\\u00a0Guide\\u00a099:2007
                 <fn reference="1" id="_1" original-reference="1" target="_6">
                    <p original-id="_">Also known as JCGM 200</p>
                    <fmt-fn-label>
@@ -983,7 +983,7 @@ OUTPUT
           </bibitem>
           <bibitem id="ISO713" type="standard">
              <biblio-tag>
-                ISO/IEC\\u00a0Guide\\u00a099:2007, ISO/IEC\\u00a0Guide\\u00a099:2007
+                [ISO/IEC\\u00a0Guide\\u00a099:2007], ISO/IEC\\u00a0Guide\\u00a099:2007
                 <fn reference="2" id="_2" original-reference="2" target="_7">
                    <p original-id="_">
                       Also known as JCGM 200 (
@@ -1046,7 +1046,7 @@ OUTPUT
                    <h1>1.\\u00a0 Normative References</h1>
                    <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                    <p id="ISO712" class="NormRef">
-                      ISO/IEC\\u00a0Guide\\u00a099:2007, ISO/IEC\\u00a0Guide\\u00a099:2007
+                      [ISO/IEC\\u00a0Guide\\u00a099:2007], ISO/IEC\\u00a0Guide\\u00a099:2007
                       <a class="FootnoteRef" href="#fn:_6">
                          <sup>1</sup>
                       </a>
@@ -1057,7 +1057,7 @@ OUTPUT
                       .
                    </p>
                    <p id="ISO713" class="NormRef">
-                      ISO/IEC\\u00a0Guide\\u00a099:2007, ISO/IEC\\u00a0Guide\\u00a099:2007
+                      [ISO/IEC\\u00a0Guide\\u00a099:2007], ISO/IEC\\u00a0Guide\\u00a099:2007
                       <a class="FootnoteRef" href="#fn:_7">
                          <sup>2</sup>
                       </a>
