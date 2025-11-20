@@ -66,8 +66,8 @@ module IsoDoc
       logos = []
       agency_data(xml).each do |org|
         agency1 = org[:abbr] || org[:name]
-        org[:name] and publisher << org[:name]
-        org[:logo] and logos << org[:logo]
+        org[:name] && !org[:name].empty? and publisher << org[:name]
+        org[:logo] && !org[:logo].empty? and logos << org[:logo]
         agency = iso?(org) ? "ISO/#{agency}" : "#{agency}#{agency1}/"
       end
       [agency.sub(%r{/$}, ""), publisher, logos]

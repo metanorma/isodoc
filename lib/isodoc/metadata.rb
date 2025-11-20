@@ -9,7 +9,7 @@ module IsoDoc
       Common::ns(xpath)
     end
 
-        def l10n(expr, lang = @lang, script = @script, opt = {})
+    def l10n(expr, lang = @lang, script = @script, opt = {})
       opt[:locale] ||= @locale
       @i18n.l10n(expr, lang, script, opt)
     end
@@ -180,6 +180,9 @@ module IsoDoc
         ret << n.text
       end
       set(:title_footnote, ret)
+    end
+
+    def images(_isoxml, _out)
     end
 
     def code_css(isoxml, _out)
