@@ -80,6 +80,7 @@ module IsoDoc
       @script = options[:script] || "Latn"
       @locale = options[:locale]
       @localizenumber = options[:localizenumber]
+      @relatonrenderconfig = options[:relatonrenderconfig]
     end
 
     def init_locations(options)
