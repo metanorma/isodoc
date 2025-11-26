@@ -93,6 +93,8 @@ module IsoDoc
       get_linkend(node)
     end
 
+    def link(xml); end
+
     # there should be no //variant in bibdata now
     def variant(xml)
       b = xml.xpath(ns("//bibdata//variant"))

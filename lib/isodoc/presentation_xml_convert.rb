@@ -119,7 +119,8 @@ module IsoDoc
       eref docxml # feeds eref2link
       origin docxml # feeds eref2link
       concept docxml
-      eref2link docxml
+      eref2link docxml # feeds link
+      link docxml
       mathml docxml
       ruby docxml
       variant docxml
