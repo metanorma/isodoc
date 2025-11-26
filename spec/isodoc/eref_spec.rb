@@ -10,6 +10,7 @@ RSpec.describe IsoDoc do
       <foreword id="_" displayorder="2"><fmt-title id="_">Foreword</fmt-title>
         <p>
         <link target="http://example.com"/>
+        <link style="fred" target="http://example.com"/>
         <link target="http://example.com"><br/></link>
         <link target="http://example.com">example</link>
         <link target="http://example.com" alt="tip">example</link>
@@ -29,8 +30,12 @@ RSpec.describe IsoDoc do
                <fmt-title id="_" depth="1">Foreword</fmt-title>
                <p>
                   <link target="http://example.com" id="_"/>
+                    <semx element="link" source="_">
+                      <fmt-link target="http://example.com"/>
+                    </semx>
+                  <link style="fred" target="http://example.com" id="_"/>
                   <semx element="link" source="_">
-                     <fmt-link target="http://example.com"/>
+                     <fmt-link style="fred" target="http://example.com"/>
                   </semx>
                   <link target="http://example.com" id="_">
                      <br/>
@@ -77,6 +82,7 @@ RSpec.describe IsoDoc do
                    <h1 class="ForewordTitle">Foreword</h1>
                    <p>
          <a href="http://example.com">http://example.com</a>
+         <a href="http://example.com" class="fred">http://example.com</a>
          <a href="http://example.com"><br/></a>
          <a href="http://example.com">example</a>
          <a href="http://example.com" title="tip">example</a>

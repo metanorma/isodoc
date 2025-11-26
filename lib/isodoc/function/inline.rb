@@ -4,15 +4,21 @@ module IsoDoc
   module Function
     module Inline
       def link_parse(node, out)
-        url = node["target"]
-        node["update-type"] == "true" and url = suffix_url(url)
-        out.a **attr_code(href: url, title: node["alt"]) do |l|
+        url = link_parse_url(node)
+        out.a **attr_code(href: url, title: node["alt"],
+                          class: node["style"]) do |l|
           if node.elements.empty? && node.text.strip.empty?
             l << @c.encode(node["target"].sub(/^mailto:/, ""), :basic,
                            :hexadecimal)
           else children_parse(node, l)
           end
         end
+      end
+
+      def link_parse_url(node)
+        url = node["target"]
+        node["update-type"] == "true" and url = suffix_url(url)
+        url
       end
 
       # Presentation XML classes which we need not pass on to HTML or DOC
@@ -212,30 +218,6 @@ module IsoDoc
         out.span style: "white-space: nowrap;" do |s|
           children_parse(node, s)
         end
-      end
-
-      def fmt_concept_parse(node, out)
-        children_parse(node, out)
-      end
-
-      def fmt_date_parse(node, out)
-        children_parse(node, out)
-      end
-
-      def fmt_fn_label_parse(node, out)
-        children_parse(node, out)
-      end
-
-      def fmt_footnote_container_parse(node, out)
-        children_parse(node, out)
-      end
-
-      def fmt_annotation_start_parse(node, out)
-        children_parse(node, out)
-      end
-
-      def fmt_annotation_end_parse(node, out)
-        children_parse(node, out)
       end
     end
   end

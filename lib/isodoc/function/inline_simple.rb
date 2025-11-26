@@ -98,6 +98,31 @@ module IsoDoc
       def semx_sourcecode_parse(node, out); end
       def annotation_note_parse(node, out); end
       def semx_source_parse(node, out); end
+
+     def fmt_concept_parse(node, out)
+        children_parse(node, out)
+      end
+
+      def fmt_date_parse(node, out)
+        children_parse(node, out)
+      end
+
+      def fmt_fn_label_parse(node, out)
+        children_parse(node, out)
+      end
+
+      def fmt_footnote_container_parse(node, out)
+        children_parse(node, out)
+      end
+
+      def fmt_annotation_start_parse(node, out)
+        children_parse(node, out)
+      end
+
+      def fmt_annotation_end_parse(node, out)
+        children_parse(node, out)
+      end
+
     end
   end
 end
