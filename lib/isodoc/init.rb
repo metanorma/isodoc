@@ -187,7 +187,7 @@ module IsoDoc
     def omit_docid_prefix(prefix)
       prefix.nil? || prefix.empty? and return true
       %w(ISO IEC IEV ITU W3C BIPM csd metanorma repository metanorma-ordinal
-         title).include? prefix
+         author-date title).include? prefix
     end
 
     def connectives_spans(text)

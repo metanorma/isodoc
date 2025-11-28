@@ -20,10 +20,10 @@ module IsoDoc
     end
 
     def reference_name(ref)
-      ids = bibitem_ref_code(ref)
-      identifiers = render_identifier(ids)
-      reference = docid_l10n(identifiers[:metanorma] || identifiers[:sdo] ||
-                    identifiers[:ordinal] || identifiers[:doi])
+      identifiers = render_identifier(bibitem_ref_code(ref))
+      reference = docid_l10n(identifiers[:content] || identifiers[:metanorma] ||
+                             identifiers[:sdo] || identifiers[:ordinal] ||
+                             identifiers[:doi])
       @xrefs.get[ref["id"]] = { xref: esc(reference) }
     end
 
@@ -164,31 +164,30 @@ module IsoDoc
       datefn = date_note_process(bib)
       ids = bibitem_ref_code(bib)
       idents = render_identifier(ids)
-      ret = if biblio then biblio_ref_entry_code(ordinal, idents, ids,
+      ret = if biblio then biblio_ref_entry_code(ordinal, idents, 
                                                  standard, datefn, bib)
-            else norm_ref_entry_code(ordinal, idents, ids, standard, datefn,
-                                     bib)
+            else norm_ref_entry_code(ordinal, idents, standard, datefn, bib)
             end
       bib.add_first_child("<biblio-tag>#{@i18n.l10n(ret)}</biblio-tag>")
     end
 
-    def norm_ref_entry_code(_ordinal, idents, _ids, _standard, datefn, _bib)
-      ret = (idents[:ordinal] || idents[:metanorma] || idents[:sdo]).to_s
+    def norm_ref_entry_code(_ordinal, ids, _standard, datefn, _bib)
+      ret = (ids[:ordinal] || ids[:content] || ids[:metanorma] || ids[:sdo]).to_s
       ret = esc(ret)
-      (idents[:ordinal] || idents[:metanorma]) && idents[:sdo] and
-        ret += ", #{esc idents[:sdo]}"
+      (ids[:ordinal] || ids[:metanorma]) && ids[:sdo] and
+        ret += ", #{esc ids[:sdo]}"
       ret += datefn
       ret.empty? and return ret
-      idents[:sdo] and ret += ","
+      ids[:sdo] and ret += ","
       ret.sub(",", "").strip.empty? and return ""
       "#{ret} "
     end
 
     # if ids is just a number, only use that ([1] Non-Standard)
     # else, use both ordinal, as prefix, and ids
-    def biblio_ref_entry_code(ordinal, ids, _id, _standard, datefn, _bib)
+    def biblio_ref_entry_code(ordinal, ids, _standard, datefn, _bib)
       # standard and id = nil
-      ret = esc(ids[:ordinal]) || esc(ids[:metanorma]) || "[#{esc ordinal.to_s}]"
+      ret = esc(ids[:ordinal]) || esc(ids[:content]) || esc(ids[:metanorma]) || "[#{esc ordinal.to_s}]"
       if ids[:sdo] && !ids[:sdo].empty?
         ret = prefix_bracketed_ref(ret)
         ret += "#{esc ids[:sdo]}#{datefn}, "
@@ -223,15 +222,16 @@ module IsoDoc
       bib["hidden"] == "true"
     end
 
-    SKIP_DOCID = <<~XPATH.strip.freeze
+    # DOI, ISSN, ISBN cover term
+    SERIAL_NUM_DOCID = <<~XPATH.strip.freeze
       @type = 'DOI' or @type = 'doi' or @type = 'ISSN' or @type = 'issn' or @type = 'ISBN' or @type = 'isbn' or starts-with(@type, 'ISSN.') or starts-with(@type, 'ISBN.') or starts-with(@type, 'issn.') or starts-with(@type, 'isbn.')
     XPATH
 
     def standard?(bib)
       ret = false
       bib.xpath(ns("./docidentifier")).each do |id|
-        id["type"].nil? ||
-          id.at(".//self::*[#{SKIP_DOCID} or @type = 'metanorma']") and next
+        id["type"].nil? || id.at(".//self::*[#{SERIAL_NUM_DOCID} or "\
+          "@type = 'metanorma']") and next
         ret = true
       end
       ret

@@ -321,7 +321,7 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Canon.format_xml(presxml)
   end
 
-    it "renders references with title identifier" do
+    it "renders references with title and author-date identifier" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <bibdata>
@@ -385,7 +385,7 @@ presxml = <<~OUTPUT
                    <semx element="autonum" source="_normative_references">1</semx>
                 </fmt-xref-label>
                 <bibitem id="ISO712" type="standard">
-                   <biblio-tag>[Cereals\\u00a0or\\u00a0cereal\\u00a0products] </biblio-tag>
+                   <biblio-tag>Cereals\\u00a0or\\u00a0cereal\\u00a0products </biblio-tag>
                    <formattedref>
                       International Organization for Standardization.
                       <em>Cereals and cereal products</em>
@@ -441,6 +441,17 @@ OUTPUT
     xml.at("//xmlns:localized-strings").remove
     expect(strip_guid(Canon.format_xml(xml.to_xml)))
       .to be_equivalent_to Canon.format_xml(presxml)
+
+    input.sub!('<docidentifier type="title" primary="true">Cereals or cereal products</docidentifier>',
+               '<docidentifier type="author-date" primary="true">Cereals or cereal products</docidentifier>')
+     xml = Nokogiri::XML(
+      IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true),
+    )
+    xml.at("//xmlns:localized-strings").remove
+    expect(strip_guid(Canon.format_xml(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml
+      .sub('type="title"', 'type="author-date"'))
   end
 
   it "enforces consistent metanorma-ordinal numbering" do
