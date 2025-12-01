@@ -55,6 +55,30 @@ RSpec.describe IsoDoc do
             <abbreviation>ISO</abbreviation>
           </organization>
         </contributor>
+                <contributor>
+          <role type="authorizer"/>
+          <organization>
+            <name>Authorizer1</name>
+          </organization>
+        </contributor>
+                <contributor>
+          <role type="authorizer"/>
+          <organization>
+            <name>Authorizer2</name>
+          </organization>
+        </contributor>
+                <contributor>
+          <role type="enabler"/>
+          <organization>
+            <name>Enabler1</name>
+          </organization>
+        </contributor>
+                <contributor>
+          <role type="enabler"/>
+          <organization>
+            <name>Enabler2</name>
+          </organization>
+        </contributor>
           <contributor>
           <role type="editor"/>
           <person>
@@ -139,6 +163,7 @@ RSpec.describe IsoDoc do
         adapteddate: "2024",
         agency: "ISO",
         announceddate: "2025",
+        authorizer: ["Authorizer1", "Authorizer2"],
         authors: ["Barney Rubble", "Fred Flintstone", "B. B. Rubble"],
         authors_affiliations: {
           "Chief Engineer, Slate Inc., Hermeneutics Unit, Exegesis Subunit, Bedrock" => ["Barney Rubble"], "" => [
@@ -161,6 +186,7 @@ RSpec.describe IsoDoc do
         draftinfo: " (draft 0.4, 2016-05-01)",
         edition: "2",
         edition_display: "second edition",
+        enabler: ["Enabler1", "Enabler2"],
         html: "URL B",
         implementeddate: "XXX",
         isbn: "ISBN 13",

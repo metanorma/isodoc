@@ -53,6 +53,19 @@ module IsoDoc
     def author(xml, _out)
       personal_authors(xml)
       agency(xml)
+      contributor_role(xml, "authorizer")
+      contributor_role(xml, "enabler")
+    end
+
+    def contributor_role(xml, role)
+      ret = xml.xpath(ns("//bibdata/contributor[xmlns:role/@type = " \
+                         "'#{role}']/organization"))
+        .each_with_object([]) do |org, m|
+        name = org.at(ns("./name[@language = '#{@lang}']")) ||
+          org.at(ns("./name"))
+        m << name.text
+      end
+      ret.empty? or set(role.to_sym, ret)
     end
 
     def iso?(org)
