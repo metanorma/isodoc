@@ -164,7 +164,7 @@ module IsoDoc
       datefn = date_note_process(bib)
       ids = bibitem_ref_code(bib)
       idents = render_identifier(ids)
-      ret = if biblio then biblio_ref_entry_code(ordinal, idents, 
+      ret = if biblio then biblio_ref_entry_code(ordinal, idents,
                                                  standard, datefn, bib)
             else norm_ref_entry_code(ordinal, idents, standard, datefn, bib)
             end
@@ -187,7 +187,8 @@ module IsoDoc
     # else, use both ordinal, as prefix, and ids
     def biblio_ref_entry_code(ordinal, ids, _standard, datefn, _bib)
       # standard and id = nil
-      ret = esc(ids[:ordinal]) || esc(ids[:content]) || esc(ids[:metanorma]) || "[#{esc ordinal.to_s}]"
+      ret = esc(ids[:ordinal]) || esc(ids[:content]) || esc(ids[:metanorma]) ||
+        "[#{esc ordinal.to_s}]"
       if ids[:sdo] && !ids[:sdo].empty?
         ret = prefix_bracketed_ref(ret)
         ret += "#{esc ids[:sdo]}#{datefn}, "
