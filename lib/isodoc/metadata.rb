@@ -113,7 +113,7 @@ module IsoDoc
     def draftinfo(draft, revdate)
       return "" unless draft
 
-      draftinfo = " (<esc>#{@labels['draft_label']}</esc> #{draft}"
+      draftinfo = " (#{@labels['draft_label']} <esc>#{draft}</esc>"
       draftinfo += ", #{revdate}" if revdate
       draftinfo += ")"
       l10n(draftinfo, @lang, @script)
