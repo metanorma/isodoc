@@ -114,6 +114,20 @@ RSpec.describe IsoDoc do
              })
   end
 
+  it "test pdf portfolio options" do
+    convert = IsoDoc::XslfoPdfConvert.new(
+      {
+        pdfportfolio: true,
+      },
+    )
+
+    expect(convert.pdf_options(nil, nil))
+      .to eq({
+               "--pdf-portfolio" => true,
+               :"--syntax-highlight" => nil,
+             })
+  end
+
   it "passes on XSLT stylesheet" do
     stylesheet_mock("spec/assets/xsl.pdf")
     convert_mock(Pathname.new(File.join(File.dirname(__FILE__), "..", "..",

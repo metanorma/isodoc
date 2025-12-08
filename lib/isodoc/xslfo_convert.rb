@@ -15,6 +15,7 @@ module IsoDoc
                        pdfallowprinthq: "--allow-print-hq",
                        pdfstylesheet: "--xsl-file",
                        pdfstylesheet_override: "--xsl-file-override",
+                       pdfportfolio: "--pdf-portfolio",
                        pdfencryptmetadata: "--encrypt-metadata" }.freeze
     MN2PDF_DEFAULT_ARGS = { "--syntax-highlight": nil }.freeze
 
