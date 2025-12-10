@@ -148,6 +148,12 @@ module IsoDoc
       m1.replace("<modification>#{to_xml(new_m1)}</modification>")
     end
 
+    def esc_origin(element)
+      element.xpath(ns(".//origin")).each do |origin|
+        origin.wrap("<esc></esc>")
+      end
+    end
+
     # concatenate sources. localise the concatenation, escaping the docids
     # within the concatenands
     # from punctuation localisation: l10n(<esc>A</esc>, <esc>B</esc>)
@@ -158,11 +164,7 @@ module IsoDoc
       while elem.next_element&.name == "source"
         ret << semx_fmt_dup(elem.next_element.remove)
       end
-      ret.each do |element|
-        element.xpath(ns(".//origin")).each do |origin|
-          origin.wrap("<esc></esc>")
-        end
-      end
+      ret.each { |element| esc_origin(element) }
       s = ret.map { |x| to_xml(x) }.map(&:strip)
         .join(termsource_join_delim(elem))
       termsource_label(elem, @i18n.l10n(s))

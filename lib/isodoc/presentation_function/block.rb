@@ -190,11 +190,10 @@ module IsoDoc
     end
 
     def source1(elem, ancestor)
+      esc_origin(elem)
       source_elems = source1_gather(elem)
       source_elems.each do |e|
-        e.xpath(ns(".//origin")).each do |origin|
-          origin.wrap("<esc></esc>")
-        end
+        esc_origin(e)
         elem << "#{source_join_delim(elem)}#{to_xml(e.remove.children).strip}"
       end
       source1_label(elem, @i18n.l10n(to_xml(elem.children).strip), ancestor)
