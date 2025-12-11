@@ -84,6 +84,7 @@ and: 和
 no_identifier: （无标识符）
 all_parts: 所有部分
 edition_ordinal: "第{{ var1 | ordinal_word: '', '' }}版"
+edition_cardinal: "第{{ var1 }}版"
 edition: 版
 version: 版本
 toc_figures: 数字列表

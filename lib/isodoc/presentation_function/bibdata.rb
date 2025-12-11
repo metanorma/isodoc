@@ -63,10 +63,20 @@ module IsoDoc
     # to be mixed
     def edition_translate(bibdata)
       x = bibdata.at(ns("./edition")) or return
+      if @i18n.edition_ordinal && num = edition_integer?(bibdata)
+        tag_translate(x, @lang, @i18n
+          .populate("edition_ordinal", { "var1" => num }))
+      elsif @i18n.edition_cardinal
+        tag_translate(x, @lang, @i18n
+          .populate("edition_cardinal", { "var1" => x.text }))
+      end
+    end
+
+    def edition_integer?(bibdata)
+      x = bibdata.at(ns("./edition[not(@language) or @language = '']"))
+      x or return
       /^\d+$/.match?(x.text) or return
-      @i18n.edition_ordinal or return
-      tag_translate(x, @lang, @i18n
-        .populate("edition_ordinal", { "var1" => x.text.to_i }))
+      x.text.to_i
     end
 
     def tag_translate(tag, lang, value)

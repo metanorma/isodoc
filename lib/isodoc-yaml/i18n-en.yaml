@@ -95,6 +95,7 @@ source: SOURCE
 and: and
 all_parts: All Parts
 edition_ordinal: "{{ var1 | ordinal_word: '', '' }} edition"
+edition_cardinal: "edition {{ var1 }}"
 edition: edition
 version: version
 toc_figures: List of figures

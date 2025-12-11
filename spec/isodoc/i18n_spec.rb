@@ -1,84 +1,99 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
+  let(:input) { <<~INPUT }
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <bibdata>
+    <language>LANGUAGE</language>
+          <script>SCRIPT</script>
+                <status>
+          <stage>published</stage>
+          <substage>withdrawn</substage>
+          </status>
+          <edition>2</edition>
+          <ext>
+          <doctype>brochure</doctype>
+          </ext>
+    </bibdata>
+    <preface>
+    <foreword obligation="informative">
+       <title>Foreword</title>
+       <p id="A">See <xref target="M"/></p>
+             <p id="A">See <xref target="tab"/></p>
+             <table id="tab"/>
+     </foreword>
+      <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
+       <title>Introduction Subsection</title>
+     </clause>
+     </introduction></preface><sections>
+     <clause id="D" obligation="normative" type="scope">
+       <title>Scope</title>
+       <p id="E"><eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality></eref></p>
+     </clause>
+
+     <clause id="H" obligation="normative"><title>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
+       <title>Normal Terms</title>
+       <term id="J">
+       <preferred><expression><name>Term2</name></expression></preferred>
+     </term>
+     </terms>
+     <definitions id="K">
+       <dl>
+       <dt>Symbol</dt>
+       <dd>Definition</dd>
+       </dl>
+     </definitions>
+     </clause>
+     <definitions id="L">
+       <dl>
+       <dt>Symbol</dt>
+       <dd>Definition</dd>
+       </dl>
+     </definitions>
+     <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+       <title>Introduction</title>
+       <note id="M-n1"/>
+     </clause>
+     <clause id="O" inline-header="false" obligation="normative">
+       <title>Clause 4.2</title>
+     </clause></clause>
+
+     </sections><annex id="P" inline-header="false" obligation="normative">
+       <title>Annex</title>
+       <clause id="Q" inline-header="false" obligation="normative">
+       <title>Annex A.1</title>
+       <clause id="Q1" inline-header="false" obligation="normative">
+       <title>Annex A.1a</title>
+       </clause>
+     </clause>
+     </annex><bibliography><references id="R" obligation="informative" normative="true">
+       <title>Normative References</title>
+                      <bibitem id="ISO712" type="standard">
+      <title format="text/plain">Cereals and cereal products</title>
+      <docidentifier>ISO 712</docidentifier>
+      <contributor>
+        <role type="publisher"/>
+        <organization>
+          <abbreviation>ISO</abbreviation>
+        </organization>
+      </contributor>
+    </bibitem>
+     </references><clause id="S" obligation="informative">
+       <title>Bibliography</title>
+       <references id="T" obligation="informative" normative="false">
+       <title>Bibliography Subsection</title>
+     </references>
+     </clause>
+     </bibliography>
+     </iso-standard>
+  INPUT
+
   it "processes English" do
-    input = <<~INPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <bibdata>
-      <language>en</language>
-                  <status>
-            <stage>published</stage>
-            <substage>withdrawn</substage>
-            </status>
-            <edition>2</edition>
-            <ext>
-            <doctype>brochure</doctype>
-            </ext>
-      </bibdata>
-      <preface>
-      <foreword obligation="informative">
-         <title>Foreword</title>
-         <p id="A">See <xref target="M"/></p>
-       </foreword>
-        <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
-         <title>Introduction Subsection</title>
-       </clause>
-       </introduction></preface><sections>
-       <clause id="D" obligation="normative" type="scope">
-         <title>Scope</title>
-         <p id="E">Text</p>
-       </clause>
-
-       <clause id="H" obligation="normative"><title>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
-         <title>Normal Terms</title>
-         <term id="J">
-         <preferred><expression><name>Term2</name></expression></preferred>
-       </term>
-       </terms>
-       <definitions id="K">
-         <dl>
-         <dt>Symbol</dt>
-         <dd>Definition</dd>
-         </dl>
-       </definitions>
-       </clause>
-       <definitions id="L">
-         <dl>
-         <dt>Symbol</dt>
-         <dd>Definition</dd>
-         </dl>
-       </definitions>
-       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
-         <title>Introduction</title>
-       </clause>
-       <clause id="O" inline-header="false" obligation="normative">
-         <title>Clause 4.2</title>
-       </clause></clause>
-
-       </sections><annex id="P" inline-header="false" obligation="normative">
-         <title>Annex</title>
-         <clause id="Q" inline-header="false" obligation="normative">
-         <title>Annex A.1</title>
-         <clause id="Q1" inline-header="false" obligation="normative">
-         <title>Annex A.1a</title>
-         </clause>
-       </clause>
-       </annex><bibliography><references id="R" obligation="informative" normative="true">
-         <title>Normative References</title>
-       </references><clause id="S" obligation="informative">
-         <title>Bibliography</title>
-         <references id="T" obligation="informative" normative="false">
-         <title>Bibliography Subsection</title>
-       </references>
-       </clause>
-       </bibliography>
-       </iso-standard>
-    INPUT
-
     presxml = <<~PRESXML
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <bibdata>
             <language current="true">en</language>
+            <script current="true">Latn</script>
             <status>
                <stage>published</stage>
                <substage>withdrawn</substage>
@@ -108,6 +123,28 @@ RSpec.describe IsoDoc do
              </fmt-xref>
           </semx>
                </p>
+            <p id="A">
+            See
+            <xref target="tab" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref target="tab">
+                  <span class="fmt-element-name">Table</span>
+                  <semx element="autonum" source="tab">1</semx>
+               </fmt-xref>
+            </semx>
+         </p>
+         <table id="tab" autonum="1">
+            <fmt-name id="_">
+               <span class="fmt-caption-label">
+                  <span class="fmt-element-name">Table</span>
+                  <semx element="autonum" source="tab">1</semx>
+               </span>
+            </fmt-name>
+            <fmt-xref-label>
+               <span class="fmt-element-name">Table</span>
+               <semx element="autonum" source="tab">1</semx>
+            </fmt-xref-label>
+         </table>
             </foreword>
             <introduction id="B" obligation="informative" displayorder="3">
                <title id="_">Introduction</title>
@@ -139,7 +176,17 @@ RSpec.describe IsoDoc do
                   <span class="fmt-element-name">Clause</span>
                   <semx element="autonum" source="D">1</semx>
                </fmt-xref-label>
-               <p id="E">Text</p>
+                        <p id="E">
+            <eref type="inline" bibitemid="ISO712" id="_">
+               <locality type="table">
+                  <referenceFrom>1</referenceFrom>
+                  <referenceTo>1</referenceTo>
+               </locality>
+            </eref>
+            <semx element="eref" source="_">
+               <fmt-xref type="inline" target="ISO712">ISO\\u00a0712,  Table 1–1</fmt-xref>
+            </semx>
+         </p>
             </clause>
             <clause id="H" obligation="normative" displayorder="6">
                <title id="_">Terms, definitions, symbols and abbreviated terms</title>
@@ -293,6 +340,29 @@ RSpec.describe IsoDoc do
                      <span class="fmt-autonum-delim">.</span>
                      <semx element="autonum" source="N">1</semx>
                   </fmt-xref-label>
+            <note id="M-n1" autonum="">
+               <fmt-name id="_">
+                  <span class="fmt-caption-label">
+                     <span class="fmt-element-name">NOTE</span>
+                  </span>
+                  <span class="fmt-label-delim">
+                     <tab/>
+                  </span>
+               </fmt-name>
+               <fmt-xref-label>
+                  <span class="fmt-element-name">Note</span>
+               </fmt-xref-label>
+               <fmt-xref-label container="N">
+                  <span class="fmt-xref-container">
+                     <span class="fmt-element-name">Clause</span>
+                     <semx element="autonum" source="M">5</semx>
+                     <span class="fmt-autonum-delim">.</span>
+                     <semx element="autonum" source="N">1</semx>
+                  </span>
+                  <span class="fmt-comma">,</span>
+                  <span class="fmt-element-name">Note</span>
+               </fmt-xref-label>
+            </note>
                </clause>
                <clause id="O" inline-header="false" obligation="normative">
                   <title id="_">Clause 4.2</title>
@@ -332,6 +402,22 @@ RSpec.describe IsoDoc do
                   <span class="fmt-element-name">Clause</span>
                   <semx element="autonum" source="R">2</semx>
                </fmt-xref-label>
+                        <bibitem id="ISO712" type="standard">
+            <biblio-tag>ISO\\u00a0712, </biblio-tag>
+            <formattedref>
+               <em>Cereals and cereal products</em>
+               .
+            </formattedref>
+            <title format="text/plain">Cereals and cereal products</title>
+            <docidentifier>ISO\\u00a0712</docidentifier>
+            <docidentifier scope="biblio-tag">ISO\\u00a0712</docidentifier>
+            <contributor>
+               <role type="publisher"/>
+               <organization>
+                  <abbreviation>ISO</abbreviation>
+               </organization>
+            </contributor>
+         </bibitem>
             </references>
          </sections>
          <annex id="P" inline-header="false" obligation="normative" autonum="A" displayorder="9">
@@ -432,6 +518,12 @@ RSpec.describe IsoDoc do
         See
         <a href='#M'>Clause 5</a>
       </p>
+            <p id="A">
+               See
+               <a href="#tab">Table 1</a>
+            </p>
+            <p class="TableTitle" style="text-align:center;">Table 1</p>
+            <table id="tab" class="MsoISOTable" style="border-width:1px;border-spacing:0;"/>
                      </div>
                      <br/>
                      <div class="Section3" id="B">
@@ -442,10 +534,17 @@ RSpec.describe IsoDoc do
                      </div>
                      <div id="D">
                        <h1>1.\\u00a0 Scope</h1>
-                       <p id="E">Text</p>
+                                   <p id="E">
+               <a href="#ISO712">ISO\\u00a0712,  Table 1–1</a>
+            </p>
                      </div>
                      <div>
                        <h1>2.\\u00a0 Normative References</h1>
+                                  <p id="ISO712" class="NormRef">
+              ISO\\u00a0712,
+              <i>Cereals and cereal products</i>
+              .
+           </p>
                      </div>
                      <div id="H"><h1>3.\\u00a0 Terms, definitions, symbols and abbreviated terms</h1>
              <div id="I">
@@ -472,6 +571,11 @@ RSpec.describe IsoDoc do
                        <h1>5.\\u00a0 Clause 4</h1>
                        <div id="N">
                 <h2>5.1.\\u00a0 Introduction</h2>
+                               <div id="M-n1" class="Note">
+                  <p>
+                     <span class="note_label">NOTE\\u00a0 </span>
+                  </p>
+               </div>
               </div>
                        <div id="O">
                 <h2>5.2.\\u00a0 Clause 4.2</h2>
@@ -500,7 +604,7 @@ RSpec.describe IsoDoc do
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true)
+      .convert("test", input.sub("LANGUAGE", "en").sub("SCRIPT", "Latn"), true)
     expect(strip_guid(Canon.format_xml(pres_output
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
       .to be_equivalent_to Canon.format_xml(presxml)
@@ -575,83 +679,11 @@ RSpec.describe IsoDoc do
   end
 
   it "processes French" do
-    input = <<~INPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <bibdata>
-      <language>fr</language>
-                  <status>
-            <stage>published</stage>
-            <substage>withdrawn</substage>
-            </status>
-            <edition>2</edition>
-            <ext>
-            <doctype>brochure</doctype>
-            </ext>
-      </bibdata>
-      <preface>
-      <foreword obligation="informative">
-         <title>Foreword</title>
-         <p id="A">See <xref target="M"/></p>
-       </foreword>
-        <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
-         <title>Introduction Subsection</title>
-       </clause>
-       </introduction></preface><sections>
-       <clause id="D" obligation="normative" type="scope">
-         <title>Scope</title>
-         <p id="E">Text</p>
-       </clause>
-
-       <clause id="H" obligation="normative"><title>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
-         <title>Normal Terms</title>
-         <term id="J">
-         <preferred><expression><name>Term2</name></expression></preferred>
-       </term>
-       </terms>
-       <definitions id="K">
-         <dl>
-         <dt>Symbol</dt>
-         <dd>Definition</dd>
-         </dl>
-       </definitions>
-       </clause>
-       <definitions id="L">
-         <dl>
-         <dt>Symbol</dt>
-         <dd>Definition</dd>
-         </dl>
-       </definitions>
-       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
-         <title>Introduction</title>
-       </clause>
-       <clause id="O" inline-header="false" obligation="normative">
-         <title>Clause 4.2</title>
-       </clause></clause>
-
-       </sections><annex id="P" inline-header="false" obligation="normative">
-         <title>Annex</title>
-         <clause id="Q" inline-header="false" obligation="normative">
-         <title>Annex A.1</title>
-         <clause id="Q1" inline-header="false" obligation="normative">
-         <title>Annex A.1a</title>
-         </clause>
-       </clause>
-       </annex><bibliography><references id="R" obligation="informative" normative="true">
-         <title>Normative References</title>
-       </references><clause id="S" obligation="informative">
-         <title>Bibliographie</title>
-         <references id="T" obligation="informative" normative="false">
-         <title>Bibliography Subsection</title>
-       </references>
-       </clause>
-       </bibliography>
-       </iso-standard>
-    INPUT
-
     presxml = <<~PRESXML
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <bibdata>
             <language current="true">fr</language>
+            <script current="true">Latn</script>
             <status>
                <stage>published</stage>
                <substage>withdrawn</substage>
@@ -681,6 +713,28 @@ RSpec.describe IsoDoc do
              </fmt-xref>
           </semx>
                </p>
+            <p id="A">
+            See
+            <xref target="tab" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref target="tab">
+                  <span class="fmt-element-name">Tableau</span>
+                  <semx element="autonum" source="tab">1</semx>
+               </fmt-xref>
+            </semx>
+         </p>
+         <table id="tab" autonum="1">
+            <fmt-name id="_">
+               <span class="fmt-caption-label">
+                  <span class="fmt-element-name">Tableau</span>
+                  <semx element="autonum" source="tab">1</semx>
+               </span>
+            </fmt-name>
+            <fmt-xref-label>
+               <span class="fmt-element-name">Tableau</span>
+               <semx element="autonum" source="tab">1</semx>
+            </fmt-xref-label>
+         </table>
             </foreword>
             <introduction id="B" obligation="informative" displayorder="3">
                <title id="_">Introduction</title>
@@ -712,7 +766,17 @@ RSpec.describe IsoDoc do
                   <span class="fmt-element-name">Article</span>
                   <semx element="autonum" source="D">1</semx>
                </fmt-xref-label>
-               <p id="E">Text</p>
+                        <p id="E">
+            <eref type="inline" bibitemid="ISO712" id="_">
+               <locality type="table">
+                  <referenceFrom>1</referenceFrom>
+                  <referenceTo>1</referenceTo>
+               </locality>
+            </eref>
+            <semx element="eref" source="_">
+               <fmt-xref type="inline" target="ISO712">ISO\\u00a0712,  Tableau 1–1</fmt-xref>
+            </semx>
+         </p>
             </clause>
             <clause id="H" obligation="normative" displayorder="6">
                <title id="_">Terms, definitions, symbols and abbreviated terms</title>
@@ -866,6 +930,29 @@ RSpec.describe IsoDoc do
                      <span class="fmt-autonum-delim">.</span>
                      <semx element="autonum" source="N">1</semx>
                   </fmt-xref-label>
+            <note id="M-n1" autonum="">
+               <fmt-name id="_">
+                  <span class="fmt-caption-label">
+                     <span class="fmt-element-name">NOTE</span>
+                  </span>
+                  <span class="fmt-label-delim">
+                     <tab/>
+                  </span>
+               </fmt-name>
+               <fmt-xref-label>
+                  <span class="fmt-element-name">Note</span>
+               </fmt-xref-label>
+               <fmt-xref-label container="N">
+                  <span class="fmt-xref-container">
+                     <span class="fmt-element-name">Article</span>
+                     <semx element="autonum" source="M">5</semx>
+                     <span class="fmt-autonum-delim">.</span>
+                     <semx element="autonum" source="N">1</semx>
+                  </span>
+                  <span class="fmt-comma">,</span>
+                  <span class="fmt-element-name">Note</span>
+               </fmt-xref-label>
+            </note>
                </clause>
                <clause id="O" inline-header="false" obligation="normative">
                   <title id="_">Clause 4.2</title>
@@ -905,6 +992,22 @@ RSpec.describe IsoDoc do
                   <span class="fmt-element-name">Article</span>
                   <semx element="autonum" source="R">2</semx>
                </fmt-xref-label>
+                        <bibitem id="ISO712" type="standard">
+            <biblio-tag>ISO\\u00a0712, </biblio-tag>
+            <formattedref>
+               <em>Cereals and cereal products</em>
+               .
+            </formattedref>
+            <title format="text/plain">Cereals and cereal products</title>
+            <docidentifier>ISO\\u00a0712</docidentifier>
+            <docidentifier scope="biblio-tag">ISO\\u00a0712</docidentifier>
+            <contributor>
+               <role type="publisher"/>
+               <organization>
+                  <abbreviation>ISO</abbreviation>
+               </organization>
+            </contributor>
+         </bibitem>
             </references>
          </sections>
          <annex id="P" inline-header="false" obligation="normative" autonum="A" displayorder="9">
@@ -981,9 +1084,9 @@ RSpec.describe IsoDoc do
          </annex>
          <bibliography>
             <clause id="S" obligation="informative" displayorder="10">
-               <title id="_">Bibliographie</title>
+               <title id="_">Bibliography</title>
                <fmt-title id="_" depth="1">
-                  <semx element="title" source="_">Bibliographie</semx>
+                  <semx element="title" source="_">Bibliography</semx>
                </fmt-title>
                <references id="T" obligation="informative" normative="false">
                   <title id="_">Bibliography Subsection</title>
@@ -1005,6 +1108,12 @@ RSpec.describe IsoDoc do
         See
         <a href='#M'>Article 5</a>
       </p>
+                  <p id="A">
+               See
+               <a href="#tab">Tableau 1</a>
+            </p>
+            <p class="TableTitle" style="text-align:center;">Tableau 1</p>
+            <table id="tab" class="MsoISOTable" style="border-width:1px;border-spacing:0;"/>
                      </div>
                      <br/>
                      <div class="Section3" id="B">
@@ -1015,10 +1124,17 @@ RSpec.describe IsoDoc do
                      </div>
                      <div id="D">
                        <h1>1.\\u00a0 Scope</h1>
-                       <p id="E">Text</p>
+                                   <p id="E">
+               <a href="#ISO712">ISO\\u00a0712,  Tableau 1–1</a>
+            </p>
                      </div>
                      <div>
                        <h1>2.\\u00a0 Normative References</h1>
+            <p id="ISO712" class="NormRef">
+               ISO\\u00a0712,
+               <i>Cereals and cereal products</i>
+               .
+            </p>
                      </div>
                      <div id="H"><h1>3.\\u00a0 Terms, definitions, symbols and abbreviated terms</h1>
              <div id="I">
@@ -1045,6 +1161,11 @@ RSpec.describe IsoDoc do
                        <h1>5.\\u00a0 Clause 4</h1>
                        <div id="N">
                 <h2>5.1.\\u00a0 Introduction</h2>
+                               <div id="M-n1" class="Note">
+                  <p>
+                     <span class="note_label">NOTE\\u00a0 </span>
+                  </p>
+               </div>
               </div>
                        <div id="O">
                 <h2>5.2.\\u00a0 Clause 4.2</h2>
@@ -1062,7 +1183,7 @@ RSpec.describe IsoDoc do
                      </div>
                      <br/>
                      <div>
-                       <h1 class="Section3">Bibliographie</h1>
+                       <h1 class="Section3">Bibliography</h1>
                        <div>
                          <h2 class="Section3">Bibliography Subsection</h2>
                        </div>
@@ -1073,7 +1194,7 @@ RSpec.describe IsoDoc do
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true)
+      .convert("test", input.sub("LANGUAGE", "fr").sub("SCRIPT", "Latn"), true)
     expect(strip_guid(Canon.format_xml(pres_output
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
       .to be_equivalent_to Canon.format_xml(presxml)
@@ -1083,88 +1204,6 @@ RSpec.describe IsoDoc do
   end
 
   it "processes Simplified Chinese" do
-    input = <<~INPUT
-            <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <bibdata>
-            <language>zh</language>
-            <script>Hans</script>
-                        <status>
-            <stage>published</stage>
-            <substage>withdrawn</substage>
-            </status>
-            <edition>2</edition>
-            <ext>
-            <doctype>brochure</doctype>
-            </ext>
-            </bibdata>
-            <preface>
-            <foreword obligation="informative">
-               <title>Foreword</title>
-               <p id="A">See <xref target="M"/></p>
-             </foreword>
-              <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
-               <title>Introduction Subsection</title>
-             </clause>
-             </introduction></preface><sections>
-             <clause id="D" obligation="normative" type="scope">
-               <title>Scope</title>
-               <p id="E"><eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality></eref></p>
-             </clause>
-             <clause id="H" obligation="normative"><title>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
-               <title>Normal Terms</title>
-               <term id="J">
-               <preferred><expression><name>Term2</name></expression></preferred>
-             </term>
-             </terms>
-             <definitions id="K">
-               <dl>
-               <dt>Symbol</dt>
-               <dd>Definition</dd>
-               </dl>
-             </definitions>
-             </clause>
-             <definitions id="L">
-               <dl>
-               <dt>Symbol</dt>
-               <dd>Definition</dd>
-               </dl>
-             </definitions>
-             <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
-               <title>Introduction</title>
-             </clause>
-             <clause id="O" inline-header="false" obligation="normative">
-               <title>Clause 4.2</title>
-             </clause></clause>
-             </sections><annex id="P" inline-header="false" obligation="normative">
-               <title>Annex</title>
-               <clause id="Q" inline-header="false" obligation="normative">
-               <title>Annex A.1</title>
-               <clause id="Q1" inline-header="false" obligation="normative">
-               <title>Annex A.1a</title>
-               </clause>
-             </clause>
-             </annex><bibliography><references id="R" obligation="informative" normative="true">
-               <title>Normative References</title>
-               <bibitem id="ISO712" type="standard">
-        <title format="text/plain">Cereals and cereal products</title>
-        <docidentifier>ISO 712</docidentifier>
-        <contributor>
-          <role type="publisher"/>
-          <organization>
-            <abbreviation>ISO</abbreviation>
-          </organization>
-        </contributor>
-      </bibitem>
-             </references><clause id="S" obligation="informative">
-               <title>Bibliography</title>
-               <references id="T" obligation="informative" normative="false">
-               <title>Bibliography Subsection</title>
-             </references>
-             </clause>
-             </bibliography>
-             </iso-standard>
-    INPUT
-
     presxml = <<~PRESXML
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <bibdata>
@@ -1199,6 +1238,28 @@ RSpec.describe IsoDoc do
                       </fmt-xref>
                    </semx>
                 </p>
+             <p id="A">
+            See
+            <xref target="tab" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref target="tab">
+                  <span class="fmt-element-name">表</span>
+                  <semx element="autonum" source="tab">1</semx>
+               </fmt-xref>
+            </semx>
+         </p>
+         <table id="tab" autonum="1">
+            <fmt-name id="_">
+               <span class="fmt-caption-label">
+                  <span class="fmt-element-name">表</span>
+                  <semx element="autonum" source="tab">1</semx>
+               </span>
+            </fmt-name>
+            <fmt-xref-label>
+               <span class="fmt-element-name">表</span>
+               <semx element="autonum" source="tab">1</semx>
+            </fmt-xref-label>
+         </table>
              </foreword>
              <introduction id="B" obligation="informative" displayorder="3">
                 <title id="_">Introduction</title>
@@ -1394,6 +1455,29 @@ RSpec.describe IsoDoc do
                       <span class="fmt-autonum-delim">.</span>
                       <semx element="autonum" source="N">1</semx>
                    </fmt-xref-label>
+           <note id="M-n1" autonum="">
+              <fmt-name id="_">
+                 <span class="fmt-caption-label">
+                    <span class="fmt-element-name">注</span>
+                 </span>
+                 <span class="fmt-label-delim">
+                    <tab/>
+                 </span>
+              </fmt-name>
+              <fmt-xref-label>
+                 <span class="fmt-element-name">注</span>
+              </fmt-xref-label>
+              <fmt-xref-label container="N">
+                 <span class="fmt-xref-container">
+                    <span class="fmt-element-name">条</span>
+                    <semx element="autonum" source="M">5</semx>
+                    <span class="fmt-autonum-delim">.</span>
+                    <semx element="autonum" source="N">1</semx>
+                 </span>
+                 <span class="fmt-comma">，</span>
+                 <span class="fmt-element-name">注</span>
+              </fmt-xref-label>
+           </note>
                 </clause>
                 <clause id="O" inline-header="false" obligation="normative">
                    <title id="_">Clause 4.2</title>
@@ -1546,6 +1630,12 @@ RSpec.describe IsoDoc do
              <div id="_">
                <h1 class="ForewordTitle">Foreword</h1>
                <p id="A">See <a href="#M">条5</a></p>
+            <p id="A">
+               See
+               <a href="#tab">表1</a>
+            </p>
+            <p class="TableTitle" style="text-align:center;">表1</p>
+            <table id="tab" class="MsoISOTable" style="border-width:1px;border-spacing:0;"/>
              </div>
              <br/>
              <div class="Section3" id="B">
@@ -1592,7 +1682,11 @@ RSpec.describe IsoDoc do
              <div id="M">
                <h1>5.\\u3000Clause 4</h1>
                <div id="N"><h2>5.1.\\u3000Introduction</h2>
-
+               <div id="M-n1" class="Note">
+                  <p>
+                     <span class="note_label">注\\u3000</span>
+                  </p>
+               </div>
               </div>
                <div id="O"><h2>5.2.\\u3000Clause 4.2</h2>
 
@@ -1628,7 +1722,7 @@ RSpec.describe IsoDoc do
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true)
+      .convert("test", input.sub("LANGUAGE", "zh").sub("SCRIPT", "Hans"), true)
     expect(strip_guid(Canon.format_xml(pres_output
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
       .to be_equivalent_to Canon.format_xml(presxml)
@@ -1639,91 +1733,6 @@ RSpec.describe IsoDoc do
 
   it "processes i18n file" do
     mock_i18n
-    input = <<~INPUT
-            <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <bibdata>
-            <language>eo</language>
-            <script>Latn</script>
-            <status>
-            <stage>published</stage>
-            <substage>withdrawn</substage>
-            </status>
-            <edition>2</edition>
-            <ext>
-            <doctype>brochure</doctype>
-            </ext>
-            </bibdata>
-            <preface>
-            <foreword obligation="informative">
-               <title>Foreword</title>
-               <p id="A">See <xref target="M"/></p>
-               <p id="A">See <xref target="tab"/></p>
-               <table id="tab"/>
-             </foreword>
-              <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
-               <title>Introduction Subsection</title>
-             </clause>
-             </introduction></preface><sections>
-             <clause id="D" obligation="normative" type="scope">
-               <title>Scope</title>
-               <p id="E"><eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality></eref></p>
-             </clause>
-             <clause id="H" obligation="normative"><title>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
-               <title>Normal Terms</title>
-               <term id="J">
-               <preferred><expression><name>Term2</name></expression></preferred>
-             </term>
-             </terms>
-             <definitions id="K">
-               <dl>
-               <dt>Symbol</dt>
-               <dd>Definition</dd>
-               </dl>
-             </definitions>
-             </clause>
-             <definitions id="L">
-               <dl>
-               <dt>Symbol</dt>
-               <dd>Definition</dd>
-               </dl>
-             </definitions>
-             <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
-               <title>Introduction</title>
-               <note id="M-n1"/>
-             </clause>
-             <clause id="O" inline-header="false" obligation="normative">
-               <title>Clause 4.2</title>
-             </clause></clause>
-             </sections><annex id="P" inline-header="false" obligation="normative">
-               <title>Annex</title>
-               <clause id="Q" inline-header="false" obligation="normative">
-               <title>Annex A.1</title>
-               <clause id="Q1" inline-header="false" obligation="normative">
-               <title>Annex A.1a</title>
-               </clause>
-             </clause>
-             </annex><bibliography><references id="R" obligation="informative" normative="true">
-               <title>Normative References</title>
-               <bibitem id="ISO712" type="standard">
-        <title format="text/plain">Cereals and cereal products</title>
-        <docidentifier>ISO 712</docidentifier>
-        <contributor>
-          <role type="publisher"/>
-          <organization>
-            <abbreviation>ISO</abbreviation>
-          </organization>
-        </contributor>
-      </bibitem>
-             </references><clause id="S" obligation="informative">
-               <title>Bibliography</title>
-               <references id="T" obligation="informative" normative="false">
-               <title>Bibliography Subsection</title>
-             </references>
-             </clause>
-             </bibliography>
-             </iso-standard>
-    INPUT
-
     presxml = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <bibdata>
@@ -2282,7 +2291,7 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options
       .merge({ i18nyaml: "spec/assets/i18n.yaml" }))
-      .convert("test", input, true)
+      .convert("test", input.sub("LANGUAGE", "eo").sub("SCRIPT", "Latn"), true)
     expect(strip_guid(Canon.format_xml(pres_output
     .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
       .to be_equivalent_to Canon.format_xml(presxml)
@@ -2414,6 +2423,50 @@ RSpec.describe IsoDoc do
       .merge(presxml_options))
       .convert("test", input, true))
       .at("//xmlns:p[@id='A']").to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+  end
+
+  it "internationalises non-numeric edition" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata>
+      <language>LANGUAGE</language>
+      <script>SCRIPT</script>
+      <edition>2.1</edition>
+      </bibdata>
+      </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata>
+            <language current="true">en</language>
+            <script current="true">Latn</script>
+            <edition language="">2.1</edition>
+            <edition language="en">edition 2.1</edition>
+         </bibdata>
+      </iso-standard>
+    OUTPUT
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input.sub("LANGUAGE", "en").sub("SCRIPT", "Latn"), true)
+    expect(strip_guid(Canon.format_xml(pres_output
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    presxml = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata>
+            <language current="true">zh</language>
+            <script current="true">Hans</script>
+            <edition language="">2.1</edition>
+            <edition language="zh">第2.1版</edition>
+         </bibdata>
+      </iso-standard>
+    OUTPUT
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input.sub("LANGUAGE", "zh").sub("SCRIPT", "Hans"), true)
+    expect(strip_guid(Canon.format_xml(pres_output
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
       .to be_equivalent_to Canon.format_xml(presxml)
   end
 
