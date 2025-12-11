@@ -73,7 +73,8 @@ module IsoDoc
     end
 
     def edition_integer?(bibdata)
-      x = bibdata.at(ns("./edition")) or return
+      x = bibdata.at(ns("./edition[not(@language) or @language = '']"))
+      x or return
       /^\d+$/.match?(x.text)
     end
 
