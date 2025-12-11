@@ -75,7 +75,8 @@ module IsoDoc
     def edition_integer?(bibdata)
       x = bibdata.at(ns("./edition[not(@language) or @language = '']"))
       x or return
-      /^\d+$/.match?(x.text)
+      /^\d+$/.match?(x.text) or return
+      x.text.to_i
     end
 
     def tag_translate(tag, lang, value)
