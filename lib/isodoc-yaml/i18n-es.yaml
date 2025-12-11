@@ -93,6 +93,7 @@ and: y
 no_identifier: (SIN IDENTIFICADOR)
 all_parts: Todas las partes
 edition_ordinal: "{{ var1 | ordinal_word: 'edition', '' }} edición"
+edition_cardinal: "edición {{ var1 }}"
 edition: edición
 version: versión
 toc_figures: Table de figuras

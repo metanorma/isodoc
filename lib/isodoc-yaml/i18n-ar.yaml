@@ -83,6 +83,7 @@ no_identifier: (لا يوجد معرف)
 and: و
 all_parts: كل الأجزاء
 edition_ordinal: "ﺎﻠﻄﺒﻋﺓ؜ {{ var1 | ordinal_word: 'edition', '' }}"
+edition_cardinal: "ﺎﻠﻄﺒﻋﺓ؜ {{ var1' }}"
 edition: الطبعة؜ ؜
 version: الإصدار
 toc_figures: جدول الأرقام

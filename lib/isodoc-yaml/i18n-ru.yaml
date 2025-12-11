@@ -157,6 +157,7 @@ and: и
 no_identifier: (БЕЗ ИДЕНТИФИКАТОРА)
 all_parts: Все части
 edition_ordinal: "{{ var1 | ordinal_word: 'edition', '' }} издание"
+edition_cardinal: "издание {{ var1 }}"
 edition: издание
 version: версия
 toc_figures: Таблица фигур
