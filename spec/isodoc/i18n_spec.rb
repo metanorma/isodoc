@@ -1299,7 +1299,7 @@ RSpec.describe IsoDoc do
                       </locality>
                    </eref>
                    <semx element="eref" source="_">
-                      <fmt-xref type="inline" target="ISO712">ISO\\u00a0712，第1〜1表</fmt-xref>
+                   <fmt-xref type="inline" target="ISO712">ISO\\u00a0712，  表1〜1</fmt-xref>
                    </semx>
                 </p>
              </clause>
@@ -1647,7 +1647,7 @@ RSpec.describe IsoDoc do
              <div id="D">
                <h1>1.\\u3000Scope</h1>
                <p id="E">
-                 <a href="#ISO712">ISO\\u00a0712，第1〜1表</a>
+               <a href="#ISO712">ISO\\u00a0712，  表1〜1</a>
                </p>
              </div>
              <div><h1>2.\\u3000Normative References</h1>

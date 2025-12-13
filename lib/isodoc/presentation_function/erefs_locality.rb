@@ -80,6 +80,8 @@ module IsoDoc
       end
     end
 
+    # Suspended, this is an ordinal that GB asked for, not applicable
+    # for non-integers, and not desired for JIS
     def eref_localities1_zh(opt)
       ret = "第#{esc opt[:from]}" if opt[:from]
       ret += "&#x2013;#{esc opt[:upto]}" if opt[:upto]
@@ -90,8 +92,8 @@ module IsoDoc
 
     def eref_localities1(opt)
       opt[:type] == "anchor" and return nil
-      %(zh ja ko).include?(opt[:lang]) and
-        return l10n(eref_localities1_zh(opt))
+      # %(zh ja ko).include?(opt[:lang]) and
+      # return l10n(eref_localities1_zh(opt))
       ret = eref_locality_populate(opt[:type], opt[:node], opt[:number])
       ret += " #{opt[:from]}" if opt[:from]
       ret += "&#x2013;#{opt[:upto]}" if opt[:upto]
