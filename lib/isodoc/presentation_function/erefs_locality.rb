@@ -95,8 +95,8 @@ module IsoDoc
       # %(zh ja ko).include?(opt[:lang]) and
       # return l10n(eref_localities1_zh(opt))
       ret = eref_locality_populate(opt[:type], opt[:node], opt[:number])
-      ret += " #{opt[:from]}" if opt[:from]
-      ret += "&#x2013;#{opt[:upto]}" if opt[:upto]
+      ret += " <esc>#{opt[:from]}</esc>" if opt[:from]
+      ret += "&#x2013;<esc>#{opt[:upto]}</esc>" if opt[:upto]
       l10n(ret)
     end
 
