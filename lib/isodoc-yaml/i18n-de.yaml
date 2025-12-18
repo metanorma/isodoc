@@ -122,6 +122,11 @@ admonition: {
   safety precautions: Sicherheitsvorkehrungen,
   editorial: Redaktioneller Hinweis
 }
+title_prefixes:
+  part: Satz
+  amendment: Änderungsentwurf
+  corrigendum: Berichtigung
+  addendum: Nachtrag
 locality: {
   section: Abschnitt,
   clause: Klausel,

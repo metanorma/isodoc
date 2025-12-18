@@ -120,6 +120,11 @@ admonition: {
   safety precautions: Precauciones de seguridad,
   editorial: Note editorial
 }
+title_prefixes:
+  part: Parte
+  amendment: Nnmienda
+  corrigendum: Corrección
+  addendum: Apéndice
 locality: {
                       section: Sección,
                       clause: Cláusula,

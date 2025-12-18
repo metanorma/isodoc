@@ -111,6 +111,11 @@ admonition: {
   safety precautions: 安全须知,
   editorial: 编辑说明
 }
+title_prefixes:
+  part: 部分
+  amendment: 修正
+  corrigendum: 更正
+  addendum: 附录
 locality: {
   section: 条,
   clause: 条,

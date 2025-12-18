@@ -109,6 +109,11 @@ admonition:
   important: مهم
   safety precautions: احتياطات السلامة
   editorial: ملاحظة تحريرية
+title_prefixes:
+  part: الجملة
+  amendment: مسودة التعديل
+  corrigendum: التصحيح
+  addendum: الملحق
 locality:
   section: قسم
   clause: فقرة

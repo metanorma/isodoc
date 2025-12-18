@@ -122,6 +122,11 @@ admonition: {
   safety precautions: 安全上の注意,
   editorial: 編集者注
 }
+title_prefixes:
+  part: その
+  amendment: Amendment
+  corrigendum: Corrigendum
+  addendum: Addendum
 locality: {
                       section: セクション,
                       clause: 箇条,

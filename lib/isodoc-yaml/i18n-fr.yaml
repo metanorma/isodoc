@@ -118,6 +118,11 @@ admonition: {
   safety precautions: Précautions de Sécurité,
   editorial: Note éditoriale
 }
+title_prefixes:
+  part: Partie
+  amendment: Amendement
+  corrigendum: Rectificatif
+  addendum: Additif
 locality: {
                       section: Section,
                       clause: Article,

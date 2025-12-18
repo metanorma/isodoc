@@ -184,6 +184,11 @@ admonition: {
   safety precautions: Меры безопасности,
   editorial: Редакционная Заметка
 }
+title_prefixes:
+  part: Часть
+  amendment: Поправка
+  corrigendum: Исправление
+  addendum: Дополнение
 locality: {
                       section: Раздел,
                       clause: Пункт,
