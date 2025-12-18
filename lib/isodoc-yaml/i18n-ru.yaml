@@ -189,6 +189,9 @@ title_prefixes:
   amendment: Поправка
   corrigendum: Исправление
   addendum: Дополнение
+  supplement: Дополнение
+  annex: Приложение
+  appendix: Приложение
 locality: {
                       section: Раздел,
                       clause: Пункт,

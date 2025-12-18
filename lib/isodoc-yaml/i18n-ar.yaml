@@ -114,6 +114,9 @@ title_prefixes:
   amendment: مسودة التعديل
   corrigendum: التصحيح
   addendum: الملحق
+  supplement: ملحق
+  annex: ملحق
+  appendix: ملحق
 locality:
   section: قسم
   clause: فقرة

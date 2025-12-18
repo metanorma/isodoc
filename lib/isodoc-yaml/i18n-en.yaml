@@ -127,6 +127,9 @@ title_prefixes:
   amendment: Amendment
   corrigendum: Corrigendum
   addendum: Addendum
+  supplement: Supplement
+  annex: Annex
+  appendix: Appendix
 locality: {
                       section: Section,
                       clause: Clause,
