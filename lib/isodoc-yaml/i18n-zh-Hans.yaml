@@ -116,6 +116,9 @@ title_prefixes:
   amendment: 修正
   corrigendum: 更正
   addendum: 附录
+  supplement: 补充文件
+  annex: 附件
+  appendix: 附录
 locality: {
   section: 条,
   clause: 条,

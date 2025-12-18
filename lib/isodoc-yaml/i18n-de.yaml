@@ -127,6 +127,9 @@ title_prefixes:
   amendment: Änderungsentwurf
   corrigendum: Berichtigung
   addendum: Nachtrag
+  supplement: Ergänzung
+  annex: Anhang
+  appendix: Anhang
 locality: {
   section: Abschnitt,
   clause: Klausel,
