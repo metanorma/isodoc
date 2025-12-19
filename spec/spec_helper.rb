@@ -10,27 +10,27 @@ require "tzinfo"
 require "canon"
 require_relative "support/uuid_mock"
 
-# Canon::Config.instance.tap do |cfg|
-#   # Configure Canon to use spec-friendly match profiles
-#   cfg.xml.match.profile = :spec_friendly
-#   cfg.html.match.profile = :spec_friendly
+Canon::Config.instance.tap do |cfg|
+  # Configure Canon to use spec-friendly match profiles
+  cfg.xml.match.profile = :spec_friendly
+  cfg.html.match.profile = :spec_friendly
 
-#   # Configure Canon to show all diffs (including inactive diffs)
-#   cfg.html.diff.show_diffs = :all
-#   cfg.xml.diff.show_diffs = :all
+  # Configure Canon to show all diffs (including inactive diffs)
+  cfg.html.diff.show_diffs = :all
+  cfg.xml.diff.show_diffs = :all
 
-#   # Enable verbose diff output for debugging
-#   cfg.html.diff.verbose_diff = true
-#   cfg.xml.diff.verbose_diff = true
+  # Enable verbose diff output for debugging
+  cfg.html.diff.verbose_diff = true
+  cfg.xml.diff.verbose_diff = true
 
-#   # Use semantic tree diff algorithm for matching decisions
-#   # Can be overridden with Canon's ENV variables:
-#   #   CANON_ALGORITHM=dom bundle exec rspec        (applies to all formats)
-#   #   CANON_HTML_DIFF_ALGORITHM=dom bundle exec rspec  (HTML only)
-#   #   CANON_XML_DIFF_ALGORITHM=dom bundle exec rspec   (XML only)
-#   cfg.html.diff.algorithm = :dom
-#   cfg.xml.diff.algorithm = :dom
-# end
+  # Use semantic tree diff algorithm for matching decisions
+  # Can be overridden with Canon's ENV variables:
+  #   CANON_ALGORITHM=dom bundle exec rspec        (applies to all formats)
+  #   CANON_HTML_DIFF_ALGORITHM=dom bundle exec rspec  (HTML only)
+  #   CANON_XML_DIFF_ALGORITHM=dom bundle exec rspec   (XML only)
+  cfg.html.diff.algorithm = :dom
+  cfg.xml.diff.algorithm = :dom
+end
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
