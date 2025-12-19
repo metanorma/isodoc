@@ -2632,6 +2632,38 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Canon.format_xml(presxml)
   end
 
+  it "inserts localized-strings" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <bibdata type="standard">
+      <language>ja</language>
+      </bibdata>
+      </iso-standard>
+    INPUT
+    xml = Nokogiri(IsoDoc::PresentationXMLConvert
+      .new(presxml_options).convert("test", input, true))
+    expect(xml.at("//xmlns:localized-string[@language = 'ja']")).not_to be nil
+    expect(xml.at("//xmlns:localized-string[@language = 'en']")).to be nil
+    expect(xml.at("//xmlns:localized-string[@language = 'fr']")).to be nil
+    expect(xml.at("//xmlns:localized-string[@language = 'ja'][@key = 'scope']").text).to eq "適用範囲"
+
+       input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <bibdata type="standard">
+        <title language="en">Title</title>
+      <language>ja</language>
+      </bibdata>
+      </iso-standard>
+    INPUT
+    xml = Nokogiri(IsoDoc::PresentationXMLConvert
+      .new(presxml_options).convert("test", input, true))
+    expect(xml.at("//xmlns:localized-string[@language = 'ja']")).not_to be nil
+    expect(xml.at("//xmlns:localized-string[@language = 'en']")).not_to be nil
+    expect(xml.at("//xmlns:localized-string[@language = 'fr']")).to be nil
+    expect(xml.at("//xmlns:localized-string[@language = 'ja'][@key = 'scope']").text).to eq "適用範囲"
+    expect(xml.at("//xmlns:localized-string[@language = 'en'][@key = 'scope']").text).to eq "Scope"
+  end
+
   private
 
   def mock_i18n

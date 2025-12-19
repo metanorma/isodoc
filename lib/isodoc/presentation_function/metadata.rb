@@ -37,10 +37,25 @@ module IsoDoc
     end
 
     def localized_strings(docxml)
-      a = docxml.at(ns("//bibdata")) or return
-      a.next =
-        "<localized-strings>#{i8n_name(trim_hash(@i18n.get), '').join}" \
-        "</localized-strings>"
+      ins, langs, i18n_cache = localized_strings_prep(docxml)
+      ins or return
+      words = langs.each_with_object([]) do |l, m|
+        @i18n = if @lang == l then i18n_cache
+               else i18n_init(l, ::Metanorma::Utils.default_script(l), nil, {})
+               end
+        m << i18n_name(trim_hash(@i18n.get), '', l).join
+      end
+      ins.next = "<localized-strings>#{words.join}</localized-strings>"
+      @i18n = i18n_cache
+    end
+
+    def localized_strings_prep(docxml)
+      ins = docxml.at(ns("//bibdata")) or return
+      langs = docxml.xpath(ns("//bibdata/title/@language")).map(&:to_s)
+     langs << @lang
+     langs.uniq!
+      i18n_cache = @i18n
+      [ins, langs, i18n_cache]
     end
 
     def attachments_extract(docxml)
@@ -109,8 +124,8 @@ module IsoDoc
         "</presentation-metadata>"
     end
 
-    def i18n_tag(key, value)
-      "<localized-string key='#{key}' language='#{@lang}'>#{value}" \
+    def i18n_tag(key, value, lang)
+      "<localized-string key='#{key}' language='#{lang}'>#{value}" \
         "</localized-string>"
     end
 
@@ -118,28 +133,28 @@ module IsoDoc
       key.to_s.gsub(/\s|\./, "_")
     end
 
-    def i8n_name(hash, pref)
+    def i18n_name(hash, pref, lang)
       case hash
-      when Hash then i8n_name1(hash, pref)
+      when Hash then i18n_name1(hash, pref, lang)
       when Array
         hash.reject { |a| blank?(a) }.each_with_object([])
           .with_index do |(v1, g), i|
-            i8n_name(v1, "#{i18n_safe(k)}.#{i}").each { |x| g << x }
+            i18n_name(v1, "#{i18n_safe(k)}.#{i}", lang).each { |x| g << x }
           end
-      else [i18n_tag(pref, hash)]
+      else [i18n_tag(pref, hash, lang)]
       end
     end
 
-    def i8n_name1(hash, pref)
+    def i18n_name1(hash, pref, lang)
       hash.reject { |_k, v| blank?(v) }.each_with_object([]) do |(k, v), g|
         case v
-        when Hash then i8n_name(v, i18n_safe(k)).each { |x| g << x }
+        when Hash then i18n_name(v, i18n_safe(k), lang).each { |x| g << x }
         when Array
           v.reject { |a| blank?(a) }.each_with_index do |v1, i|
-            i8n_name(v1, "#{i18n_safe(k)}.#{i}").each { |x| g << x }
+            i18n_name(v1, "#{i18n_safe(k)}.#{i}", lang).each { |x| g << x }
           end
         else
-          g << i18n_tag("#{pref}#{pref.empty? ? '' : '.'}#{i18n_safe(k)}", v)
+          g << i18n_tag("#{pref}#{pref.empty? ? '' : '.'}#{i18n_safe(k)}", v, lang)
         end
       end
     end
