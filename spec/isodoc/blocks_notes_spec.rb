@@ -526,12 +526,12 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title id="_" depth="1">Table of contents</fmt-title>
              </clause>
-             <foreword id="fwd" semx-id="fwd" displayorder="2">
+             <foreword id="fwd" displayorder="2">
                 <title id="_">Foreword</title>
                 <fmt-title id="_" depth="1">
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
-                <figure id="F" semx-id="F" autonum="1">
+                <figure id="F" autonum="1">
                    <fmt-name id="_">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">Figure</span>
@@ -542,7 +542,7 @@ RSpec.describe IsoDoc do
                       <span class="fmt-element-name">Figure</span>
                       <semx element="autonum" source="F">1</semx>
                    </fmt-xref-label>
-                   <note id="FB" semx-id="FB" autonum="">
+                   <note id="FB" autonum="">
                       <fmt-name id="_">
                          <span class="fmt-caption-label">
                             <span class="fmt-element-name">NOTE</span>
@@ -564,7 +564,7 @@ RSpec.describe IsoDoc do
                       <p>XYZ</p>
                    </note>
                 </figure>
-                <table id="T" semx-id="T" autonum="1">
+                <table id="T" autonum="1">
                    <fmt-name id="_">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">Table</span>
@@ -575,7 +575,7 @@ RSpec.describe IsoDoc do
                       <span class="fmt-element-name">Table</span>
                       <semx element="autonum" source="T">1</semx>
                    </fmt-xref-label>
-                   <note id="TB" semx-id="TB" autonum="">
+                   <note id="TB" autonum="">
                       <fmt-name id="_">
                          <span class="fmt-caption-label">
                             <span class="fmt-element-name">NOTE</span>
@@ -597,9 +597,9 @@ RSpec.describe IsoDoc do
                       <p>XYZ</p>
                    </note>
                 </table>
-                <p id="A" semx-id="A">
+                <p id="A">
                    ABC
-                   <note id="B" semx-id="B" autonum="">
+                   <note id="B" autonum="">
                       <fmt-name id="_">
                          <span class="fmt-caption-label">
                             <span class="fmt-element-name">NOTE</span>
