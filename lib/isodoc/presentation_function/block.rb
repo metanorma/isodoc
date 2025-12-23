@@ -25,7 +25,8 @@ module IsoDoc
 
     def formula1(elem)
       formula_where(elem.at(ns("./dl")))
-      lbl = @xrefs.anchor(elem["id"], :label, false)
+      lbl = @xrefs.anchor(elem["id"], :label, false) ||
+        @xrefs.anchor(elem["original-id"], :label, false)
       lbl.nil? || lbl.empty? or prefix_name(elem, {}, lbl, "name")
     end
 
@@ -41,8 +42,9 @@ module IsoDoc
     end
 
     def example1(elem)
-      n = @xrefs.get[elem["id"]]
-      lbl = labelled_autonum(@i18n.example, elem["id"], n&.dig(:label))
+      n = @xrefs.get[elem["id"]] || @xrefs.get[elem["original-id"]]
+      lbl = labelled_autonum(@i18n.example, elem["id"] || elem["original-id"],
+                             n&.dig(:label))
       prefix_name(elem, { caption: block_delim }, lbl, "name")
     end
 
@@ -61,8 +63,8 @@ module IsoDoc
     end
 
     def note_label(elem)
-      n = @xrefs.get[elem["id"]]
-      labelled_autonum(@i18n.note, elem["id"], n&.dig(:label))
+      n = @xrefs.get[elem["id"]] || @xrefs.get[elem["original-id"]]
+      labelled_autonum(@i18n.note, elem["id"] || elem["original-id"], n&.dig(:label))
     end
 
     def admonition(docxml)
@@ -81,7 +83,7 @@ module IsoDoc
     end
 
     def admonition_numbered1(elem)
-      label = admonition_label(elem, @xrefs.anchor(elem["id"], :label, false))
+      label = admonition_label(elem, @xrefs.anchor(elem["id"] || elem["original-id"], :label, false))
       prefix_name(elem, { caption: block_delim }, label, "name")
     end
 
@@ -89,7 +91,7 @@ module IsoDoc
       lbl = if elem["type"] == "box" then @i18n.box
             else @i18n.admonition[elem["type"]]&.upcase
             end
-      labelled_autonum(lbl, elem["id"], num)
+      labelled_autonum(lbl, elem["id"] || elem["original-id"], num)
     end
 
     def admonition_delim(_elem)
@@ -106,8 +108,8 @@ module IsoDoc
       table_css(elem)
       labelled_ancestor(elem) and return
       elem["unnumbered"] && !elem.at(ns("./name")) and return
-      n = @xrefs.anchor(elem["id"], :label, false)
-      lbl = labelled_autonum(lower2cap(@i18n.table), elem["id"], n)
+      n = @xrefs.anchor(elem["id"] || elem["original-id"], :label, false)
+      lbl = labelled_autonum(lower2cap(@i18n.table), elem["id"] || elem["original-id"], n)
       prefix_name(elem, { caption: table_delim }, lbl, "name")
     end
 

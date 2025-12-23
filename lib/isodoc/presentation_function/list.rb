@@ -50,8 +50,8 @@ module IsoDoc
     end
 
     def ol_label(elem)
-      val = @xrefs.anchor(elem["id"], :label, false)
-      semx = "<semx element='autonum' source='#{elem['id']}'>#{val}</semx>"
+      val = @xrefs.anchor(elem["id"] || elem["original-id"], :label, false)
+      semx = "<semx element='autonum' source='#{elem['id'] || elem["original-id"]}'>#{val}</semx>"
       lbl = "<fmt-name>#{ol_label_format(semx, elem)}</fmt-name>"
       elem.add_first_child(lbl)
     end
@@ -83,7 +83,7 @@ module IsoDoc
 
     def ul_label(elem)
       val = ul_label_value(elem)
-      semx = "<semx element='autonum' source='#{elem['id']}'>#{val}</semx>"
+      semx = "<semx element='autonum' source='#{elem['id'] || elem["original-id"]}'>#{val}</semx>"
       lbl = "<fmt-name>#{semx}</fmt-name>"
       elem.add_first_child(lbl)
     end

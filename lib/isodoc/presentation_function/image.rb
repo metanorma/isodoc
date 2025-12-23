@@ -71,8 +71,8 @@ module IsoDoc
         return sourcecode1(elem)
       figure_fn(elem)
       figure_key(elem.at(ns("./dl")))
-      lbl = @xrefs.anchor(elem["id"], :label, false)
-      lbl and a = autonum(elem["id"], lbl)
+      lbl = @xrefs.anchor(elem["id"] || elem["original-id"], :label, false)
+      lbl and a = autonum(elem["id"] || elem["original-id"], lbl)
       figname = figure_name(elem)
       elem.at("./ancestor::xmlns:figure") && a and
         a += subfigure_delim
