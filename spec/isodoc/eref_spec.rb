@@ -1273,18 +1273,17 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-        <foreword id="_" displayorder="2">
-           <title id="_">Foreword</title>
-           <fmt-title id="_" depth="1">
-              <semx element="title" source="_">Foreword</semx>
-           </fmt-title>
-           <p>
-              <eref type="inline" bibitemid="ISO712" citeas="BSI BS EN ISO 19011:2018\u2009—\u2009TC" id="_"/>
-              <semx element="eref" source="_">
-                 <fmt-xref type="inline" target="ISO712">BSI\u00a0BS\u00a0EN\u00a0ISO\u00a019011:2018\u2009—\u2009TC</fmt-xref>
-              </semx>
-           </p>
-        </foreword>
+      <foreword id="_" displayorder="2">
+          <title id="_">Foreword</title>
+          <fmt-title id="_" depth="1">
+            <semx element="title" source="_">Foreword</semx>
+          </fmt-title>
+          <p>
+            <eref type="inline" bibitemid="ISO712" citeas="BSI BS EN ISO 19011:2018\u2009—\u2009TC" id="_"/>
+            <semx element="eref" source="_">
+                <fmt-xref type="inline" target="ISO712">BSI\u00a0BS\u00a0EN\u00a0ISO\u00a019011:2018\u2009—\u2009TC</fmt-xref>
+            </semx>
+          </p>
       </foreword>
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
