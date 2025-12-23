@@ -66,7 +66,8 @@ def strip_guid(xml)
   uuid_pattern = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"
 
   # Attributes with underscore prefix
-  %w[id target from to source container original-id original-reference name].each do |attr|
+  %w[id target from to source container original-id original-reference
+     name].each do |attr|
     xml = xml.gsub(%r{ #{attr}="_#{uuid_pattern}"}, " #{attr}=\"_\"")
   end
 
@@ -85,7 +86,7 @@ def strip_guid(xml)
 end
 
 def strip_html_comments(html)
-  html.gsub(/<!--.*?-->/m, '<!-- -->')
+  html.gsub(/<!--.*?-->/m, "<!-- -->")
 end
 
 HTML_HDR = <<~HEADER.freeze
@@ -145,7 +146,7 @@ end
 # except for space (U+0020), to their HTMLEntities escaped counterparts.
 # Note: Tab (U+0009) is not in \p{Zs}, it's in \p{Cc} (control characters)
 def escape_zs_chars(str)
-  return str
+  str
   # # Match all characters in \p{Zs} except space (U+0020)
   # str.gsub(/[\p{Zs}&&[^\u0020]]/) do |char|
   #   "\u#{char.ord.to_s(16).rjust(4, '0')}"

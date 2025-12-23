@@ -717,8 +717,8 @@ RSpec.describe IsoDoc do
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_xml_equivalent_to presxml
 
-   output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
-    .convert("test", pres_output, true))
+    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
+     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_html))
       .to be_html5_equivalent_to html

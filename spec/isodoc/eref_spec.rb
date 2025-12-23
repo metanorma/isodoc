@@ -252,7 +252,8 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)
     expect(strip_guid(Nokogiri::XML(output).at("//xmlns:foreword").to_xml))
       .to be_xml_equivalent_to(presxml)
-    expect(strip_guid(IsoDoc::HtmlConvert.new({}).convert("test", output, true)))
+    expect(strip_guid(IsoDoc::HtmlConvert.new({}).convert("test", output,
+                                                          true)))
       .to be_html5_equivalent_to(html)
   end
 
@@ -1355,8 +1356,8 @@ RSpec.describe IsoDoc do
     OUTPUT
     html = <<~OUTPUT
       <p id="A2">
-       A to B
-       </p>
+      A to B
+      </p>
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
         .convert("test", input, true))
@@ -1786,9 +1787,11 @@ RSpec.describe IsoDoc do
          </semx>
       </itu-standard>
     OUTPUT
-    expect(strip_guid(
-      IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))
-      .to be_xml_equivalent_to(output)
+    expect(
+      strip_guid(
+        IsoDoc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true),
+      ),
+    ).to be_xml_equivalent_to(output)
   end
 end

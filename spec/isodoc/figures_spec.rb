@@ -1748,12 +1748,12 @@ RSpec.describe IsoDoc do
 
     expect(strip_guid(output
       .sub(%r{<metanorma-extension>.*</metanorma-extension}m, "")
-     .gsub(/&lt;/, "&#x3c;"))
-          .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
+      .gsub(/&lt;/, "&#x3c;"))
+      .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
       .to be_xml_equivalent_to presxml
         .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")
 
-   word_html = strip_guid(IsoDoc::WordConvert.new({})
+    word_html = strip_guid(IsoDoc::WordConvert.new({})
       .convert("test", output, true)
       .gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.emf['"]/, "'_.emf'")
       .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")

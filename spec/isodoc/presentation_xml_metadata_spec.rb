@@ -87,21 +87,21 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
         <bibdata/>
         <metanorma-extension>
           <presentation-metadata>
-          <name>font-license-agreement</name>
-          <value>no-install-fonts</value>
-        </presentation-metadata>
-        <presentation-metadata>
-          <name>fonts</name>
-          <value>font2</value>
-        </presentation-metadata>
-        <presentation-metadata>
-          <name>fonts</name>
-          <value>font1</value>
-        </presentation-metadata>
+            <name>font-license-agreement</name>
+            <value>no-install-fonts</value>
+          </presentation-metadata>
+          <presentation-metadata>
+            <name>fonts</name>
+            <value>font1</value>
+          </presentation-metadata>
+          <presentation-metadata>
+            <name>fonts</name>
+            <value>font2</value>
+          </presentation-metadata>
         </metanorma-extension>
       </iso-standard>
     OUTPUT

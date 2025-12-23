@@ -605,7 +605,9 @@ RSpec.describe IsoDoc do
 
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input.sub("LANGUAGE", "en").sub("SCRIPT", "Latn"), true)
-    pres_output_to_compare = strip_guid(pres_output.sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+    pres_output_to_compare = strip_guid(
+      pres_output.sub(%r{<localized-strings>.*</localized-strings>}m, ""),
+    )
     expect(pres_output_to_compare).to be_xml_equivalent_to(presxml)
 
     html_output = IsoDoc::HtmlConvert.new({}).convert("test", pres_output, true)
@@ -1198,7 +1200,7 @@ RSpec.describe IsoDoc do
       .convert("test", input.sub("LANGUAGE", "fr").sub("SCRIPT", "Latn"), true)
 
     pres_output_to_compare = strip_guid(
-      pres_output.sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      pres_output.sub(%r{<localized-strings>.*</localized-strings>}m, ""),
     )
 
     expect(pres_output_to_compare).to be_xml_equivalent_to presxml
@@ -1728,7 +1730,7 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input.sub("LANGUAGE", "zh").sub("SCRIPT", "Hans"), true)
     pres_output_to_compare = strip_guid(
-      pres_output.sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      pres_output.sub(%r{<localized-strings>.*</localized-strings>}m, ""),
     )
     expect(pres_output_to_compare).to be_xml_equivalent_to presxml
 
@@ -2298,12 +2300,14 @@ RSpec.describe IsoDoc do
       .convert("test", input.sub("LANGUAGE", "eo").sub("SCRIPT", "Latn"), true)
 
     pres_output_to_compare = strip_guid(
-      pres_output.sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      pres_output.sub(%r{<localized-strings>.*</localized-strings>}m, ""),
     )
 
     expect(pres_output_to_compare).to be_xml_equivalent_to presxml
 
-    html_output = IsoDoc::HtmlConvert.new({ i18nyaml: "spec/assets/i18n.yaml" }).convert("test", pres_output, true)
+    html_output = IsoDoc::HtmlConvert.new({ i18nyaml: "spec/assets/i18n.yaml" }).convert(
+      "test", pres_output, true
+    )
     html_output_to_compare = strip_guid(html_output)
     expect(html_output_to_compare).to be_html5_equivalent_to html
   end

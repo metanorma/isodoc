@@ -321,7 +321,7 @@ RSpec.describe IsoDoc do
       .to be_xml_equivalent_to presxml
   end
 
-    it "renders references with title and author-date identifier" do
+  it "renders references with title and author-date identifier" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <bibdata>
@@ -444,13 +444,14 @@ RSpec.describe IsoDoc do
 
     input.sub!('<docidentifier type="title" primary="true">Cereals or cereal products</docidentifier>',
                '<docidentifier type="author-date" primary="true">Cereals or cereal products</docidentifier>')
-     xml = Nokogiri::XML(
+    xml = Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     )
     xml.at("//xmlns:localized-strings").remove
     expect(strip_guid(xml.to_xml))
-      .to be_xml_equivalent_to(presxml.sub('type="title"', 'type="author-date"'))
+      .to be_xml_equivalent_to(presxml.sub('type="title"',
+                                           'type="author-date"'))
   end
 
   it "enforces consistent metanorma-ordinal numbering" do

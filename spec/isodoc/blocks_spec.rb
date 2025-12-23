@@ -891,11 +891,13 @@ RSpec.describe IsoDoc do
       </html>
     OUTPUT
 
-    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({}).convert("test", input, true))
+    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({}).convert("test", input,
+                                                                 true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_html)).to be_html5_equivalent_to html
 
-    output = Nokogiri::HTML4(IsoDoc::WordConvert.new({}).convert("test", input, true))
+    output = Nokogiri::HTML4(IsoDoc::WordConvert.new({}).convert("test", input,
+                                                                 true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_html)).to be_html4_equivalent_to word
   end
@@ -977,7 +979,8 @@ RSpec.describe IsoDoc do
 
     expect(strip_guid(pres_output)).to be_xml_equivalent_to presxml
 
-    expect(strip_guid(IsoDoc::HtmlConvert.new({}).convert("test", pres_output, true)))
+    expect(strip_guid(IsoDoc::HtmlConvert.new({}).convert("test", pres_output,
+                                                          true)))
       .to be_html5_equivalent_to output
   end
 
@@ -1008,19 +1011,19 @@ RSpec.describe IsoDoc do
         </preface>
       </iso-standard>
     INPUT
-   output = IsoDoc::PresentationXMLConvert
-     .new(presxml_options.merge(output_formats: { html: "html", rfc: "rfc" }))
-     .convert("test", input, true)
+    output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options.merge(output_formats: { html: "html", rfc: "rfc" }))
+      .convert("test", input, true)
 
-   xml = Nokogiri::XML(output)
+    xml = Nokogiri::XML(output)
     xml.at("//xmlns:metanorma-extension")&.remove
     expect(strip_guid(xml.to_xml))
       .to be_xml_equivalent_to presxml
 
-   IsoDoc::HtmlConvert.new({}).convert("test", output, false)
-   expect(Nokogiri::HTML5(File.read("test.html"))
-     .at("//*[@id = 'A']").to_html)
-     .to be_html5_equivalent_to(<<~OUTPUT)
+    IsoDoc::HtmlConvert.new({}).convert("test", output, false)
+    expect(Nokogiri::HTML5(File.read("test.html"))
+      .at("//*[@id = 'A']").to_html)
+      .to be_html5_equivalent_to(<<~OUTPUT)
         <div id="A">
             <h1 class="ForewordTitle">
                <a class="anchor" href="#A"/>
@@ -1096,7 +1099,7 @@ RSpec.describe IsoDoc do
   end
 
   it "ignores columnbreak" do
-     input = <<~INPUT
+    input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
                <clause type="toc" id="_toc" displayorder="1">
@@ -1108,7 +1111,7 @@ RSpec.describe IsoDoc do
                </foreword>
             </preface>
          </iso-standard>
-      INPUT
+    INPUT
     html = <<~OUTPUT
       #{HTML_HDR}
                 <br/>

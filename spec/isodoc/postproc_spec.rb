@@ -949,36 +949,38 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
     input = <<~INPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword displayorder="1"><fmt-title id="_">Foreword</fmt-title>
-          <sourcecode id="samplecode">
-          <fmt-name id="_">XML code</fmt-name><fmt-sourcecode id="_">
-        &lt;xml&gt; &amp;
-      </fmt-sourcecode></sourcecode>
-          </foreword></preface>
-          </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <preface>
+          <foreword displayorder="1">
+            <fmt-title id="_">Foreword</fmt-title>
+            <sourcecode id="samplecode">
+              <fmt-name id="_">XML code</fmt-name>
+              <fmt-sourcecode id="_">
+              &lt;xml&gt; &amp;
+              </fmt-sourcecode></sourcecode>
+          </foreword>
+        </preface>
+      </iso-standard>
     INPUT
+    output = <<~OUTPUT
+      <main class="main-section">
+          <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+          <br/>
+          <div>
+            <h1 class="ForewordTitle">Foreword</h1>
+            <pre id="samplecode" class="sourcecode">
+              <br/>
+              \u00a0 &lt;xml&gt; &amp;
+              <br/>
+            </pre>
+            <p class="SourceTitle" style="text-align:center;">XML code</p>
+          </div>
+      </main>
+    OUTPUT
     IsoDoc::HtmlConvert.new(options).convert("test", input, false)
     html = File.read("test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
-
-    expect(Nokogiri::HTML5.fragment(strip_guid(html)))
-      .to be_html5_equivalent_to Nokogiri::HTML5.fragment(<<~OUTPUT)
-        <main class="main-section">
-           <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-           <br/>
-           <div>
-              <h1 class="ForewordTitle">Foreword</h1>
-              <pre id="samplecode" class="sourcecode">
-                 <br/>
-                 \u00a0 &lt;xml&gt; &amp;
-                 <br/>
-              </pre>
-              <p class="SourceTitle" style="text-align:center;">XML code</p>
-           </div>
-        </main>
-      OUTPUT
 
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"

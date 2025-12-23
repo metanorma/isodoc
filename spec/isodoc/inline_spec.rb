@@ -1710,7 +1710,7 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
 
-   pres_foreword = Nokogiri::XML(pres_output)
+    pres_foreword = Nokogiri::XML(pres_output)
       .at("//xmlns:foreword").to_xml
     expect(strip_guid(pres_foreword))
       .to be_xml_equivalent_to presxml
