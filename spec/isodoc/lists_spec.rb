@@ -190,9 +190,14 @@ RSpec.describe IsoDoc do
       .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")))
       .to be_xml_equivalent_to presxml
 
-    expect(Nokogiri::HTML5(strip_guid(IsoDoc::HtmlConvert.new({}))
-      .convert("test", pres_output, true)))
       .to be_html5_equivalent_to html
+    expect(
+      Nokogiri::HTML5(
+        strip_guid(
+          IsoDoc::HtmlConvert.new({}).convert("test", pres_output, true),
+        ),
+      ),
+    )
 
     word_output = Nokogiri::HTML4(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))

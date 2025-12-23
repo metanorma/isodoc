@@ -689,11 +689,12 @@ RSpec.describe IsoDoc do
     expect(strip_guid(Nokogiri::XML(pres_output).at("//xmlns:p[@id = 'A']").to_xml))
       .to be_xml_equivalent_to(presxml)
     expect(strip_guid(
-      Nokogiri::HTML5.fragment(
-        IsoDoc::HtmlConvert.new({}).convert("test", pres_output, true).at("//p[@id = 'A']")
-      )
-    ))
       .to be_html_equivalent_to(html)
+             Nokogiri::HTML5.fragment(
+               IsoDoc::HtmlConvert.new({})
+                  .convert("test", pres_output, true),
+             ).css("p#A").to_html,
+           ))
   end
 
   it "processes eref content pointing to reference with citation URL" do
@@ -959,12 +960,12 @@ RSpec.describe IsoDoc do
 
     html = IsoDoc::HtmlConvert.new({})
       .convert("test", output, true)
-    expect(Nokogiri::HTML5.fragment(strip_guid(xml)).at("//div[h1/@class='ForewordTitle']"))
       .to be_html5_equivalent_to(html)
+    expect(Nokogiri::HTML5.fragment(strip_guid(output)).css("h1.ForewordTitle").to_html)
 
     word_html = IsoDoc::WordConvert.new({}).convert("test", output, true)
-    expect(Nokogiri::HTML4.fragment(strip_guid(xml)).at("//div[h1/@class='ForewordTitle']"))
       .to be_html4_equivalent_to(word_html)
+    expect(Nokogiri::HTML4.fragment(strip_guid(output)).css("h1.ForewordTitle").to_html)
   end
 
   it "processes eref content pointing to reference with attachment URL" do
@@ -1241,13 +1242,17 @@ RSpec.describe IsoDoc do
       .to be_xml_equivalent_to(presxml)
     expect(
       Nokogiri::HTML5.fragment(
-        strip_guid(IsoDoc::HtmlConvert.new({}).convert("test", pres_output, true))
-      ).at("//p[@id = 'A']").to_html)
       .to be_html5_equivalent_to(html)
+        strip_guid(IsoDoc::HtmlConvert.new({})
+          .convert("test", pres_output, true)),
+      ).css("p#A").to_html,
+    )
     expect(Nokogiri::HTML4.fragment(
-        strip_guid(IsoDoc::WordConvert.new({}).convert("test", pres_output, true))
-      ).at("//p[@id = 'A']").to_xml)
       .to be_html4_equivalent_to(word)
+      strip_guid(
+        IsoDoc::WordConvert.new({}).convert("test", pres_output, true),
+      ),
+    ).css("p#A").to_html)
   end
 
   it "processes eref content with Unicode characters" do
@@ -1365,11 +1370,13 @@ RSpec.describe IsoDoc do
     expect(strip_guid(xml.to_xml)).to be_xml_equivalent_to(presxml)
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Nokogiri::XML(pres_output).at("//xmlns:p[@id = 'A2']").to_xml))
+    expect(strip_guid(Nokogiri::XML(pres_output).at("//xmlns:p[@id = 'A2']").to_html))
       .to be_xml_equivalent_to(presxml)
     expect(Nokogiri::HTML5.fragment(
-        strip_guid(IsoDoc::HtmlConvert.new({}).convert("test", pres_output, true))
-      ).at("//p[@id = 'A2']").to_html)
+      strip_guid(
+        IsoDoc::HtmlConvert.new({}).convert("test", pres_output, true),
+      ),
+    ).css("p#A2").to_html)
       .to be_html5_equivalent_to(html)
   end
 
@@ -1402,11 +1409,14 @@ RSpec.describe IsoDoc do
          </semx>
       </p>
     OUTPUT
-    expect(Nokogiri::XML(
-      strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-        .convert("test", input, true))
-        .at("//xmlns:p[@id = 'A']").to_xml)
-      )
+    expect(
+      Nokogiri::XML(
+        strip_guid(
+          IsoDoc::PresentationXMLConvert.new(presxml_options)
+            .convert("test", input, true),
+        ),
+      ).css("p#A").to_xml,
+    )
       .to be_xml_equivalent_to(output)
   end
 

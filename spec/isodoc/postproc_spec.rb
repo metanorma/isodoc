@@ -981,6 +981,10 @@ RSpec.describe IsoDoc do
     html = File.read("test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
+    expect(Nokogiri::HTML5.fragment(strip_guid(html)).css(".sourcecode"))
+      .to be_html5_equivalent_to Nokogiri::HTML5.fragment(
+        output.gsub(/\s/, "&nbsp;"),
+      ).css(".sourcecode")
 
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
