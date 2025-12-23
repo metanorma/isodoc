@@ -2149,34 +2149,33 @@ RSpec.describe IsoDoc do
   #                     <localityStack connective="to">
   #                        <locality type="clause">
 
-      it "processes ruby markup" do
-        input = <<~INPUT
-          <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
-          <preface>
-          <foreword id="F">
-          <p id="A">
-          <ruby><ruby-pronunciation value="とうきょう"/>東京</ruby>
-          <ruby><ruby-pronunciation value="とうきょう" lang="ja" script="Hira"/>東京</ruby>
-          <ruby><ruby-pronunciation value="Tōkyō" script="Latn"/>東京</ruby>
-          <ruby><ruby-annotation value="ライバル"/>親友</ruby>
-          <ruby><ruby-pronunciation value="とう"/>東</ruby> <ruby><ruby-pronunciation value="きょう"/>京</ruby>
-          <ruby><ruby-pronunciation value="Tō" script="Latn"/>東</ruby><ruby><ruby-pronunciation value="kyō" script="Latn"/>京</ruby>
+  it "processes ruby markup" do
+    input = <<~INPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
+      <preface>
+      <foreword id="F">
+      <p id="A">
+      <ruby><ruby-pronunciation value="とうきょう"/>東京</ruby>
+      <ruby><ruby-pronunciation value="とうきょう" lang="ja" script="Hira"/>東京</ruby>
+      <ruby><ruby-pronunciation value="Tōkyō" script="Latn"/>東京</ruby>
+      <ruby><ruby-annotation value="ライバル"/>親友</ruby>
+      <ruby><ruby-pronunciation value="とう"/>東</ruby> <ruby><ruby-pronunciation value="きょう"/>京</ruby>
+      <ruby><ruby-pronunciation value="Tō" script="Latn"/>東</ruby><ruby><ruby-pronunciation value="kyō" script="Latn"/>京</ruby>
 
 
-          <ruby><ruby-pronunciation value="とう"/><ruby><ruby-pronunciation value="tou"/>東</ruby></ruby> <ruby><ruby-pronunciation value="なん"/><ruby><ruby-pronunciation value="nan"/>南</ruby></ruby> の方角
-          <ruby><ruby-pronunciation value="たつみ"/><ruby><ruby-pronunciation value="とう"/>東</ruby><ruby><ruby-pronunciation value="なん"/>南</ruby></ruby>
-          <ruby><ruby-pronunciation value="プロテゴ"/><ruby><ruby-pronunciation value="まも"/>護</ruby>れ</ruby>!
-          <ruby><ruby-pronunciation value="プロテゴ"/>れ<ruby><ruby-pronunciation value="まも"/>護</ruby></ruby>!</p>
-          </p>
-          </foreword></preface></standard-document>
-        INPUT
-        presxml = <<~OUTPUT
-               <p id="A">
-               <ruby><rb>東京</rb><rt>とうきょう</rt></ruby><ruby><rb>東京</rb><rt>とうきょう</rt></ruby><ruby><rb>東京</rb><rt>Tōkyō</rt></ruby><ruby><rb>親友</rb><rt>ライバル</rt></ruby><ruby><rb>東</rb><rt>とう</rt></ruby><ruby><rb>京</rb><rt>きょう</rt></ruby><ruby><rb>東</rb><rt>Tō</rt></ruby><ruby><rb>京</rb><rt>kyō</rt></ruby><ruby><rb><ruby><rb>東</rb><rt>tou</rt></ruby></rb><rt>とう</rt></ruby><ruby><rb><ruby><rb>南</rb><rt>nan</rt></ruby></rb><rt>なん</rt></ruby> の方角
-          <ruby><rb><ruby><rb>東</rb><rt>とう</rt></ruby><ruby><rb>南</rb><rt>なん</rt></ruby></rb><rt>たつみ</rt></ruby>
-          <ruby><rb><ruby><rb>護</rb><rt>まも</rt></ruby>れ</rb><rt>プロテゴ</rt></ruby>!
-          <ruby><rb>れ<ruby><rb>護</rb><rt>まも</rt></ruby></rb><rt>プロテゴ</rt></ruby>!</p>
-                </p>
+      <ruby><ruby-pronunciation value="とう"/><ruby><ruby-pronunciation value="tou"/>東</ruby></ruby> <ruby><ruby-pronunciation value="なん"/><ruby><ruby-pronunciation value="nan"/>南</ruby></ruby> の方角
+      <ruby><ruby-pronunciation value="たつみ"/><ruby><ruby-pronunciation value="とう"/>東</ruby><ruby><ruby-pronunciation value="なん"/>南</ruby></ruby>
+      <ruby><ruby-pronunciation value="プロテゴ"/><ruby><ruby-pronunciation value="まも"/>護</ruby>れ</ruby>!
+      <ruby><ruby-pronunciation value="プロテゴ"/>れ<ruby><ruby-pronunciation value="まも"/>護</ruby></ruby>!</p>
+      </p>
+      </foreword></preface></standard-document>
+    INPUT
+    presxml = <<~OUTPUT
+            <p id="A">
+            <ruby><rb>東京</rb><rt>とうきょう</rt></ruby><ruby><rb>東京</rb><rt>とうきょう</rt></ruby><ruby><rb>東京</rb><rt>Tōkyō</rt></ruby><ruby><rb>親友</rb><rt>ライバル</rt></ruby><ruby><rb>東</rb><rt>とう</rt></ruby><ruby><rb>京</rb><rt>きょう</rt></ruby><ruby><rb>東</rb><rt>Tō</rt></ruby><ruby><rb>京</rb><rt>kyō</rt></ruby><ruby><rb><ruby><rb>東</rb><rt>tou</rt></ruby></rb><rt>とう</rt></ruby><ruby><rb><ruby><rb>南</rb><rt>nan</rt></ruby></rb><rt>なん</rt></ruby> の方角
+      <ruby><rb><ruby><rb>東</rb><rt>とう</rt></ruby><ruby><rb>南</rb><rt>なん</rt></ruby></rb><rt>たつみ</rt></ruby>
+      <ruby><rb><ruby><rb>護</rb><rt>まも</rt></ruby>れ</rb><rt>プロテゴ</rt></ruby>!
+      <ruby><rb>れ<ruby><rb>護</rb><rt>まも</rt></ruby></rb><rt>プロテゴ</rt></ruby>!</p>
     OUTPUT
     html = <<~OUTPUT
              <p id="A"><ruby><rb>東京</rb><rt>とうきょう</rt></ruby><ruby><rb>東京</rb><rt>とうきょう</rt></ruby><ruby><rb>東京</rb><rt>Tōkyō</rt></ruby><ruby><rb>親友</rb><rt>ライバル</rt></ruby><ruby><rb>東</rb><rt>とう</rt></ruby><ruby><rb>京</rb><rt>きょう</rt></ruby><ruby><rb>東</rb><rt>Tō</rt></ruby><ruby><rb>京</rb><rt>kyō</rt></ruby><ruby><rb><ruby><rb>東</rb><rt>tou</rt></ruby></rb><rt>とう</rt></ruby><ruby><rb><ruby><rb>南</rb><rt>nan</rt></ruby></rb><rt>なん</rt></ruby> の方角
