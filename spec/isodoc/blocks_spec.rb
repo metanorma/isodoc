@@ -1058,7 +1058,7 @@ RSpec.describe IsoDoc do
     expect do
       IsoDoc::HtmlConvert.new({})
         .convert("test", presxml, false)
-    end.to raise_error(StandardError, /Malformed Output XML/)
+    end.to raise_error(SystemExit, /Malformed Output XML/)
   end
 
   it "ignores passthrough with incompatible format" do
