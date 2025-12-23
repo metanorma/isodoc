@@ -103,8 +103,9 @@ module IsoDoc
         sem_xml_descendant?(e) and next
         href = eref_target(e) or next
         e.xpath(ns("./locality | ./localityStack")).each(&:remove)
-        if href[:type] == :anchor || %w(full short).include?(e["style"])
-            eref2xref(e)
+        if href[:type] == :anchor || %w(full).include?(e["style"])
+          eref2xref(e)
+        elsif %w(short).include?(e["style"]) then eref2linkshort(e, href)
         else eref2link1(e, href)
         end
       end
@@ -124,6 +125,14 @@ module IsoDoc
       repl = "<fmt-link #{att} target='#{url}'>#{to_xml(node.children)}</link>"
       node["type"] == "footnote" and repl = "<sup>#{repl}</sup>"
       node.replace(repl)
+    end
+
+    def eref2linkshort(node, href)
+      node.at(ns("./span[@class = 'fmt-first-biblio-delim']")) or
+        return eref2xref(node)
+      node.children = <<~XML
+        <fmt-xref target='#{node['bibitemid']}'>#{to_xml(node.children).sub('<span class="fmt-first-biblio-delim"/>', '</fmt-xref>')}
+      XML
     end
 
     def suffix_url(url)
