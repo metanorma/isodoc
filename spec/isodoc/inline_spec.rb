@@ -2194,8 +2194,7 @@ RSpec.describe IsoDoc do
       .merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
 
-   pres_p = Nokogiri::XML(pres_output)
-      .at("//xmlns:p[@id = 'A']").to_xml
+    pres_p = Nokogiri::XML(pres_output).css("p#A").to_xml
 
     expect(strip_guid(pres_p))
       .to be_xml_equivalent_to presxml
