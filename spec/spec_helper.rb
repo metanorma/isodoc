@@ -62,6 +62,10 @@ def metadata(hash)
   end
 end
 
+def fix_whitespaces(str)
+  ENV["FIX_WHITESPACES"] ? str.gsub(/\s/, "&nbsp;") : str
+end
+
 def strip_guid(xml)
   uuid_pattern = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"
 

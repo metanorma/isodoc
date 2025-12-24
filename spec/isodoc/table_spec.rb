@@ -798,14 +798,16 @@ RSpec.describe IsoDoc do
     html_output = IsoDoc::HtmlConvert.new({}).convert("test", pres_output, true)
     output = Nokogiri::HTML5(html_output)
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(Nokogiri::HTML5.fragment(strip_guid(output.to_html))).to be_html5_equivalent_to(html)
+    expect(Nokogiri::HTML5.fragment(strip_guid(output.to_html)))
+      .to be_html5_equivalent_to(fix_whitespaces(html))
 
     word_output = IsoDoc::WordConvert.new({}).convert("test", pres_output, true)
     output = Nokogiri::HTML4(word_output)
     output.at("//div[@class='TOC']")["id"] = "_"
     word_output_cleaned = strip_guid(output.to_html)
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
-    expect(Nokogiri::HTML4(word_output_cleaned)).to be_html4_equivalent_to(word)
+    expect(Nokogiri::HTML4(word_output_cleaned))
+      .to be_html4_equivalent_to(fix_whitespaces(word))
   end
 
   it "processes plain IsoXML tables" do
@@ -1405,7 +1407,8 @@ RSpec.describe IsoDoc do
       .convert("test", pres_output, true)
     output = Nokogiri::HTML5(html_output)
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_html)).to be_html5_equivalent_to(html)
+    expect(strip_guid(output.to_html))
+      .to be_html5_equivalent_to fix_whitespaces(html)
 
     word_output = IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true)
@@ -1413,7 +1416,7 @@ RSpec.describe IsoDoc do
     output.at("//div[@class='TOC']")["id"] = "_"
     word_output_cleaned = strip_guid(output.to_html)
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
-    expect(word_output_cleaned).to be_html4_equivalent_to(word)
+    expect(word_output_cleaned).to be_html4_equivalent_to fix_whitespaces(word)
   end
 
   it "breaks down CSS border shorthand attributes" do

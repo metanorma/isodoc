@@ -983,7 +983,7 @@ RSpec.describe IsoDoc do
       .sub(%r{</main>.*$}m, "</main>")
     expect(Nokogiri::HTML5.fragment(strip_guid(html)).css(".sourcecode"))
       .to be_html5_equivalent_to Nokogiri::HTML5.fragment(
-        output.gsub(/\s/, "&nbsp;"),
+        fix_whitespaces(output),
       ).css(".sourcecode")
 
     FileUtils.rm_f "test.doc"
@@ -1077,14 +1077,14 @@ RSpec.describe IsoDoc do
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
       .html_preface(Nokogiri::HTML5(input)).to_html
       .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>")
-    expect(html_output).to be_html5_equivalent_to html
+    expect(html_output).to be_html5_equivalent_to fix_whitespaces(html)
 
     word_output = IsoDoc::WordConvert
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
       .word_cleanup(Nokogiri::HTML4(input)).to_html
       .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>")
-    expect(word_output).to be_html4_equivalent_to doc
+    expect(word_output).to be_html4_equivalent_to fix_whitespaces(doc)
   end
 
   it "cleans up coverpage note" do
@@ -1152,14 +1152,14 @@ RSpec.describe IsoDoc do
       .html_preface(Nokogiri::HTML(input)).to_html
       .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>")
     expect(html_output)
-      .to be_html5_equivalent_to html
+      .to be_html5_equivalent_to fix_whitespaces(html)
     word_output = IsoDoc::WordConvert
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
       .word_cleanup(Nokogiri::HTML4(input)).to_html
       .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>")
     expect(word_output)
-      .to be_html4_equivalent_to doc
+      .to be_html4_equivalent_to fix_whitespaces(doc)
   end
 
   it "removes coverpage note destination if unused" do
@@ -1223,14 +1223,14 @@ RSpec.describe IsoDoc do
       .html_preface(Nokogiri::HTML5(input)).to_html
       .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>")
     expect(html_output)
-      .to be_html5_equivalent_to html
+      .to be_html5_equivalent_to fix_whitespaces(html)
     word_output = IsoDoc::WordConvert
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
       .word_cleanup(Nokogiri::HTML4(input)).to_html
       .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>")
     expect(word_output)
-      .to be_html4_equivalent_to doc
+      .to be_html4_equivalent_to fix_whitespaces(doc)
   end
 
   it "generates bare HTML file" do

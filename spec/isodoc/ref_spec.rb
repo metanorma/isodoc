@@ -886,7 +886,7 @@ RSpec.describe IsoDoc do
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_html))
-      .to be_html5_equivalent_to html
+      .to be_html5_equivalent_to fix_whitespaces(html)
 
     IsoDoc::WordConvert.new({})
       .convert("test", pres_output, false)
@@ -900,7 +900,7 @@ RSpec.describe IsoDoc do
       .gsub(/NOTEREF _Ref\d+/, "NOTEREF _Ref")
 
     expect(Nokogiri::HTML4(strip_guid(html)))
-      .to be_html4_equivalent_to doc
+      .to be_html4_equivalent_to fix_whitespaces(doc)
   end
 
   it "marks references sections as hidden" do
@@ -2062,7 +2062,7 @@ RSpec.describe IsoDoc do
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_html))
-      .to be_html5_equivalent_to html
+      .to be_html5_equivalent_to fix_whitespaces(html)
   end
 
   it "processes clauses containing normative references" do

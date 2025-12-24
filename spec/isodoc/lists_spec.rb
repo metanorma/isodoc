@@ -190,7 +190,6 @@ RSpec.describe IsoDoc do
       .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")))
       .to be_xml_equivalent_to presxml
 
-      .to be_html5_equivalent_to html
     expect(
       Nokogiri::HTML5(
         strip_guid(
@@ -198,12 +197,13 @@ RSpec.describe IsoDoc do
         ),
       ),
     )
+      .to be_html5_equivalent_to fix_whitespaces(html)
 
     word_output = Nokogiri::HTML4(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
     word_output = word_output.at("//div[@id = 'fwd']")
     expect(strip_guid(word_output.to_html))
-      .to be_html4_equivalent_to word
+      .to be_html4_equivalent_to fix_whitespaces(word)
   end
 
   it "processes unordered checklists" do

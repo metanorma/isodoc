@@ -103,7 +103,7 @@ RSpec.describe IsoDoc do
     html_output = IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true)
     expect(strip_guid(html_output))
-      .to be_html5_equivalent_to output
+      .to be_html5_equivalent_to fix_whitespaces(output)
   end
 
   it "processes updatetype links" do
@@ -689,12 +689,12 @@ RSpec.describe IsoDoc do
     expect(strip_guid(Nokogiri::XML(pres_output).at("//xmlns:p[@id = 'A']").to_xml))
       .to be_xml_equivalent_to(presxml)
     expect(strip_guid(
-      .to be_html_equivalent_to(html)
              Nokogiri::HTML5.fragment(
                IsoDoc::HtmlConvert.new({})
                   .convert("test", pres_output, true),
              ).css("p#A").to_html,
            ))
+      .to be_html_equivalent_to(fix_whitespaces(html))
   end
 
   it "processes eref content pointing to reference with citation URL" do
@@ -960,12 +960,12 @@ RSpec.describe IsoDoc do
 
     html = IsoDoc::HtmlConvert.new({})
       .convert("test", output, true)
-      .to be_html5_equivalent_to(html)
     expect(Nokogiri::HTML5.fragment(strip_guid(output)).css("h1.ForewordTitle").to_html)
+      .to be_html5_equivalent_to(fix_whitespaces(html))
 
     word_html = IsoDoc::WordConvert.new({}).convert("test", output, true)
-      .to be_html4_equivalent_to(word_html)
     expect(Nokogiri::HTML4.fragment(strip_guid(output)).css("h1.ForewordTitle").to_html)
+      .to be_html4_equivalent_to(fix_whitespaces(word_html))
   end
 
   it "processes eref content pointing to reference with attachment URL" do
@@ -1242,17 +1242,17 @@ RSpec.describe IsoDoc do
       .to be_xml_equivalent_to(presxml)
     expect(
       Nokogiri::HTML5.fragment(
-      .to be_html5_equivalent_to(html)
         strip_guid(IsoDoc::HtmlConvert.new({})
           .convert("test", pres_output, true)),
       ).css("p#A").to_html,
     )
+      .to be_html5_equivalent_to(fix_whitespaces(html))
     expect(Nokogiri::HTML4.fragment(
-      .to be_html4_equivalent_to(word)
       strip_guid(
         IsoDoc::WordConvert.new({}).convert("test", pres_output, true),
       ),
     ).css("p#A").to_html)
+      .to be_html4_equivalent_to(fix_whitespaces(word))
   end
 
   it "processes eref content with Unicode characters" do

@@ -688,7 +688,7 @@ RSpec.describe IsoDoc do
     html_output = IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true)
     expect(strip_guid(html_output))
-      .to be_html5_equivalent_to output
+      .to be_html5_equivalent_to fix_whitespaces(output)
   end
 
   it "processes inline images" do

@@ -721,12 +721,12 @@ RSpec.describe IsoDoc do
      .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_html))
-      .to be_html5_equivalent_to html
+      .to be_html5_equivalent_to fix_whitespaces(html)
 
     expect(strip_guid(Nokogiri::HTML4(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
       .at("//body").to_html))
-      .to be_html4_equivalent_to doc
+      .to be_html4_equivalent_to fix_whitespaces(doc)
     FileUtils.rm_f("test.doc")
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
     expect(File.exist?("test.doc")).to be true
@@ -734,7 +734,7 @@ RSpec.describe IsoDoc do
       %r{</body>.*$}m, "</body>"
     )
     expect(strip_guid(output))
-      .to be_html4_equivalent_to doc1
+      .to be_html4_equivalent_to fix_whitespaces(doc1)
   end
 
   it "processes IsoXML annotations" do

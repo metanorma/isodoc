@@ -114,11 +114,13 @@ RSpec.describe IsoDoc do
 
     html_output = IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true)
-    expect(strip_guid(html_output)).to be_html5_equivalent_to html
+    expect(strip_guid(html_output))
+      .to be_html5_equivalent_to fix_whitespaces(html)
 
     word_output = IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true)
-    expect(strip_guid(word_output)).to be_html4_equivalent_to doc
+    expect(strip_guid(word_output))
+      .to be_html4_equivalent_to fix_whitespaces(doc)
   end
 
   it "processes sourcecode with sourcecode highlighting" do
@@ -1211,11 +1213,13 @@ RSpec.describe IsoDoc do
 
     html_output = IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true)
-    expect(strip_guid(html_output)).to be_html5_equivalent_to html
+    expect(strip_guid(html_output))
+      .to be_html5_equivalent_to fix_whitespaces(html)
 
     word_output = IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true)
-    expect(strip_guid(word_output)).to be_html4_equivalent_to doc
+    expect(strip_guid(word_output))
+      .to be_html4_equivalent_to fix_whitespaces(doc)
   end
 
   it "processes sourcecode with xml formatting" do

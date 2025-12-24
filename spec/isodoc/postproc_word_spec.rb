@@ -542,6 +542,8 @@ RSpec.describe IsoDoc do
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
     word_cleaned = word.gsub(/_Toc\d\d+/, "_Toc")
       .gsub(/<o:p>\u00a0<\/o:p>/, "")
+    expect(Nokogiri::HTML4.fragment(strip_guid(word_cleaned)))
+      .to be_html4_equivalent_to fix_whitespaces(output)
   end
 
   it "generates HTML output with custom ToC levels function" do
@@ -697,6 +699,8 @@ RSpec.describe IsoDoc do
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
 
+    expect(Nokogiri::HTML4.fragment(strip_guid(word)))
+      .to be_html4_equivalent_to fix_whitespaces(output)
   end
 
   it "propagates example style to paragraphs in postprocessing (Word)" do
@@ -1482,7 +1486,7 @@ RSpec.describe IsoDoc do
     word_main = strip_guid(word_cleanup).sub(/^.*<main/m, "<main").sub(
       %r{</main>.*$}m, "</main>"
     )
-    expect(word_main).to be_html4_equivalent_to output
+    expect(word_main).to be_html4_equivalent_to fix_whitespaces(output)
   end
 
   it "preserves Word CSS classes starting with digit" do

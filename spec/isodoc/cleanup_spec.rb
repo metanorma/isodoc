@@ -492,7 +492,7 @@ RSpec.describe IsoDoc do
     input_to_clean = Nokogiri::HTML5(input)
     html_cleanup = IsoDoc::HtmlConvert.new({}).cleanup(input_to_clean).to_html
     html_obj = Nokogiri::HTML5(html_cleanup)
-    html_target = Nokogiri::HTML5(html)
+    html_target = Nokogiri::HTML5(fix_whitespaces(html))
 
     expect(html_obj).to be_html5_equivalent_to html_target
   end
