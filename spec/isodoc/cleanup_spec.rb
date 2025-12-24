@@ -24,8 +24,9 @@ RSpec.describe IsoDoc do
       </body>
       </html>
     OUTPUT
-    expect(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to Canon.format_xml((output))
+
+    expect(IsoDoc::WordConvert.new({})
+      .cleanup(Nokogiri::HTML4(input)).to_s).to be_html4_equivalent_to output
   end
 
   it "cleans up inline headers" do
@@ -96,8 +97,9 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     OUTPUT
-    expect(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to Canon.format_xml((output))
+    word_cleanup = IsoDoc::WordConvert.new({})
+      .cleanup(Nokogiri::HTML4(input)).to_s
+    expect(word_cleanup).to be_html4_equivalent_to output
   end
 
   it "cleans up footnotes (Word)" do
@@ -170,8 +172,9 @@ RSpec.describe IsoDoc do
                 </body>
             </html>
     OUTPUT
-    expect(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to Canon.format_xml((output))
+    word_cleanup = IsoDoc::WordConvert.new({})
+      .cleanup(Nokogiri::HTML4(input)).to_s
+    expect(word_cleanup).to be_html4_equivalent_to output
   end
 
   it "cleans up tables with tfoot" do
@@ -336,8 +339,9 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     OUTPUT
-    expect(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to Canon.format_xml((html))
+    html_cleanup = IsoDoc::HtmlConvert.new({})
+      .cleanup(Nokogiri::HTML5(input)).to_s
+    expect(Nokogiri::HTML5(html_cleanup)).to be_html5_equivalent_to html
   end
 
   it "cleans up tables without tfoot" do
@@ -484,7 +488,12 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     OUTPUT
-    expect(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to Canon.format_xml((html))
+
+    input_to_clean = Nokogiri::HTML5(input)
+    html_cleanup = IsoDoc::HtmlConvert.new({}).cleanup(input_to_clean).to_html
+    html_obj = Nokogiri::HTML5(html_cleanup)
+    html_target = Nokogiri::HTML5(fix_whitespaces(html))
+
+    expect(html_obj).to be_html5_equivalent_to html_target
   end
 end

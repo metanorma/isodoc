@@ -206,11 +206,11 @@ RSpec.describe IsoDoc do
           </p>
        </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .convert("test", input, true)
+    foreword_xml = Nokogiri.XML(pres_output).at("//xmlns:foreword").to_xml
+    expect(strip_guid(foreword_xml)).to be_xml_equivalent_to output
   end
 
   it "cross-references figure classes" do
@@ -421,11 +421,11 @@ RSpec.describe IsoDoc do
          </p>
       </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .convert("test", input, true)
+    foreword_xml = Nokogiri.XML(pres_output).at("//xmlns:foreword").to_xml
+    expect(strip_guid(foreword_xml)).to be_xml_equivalent_to output
   end
 
   it "cross-references subfigures" do
@@ -599,11 +599,11 @@ RSpec.describe IsoDoc do
          </p>
       </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .convert("test", input, true)
+    foreword_xml = Nokogiri.XML(pres_output).at("//xmlns:foreword").to_xml
+    expect(strip_guid(foreword_xml)).to be_xml_equivalent_to output
   end
 
   it "cross-references unnumbered subfigures" do
@@ -682,11 +682,11 @@ RSpec.describe IsoDoc do
          </p>
       </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
-         .new(presxml_options)
-         .convert("test", input, true))
-         .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    foreword_xml = Nokogiri.XML(pres_output).at("//xmlns:foreword").to_xml
+    expect(strip_guid(foreword_xml)).to be_xml_equivalent_to output
   end
 
   it "cross-references tabular subfigures" do
@@ -785,10 +785,10 @@ RSpec.describe IsoDoc do
          </p>
       </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
-         .new(presxml_options)
-         .convert("test", input, true))
-         .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    foreword_xml = Nokogiri.XML(pres_output).at("//xmlns:foreword").to_xml
+    expect(strip_guid(foreword_xml)).to be_xml_equivalent_to output
   end
 end
