@@ -1900,7 +1900,7 @@ RSpec.describe IsoDoc do
     word_output_cleaned = strip_guid(word_output)
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
 
-      expect(word_output_cleaned).to be_html4_equivalent_to(output)
+    expect(word_output_cleaned).to be_html4_equivalent_to(output)
   end
 
   it "processes tables with large rows" do
