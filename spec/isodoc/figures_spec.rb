@@ -1117,7 +1117,7 @@ RSpec.describe IsoDoc do
                 <div id="fwd">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
-                      <table id="T">
+                      <table id="T" class="plain">
                          <tbody>
                             <tr>
                                <td style="">
@@ -1138,7 +1138,7 @@ RSpec.describe IsoDoc do
                       <p class="FigureTitle" style="text-align:center;">Figure 1\\u00a0— Overall title</p>
                    </div>
                    <div id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
-                      <table id="T1">
+                      <table id="T1" class="plain">
                          <tbody>
                             <tr>
                                <td style="">
@@ -1153,7 +1153,7 @@ RSpec.describe IsoDoc do
                       <p class="FigureTitle" style="text-align:center;">Overall title</p>
                    </div>
                    <div id="figureA-3" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
-                      <table id="T2">
+                      <table id="T2" class="plain">
                          <tbody>
                             <tr>
                                <td style="">

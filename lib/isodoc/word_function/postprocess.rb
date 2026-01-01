@@ -50,6 +50,7 @@ module IsoDoc
         word_sourcecode_annotations(docxml)
         word_sourcecode_table(docxml)
         word_nonbreaking_spans(docxml)
+        word_nested_tables(docxml)
         word_colgroup(docxml)
         word_table_align(docxml)
         word_table_pagebreak(docxml)
