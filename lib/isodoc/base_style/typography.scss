@@ -67,4 +67,9 @@
   td.header {
     font-weight: 400;
   }
+
+   table.plain, table.plain th, table.plain td {
+     border: none !important;
+     font-size: 0.95em;
+   }
 }

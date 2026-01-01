@@ -51,7 +51,7 @@ module IsoDoc
         c = node["class"]
         style = table_attrs_style(node, c)
         attr_code(id: node["id"],
-                  class: node["plain"] == "true" ? nil : (c || "MsoISOTable"),
+                  class: node["plain"] == "true" ? "plain" : (c || "MsoISOTable"),
                   style: style, title: node["alt"])
       end
 
