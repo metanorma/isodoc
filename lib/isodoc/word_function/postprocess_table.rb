@@ -42,14 +42,6 @@ module IsoDoc
         end
       end
 
-      def word_nested_tables(docxml)
-        docxml.xpath("//table").each do |t|
-          t.xpath(".//table").reverse_each do |tt|
-            t.next = tt.remove
-          end
-        end
-      end
-
       def style_update(node, css)
         node or return
         node["style"] =
