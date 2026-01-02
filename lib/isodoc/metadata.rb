@@ -191,11 +191,10 @@ module IsoDoc
     end
 
     def presentation(xml, _out)
-      xml.xpath(ns("//metanorma-extension/presentation-metadata")).each do |p|
-        ((n = p.at(ns("./name"))) && (v = p.at(ns("./value")))) or next
-        lbl = "presentation_metadata_#{n.text}".to_sym
+      xml.xpath(ns("//metanorma-extension/presentation-metadata/*")).each do |p|
+        lbl = "presentation_metadata_#{p.name}".to_sym
         m = get[lbl] || []
-        set(lbl, m << v.text)
+        set(lbl, m << p.text)
       end
     end
 
