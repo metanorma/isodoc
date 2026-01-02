@@ -112,11 +112,11 @@ module IsoDoc
       docxml = Nokogiri::XML(file, &:huge)
       filename, dir = init_file(input_filename, debug)
       docxml.root.default_namespace = ""
+      docxml_var_init(docxml)
       convert_i18n_init(docxml)
       metadata_init(@lang, @script, @locale, @i18n)
       xref_init(@lang, @script, self, @i18n,
                 { locale: @locale, bibrender: @bibrender })
-      docxml_var_init(docxml)
       [docxml, filename, dir]
     end
 
