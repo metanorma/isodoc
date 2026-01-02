@@ -27,7 +27,6 @@ module IsoDoc
     def doctype_init(docxml)
       @doctype = docxml.at(ns("//bibdata/ext/doctype"))&.text
       @subdoctype = docxml.at(ns("//bibdata/ext/subdoctype"))&.text
-      @xrefs.klass.doctype = @doctype
       @docscheme = docxml.at(ns("//metanorma-extension/presentation-metadata/"\
         "document-scheme"))&.text
     end

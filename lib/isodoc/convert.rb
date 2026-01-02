@@ -117,6 +117,7 @@ module IsoDoc
       metadata_init(@lang, @script, @locale, @i18n)
       xref_init(@lang, @script, self, @i18n,
                 { locale: @locale, bibrender: @bibrender })
+      @xrefs.klass.doctype = @doctype
       [docxml, filename, dir]
     end
 
