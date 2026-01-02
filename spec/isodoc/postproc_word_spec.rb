@@ -278,16 +278,13 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml">
         <metanorma-extension>
           <presentation-metadata>
-            <name>TOC Heading Levels</name>
-            <value>2</value>
+            <toc-heading-levels>2</toc-heading-levels>
           </presentation-metadata>
           <presentation-metadata>
-            <name>HTML TOC Heading Levels</name>
-            <value>2</value>
+            <html-toc-heading-levels>2</html-toc-heading-levels>
           </presentation-metadata>
           <presentation-metadata>
-            <name>DOC TOC Heading Levels</name>
-            <value>3</value>
+            <doc-toc-heading-levels>3</doc-toc-heading-levels>
           </presentation-metadata>
         </metanorma-extension>
                     <sections>
@@ -382,16 +379,13 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml">
         <metanorma-extension>
           <presentation-metadata>
-            <name>TOC Heading Levels</name>
-            <value>2</value>
+            <toc-heading-levels>2</toc-heading-levels>
           </presentation-metadata>
           <presentation-metadata>
-            <name>HTML TOC Heading Levels</name>
-            <value>2</value>
+            <html-toc-heading-levels>2</html-toc-heading-levels>
           </presentation-metadata>
           <presentation-metadata>
-            <name>DOC TOC Heading Levels</name>
-            <value>3</value>
+            <doc-toc-heading-levels>3</doc-toc-heading-levels>
           </presentation-metadata>
         </metanorma-extension>
                     <sections>
@@ -552,17 +546,14 @@ RSpec.describe IsoDoc do
         <iso-standard xmlns="http://riboseinc.com/isoxml">
           <metanorma-extension>
             <presentation-metadata>
-              <name>TOC Heading Levels</name>
-              <value>2</value>
-            </presentation-metadata>
-            <presentation-metadata>
-              <name>HTML TOC Heading Levels</name>
-              <value>3</value>
-            </presentation-metadata>
-            <presentation-metadata>
-              <name>DOC TOC Heading Levels</name>
-              <value>3</value>
-            </presentation-metadata>
+            <toc-heading-levels>2</toc-heading-levels>
+          </presentation-metadata>
+          <presentation-metadata>
+            <html-toc-heading-levels>3</html-toc-heading-levels>
+          </presentation-metadata>
+          <presentation-metadata>
+            <doc-toc-heading-levels>3</doc-toc-heading-levels>
+          </presentation-metadata>
           </metanorma-extension>
                     <preface><foreword>
                     <note>
