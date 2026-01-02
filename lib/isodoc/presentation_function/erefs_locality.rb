@@ -36,12 +36,13 @@ module IsoDoc
         i == refs.size - 1 and next
         m << eref_locality_delimiter(r)
       end
-      ret.empty? ? ret : [", "] + ret
+      ret.empty? ? ret : [{ conn: ", " }] + ret
     end
 
     def eref_locality_delimiter(ref)
       if ref&.next_element&.name == "localityStack"
-        ref.next_element["connective"]
+        { conn: ref.next_element["connective"],
+          custom: ref.next_element["custom-connective"] }
       else locality_delimiter(ref)
       end
     end
@@ -51,23 +52,27 @@ module IsoDoc
       if ref.name == "localityStack"
         ret = eref_locality_stack1(ref, target, node, ret)
       else
-        l = eref_localities0(ref, idx, target, node) and ret << l
+        l = eref_localities0(ref, idx, target, node) and ret << { ref: l }
       end
-      ret[-1] == ", " and ret.pop
+      ret[-1] && ret[-1][:conn] == ", " and ret.pop
       ret
     end
 
     def eref_locality_stack1(ref, target, node, ret)
+      if ref["connective"] == "from" && ref["custom-connective"]
+        # TODO deal better with languages with mandatory from connective
+        ret << { conn: "from", custom: ref["custom-connective"] }
+      end
       ref.elements.each_with_index do |rr, j|
         l = eref_localities0(rr, j, target, node) or next
-        ret << l
+        ret << { ref: l }
         ret << locality_delimiter(rr) unless j == ref.elements.size - 1
       end
       ret
     end
 
     def locality_delimiter(_loc)
-      ", "
+      { conn: ", " }
     end
 
     def eref_localities0(ref, _idx, target, node)

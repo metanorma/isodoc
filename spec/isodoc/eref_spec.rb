@@ -1442,12 +1442,12 @@ RSpec.describe IsoDoc do
                 </localityStack>
               </eref>
               <eref type='inline' bibitemid='ref1' citeas='XYZ'>
-                <localityStack connective='from'>
+                <localityStack connective='from' custom-connective="ekde">
                   <locality type='clause'>
                     <referenceFrom>3</referenceFrom>
                   </locality>
                 </localityStack>
-                <localityStack connective='to'>
+                <localityStack connective='to' custom-connective="ĝis">
                   <locality type='clause'>
                     <referenceFrom>5</referenceFrom>
                   </locality>
@@ -1551,256 +1551,256 @@ RSpec.describe IsoDoc do
       </itu-standard>
     INPUT
     output = <<~OUTPUT
-      <itu-standard xmlns="https://www.calconnect.org/standards/itu" type="presentation">
-         <p id="_">
-            <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
-               <localityStack connective="from">
-                  <locality type="clause">
-                     <referenceFrom>3</referenceFrom>
-                  </locality>
-               </localityStack>
-               <localityStack connective="to">
-                  <locality type="clause">
-                     <referenceFrom>5</referenceFrom>
-                  </locality>
-               </localityStack>
-            </eref>
-            <semx element="eref" source="_">
-               <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
-                  <localityStack connective="from">
-                     <locality type="clause">
-                        <referenceFrom>3</referenceFrom>
-                     </locality>
-                  </localityStack>
-                  <localityStack connective="to">
-                     <locality type="clause">
-                        <referenceFrom>5</referenceFrom>
-                     </locality>
-                  </localityStack>
-                  XYZ, Clauses 3
-                  <span class="fmt-conn">to</span>
-                  5
-               </fmt-eref>
-            </semx>
-            <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
-               <localityStack connective="from">
-                  <locality type="clause">
-                     <referenceFrom>3</referenceFrom>
-                  </locality>
-               </localityStack>
-               <localityStack connective="to">
-                  <locality type="clause">
-                     <referenceFrom>5</referenceFrom>
-                  </locality>
-                  <locality type="table">
-                     <referenceFrom>2</referenceFrom>
-                  </locality>
-               </localityStack>
-            </eref>
-            <semx element="eref" source="_">
-               <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
-                  <localityStack connective="from">
-                     <locality type="clause">
-                        <referenceFrom>3</referenceFrom>
-                     </locality>
-                  </localityStack>
-                  <localityStack connective="to">
-                     <locality type="clause">
-                        <referenceFrom>5</referenceFrom>
-                     </locality>
-                     <locality type="table">
-                        <referenceFrom>2</referenceFrom>
-                     </locality>
-                  </localityStack>
-                  XYZ, Clause 3
-                  <span class="fmt-conn">to</span>
-                  Clause 5, Table 2
-               </fmt-eref>
-            </semx>
-            text
-         </p>
-         <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
-            <localityStack connective="and">
-               <locality type="clause">
-                  <referenceFrom>3</referenceFrom>
-               </locality>
-            </localityStack>
-            <localityStack connective="and">
-               <locality type="clause">
-                  <referenceFrom>5</referenceFrom>
-               </locality>
-            </localityStack>
-         </eref>
-         <semx element="eref" source="_">
-            <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
-               <localityStack connective="and">
-                  <locality type="clause">
-                     <referenceFrom>3</referenceFrom>
-                  </locality>
-               </localityStack>
-               <localityStack connective="and">
-                  <locality type="clause">
-                     <referenceFrom>5</referenceFrom>
-                  </locality>
-               </localityStack>
-               XYZ, Clauses 3
-               <span class="fmt-conn">and</span>
-               5
-            </fmt-eref>
-         </semx>
-         <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
-            <localityStack connective="and">
-               <locality type="clause">
-                  <referenceFrom>3</referenceFrom>
-               </locality>
-            </localityStack>
-            <localityStack connective="and">
-               <locality type="clause">
-                  <referenceFrom>5</referenceFrom>
-               </locality>
-            </localityStack>
-            <localityStack connective="and">
-               <locality type="clause">
-                  <referenceFrom>7</referenceFrom>
-               </locality>
-            </localityStack>
-         </eref>
-         <semx element="eref" source="_">
-            <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
-               <localityStack connective="and">
-                  <locality type="clause">
-                     <referenceFrom>3</referenceFrom>
-                  </locality>
-               </localityStack>
-               <localityStack connective="and">
-                  <locality type="clause">
-                     <referenceFrom>5</referenceFrom>
-                  </locality>
-               </localityStack>
-               <localityStack connective="and">
-                  <locality type="clause">
-                     <referenceFrom>7</referenceFrom>
-                  </locality>
-               </localityStack>
-               XYZ, Clauses 3
-               <span class="fmt-enum-comma">,</span>
-               5
-               <span class="fmt-enum-comma">,</span>
-               <span class="fmt-conn">and</span>
-               7
-            </fmt-eref>
-         </semx>
-         <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
-            <localityStack connective="and">
-               <locality type="clause">
-                  <referenceFrom>3</referenceFrom>
-               </locality>
-            </localityStack>
-            <localityStack connective="and">
-               <locality type="annex">
-                  <referenceFrom>5</referenceFrom>
-               </locality>
-            </localityStack>
-         </eref>
-         <semx element="eref" source="_">
-            <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
-               <localityStack connective="and">
-                  <locality type="clause">
-                     <referenceFrom>3</referenceFrom>
-                  </locality>
-               </localityStack>
-               <localityStack connective="and">
-                  <locality type="annex">
-                     <referenceFrom>5</referenceFrom>
-                  </locality>
-               </localityStack>
-               XYZ, Clause 3
-               <span class="fmt-conn">and</span>
-               Annex 5
-            </fmt-eref>
-         </semx>
-         <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
-            <localityStack connective="and">
-               <locality type="clause">
-                  <referenceFrom>3</referenceFrom>
-               </locality>
-            </localityStack>
-            <localityStack connective="or">
-               <locality type="clause">
-                  <referenceFrom>5</referenceFrom>
-               </locality>
-            </localityStack>
-            text
-         </eref>
-         <semx element="eref" source="_">
-            <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
-               <localityStack connective="and">
-                  <locality type="clause">
-                     <referenceFrom>3</referenceFrom>
-                  </locality>
-               </localityStack>
-               <localityStack connective="or">
-                  <locality type="clause">
-                     <referenceFrom>5</referenceFrom>
-                  </locality>
-               </localityStack>
-               text
-            </fmt-eref>
-         </semx>
-         <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
-            <localityStack connective="from">
-               <locality type="clause">
-                  <referenceFrom>3</referenceFrom>
-               </locality>
-            </localityStack>
-            <localityStack connective="to">
-               <locality type="clause">
-                  <referenceFrom>5</referenceFrom>
-               </locality>
-            </localityStack>
-            <localityStack connective="and">
-               <locality type="clause">
-                  <referenceFrom>8</referenceFrom>
-               </locality>
-            </localityStack>
-            <localityStack connective="to">
-               <locality type="clause">
-                  <referenceFrom>10</referenceFrom>
-               </locality>
-            </localityStack>
-         </eref>
-         <semx element="eref" source="_">
-            <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
-               <localityStack connective="from">
-                  <locality type="clause">
-                     <referenceFrom>3</referenceFrom>
-                  </locality>
-               </localityStack>
-               <localityStack connective="to">
-                  <locality type="clause">
-                     <referenceFrom>5</referenceFrom>
-                  </locality>
-               </localityStack>
-               <localityStack connective="and">
-                  <locality type="clause">
-                     <referenceFrom>8</referenceFrom>
-                  </locality>
-               </localityStack>
-               <localityStack connective="to">
-                  <locality type="clause">
-                     <referenceFrom>10</referenceFrom>
-                  </locality>
-               </localityStack>
-               XYZ, Clauses 3
-               <span class="fmt-conn">to</span>
-               5
-               <span class="fmt-conn">and</span>
-               8
-               <span class="fmt-conn">to</span>
-               10
-            </fmt-eref>
-         </semx>
-      </itu-standard>
+       <itu-standard xmlns="https://www.calconnect.org/standards/itu" type="presentation">
+          <p id="_">
+             <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
+                <localityStack connective="from">
+                   <locality type="clause">
+                      <referenceFrom>3</referenceFrom>
+                   </locality>
+                </localityStack>
+                <localityStack connective="to">
+                   <locality type="clause">
+                      <referenceFrom>5</referenceFrom>
+                   </locality>
+                </localityStack>
+             </eref>
+             <semx element="eref" source="_">
+                <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
+                   <localityStack connective="from">
+                      <locality type="clause">
+                         <referenceFrom>3</referenceFrom>
+                      </locality>
+                   </localityStack>
+                   <localityStack connective="to">
+                      <locality type="clause">
+                         <referenceFrom>5</referenceFrom>
+                      </locality>
+                   </localityStack>
+                   XYZ, Clauses 3
+                   <span class="fmt-conn">to</span>
+                   5
+                </fmt-eref>
+             </semx>
+             <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
+                <localityStack connective="from" custom-connective="ekde">
+                   <locality type="clause">
+                      <referenceFrom>3</referenceFrom>
+                   </locality>
+                </localityStack>
+                <localityStack connective="to" custom-connective="ĝis">
+                   <locality type="clause">
+                      <referenceFrom>5</referenceFrom>
+                   </locality>
+                   <locality type="table">
+                      <referenceFrom>2</referenceFrom>
+                   </locality>
+                </localityStack>
+             </eref>
+             <semx element="eref" source="_">
+                <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
+                   <localityStack connective="from" custom-connective="ekde">
+                      <locality type="clause">
+                         <referenceFrom>3</referenceFrom>
+                      </locality>
+                   </localityStack>
+                   <localityStack connective="to" custom-connective="ĝis">
+                      <locality type="clause">
+                         <referenceFrom>5</referenceFrom>
+                      </locality>
+                      <locality type="table">
+                         <referenceFrom>2</referenceFrom>
+                      </locality>
+                   </localityStack>
+                   XYZ, Clause 3
+                   <span class="fmt-conn">ĝis</span>
+                   Clause 5, Table 2
+                </fmt-eref>
+             </semx>
+             text
+          </p>
+          <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
+             <localityStack connective="and">
+                <locality type="clause">
+                   <referenceFrom>3</referenceFrom>
+                </locality>
+             </localityStack>
+             <localityStack connective="and">
+                <locality type="clause">
+                   <referenceFrom>5</referenceFrom>
+                </locality>
+             </localityStack>
+          </eref>
+          <semx element="eref" source="_">
+             <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
+                <localityStack connective="and">
+                   <locality type="clause">
+                      <referenceFrom>3</referenceFrom>
+                   </locality>
+                </localityStack>
+                <localityStack connective="and">
+                   <locality type="clause">
+                      <referenceFrom>5</referenceFrom>
+                   </locality>
+                </localityStack>
+                XYZ, Clauses 3
+                <span class="fmt-conn">and</span>
+                5
+             </fmt-eref>
+          </semx>
+          <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
+             <localityStack connective="and">
+                <locality type="clause">
+                   <referenceFrom>3</referenceFrom>
+                </locality>
+             </localityStack>
+             <localityStack connective="and">
+                <locality type="clause">
+                   <referenceFrom>5</referenceFrom>
+                </locality>
+             </localityStack>
+             <localityStack connective="and">
+                <locality type="clause">
+                   <referenceFrom>7</referenceFrom>
+                </locality>
+             </localityStack>
+          </eref>
+          <semx element="eref" source="_">
+             <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
+                <localityStack connective="and">
+                   <locality type="clause">
+                      <referenceFrom>3</referenceFrom>
+                   </locality>
+                </localityStack>
+                <localityStack connective="and">
+                   <locality type="clause">
+                      <referenceFrom>5</referenceFrom>
+                   </locality>
+                </localityStack>
+                <localityStack connective="and">
+                   <locality type="clause">
+                      <referenceFrom>7</referenceFrom>
+                   </locality>
+                </localityStack>
+                XYZ, Clauses 3
+                <span class="fmt-enum-comma">,</span>
+                5
+                <span class="fmt-enum-comma">,</span>
+                <span class="fmt-conn">and</span>
+                7
+             </fmt-eref>
+          </semx>
+          <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
+             <localityStack connective="and">
+                <locality type="clause">
+                   <referenceFrom>3</referenceFrom>
+                </locality>
+             </localityStack>
+             <localityStack connective="and">
+                <locality type="annex">
+                   <referenceFrom>5</referenceFrom>
+                </locality>
+             </localityStack>
+          </eref>
+          <semx element="eref" source="_">
+             <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
+                <localityStack connective="and">
+                   <locality type="clause">
+                      <referenceFrom>3</referenceFrom>
+                   </locality>
+                </localityStack>
+                <localityStack connective="and">
+                   <locality type="annex">
+                      <referenceFrom>5</referenceFrom>
+                   </locality>
+                </localityStack>
+                XYZ, Clause 3
+                <span class="fmt-conn">and</span>
+                Annex 5
+             </fmt-eref>
+          </semx>
+          <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
+             <localityStack connective="and">
+                <locality type="clause">
+                   <referenceFrom>3</referenceFrom>
+                </locality>
+             </localityStack>
+             <localityStack connective="or">
+                <locality type="clause">
+                   <referenceFrom>5</referenceFrom>
+                </locality>
+             </localityStack>
+             text
+          </eref>
+          <semx element="eref" source="_">
+             <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
+                <localityStack connective="and">
+                   <locality type="clause">
+                      <referenceFrom>3</referenceFrom>
+                   </locality>
+                </localityStack>
+                <localityStack connective="or">
+                   <locality type="clause">
+                      <referenceFrom>5</referenceFrom>
+                   </locality>
+                </localityStack>
+                text
+             </fmt-eref>
+          </semx>
+          <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
+             <localityStack connective="from">
+                <locality type="clause">
+                   <referenceFrom>3</referenceFrom>
+                </locality>
+             </localityStack>
+             <localityStack connective="to">
+                <locality type="clause">
+                   <referenceFrom>5</referenceFrom>
+                </locality>
+             </localityStack>
+             <localityStack connective="and">
+                <locality type="clause">
+                   <referenceFrom>8</referenceFrom>
+                </locality>
+             </localityStack>
+             <localityStack connective="to">
+                <locality type="clause">
+                   <referenceFrom>10</referenceFrom>
+                </locality>
+             </localityStack>
+          </eref>
+          <semx element="eref" source="_">
+             <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
+                <localityStack connective="from">
+                   <locality type="clause">
+                      <referenceFrom>3</referenceFrom>
+                   </locality>
+                </localityStack>
+                <localityStack connective="to">
+                   <locality type="clause">
+                      <referenceFrom>5</referenceFrom>
+                   </locality>
+                </localityStack>
+                <localityStack connective="and">
+                   <locality type="clause">
+                      <referenceFrom>8</referenceFrom>
+                   </locality>
+                </localityStack>
+                <localityStack connective="to">
+                   <locality type="clause">
+                      <referenceFrom>10</referenceFrom>
+                   </locality>
+                </localityStack>
+                XYZ, Clauses 3
+                <span class="fmt-conn">to</span>
+                5
+                <span class="fmt-conn">and</span>
+                8
+                <span class="fmt-conn">to</span>
+                10
+             </fmt-eref>
+          </semx>
+       </itu-standard>
     OUTPUT
     expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
     .new(presxml_options)

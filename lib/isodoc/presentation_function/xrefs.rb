@@ -135,7 +135,8 @@ module IsoDoc
     def gather_xref_locations(node)
       node.xpath(ns("./location")).each_with_object([]) do |l, m|
         type = @xrefs.anchor(l["target"], :type)
-        m << { conn: l["connective"], target: l["target"],
+        m << { conn: l["connective"], custom: l["custom-connective"],
+               target: l["target"],
                type:, node: l, elem: @xrefs.anchor(l["target"], :elem),
                container: @xrefs.anchor(l["target"], :container, false) ||
                  %w(termnote).include?(type) }
@@ -165,14 +166,24 @@ module IsoDoc
       else
         ret = loc2xref(list[0])
         list[1..].each { |l| ret = i18n_chain_boolean(ret, l) }
+      if list[0][:conn] == "from" && list[0][:custom]
+        # TODO: languages with mandatory from, include from in chain_to
+        ret = connectives_spans("<conn>#{list[0][:custom]}</conn> ") + ret
+      end
         ret
       end
     end
 
+    def conn_sub(str, conn)
+       str.sub(%r{<conn>[^<]+</conn>}, "<conn>#{conn}</conn>")
+    end
+
     def i18n_chain_boolean(value, entry)
-      connectives_spans(@i18n.send("chain_#{entry[:conn]}")
+      ret = @i18n.send("chain_#{entry[:conn]}")
         .sub("%1", value)
-        .sub("%2", loc2xref(entry)))
+        .sub("%2", loc2xref(entry))
+      c = entry[:custom] and ret = conn_sub(ret, c)
+      connectives_spans(ret)
     end
 
     def can_conflate_xref_rendering?(locs)
