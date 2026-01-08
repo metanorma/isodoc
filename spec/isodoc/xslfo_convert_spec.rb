@@ -93,6 +93,8 @@ RSpec.describe IsoDoc do
         pdfallowassembledocument: "j",
         pdfallowprinthq: "k",
         pdfencryptmetadata: "l",
+        pdfkeystore: "m",
+        pdfkeystorepassword: "n",
       },
     )
 
@@ -108,6 +110,8 @@ RSpec.describe IsoDoc do
                "--allow-print-hq" => "k",
                "--encrypt-metadata" => "l",
                "--encryption-length" => "a",
+               "--keystore" => "m",
+               "--keystore-password" => "n",
                "--owner-password" => "b",
                :"--syntax-highlight" => nil,
                "--user-password" => "c",

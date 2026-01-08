@@ -16,7 +16,10 @@ module IsoDoc
                        pdfstylesheet: "--xsl-file",
                        pdfstylesheet_override: "--xsl-file-override",
                        pdfportfolio: "--pdf-portfolio",
-                       pdfencryptmetadata: "--encrypt-metadata" }.freeze
+                       pdfencryptmetadata: "--encrypt-metadata",
+                       pdfkeystore: "--keystore",
+                       pdfkeystorepassword: "--keystore-password",
+                         }.freeze
     MN2PDF_DEFAULT_ARGS = { "--syntax-highlight": nil }.freeze
 
     def initialize(options)
