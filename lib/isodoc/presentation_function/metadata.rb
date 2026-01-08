@@ -105,18 +105,21 @@ module IsoDoc
     end
 
     def fonts_metadata(xmldoc)
+      @fontlicenseagreement || @fontist_fonts or return
       ins = presmeta_insert_pt(xmldoc)
       @fontlicenseagreement and
         ins.add_child(presmeta("font-license-agreement", @fontlicenseagreement))
       @fontist_fonts and CSV.parse_line(@fontist_fonts, col_sep: ";")
-        .map(&:strip).reverse_each do |f|
+        .map(&:strip).each do |f|
         ins.add_child(presmeta("fonts", f))
       end
     end
 
     def presmeta_insert_pt(xmldoc)
-      xmldoc.at(ns("//presentation-metadata")) ||
-        extension_insert_pt(xmldoc)
+      ins = xmldoc.at(ns("//presentation-metadata")) and return ins
+      ins = extension_insert_pt(xmldoc)
+      ins << "<presentation-metadata> </presentation-metadata>"
+      ins.elements.last
     end
 
     def presmeta(name, value)
