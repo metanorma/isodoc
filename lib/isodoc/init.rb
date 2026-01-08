@@ -19,15 +19,24 @@ module IsoDoc
       @i18n.l10n(expr, lang, script, opt)
     end
 
-    def toc_init(docxml)
+    def docxml_var_init(docxml)
+      doctype_init(docxml)
+      toc_init(docxml)
+    end
+
+    def doctype_init(docxml)
       @doctype = docxml.at(ns("//bibdata/ext/doctype"))&.text
       @subdoctype = docxml.at(ns("//bibdata/ext/subdoctype"))&.text
-      @xrefs.klass.doctype = @doctype
-      x = "//metanorma-extension/presentation-metadata" \
-          "[name[text() = 'TOC Heading Levels']]/value"
-      n = docxml.at(ns(x.sub("TOC", "DOC TOC"))) and
+      @docscheme = docxml.at(ns("//metanorma-extension/presentation-metadata/"\
+        "document-scheme"))&.text
+    end
+
+    def toc_init(docxml)
+      x = "//metanorma-extension/presentation-metadata/" \
+          "toc-heading-levels"
+      n = docxml.at(ns(x.sub("toc", "doc-toc"))) and
         @wordToClevels = n.text.to_i
-      n = docxml.at(ns(x.sub("TOC", "HTML TOC"))) and
+      n = docxml.at(ns(x.sub("toc", "html-toc"))) and
         @htmlToClevels = n.text.to_i
     end
 

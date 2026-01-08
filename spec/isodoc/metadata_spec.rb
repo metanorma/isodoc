@@ -146,13 +146,13 @@ RSpec.describe IsoDoc do
       <stage-published>false</stage-published>
       </semantic-metadata>
         <presentation-metadata>
-        <name>A</name><value>B</value>
+        <A>B</A>
         </presentation-metadata>
         <presentation-metadata>
-        <name>C</name><value>D</value>
+        <C>D</C>
         </presentation-metadata>
         <presentation-metadata>
-        <name>A</name><value>F</value>
+        <A>F</A>
         </presentation-metadata>
       </metanorma-extension>
       </iso-standard>

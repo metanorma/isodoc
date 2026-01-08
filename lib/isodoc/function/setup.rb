@@ -42,6 +42,7 @@ module IsoDoc
 
       def info(isoxml, out)
         @meta.localdir = @localdir
+        @meta.presentation isoxml, out
         @meta.code_css isoxml, out
         @meta.title isoxml, out
         @meta.subtitle isoxml, out
@@ -58,7 +59,6 @@ module IsoDoc
         @meta.keywords isoxml, out
         @meta.note isoxml, out
         @meta.images isoxml, out
-        @meta.presentation isoxml, out
         @meta.get
       end
     end

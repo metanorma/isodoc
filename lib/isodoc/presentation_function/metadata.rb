@@ -18,14 +18,14 @@ module IsoDoc
     def logo_expand_pres_metadata(docxml)
       docxml.xpath(ns("//metanorma-extension/presentation-metadata/*"))
         .each do |x|
-        logo_size_pres_metadata_incomplete?(x) or next
-        parts = x.name.split("-")
-        @output_formats.each_key do |f|
-          tagname = "logo-#{parts[1]}-#{f}-#{parts[2..].join('-')}"
-          x.parent.next = <<~XML
-            <presentation-metadata><#{tagname}>#{x.text}</#{tagname}></presentation-metadata>
-          XML
-        end
+          logo_size_pres_metadata_incomplete?(x) or next
+          parts = x.name.split("-")
+          @output_formats.each_key do |f|
+            tagname = "logo-#{parts[1]}-#{f}-#{parts[2..].join('-')}"
+            x.parent.next = <<~XML
+              <presentation-metadata><#{tagname}>#{x.text}</#{tagname}></presentation-metadata>
+            XML
+          end
       end
     end
 
@@ -41,9 +41,9 @@ module IsoDoc
       ins or return
       words = langs.each_with_object([]) do |l, m|
         @i18n = if @lang == l then i18n_cache
-               else i18n_init(l, ::Metanorma::Utils.default_script(l), nil, {})
-               end
-        m << i18n_name(trim_hash(@i18n.get), '', l).join
+                else i18n_init(l, ::Metanorma::Utils.default_script(l), nil, {})
+                end
+        m << i18n_name(trim_hash(@i18n.get), "", l).join
       end
       ins.next = "<localized-strings>#{words.join}</localized-strings>"
       @i18n = i18n_cache
@@ -52,8 +52,8 @@ module IsoDoc
     def localized_strings_prep(docxml)
       ins = docxml.at(ns("//bibdata")) or return
       langs = docxml.xpath(ns("//bibdata/title/@language")).map(&:to_s)
-     langs << @lang
-     langs.uniq!
+      langs << @lang
+      langs.uniq!
       i18n_cache = @i18n
       [ins, langs, i18n_cache]
     end
@@ -96,7 +96,7 @@ module IsoDoc
       @tocfigures || @toctables || @tocrecommendations or return
       ins = extension_insert(docxml)
       @tocfigures and
-        ins << "<toc type='figure'><title>#{@i18n.toc_figures}</title></toc>"
+        ins.add_child "<toc type='figure'><title>#{@i18n.toc_figures}</title></toc>"
       @toctables and
         ins << "<toc type='table'><title>#{@i18n.toc_tables}</title></toc>"
       @tocfigures and
@@ -105,23 +105,25 @@ module IsoDoc
     end
 
     def fonts_metadata(xmldoc)
+      @fontlicenseagreement || @fontist_fonts or return
       ins = presmeta_insert_pt(xmldoc)
-      @fontist_fonts and CSV.parse_line(@fontist_fonts, col_sep: ";")
-        .map(&:strip).reverse_each do |f|
-        ins.next = presmeta("fonts", f)
-      end
       @fontlicenseagreement and
-        ins.next = presmeta("font-license-agreement", @fontlicenseagreement)
+        ins.add_child(presmeta("font-license-agreement", @fontlicenseagreement))
+      @fontist_fonts and CSV.parse_line(@fontist_fonts, col_sep: ";")
+        .map(&:strip).each do |f|
+        ins.add_child(presmeta("fonts", f))
+      end
     end
 
     def presmeta_insert_pt(xmldoc)
-      xmldoc.at(ns("//presentation-metadata")) ||
-        extension_insert_pt(xmldoc).children.last
+      ins = xmldoc.at(ns("//presentation-metadata")) and return ins
+      ins = extension_insert_pt(xmldoc)
+      ins << "<presentation-metadata> </presentation-metadata>"
+      ins.elements.last
     end
 
     def presmeta(name, value)
-      "<presentation-metadata><name>#{name}</name><value>#{value}</value>" \
-        "</presentation-metadata>"
+      "<#{name}>#{value}</#{name}>"
     end
 
     def i18n_tag(key, value, lang)
@@ -154,7 +156,8 @@ module IsoDoc
             i18n_name(v1, "#{i18n_safe(k)}.#{i}", lang).each { |x| g << x }
           end
         else
-          g << i18n_tag("#{pref}#{pref.empty? ? '' : '.'}#{i18n_safe(k)}", v, lang)
+          g << i18n_tag("#{pref}#{pref.empty? ? '' : '.'}#{i18n_safe(k)}", v,
+                        lang)
         end
       end
     end
