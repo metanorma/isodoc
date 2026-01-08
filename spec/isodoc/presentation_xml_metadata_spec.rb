@@ -90,16 +90,9 @@ RSpec.describe IsoDoc do
         <bibdata/>
         <metanorma-extension>
           <presentation-metadata>
-          <name>font-license-agreement</name>
-          <value>no-install-fonts</value>
-        </presentation-metadata>
-        <presentation-metadata>
-          <name>fonts</name>
-          <value>font2</value>
-        </presentation-metadata>
-        <presentation-metadata>
-          <name>fonts</name>
-          <value>font1</value>
+                <font-license-agreement>no-install-fonts</font-license-agreement>
+      <fonts>font2</fonts>
+      <fonts>font1</fonts>
         </presentation-metadata>
         </metanorma-extension>
       </iso-standard>
