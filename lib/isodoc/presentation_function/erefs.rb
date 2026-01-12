@@ -57,7 +57,7 @@ module IsoDoc
         end
       end
       locs = locs.each_slice(2).with_object([]) do |a, m|
-        m << { custom: a[0][:custom], conn: a[0][:conn], label: a[1][:ref] }
+        m << { custom: a[0][:custom], conn: a[0][:conn], label: a.dig(1, :ref) }
       end
       [", ", combine_conn(locs)]
     end
