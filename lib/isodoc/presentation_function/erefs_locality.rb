@@ -36,6 +36,7 @@ module IsoDoc
         i == refs.size - 1 and next
         m << eref_locality_delimiter(r)
       end
+      ret[-1] && ret[-1][:conn] == ", " and ret.pop
       ret.empty? ? ret : [{ conn: ", " }] + ret
     end
 
