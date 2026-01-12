@@ -81,7 +81,7 @@ module IsoDoc
     end
 
     def resolve_comma_connectives1(locs, locs1, add)
-      if [", ", " ", ""].include?(locs.dig(1, :conn))
+      if [", ", " ", ""].include?(locs.dig(1, :conn)) && locs.size > 2
         add += [locs[0][:ref], locs[1][:custom] || locs[1][:conn], locs[2][:ref]].join
         locs.shift(3)
       else
