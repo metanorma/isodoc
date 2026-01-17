@@ -118,6 +118,29 @@ module IsoDoc
         end
       end
 
+      def key_parse(node, out)
+        out.div **attr_code(class: node["class"]) do |div|
+          node.children.each do |n|
+            if n.name == "name"
+              key_name_parse(n, div)
+              "<p keep-with-next='true'><strong>#{@i18n.key}</strong></p>"
+            else parse(n, div)
+            end
+          end
+        end
+      end
+
+      def key_name_parse(node, div)
+        a = keep_style(node)
+        a&.include?("page-break-after:") or
+          a = "page-break-after: avoid;#{a}"
+        div.p style: a do |p|
+          p.b do |s|
+            children_parse(node, s)
+          end
+        end
+      end
+
       def para_class(node)
         classtype = nil
         classtype = "MsoCommentText" if in_comment
@@ -137,13 +160,13 @@ module IsoDoc
 
       def para_parse(node, out)
         out.p **attr_code(para_attrs(node)) do |p|
-                    children_parse(node, p)
+          children_parse(node, p)
         end
       end
 
       def attribution_parse(node, out)
         out.div class: "QuoteAttribution" do |div|
-                    children_parse(node, div)
+          children_parse(node, div)
         end
       end
 
@@ -167,14 +190,14 @@ module IsoDoc
 
       def toc_parse(node, out)
         out.div class: "toc" do |div|
-                    children_parse(node, div)
+          children_parse(node, div)
         end
       end
 
       def source_parse(node, out)
         out.div class: "BlockSource" do |d|
           d.p do |p|
-                      children_parse(node, p)
+            children_parse(node, p)
           end
         end
       end
@@ -201,7 +224,7 @@ module IsoDoc
         tag = node.parent.name == "fmt-footnote-container" ? "aside" : "div"
         id = node["is_table"] ? node["reference"] : node["id"]
         out.send tag, id: "fn:#{id}", class: "footnote" do |div|
-                    children_parse(node, div)
+          children_parse(node, div)
         end
       end
     end

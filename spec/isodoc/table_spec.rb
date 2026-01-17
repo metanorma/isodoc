@@ -59,11 +59,13 @@ RSpec.describe IsoDoc do
               <td align="center"><dl><dt>6,06</dt><dd>Definition</dd></dl></td>
             </tr>
           </tfoot>
-          <dl key="true">
+          <key>
+          <dl>
              <name>Key</name>
           <dt>Drago</dt>
         <dd>A type of rice</dd>
         </dl>
+          </key>
               <source status="generalisation">
           <origin bibitemid="ISO712" type="inline" citeas="">
             <localityStack>
@@ -257,7 +259,8 @@ RSpec.describe IsoDoc do
                         </td>
                      </tr>
                   </tfoot>
-                  <dl key="true">
+                  <key>
+                  <dl>
                      <name id="_18">Key</name>
                      <fmt-name id="_27">
                         <semx element="name" source="_18">Key</semx>
@@ -265,6 +268,7 @@ RSpec.describe IsoDoc do
                      <dt>Drago</dt>
                      <dd>A type of rice</dd>
                   </dl>
+                  </key>
                   <source status="generalisation" id="_5">
                      <origin bibitemid="ISO712" type="inline" citeas="">
                         <localityStack>
@@ -550,6 +554,7 @@ RSpec.describe IsoDoc do
                            </td>
                         </tr>
                      </tfoot>
+                     <div>
                      <div class="figdl">
                         <p class="ListTitle">Key</p>
                         <dl>
@@ -558,6 +563,7 @@ RSpec.describe IsoDoc do
                            </dt>
                            <dd>A type of rice</dd>
                         </dl>
+                     </div>
                      </div>
                      <div class="BlockSource">
                         <p>
@@ -705,9 +711,11 @@ RSpec.describe IsoDoc do
                        </td>
                      </tr>
                    </tfoot>
+                   <div>
                    <div class="figdl">
                      <p class="ListTitle">Key</p>
                      <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">Drago<span style="mso-tab-count:1">\\u00a0 </span>A type of rice</p>
+                   </div>
                    </div>
                    <div class="BlockSource">
                      <p>[SOURCE: <a href="#ISO712">ISO\\u00a0712, Section 1</a>
@@ -864,11 +872,13 @@ RSpec.describe IsoDoc do
               <td align="center"><dl><dt>6,06</dt><dd>Definition</dd></dl></td>
             </tr>
           </tfoot>
-          <dl key="true">
+          <key>
+          <dl>
              <name>Key</name>
           <dt>Drago</dt>
         <dd>A type of rice</dd>
         </dl>
+        </key>
               <source status="generalisation">
           <origin bibitemid="ISO712" type="inline" citeas="">
             <localityStack>
@@ -1025,7 +1035,8 @@ RSpec.describe IsoDoc do
                         </td>
                      </tr>
                   </tfoot>
-                  <dl key="true">
+                  <key>
+                  <dl>
                      <name id="_13">Key</name>
                      <fmt-name id="_22">
                         <semx element="name" source="_13">Key</semx>
@@ -1033,6 +1044,7 @@ RSpec.describe IsoDoc do
                      <dt>Drago</dt>
                      <dd>A type of rice</dd>
                   </dl>
+                  </key>
                   <source status="generalisation" id="_4">
                      <origin bibitemid="ISO712" type="inline" citeas="">
                         <localityStack>
@@ -1235,6 +1247,7 @@ RSpec.describe IsoDoc do
                            </td>
                         </tr>
                      </tfoot>
+                     <div>
                      <div class="figdl">
                         <p class="ListTitle">Key</p>
                         <dl>
@@ -1243,6 +1256,7 @@ RSpec.describe IsoDoc do
                            </dt>
                            <dd>A type of rice</dd>
                         </dl>
+                     </div>
                      </div>
                      <div class="BlockSource">
                         <p>[SOURCE: , Section 1 — with adjustments;
@@ -1351,6 +1365,7 @@ RSpec.describe IsoDoc do
                               </td>
                            </tr>
                         </tfoot>
+                        <div>
                         <div class="figdl">
                            <p class="ListTitle">Key</p>
                            <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">
@@ -1358,6 +1373,7 @@ RSpec.describe IsoDoc do
                               <span style="mso-tab-count:1">\\u00a0 </span>
                               A type of rice
                            </p>
+                        </div>
                         </div>
                         <div class="BlockSource">
                            <p>[SOURCE: , Section 1 — with adjustments;
