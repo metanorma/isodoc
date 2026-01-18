@@ -63,7 +63,7 @@ module IsoDoc
 
       def dl_table_attrs(node)
         key = node.parent.name == "key" && node.parent["class"] == "formula_dl"
-        klass = key ? node.parent["class"] : nll
+        klass = key ? node.parent["class"] : nil
         { id: node["id"],
           style: key ? "text-align:left;" : nil,
           class: klass || node["class"] || "dl" }
