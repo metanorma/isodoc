@@ -156,7 +156,8 @@ module IsoDoc
     def figure_key_insert_pt(elem)
       elem.at(ns(".//dl/name"))&.next ||
         elem.at(ns(".//dl"))&.children&.first ||
-        elem.add_child("<dl> </dl>").first.children.first
+        elem.add_child("<key><dl> </dl></key>")
+        .first.elements.first.children.first
     end
 
     def comments(docxml)

@@ -563,6 +563,7 @@ RSpec.describe IsoDoc do
           <preface><foreword id="fwd">
           <formula id="_be9158af-7e93-4ee2-90c5-26d31c181934" unnumbered="true"  keep-with-next="true" keep-lines-together="true">
         <stem type="AsciiMath">r = 1 %</stem>
+        <key>
       <dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d">
         <dt>
           <stem type="AsciiMath">r</stem>
@@ -571,6 +572,7 @@ RSpec.describe IsoDoc do
           <p id="_1b99995d-ff03-40f5-8f2e-ab9665a69b77">is the repeatability limit.</p>
         </dd>
       </dl>
+      </key>
           <note id="_83083c7a-6c85-43db-a9fa-4d8edd0c9fc0">
         <p id="_511aaa98-4116-42af-8e5b-c87cdf5bfdc8">[durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p>
       </note>
@@ -603,7 +605,8 @@ RSpec.describe IsoDoc do
                       <semx element="stem" source="_">r = 1 %</semx>
                    </fmt-stem>
                    <p keep-with-next="true">where</p>
-                   <dl id="_" class="formula_dl">
+                   <key class="formula_dl">
+                   <dl id="_">
                       <dt>
                          <stem type="AsciiMath" id="_">r</stem>
                          <fmt-stem type="AsciiMath">
@@ -614,6 +617,7 @@ RSpec.describe IsoDoc do
                          <p id="_">is the repeatability limit.</p>
                       </dd>
                    </dl>
+                   </key>
                    <note id="_" autonum="">
                       <fmt-name id="_">
                          <span class="fmt-caption-label">
@@ -714,12 +718,14 @@ RSpec.describe IsoDoc do
                   <div id="fwd">
                     <h1 class="ForewordTitle">Foreword</h1>
                     <div id="_" style='page-break-after: avoid;page-break-inside: avoid;'><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div><p style='page-break-after: avoid;'>where</p>
+                    <div class="key formula_dl">
                     <div class="figdl">
-                    <dl id="_" class="formula_dl"><dt>
+                    <dl id="_"><dt>
               <span class="stem">(#(r)#)</span>
             </dt><dd>
               <p id="_">is the repeatability limit.</p>
             </dd></dl>
+            </div>
             </div>
 
 
@@ -762,6 +768,7 @@ RSpec.describe IsoDoc do
                     </p>
                   </div>
                   <p style="page-break-after: avoid;">where</p>
+                  <div class="key formula_dl">
                   <div align="left">
                   <table id="_" style="text-align:left;" class="formula_dl">
                     <tr>
@@ -775,6 +782,7 @@ RSpec.describe IsoDoc do
                       </td>
                     </tr>
                   </table>
+                  </div>
                   </div>
                   <div id='_' class='Note'>
                     <p class='Note'>

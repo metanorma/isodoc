@@ -8,8 +8,8 @@ module IsoDoc
       def passthrough_cleanup(docxml)
         docxml.split(%r{(<passthrough>|</passthrough>)}).each_slice(4)
           .map do |a|
-          a.size > 2 and a[2] = HTMLEntities.new.decode(a[2])
-          [a[0], a[2]]
+            a.size > 2 and a[2] = HTMLEntities.new.decode(a[2])
+            [a[0], a[2]]
         end.join
       end
 
@@ -112,7 +112,8 @@ module IsoDoc
       end
 
       TABLENOTE_CSS = "div[@class = 'Note' or @class = 'BlockSource' " \
-        "or @class = 'TableFootnote' or @class = 'figdl']".freeze
+        "or @class = 'TableFootnote' or @class = 'figdl' or @class = 'key']"
+        .freeze
 
       def table_note_cleanup(docxml)
         docxml.xpath("//table[dl or #{TABLENOTE_CSS}]").each do |t|
@@ -120,7 +121,7 @@ module IsoDoc
           insert_here = new_fullcolspan_row(t, tfoot)
           t.xpath("dl | p[@class = 'ListTitle'] | #{TABLENOTE_CSS}")
             .each do |d|
-            d.parent = insert_here
+              d.parent = insert_here
           end
         end
       end

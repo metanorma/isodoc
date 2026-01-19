@@ -19,10 +19,12 @@ RSpec.describe IsoDoc do
           <fn reference="b">
           <p id="_ef2c85b8-5a5a-4ecd-a1e6-92acefaaa853">Second footnote.</p>
         </fn>
+        <key>
           <dl>
           <dt>A</dt>
           <dd><p>B</p></dd>
           </dl>
+          </key>
                 <source status="generalisation">
           <origin bibitemid="ISO712" type="inline" citeas="ISO 712">
             <localityStack>
@@ -162,10 +164,9 @@ RSpec.describe IsoDoc do
                         </span>
                      </fmt-fn-label>
                   </fn>
-                  <p keep-with-next="true">
-                     <strong>Key</strong>
-                  </p>
-                  <dl class="formula_dl">
+                  <key class="formula_dl">
+                  <name>Key</name>
+                  <dl>
                      <dt>
                         <p>
                            <fmt-fn-label>
@@ -214,6 +215,7 @@ RSpec.describe IsoDoc do
                         <p>B</p>
                      </dd>
                   </dl>
+                  </key>
                   <source status="generalisation" id="_4">
                      <origin bibitemid="ISO712" type="inline" citeas="ISO 712">
                         <localityStack>
@@ -416,11 +418,12 @@ RSpec.describe IsoDoc do
                       <img src="data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==" height="20" width="auto"/>
                       <a href="#figureA-1a" class="TableFootnoteRef">a</a>
                       <a href="#figureA-1b" class="TableFootnoteRef">b</a>
+                       <div class="key formula_dl">
                       <p style="page-break-after: avoid;">
                          <b>Key</b>
                       </p>
                       <div class="figdl">
-                         <dl class="formula_dl">
+                         <dl>
                             <dt>
                                <p>
                                   <sup>a</sup>
@@ -452,6 +455,7 @@ RSpec.describe IsoDoc do
                                <p>B</p>
                             </dd>
                          </dl>
+                      </div>
                       </div>
                       <div class="BlockSource">
                          <p>
@@ -526,6 +530,7 @@ RSpec.describe IsoDoc do
                       <img src='_.xml' height="20" width="auto"/>
                       <a href="#figureA-1a" class="TableFootnoteRef">a</a>
                       <a href="#figureA-1b" class="TableFootnoteRef">b</a>
+                      <div class="key formula_dl">
                       <p style="page-break-after: avoid;">
                          <b>Key</b>
                       </p>
@@ -572,6 +577,7 @@ RSpec.describe IsoDoc do
                                </td>
                             </tr>
                          </table>
+                      </div>
                       </div>
                       <div class="BlockSource">
                          <p>
@@ -1275,10 +1281,13 @@ RSpec.describe IsoDoc do
         <fn reference="a">
         <p id="_ef2c85b8-5a5a-4ecd-a1e6-92acefaaa852">The time <stem type="AsciiMath">t_90</stem> was estimated to be 18,2 min for this example.</p>
       </fn>
-        <dl><name>Key of figure</name>
+      <key>
+      <name>Key of figure</name>
+        <dl>
         <dt>A</dt>
         <dd><p>B</p></dd>
         </dl>
+      </key>
       </figure>
       <figure id="figure-B" class="plate">
       <pre alt="A B">A &#x3c;
@@ -1358,11 +1367,9 @@ RSpec.describe IsoDoc do
                         </span>
                      </fmt-fn-label>
                   </fn>
-                  <dl class="formula_dl">
-                     <name id="_">Key of figure</name>
-                     <fmt-name id="_">
-                        <semx element="name" source="_">Key of figure</semx>
-                     </fmt-name>
+                  <key class="formula_dl">
+                     <name>Key of figure</name>
+                  <dl>
                      <dt>
                         <p>
                            <fmt-fn-label>
@@ -1393,6 +1400,7 @@ RSpec.describe IsoDoc do
                         <p>B</p>
                      </dd>
                   </dl>
+                  </key>
                </figure>
                <figure id="figure-B" class="plate" autonum="1">
                   <fmt-name id="_">
