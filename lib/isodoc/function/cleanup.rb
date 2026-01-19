@@ -112,7 +112,7 @@ module IsoDoc
       end
 
       TABLENOTE_CSS = "div[@class = 'Note' or @class = 'BlockSource' " \
-        "or @class = 'TableFootnote' or @class = 'figdl' or class = 'key']"
+        "or @class = 'TableFootnote' or @class = 'figdl' or @class = 'key']"
         .freeze
 
       def table_note_cleanup(docxml)
