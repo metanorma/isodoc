@@ -718,7 +718,7 @@ RSpec.describe IsoDoc do
                   <div id="fwd">
                     <h1 class="ForewordTitle">Foreword</h1>
                     <div id="_" style='page-break-after: avoid;page-break-inside: avoid;'><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div><p style='page-break-after: avoid;'>where</p>
-                    <div class="formula_dl">
+                    <div class="key formula_dl">
                     <div class="figdl">
                     <dl id="_"><dt>
               <span class="stem">(#(r)#)</span>
@@ -768,7 +768,7 @@ RSpec.describe IsoDoc do
                     </p>
                   </div>
                   <p style="page-break-after: avoid;">where</p>
-                  <div class="formula_dl">
+                  <div class="key formula_dl">
                   <div align="left">
                   <table id="_" style="text-align:left;" class="formula_dl">
                     <tr>

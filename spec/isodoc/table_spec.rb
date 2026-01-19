@@ -554,7 +554,7 @@ RSpec.describe IsoDoc do
                            </td>
                         </tr>
                      </tfoot>
-                     <div>
+                     <div class="key">
                      <div class="figdl">
                         <p class="ListTitle">Key</p>
                         <dl>
@@ -711,7 +711,7 @@ RSpec.describe IsoDoc do
                        </td>
                      </tr>
                    </tfoot>
-                   <div>
+                   <div class="key">
                    <div class="figdl">
                      <p class="ListTitle">Key</p>
                      <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">Drago<span style="mso-tab-count:1">\\u00a0 </span>A type of rice</p>
@@ -1247,7 +1247,7 @@ RSpec.describe IsoDoc do
                            </td>
                         </tr>
                      </tfoot>
-                     <div>
+                     <div class="key">
                      <div class="figdl">
                         <p class="ListTitle">Key</p>
                         <dl>
@@ -1365,7 +1365,7 @@ RSpec.describe IsoDoc do
                               </td>
                            </tr>
                         </tfoot>
-                        <div>
+                        <div class="key">
                         <div class="figdl">
                            <p class="ListTitle">Key</p>
                            <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">

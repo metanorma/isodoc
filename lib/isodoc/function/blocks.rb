@@ -119,7 +119,8 @@ module IsoDoc
       end
 
       def key_parse(node, out)
-        out.div **attr_code(class: node["class"]) do |div|
+        klass = "key #{node['class']}".strip
+        out.div **attr_code(class: klass) do |div|
           node.children.each do |n|
             if n.name == "name"
               key_name_parse(n, div)
