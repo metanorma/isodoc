@@ -216,7 +216,7 @@ module IsoDoc
       id = "_#{UUIDTools::UUID.random_create}"
       @new_ids[id] = nil
       <<~XML
-        "#{ret}<fn id='#{id}' reference='#{id}'><p>#{date_note.first.content}</p></fn>"
+        #{ret}<fn id='#{id}' reference='#{id}'><p>#{date_note.first.content}</p></fn>
       XML
     end
 
