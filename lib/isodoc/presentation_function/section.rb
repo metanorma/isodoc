@@ -1,6 +1,3 @@
-require_relative "refs"
-require_relative "title"
-
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def clause(docxml)

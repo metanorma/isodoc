@@ -15,13 +15,13 @@ module IsoDoc
 
     def prefix_container(container, linkend, node, target)
       prefix_container?(container, node) or return linkend
-      container_container = @xrefs.anchor(container, :container, false)
-      container_label =
+      container_container = prefix_container_container(container)
+      cntnr_label =
         prefix_container(container_container,
                          anchor_xref(node, container, container: true),
                          node, target)
       l10n(connectives_spans(@i18n.nested_xref
-        .sub("%1", "<span class='fmt-xref-container'>#{esc container_label}</span>")
+        .sub("%1", "<span class='fmt-xref-container'>#{esc cntnr_label}</span>")
         .sub("%2", esc(linkend))))
     end
 
@@ -166,16 +166,16 @@ module IsoDoc
       else
         ret = loc2xref(list[0])
         list[1..].each { |l| ret = i18n_chain_boolean(ret, l) }
-      if list[0][:conn] == "from" && list[0][:custom]
-        # TODO: languages with mandatory from, include from in chain_to
-        ret = connectives_spans("<conn>#{list[0][:custom]}</conn> ") + ret
-      end
+        if list[0][:conn] == "from" && list[0][:custom]
+          # TODO: languages with mandatory from, include from in chain_to
+          ret = connectives_spans("<conn>#{list[0][:custom]}</conn> ") + ret
+        end
         ret
       end
     end
 
     def conn_sub(str, conn)
-       str.sub(%r{<conn>[^<]+</conn>}, "<conn>#{conn}</conn>")
+      str.sub(%r{<conn>[^<]+</conn>}, "<conn>#{conn}</conn>")
     end
 
     def i18n_chain_boolean(value, entry)
