@@ -603,7 +603,7 @@ RSpec.describe IsoDoc do
 
     html = <<~OUTPUT
       #{HTML_HDR}
-                      <br/>
+                <br/>
                 <div id="_1">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <p id="_">
@@ -647,13 +647,13 @@ RSpec.describe IsoDoc do
                       (see
                       <a href="http://www.icc.or.at">http://www.icc.or.at</a>
                       )
-                      <div id="_2" class="Note">
-                         <p>
-                            <span class="note_label">NOTE\\u00a0 </span>
-                         </p>
-                         <p>This is an annotation of ISO 20483:2013-2014</p>
-                      </div>
                    </p>
+                   <div id="_2" class="Note NormRef">
+                      <p>
+                         <span class="note_label">NOTE\\u00a0 </span>
+                      </p>
+                      <p>This is an annotation of ISO 20483:2013-2014</p>
+                   </div>
                    <p id="zip_ffs" class="NormRef">[2] Title 5</p>
                 </div>
                 <br/>
@@ -668,19 +668,19 @@ RSpec.describe IsoDoc do
                       [4]\\u00a0
                       <i>Instruments for analytical laboratory use</i>
                       . n.d. ISSN: ISSN.
-                      <div id="_4" class="Note">
-                         <p>
-                            <span class="note_label">NOTE 1\\u00a0 </span>
-                         </p>
-                         <p>This is an annotation of document ISSN.</p>
-                      </div>
-                      <div id="_5" class="Note">
-                         <p>
-                            <span class="note_label">NOTE 2\\u00a0 </span>
-                         </p>
-                         <p>This is another annotation of document ISSN.</p>
-                      </div>
                    </p>
+                   <div id="_4" class="Note Biblio">
+                      <p>
+                         <span class="note_label">NOTE 1\\u00a0 </span>
+                      </p>
+                      <p>This is an annotation of document ISSN.</p>
+                   </div>
+                   <div id="_5" class="Note Biblio">
+                      <p>
+                         <span class="note_label">NOTE 2\\u00a0 </span>
+                      </p>
+                      <p>This is another annotation of document ISSN.</p>
+                   </div>
                    <p id="ISO3696" class="Biblio">
                       [5]\\u00a0 ISO\\u00a03696
                       <a class="FootnoteRef" href="#fn:_24">
@@ -800,17 +800,17 @@ RSpec.describe IsoDoc do
                    (see
                    <a href="http://www.icc.or.at">http://www.icc.or.at</a>
                    )
-                   <div class="Note">
-                      <a name="_2" id="_2"/>
-                      <p class="Note">
-                         <span class="note_label">
-                            NOTE
-                            <span style="mso-tab-count:1">\\u00a0 </span>
-                         </span>
-                      </p>
-                      <p class="Note">This is an annotation of ISO 20483:2013-2014</p>
-                   </div>
                 </p>
+                <div class="Note NormRef">
+                   <a name="_2" id="_2"/>
+                   <p class="Note">
+                      <span class="note_label">
+                         NOTE
+                         <span style="mso-tab-count:1">\\u00a0 </span>
+                      </span>
+                   </p>
+                   <p class="Note">This is an annotation of ISO 20483:2013-2014</p>
+                </div>
                 <p class="NormRef">
                    <a name="zip_ffs" id="zip_ffs"/>
                    [2] Title 5
@@ -834,27 +834,27 @@ RSpec.describe IsoDoc do
                    <span style="mso-tab-count:1">\\u00a0 </span>
                    <i>Instruments for analytical laboratory use</i>
                    . n.d. ISSN: ISSN.
-                   <div class="Note">
-                      <a name="_4" id="_4"/>
-                      <p class="Note">
-                         <span class="note_label">
-                            NOTE 1
-                            <span style="mso-tab-count:1">\\u00a0 </span>
-                         </span>
-                      </p>
-                      <p class="Note">This is an annotation of document ISSN.</p>
-                   </div>
-                   <div class="Note">
-                      <a name="_5" id="_5"/>
-                      <p class="Note">
-                         <span class="note_label">
-                            NOTE 2
-                            <span style="mso-tab-count:1">\\u00a0 </span>
-                         </span>
-                      </p>
-                      <p class="Note">This is another annotation of document ISSN.</p>
-                   </div>
                 </p>
+                <div class="Note Biblio">
+                   <a name="_4" id="_4"/>
+                   <p class="Note">
+                      <span class="note_label">
+                         NOTE 1
+                         <span style="mso-tab-count:1">\\u00a0 </span>
+                      </span>
+                   </p>
+                   <p class="Note">This is an annotation of document ISSN.</p>
+                </div>
+                <div class="Note Biblio">
+                   <a name="_5" id="_5"/>
+                   <p class="Note">
+                      <span class="note_label">
+                         NOTE 2
+                         <span style="mso-tab-count:1">\\u00a0 </span>
+                      </span>
+                   </p>
+                   <p class="Note">This is another annotation of document ISSN.</p>
+                </div>
                 <p class="Biblio">
                    <a name="ISO3696" id="ISO3696"/>
                    [5]

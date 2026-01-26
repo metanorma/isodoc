@@ -3,9 +3,12 @@ module IsoDoc
     module References
       def bibitem_entry(list, bib, _ordinal, biblio)
         list.p **attr_code(iso_bibitem_entry_attrs(bib, biblio)) do |ref|
-          tag = bib.at(ns("./biblio-tag"))
-          tag&.children&.each { |n| parse(n, ref) }
+          children_parse(bib.at(ns("./biblio-tag")), ref)
           reference_format(bib, ref)
+        end
+        bib.xpath(ns("./formattedref/note")).each do |n|
+          parse(n, list)
+          list.parent.elements[-1]["class"] += biblio ? " Biblio" : " NormRef"
         end
       end
 
@@ -14,8 +17,8 @@ module IsoDoc
       end
 
       def reference_format(bib, out)
-        ftitle = bib.at(ns("./formattedref"))
-        ftitle&.children&.each { |n| parse(n, out) }
+        ftitle = bib.at(ns("./formattedref")) or return
+        ftitle.children.each { |n| n.name == "note" or parse(n, out) }
       end
 
       def biblio_list(refs, div, biblio)
