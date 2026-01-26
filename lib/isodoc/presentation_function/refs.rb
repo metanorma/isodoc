@@ -203,8 +203,8 @@ module IsoDoc
 
     def bibnote_extract(bib, type)
       bib.xpath(ns("./note")).each_with_object([]) do |n, m|
-        type = n["type"] or next
-        type.split(",").map(&:strip).include?(type) and m << n
+        n["type"] or next
+        n["type"].split(",").map(&:strip).include?(type) and m << n
       end
     end
 
