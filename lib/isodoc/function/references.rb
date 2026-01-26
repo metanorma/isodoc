@@ -6,6 +6,10 @@ module IsoDoc
           children_parse(bib.at(ns("./biblio-tag")), ref)
           reference_format(bib, ref)
         end
+        bibitem_notes(list, bib, _ordinal, biblio)
+      end
+
+      def bibitem_notes(list, bib, _ordinal, biblio)
         bib.xpath(ns("./formattedref/note")).each do |n|
           parse(n, list)
           list.parent.elements[-1]["class"] += biblio ? " Biblio" : " NormRef"
