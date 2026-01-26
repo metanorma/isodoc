@@ -7,7 +7,6 @@ module IsoDoc
           reference_format(bib, ref)
         end
         bib.xpath(ns("./formattedref/note")).each do |n|
-          require "debug"; binding.b
           parse(n, list)
           list.parent.elements[-1]["class"] += biblio ? " Biblio" : " NormRef"
         end

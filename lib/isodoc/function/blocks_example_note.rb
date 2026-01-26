@@ -74,7 +74,7 @@ module IsoDoc
 
       def note_p_parse(node, div)
         name = node.at(ns("./fmt-name"))
-        para = node.at(ns("./p"))
+        para = node.at(ns("./p")) || node.at(ns("./semx/p"))
         div.p **attr_code(class: note_p_class) do |p|
           name and p.span class: "note_label" do |s|
             name.children.each { |n| parse(n, s) }

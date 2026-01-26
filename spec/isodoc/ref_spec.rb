@@ -651,8 +651,8 @@ RSpec.describe IsoDoc do
                    <div id="_2" class="Note NormRef">
                       <p>
                          <span class="note_label">NOTE\\u00a0 </span>
+                         This is an annotation of ISO 20483:2013-2014
                       </p>
-                      <p>This is an annotation of ISO 20483:2013-2014</p>
                    </div>
                    <p id="zip_ffs" class="NormRef">[2] Title 5</p>
                 </div>
@@ -672,14 +672,14 @@ RSpec.describe IsoDoc do
                    <div id="_4" class="Note Biblio">
                       <p>
                          <span class="note_label">NOTE 1\\u00a0 </span>
+                         This is an annotation of document ISSN.
                       </p>
-                      <p>This is an annotation of document ISSN.</p>
                    </div>
                    <div id="_5" class="Note Biblio">
                       <p>
                          <span class="note_label">NOTE 2\\u00a0 </span>
+                         This is another annotation of document ISSN.
                       </p>
-                      <p>This is another annotation of document ISSN.</p>
                    </div>
                    <p id="ISO3696" class="Biblio">
                       [5]\\u00a0 ISO\\u00a03696
@@ -732,7 +732,7 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     doc = <<~OUTPUT
-       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+          <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
           <div class="WordSection2">
              <p class="MsoNormal">
                 <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -808,8 +808,8 @@ RSpec.describe IsoDoc do
                          NOTE
                          <span style="mso-tab-count:1">\\u00a0 </span>
                       </span>
+                      This is an annotation of ISO 20483:2013-2014
                    </p>
-                   <p class="Note">This is an annotation of ISO 20483:2013-2014</p>
                 </div>
                 <p class="NormRef">
                    <a name="zip_ffs" id="zip_ffs"/>
@@ -842,8 +842,8 @@ RSpec.describe IsoDoc do
                          NOTE 1
                          <span style="mso-tab-count:1">\\u00a0 </span>
                       </span>
+                      This is an annotation of document ISSN.
                    </p>
-                   <p class="Note">This is an annotation of document ISSN.</p>
                 </div>
                 <div class="Note Biblio">
                    <a name="_5" id="_5"/>
@@ -852,8 +852,8 @@ RSpec.describe IsoDoc do
                          NOTE 2
                          <span style="mso-tab-count:1">\\u00a0 </span>
                       </span>
+                      This is another annotation of document ISSN.
                    </p>
-                   <p class="Note">This is another annotation of document ISSN.</p>
                 </div>
                 <p class="Biblio">
                    <a name="ISO3696" id="ISO3696"/>
