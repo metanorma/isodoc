@@ -172,8 +172,8 @@ module IsoDoc
     end
 
     def norm_ref_entry_code(_ordinal, ids, _standard, datefn, _bib)
-      ret = (ids[:ordinal] || ids[:content] || ids[:metanorma] || ids[:sdo]).to_s
-      ret = esc(ret)
+      ret = esc((ids[:ordinal] || ids[:content] || ids[:metanorma] || ids[:sdo])
+        .to_s)
       (ids[:ordinal] || ids[:metanorma]) && ids[:sdo] and
         ret += ", #{esc ids[:sdo]}"
       ret += datefn
@@ -186,7 +186,6 @@ module IsoDoc
     # if ids is just a number, only use that ([1] Non-Standard)
     # else, use both ordinal, as prefix, and ids
     def biblio_ref_entry_code(ordinal, ids, _standard, datefn, _bib)
-      # standard and id = nil
       ret = esc(ids[:ordinal]) || esc(ids[:content]) || esc(ids[:metanorma]) ||
         "[#{esc ordinal.to_s}]"
       if ids[:sdo] && !ids[:sdo].empty?
@@ -202,14 +201,23 @@ module IsoDoc
       "#{text}<tab/>"
     end
 
+    def bibnote_extract(bib, type)
+      bib.xpath(ns("./note")).each_with_object([]) do |n, m|
+        type = n["type"] or next
+        type.split(",").map(&:strip).include?(type) and m << n
+      end
+    end
+
     # strip any fns in docidentifier before they are extracted for rendering
     def date_note_process(bib)
       ret = ident_fn(bib)
-      date_note = bib.at(ns("./note[@type = 'Unpublished-Status']"))
-      date_note.nil? and return ret
+      date_note = bibnote_extract(bib, "Unpublished-Status")
+      date_note.empty? and return ret
       id = "_#{UUIDTools::UUID.random_create}"
       @new_ids[id] = nil
-      "#{ret}<fn id='#{id}' reference='#{id}'><p>#{date_note.content}</p></fn>"
+      <<~XML
+        "#{ret}<fn id='#{id}' reference='#{id}'><p>#{date_note.first.content}</p></fn>"
+      XML
     end
 
     def ident_fn(bib)
