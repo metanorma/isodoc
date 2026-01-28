@@ -883,4 +883,573 @@ RSpec.describe IsoDoc do
        .at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to Canon.format_xml(output)
   end
+
+  it "cross-references notes nested in assets" do
+    input = <<~INPUT
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <preface>
+        <foreword id="fwd">
+        <p>
+        <xref target="scopeTN1"/>
+        <xref target="scopeTN2"/>
+        <xref target="scopeFN1"/>
+        <xref target="scopeFN2"/>
+        <xref target="scopeRN1"/>
+        <xref target="scopeRN2"/>
+        <xref target="scope2TN1"/>
+        <xref target="scope2TN2"/>
+        <xref target="scope2FN1"/>
+        <xref target="scope2FN2"/>
+        <xref target="scope2RN1"/>
+        <xref target="scope2RN2"/>
+        <xref target="annexTN1"/>
+        <xref target="annexTN2"/>
+        <xref target="annexFN1"/>
+        <xref target="annexFN2"/>
+        <xref target="annexRN1"/>
+        <xref target="annexRN2"/>
+        <xref target="annex2TN1"/>
+        <xref target="annex2TN2"/>
+        <xref target="annex2FN1"/>
+        <xref target="annex2FN2"/>
+        <xref target="annex2RN1"/>
+        <xref target="annex2RN2"/>
+        </p>
+        </foreword>
+        </preface>
+        <sections>
+        <clause id="scope" type="scope"><title>Scope</title>
+        <table id="scopeT">
+        <tbody><td/></table>
+        <note id="scopeTN1">Note <xref target="scopeTN2"/></note>
+        <note id="scopeTN2">Note <xref target="scopeFN2"/></note>
+        <note id="scopeTN3">Note <xref target="scope2TN2"/></note>
+        </table>
+        <figure id="scopeF">
+        <literal>...</literal>
+        <note id="scopeFN1">Note</note>
+        <note id="scopeFN2">Note</note>
+        </figure>
+        <requirement id="scopeR" model="default">
+        <note id="scopeRN1">Note</note>
+        <note id="scopeRN2">Note</note>
+        </requirement>
+      </clause>
+      <clause id="scope2"><title>Scope</title>
+        <table id="scope2T">
+        <tbody><td/></table>
+        <note id="scope2TN1">Note</note>
+        <note id="scope2TN2">Note</note>
+        </table>
+        <figure id="scope2F">
+        <literal>...</literal>
+        <note id="scope2FN1">Note</note>
+        <note id="scope2FN2">Note</note>
+        </figure>
+        <requirement id="scopeR" model="default">
+        <note id="scope2RN1">Note</note>
+        <note id="scope2RN2">Note</note>
+        </requirement>
+      </clause>
+      </sections>
+      <annex id="annex">
+        <table id="annexT">
+        <tbody><td/></table>
+        <note id="annexTN1">Note</note>
+        <note id="annexTN2">Note</note>
+        </table>
+        <figure id="annexF">
+        <literal>...</literal>
+        <note id="annexFN1">Note</note>
+        <note id="annexFN2">Note</note>
+        </figure>
+        <recommendation id="scopeR" model="default">
+        <note id="annexRN1">Note</note>
+        <note id="annexRN2">Note</note>
+        </recommendation>
+      </annex>
+      <annex id="annex2">
+        <table id="annex2T">
+        <tbody><td/></table>
+        <note id="annex2TN1">Note</note>
+        <note id="annex2TN2">Note</note>
+        </table>
+        <figure id="annex2F">
+        <literal>...</literal>
+        <note id="annex2FN1">Note</note>
+        <note id="annex2FN2">Note</note>
+        </figure>
+        <recommendation id="scopeR" model="default">
+        <note id="annex2RN1">Note</note>
+        <note id="annex2RN2">Note</note>
+        </recommendation>
+      </annex>
+        </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+       <foreword id="fwd" displayorder="2">
+          <title id="_">Foreword</title>
+          <fmt-title depth="1" id="_">
+             <semx element="title" source="_">Foreword</semx>
+          </fmt-title>
+          <p>
+             <xref target="scopeTN1" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="scopeTN1">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Table</span>
+                      <semx element="autonum" source="scopeT">1</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="scopeTN1">1</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="scopeTN2" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="scopeTN2">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Table</span>
+                      <semx element="autonum" source="scopeT">1</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="scopeTN2">2</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="scopeFN1" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="scopeFN1">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Figure</span>
+                      <semx element="autonum" source="scopeF">1</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="scopeFN1">1</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="scopeFN2" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="scopeFN2">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Figure</span>
+                      <semx element="autonum" source="scopeF">1</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="scopeFN2">2</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="scopeRN1" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="scopeRN1">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Recommendation</span>
+                      <semx element="autonum" source="annex2">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="scopeR">1</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="scopeRN1">1</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="scopeRN2" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="scopeRN2">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Recommendation</span>
+                      <semx element="autonum" source="annex2">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="scopeR">1</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="scopeRN2">2</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="scope2TN1" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="scope2TN1">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Table</span>
+                      <semx element="autonum" source="scope2T">2</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="scope2TN1">1</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="scope2TN2" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="scope2TN2">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Table</span>
+                      <semx element="autonum" source="scope2T">2</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="scope2TN2">2</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="scope2FN1" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="scope2FN1">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Figure</span>
+                      <semx element="autonum" source="scope2F">2</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="scope2FN1">1</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="scope2FN2" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="scope2FN2">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Figure</span>
+                      <semx element="autonum" source="scope2F">2</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="scope2FN2">2</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="scope2RN1" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="scope2RN1">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Recommendation</span>
+                      <semx element="autonum" source="annex2">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="scopeR">1</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="scope2RN1">1</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="scope2RN2" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="scope2RN2">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Recommendation</span>
+                      <semx element="autonum" source="annex2">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="scopeR">1</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="scope2RN2">2</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="annexTN1" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="annexTN1">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Table</span>
+                      <semx element="autonum" source="annex">A</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="annexT">1</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="annexTN1">1</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="annexTN2" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="annexTN2">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Table</span>
+                      <semx element="autonum" source="annex">A</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="annexT">1</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="annexTN2">2</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="annexFN1" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="annexFN1">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Figure</span>
+                      <semx element="autonum" source="annex">A</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="annexF">1</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="annexFN1">1</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="annexFN2" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="annexFN2">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Figure</span>
+                      <semx element="autonum" source="annex">A</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="annexF">1</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="annexFN2">2</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="annexRN1" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="annexRN1">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Recommendation</span>
+                      <semx element="autonum" source="annex2">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="scopeR">1</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="annexRN1">1</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="annexRN2" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="annexRN2">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Recommendation</span>
+                      <semx element="autonum" source="annex2">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="scopeR">1</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="annexRN2">2</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="annex2TN1" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="annex2TN1">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Table</span>
+                      <semx element="autonum" source="annex2">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="annex2T">1</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="annex2TN1">1</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="annex2TN2" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="annex2TN2">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Table</span>
+                      <semx element="autonum" source="annex2">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="annex2T">1</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="annex2TN2">2</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="annex2FN1" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="annex2FN1">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Figure</span>
+                      <semx element="autonum" source="annex2">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="annex2F">1</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="annex2FN1">1</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="annex2FN2" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="annex2FN2">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Figure</span>
+                      <semx element="autonum" source="annex2">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="annex2F">1</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="annex2FN2">2</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="annex2RN1" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="annex2RN1">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Recommendation</span>
+                      <semx element="autonum" source="annex2">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="scopeR">1</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="annex2RN1">1</semx>
+                </fmt-xref>
+             </semx>
+             <xref target="annex2RN2" id="_"/>
+             <semx element="xref" source="_">
+                <fmt-xref target="annex2RN2">
+                   <span class="fmt-xref-container">
+                      <span class="fmt-element-name">Recommendation</span>
+                      <semx element="autonum" source="annex2">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="scopeR">1</semx>
+                   </span>
+                   <span class="fmt-comma">,</span>
+                   <span class="fmt-element-name">Note</span>
+                   <semx element="autonum" source="annex2RN2">2</semx>
+                </fmt-xref>
+             </semx>
+          </p>
+       </foreword>
+    OUTPUT
+    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+         .new(presxml_options)
+         .convert("test", input, true))
+         .at("//xmlns:foreword").to_xml)))
+      .to be_equivalent_to Canon.format_xml(output)
+
+    # test container_container scope references
+    output = <<~OUTPUT
+          <table id="scopeT" autonum="1">
+         <fmt-name id="_">
+            <span class="fmt-caption-label">
+               <span class="fmt-element-name">Table</span>
+               <semx element="autonum" source="scopeT">1</semx>
+            </span>
+         </fmt-name>
+         <fmt-xref-label>
+            <span class="fmt-element-name">Table</span>
+            <semx element="autonum" source="scopeT">1</semx>
+         </fmt-xref-label>
+         <tbody>
+            <td/>
+         </tbody>
+         <note id="scopeTN1" autonum="1">
+            <fmt-name id="_">
+               <span class="fmt-caption-label">
+                  <span class="fmt-element-name">NOTE</span>
+                  <semx element="autonum" source="scopeTN1">1</semx>
+               </span>
+               <span class="fmt-label-delim">
+                  <tab/>
+               </span>
+            </fmt-name>
+            <fmt-xref-label>
+               <span class="fmt-element-name">Note</span>
+               <semx element="autonum" source="scopeTN1">1</semx>
+            </fmt-xref-label>
+            <fmt-xref-label container="scopeT">
+               <span class="fmt-xref-container">
+                  <span class="fmt-element-name">Table</span>
+                  <semx element="autonum" source="scopeT">1</semx>
+               </span>
+               <span class="fmt-comma">,</span>
+               <span class="fmt-element-name">Note</span>
+               <semx element="autonum" source="scopeTN1">1</semx>
+            </fmt-xref-label>
+            Note
+            <xref target="scopeTN2" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref target="scopeTN2">
+                  <span class="fmt-element-name">Note</span>
+                  <semx element="autonum" source="scopeTN2">2</semx>
+               </fmt-xref>
+            </semx>
+         </note>
+         <note id="scopeTN2" autonum="2">
+            <fmt-name id="_">
+               <span class="fmt-caption-label">
+                  <span class="fmt-element-name">NOTE</span>
+                  <semx element="autonum" source="scopeTN2">2</semx>
+               </span>
+               <span class="fmt-label-delim">
+                  <tab/>
+               </span>
+            </fmt-name>
+            <fmt-xref-label>
+               <span class="fmt-element-name">Note</span>
+               <semx element="autonum" source="scopeTN2">2</semx>
+            </fmt-xref-label>
+            <fmt-xref-label container="scopeT">
+               <span class="fmt-xref-container">
+                  <span class="fmt-element-name">Table</span>
+                  <semx element="autonum" source="scopeT">1</semx>
+               </span>
+               <span class="fmt-comma">,</span>
+               <span class="fmt-element-name">Note</span>
+               <semx element="autonum" source="scopeTN2">2</semx>
+            </fmt-xref-label>
+            Note
+            <xref target="scopeFN2" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref target="scopeFN2">
+                  <span class="fmt-xref-container">
+                     <span class="fmt-element-name">Figure</span>
+                     <semx element="autonum" source="scopeF">1</semx>
+                  </span>
+                  <span class="fmt-comma">,</span>
+                  <span class="fmt-element-name">Note</span>
+                  <semx element="autonum" source="scopeFN2">2</semx>
+               </fmt-xref>
+            </semx>
+         </note>
+         <note id="scopeTN3" autonum="3">
+            <fmt-name id="_">
+               <span class="fmt-caption-label">
+                  <span class="fmt-element-name">NOTE</span>
+                  <semx element="autonum" source="scopeTN3">3</semx>
+               </span>
+               <span class="fmt-label-delim">
+                  <tab/>
+               </span>
+            </fmt-name>
+            <fmt-xref-label>
+               <span class="fmt-element-name">Note</span>
+               <semx element="autonum" source="scopeTN3">3</semx>
+            </fmt-xref-label>
+            <fmt-xref-label container="scopeT">
+               <span class="fmt-xref-container">
+                  <span class="fmt-element-name">Table</span>
+                  <semx element="autonum" source="scopeT">1</semx>
+               </span>
+               <span class="fmt-comma">,</span>
+               <span class="fmt-element-name">Note</span>
+               <semx element="autonum" source="scopeTN3">3</semx>
+            </fmt-xref-label>
+            Note
+            <xref target="scope2TN2" id="_"/>
+            <semx element="xref" source="_">
+               <fmt-xref target="scope2TN2">
+                  <span class="fmt-xref-container">
+                     <span class="fmt-element-name">Table</span>
+                     <semx element="autonum" source="scope2T">2</semx>
+                  </span>
+                  <span class="fmt-comma">,</span>
+                  <span class="fmt-element-name">Note</span>
+                  <semx element="autonum" source="scope2TN2">2</semx>
+               </fmt-xref>
+            </semx>
+         </note>
+      </table>
+    OUTPUT
+    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+     .new(presxml_options)
+     .convert("test", input, true))
+     .at("//xmlns:table[@id = 'scopeT']").to_xml)))
+      .to be_equivalent_to Canon.format_xml(output)
+  end
 end

@@ -56,6 +56,7 @@ module IsoDoc
             { unnumb: elem["unnumbered"], container: }
           )
         end
+        nested_notes(elem)
       end
 
       def fig_subfig_label(label, sublabel)
@@ -87,6 +88,7 @@ module IsoDoc
             c.increment(t).print, t, @labels["table"], "table",
             { unnumb: t["unnumbered"], container: container }
           )
+          nested_notes(t)
         end
       end
 
@@ -114,11 +116,6 @@ module IsoDoc
         end
       end
 
-      def delim_wrap(delim, klass = "fmt-autonum-delim")
-        delim.blank? and return ""
-        "<span class='#{klass}'><esc>#{delim}</esc></span>"
-      end
-
       def sequential_permission_children(elem, lbl, klass, container: false)
         elem.xpath(ns(req_children)).noblank
           .each_with_object(ReqCounter.new) do |t, c|
@@ -137,21 +134,27 @@ container: false)
         lbl = parent_id ? "#{parent_id}#{subreqt_separator}#{id}" : id
         e = elem["id"] || elem["original-id"]
         @anchors[e] = model.postprocess_anchor_struct(
-          elem, anchor_struct(lbl, elem,
-                              label, klass, { unnumb: elem["unnumbered"], container: })
+          elem, anchor_struct(lbl, elem, label, klass,
+                              { unnumb: elem["unnumbered"], container: })
         )
+        nested_notes(elem)
+        nested_examples(elem)
         @anchors[e][:semx] = semx(elem, lbl)
-        if parent_id
-          x = "#{subreqt_separator(markup: true)}#{semx(elem, id)}"
-          @anchors[e][:semx] = @anchors[elem.parent["id"] || elem.parent["original-id"]][:semx] + x
-          @anchors[e][:label] =
-            "<span class='fmt-element-name'>#{label}</span> #{@anchors[e][:semx]}"
-          @anchors[e][:xref] = @anchors[e][:label]
-        end
+        sequential_permission_body_parent_id(id, parent_id, elem, label, e)
         model.permission_parts(elem, id, label, klass).each do |n|
           @anchors[n[:id]] = anchor_struct(n[:number], n[:elem], n[:label],
                                            n[:klass], { unnumb: false, container: })
         end
+      end
+
+      def sequential_permission_body_parent_id(id, parent_id, elem, label, e)
+        parent_id or return
+        x = "#{subreqt_separator(markup: true)}#{semx(elem, id)}"
+        @anchors[e][:semx] =
+          @anchors[elem.parent["id"] || elem.parent["original-id"]][:semx] + x
+        @anchors[e][:label] =
+          "<span class='fmt-element-name'>#{label}</span> #{@anchors[e][:semx]}"
+        @anchors[e][:xref] = @anchors[e][:label]
       end
 
       def reqt2class_label(elem, model)
@@ -207,6 +210,7 @@ container: false)
               anchor_struct(hiersemx(clause, num, c.increment(t), t),
                             t, @labels["table"], "table",
                             { unnumb: t["unnumbered"], container: false })
+            nested_notes(t)
           end
         end
       end

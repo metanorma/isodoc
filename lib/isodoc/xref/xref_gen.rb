@@ -61,17 +61,28 @@ module IsoDoc
         end
       end
 
+      # note within an asset: table, figure, provision
+      def nested_notes(asset, container: true)
+        notes = asset.xpath(ns(".//note"))
+        counter = Counter.new
+        notes.noblank.each do |n|
+          lbl = increment_label(notes, n, counter)
+          @anchors[n["id"]] =
+            { label: lbl, value: lbl, container: container ? asset["id"] : nil,
+              xref: anchor_struct_xref(lbl, n, @labels["note_xref"]),
+              elem: @labels["note_xref"], type: "note" }.compact
+        end
+      end
+
       def termexample_anchor_names(docxml)
         docxml.xpath(ns("//*[termexample]")).each do |t|
           examples = t.xpath(ns("./termexample"))
-          c = Counter.new
-          examples.noblank.each do |n|
+          examples.noblank.each_with_object(Counter.new) do |n, c|
             c.increment(n)
             idx = increment_label(examples, n, c, increment: false)
             @anchors[n["id"]] =
-              { label: idx, type: "termexample",
-                value: idx, elem: @labels["example_xref"],
-                container: t["id"],
+              { label: idx, type: "termexample", value: idx,
+                elem: @labels["example_xref"], container: t["id"],
                 xref: anchor_struct_xref(idx, n, @labels["example_xref"]) }
           end
         end
@@ -80,7 +91,8 @@ module IsoDoc
       def note_anchor_names(sections)
         sections.each do |s|
           notes = s.xpath(child_asset_path("note")) -
-            s.xpath(ns(".//figure//note | .//table//note"))
+            s.xpath(ns(".//figure//note | .//table//note | //permission//note | " \
+              "//recommendation//note | //requirement//note"))
           note_anchor_names1(notes, Counter.new)
           note_anchor_names(s.xpath(ns(child_sections)))
         end
@@ -113,9 +125,23 @@ module IsoDoc
         end
       end
 
+      # note within an asset: provision
+      def nested_examples(asset, container: true)
+        notes = asset.xpath(ns(".//example"))
+        notes.noblank.each_with_object(Counter.new) do |n, counter|
+          @anchors[n["id"]] ||=
+            anchor_struct(increment_label(notes, n, counter), n,
+                          @labels["example_xref"], "example",
+                          { unnumb: n["unnumbered"] })
+          @anchors[n["id"]][:container] = container ? asset["id"] : nil
+        end
+      end
+
       def example_anchor_names(sections)
         sections.each do |s|
-          notes = s.xpath(child_asset_path("example"))
+          notes = s.xpath(child_asset_path("example")) -
+            s.xpath(ns("//permission//note | " \
+              "//recommendation//note | //requirement//note"))
           example_anchor_names1(notes, Counter.new)
           example_anchor_names(s.xpath(ns(child_sections)))
         end
