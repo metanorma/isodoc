@@ -1,59 +1,5 @@
-require_relative "docid"
-
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
-    def references(docxml)
-      @ref_renderings = references_render(docxml)
-      docxml.xpath(ns("//references/bibitem")).each do |x|
-        bibitem(x, @ref_renderings)
-        reference_name(x)
-      end
-      bibliography_bibitem_number(docxml)
-      hidden_items(docxml)
-      move_norm_ref_to_sections(docxml)
-    end
-
-    def reference_names(docxml)
-      docxml.xpath(ns("//bibitem[not(ancestor::bibitem)]")).each do |ref|
-        reference_name(ref)
-      end
-    end
-
-    def reference_name(ref)
-      identifiers = render_identifier(bibitem_ref_code(ref))
-      reference = docid_l10n(identifiers[:content] || identifiers[:metanorma] ||
-                             identifiers[:sdo] || identifiers[:ordinal] ||
-                             identifiers[:doi])
-      @xrefs.get[ref["id"]] = { xref: esc(reference) }
-    end
-
-    def move_norm_ref_to_sections(docxml)
-      docxml.at(ns(@xrefs.klass.norm_ref_xpath)) or return
-      s = move_norm_ref_to_sections_insert_pt(docxml) or return
-      docxml.xpath(ns(@xrefs.klass.norm_ref_xpath)).each do |r|
-        r.at("./ancestor::xmlns:bibliography") or next
-        s << r.remove
-      end
-    end
-
-    def move_norm_ref_to_sections_insert_pt(docxml)
-      s = docxml.at(ns("//sections")) and return s
-      s = docxml.at(ns("//preface")) and
-        return s.after("<sections/>").next_element
-      docxml.at(ns("//annex | //bibliography"))&.before("<sections/>")
-        &.previous_element
-    end
-
-    def hidden_items(docxml)
-      docxml.xpath(ns("//references[bibitem/@hidden = 'true']")).each do |x|
-        x.at(ns("./bibitem[not(@hidden = 'true')]")) and next
-        x.elements.map(&:name).any? do |n|
-          !%w(title bibitem).include?(n)
-        end and next
-        x["hidden"] = "true"
-      end
-    end
-
     def references_render(docxml)
       d = docxml.clone
       d.remove_namespaces!
@@ -70,29 +16,58 @@ module IsoDoc
       bib["type"] ||= "standard"
     end
 
-    def bibitem(xml, renderings)
-      implicit_reference(xml) and xml["hidden"] = "true"
-      bibrender_item(xml, renderings)
+    def bibitem(bib, renderings)
+      implicit_reference(bib) and bib["hidden"] = "true"
+      notes_inside_bibitem(bib)
+      bibrender_item(bib, renderings)
+      add_id_to_display_bib_notes(bib)
+      @xrefs.bibitem_note_names(bib)
     end
 
-    def bibrender_item(xml, renderings)
-      if (f = xml.at(ns("./formattedref"))) && xml.at(ns("./title")).nil?
-        bibrender_formattedref(f, xml)
-      else bibrender_relaton(xml, renderings)
+    def notes_inside_bibitem(bib)
+      while (n = bib.next_element) && n.name == "note"
+        n["type"] = (n["type"] ? "display,#{n['type']}" : "display")
+        bib << n.remove
       end
     end
 
-    def bibrender_formattedref(formattedref, xml); end
+    def add_id_to_display_bib_notes(bib)
+      bib.xpath(ns("./note")).each do |n|
+        t = n["type"] or next
+        t.split(",").map(&:strip).include?("display") or next
+        add_id(n)
+      end
+    end
 
-    def bibrender_relaton(xml, renderings)
-      f = renderings[xml["id"]][:formattedref] or return
+    def bibrender_item(bib, renderings)
+      if (f = bib.at(ns("./formattedref"))) && bib.at(ns("./title")).nil?
+        bibrender_formattedref(f, bib)
+      else bibrender_relaton(bib, renderings)
+      end
+      bibitem_notes(bib)
+    end
+
+    def bibrender_formattedref(formattedref, bib); end
+
+    def bibrender_relaton(bib, renderings)
+      f = renderings[bib["id"]][:formattedref] or return
       f &&= "<formattedref>#{f}</formattedref>"
-      if x = xml.at(ns("./formattedref"))
+      if x = bib.at(ns("./formattedref"))
         x.replace(f)
-      elsif xml.children.empty?
-        xml << f
+      elsif bib.children.empty?
+        bib << f
       else
-        xml.children.first.previous = f
+        bib.children.first.previous = f
+      end
+    end
+
+    def bibitem_notes(bib)
+      f = bib.at(ns("./formattedref")) or return
+      bibnote_extract(bib, "display").each do |n|
+        f << <<~XML
+          <note type='display'>#{to_xml(semx_fmt_dup(n))}</note>
+        XML
+        transfer_id(n, f.elements.last)
       end
     end
 
@@ -172,8 +147,8 @@ module IsoDoc
     end
 
     def norm_ref_entry_code(_ordinal, ids, _standard, datefn, _bib)
-      ret = (ids[:ordinal] || ids[:content] || ids[:metanorma] || ids[:sdo]).to_s
-      ret = esc(ret)
+      ret = esc((ids[:ordinal] || ids[:content] || ids[:metanorma] || ids[:sdo])
+        .to_s)
       (ids[:ordinal] || ids[:metanorma]) && ids[:sdo] and
         ret += ", #{esc ids[:sdo]}"
       ret += datefn
@@ -186,7 +161,6 @@ module IsoDoc
     # if ids is just a number, only use that ([1] Non-Standard)
     # else, use both ordinal, as prefix, and ids
     def biblio_ref_entry_code(ordinal, ids, _standard, datefn, _bib)
-      # standard and id = nil
       ret = esc(ids[:ordinal]) || esc(ids[:content]) || esc(ids[:metanorma]) ||
         "[#{esc ordinal.to_s}]"
       if ids[:sdo] && !ids[:sdo].empty?
@@ -202,14 +176,23 @@ module IsoDoc
       "#{text}<tab/>"
     end
 
+    def bibnote_extract(bib, type)
+      bib.xpath(ns("./note")).each_with_object([]) do |n, m|
+        n["type"] or next
+        n["type"].split(",").map(&:strip).include?(type) and m << n
+      end
+    end
+
     # strip any fns in docidentifier before they are extracted for rendering
     def date_note_process(bib)
       ret = ident_fn(bib)
-      date_note = bib.at(ns("./note[@type = 'Unpublished-Status']"))
-      date_note.nil? and return ret
+      date_note = bibnote_extract(bib, "Unpublished-Status")
+      date_note.empty? and return ret
       id = "_#{UUIDTools::UUID.random_create}"
       @new_ids[id] = nil
-      "#{ret}<fn id='#{id}' reference='#{id}'><p>#{date_note.content}</p></fn>"
+      <<~XML
+        #{ret}<fn id='#{id}' reference='#{id}'><p>#{date_note.first.content}</p></fn>
+      XML
     end
 
     def ident_fn(bib)

@@ -30,7 +30,6 @@ module IsoDoc
     end
 
     def prefix_name_labels(node)
-      #@new_ids ||= {}
       id = "_#{UUIDTools::UUID.random_create}"
       @new_ids[id] = nil
       { elem: node["id"], name: id }
@@ -78,7 +77,7 @@ module IsoDoc
     end
 
     def semx(node, label, element = "autonum")
-      id = node["id"] || node[:id] || elem['original-id']
+      id = node["id"] || node[:id] || elem["original-id"]
       /<semx element='[^']+' source='#{id}'/.match?(label) and return label
       l = stripsemx(label)
       %(<semx element='#{element}' source='#{id}'>#{l}</semx>)
@@ -113,13 +112,22 @@ module IsoDoc
 
     def prefix_container_fmt_xref_label(container, xref)
       container or return xref
-      container_container = @xrefs.anchor(container, :container, false)
+      container_container = prefix_container_container(container)
       container_label =
         prefix_container_fmt_xref_label(container_container,
                                         @xrefs.anchor(container, :xref, false))
       l10n(connectives_spans(@i18n.nested_xref
         .sub("%1", "<span class='fmt-xref-container'>#{esc container_label}</span>")
         .sub("%2", xref)))
+    end
+
+    def prefix_container_container(container)
+      container_container = @xrefs.anchor(container, :container, false)
+      if @xrefs.anchor(container, :type) == "bibitem"
+        p = @bibitem_lookup[container].parent
+        p and container_container ||= p["id"]
+      end
+      container_container
     end
 
     # detect whether string which may contain XML markup is empty

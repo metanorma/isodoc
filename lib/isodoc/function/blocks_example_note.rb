@@ -64,7 +64,8 @@ module IsoDoc
       end
 
       def starts_with_para?(node)
-        block_body_first_elem(node)&.name == "p"
+        elem = block_body_first_elem(node) or return
+        elem.name == "p" || elem.elements.first&.name == "p"
       end
 
       def note_p_class
@@ -73,7 +74,7 @@ module IsoDoc
 
       def note_p_parse(node, div)
         name = node.at(ns("./fmt-name"))
-        para = node.at(ns("./p"))
+        para = node.at(ns("./p")) || node.at(ns("./semx/p"))
         div.p **attr_code(class: note_p_class) do |p|
           name and p.span class: "note_label" do |s|
             name.children.each { |n| parse(n, s) }

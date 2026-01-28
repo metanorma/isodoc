@@ -84,7 +84,7 @@ module IsoDoc
       end
 
       NOTE_CONTAINER_ANCESTOR = <<~XPATH.strip.freeze
-        .//ancestor::*[local-name() = 'annex' or local-name() = 'foreword' or local-name() = 'appendix' or local-name() = 'introduction' or local-name() = 'terms' or local-name() = 'acknowledgements' or local-name() = 'executivesummary' or local-name() = 'term' or local-name() = 'clause' or local-name() = 'references' or local-name() = 'figure' or local-name() = 'formula' or local-name() = 'table' or local-name() = 'example']/@id
+        .//ancestor::*[local-name() = 'annex' or local-name() = 'foreword' or local-name() = 'appendix' or local-name() = 'introduction' or local-name() = 'terms' or local-name() = 'acknowledgements' or local-name() = 'executivesummary' or local-name() = 'term' or local-name() = 'clause' or local-name() = 'references' or local-name() = 'figure' or local-name() = 'formula' or local-name() = 'table' or local-name() = 'example' or local-name() = 'bibitem']/@id
       XPATH
 
       # no recursion on references

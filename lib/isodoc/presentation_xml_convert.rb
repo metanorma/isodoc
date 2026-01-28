@@ -1,4 +1,5 @@
 require_relative "presentation_function/block"
+require_relative "presentation_function/source"
 require_relative "presentation_function/list"
 require_relative "presentation_function/reqt"
 require_relative "presentation_function/concepts"
@@ -9,6 +10,10 @@ require_relative "presentation_function/erefs"
 require_relative "presentation_function/inline"
 require_relative "presentation_function/math"
 require_relative "presentation_function/section"
+require_relative "presentation_function/section_refs"
+require_relative "presentation_function/title"
+require_relative "presentation_function/refs"
+require_relative "presentation_function/docid"
 require_relative "presentation_function/index"
 require_relative "presentation_function/bibdata"
 require_relative "presentation_function/metadata"
@@ -42,6 +47,7 @@ module IsoDoc
       @outputfile = Pathname.new(filename).basename.to_s
       docid_prefixes(docxml) # feeds @xrefs.parse citation processing
       provide_ids docxml # feeds @xrefs.parse
+      bibitem_lookup(docxml) # feeds citeas
       @xrefs.parse docxml
       @xrefs.klass.meta = @meta
       counter_init
@@ -112,7 +118,6 @@ module IsoDoc
     def inline(docxml)
       document_footnotes docxml
       comments docxml
-      bibitem_lookup(docxml) # feeds citeas
       fmt_ref docxml # feeds citeas, xref, eref, origin, concept
       citeas docxml # feeds xref, eref, origin, concept
       xref docxml

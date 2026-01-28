@@ -1,7 +1,6 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
-=begin
   it "cross-references lists" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -196,7 +195,7 @@ RSpec.describe IsoDoc do
       .at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to Canon.format_xml(output)
   end
-=end
+
   it "cross-references list items in English and Japanese" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -434,13 +433,13 @@ RSpec.describe IsoDoc do
           </p>
        </foreword>
     OUTPUT
-=begin
+
     expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to Canon.format_xml(output)
-=end
+
     input1 = input.sub(%r{<language>en</language>}, "<language>ja</language>")
     output = <<~OUTPUT
        <foreword id="_" displayorder="2">
