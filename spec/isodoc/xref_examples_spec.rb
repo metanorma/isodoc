@@ -617,24 +617,28 @@ RSpec.describe IsoDoc do
              <semx element="xref" source="_">
                 <fmt-xref target="scopeRN1">
                    <span class="fmt-xref-container">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="scope">1</semx>
+                      <span class="fmt-element-name">Recommendation</span>
+                      <semx element="autonum" source="annex2">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="scopeR">1</semx>
                    </span>
                    <span class="fmt-comma">,</span>
                    <span class="fmt-element-name">Example</span>
-                   <semx element="autonum" source="scopeRN1">6</semx>
+                   <semx element="autonum" source="scopeRN1">1</semx>
                 </fmt-xref>
              </semx>
              <xref target="scopeRN2" id="_"/>
              <semx element="xref" source="_">
                 <fmt-xref target="scopeRN2">
                    <span class="fmt-xref-container">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="scope">1</semx>
+                      <span class="fmt-element-name">Recommendation</span>
+                      <semx element="autonum" source="annex2">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="scopeR">1</semx>
                    </span>
                    <span class="fmt-comma">,</span>
                    <span class="fmt-element-name">Example</span>
-                   <semx element="autonum" source="scopeRN2">7</semx>
+                   <semx element="autonum" source="scopeRN2">2</semx>
                 </fmt-xref>
              </semx>
              <xref target="scope2TN1" id="_"/>
@@ -689,24 +693,28 @@ RSpec.describe IsoDoc do
              <semx element="xref" source="_">
                 <fmt-xref target="scope2RN1">
                    <span class="fmt-xref-container">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="scope2">2</semx>
+                      <span class="fmt-element-name">Recommendation</span>
+                      <semx element="autonum" source="annex2">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="scopeR">1</semx>
                    </span>
                    <span class="fmt-comma">,</span>
                    <span class="fmt-element-name">Example</span>
-                   <semx element="autonum" source="scope2RN1">5</semx>
+                   <semx element="autonum" source="scope2RN1">1</semx>
                 </fmt-xref>
              </semx>
              <xref target="scope2RN2" id="_"/>
              <semx element="xref" source="_">
                 <fmt-xref target="scope2RN2">
                    <span class="fmt-xref-container">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="scope2">2</semx>
+                      <span class="fmt-element-name">Recommendation</span>
+                      <semx element="autonum" source="annex2">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="scopeR">1</semx>
                    </span>
                    <span class="fmt-comma">,</span>
                    <span class="fmt-element-name">Example</span>
-                   <semx element="autonum" source="scope2RN2">6</semx>
+                   <semx element="autonum" source="scope2RN2">2</semx>
                 </fmt-xref>
              </semx>
              <xref target="annexTN1" id="_"/>
@@ -761,24 +769,28 @@ RSpec.describe IsoDoc do
              <semx element="xref" source="_">
                 <fmt-xref target="annexRN1">
                    <span class="fmt-xref-container">
-                      <span class="fmt-element-name">Annex</span>
-                      <semx element="autonum" source="annex">A</semx>
+                      <span class="fmt-element-name">Recommendation</span>
+                      <semx element="autonum" source="annex2">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="scopeR">1</semx>
                    </span>
                    <span class="fmt-comma">,</span>
                    <span class="fmt-element-name">Example</span>
-                   <semx element="autonum" source="annexRN1">5</semx>
+                   <semx element="autonum" source="annexRN1">1</semx>
                 </fmt-xref>
              </semx>
              <xref target="annexRN2" id="_"/>
              <semx element="xref" source="_">
                 <fmt-xref target="annexRN2">
                    <span class="fmt-xref-container">
-                      <span class="fmt-element-name">Annex</span>
-                      <semx element="autonum" source="annex">A</semx>
+                      <span class="fmt-element-name">Recommendation</span>
+                      <semx element="autonum" source="annex2">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="scopeR">1</semx>
                    </span>
                    <span class="fmt-comma">,</span>
                    <span class="fmt-element-name">Example</span>
-                   <semx element="autonum" source="annexRN2">6</semx>
+                   <semx element="autonum" source="annexRN2">2</semx>
                 </fmt-xref>
              </semx>
              <xref target="annex2TN1" id="_"/>
@@ -833,24 +845,28 @@ RSpec.describe IsoDoc do
              <semx element="xref" source="_">
                 <fmt-xref target="annex2RN1">
                    <span class="fmt-xref-container">
-                      <span class="fmt-element-name">Annex</span>
+                      <span class="fmt-element-name">Recommendation</span>
                       <semx element="autonum" source="annex2">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="scopeR">1</semx>
                    </span>
                    <span class="fmt-comma">,</span>
                    <span class="fmt-element-name">Example</span>
-                   <semx element="autonum" source="annex2RN1">5</semx>
+                   <semx element="autonum" source="annex2RN1">1</semx>
                 </fmt-xref>
              </semx>
              <xref target="annex2RN2" id="_"/>
              <semx element="xref" source="_">
                 <fmt-xref target="annex2RN2">
                    <span class="fmt-xref-container">
-                      <span class="fmt-element-name">Annex</span>
+                      <span class="fmt-element-name">Recommendation</span>
                       <semx element="autonum" source="annex2">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="scopeR">1</semx>
                    </span>
                    <span class="fmt-comma">,</span>
                    <span class="fmt-element-name">Example</span>
-                   <semx element="autonum" source="annex2RN2">6</semx>
+                   <semx element="autonum" source="annex2RN2">2</semx>
                 </fmt-xref>
              </semx>
           </p>

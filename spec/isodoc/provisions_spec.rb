@@ -46,14 +46,16 @@ RSpec.describe IsoDoc do
             recommendation(label: success-response)
             end
           </body></sourcecode>
-          <note id="N1">text</text>
+          <note id="N1">text</note>
+          <example id="E1">text</example>
         </verification>
         <import exclude="true">
           <sourcecode id="D"><body>success-response()</body></sourcecode>
         </import>
         <component exclude='false' class='component1'>
                   <p id='_'>Hello</p>
-          <note id="N2">text</text>
+          <note id="N2">text</note>
+          <example id="E2">text</example>
                 </component>
       </permission>
           </foreword></preface>
@@ -61,7 +63,8 @@ RSpec.describe IsoDoc do
           <permission id="AnnexPermission" model="default">
           <description>
           <p id="_">As for the measurement targets,</p>
-          <note id="N3">text</text>
+          <note id="N3">text</note>
+          <example id="E3">text</example>
         </description>
           </permission>
           </annex>
@@ -162,6 +165,7 @@ RSpec.describe IsoDoc do
            </body>
                       </sourcecode>
                       <note autonum="1" original-id="N1">text</note>
+                      <example autonum="1" original-id="E1">text</example>
                    </verification>
                    <import exclude="true">
                       <sourcecode id="D" autonum="2">
@@ -171,6 +175,7 @@ RSpec.describe IsoDoc do
                    <component exclude="false" class="component1" id="_">
                       <p original-id="_">Hello</p>
                       <note autonum="2" original-id="N2">text</note>
+                      <example autonum="2" original-id="E2">text</example>
                    </component>
                    <fmt-provision id="A" keep-with-next="true" keep-lines-together="true" model="default" autonum="1">
                       <p>
@@ -311,6 +316,28 @@ RSpec.describe IsoDoc do
                                </fmt-xref-label>
                                text
                             </note>
+                            <example id="E1" autonum="1">
+                               <fmt-name id="_">
+                                  <span class="fmt-caption-label">
+                                     <span class="fmt-element-name">EXAMPLE</span>
+                                     <semx element="autonum" source="E1">1</semx>
+                                  </span>
+                               </fmt-name>
+                               <fmt-xref-label>
+                                  <span class="fmt-element-name">Example</span>
+                                  <semx element="autonum" source="E1">1</semx>
+                               </fmt-xref-label>
+                               <fmt-xref-label container="A">
+                                  <span class="fmt-xref-container">
+                                     <span class="fmt-element-name">Permission</span>
+                                     <semx element="autonum" source="A">1</semx>
+                                  </span>
+                                  <span class="fmt-comma">,</span>
+                                  <span class="fmt-element-name">Example</span>
+                                  <semx element="autonum" source="E1">1</semx>
+                               </fmt-xref-label>
+                               text
+                            </example>
                          </semx>
                       </div>
                       <div type="requirement-component1">
@@ -341,6 +368,28 @@ RSpec.describe IsoDoc do
                                </fmt-xref-label>
                                text
                             </note>
+                            <example id="E2" autonum="2">
+                               <fmt-name id="_">
+                                  <span class="fmt-caption-label">
+                                     <span class="fmt-element-name">EXAMPLE</span>
+                                     <semx element="autonum" source="E2">2</semx>
+                                  </span>
+                               </fmt-name>
+                               <fmt-xref-label>
+                                  <span class="fmt-element-name">Example</span>
+                                  <semx element="autonum" source="E2">2</semx>
+                               </fmt-xref-label>
+                               <fmt-xref-label container="A">
+                                  <span class="fmt-xref-container">
+                                     <span class="fmt-element-name">Permission</span>
+                                     <semx element="autonum" source="A">1</semx>
+                                  </span>
+                                  <span class="fmt-comma">,</span>
+                                  <span class="fmt-element-name">Example</span>
+                                  <semx element="autonum" source="E2">2</semx>
+                               </fmt-xref-label>
+                               text
+                            </example>
                          </semx>
                       </div>
                    </fmt-provision>
@@ -382,6 +431,7 @@ RSpec.describe IsoDoc do
                 <description id="_">
                    <p original-id="_">As for the measurement targets,</p>
                    <note autonum="" original-id="N3">text</note>
+                   <example autonum="" original-id="E3">text</example>
                 </description>
                 <fmt-provision id="AnnexPermission" model="default" autonum="A.1">
                    <div type="requirement-description">
@@ -411,6 +461,27 @@ RSpec.describe IsoDoc do
                             </fmt-xref-label>
                             text
                          </note>
+                         <example id="E3" autonum="">
+                            <fmt-name id="_">
+                               <span class="fmt-caption-label">
+                                  <span class="fmt-element-name">EXAMPLE</span>
+                               </span>
+                            </fmt-name>
+                            <fmt-xref-label>
+                               <span class="fmt-element-name">Example</span>
+                            </fmt-xref-label>
+                            <fmt-xref-label container="AnnexPermission">
+                               <span class="fmt-xref-container">
+                                  <span class="fmt-element-name">Permission</span>
+                                  <semx element="autonum" source="Annex">A</semx>
+                                  <span class="fmt-autonum-delim">.</span>
+                                  <semx element="autonum" source="AnnexPermission">1</semx>
+                               </span>
+                               <span class="fmt-comma">,</span>
+                               <span class="fmt-element-name">Example</span>
+                            </fmt-xref-label>
+                            text
+                         </example>
                       </semx>
                    </div>
                 </fmt-provision>
@@ -625,6 +696,10 @@ RSpec.describe IsoDoc do
                             </p>
                             text
                          </div>
+                         <div id="E1" class="example">
+                            <p class="example-title">EXAMPLE 1</p>
+                            text
+                         </div>
                       </div>
                       <div class="requirement-component1">
                          <p id="_">Hello</p>
@@ -632,6 +707,10 @@ RSpec.describe IsoDoc do
                             <p>
                                <span class="note_label">NOTE 2\\u00a0 </span>
                             </p>
+                            text
+                         </div>
+                         <div id="E2" class="example">
+                            <p class="example-title">EXAMPLE 2</p>
                             text
                          </div>
                       </div>
@@ -652,6 +731,10 @@ RSpec.describe IsoDoc do
                             <p>
                                <span class="note_label">NOTE\\u00a0 </span>
                             </p>
+                            text
+                         </div>
+                         <div id="E3" class="example">
+                            <p class="example-title">EXAMPLE</p>
                             text
                          </div>
                       </div>
