@@ -935,7 +935,7 @@ RSpec.describe IsoDoc do
         <note id="scopeRN2">Note</note>
         </requirement>
       </clause>
-      <clause id="scope2" type="scope"><title>Scope</title>
+      <clause id="scope2"><title>Scope</title>
         <table id="scope2T">
         <tbody><td/></table>
         <note id="scope2TN1">Note</note>
