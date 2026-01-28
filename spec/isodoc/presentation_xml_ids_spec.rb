@@ -330,38 +330,57 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface>
-             <clause type="toc" id="_" displayorder="1">
-                <fmt-title id="_" depth="1">Table of contents</fmt-title>
-             </clause>
-          </preface>
-          <sections>
-             <clause id="A1" displayorder="2">
-                <title id="_">
-                   Title
-                   <bookmark original-id="A2"/>
-                </title>
-                <fmt-title id="_" depth="1">
-                   <span class="fmt-caption-label">
-                      <semx element="autonum" source="A1">1</semx>
-                      <span class="fmt-autonum-delim">.</span>
-                   </span>
-                   <span class="fmt-caption-delim">
-                      <tab/>
-                   </span>
-                   <semx element="title" source="_">
+         <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+             <preface>
+                <clause type="toc" id="_" displayorder="1">
+                   <fmt-title id="_" depth="1">Table of contents</fmt-title>
+                </clause>
+             </preface>
+             <sections>
+                <clause id="A1" displayorder="2">
+                   <title id="_">
                       Title
-                      <bookmark id="A2"/>
-                   </semx>
-                </fmt-title>
-                <fmt-xref-label>
-                   <span class="fmt-element-name">Clause</span>
-                   <semx element="autonum" source="A1">1</semx>
-                </fmt-xref-label>
-             </clause>
-          </sections>
-       </iso-standard>
+                      <bookmark original-id="A2"/>
+                   </title>
+                   <fmt-title id="_" depth="1">
+                      <span class="fmt-caption-label">
+                         <semx element="autonum" source="A1">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                      </span>
+                      <span class="fmt-caption-delim">
+                         <tab/>
+                      </span>
+                      <semx element="title" source="_">
+                         Title
+                         <bookmark id="A2"/>
+                         <bookmark id="_"/>
+                      </semx>
+                   </fmt-title>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="A1">1</semx>
+                   </fmt-xref-label>
+                </clause>
+             </sections>
+                   <indexsect id="_" displayorder="3">
+         <fmt-title id="_">Index</fmt-title>
+         <ul>
+            <li id="_">
+               <fmt-name id="_">
+                  <semx element="autonum" source="_">—</semx>
+               </fmt-name>
+               title,
+               <xref target="_" pagenumber="true" id="_"/>
+               <semx element="xref" source="_">
+                  <fmt-xref target="_" pagenumber="true">
+                     <span class="fmt-element-name">Clause</span>
+                     <semx element="autonum" source="A1">1</semx>
+                  </fmt-xref>
+               </semx>
+            </li>
+         </ul>
+      </indexsect>
+          </iso-standard>
     OUTPUT
     expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
