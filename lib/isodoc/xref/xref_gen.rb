@@ -61,6 +61,19 @@ module IsoDoc
         end
       end
 
+      # note within an asset: table, figure
+      def nested_notes(asset, container: true)
+        notes = asset.xpath(ns("./note"))
+        counter = Counter.new
+        notes.noblank.each do |n|
+          lbl = increment_label(notes, n, counter)
+          @anchors[n["id"]] =
+            { label: lbl, value: lbl, container: container ? asset["id"] : nil,
+              xref: anchor_struct_xref(lbl, n, @labels["note_xref"]),
+              elem: @labels["note_xref"], type: "note" }.compact
+        end
+      end
+
       def termexample_anchor_names(docxml)
         docxml.xpath(ns("//*[termexample]")).each do |t|
           examples = t.xpath(ns("./termexample"))

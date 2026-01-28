@@ -7,7 +7,6 @@ module IsoDoc
         middle_section_asset_names(doc)
         termnote_anchor_names(doc)
         termexample_anchor_names(doc)
-        note_anchor_names(doc.xpath(ns("//table | //figure")))
         sections = doc.xpath(ns(sections_xpath))
         note_anchor_names(sections)
         admonition_anchor_names(sections)

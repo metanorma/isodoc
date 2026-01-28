@@ -56,6 +56,7 @@ module IsoDoc
             { unnumb: elem["unnumbered"], container: }
           )
         end
+        nested_notes(elem)
       end
 
       def fig_subfig_label(label, sublabel)
@@ -87,6 +88,7 @@ module IsoDoc
             c.increment(t).print, t, @labels["table"], "table",
             { unnumb: t["unnumbered"], container: container }
           )
+          nested_notes(t)
         end
       end
 
@@ -114,11 +116,6 @@ module IsoDoc
         end
       end
 
-      def delim_wrap(delim, klass = "fmt-autonum-delim")
-        delim.blank? and return ""
-        "<span class='#{klass}'><esc>#{delim}</esc></span>"
-      end
-
       def sequential_permission_children(elem, lbl, klass, container: false)
         elem.xpath(ns(req_children)).noblank
           .each_with_object(ReqCounter.new) do |t, c|
@@ -143,7 +140,8 @@ container: false)
         @anchors[e][:semx] = semx(elem, lbl)
         if parent_id
           x = "#{subreqt_separator(markup: true)}#{semx(elem, id)}"
-          @anchors[e][:semx] = @anchors[elem.parent["id"] || elem.parent["original-id"]][:semx] + x
+          @anchors[e][:semx] =
+            @anchors[elem.parent["id"] || elem.parent["original-id"]][:semx] + x
           @anchors[e][:label] =
             "<span class='fmt-element-name'>#{label}</span> #{@anchors[e][:semx]}"
           @anchors[e][:xref] = @anchors[e][:label]
@@ -207,6 +205,7 @@ container: false)
               anchor_struct(hiersemx(clause, num, c.increment(t), t),
                             t, @labels["table"], "table",
                             { unnumb: t["unnumbered"], container: false })
+            nested_notes(t)
           end
         end
       end

@@ -525,11 +525,11 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title id="_" depth="1">Table of contents</fmt-title>
+                <fmt-title depth="1" id="_">Table of contents</fmt-title>
              </clause>
              <foreword id="fwd" displayorder="2">
                 <title id="_">Foreword</title>
-                <fmt-title id="_" depth="1">
+                <fmt-title depth="1" id="_">
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <figure id="F" autonum="1">
@@ -555,9 +555,10 @@ RSpec.describe IsoDoc do
                       <fmt-xref-label>
                          <span class="fmt-element-name">Note</span>
                       </fmt-xref-label>
-                      <fmt-xref-label container="fwd">
+                      <fmt-xref-label container="F">
                          <span class="fmt-xref-container">
-                            <semx element="foreword" source="fwd">Foreword</semx>
+                            <span class="fmt-element-name">Figure</span>
+                            <semx element="autonum" source="F">1</semx>
                          </span>
                          <span class="fmt-comma">,</span>
                          <span class="fmt-element-name">Note</span>
@@ -588,9 +589,10 @@ RSpec.describe IsoDoc do
                       <fmt-xref-label>
                          <span class="fmt-element-name">Note</span>
                       </fmt-xref-label>
-                      <fmt-xref-label container="fwd">
+                      <fmt-xref-label container="T">
                          <span class="fmt-xref-container">
-                            <semx element="foreword" source="fwd">Foreword</semx>
+                            <span class="fmt-element-name">Table</span>
+                            <semx element="autonum" source="T">1</semx>
                          </span>
                          <span class="fmt-comma">,</span>
                          <span class="fmt-element-name">Note</span>
