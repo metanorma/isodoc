@@ -709,16 +709,6 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <p id="A"/>
-    OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
-      .new(presxml_options)
-      .convert("test", input, true))
-      .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
-
-    mock_indexsect(true)
-    output = <<~OUTPUT
       <p id="A">
          <bookmark primary="A" secondary="B" tertiary="C" id="_"/>
       </p>
@@ -731,7 +721,6 @@ RSpec.describe IsoDoc do
   end
 
   it "generates an index in English" do
-    mock_indexsect(true)
     input = <<~INPUT
       <iso-standard xmlns="https://open.ribose.com/standards/bipm">
         <bibdata>
@@ -1218,12 +1207,5 @@ RSpec.describe IsoDoc do
     wordxml = Nokogiri::XML(word)
     expect(strip_guid(Canon.format_xml(wordxml.to_xml)))
       .to be_equivalent_to Canon.format_xml(doc)
-  end
-
-  private
-
-  def mock_indexsect(value)
-    allow_any_instance_of(IsoDoc::PresentationXMLConvert)
-      .to receive(:enable_indexsect).and_return(value)
   end
 end
