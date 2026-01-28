@@ -61,9 +61,9 @@ module IsoDoc
         end
       end
 
-      # note within an asset: table, figure
+      # note within an asset: table, figure, provision
       def nested_notes(asset, container: true)
-        notes = asset.xpath(ns("./note"))
+        notes = asset.xpath(ns(".//note"))
         counter = Counter.new
         notes.noblank.each do |n|
           lbl = increment_label(notes, n, counter)
@@ -93,7 +93,8 @@ module IsoDoc
       def note_anchor_names(sections)
         sections.each do |s|
           notes = s.xpath(child_asset_path("note")) -
-            s.xpath(ns(".//figure//note | .//table//note"))
+            s.xpath(ns(".//figure//note | .//table//note | //permission//note | " \
+              "//recommendation//note | //requirement//note"))
           note_anchor_names1(notes, Counter.new)
           note_anchor_names(s.xpath(ns(child_sections)))
         end

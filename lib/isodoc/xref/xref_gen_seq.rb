@@ -137,6 +137,7 @@ container: false)
           elem, anchor_struct(lbl, elem,
                               label, klass, { unnumb: elem["unnumbered"], container: })
         )
+        nested_notes(elem)
         @anchors[e][:semx] = semx(elem, lbl)
         if parent_id
           x = "#{subreqt_separator(markup: true)}#{semx(elem, id)}"
