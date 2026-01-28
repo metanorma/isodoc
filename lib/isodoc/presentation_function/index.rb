@@ -1,15 +1,11 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
-    def enable_indexsect
-      false
-    end
-
     def strip_index(docxml)
       docxml.xpath(ns("//index | //index-xref | //indexsect")).each(&:remove)
     end
 
     def index(xml)
-      if enable_indexsect && xml.at(ns("//index"))
+      if xml.at(ns("//index"))
         i = xml.at(ns("//indexsect")) ||
           xml.root.add_child(
             "<indexsect #{add_id_text}>" \
