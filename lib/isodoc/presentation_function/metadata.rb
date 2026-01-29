@@ -109,7 +109,7 @@ module IsoDoc
       ins = presmeta_insert_pt(xmldoc)
       @fontlicenseagreement and
         ins.add_child(presmeta("font-license-agreement", @fontlicenseagreement))
-      @fontist_fonts and CSV.parse_line(@fontist_fonts, col_sep: ";")
+      @fontist_fonts and CSV.parse_line(@fontist_fonts, col_sep: ";").compact
         .map(&:strip).reject(&:empty).each do |f|
         ins.add_child(presmeta("fonts", f))
       end
