@@ -98,7 +98,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert
-      .new({ fonts: "font1; font2", fontlicenseagreement: "no-install-fonts" }
+      .new({ fonts: "font1; font2;", fontlicenseagreement: "no-install-fonts" }
       .merge(presxml_options))
       .convert("test", input, true))
     xml.xpath("//xmlns:preface | //xmlns:localized-strings | //xmlns:sections")
