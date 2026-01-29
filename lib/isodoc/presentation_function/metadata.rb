@@ -110,7 +110,7 @@ module IsoDoc
       @fontlicenseagreement and
         ins.add_child(presmeta("font-license-agreement", @fontlicenseagreement))
       @fontist_fonts and CSV.parse_line(@fontist_fonts, col_sep: ";")
-        .map(&:strip).each do |f|
+        .map(&:strip).reject(&:empty).each do |f|
         ins.add_child(presmeta("fonts", f))
       end
     end
