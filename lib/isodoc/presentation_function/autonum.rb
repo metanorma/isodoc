@@ -118,7 +118,7 @@ module IsoDoc
                                         @xrefs.anchor(container, :xref, false))
       l10n(connectives_spans(@i18n.nested_xref
         .sub("%1", "<span class='fmt-xref-container'>#{esc container_label}</span>")
-        .sub("%2", xref)))
+        .sub("%2", xref || "[Unknown]")))
     end
 
     def prefix_container_container(container)

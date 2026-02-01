@@ -66,7 +66,7 @@ module IsoDoc
       def starts_with_para?(node)
         elem = block_body_first_elem(node) or return
         elem.name == "p" || elem.elements.first&.name == "p" ||
-          block_body_first_elem(elem)
+          block_body_first_elem(elem) == "p"
       end
 
       def note_p_class
