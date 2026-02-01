@@ -24,7 +24,8 @@ module IsoDoc
     end
 
     def formula1(elem)
-      formula_where(elem.at(ns("./dl")))
+      dl = elem.at(ns("./dl")) and dl.replace("<key>#{to_xml(dl)}</key>")
+      formula_where(elem.at(ns("./key")))
       lbl = @xrefs.anchor(elem["id"], :label, false) ||
         @xrefs.anchor(elem["original-id"], :label, false)
       lbl.nil? || lbl.empty? or prefix_name(elem, {}, lbl, "name")
@@ -33,7 +34,7 @@ module IsoDoc
     def formula_where(dlist)
       dlist or return
       dlist["class"] = "formula_dl"
-      where = dlist.xpath(ns("./dt")).size > 1 ? @i18n.where : @i18n.where_one
+      where = dlist.xpath(ns(".//dt")).size > 1 ? @i18n.where : @i18n.where_one
       dlist.previous = "<p keep-with-next='true'>#{where}</p>"
     end
 

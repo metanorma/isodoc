@@ -241,6 +241,7 @@ module IsoDoc
           when "fmt-annotation-start" then fmt_annotation_start_parse(node, out)
           when "fmt-annotation-end" then fmt_annotation_end_parse(node, out)
           when "fmt-annotation-body" then fmt_annotation_body_parse(node, out)
+          when "key" then key_parse(node, out)
           else error_parse(node, out)
           end
         end

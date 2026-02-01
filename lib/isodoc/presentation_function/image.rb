@@ -70,7 +70,7 @@ module IsoDoc
       elem["class"] == "pseudocode" || elem["type"] == "pseudocode" and
         return sourcecode1(elem)
       figure_fn(elem)
-      figure_key(elem.at(ns("./dl")))
+      figure_key(elem.at(ns("./key")))
       lbl = @xrefs.anchor(elem["id"] || elem["original-id"], :label, false)
       lbl and a = autonum(elem["id"] || elem["original-id"], lbl)
       figname = figure_name(elem)
@@ -95,8 +95,7 @@ module IsoDoc
       dlist or return
       dlist["class"] = "formula_dl"
       dlist.at(ns("./name")) and return
-      dlist.previous =
-        "<p keep-with-next='true'><strong>#{@i18n.key}</strong></p>"
+      dlist.children.first.previous = "<name>#{@i18n.key}</name>"
     end
 
     def eps2svg(img)
