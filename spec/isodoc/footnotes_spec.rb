@@ -915,23 +915,10 @@ RSpec.describe IsoDoc do
                <a class="header" href="#_1">Foreword</a>
             </h1>
             <p id="A">
-               <i>
-                  <b>A.</b>
-               </i>
-               <a id="A1"/>
-               B
-               <i>
-                  <b>C.</b>
-               </i>
+               <i><b>A.</b></i><a id="A1"></a> B <i><b>C.</b></i>
             </p>
             <p id="B">
-               <i>
-                  <b>A.</b>
-               </i>
-               B
-               <i>
-                  <b>C.</b>
-               </i>
+               <i><b>A.</b></i> B <i><b>C.</b></i>
             </p>
          </div>
          <br/>
