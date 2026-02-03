@@ -357,9 +357,9 @@ RSpec.describe IsoDoc do
             <example id="samplecode" keep-with-next="true" keep-lines-together="true">
               <name>Title</name>
               <p>Hello</p>
-              <sourcecode id="X">
-                <name>Sample</name>
-              </sourcecode>
+      <sourcecode id="X">
+      <name>Sample</name>
+      </sourcecode>
             </example>
           </foreword>
         </preface>
@@ -413,22 +413,19 @@ RSpec.describe IsoDoc do
 
     html = <<~OUTPUT
       #{HTML_HDR}
-                       <br/>
-                       <div id="fwd">
-                         <h1 class="ForewordTitle">Foreword</h1>
-                         <div id="samplecode" class="example" style="page-break-after: avoid;page-break-inside: avoid;">
-                         <p class="example-title">EXAMPLE\u00a0&#8212; Title</p>
-                 <p>Hello</p>
-                      <pre id="X" class="sourcecode">
-                         <br/>\u00a0
-                         <br/>\u00a0
-                      </pre>
-          <p class='SourceTitle' style='text-align:center;'>Sample</p>
-                         </div>
-                       </div>
-                     </div>
-                   </body>
-               </html>
+              <br/>
+              <div id="fwd">
+                <h1 class="ForewordTitle">Foreword</h1>
+                <div id="samplecode" class="example" style="page-break-after: avoid;page-break-inside: avoid;">
+                  <p class="example-title">EXAMPLE\u00a0&#8212; Title</p>
+                  <p>Hello</p>
+                  <pre id="X" class="sourcecode"><br/><br/></pre>
+                  <p class='SourceTitle' style='text-align:center;'>Sample</p>
+                </div>
+              </div>
+            </div>
+          </body>
+      </html>
     OUTPUT
     word = <<~OUTPUT
       #{WORD_HDR}
@@ -441,10 +438,8 @@ RSpec.describe IsoDoc do
                 <p class='example-title'>EXAMPLE\u00a0&#8212; Title</p>
                 <p>Hello</p>
                       <p id="X" class="Sourcecode">
-                         <br/>
-      \u00a0
-                         <br/>
-      \u00a0
+                         <br/>\u00a0
+                         <br/>\u00a0
                       </p>
                 <p class='SourceTitle' style='text-align:center;'>Sample</p>
               </div>
@@ -1081,15 +1076,27 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     html = <<~OUTPUT
-      #{HTML_HDR}
-                <br/>
-                <div id="_">
-                  <h1 class='ForewordTitle'>Foreword</h1>
-                </div>
-              </div>
-            </body>
-          </html>
+      <html lang="en">
+      <head></head>
+      <body lang="en">
+        <div class="title-section">
+          <p>\u00a0</p>
+        </div><br>
+        <div class="prefatory-section">
+          <p>\u00a0</p>
+        </div><br>
+        <div class="main-section"><br>
+          <div id="_">
+            <h1 class="ForewordTitle">Foreword</h1>
+          </div><br>
+          <div id="_" class="TOC">
+            <h1 class="IntroTitle">Table of contents</h1>
+          </div>
+        </div>
+      </body>
+      </html>
     OUTPUT
+
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(output_formats: { html: "html", rfc: "rfc" }))
       .convert("test", input, true)

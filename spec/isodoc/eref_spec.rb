@@ -76,24 +76,34 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      #{HTML_HDR}
-                 <br/>
-                 <div id="_">
-                   <h1 class="ForewordTitle">Foreword</h1>
-                   <p>
-         <a href="http://example.com">http://example.com</a>
-         <a href="http://example.com" class="fred">http://example.com</a>
-         <a href="http://example.com"><br/></a>
-         <a href="http://example.com">example</a>
-         <a href="http://example.com" title="tip">example</a>
-         <a href="mailto:fred@example.com">fred@example.com</a>
-         <a href="mailto:fred@example.com">mailto:fred@example.com</a>
-         <a href="https://maps.gnosis.earth/ogcapi/collections/sentinel2-l2a/map?center=0,51.5&amp;scale-denominator=50000&amp;datetime=2022-04-01&amp;width=1024&amp;height=512">https://maps.gnosis.earth/ogcapi/collections/sentinel2-l2a/map?center=0,51.5&amp;scale-denominator=50000&amp;datetime=2022-04-01&amp;width=1024&amp;height=512</a>
-         </p>
-                 </div>
-               </div>
-             </body>
-         </html>
+      <html lang="en">
+      <head></head>
+      <body lang="en">
+        <div class="title-section">
+          <p>\u00a0</p>
+        </div><br>
+        <div class="prefatory-section">
+          <p>\u00a0</p>
+        </div><br>
+        <div class="main-section">
+          <br/>
+          <div id="_">
+            <h1 class="ForewordTitle">Foreword</h1>
+            <p>
+              <a href="http://example.com">http://example.com</a>
+              <a href="http://example.com" class="fred">http://example.com</a>
+              <a href="http://example.com"><br/></a>
+              <a href="http://example.com">example</a>
+              <a href="http://example.com" title="tip">example</a>
+              <a href="mailto:fred@example.com">fred@example.com</a>
+              <a href="mailto:fred@example.com">mailto:fred@example.com</a>
+              <a href="https://maps.gnosis.earth/ogcapi/collections/sentinel2-l2a/map?center=0,51.5&amp;scale-denominator=50000&amp;datetime=2022-04-01&amp;width=1024&amp;height=512">https://maps.gnosis.earth/ogcapi/collections/sentinel2-l2a/map?center=0,51.5&amp;scale-denominator=50000&amp;datetime=2022-04-01&amp;width=1024&amp;height=512</a>
+            </p>
+          </div><br/>
+          <div id="_" class="TOC"><h1 class="IntroTitle">Table of contents</h1></div>
+        </div>
+      </body>
+      </html>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)

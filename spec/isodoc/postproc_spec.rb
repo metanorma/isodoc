@@ -955,9 +955,9 @@ RSpec.describe IsoDoc do
             <fmt-title id="_">Foreword</fmt-title>
             <sourcecode id="samplecode">
               <fmt-name id="_">XML code</fmt-name>
-              <fmt-sourcecode id="_">
-              &lt;xml&gt; &amp;
-              </fmt-sourcecode></sourcecode>
+      <fmt-sourcecode id="_">
+       &lt;xml&gt; &amp;
+      </fmt-sourcecode></sourcecode>
           </foreword>
         </preface>
       </iso-standard>
@@ -969,9 +969,7 @@ RSpec.describe IsoDoc do
           <div>
             <h1 class="ForewordTitle">Foreword</h1>
             <pre id="samplecode" class="sourcecode">
-              <br/>
-              \u00a0 &lt;xml&gt; &amp;
-              <br/>
+      <br/>\u00a0&lt;xml&gt; &amp;<br/>
             </pre>
             <p class="SourceTitle" style="text-align:center;">XML code</p>
           </div>
@@ -981,10 +979,10 @@ RSpec.describe IsoDoc do
     html = File.read("test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
-    expect(Nokogiri::HTML5.fragment(strip_guid(html)).css(".sourcecode"))
+    expect(Nokogiri::HTML5.fragment(strip_guid(html)).css(".sourcecode pre"))
       .to be_html5_equivalent_to Nokogiri::HTML5.fragment(
         fix_whitespaces(output),
-      ).css(".sourcecode")
+      ).css(".sourcecode pre")
 
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"

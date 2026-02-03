@@ -475,12 +475,12 @@ RSpec.describe IsoDoc do
                    </div>
                    <div id="figure-B" class="figure">
                       <pre>A &lt;
-         B</pre>
+        B</pre>
                       <p class="FigureTitle" style="text-align:center;">Figure 2</p>
                    </div>
                    <div id="figure-C" class="figure">
                       <pre>A &lt;
-         B</pre>
+        B</pre>
                    </div>
                 </div>
                 <div>
@@ -500,7 +500,7 @@ RSpec.describe IsoDoc do
                    </h1>
                    <div id="AnnexFigure" class="figure">
                       <pre>A &lt;
-         B</pre>
+        B</pre>
                       <p class="FigureTitle" style="text-align:center;">Figure A.1</p>
                    </div>
                 </div>
@@ -595,12 +595,12 @@ RSpec.describe IsoDoc do
                    </div>
                    <div id="figure-B" class="figure">
                       <pre>A &lt;
-         B</pre>
+        B</pre>
                       <p class="FigureTitle" style="text-align:center;">Figure 2</p>
                    </div>
                    <div id="figure-C" class="figure">
                       <pre>A &lt;
-         B</pre>
+        B</pre>
                    </div>
                 </div>
                 <p>\u00a0</p>
@@ -632,7 +632,7 @@ RSpec.describe IsoDoc do
                    </h1>
                    <div id="AnnexFigure" class="figure">
                       <pre>A &lt;
-         B</pre>
+        B</pre>
                       <p class="FigureTitle" style="text-align:center;">Figure A.1</p>
                    </div>
                 </div>

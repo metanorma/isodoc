@@ -67,12 +67,7 @@ RSpec.describe IsoDoc do
                       Figure 1\u00a0— Ruby
                       <i>code</i>
                    </p>
-                   <pre id="_" class="sourcecode">
-                      Hey
-                      <br/>
-                      Que?
-                      <br/>
-                   </pre>
+      <pre id="_" class="sourcecode">Hey<br/>Que?<br/></pre>
                 </div>
              </div>
           </body>
@@ -282,10 +277,7 @@ RSpec.describe IsoDoc do
                    <br/>
                                 <div id="_">
                    <h1 class="ForewordTitle">Foreword</h1>
-                   <pre id="samplecode" class="sourcecode">
-                      <span class="nb">puts</span>
-                      <span class="n">x</span>
-                   </pre>
+                   <pre id="samplecode" class="sourcecode"><span class="nb">puts</span> <span class="n">x</span></pre>
                    <p class="SourceTitle" style="text-align:center;">
                       Figure 1\u00a0— Ruby
                       <i>code</i>
@@ -730,7 +722,8 @@ RSpec.describe IsoDoc do
                   <br/>
                   <div id="_">
                                  <h1 class="ForewordTitle">Foreword</h1>
-               <pre id="_" class="sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span><span class="c"> &lt;2&gt;</span> <br/>\u00a0\u00a0 %w{a b c}.each do |x|<br/>\u00a0\u00a0\u00a0\u00a0 puts x <span class="c"> &lt;3&gt;</span><br/>\u00a0\u00a0 end</pre>
+               <pre id="_"
+        class="sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span> <span class="c"> &lt;2&gt;</span> <br/>\u00a0\u00a0 %w{a b c}.each do |x|<br/>\u00a0\u00a0\u00a0\u00a0 puts x <span class="c"> &lt;3&gt;</span> <br/>\u00a0\u00a0 end</pre>
                        <div class="annotation">
                        <div class="figdl">
           <p class="ListTitle">Key</p>
@@ -1019,12 +1012,8 @@ RSpec.describe IsoDoc do
                                   <pre>1</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">
-                                     puts "Hello, world."
-                                     <span class="c"> &lt;1&gt;</span>
-                                     \u00a0
-                                     <span class="c"> &lt;2&gt;</span>
-                                  </pre>
+                                  <pre
+                  class="sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span>  <span class="c"> &lt;2&gt;</span> </pre>
                                </td>
                             </tr>
                             <tr>
@@ -1040,10 +1029,7 @@ RSpec.describe IsoDoc do
                                   <pre>3</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">
-                                     \u00a0\u00a0\u00a0\u00a0 puts x
-                                     <span class="c"> &lt;3&gt;</span>
-                                  </pre>
+                                  <pre class="sourcecode">\u00a0\u00a0\u00a0\u00a0 puts x <span class="c"> &lt;3&gt;</span> </pre>
                                </td>
                             </tr>
                             <tr>
