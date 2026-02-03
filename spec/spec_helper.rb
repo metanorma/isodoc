@@ -113,25 +113,26 @@ HTML_HDR = <<~HEADER.freeze
 HEADER
 
 WORD_HDR = <<~HEADER.freeze
-       <html xmlns:epub="http://www.idpf.org/2007/ops" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" lang="en">
-           <head>
+  <html xmlns:epub="http://www.idpf.org/2007/ops" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" lang="en">
+   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <style>
-      <!--
-      -->
+    <!--
+    -->
     </style>
   </head>
-         <body lang="EN-US" link="blue" vlink="#954F72">
-           <div class="WordSection1">
-             <p>\u00a0</p>
-           </div>
-           <p class="section-break"><br clear="all" class="section"/></p>
-           <div class="WordSection2">
-            <p class="page-break">
-            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-          </p>
-          <div class="TOC" id="_">
-            <p class="zzContents">Table of contents</p>
-          </div>
+  <body lang="EN-US" link="blue" vlink="#954F72">
+    <div class="WordSection1">
+      <p>\u00a0</p>
+    </div>
+    <p class="section-break"><br clear="all" class="section"/></p>
+    <div class="WordSection2">
+      <p class="page-break">
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
+     <div class="TOC" id="_">
+       <p class="zzContents">Table of contents</p>
+     </div>
 HEADER
 
 # It is profoundly embarrassing that this is necessary...
