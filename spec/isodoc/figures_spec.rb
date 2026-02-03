@@ -1759,12 +1759,12 @@ RSpec.describe IsoDoc do
       .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))
 
-    expect(Nokogiri::HTML4(word_html))
+    expect(Nokogiri::HTML::DocumentFragment.parse(word_html))
       .to be_html4_equivalent_to fix_whitespaces(strip_guid(word))
   end
 
   it "does not label embedded figures, sourcecode" do
-    <<~INPUT
+    input = <<~INPUT
         <itu-standard xmlns="http://riboseinc.com/isoxml">
             <bibdata>
             <language>en</language>
@@ -1810,7 +1810,7 @@ RSpec.describe IsoDoc do
              </html>
     OUTPUT
     expect(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", output, true)))
+      .convert("test", input, true)))
       .to be_html5_equivalent_to fix_whitespaces(output)
   end
 

@@ -980,112 +980,68 @@ RSpec.describe IsoDoc do
     OUTPUT
     html = <<~OUTPUT
       <html lang="en">
-         <head/>
-         <body lang="en">
-            <div class="title-section">
-               <p>\u00a0</p>
-            </div>
-            <br/>
-            <div class="prefatory-section">
-               <p>\u00a0</p>
-            </div>
-            <br/>
-            <div class="main-section">
-               <br/>
-               <div id="_" class="TOC">
-                  <h1 class="IntroTitle">Table of contents</h1>
-               </div>
-               <div id="A">
-                  <h1>1.</h1>
-                  <p>A</p>
-                  <a id="_"/>
-                  <a id="_"/>
-                  <a id="_"/>
-                  <a id="_"/>
-                  <a id="_"/>
-                  <div id="B">
-                     <h2>1.1.</h2>
-                     <p>B</p>
-                     <a id="_"/>
-                     <a id="_"/>
-                     <a id="_"/>
-                     <a id="_"/>
-                  </div>
-               </div>
-               <div id="_">
-                  <h1>Index</h1>
+      <head></head>
+      <body lang="en">
+        <div class="title-section">
+          <p>\u00a0</p>
+        </div><br />
+        <div class="prefatory-section">
+          <p>\u00a0</p>
+        </div><br />
+        <div class="main-section"><br />
+          <div id="_" class="TOC">
+            <h1 class="IntroTitle">Table of contents</h1>
+          </div>
+          <div id="A">
+            <h1>1.</h1>
+            <p>A</p><a id="_"></a><a id="_"></a><a id="_"></a><a id="_"></a><a id="_"></a>
+            <div id="B"><a id="_">
+              <h2>1.1.</h2>
+              <p>B</p>
+              <a id="_" />
+              <a id="_" />
+              <a id="_" />
+              <a id="_" />
+            </a></div>
+          </div>
+          <div id="_">
+            <h1><a id="_">Index</a></h1>
+            <div class="ul_wrap">
+              <ul>
+                <li id="_"><a id="_"><i>Dasein</i>, see <i>Eman</i>cipation, être</a></li>
+                <li id="_"><a id="_">élongé, </a><a href="#_">Clause 1</a></li>
+                <li id="_"><i>Eman</i>cipation, <a href="#_">Clause 1</a>, <a href="#_">Clause 1.1</a>
                   <div class="ul_wrap">
-                     <ul>
-                        <li id="_">
-                           <i>Dasein</i>
-                           , see
-                           <i>Eman</i>
-                           cipation, être
-                        </li>
-                        <li id="_">
-                           élongé,
-                           <a href="#_">Clause 1</a>
-                        </li>
-                        <li id="_">
-                           <i>Eman</i>
-                           cipation,
-                           <a href="#_">Clause 1</a>
-                           ,
-                           <a href="#_">Clause 1.1</a>
-                           <div class="ul_wrap">
-                              <ul>
-                                 <li id="_">
-                                    dans la France,
-                                    <a href="#_">Clause 1</a>
-                                    <div class="ul_wrap">
-                                       <ul>
-                                          <li id="_">
-                                             à Paris,
-                                             <a href="#_">Clause 1.1</a>
-                                          </li>
-                                          <li id="_">
-                                             en Bretagne,
-                                             <a href="#_">Clause 1</a>
-                                          </li>
-                                       </ul>
-                                    </div>
-                                 </li>
-                                 <li id="_">
-                                    dans les États-Unis,
-                                    <a href="#_">Clause 1.1</a>
-                                 </li>
-                              </ul>
-                           </div>
-                        </li>
-                        <li id="_">
-                           être
-                           <div class="ul_wrap">
-                              <ul>
-                                 <li id="_">
-                                    Husserl, see zebra, see also
-                                    <i>Eman</i>
-                                    cipation, zebra
-                                    <div class="ul_wrap">
-                                       <ul>
-                                          <li id="_">
-                                             en allemand,
-                                             <a href="#_">Clause 1</a>
-                                          </li>
-                                       </ul>
-                                    </div>
-                                 </li>
-                              </ul>
-                           </div>
-                        </li>
-                        <li id="_">
-                           zebra,
-                           <a href="#_">Clause 1.1</a>
-                        </li>
-                     </ul>
+                    <ul>
+                      <li id="_">dans la France, <a href="#_">Clause 1</a>
+                        <div class="ul_wrap">
+                          <ul>
+                            <li id="_">à Paris, <a href="#_">Clause 1.1</a></li>
+                            <li id="_">en Bretagne, <a href="#_">Clause 1</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li id="_">dans les États-Unis, <a href="#_">Clause 1.1</a></li>
+                    </ul>
                   </div>
-               </div>
+                </li>
+                <li id="_">être<div class="ul_wrap">
+                    <ul>
+                      <li id="_">Husserl, see zebra, see also <i>Eman</i>cipation, zebra<div class="ul_wrap">
+                          <ul>
+                            <li id="_">en allemand, <a href="#_">Clause 1</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li id="_">zebra, <a href="#_">Clause 1.1</a></li>
+              </ul>
             </div>
-         </body>
+          </div>
+        </div>
+      </body>
       </html>
     OUTPUT
     doc = <<~DOC

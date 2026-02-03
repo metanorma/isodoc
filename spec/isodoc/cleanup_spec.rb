@@ -14,7 +14,7 @@ RSpec.describe IsoDoc do
       </html>
     INPUT
     output = <<~OUTPUT
-          <?xml version="1.0"?>
+      <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
       <html>
       <body>
         <div class="Admonition">
@@ -64,9 +64,10 @@ RSpec.describe IsoDoc do
       </html>
     INPUT
     output = <<~OUTPUT
-             <?xml version="1.0"?>
+      <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
       <html xmlns:epub="http://www.idpf.org/2007/ops">
         <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
           <title>test</title>
           <body lang="EN-US" link="blue" vlink="#954F72">
             <div class="WordSection1">
@@ -259,7 +260,6 @@ RSpec.describe IsoDoc do
       </html>
     INPUT
     html = <<~OUTPUT
-      <?xml version="1.0"?>
       <html xmlns:epub="http://www.idpf.org/2007/ops">
         <head>
           <title>test</title>
@@ -284,7 +284,7 @@ RSpec.describe IsoDoc do
                     <tr>
                       <td align="left" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Arborio</td>
                       <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
-      <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
+                      <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
                       <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Thaibonnet</td>
                     </tr>
                   </thead>
@@ -346,146 +346,163 @@ RSpec.describe IsoDoc do
 
   it "cleans up tables without tfoot" do
     input = <<~INPUT
-          <html xmlns:epub="http://www.idpf.org/2007/ops">
-        <head>
-          <title>test</title>
-          <body lang="EN-US" link="blue" vlink="#954F72">
-            <div class="WordSection1">
-              <p>&#160;</p>
-            </div>
-            <br clear="all" class="section"/>
-            <div class="WordSection2">
-              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-              <div>
-                <h1 class="ForewordTitle">Foreword</h1>
-                <p class="TableTitle" align="center">
-                  <b>Table 1&#160;&#8212; Repeatability and reproducibility of husked rice yield</b>
-                </p>
-                <table id="tableD-1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
-                  <thead>
-                    <tr>
-                      <td rowspan="2" align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Description</td>
-                      <td colspan="4" align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">Rice sample</td>
-                    </tr>
-                    <tr>
-                      <td align="left" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Arborio</td>
-                      <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside><div id="ftntableD-1a"><span><span id="tableD-1a" class="TableFootnoteRef">a</span>&#160; </span>
-        <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
-      </div></aside></td>
-      <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
-                      <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Thaibonnet</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">Number of laboratories retained after eliminating outliers</td>
-                      <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
-                      <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">11</td>
-                      <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
-                      <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
-                    </tr>
-                    <tr>
-                      <td align="left" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Mean value, g/100 g</td>
-                      <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">81,2</td>
-                      <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">82,0</td>
-                      <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">81,8</td>
-                      <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">77,7</td>
-                    </tr>
-                  </tbody>
-                  <dl>
-                    <dt>
-                      <p>Drago</p>
-                    </dt>
-                    <dd>A type of rice</dd>
-                  </dl>
-                  <div class="BlockSource">
-           <p>[SOURCE: <a href="#ISO712">, Section 1</a>, modified – with adjustments]</p>
-         </div>
-                  <div id="" class="Note">
-                    <p class="Note">NOTE<span style="mso-tab-count:1">&#160; </span>This is a table about rice</p>
-                  </div>
-                </table>
+            <html xmlns:epub="http://www.idpf.org/2007/ops">
+      <head>
+        <title>test</title>
+      </head>
+      <body lang="EN-US" link="blue" vlink="#954F72">
+        <div class="WordSection1">
+          <p>&#160;</p>
+        </div>
+        <br clear="all" class="section" />
+        <div class="WordSection2">
+          <br clear="all" style="mso-special-character:line-break;page-break-before:always" />
+          <div>
+            <h1 class="ForewordTitle">Foreword</h1>
+            <p class="TableTitle" align="center">
+              <b>Table 1&#160;&#8212; Repeatability and reproducibility of husked rice yield</b>
+            </p>
+            <table id="tableD-1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
+              <thead>
+                <tr>
+                  <td rowspan="2" align="left"
+                    style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Description</td>
+                  <td colspan="4" align="center"
+                    style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">Rice sample</td>
+                </tr>
+                <tr>
+                  <td align="left" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Arborio</td>
+                  <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Drago<a href="#tableD-1a"
+                      class="TableFootnoteRef">a</a>
+                    <aside>
+                      <div id="ftntableD-1a"><span><span id="tableD-1a" class="TableFootnoteRef">a</span>&#160; </span>
+                        <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
+                      </div>
+                    </aside>
+                  </td>
+                  <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Balilla<a href="#tableD-1a"
+                      class="TableFootnoteRef">a</a></td>
+                  <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Thaibonnet</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">Number of
+                    laboratories retained after eliminating outliers</td>
+                  <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
+                  <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">11</td>
+                  <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
+                  <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
+                </tr>
+                <tr>
+                  <td align="left" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Mean value, g/100 g</td>
+                  <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">81,2</td>
+                  <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">82,0</td>
+                  <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">81,8</td>
+                  <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">77,7</td>
+                </tr>
+              </tbody>
+              <dl>
+                <dt>
+                  <p>Drago</p>
+                </dt>
+                <dd>A type of rice</dd>
+              </dl>
+              <div class="BlockSource">
+                <p>[SOURCE: <a href="#ISO712">, Section 1</a>, modified – with adjustments]</p>
               </div>
-              <p>&#160;</p>
-            </div>
-            <br clear="all" class="section"/>
-            <div class="WordSection3">
-              <p class="zzSTDTitle1"/>
-            </div>
-          </body>
-        </head>
+              <div id="" class="Note">
+                <p class="Note">NOTE<span style="mso-tab-count:1">&#160; </span>This is a table about rice</p>
+              </div>
+            </table>
+          </div>
+          <p>&#160;</p>
+        </div>
+        <br clear="all" class="section" />
+        <div class="WordSection3">
+          <p class="zzSTDTitle1" />
+        </div>
+      </body>
       </html>
     INPUT
     html = <<~OUTPUT
-      <?xml version="1.0"?>
       <html xmlns:epub="http://www.idpf.org/2007/ops">
         <head>
           <title>test</title>
-          <body lang="EN-US" link="blue" vlink="#954F72">
-            <div class="WordSection1">
-              <p>&#xA0;</p>
-            </div>
-            <br clear="all" class="section"/>
-            <div class="WordSection2">
-              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-              <div>
-                <h1 class="ForewordTitle">Foreword</h1>
-                <p class="TableTitle" align="center">
-                  <b>Table 1&#xA0;&#x2014; Repeatability and reproducibility of husked rice yield</b>
-                </p>
-                <table id="tableD-1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
-                  <thead>
-                    <tr>
-                      <td rowspan="2" align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Description</td>
-                      <td colspan="4" align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">Rice sample</td>
-                    </tr>
-                    <tr>
-                      <td align="left" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Arborio</td>
-                      <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
-      <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
-                      <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Thaibonnet</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">Number of laboratories retained after eliminating outliers</td>
-                      <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
-                      <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">11</td>
-                      <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
-                      <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
-                    </tr>
-                    <tr>
-                      <td align="left" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Mean value, g/100 g</td>
-                      <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">81,2</td>
-                      <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">82,0</td>
-                      <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">81,8</td>
-                      <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">77,7</td>
-                    </tr>
-                  </tbody>
-                <tfoot><tr><td colspan="5" style="border-top:0pt;border-bottom:solid windowtext 1.5pt;">
-                                  <dl>
-                    <dt>
-                      <p>Drago</p>
-                    </dt>
-                    <dd>A type of rice</dd>
-                  </dl>
-                  <div class="BlockSource">
-                    <p>[SOURCE: <a href="#ISO712">, Section 1</a>, modified – with adjustments]</p>
-                  </div>
-                  <div id="" class="Note">
-                    <p class="Note">NOTE<span style="mso-tab-count:1">&#xA0; </span>This is a table about rice</p>
-                  </div><div class="TableFootnote"><div id="ftntableD-1a">
-        <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55" class="TableFootnote"><span><span id="tableD-1a" class="TableFootnoteRef">a</span>&#xA0; </span>Parboiled rice.</p>
-      </div></div></td></tr></tfoot></table>
-              </div>
-              <p>&#xA0;</p>
-            </div>
-            <br clear="all" class="section"/>
-            <div class="WordSection3">
-              <p class="zzSTDTitle1"/>
-            </div>
-          </body>
         </head>
+        <body lang="EN-US" link="blue" vlink="#954F72">
+          <div class="WordSection1">
+            <p>&#xA0;</p>
+          </div>
+          <br clear="all" class="section"/>
+          <div class="WordSection2">
+            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+            <div>
+              <h1 class="ForewordTitle">Foreword</h1>
+              <p class="TableTitle" align="center">
+                <b>Table 1&#xA0;&#x2014; Repeatability and reproducibility of husked rice yield</b>
+              </p>
+              <dl>
+                <dt>
+                  <p>Drago</p>
+                </dt>
+                <dd>A type of rice</dd>
+              </dl>
+              <div class="BlockSource">
+                <p>[SOURCE: <a href="#ISO712">, Section 1</a>, modified – with adjustments]</p>
+              </div>
+              <div id="" class="Note">
+                <p class="Note">NOTE<span style="mso-tab-count:1">&nbsp; </span>This is a table about rice</p>
+              </div>
+              <table id="tableD-1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
+                <thead>
+                  <tr>
+                    <td rowspan="2" align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Description</td>
+                    <td colspan="4" align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">Rice sample</td>
+                  </tr>
+                  <tr>
+                    <td align="left" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Arborio</td>
+                    <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
+                    <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
+                    <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Thaibonnet</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">Number of laboratories retained after eliminating outliers</td>
+                    <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
+                    <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">11</td>
+                    <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
+                    <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
+                  </tr>
+                  <tr>
+                    <td align="left" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Mean value, g/100 g</td>
+                    <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">81,2</td>
+                    <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">82,0</td>
+                    <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">81,8</td>
+                    <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">77,7</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="5" style="border-top:0pt;border-bottom:solid windowtext 1.5pt;">
+                      <div class="TableFootnote">
+                        <div id="ftntableD-1a">
+                          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55" class="TableFootnote"><span><span id="tableD-1a" class="TableFootnoteRef">a</span>&#xA0; </span>Parboiled rice.</p>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <p>&#xA0;</p>
+          </div>
+          <br clear="all" class="section"/>
+          <div class="WordSection3">
+            <p class="zzSTDTitle1"/>
+          </div>
+        </body>
       </html>
     OUTPUT
 

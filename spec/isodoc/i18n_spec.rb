@@ -1734,7 +1734,9 @@ RSpec.describe IsoDoc do
     )
     expect(pres_output_to_compare).to be_xml_equivalent_to presxml
 
-    html_output = IsoDoc::HtmlConvert.new({}).convert("test", pres_output, true)
+    html_output = strip_guid(
+      IsoDoc::HtmlConvert.new({}).convert("test", pres_output, true),
+    )
     html_output_to_compare = strip_guid(html_output)
     expect(html_output_to_compare)
       .to be_html5_equivalent_to fix_whitespaces(html_output)

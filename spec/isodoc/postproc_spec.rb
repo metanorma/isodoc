@@ -1022,10 +1022,10 @@ RSpec.describe IsoDoc do
       <div id="boilerplate-legal"> <h1>Legal</h1> </div>
       <div id="boilerplate-feedback"> <h1>Feedback</h1> </div>
       <hr/>
-      <div id="boilerplate-feedback-destination"/>
-      <div id="boilerplate-legal-destination"/>
-      <div id="boilerplate-license-destination"/>
-      <div id="boilerplate-copyright-destination"/>
+      <div id="boilerplate-feedback-destination"></div>
+      <div id="boilerplate-legal-destination"></div>
+      <div id="boilerplate-license-destination"></div>
+      <div id="boilerplate-copyright-destination"></div>
       </div>
       </body>
       </html>

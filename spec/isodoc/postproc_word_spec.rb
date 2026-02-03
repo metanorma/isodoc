@@ -617,7 +617,7 @@ RSpec.describe IsoDoc do
       INPUT
 
     output = <<~OUTPUT
-      <div xmlns:m="m" class="WordSection2">
+      <div class="WordSection2">
          <p class="MsoNormal">
             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
          </p>
@@ -1353,6 +1353,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
                <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
                  <style/>
                </head>
                <body lang='EN-US' link='blue' vlink='#954F72'>

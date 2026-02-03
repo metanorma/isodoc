@@ -807,7 +807,7 @@ RSpec.describe IsoDoc do
     word_output_cleaned = strip_guid(output.to_html)
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
     expect(Nokogiri::HTML4(word_output_cleaned))
-      .to be_html4_equivalent_to(fix_whitespaces(word))
+      .to be_html4_equivalent_to(Nokogiri::HTML4(word))
   end
 
   it "processes plain IsoXML tables" do
