@@ -161,9 +161,13 @@ module IsoDoc
 
       def para_parse(node, out)
         out.p **attr_code(para_attrs(node)) do |p|
-          children_parse(node, p)
+          para_prefix(node, p)
+          node.children.each { |n| parse(n, p) unless n.name == "note" }
         end
+        node.xpath(ns("./note")).each { |n| parse(n, out) }
       end
+
+      def para_prefix(node, out); end
 
       def attribution_parse(node, out)
         out.div class: "QuoteAttribution" do |div|
