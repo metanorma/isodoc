@@ -118,12 +118,12 @@ RSpec.describe IsoDoc do
     html_output = IsoDoc::HtmlConvert.new({})
       .convert("test", input, true)
     expect(strip_guid(html_output))
-      .to be_html5_equivalent_to fix_whitespaces(html)
+      .to be_html5_equivalent_to html
 
     word_output = IsoDoc::WordConvert.new({})
       .convert("test", input, true)
     expect(strip_guid(word_output))
-      .to be_html4_equivalent_to fix_whitespaces(word)
+      .to be_html4_equivalent_to word
   end
 
   it "processes indexsect" do
@@ -1180,7 +1180,7 @@ RSpec.describe IsoDoc do
 
     wordhtml = Nokogiri::HTML4.fragment(word)
     word_output = strip_guid(wordhtml.to_html)
-    expect(word_output).to be_html4_equivalent_to fix_whitespaces(doc)
+    expect(word_output).to be_html4_equivalent_to doc
   end
 
   private

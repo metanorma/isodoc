@@ -346,7 +346,7 @@ RSpec.describe IsoDoc do
 
     expect(strip_guid(Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true)).at("//div[@id ='A']").to_html))
-      .to be_html5_equivalent_to fix_whitespaces(html)
+      .to be_html5_equivalent_to html
   end
 
   it "processes examples" do
@@ -890,13 +890,13 @@ RSpec.describe IsoDoc do
                                                                  true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_html))
-      .to be_html5_equivalent_to fix_whitespaces(html)
+      .to be_html5_equivalent_to html
 
     output = Nokogiri::HTML4(IsoDoc::WordConvert.new({}).convert("test", input,
                                                                  true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_html))
-      .to be_html4_equivalent_to fix_whitespaces(word)
+      .to be_html4_equivalent_to word
   end
 
   it "processes blockquotes" do
@@ -1104,7 +1104,7 @@ RSpec.describe IsoDoc do
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_html))
-      .to be_html5_equivalent_to fix_whitespaces(html)
+      .to be_html5_equivalent_to html
   end
 
   it "ignores columnbreak" do
@@ -1135,7 +1135,7 @@ RSpec.describe IsoDoc do
     .convert("test", input, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_html))
-      .to be_html5_equivalent_to fix_whitespaces(html)
+      .to be_html5_equivalent_to html
   end
 
   it "processes toc" do

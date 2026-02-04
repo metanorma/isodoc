@@ -113,7 +113,7 @@ RSpec.describe IsoDoc do
     html_output = IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true)
     expect(strip_guid(html_output))
-      .to be_html5_equivalent_to fix_whitespaces(output)
+      .to be_html5_equivalent_to output
   end
 
   it "processes updatetype links" do
@@ -704,7 +704,7 @@ RSpec.describe IsoDoc do
                   .convert("test", pres_output, true),
              ).css("p#A").to_html,
            ))
-      .to be_html_equivalent_to(fix_whitespaces(html))
+      .to be_html_equivalent_to(html)
   end
 
   it "processes eref content pointing to reference with citation URL" do
@@ -971,11 +971,11 @@ RSpec.describe IsoDoc do
     html = IsoDoc::HtmlConvert.new({})
       .convert("test", output, true)
     expect(Nokogiri::HTML5.fragment(strip_guid(output)).css("h1.ForewordTitle").to_html)
-      .to be_html5_equivalent_to(fix_whitespaces(html))
+      .to be_html5_equivalent_to(html)
 
     word_html = IsoDoc::WordConvert.new({}).convert("test", output, true)
     expect(Nokogiri::HTML4.fragment(strip_guid(output)).css("h1.ForewordTitle").to_html)
-      .to be_html4_equivalent_to(fix_whitespaces(word_html))
+      .to be_html4_equivalent_to(word_html)
   end
 
   it "processes eref content pointing to reference with attachment URL" do
@@ -1256,13 +1256,13 @@ RSpec.describe IsoDoc do
           .convert("test", pres_output, true)),
       ).css("p#A").to_html,
     )
-      .to be_html5_equivalent_to(fix_whitespaces(html))
+      .to be_html5_equivalent_to(html)
     expect(Nokogiri::HTML4.fragment(
       strip_guid(
         IsoDoc::WordConvert.new({}).convert("test", pres_output, true),
       ),
     ).css("p#A").to_html)
-      .to be_html4_equivalent_to(fix_whitespaces(word))
+      .to be_html4_equivalent_to(word)
   end
 
   it "processes eref content with Unicode characters" do

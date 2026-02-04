@@ -1739,7 +1739,7 @@ RSpec.describe IsoDoc do
     )
     html_output_to_compare = strip_guid(html_output)
     expect(html_output_to_compare)
-      .to be_html5_equivalent_to fix_whitespaces(html_output)
+      .to be_html5_equivalent_to html_output
   end
 
   it "processes i18n file" do

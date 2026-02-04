@@ -653,7 +653,7 @@ RSpec.describe IsoDoc do
      .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_html))
-      .to be_html5_equivalent_to fix_whitespaces(html)
+      .to be_html5_equivalent_to html
 
     FileUtils.rm_rf "spec/assets/odf1.emf"
     output = Nokogiri::HTML4(IsoDoc::WordConvert.new({})
@@ -662,7 +662,7 @@ RSpec.describe IsoDoc do
     expect(strip_guid(output.to_html
         .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
         .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_html4_equivalent_to fix_whitespaces(word)
+      .to be_html4_equivalent_to word
   end
 
   it "processes subfigures" do
@@ -1760,7 +1760,7 @@ RSpec.describe IsoDoc do
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))
 
     expect(Nokogiri::HTML::DocumentFragment.parse(word_html))
-      .to be_html4_equivalent_to fix_whitespaces(strip_guid(word))
+      .to be_html4_equivalent_to strip_guid(word)
   end
 
   it "does not label embedded figures, sourcecode" do
@@ -1811,7 +1811,7 @@ RSpec.describe IsoDoc do
     OUTPUT
     expect(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true)))
-      .to be_html5_equivalent_to fix_whitespaces(output)
+      .to be_html5_equivalent_to output
   end
 
   it "processes svgmap" do
