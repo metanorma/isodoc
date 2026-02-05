@@ -4,7 +4,7 @@ module IsoDoc
       def example_label(_node, div, name)
         name.nil? and return
         div.p class: "example-title" do |_p|
-                    children_parse(name, div)
+          children_parse(name, div)
         end
       end
 
@@ -66,7 +66,7 @@ module IsoDoc
       def starts_with_para?(node)
         elem = block_body_first_elem(node) or return
         elem.name == "p" || elem.elements.first&.name == "p" ||
-          block_body_first_elem(elem) == "p"
+          block_body_first_elem(elem).name == "p"
       end
 
       def note_p_class
@@ -115,6 +115,7 @@ module IsoDoc
       def note_parse(node, out)
         @note = true
         out.div **note_attrs(node) do |div|
+          require "debug"; binding.b
           if starts_with_para?(node)
             note_p_parse(node, div)
           else
