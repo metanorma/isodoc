@@ -115,7 +115,6 @@ module IsoDoc
       def note_parse(node, out)
         @note = true
         out.div **note_attrs(node) do |div|
-          require "debug"; binding.b
           if starts_with_para?(node)
             note_p_parse(node, div)
           else
