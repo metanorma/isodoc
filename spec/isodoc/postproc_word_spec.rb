@@ -606,11 +606,11 @@ RSpec.describe IsoDoc do
             </iso-standard>
       INPUT
     word = File.read("test.doc")
-      .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="m">')
+      .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="https://m">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
     expect(strip_guid(Canon.format_xml(word)))
       .to be_equivalent_to Canon.format_xml(<<~OUTPUT)
-       <div xmlns:m="m" class="WordSection2">
+       <div xmlns:m="https://m" class="WordSection2">
           <p class="MsoNormal">
              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
           </p>
@@ -776,12 +776,12 @@ RSpec.describe IsoDoc do
             </iso-standard>
       INPUT
     word = File.read("test.doc")
-      .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="m">')
+      .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="https://m">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
       .sub(/src="[^"]+"/, 'src="_"')
     expect(strip_guid(Canon.format_xml(word)))
       .to be_equivalent_to Canon.format_xml(<<~OUTPUT)
-        <div xmlns:m="m" class="WordSection2">
+        <div xmlns:m="https://m" class="WordSection2">
            <p class="MsoNormal">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
            </p>
@@ -848,12 +848,12 @@ RSpec.describe IsoDoc do
                   </iso-standard>
       INPUT
     word = File.read("test.doc")
-      .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="m">')
+      .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="https://m">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
       .sub(/src="[^"]+"/, 'src="_"')
     expect(strip_guid(Canon.format_xml(word)))
       .to be_equivalent_to Canon.format_xml(<<~OUTPUT)
-        <div xmlns:m="m" class="WordSection2">
+        <div xmlns:m="https://m" class="WordSection2">
            <p class="MsoNormal">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
            </p>
