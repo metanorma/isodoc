@@ -348,7 +348,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+          <html lang="en">
         <head/>
         <body lang="en">
           <div class="title-section">

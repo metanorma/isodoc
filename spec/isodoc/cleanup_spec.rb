@@ -14,7 +14,6 @@ RSpec.describe IsoDoc do
       </html>
     INPUT
     output = <<~OUTPUT
-          <?xml version="1.0"?>
       <html>
       <body>
         <div class="Admonition">
@@ -63,7 +62,6 @@ RSpec.describe IsoDoc do
       </html>
     INPUT
     output = <<~OUTPUT
-             <?xml version="1.0"?>
       <html xmlns:epub="http://www.idpf.org/2007/ops">
         <head>
           <title>test</title>

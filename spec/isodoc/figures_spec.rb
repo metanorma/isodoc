@@ -1463,7 +1463,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-        <?xml version='1.0'?>
+      <?xml version="1.0" encoding="UTF-8"?>
              <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
            <preface>
       <clause type="toc" id="_" displayorder="1">

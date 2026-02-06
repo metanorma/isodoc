@@ -780,7 +780,12 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     word = <<~OUTPUT
-        <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+      <html
+        xmlns:epub="http://www.idpf.org/2007/ops"
+        xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:w="urn:schemas-microsoft-com:office:word"
+        xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+        lang="en">
        <head><style/></head>
                  <body lang="EN-US" link="blue" vlink="#954F72">
              <div class="WordSection1">

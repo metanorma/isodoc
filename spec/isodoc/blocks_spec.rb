@@ -738,10 +738,25 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     html = <<~OUTPUT
-      #{HTML_HDR}
-                <br/>
+      <html lang="en">
+      <head/>
+      <body lang="en">
+        <div class="title-section">
+          <p>\\u00a0</p>
+        </div>
+        <br/>
+        <div class="prefatory-section">
+          <p>\\u00a0</p>
+        </div>
+        <br/>
+        <div class="main-section">
+          <br/>
                 <div id="_">
                   <h1 class='ForewordTitle'>Foreword</h1>
+                </div>
+                <br/>
+                <div class="TOC" id="_">
+                  <h1 class="IntroTitle">Table of contents</h1>
                 </div>
               </div>
             </body>
