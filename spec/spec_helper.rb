@@ -79,7 +79,7 @@ def strip_guid(xml)
 end
 
 HTML_HDR = <<~HEADER.freeze
-  <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+  <html lang="en">
     <head/>
     <body lang="en">
       <div class="title-section">
@@ -98,7 +98,12 @@ HTML_HDR = <<~HEADER.freeze
 HEADER
 
 WORD_HDR = <<~HEADER.freeze
-       <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+       <html
+         xmlns:epub="http://www.idpf.org/2007/ops"
+         xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+         xmlns:w="urn:schemas-microsoft-com:office:word"
+         xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+         lang="en">
            <head>
     <style>
       <!--

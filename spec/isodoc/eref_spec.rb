@@ -76,8 +76,19 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      #{HTML_HDR}
-                 <br/>
+      <html lang="en">
+      <head/>
+      <body lang="en">
+        <div class="title-section">
+          <p>\\u00a0</p>
+        </div>
+        <br/>
+        <div class="prefatory-section">
+          <p>\\u00a0</p>
+        </div>
+        <br/>
+        <div class="main-section">
+          <br/>
                  <div id="_">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <p>
@@ -90,6 +101,11 @@ RSpec.describe IsoDoc do
          <a href="mailto:fred@example.com">mailto:fred@example.com</a>
          <a href="https://maps.gnosis.earth/ogcapi/collections/sentinel2-l2a/map?center=0,51.5&amp;scale-denominator=50000&amp;datetime=2022-04-01&amp;width=1024&amp;height=512">https://maps.gnosis.earth/ogcapi/collections/sentinel2-l2a/map?center=0,51.5&amp;scale-denominator=50000&amp;datetime=2022-04-01&amp;width=1024&amp;height=512</a>
          </p>
+         </div>
+                <div class="TOC" id="_">
+                  <h1 class="IntroTitle">Table of contents</h1>
+                </div>
+                 <br/>
                  </div>
                </div>
              </body>
