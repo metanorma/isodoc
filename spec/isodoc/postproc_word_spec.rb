@@ -121,6 +121,7 @@ RSpec.describe IsoDoc do
       Content-Type: text/html; charset="utf-8"
       Ci8qIGFuIGVtcHR5IGhlYWRlciAqLwoKU1RBUlQgRE9DIElEOiAKICAgICAgICAgICAxMDAwCiAg
       ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
+
     OUTPUT
   end
 
