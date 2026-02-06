@@ -91,8 +91,8 @@ RSpec.describe IsoDoc do
         <metanorma-extension>
           <presentation-metadata>
                 <font-license-agreement>no-install-fonts</font-license-agreement>
-      <fonts>font2</fonts>
       <fonts>font1</fonts>
+      <fonts>font2</fonts>
         </presentation-metadata>
         </metanorma-extension>
       </iso-standard>
