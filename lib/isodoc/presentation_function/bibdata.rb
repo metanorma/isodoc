@@ -42,7 +42,8 @@ module IsoDoc
     def bibdata_i18n(bib)
       hash_translate(bib, @i18n.get["doctype_dict"], "./ext/doctype",
                      "//presentation-metadata/doctype-alias", @lang)
-      hash_translate(bib, @i18n.get["stage_dict"], "./status/stage", nil, @lang)
+      hash_translate(bib, @i18n.get["stage_dict"], "./status/stage",
+                     "//presentation-metadata/stage-alias", @lang)
       hash_translate(bib, @i18n.get["substage_dict"], "./status/substage", nil,
                      @lang)
       edition_translate(bib)

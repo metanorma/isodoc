@@ -2301,13 +2301,17 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Canon.format_xml(html)
   end
 
-  it "internationalises doctype" do
+  it "internationalises doctype and stage" do
     mock_i18n
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata>
       <language>eo</language>
       <script>Latn</script>
+      <status>
+      <stage>published</stage>
+      <substage>withdrawn</substage>
+      </status>
       <ext>
       <doctype>brochure</doctype>
       </ext>
@@ -2319,6 +2323,12 @@ RSpec.describe IsoDoc do
          <bibdata>
             <language current="true">eo</language>
             <script current="true">Latn</script>
+            <status>
+         <stage language="">published</stage>
+         <stage language="eo">publikigita</stage>
+         <substage language="">withdrawn</substage>
+         <substage language="eo">fortirita</substage>
+      </status>
             <ext>
                <doctype language="">brochure</doctype>
                <doctype language="eo">broŝuro</doctype>
@@ -2339,6 +2349,7 @@ RSpec.describe IsoDoc do
          <metanorma-extension>
       <presentation-metadata>
       <doctype-alias>conference proceedings</doctype-alias>
+      <stage-alias>eldonita</stage-alias>
       </presentation-metadata>
       </metanorma-extension>
     EXT
@@ -2347,6 +2358,11 @@ RSpec.describe IsoDoc do
          <bibdata>
             <language current="true">eo</language>
             <script current="true">Latn</script>
+                 <status>
+        <stage>published</stage>
+        <substage language="">withdrawn</substage>
+        <substage language="eo">fortirita</substage>
+     </status>
             <ext>
                <doctype language="">brochure</doctype>
                <doctype language="eo">konferencaktoj</doctype>
@@ -2355,6 +2371,7 @@ RSpec.describe IsoDoc do
             <metanorma-extension>
              <presentation-metadata>
                 <doctype-alias>conference proceedings</doctype-alias>
+                <stage-alias>eldonita</stage-alias>
              </presentation-metadata>
           </metanorma-extension>
       </iso-standard>

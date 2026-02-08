@@ -26,6 +26,7 @@ doctype_dict: {
 }
 stage_dict: {
   published: publikigita
+  circulated: eldonita
 }
 substage_dict: {
   withdrawn: fortirita
