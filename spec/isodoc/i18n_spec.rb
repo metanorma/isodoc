@@ -2349,7 +2349,7 @@ RSpec.describe IsoDoc do
          <metanorma-extension>
       <presentation-metadata>
       <doctype-alias>conference proceedings</doctype-alias>
-      <stage-alias>eldonita</stage-alias>
+      <stage-alias>circulated</stage-alias>
       </presentation-metadata>
       </metanorma-extension>
     EXT
@@ -2359,7 +2359,8 @@ RSpec.describe IsoDoc do
             <language current="true">eo</language>
             <script current="true">Latn</script>
                  <status>
-        <stage>published</stage>
+        <stage language="">published</stage>
+        <stage language="eo">eldonita</stage>
         <substage language="">withdrawn</substage>
         <substage language="eo">fortirita</substage>
      </status>
@@ -2371,7 +2372,7 @@ RSpec.describe IsoDoc do
             <metanorma-extension>
              <presentation-metadata>
                 <doctype-alias>conference proceedings</doctype-alias>
-                <stage-alias>eldonita</stage-alias>
+                <stage-alias>circulated</stage-alias>
              </presentation-metadata>
           </metanorma-extension>
       </iso-standard>

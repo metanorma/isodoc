@@ -25,7 +25,7 @@ doctype_dict: {
   conference proceedings: konferencaktoj
 }
 stage_dict: {
-  published: publikigita
+  published: publikigita,
   circulated: eldonita
 }
 substage_dict: {
