@@ -180,7 +180,7 @@ RSpec.describe IsoDoc do
         docnumeric: "17301",
         doctitle: "Cereals and pulses H<sup>2</sup>O",
         doctype: "International Standard CAPITAL",
-        doctype_abbrev: "IS",
+        doctype_abbr: "IS",
         doctype_display: "International Standard CAPITAL",
         docyear: "2016",
         draft: "0.4",
