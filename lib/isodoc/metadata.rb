@@ -52,6 +52,8 @@ module IsoDoc
     def doctype(isoxml, _out)
       b = isoxml.at(ns("//bibdata/ext/doctype#{NOLANG}")) || return
       set(:doctype, status_print(b.text))
+      ba = isoxml.at(ns("//bibdata/ext/doctype/@abbreviation")) and
+        set(:doctype_abbrev, status_print(ba.text))
       b1 = isoxml.at(ns("//bibdata/ext/doctype#{currlang}")) || b
       set(:doctype_display, status_print(b1.text))
       b = isoxml.at(ns("//bibdata/ext/subdoctype#{NOLANG}")) || return
