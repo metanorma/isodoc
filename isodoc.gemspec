@@ -44,7 +44,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "uuidtools"
 
   spec.add_development_dependency "bigdecimal"
-  # spec.add_development_dependency "canon", "= 0.1.3"
+  spec.add_development_dependency "canon", "~> 0.1.13"
   spec.add_development_dependency "debug"
   spec.add_development_dependency "equivalent-xml", "~> 0.6"
   spec.add_development_dependency "guard", "~> 2.14"
