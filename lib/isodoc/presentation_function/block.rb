@@ -149,7 +149,7 @@ module IsoDoc
 
     def amend1(elem)
       ret = semx_fmt_dup(elem)
-      ret.xpath(ns("./locality | ./localityStack | ./autonumber | " \
+      ret.xpath(ns("./locality | ./localityStack | .//autonumber | " \
                    "./classification | ./contributor | ./fmt-name | " \
                    "./fmt-xref-label")).each(&:remove)
       amend_newcontent(elem)
