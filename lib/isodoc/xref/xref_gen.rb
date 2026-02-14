@@ -16,7 +16,7 @@ module IsoDoc
         NUMBERED_BLOCKS.each do |b|
           amend_blocks(amend, autonum, b)
         end
-        amdend.xpath(ns("./newcontent/clause")).each do |c|
+        amend.xpath(ns("./newcontent/clause")).each do |c|
           amend_preprocess1(c)
         end
       end
