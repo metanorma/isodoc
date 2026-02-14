@@ -152,7 +152,7 @@ module IsoDoc
       ret.xpath(ns("./locality | ./localityStack | .//autonumber | " \
                    "./classification | ./contributor | ./fmt-name | " \
                    "./fmt-xref-label")).each(&:remove)
-      amend_newcontent(elem)
+      amend_newcontent(ret)
       ret.xpath(ns("./newcontent")).each { |a| a.name = "quote" }
       ret.xpath(ns("./description")).each { |a| a.replace(a.children) }
       elem.next = ret
@@ -162,14 +162,21 @@ module IsoDoc
       elem.xpath(ns("./newcontent")).each do |a|
         a.name = "quote"
         a.xpath(ns("./clause")).each do |c|
-          c.xpath(ns(".//title")).reverse_each do |t|
-            t.name = "floating-title"
-            t["depth"] ||= "1"
-          end
-          c.name = "quote"
+          amend_subclause(c, 1)
           a.next = c
         end
       end
+    end
+
+    def amend_subclause(clause, depth)
+      clause.xpath(ns("./title")).reverse_each do |t|
+        # t.name = "floating-title"
+        # t["depth"] ||= depth || "1"
+        t.name = "p"
+        t["type"] = "floating-title"
+      end
+      clause.name = depth == 1 ? "quote" : "quote" # "div"
+      clause.xpath(ns("./clause")).each { |c| amend_subclause(c, depth + 1) }
     end
 
     def quote(docxml)

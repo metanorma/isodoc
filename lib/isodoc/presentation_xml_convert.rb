@@ -96,6 +96,7 @@ module IsoDoc
     end
 
     def block(docxml)
+      amend docxml # feeds all other blocks
       table docxml
       figure docxml
       sourcecode docxml
@@ -112,7 +113,6 @@ module IsoDoc
       requirement docxml
       recommendation docxml
       requirement_render docxml
-      amend docxml
     end
 
     def inline(docxml)

@@ -1,6 +1,7 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def prefix_name(node, delims, label, elem)
+      sem_xml_descendant?(node) and return
       label, delims = prefix_name_defaults(node, delims, label, elem)
       name, ins, ids, number = prefix_name_prep(node, elem)
       ins.next = fmt_xref_label(label, number, ids)
@@ -167,6 +168,26 @@ module IsoDoc
     def esc(text)
       text.nil? || text.empty? and return text
       "<esc>#{text}</esc>"
+    end
+
+    # do not change to Presentation XML rendering
+    def sem_xml_descendant?(node)
+      ancestor_names = node.ancestors.map(&:name)
+      %w[preferred admitted deprecated related definition source]
+        .any? do |name|
+        ancestor_names.include?(name)
+      end and return true
+      %w[xref eref origin link name title newcontent].any? do |name|
+        ancestor_names.include?(name)
+      end and return true
+      ancestor_names.include?("bibitem") &&
+        %w[formattedref biblio-tag].none? do |name|
+          ancestor_names.include?(name)
+        end and return true
+      (ancestor_names & %w[requirement recommendation permission]).any? &&
+        !ancestor_names.include?("fmt-provision") and return true
+
+      false
     end
   end
 end
