@@ -118,7 +118,7 @@ RSpec.describe IsoDoc do
       Content-ID: <header.html>
       Content-Disposition: inline; filename="header.html"
       Content-Transfer-Encoding: base64
-      Content-Type: text/html charset="utf-8"
+      Content-Type: text/html; charset="utf-8"
       Ci8qIGFuIGVtcHR5IGhlYWRlciAqLwoKU1RBUlQgRE9DIElEOiAKICAgICAgICAgICAxMDAwCiAg
       ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
     OUTPUT
