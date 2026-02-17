@@ -7,13 +7,17 @@ module IsoDoc
 
       def amend_preprocess(xmldoc)
         xmldoc.xpath(ns("//amend[newcontent]")).each do |a|
-          autonum = amend_autonums(a)
-          NUMBERED_BLOCKS.each do |b|
-            a.xpath(ns("./newcontent//#{b}")).each_with_index do |e, i|
-              autonum[b] && i.zero? and e["number"] = autonum[b]
-              !autonum[b] and e["unnumbered"] = "true"
-            end
-          end
+          amend_preprocess1(a)
+        end
+      end
+
+      def amend_preprocess1(amend, subclause: false)
+        autonum = amend_autonums(amend)
+        NUMBERED_BLOCKS.each do |b|
+          amend_blocks(amend, autonum, b, subclause)
+        end
+        amend.xpath(ns(".#{amend_newcontent(subclause)}/clause")).each do |c|
+          amend_preprocess1(c, subclause: true)
         end
       end
 
@@ -23,6 +27,20 @@ module IsoDoc
           autonum[n["type"]] = n.text
         end
         autonum
+      end
+
+      def amend_blocks(amend, autonum, blocktype, subclause)
+        newc = amend_newcontent(subclause)
+        (amend.xpath(ns(".#{newc}//#{blocktype}")) -
+         amend.xpath(ns(".#{newc}/clause//#{blocktype}")))
+          .each_with_index do |e, i|
+            autonum[blocktype] && i.zero? and e["number"] = autonum[blocktype]
+            !autonum[blocktype] and e["unnumbered"] = "true"
+        end
+      end
+
+      def amend_newcontent(subclause)
+        subclause ? "" : "/newcontent"
       end
 
       def termnote_label(node, label)

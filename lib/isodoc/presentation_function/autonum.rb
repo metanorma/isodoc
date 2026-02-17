@@ -1,6 +1,7 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def prefix_name(node, delims, label, elem)
+      sem_xml_descendant?(node) and return
       label, delims = prefix_name_defaults(node, delims, label, elem)
       name, ins, ids, number = prefix_name_prep(node, elem)
       ins.next = fmt_xref_label(label, number, ids)
@@ -167,6 +168,58 @@ module IsoDoc
     def esc(text)
       text.nil? || text.empty? and return text
       "<esc>#{text}</esc>"
+    end
+
+    # do not change to Presentation XML rendering
+    # this is sensitive to ordering of Presentation XML processing:
+    # blocks > terms > inline
+    def sem_xml_descendant?(node)
+      ancestor_names = node.ancestors.map(&:name)
+      sem_xml_descendant_terms?(node, ancestor_names) and return true
+      sem_xml_descendant_inline?(node, ancestor_names) and return true
+      sem_xml_descendant_bibitem?(node, ancestor_names) and return true
+      sem_xml_descendant_provision?(node, ancestor_names) and return true
+      false
+    end
+
+    # keep Presentation XML blocks within provisions,
+    # they are processed separately
+    # into distinct Presentation XML fmt-provision later
+    def sem_xml_descendant_provision?(node, ancestor_names)
+      block?(node) and return false
+      (ancestor_names & %w[requirement recommendation permission]).any? &&
+        !ancestor_names.include?("fmt-provision")
+    end
+
+    def sem_xml_descendant_bibitem?(_node, ancestor_names)
+      ancestor_names.include?("bibitem") &&
+        %w[formattedref biblio-tag].none? do |name|
+          ancestor_names.include?(name)
+        end
+    end
+
+    def sem_xml_descendant_inline?(_node, ancestor_names)
+      %w[xref eref origin link name title newcontent]
+        .any? do |name|
+          ancestor_names.include?(name)
+      end and return true
+    end
+
+    # keep Presentation XML blocks within designations,
+    # they are processed separately
+    # into distinct Presentation XML fmt-* designations later
+    def sem_xml_descendant_terms?(node, ancestor_names)
+      block?(node) and return false
+      %w[preferred admitted deprecated related definition source]
+        .any? do |name|
+          ancestor_names.include?(name)
+      end
+    end
+
+    def block?(node)
+      %w(figure table note example termnote termexample formula sourcecode
+         admonition ul ol dl quote permission requirement recommendation)
+        .include?(node.name)
     end
   end
 end

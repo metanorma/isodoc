@@ -68,26 +68,6 @@ module IsoDoc
       docxml.xpath(ns("//fmt-origin[not(.//termref)]")).each { |f| xref1(f) }
     end
 
-    # do not change to Presentation XML rendering
-    def sem_xml_descendant?(node)
-      ancestor_names = node.ancestors.map(&:name)
-      %w[preferred admitted deprecated related definition source]
-        .any? do |name|
-        ancestor_names.include?(name)
-      end and return true
-      %w[xref eref origin link name title].any? do |name|
-        ancestor_names.include?(name)
-      end and return true
-      ancestor_names.include?("bibitem") &&
-        %w[formattedref biblio-tag].none? do |name|
-          ancestor_names.include?(name)
-        end and return true
-      (ancestor_names & %w[requirement recommendation permission]).any? &&
-        !ancestor_names.include?("fmt-provision") and return true
-
-      false
-    end
-
     def xref1(node)
       sem_xml_descendant?(node) and return
       get_linkend(node)

@@ -65,7 +65,8 @@ module IsoDoc
 
     def note_label(elem)
       n = @xrefs.get[elem["id"]] || @xrefs.get[elem["original-id"]]
-      labelled_autonum(@i18n.note, elem["id"] || elem["original-id"], n&.dig(:label))
+      labelled_autonum(@i18n.note, elem["id"] || elem["original-id"],
+                       n&.dig(:label))
     end
 
     def admonition(docxml)
@@ -84,7 +85,9 @@ module IsoDoc
     end
 
     def admonition_numbered1(elem)
-      label = admonition_label(elem, @xrefs.anchor(elem["id"] || elem["original-id"], :label, false))
+      label = admonition_label(elem,
+                               @xrefs.anchor(elem["id"] || elem["original-id"],
+                                             :label, false))
       prefix_name(elem, { caption: block_delim }, label, "name")
     end
 
@@ -110,7 +113,8 @@ module IsoDoc
       labelled_ancestor(elem) and return
       elem["unnumbered"] && !elem.at(ns("./name")) and return
       n = @xrefs.anchor(elem["id"] || elem["original-id"], :label, false)
-      lbl = labelled_autonum(lower2cap(@i18n.table), elem["id"] || elem["original-id"], n)
+      lbl = labelled_autonum(lower2cap(@i18n.table),
+                             elem["id"] || elem["original-id"], n)
       prefix_name(elem, { caption: table_delim }, lbl, "name")
     end
 
@@ -145,12 +149,34 @@ module IsoDoc
 
     def amend1(elem)
       ret = semx_fmt_dup(elem)
-      ret.xpath(ns("./locality | ./localityStack | ./autonumber | " \
-                   "./classification | ./contributor")).each(&:remove)
+      ret.xpath(ns("./locality | ./localityStack | .//autonumber | " \
+                   "./classification | ./contributor | ./fmt-name | " \
+                   "./fmt-xref-label")).each(&:remove)
+      amend_newcontent(ret)
       ret.xpath(ns("./newcontent")).each { |a| a.name = "quote" }
       ret.xpath(ns("./description")).each { |a| a.replace(a.children) }
-      elem.xpath(ns(".//fmt-name | .//fmt-xref-label")).each(&:remove)
       elem.next = ret
+    end
+
+    def amend_newcontent(elem)
+      elem.xpath(ns("./newcontent")).each do |a|
+        a.name = "quote"
+        a.xpath(ns("./clause")).each do |c|
+          amend_subclause(c, 1)
+          a.next = c
+        end
+      end
+    end
+
+    def amend_subclause(clause, depth)
+      clause.xpath(ns("./title")).reverse_each do |t|
+        # t.name = "floating-title"
+        # t["depth"] ||= depth || "1"
+        t.name = "p"
+        t["type"] = "floating-title"
+      end
+      clause.name = depth == 1 ? "quote" : "quote" # "div"
+      clause.xpath(ns("./clause")).each { |c| amend_subclause(c, depth + 1) }
     end
 
     def quote(docxml)

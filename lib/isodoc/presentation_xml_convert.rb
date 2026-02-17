@@ -60,7 +60,7 @@ module IsoDoc
     def bibitem_lookup(docxml)
       @bibitem_lookup ||= docxml.xpath(ns("//references/bibitem"))
         .each_with_object({}) do |b, m|
-        m[b["id"]] = b
+          m[b["id"]] = b
       end
     end
 
@@ -96,6 +96,7 @@ module IsoDoc
     end
 
     def block(docxml)
+      amend docxml # feeds all other blocks
       table docxml
       figure docxml
       sourcecode docxml
@@ -112,7 +113,6 @@ module IsoDoc
       requirement docxml
       recommendation docxml
       requirement_render docxml
-      amend docxml
     end
 
     def inline(docxml)

@@ -140,44 +140,44 @@ RSpec.describe IsoDoc do
           
           <preface>
              <clause type="toc" id="_10" displayorder="1">
-                <fmt-title depth="1" id="_35">Table of contents</fmt-title>
+                <fmt-title depth="1" id="_30">Table of contents</fmt-title>
              </clause>
              <foreword id="_1" displayorder="2">
                 <title id="_12">Foreword</title>
-                <fmt-title depth="1" id="_36">
+                <fmt-title depth="1" id="_31">
                    <semx element="title" source="_12">Foreword</semx>
                 </fmt-title>
                 <p id="_">
-                   <eref bibitemid="ISO712" id="_25"/>
-                   <semx element="eref" source="_25">
+                   <eref bibitemid="ISO712" id="_20"/>
+                   <semx element="eref" source="_20">
                       <fmt-xref target="ISO712">ISO\\u00a0712</fmt-xref>
                    </semx>
-                   <eref bibitemid="ISBN" id="_26"/>
-                   <semx element="eref" source="_26">
+                   <eref bibitemid="ISBN" id="_21"/>
+                   <semx element="eref" source="_21">
                       <fmt-xref target="ISBN">[3]</fmt-xref>
                    </semx>
-                   <eref bibitemid="ISSN" id="_27"/>
-                   <semx element="eref" source="_27">
+                   <eref bibitemid="ISSN" id="_22"/>
+                   <semx element="eref" source="_22">
                       <fmt-xref target="ISSN">[4]</fmt-xref>
                    </semx>
-                   <eref bibitemid="ISO16634" id="_28"/>
-                   <semx element="eref" source="_28">
+                   <eref bibitemid="ISO16634" id="_23"/>
+                   <semx element="eref" source="_23">
                       <fmt-xref target="ISO16634">ISO\\u00a016634:--</fmt-xref>
                    </semx>
-                   <eref bibitemid="ref1" id="_29"/>
-                   <semx element="eref" source="_29">
+                   <eref bibitemid="ref1" id="_24"/>
+                   <semx element="eref" source="_24">
                       <fmt-xref target="ref1">ICC/167</fmt-xref>
                    </semx>
-                   <eref bibitemid="ref10" id="_30"/>
-                   <semx element="eref" source="_30">
+                   <eref bibitemid="ref10" id="_25"/>
+                   <semx element="eref" source="_25">
                       <fmt-xref target="ref10">[6]</fmt-xref>
                    </semx>
-                   <eref bibitemid="ref12" id="_31"/>
-                   <semx element="eref" source="_31">
+                   <eref bibitemid="ref12" id="_26"/>
+                   <semx element="eref" source="_26">
                       <fmt-xref target="ref12">[Citn]</fmt-xref>
                    </semx>
-                   <eref bibitemid="zip_ffs" id="_32"/>
-                   <semx element="eref" source="_32">
+                   <eref bibitemid="zip_ffs" id="_27"/>
+                   <semx element="eref" source="_27">
                       <fmt-xref target="zip_ffs">[2]</fmt-xref>
                    </semx>
                 </p>
@@ -186,7 +186,7 @@ RSpec.describe IsoDoc do
           <sections>
              <references id="_normative_references" obligation="informative" normative="true" displayorder="3">
                 <title id="_13">Normative References</title>
-                <fmt-title depth="1" id="_37">
+                <fmt-title depth="1" id="_32">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_normative_references">1</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -223,7 +223,7 @@ RSpec.describe IsoDoc do
                 <bibitem id="ISO16634" type="standard">
                    <biblio-tag>
                       ISO\\u00a016634:--\\u00a0(all\\u00a0parts)
-                      <fn id="_8" reference="1" original-reference="_8" target="_23">
+                      <fn id="_8" reference="1" original-reference="_8" target="_18">
                          <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
                          <fmt-fn-label>
                             <span class="fmt-caption-label">
@@ -285,13 +285,13 @@ RSpec.describe IsoDoc do
                       .
                       <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em>
                       (see
-                      <link target="http://www.icc.or.at" id="_33"/>
-                      <semx element="link" source="_33">
+                      <link target="http://www.icc.or.at" id="_28"/>
+                      <semx element="link" source="_28">
                          <fmt-link target="http://www.icc.or.at"/>
                       </semx>
                       )
                       <note type="display" id="_2" autonum="">
-                         <fmt-name id="_38">
+                         <fmt-name id="_33">
                             <span class="fmt-caption-label">
                                <span class="fmt-element-name">NOTE</span>
                             </span>
@@ -335,7 +335,7 @@ RSpec.describe IsoDoc do
           <bibliography>
              <references id="_bibliography" obligation="informative" normative="false" displayorder="4">
                 <title id="_14">Bibliography</title>
-                <fmt-title depth="1" id="_39">
+                <fmt-title depth="1" id="_34">
                    <semx element="title" source="_14">Bibliography</semx>
                 </fmt-title>
                 <bibitem id="ISBN" type="book">
@@ -366,7 +366,7 @@ RSpec.describe IsoDoc do
                       <em>Instruments for analytical laboratory use</em>
                       . n.d. ISSN: ISSN.
                       <note type="display" id="_4" autonum="1">
-                         <fmt-name id="_40">
+                         <fmt-name id="_35">
                             <span class="fmt-caption-label">
                                <span class="fmt-element-name">NOTE</span>
                                <semx element="autonum" source="_4">1</semx>
@@ -396,7 +396,7 @@ RSpec.describe IsoDoc do
                          </semx>
                       </note>
                       <note type="display" id="_5" autonum="2">
-                         <fmt-name id="_41">
+                         <fmt-name id="_36">
                             <span class="fmt-caption-label">
                                <span class="fmt-element-name">NOTE</span>
                                <semx element="autonum" source="_5">2</semx>
@@ -447,7 +447,7 @@ RSpec.describe IsoDoc do
                       [5]
                       <tab/>
                       ISO\\u00a03696
-                      <fn id="_9" reference="2" original-reference="_9" target="_24">
+                      <fn id="_9" reference="2" original-reference="_9" target="_19">
                          <p>Under preparation. (Stage at the time of publication ISO/DIS 3696)</p>
                          <fmt-fn-label>
                             <span class="fmt-caption-label">
@@ -485,8 +485,8 @@ RSpec.describe IsoDoc do
                       .
                       <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em>
                       (see
-                      <link target="http://www.icc.or.at" id="_34"/>
-                      <semx element="link" source="_34">
+                      <link target="http://www.icc.or.at" id="_29"/>
+                      <semx element="link" source="_29">
                          <fmt-link target="http://www.icc.or.at"/>
                       </semx>
                       )
@@ -563,7 +563,7 @@ RSpec.describe IsoDoc do
              </references>
           </bibliography>
           <fmt-footnote-container>
-             <fmt-fn-body id="_23" target="_8" reference="1">
+             <fmt-fn-body id="_18" target="_8" reference="1">
                 <semx element="fn" source="_8">
                    <p>
                       <fmt-fn-label>
@@ -580,7 +580,7 @@ RSpec.describe IsoDoc do
                    </p>
                 </semx>
              </fmt-fn-body>
-             <fmt-fn-body id="_24" target="_9" reference="2">
+             <fmt-fn-body id="_19" target="_9" reference="2">
                 <semx element="fn" source="_9">
                    <p>
                       <fmt-fn-label>
@@ -627,7 +627,7 @@ RSpec.describe IsoDoc do
                    </p>
                    <p id="ISO16634" class="NormRef">
                       ISO\\u00a016634:--\\u00a0(all\\u00a0parts)
-                      <a class="FootnoteRef" href="#fn:_23">
+                      <a class="FootnoteRef" href="#fn:_18">
                          <sup>1</sup>
                       </a>
                       ,
@@ -683,7 +683,7 @@ RSpec.describe IsoDoc do
                    </div>
                    <p id="ISO3696" class="Biblio">
                       [5]\\u00a0 ISO\\u00a03696
-                      <a class="FootnoteRef" href="#fn:_24">
+                      <a class="FootnoteRef" href="#fn:_19">
                          <sup>2</sup>
                       </a>
                       ,
@@ -720,10 +720,10 @@ RSpec.describe IsoDoc do
                       .
                    </p>
                 </div>
-                <aside id="fn:_23" class="footnote">
+                <aside id="fn:_18" class="footnote">
                    <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
                 </aside>
-                <aside id="fn:_24" class="footnote">
+                <aside id="fn:_19" class="footnote">
                    <p>Under preparation. (Stage at the time of publication ISO/DIS 3696)</p>
                 </aside>
              </div>
@@ -1207,7 +1207,7 @@ RSpec.describe IsoDoc do
     INPUT
 
     presxml = <<~OUTPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <bibdata>
              <language current="true">en</language>
           </bibdata>
@@ -1408,13 +1408,7 @@ RSpec.describe IsoDoc do
                    <docidentifier type="ICC">ICC/167</docidentifier>
                    <docidentifier scope="biblio-tag">ICC/167</docidentifier>
                    <note type="display" original-id="_" id="_">
-                      <name id="_">NOTE</name>
-                      <fmt-name id="_">
-                         <semx element="name" source="_">NOTE</semx>
-                         <span class="fmt-label-delim">
-                            <tab/>
-                         </span>
-                      </fmt-name>
+                      <name>NOTE</name>
                       <p>This is an annotation of ISO 20483:2013-2014</p>
                    </note>
                 </bibitem>
@@ -1528,23 +1522,11 @@ RSpec.describe IsoDoc do
                       </organization>
                    </contributor>
                    <note type="display" original-id="_" id="_">
-                      <name id="_">NOTE</name>
-                      <fmt-name id="_">
-                         <semx element="name" source="_">NOTE</semx>
-                         <span class="fmt-label-delim">
-                            <tab/>
-                         </span>
-                      </fmt-name>
+                      <name>NOTE</name>
                       <p>This is an annotation of document ISSN.</p>
                    </note>
                    <note type="display" original-id="_" id="_">
-                      <name id="_">NOTE</name>
-                      <fmt-name id="_">
-                         <semx element="name" source="_">NOTE</semx>
-                         <span class="fmt-label-delim">
-                            <tab/>
-                         </span>
-                      </fmt-name>
+                      <name>NOTE</name>
                       <p>This is another annotation of document ISSN.</p>
                    </note>
                 </bibitem>
