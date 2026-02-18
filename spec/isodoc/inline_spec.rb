@@ -660,19 +660,36 @@ RSpec.describe IsoDoc do
       </iso-standard>
     OUTPUT
     output = <<~OUTPUT
-      #{HTML_HDR}
-                 <br/>
-                 <div id="_">
-                   <h1 class="ForewordTitle">Foreword</h1>
-                   <p>
-         <i><b>&lt;</b></i> <tt><a href="B">B</a></tt> <a href="#_http_1_1">Requirement <tt>/req/core/http</tt></a>  Requirement <tt>/req/core/http</tt>
-         </p>
-                 </div>
-               </div>
-             </body>
-         </html>
+      <html lang="en">
+      <head/>
+      <body lang="en">
+        <div class="title-section">
+        <p>\\u00a0</p>
+        </div>
+        <br/>
+        <div class="prefatory-section">
+        <p>\\u00a0</p>
+        </div>
+        <br/>
+        <div class="main-section">
+        <br/>
+        <div id="_">
+        <h1 class="ForewordTitle">Foreword</h1>
+        <p>
+        <i><b>&lt;</b></i> <tt><a href="B">B</a></tt> <a href="#_http_1_1">Requirement <tt>/req/core/http</tt></a> Requirement <tt>/req/core/http</tt>
+        </p>
+        </div>
+        <div class="TOC" id="_">
+        <h1 class="IntroTitle">Table of contents</h1>
+        </div>
+        <br/>
+        </div>
+        </div>
+      </body>
+      </html>
     OUTPUT
-    pres_output = IsoDoc::PresentationXMLConvert
+
+   pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
     expect(strip_guid(Canon.format_xml(pres_output)))
