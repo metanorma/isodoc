@@ -633,7 +633,7 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Canon.format_xml(output)
   end
 
-  it "processes admonitions" do
+  it "processes single-paragraph admonitions" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword id="fwd">
@@ -686,6 +686,90 @@ RSpec.describe IsoDoc do
         </div>
         </body>
       </html>
+    OUTPUT
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(strip_guid(Canon.format_xml(pres_output)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))))
+      .to be_equivalent_to Canon.format_xml(output)
+  end
+
+  it "processes multiple-paragraph and no-paragraph admonitions" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface><foreword id="fwd">
+          <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="caution" keep-with-next="true" keep-lines-together="true">
+        <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Paragraph 1.</p>
+        <p id="_e94663cc-2473-4ccc-9a72-983a74d989f3">Paragraph 2.</p>
+      </admonition>
+          <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6b" type="caution" keep-with-next="true" keep-lines-together="true" notag="true">
+        <note><p id="_e94663cc-2473-4ccc-9a72-983a74d989f4">Paragraph 3.</p></note>
+      </admonition>
+          </foreword></preface>
+          </iso-standard>
+    INPUT
+    presxml = <<~INPUT
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1" id="_">Table of contents</fmt-title>
+             </clause>
+             <foreword id="fwd" displayorder="2">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1" id="_">
+                   <semx element="title" source="_">Foreword</semx>
+                </fmt-title>
+                <admonition id="_" type="caution" keep-with-next="true" keep-lines-together="true">
+                   <fmt-name id="_">
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">CAUTION</span>
+                      </span>
+                   </fmt-name>
+                   <p id="_">Paragraph 1.</p>
+                   <p id="_">Paragraph 2.</p>
+                </admonition>
+                <admonition id="_" type="caution" keep-with-next="true" keep-lines-together="true" notag="true">
+                   <note>
+                      <fmt-name id="_">
+                         <span class="fmt-caption-label">
+                            <span class="fmt-element-name">NOTE</span>
+                         </span>
+                         <span class="fmt-label-delim">
+                            <tab/>
+                         </span>
+                      </fmt-name>
+                      <p id="_">Paragraph 3.</p>
+                   </note>
+                </admonition>
+             </foreword>
+          </preface>
+       </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      #{HTML_HDR}
+                <br/>
+                <div id="fwd">
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <div id="_" class="Admonition" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
+                      <p id="_">Paragraph 1.</p>
+                      <p id="_">Paragraph 2.</p>
+                   </div>
+                   <div id="_" class="Admonition" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <div class="Note">
+                         <p>
+                            <span class="note_label">NOTE\\u00a0 </span>
+                            Paragraph 3.
+                         </p>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </body>
+       </html>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
