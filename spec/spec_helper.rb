@@ -17,8 +17,8 @@ Canon::Config.instance.tap do |cfg|
   cfg.html.match.profile = :spec_friendly
 
   # Configure Canon to show all diffs (including inactive diffs)
-  cfg.html.diff.show_diffs = :all
-  cfg.xml.diff.show_diffs = :all
+  cfg.html.diff.show_diffs = :normative
+  cfg.xml.diff.show_diffs = :normative
 
   # Enable verbose diff output for debugging
   cfg.html.diff.verbose_diff = true
@@ -83,11 +83,11 @@ HTML_HDR = <<~HEADER.freeze
     <head/>
     <body lang="en">
       <div class="title-section">
-        <p>\\u00a0</p>
+        <p> </p>
       </div>
       <br/>
       <div class="prefatory-section">
-        <p>\\u00a0</p>
+        <p> </p>
       </div>
       <br/>
       <div class="main-section">
@@ -112,7 +112,7 @@ WORD_HDR = <<~HEADER.freeze
   </head>
          <body lang="EN-US" link="blue" vlink="#954F72">
            <div class="WordSection1">
-             <p>\\u00a0</p>
+             <p> </p>
            </div>
            <p class="section-break"><br clear="all" class="section"/></p>
            <div class="WordSection2">
