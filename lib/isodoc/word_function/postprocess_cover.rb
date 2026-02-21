@@ -102,7 +102,7 @@ module IsoDoc
         @header or return nil
         template = IsoDoc::Common.liquid(File.read(@header, encoding: "UTF-8"))
         params = header_params(filename)
-        Tempfile.open(%w(header html),
+        Metanorma::Utils::Tempfile.open(%w(header html),
                       mode: File::BINARY | File::SHARE_DELETE,
                       encoding: "utf-8") do |f|
           f.write(template.render(params))

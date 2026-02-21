@@ -169,7 +169,7 @@ module IsoDoc
         imgtype = imgtype.sub(/\+[a-z0-9]+$/, "") # svg+xml
         imgtype = "png" unless /^[a-z0-9]+$/.match? imgtype
         imgtype == "postscript" and imgtype = "eps"
-        Tempfile.open(["image", ".#{imgtype}"],
+        Metanorma::Utils::Tempfile.open(["image", ".#{imgtype}"],
                       mode: File::BINARY | File::SHARE_DELETE) do |f|
           f.binmode
           f.write(Base64.strict_decode64(imgdata))
@@ -179,7 +179,7 @@ module IsoDoc
       end
 
       def save_svg(img)
-        Tempfile.open(["image", ".svg"],
+        Metanorma::Utils::Tempfile.open(["image", ".svg"],
                       mode: File::BINARY | File::SHARE_DELETE) do |f|
           f.write(img.to_xml)
           @tempfile_cache << f # persist to the end

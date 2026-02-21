@@ -18,8 +18,7 @@ module IsoDoc
                        pdfportfolio: "--pdf-portfolio",
                        pdfencryptmetadata: "--encrypt-metadata",
                        pdfkeystore: "--keystore",
-                       pdfkeystorepassword: "--keystore-password",
-                         }.freeze
+                       pdfkeystorepassword: "--keystore-password" }.freeze
     MN2PDF_DEFAULT_ARGS = { "--syntax-highlight": nil }.freeze
 
     def initialize(options)
@@ -111,9 +110,10 @@ module IsoDoc
 
     def input_xml_path(input_filename, xml_file, debug)
       docxml, filename, dir = convert_init(xml_file, input_filename, debug)
-      temp_file = Tempfile.open([File.basename(filename), ".xml"],
-                                mode: File::BINARY | File::SHARE_DELETE,
-                                encoding: "utf-8")
+      temp_file = Metanorma::Utils::Tempfile
+        .open([File.basename(filename), ".xml"],
+              mode: File::BINARY | File::SHARE_DELETE,
+              encoding: "utf-8")
       temp_file.write docxml
       temp_file.flush
       @tempfile_cache << temp_file # Add to cache to prevent garbage collection

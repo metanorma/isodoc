@@ -20,7 +20,7 @@ module IsoDoc
       return path if %r{^[A-Z]:|^/|^file:/}.match?(path)
       return path unless (@sourcedir || @localdir) && path
 
-      File.expand_path(File.join((@sourcedir || @localdir), path))
+      File.expand_path(File.join(@sourcedir || @localdir, path))
     end
 
     # run this after @meta is populated
@@ -114,12 +114,12 @@ module IsoDoc
     end
 
     def write_css(filename, stylesheet)
-      Tempfile.open([File.basename(filename, ".*"), "css"],
-                    mode: File::BINARY | File::SHARE_DELETE,
-                    encoding: "utf-8") do |f|
-                      f.write(stylesheet)
-                      f
-                    end
+      Metanorma::Utils::Tempfile.open([File.basename(filename, ".*"), "css"],
+                                      mode: File::BINARY | File::SHARE_DELETE,
+                                      encoding: "utf-8") do |f|
+        f.write(stylesheet)
+        f
+      end
     end
 
     def preprocess_css(stylesheet, html)
