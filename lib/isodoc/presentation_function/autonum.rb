@@ -114,9 +114,9 @@ module IsoDoc
     def prefix_container_fmt_xref_label(container, xref)
       container or return xref
       container_container = prefix_container_container(container)
+      container_xref = @xrefs.anchor(container, :xref, false)
       container_label =
-        prefix_container_fmt_xref_label(container_container,
-                                        @xrefs.anchor(container, :xref, false))
+        prefix_container_fmt_xref_label(container_container, container_xref)
       l10n(connectives_spans(@i18n.nested_xref
         .sub("%1", "<span class='fmt-xref-container'>#{esc container_label}</span>")
         .sub("%2", xref || "[Unknown]")))
@@ -124,6 +124,7 @@ module IsoDoc
 
     def prefix_container_container(container)
       container_container = @xrefs.anchor(container, :container, false)
+      container_container == container and return nil
       if @xrefs.anchor(container, :type) == "bibitem"
         p = @bibitem_lookup[container].parent
         p and container_container ||= p["id"]
