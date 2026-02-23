@@ -129,6 +129,7 @@ OrdinalRules:
 note: ПРИМЕЧАНИЕ
 note_xref: Примечание
 termnote: Примечание % к определению
+para_xref: Абзац
 list: Список
 deflist: Список определений
 figure: Рисунок

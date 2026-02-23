@@ -56,6 +56,7 @@ OrdinalRules: digits-ordinal
 note: 注
 note_xref: 注
 termnote: 注%
+para_xref: 段
 figure: 图
 diagram: 图表
 formula: 公式

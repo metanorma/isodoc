@@ -67,6 +67,7 @@ OrdinalRules:
 note: HINWEIS
 note_xref: Hinweis
 termnote: Hinweis % zum Eintrag
+para_xref: Absatz
 list: Liste
 deflist: Definitionsliste
 figure: Abbildung

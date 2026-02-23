@@ -89,13 +89,13 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata/>
                <sections>
-           <clause id='_' inline-header='false' obligation='normative'>
+           <clause id='A' inline-header='false' obligation='normative'>
              <title>Clause</title>
-             <p id='_'>Text</p>
-             <clause id='_' inline-header='false' obligation='normative'>
+             <p id='B'>Text</p>
+             <clause id='C' inline-header='false' obligation='normative'>
                <title>Subclause</title>
-               <variant-title variant_title='true' type='sub' id='_'>&#8220;A&#8221; &#8216;B&#8217;</variant-title>
-               <variant-title variant_title='true' type='toc' id='_'>
+               <variant-title variant_title='true' type='sub' id='D'>&#8220;A&#8221; &#8216;B&#8217;</variant-title>
+               <variant-title variant_title='true' type='toc' id='E'>
                  Clause
                  <em>A</em>
                  <stem type='MathML'>
@@ -104,13 +104,13 @@ RSpec.describe IsoDoc do
                    </math>
                  </stem>
                </variant-title>
-               <p id='_'>Text</p>
+               <p id='F'>Text</p>
              </clause>
            </clause>
          </sections>
-         <annex id='_' inline-header='false' obligation='normative'>
+         <annex id='G' inline-header='false' obligation='normative'>
            <title>Clause</title>
-           <variant-title variant_title='true' type='toc' id='_'>
+           <variant-title variant_title='true' type='toc' id='H'>
              Clause
              <em>A</em>
              <stem type='MathML'>
@@ -124,179 +124,167 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-         <bibdata/>
-         <preface>
-            <clause type="toc" id="_" displayorder="1">
-               <fmt-title id="_" depth="1">Table of contents</fmt-title>
-            </clause>
-         </preface>
-         <sections>
-            <clause id="_" inline-header="false" obligation="normative" autonum="A" displayorder="2">
-               <title id="_">Clause</title>
-               <fmt-title id="_" depth="1">
-                  <strong>
-                     <span class="fmt-caption-label">
-                        <span class="fmt-element-name">Annex</span>
-                        <semx element="autonum" source="_">A</semx>
-                     </span>
-                  </strong>
-                  <br/>
-                  <span class="fmt-obligation">(normative)</span>
-                  <span class="fmt-autonum-delim">.</span>
-                  <span class="fmt-caption-delim">
-                     <tab/>
-                  </span>
-                  <semx element="title" source="_">Clause</semx>
-               </fmt-title>
-               <fmt-xref-label>
-                  <span class="fmt-element-name">Annex</span>
-                  <semx element="autonum" source="_">A</semx>
-               </fmt-xref-label>
-               <p id="_">Text</p>
-               <clause id="_" inline-header="false" obligation="normative" autonum="A">
-                  <title id="_">Subclause</title>
-                  <fmt-title id="_" depth="1">
-                     <strong>
-                        <span class="fmt-caption-label">
-                           <span class="fmt-element-name">Annex</span>
-                           <semx element="autonum" source="_">A</semx>
-                        </span>
-                     </strong>
-                     <br/>
-                     <span class="fmt-obligation">(normative)</span>
-                     <span class="fmt-autonum-delim">.</span>
-                     <span class="fmt-caption-delim">
-                        <tab/>
-                     </span>
-                     <semx element="title" source="_">Subclause</semx>
-                  </fmt-title>
-                  <fmt-xref-label>
-                     <span class="fmt-element-name">Annex</span>
-                     <semx element="autonum" source="_">A</semx>
-                  </fmt-xref-label>
-                  <variant-title variant_title="true" type="sub" id="_">“A” ‘B’</variant-title>
-                  <variant-title variant_title="true" type="toc" id="_">
-                     Clause
-                     <em>A</em>
-                     <stem type="MathML" id="_">
-                        <math xmlns="http://www.w3.org/1998/Math/MathML">
-                           <mi>x</mi>
-                        </math>
-                     </stem>
-                     <fmt-stem type="MathML">
-                        <semx element="stem" source="_">
-                           <math xmlns="http://www.w3.org/1998/Math/MathML">
-                              <mi>x</mi>
-                           </math>
-                           <asciimath>x</asciimath>
-                        </semx>
-                     </fmt-stem>
-                  </variant-title>
-                  <p id="_">Text</p>
-               </clause>
-            </clause>
-         </sections>
-         <annex id="_" inline-header="false" obligation="normative" autonum="A" displayorder="3">
-            <title id="_">
-               <strong>Clause</strong>
-            </title>
-            <fmt-title id="_">
-               <strong>
-                  <span class="fmt-caption-label">
-                     <span class="fmt-element-name">Annex</span>
-                     <semx element="autonum" source="_">A</semx>
-                  </span>
-               </strong>
-               <br/>
-               <span class="fmt-obligation">(normative)</span>
-               <span class="fmt-caption-delim">
-                  <br/>
-                  <br/>
-               </span>
-               <semx element="title" source="_">
-                  <strong>Clause</strong>
-               </semx>
-            </fmt-title>
-            <fmt-xref-label>
-               <span class="fmt-element-name">Annex</span>
-               <semx element="autonum" source="_">A</semx>
-            </fmt-xref-label>
-            <variant-title variant_title="true" type="toc" id="_">
-               Clause
-               <em>A</em>
-               <stem type="MathML" id="_">
-                  <math xmlns="http://www.w3.org/1998/Math/MathML">
-                     <mi>x</mi>
-                  </math>
-               </stem>
-               <fmt-stem type="MathML">
-                  <semx element="stem" source="_">
-                     <math xmlns="http://www.w3.org/1998/Math/MathML">
-                        <mi>x</mi>
-                     </math>
-                     <asciimath>x</asciimath>
-                  </semx>
-               </fmt-stem>
-            </variant-title>
-            <p id="_">Text</p>
-         </annex>
-      </iso-standard>
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <bibdata/>
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1" id="_">Table of contents</fmt-title>
+             </clause>
+          </preface>
+          <sections>
+             <clause id="A" inline-header="false" obligation="normative" displayorder="2">
+                <title id="_">Clause</title>
+                <fmt-title depth="1" id="_">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="A">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Clause</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Clause</span>
+                   <semx element="autonum" source="A">1</semx>
+                </fmt-xref-label>
+                <p id="B">Text</p>
+                <clause id="C" inline-header="false" obligation="normative">
+                   <title id="_">Subclause</title>
+                   <fmt-title depth="2" id="_">
+                      <span class="fmt-caption-label">
+                         <semx element="autonum" source="A">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="C">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                      </span>
+                      <span class="fmt-caption-delim">
+                         <tab/>
+                      </span>
+                      <semx element="title" source="_">Subclause</semx>
+                   </fmt-title>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="A">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="C">1</semx>
+                   </fmt-xref-label>
+                   <variant-title variant_title="true" type="sub" id="D">“A” ‘B’</variant-title>
+                   <variant-title variant_title="true" type="toc" id="E">
+                      Clause
+                      <em>A</em>
+                      <stem type="MathML" id="_">
+                         <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>x</mi>
+                         </math>
+                      </stem>
+                      <fmt-stem type="MathML">
+                         <semx element="stem" source="_">
+                            <math xmlns="http://www.w3.org/1998/Math/MathML">
+                               <mi>x</mi>
+                            </math>
+                            <asciimath>x</asciimath>
+                         </semx>
+                      </fmt-stem>
+                   </variant-title>
+                   <p id="F">Text</p>
+                </clause>
+             </clause>
+          </sections>
+          <annex id="G" inline-header="false" obligation="normative" autonum="A" displayorder="3">
+             <title id="_">
+                <strong>Clause</strong>
+             </title>
+             <fmt-title id="_">
+                <strong>
+                   <span class="fmt-caption-label">
+                      <span class="fmt-element-name">Annex</span>
+                      <semx element="autonum" source="G">A</semx>
+                   </span>
+                </strong>
+                <br/>
+                <span class="fmt-obligation">(normative)</span>
+                <span class="fmt-caption-delim">
+                   <br/>
+                   <br/>
+                </span>
+                <semx element="title" source="_">
+                   <strong>Clause</strong>
+                </semx>
+             </fmt-title>
+             <fmt-xref-label>
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="G">A</semx>
+             </fmt-xref-label>
+             <variant-title variant_title="true" type="toc" id="H">
+                Clause
+                <em>A</em>
+                <stem type="MathML" id="_">
+                   <math xmlns="http://www.w3.org/1998/Math/MathML">
+                      <mi>x</mi>
+                   </math>
+                </stem>
+                <fmt-stem type="MathML">
+                   <semx element="stem" source="_">
+                      <math xmlns="http://www.w3.org/1998/Math/MathML">
+                         <mi>x</mi>
+                      </math>
+                      <asciimath>x</asciimath>
+                   </semx>
+                </fmt-stem>
+             </variant-title>
+             <p id="_">Text</p>
+          </annex>
+       </iso-standard>
     OUTPUT
     html = <<~OUTPUT
       #{HTML_HDR}
-              <div id='_'>
-                <h1>
-                  <b>Annex A</b>
-                  <br/>
-                   (normative).\\u00a0 Clause
-                </h1>
-                <p id='_'>Text</p>
-                <div id='_'>
-                  <h1>
-                    <b>Annex A</b>
-                    <br/>
-                     (normative).\\u00a0 Subclause
-                    <br/>
-                    <br/>
-                    &#8220;A&#8221; &#8216;B&#8217;
-                  </h1>
-                  <p style='display:none;' class='variant-title-toc'>
-                     Clause
-                    <i>A</i>
-                    <span class='stem'>
-                      <math xmlns='http://www.w3.org/1998/Math/MathML'>
-                        <mi>x</mi>
-                      </math>
-                    </span>
-                  </p>
-                  <p id='_'>Text</p>
+                <div id="A">
+                   <h1>1.\\u00a0 Clause</h1>
+                   <p id="B">Text</p>
+                   <div id="C">
+                      <h2>
+                         1.1.\\u00a0 Subclause
+                         <br/>
+                         <br/>
+                         “A” ‘B’
+                      </h2>
+                      <p style="display:none;" class="variant-title-toc">
+                         Clause
+                         <i>A</i>
+                         <span class="stem">
+                            <math xmlns="http://www.w3.org/1998/Math/MathML">
+                               <mi>x</mi>
+                            </math>
+                         </span>
+                      </p>
+                      <p id="F">Text</p>
+                   </div>
                 </div>
-              </div>
-              <br/>
-              <div id='_' class='Section3'>
-                <h1 class='Annex'>
-                  <b>Annex A</b>
-                  <br/>
-                   (normative)
-                  <br/>
-                  <br/>
-                  <b>Clause</b>
-                </h1>
-                <p style='display:none;' class='variant-title-toc'>
-                   Clause
-                  <i>A</i>
-                  <span class='stem'>
-                    <math xmlns='http://www.w3.org/1998/Math/MathML'>
-                      <mi>x</mi>
-                    </math>
-                  </span>
-                </p>
-                <p id='_'>Text</p>
-              </div>
-            </div>
+                <br/>
+                <div id="G" class="Section3">
+                   <h1 class="Annex">
+                      <b>Annex A</b>
+                      <br/>
+                      (normative)
+                      <br/>
+                      <br/>
+                      <b>Clause</b>
+                   </h1>
+                   <p style="display:none;" class="variant-title-toc">
+                      Clause
+                      <i>A</i>
+                      <span class="stem">
+                         <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>x</mi>
+                         </math>
+                      </span>
+                   </p>
+                   <p id="_">Text</p>
+                </div>
+             </div>
           </body>
-        </html>
+       </html>
     OUTPUT
     doc = <<~OUTPUT
        #{WORD_HDR}
@@ -306,64 +294,60 @@ RSpec.describe IsoDoc do
          <br clear="all" class="section"/>
       </p>
       <div class="WordSection3">
-               <div id='_'>
-                 <h1>
-                   <b>Annex A</b>
-                   <br/>
-                    (normative).
-                   <span style='mso-tab-count:1'>\\u00a0 </span>
-                    Clause
-                 </h1>
-                 <p id='_'>Text</p>
-                 <div id='_'>
+                <div id="A">
                    <h1>
-                     <b>Annex A</b>
-                     <br/>
-                      (normative).
-                     <span style='mso-tab-count:1'>\\u00a0 </span>
-                      Subclause
-                     <br/>
-                     <br/>
-                     &#8220;A&#8221; &#8216;B&#8217;
-                   </h1>
-                   <p style='display:none;' class='variant-title-toc'>
+                      1.
+                      <span style="mso-tab-count:1">\\u00a0 </span>
                       Clause
-                     <i>A</i>
-                     <span class='stem'>
-                       <math xmlns='http://www.w3.org/1998/Math/MathML'>
-                         <mi>x</mi>
-                       </math>
-                     </span>
+                   </h1>
+                   <p id="B">Text</p>
+                   <div id="C">
+                      <h2>
+                         1.1.
+                         <span style="mso-tab-count:1">\\u00a0 </span>
+                         Subclause
+                         <br/>
+                         <br/>
+                         “A” ‘B’
+                      </h2>
+                      <p style="display:none;" class="variant-title-toc">
+                         Clause
+                         <i>A</i>
+                         <span class="stem">
+                            <math xmlns="http://www.w3.org/1998/Math/MathML">
+                               <mi>x</mi>
+                            </math>
+                         </span>
+                      </p>
+                      <p id="F">Text</p>
+                   </div>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div id="G" class="Section3">
+                   <h1 class="Annex">
+                      <b>Annex A</b>
+                      <br/>
+                      (normative)
+                      <br/>
+                      <br/>
+                      <b>Clause</b>
+                   </h1>
+                   <p style="display:none;" class="variant-title-toc">
+                      Clause
+                      <i>A</i>
+                      <span class="stem">
+                         <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>x</mi>
+                         </math>
+                      </span>
                    </p>
-                   <p id='_'>Text</p>
-                 </div>
-               </div>
-               <p class="page-break">
-                 <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-               </p>
-               <div id='_' class='Section3'>
-                 <h1 class='Annex'>
-                   <b>Annex A</b>
-                   <br/>
-                    (normative)
-                   <br/>
-                   <br/>
-                   <b>Clause</b>
-                 </h1>
-                 <p style='display:none;' class='variant-title-toc'>
-                    Clause
-                   <i>A</i>
-                   <span class='stem'>
-                     <math xmlns='http://www.w3.org/1998/Math/MathML'>
-                       <mi>x</mi>
-                     </math>
-                   </span>
-                 </p>
-                 <p id='_'>Text</p>
-               </div>
+                   <p id="_">Text</p>
+                </div>
              </div>
-           </body>
-         </html>
+          </body>
+       </html>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)

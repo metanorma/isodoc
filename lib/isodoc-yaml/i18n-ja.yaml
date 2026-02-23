@@ -55,6 +55,7 @@ OrdinalRules: digits-ordinal
 note: 注記
 note_xref: 注記
 termnote: 注釈%
+para_xref: 段落
 list: リスト
 deflist: 定義リスト
 figure: 図

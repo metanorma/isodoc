@@ -62,6 +62,7 @@ OrdinalRules:
 note: NOTE
 note_xref: Note
 termnote: Note % à l’article
+para_xref: Alinéa
 figure: Figure
 diagram: Diagramme
 formula: Formule

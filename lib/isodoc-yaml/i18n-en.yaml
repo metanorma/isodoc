@@ -58,6 +58,7 @@ OrdinalRules: digits-ordinal
 note: NOTE
 note_xref: Note
 termnote: Note % to entry
+para_xref: Paragraph
 list: List
 deflist: Definition List
 figure: Figure
