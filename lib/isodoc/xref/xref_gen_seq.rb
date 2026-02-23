@@ -21,10 +21,10 @@ module IsoDoc
         j = 0
         clause.xpath(ns(self.class::FIGURE_NO_CLASS)).noblank
           .each_with_object(Counter.new) do |t, c|
-          # labelled_ancestor(t, %w(figure)) and next # disable nested figure labelling
-          j = subfigure_increment(j, c, t)
-          sublabel = subfigure_label(j)
-          figure_anchor(t, sublabel, c.print, "figure", container: container)
+            # labelled_ancestor(t, %w(figure)) and next # disable nested figure labelling
+            j = subfigure_increment(j, c, t)
+            sublabel = subfigure_label(j)
+            figure_anchor(t, sublabel, c.print, "figure", container: container)
         end
         sequential_figure_class_names(clause, container:)
       end
@@ -33,11 +33,11 @@ module IsoDoc
         j = 0
         clause.xpath(ns(".//figure[@class][not(@class = 'pseudocode')]"))
           .each_with_object({}) do |t, c|
-          c[t["class"]] ||= Counter.new
-          j = subfigure_increment(j, c[t["class"]], t)
-          sublabel = subfigure_label(j)
-          figure_anchor(t, sublabel, c[t["class"]].print, t["class"],
-                        container: container)
+            c[t["class"]] ||= Counter.new
+            j = subfigure_increment(j, c[t["class"]], t)
+            sublabel = subfigure_label(j)
+            figure_anchor(t, sublabel, c[t["class"]].print, t["class"],
+                          container: container)
         end
       end
 
@@ -84,48 +84,48 @@ module IsoDoc
       def sequential_table_names(clause, container: false)
         clause.xpath(ns(".//table")).noblank
           .each_with_object(Counter.new) do |t, c|
-          @anchors[t["id"]] = anchor_struct(
-            c.increment(t).print, t, @labels["table"], "table",
-            { unnumb: t["unnumbered"], container: container }
-          )
-          nested_notes(t)
+            @anchors[t["id"]] = anchor_struct(
+              c.increment(t).print, t, @labels["table"], "table",
+              { unnumb: t["unnumbered"], container: container }
+            )
+            nested_notes(t)
         end
       end
 
       def sequential_formula_names(clause, container: false)
         clause.xpath(ns(".//formula")).noblank
           .each_with_object(Counter.new) do |t, c|
-          @anchors[t["id"]] = anchor_struct(
-            c.increment(t).print, t,
-            t["inequality"] ? @labels["inequality"] : @labels["formula"],
-            "formula", { unnumb: t["unnumbered"], container: true }
-          )
-          @anchors[t["id"]][:bare_xref] = @anchors[t["id"]][:label]
+            @anchors[t["id"]] = anchor_struct(
+              c.increment(t).print, t,
+              t["inequality"] ? @labels["inequality"] : @labels["formula"],
+              "formula", { unnumb: t["unnumbered"], container: true }
+            )
+            @anchors[t["id"]][:bare_xref] = @anchors[t["id"]][:label]
         end
       end
 
       def sequential_permission_names(clause, container: true)
         clause.xpath(ns(first_lvl_req)).noblank
           .each_with_object(ReqCounter.new) do |t, c|
-          m = @reqt_models.model(t["model"])
-          klass, label = reqt2class_label(t, m)
-          id = c.increment(label, t).print
-          sequential_permission_body(id, nil, t, label, klass, m,
-                                     container:)
-          sequential_permission_children(t, id, klass, container:)
+            m = @reqt_models.model(t["model"])
+            klass, label = reqt2class_label(t, m)
+            id = c.increment(label, t).print
+            sequential_permission_body(id, nil, t, label, klass, m,
+                                       container:)
+            sequential_permission_children(t, id, klass, container:)
         end
       end
 
       def sequential_permission_children(elem, lbl, klass, container: false)
         elem.xpath(ns(req_children)).noblank
           .each_with_object(ReqCounter.new) do |t, c|
-          m = @reqt_models.model(t["model"])
-          klass, label = reqt2class_nested_label(t, m)
-          ctr = c.increment(label, t).print
-          id = "#{lbl}#{subreqt_separator}#{ctr}"
-          sequential_permission_body(ctr, lbl, t, label, klass, m,
-                                     container:)
-          sequential_permission_children(t, id, klass, container:)
+            m = @reqt_models.model(t["model"])
+            klass, label = reqt2class_nested_label(t, m)
+            ctr = c.increment(label, t).print
+            id = "#{lbl}#{subreqt_separator}#{ctr}"
+            sequential_permission_body(ctr, lbl, t, label, klass, m,
+                                       container:)
+            sequential_permission_children(t, id, klass, container:)
         end
       end
 

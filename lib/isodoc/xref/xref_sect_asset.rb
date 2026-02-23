@@ -11,6 +11,7 @@ module IsoDoc
         note_anchor_names(sections)
         admonition_anchor_names(sections)
         example_anchor_names(sections)
+        para_anchor_names(sections)
         list_anchor_names(sections)
         deflist_anchor_names(sections)
         bookmark_anchor_names(doc)

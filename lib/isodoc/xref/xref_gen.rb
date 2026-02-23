@@ -174,6 +174,24 @@ module IsoDoc
         end
       end
 
+      def para_anchor_names(sections)
+        sections.each do |s|
+          notes = s.xpath(ns("./p"))
+          para_anchor_names1(notes, Counter.new)
+          para_anchor_names(s.xpath(ns(child_sections)))
+        end
+      end
+
+      def para_anchor_names1(notes, counter)
+        notes.noblank.each do |n|
+          counter.increment(n)
+          @anchors[n["id"]] =
+            anchor_struct(counter.print, n,
+                          @labels["para_xref"], "paragraph",
+                          { container: true, unnumb: false })
+        end
+      end
+
       def id_ancestor(node)
         parent = nil
         node.ancestors.each do |a|

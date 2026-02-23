@@ -55,6 +55,7 @@ OrdinalRules: digits-ordinal
 note: ملاحظة
 note_xref: ملاحظة
 termnote: ملاحظة % للقيد
+para_xref: فقرة
 list: قائمة
 deflist: قائمة تعريف
 figure: شكل
