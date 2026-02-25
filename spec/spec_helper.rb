@@ -75,7 +75,7 @@ def strip_guid(xml)
     .gsub(%r[ semx-id="([^"]+)"], "")
     .gsub(%r[ _Ref\d+{8,10}], " _Ref")
     .gsub(%r[:_Ref\d+{8,10}], ":_Ref")
-  escape_zs_chars(xml)
+  # escape_zs_chars(xml)
 end
 
 HTML_HDR = <<~HEADER.freeze
