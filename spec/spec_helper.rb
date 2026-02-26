@@ -11,6 +11,20 @@ require "tzinfo"
 require "canon"
 require_relative "support/uuid_mock"
 
+Canon::Config.instance.tap do |cfg|
+  # Configure Canon to use spec-friendly match profiles
+  cfg.xml.match.profile = :spec_friendly
+  cfg.html.match.profile = :spec_friendly
+
+  # Configure Canon to show all diffs (including inactive diffs)
+  cfg.html.diff.show_diffs = :normative
+  cfg.xml.diff.show_diffs = :normative
+
+  # Enable verbose diff output for debugging
+  cfg.html.diff.verbose_diff = true
+  cfg.xml.diff.verbose_diff = true
+end
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
@@ -61,19 +75,19 @@ def strip_guid(xml)
     .gsub(%r[ semx-id="([^"]+)"], "")
     .gsub(%r[ _Ref\d+{8,10}], " _Ref")
     .gsub(%r[:_Ref\d+{8,10}], ":_Ref")
-  escape_zs_chars(xml)
+  # escape_zs_chars(xml)
 end
 
 HTML_HDR = <<~HEADER.freeze
-  <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+  <html lang="en">
     <head/>
     <body lang="en">
       <div class="title-section">
-        <p>\\u00a0</p>
+        <p> </p>
       </div>
       <br/>
       <div class="prefatory-section">
-        <p>\\u00a0</p>
+        <p> </p>
       </div>
       <br/>
       <div class="main-section">
@@ -84,8 +98,14 @@ HTML_HDR = <<~HEADER.freeze
 HEADER
 
 WORD_HDR = <<~HEADER.freeze
-       <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+       <html
+         xmlns:epub="http://www.idpf.org/2007/ops"
+         xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+         xmlns:w="urn:schemas-microsoft-com:office:word"
+         xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+         lang="en">
            <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <style>
       <!--
       -->
@@ -93,7 +113,7 @@ WORD_HDR = <<~HEADER.freeze
   </head>
          <body lang="EN-US" link="blue" vlink="#954F72">
            <div class="WordSection1">
-             <p>\\u00a0</p>
+             <p> </p>
            </div>
            <p class="section-break"><br clear="all" class="section"/></p>
            <div class="WordSection2">

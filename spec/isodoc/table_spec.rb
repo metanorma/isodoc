@@ -143,7 +143,7 @@ RSpec.describe IsoDoc do
                         <span class="fmt-element-name">Table</span>
                         <semx element="autonum" source="tableD-1">1</semx>
                      </span>
-                     <span class="fmt-caption-delim">\\u00a0— </span>
+                     <span class="fmt-caption-delim">\u00a0— </span>
                      <semx element="name" source="_14">
                         Repeatability and reproducibility of
                         <em>husked</em>
@@ -292,7 +292,7 @@ RSpec.describe IsoDoc do
                            </localityStack>
                         </origin>
                         <semx element="origin" source="_20">
-                           <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Section 1</fmt-xref>
+                           <fmt-xref type="inline" target="ISO712">ISO\u00a0712, Section 1</fmt-xref>
                         </semx>
                         —
                         <semx element="modification" source="_6">with adjustments</semx>
@@ -307,7 +307,7 @@ RSpec.describe IsoDoc do
                            </localityStack>
                         </origin>
                         <semx element="origin" source="_21">
-                           <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Section 2</fmt-xref>
+                           <fmt-xref type="inline" target="ISO712">ISO\u00a0712, Section 2</fmt-xref>
                         </semx>
                      </semx>
                      ]
@@ -379,7 +379,7 @@ RSpec.describe IsoDoc do
                   <semx element="autonum" source="_normative_references">1</semx>
                </fmt-xref-label>
                <bibitem id="ISO712" type="standard">
-                  <biblio-tag>ISO\\u00a0712, </biblio-tag>
+                  <biblio-tag>ISO\u00a0712, </biblio-tag>
                   <formattedref>
                      International Organization for Standardization.
                      <em>Cereals and cereal products</em>
@@ -387,8 +387,8 @@ RSpec.describe IsoDoc do
                   </formattedref>
                   <title format="text/plain">Cereals or cereal products</title>
                   <title type="main" format="text/plain">Cereals and cereal products</title>
-                  <docidentifier type="ISO">ISO\\u00a0712</docidentifier>
-                  <docidentifier scope="biblio-tag">ISO\\u00a0712</docidentifier>
+                  <docidentifier type="ISO">ISO\u00a0712</docidentifier>
+                  <docidentifier scope="biblio-tag">ISO\u00a0712</docidentifier>
                   <contributor>
                      <role type="publisher"/>
                      <organization>
@@ -477,7 +477,7 @@ RSpec.describe IsoDoc do
                <div id="fwd">
                   <h1 class="ForewordTitle">Foreword</h1>
                   <p class="TableTitle" style="text-align:center;">
-                     Table 1\\u00a0— Repeatability and reproducibility of
+                     Table 1\u00a0— Repeatability and reproducibility of
                      <i>husked</i>
                      rice yield
                      <a class="FootnoteRef" href="#fn:_19">
@@ -568,22 +568,22 @@ RSpec.describe IsoDoc do
                      <div class="BlockSource">
                         <p>
                            [SOURCE:
-                           <a href="#ISO712">ISO\\u00a0712, Section 1</a>
+                           <a href="#ISO712">ISO\u00a0712, Section 1</a>
                            — with adjustments;
-                           <a href="#ISO712">ISO\\u00a0712, Section 2</a>
+                           <a href="#ISO712">ISO\u00a0712, Section 2</a>
                            ]
                         </p>
                      </div>
                      <div class="Note">
                         <p>
-                           <span class="note_label">NOTE\\u00a0 </span>
+                           <span class="note_label">NOTE\u00a0 </span>
                            This is a table about rice
                         </p>
                      </div>
                      <aside id="fn:tableD-1a" class="footnote">
                         <p id="_">
                            <span class="TableFootnoteRef">a</span>
-                           \\u00a0 Parboiled rice.
+                           \u00a0 Parboiled rice.
                         </p>
                      </aside>
                   </table>
@@ -596,9 +596,9 @@ RSpec.describe IsoDoc do
                   </table>
                </div>
                <div>
-                  <h1>1.\\u00a0 Normative References</h1>
+                  <h1>1.\u00a0 Normative References</h1>
                   <p id="ISO712" class="NormRef">
-                     ISO\\u00a0712, International Organization for Standardization.
+                     ISO\u00a0712, International Organization for Standardization.
                      <i>Cereals and cereal products</i>
                      .
                   </p>
@@ -636,14 +636,37 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     word = <<~OUTPUT
-      #{WORD_HDR}
+      <html
+         xmlns:epub="http://www.idpf.org/2007/ops"
+         xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+         xmlns:w="urn:schemas-microsoft-com:office:word"
+         xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+         lang="en">
+      <head>
+        <style>
+          <!--
+          -->
+        </style>
+      </head>
+         <body lang="EN-US" link="blue" vlink="#954F72">
+           <div class="WordSection1">
+             <p> </p>
+           </div>
+           <p class="section-break"><br clear="all" class="section"/></p>
+           <div class="WordSection2">
+            <p class="page-break">
+            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div class="TOC" id="_">
+            <p class="zzContents">Table of contents</p>
+          </div>
              <p class="page-break">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
              <div id="fwd">
                <h1 class="ForewordTitle">Foreword</h1>
                <p class="TableTitle" style="text-align:center;">
-                       Table 1\\u00a0— Repeatability and reproducibility of
+                       Table 1\u00a0— Repeatability and reproducibility of
                        <i>husked</i>
                         rice yield
                        <span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" href="#ftn_19" epub:type="footnote">1</a></span>
@@ -706,7 +729,7 @@ RSpec.describe IsoDoc do
                        <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">2,26</td>
                        <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">
                          <div class="figdl">
-                           <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">6,06<span style="mso-tab-count:1">\\u00a0 </span>Definition</p>
+                           <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">6,06<span style="mso-tab-count:1">\u00a0 </span>Definition</p>
                          </div>
                        </td>
                      </tr>
@@ -714,20 +737,20 @@ RSpec.describe IsoDoc do
                    <div class="key">
                    <div class="figdl">
                      <p class="ListTitle">Key</p>
-                     <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">Drago<span style="mso-tab-count:1">\\u00a0 </span>A type of rice</p>
+                     <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">Drago<span style="mso-tab-count:1">\u00a0 </span>A type of rice</p>
                    </div>
                    </div>
                    <div class="BlockSource">
-                     <p>[SOURCE: <a href="#ISO712">ISO\\u00a0712, Section 1</a>
-             — with adjustments; <a href="#ISO712">ISO\\u00a0712, Section 2</a>]</p>
+                     <p>[SOURCE: <a href="#ISO712">ISO\u00a0712, Section 1</a>
+             — with adjustments; <a href="#ISO712">ISO\u00a0712, Section 2</a>]</p>
                    </div>
                    <div class="Note">
-                     <p class="Note"><span class="note_label">NOTE<span style="mso-tab-count:1">\\u00a0 </span></span>This is a table about rice</p>
+                     <p class="Note"><span class="note_label">NOTE<span style="mso-tab-count:1">\u00a0 </span></span>This is a table about rice</p>
                    </div>
                    <aside id="ftntableD-1a">
                      <p id="_">
                         <span class="TableFootnoteRef">a</span>
-                        <span style="mso-tab-count:1">\\u00a0 </span>
+                        <span style="mso-tab-count:1">\u00a0 </span>
                         Parboiled rice.
                      </p>
                   </aside>
@@ -743,7 +766,7 @@ RSpec.describe IsoDoc do
                  </table>
                </div>
              </div>
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <p class="section-break">
              <br clear="all" class="section"/>
@@ -752,11 +775,11 @@ RSpec.describe IsoDoc do
                 <div>
                    <h1>
                       1.
-                      <span style="mso-tab-count:1">\\u00a0 </span>
+                      <span style="mso-tab-count:1">\u00a0 </span>
                       Normative References
                    </h1>
                    <p id="ISO712" class="NormRef">
-                      ISO\\u00a0712, International Organization for Standardization.
+                      ISO\u00a0712, International Organization for Standardization.
                       <i>Cereals and cereal products</i>
                       .
                    </p>
@@ -801,19 +824,19 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(output.to_xml))
+      .to be_xml_equivalent_to html
     output = Nokogiri::XML(IsoDoc::WordConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(output.to_xml)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))
+      .to be_xml_equivalent_to word
   end
 
   it "processes plain IsoXML tables" do
@@ -929,7 +952,7 @@ RSpec.describe IsoDoc do
                         <span class="fmt-element-name">Table</span>
                         <semx element="autonum" source="tableD-1">1</semx>
                      </span>
-                     <span class="fmt-caption-delim">\\u00a0— </span>
+                     <span class="fmt-caption-delim">\u00a0— </span>
                      <semx element="name" source="_11">
                         Repeatability and reproducibility of
                         <em>husked</em>
@@ -1171,7 +1194,7 @@ RSpec.describe IsoDoc do
               <div id="fwd">
                   <h1 class="ForewordTitle">Foreword</h1>
                   <p class="TableTitle" style="text-align:center;">
-                     Table 1\\u00a0— Repeatability and reproducibility of
+                     Table 1\u00a0— Repeatability and reproducibility of
                      <i>husked</i>
                      rice yield
                      <a class="FootnoteRef" href="#fn:_14">
@@ -1265,14 +1288,14 @@ RSpec.describe IsoDoc do
                      </div>
                      <div class="Note">
                         <p>
-                           <span class="note_label">NOTE\\u00a0 </span>
+                           <span class="note_label">NOTE\u00a0 </span>
                            This is a table about rice
                         </p>
                      </div>
                      <aside id="fn:tableD-1a" class="footnote">
                         <p id="_">
                            <span class="TableFootnoteRef">a</span>
-                           \\u00a0 Parboiled rice.
+                           \u00a0 Parboiled rice.
                         </p>
                      </aside>
                   </table>
@@ -1285,14 +1308,37 @@ RSpec.describe IsoDoc do
       </html>
     OUTPUT
     word = <<~OUTPUT
-           #{WORD_HDR}
+      <html
+        xmlns:epub="http://www.idpf.org/2007/ops"
+        xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:w="urn:schemas-microsoft-com:office:word"
+        xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+        lang="en">
+      <head>
+      <style>
+        <!--
+        -->
+      </style>
+      </head>
+            <body lang="EN-US" link="blue" vlink="#954F72">
+              <div class="WordSection1">
+                <p> </p>
+              </div>
+              <p class="section-break"><br clear="all" class="section"/></p>
+              <div class="WordSection2">
+                <p class="page-break">
+                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+              </p>
+              <div class="TOC" id="_">
+                <p class="zzContents">Table of contents</p>
+              </div>
             <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
               <div id="fwd">
                   <h1 class="ForewordTitle">Foreword</h1>
                   <p class="TableTitle" style="text-align:center;">
-                     Table 1\\u00a0— Repeatability and reproducibility of
+                     Table 1\u00a0— Repeatability and reproducibility of
                      <i>husked</i>
                      rice yield
                      <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
@@ -1358,7 +1404,7 @@ RSpec.describe IsoDoc do
                                  <div class="figdl">
                                     <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">
                                        6,06
-                                       <span style="mso-tab-count:1">\\u00a0 </span>
+                                       <span style="mso-tab-count:1">\u00a0 </span>
                                        Definition
                                     </p>
                                  </div>
@@ -1370,7 +1416,7 @@ RSpec.describe IsoDoc do
                            <p class="ListTitle">Key</p>
                            <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">
                               Drago
-                              <span style="mso-tab-count:1">\\u00a0 </span>
+                              <span style="mso-tab-count:1">\u00a0 </span>
                               A type of rice
                            </p>
                         </div>
@@ -1384,7 +1430,7 @@ RSpec.describe IsoDoc do
                            <p class="Note">
                               <span class="note_label">
                                  NOTE
-                                 <span style="mso-tab-count:1">\\u00a0 </span>
+                                 <span style="mso-tab-count:1">\u00a0 </span>
                               </span>
                               This is a table about rice
                            </p>
@@ -1392,14 +1438,14 @@ RSpec.describe IsoDoc do
                         <aside id="ftntableD-1a">
                            <p id="_">
                               <span class="TableFootnoteRef">a</span>
-                              <span style="mso-tab-count:1">\\u00a0 </span>
+                              <span style="mso-tab-count:1">\u00a0 </span>
                               Parboiled rice.
                            </p>
                         </aside>
                      </table>
                   </div>
                </div>
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
             </div>
             <p class="section-break">
                <br clear="all" class="section"/>
@@ -1415,19 +1461,19 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(output.to_xml))
+      .to be_xml_equivalent_to html
     output = Nokogiri::XML(IsoDoc::WordConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(output.to_xml)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))
+      .to be_xml_equivalent_to word
   end
 
   it "breaks down CSS border shorthand attributes" do
@@ -1472,8 +1518,8 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
   end
 
   it "passes on classes of tables from Presentation XML" do
@@ -1527,7 +1573,7 @@ RSpec.describe IsoDoc do
                  <table id='tableD-1' class='MsoISOTable' style='mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;' title='tool tip' summary='long desc' width='70%'/>
                </div>
              </div>
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <p class="section-break">
              <br clear='all' class='section'/>
@@ -1537,13 +1583,13 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
       .convert("test", presxml, true)
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
-      .to be_equivalent_to Canon.format_xml(word)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
+      .to be_html4_equivalent_to word
   end
 
   it "processes tables with big cells" do
@@ -1607,14 +1653,19 @@ RSpec.describe IsoDoc do
     INPUT
 
     output = <<~OUTPUT
-      <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
+      <html
+        xmlns:epub="http://www.idpf.org/2007/ops"
+        xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:w="urn:schemas-microsoft-com:office:word"
+        xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+        lang="en">
            <head>
              <style>
              </style>
            </head>
            <body lang='EN-US' link='blue' vlink='#954F72'>
              <div class='WordSection1'>
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
              </div>
              <p class="section-break">
                <br clear='all' class='section'/>
@@ -1714,7 +1765,7 @@ RSpec.describe IsoDoc do
                    </table>
                  </div>
                </div>
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
              </div>
              <p class="section-break">
                <br clear='all' class='section'/>
@@ -1723,10 +1774,10 @@ RSpec.describe IsoDoc do
            </body>
          </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
+    expect(strip_guid(IsoDoc::WordConvert.new({})
       .convert("test", input, true))
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(output)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))
+      .to be_xml_equivalent_to output
   end
 
   it "processes tables with many rows" do
@@ -1759,14 +1810,19 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+      <html
+        xmlns:epub="http://www.idpf.org/2007/ops"
+        xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:w="urn:schemas-microsoft-com:office:word"
+        xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+        lang="en">
         <head>
           <style>
           </style>
         </head>
         <body lang="EN-US" link="blue" vlink="#954F72">
           <div class="WordSection1">
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <p class="section-break">
             <br clear="all" class="section"/>
@@ -1820,7 +1876,7 @@ RSpec.describe IsoDoc do
                 </table>
               </div>
             </div>
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <p class="section-break">
             <br clear="all" class="section"/>
@@ -1829,10 +1885,10 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
+    expect(strip_guid(IsoDoc::WordConvert.new({})
         .convert("test", input, true))
-        .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(output)
+        .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))
+      .to be_xml_equivalent_to output
 
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -1865,14 +1921,19 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-              <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+      <html
+        xmlns:epub="http://www.idpf.org/2007/ops"
+        xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:w="urn:schemas-microsoft-com:office:word"
+        xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+        lang="en">
         <head>
           <style>
           </style>
         </head>
         <body lang="EN-US" link="blue" vlink="#954F72">
           <div class="WordSection1">
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <p class="section-break">
             <br clear="all" class="section"/>
@@ -1933,7 +1994,7 @@ RSpec.describe IsoDoc do
                 </table>
               </div>
             </div>
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <p class="section-break">
             <br clear="all" class="section"/>
@@ -1943,10 +2004,10 @@ RSpec.describe IsoDoc do
       </html>
 
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
+    expect(strip_guid(IsoDoc::WordConvert.new({})
         .convert("test", input, true))
-        .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(output)
+        .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))
+      .to be_xml_equivalent_to output
   end
 
   it "processes tables with large rows" do
@@ -1975,11 +2036,17 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+      <html
+        xmlns:epub="http://www.idpf.org/2007/ops"
+        xmlns:v="urn:schemas-microsoft-com:vml" 
+        xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:w="urn:schemas-microsoft-com:office:word"
+        xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+        lang="en">
         <head> <style> </style> </head>
                <body lang="EN-US" link="blue" vlink="#954F72">
            <div class="WordSection1">
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <p class="section-break">
              <br clear="all" class="section"/>
@@ -2041,7 +2108,7 @@ RSpec.describe IsoDoc do
                  </table>
                </div>
              </div>
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <p class="section-break">
              <br clear="all" class="section"/>
@@ -2050,10 +2117,10 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-           .convert("test", input, true))
-           .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", input, true))
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))
+      .to be_xml_equivalent_to output
 
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -2080,11 +2147,16 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+      <html
+        xmlns:epub="http://www.idpf.org/2007/ops"
+        xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:w="urn:schemas-microsoft-com:office:word"
+        xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+        lang="en">
         <head> <style> </style> </head>
                      <body lang="EN-US" link="blue" vlink="#954F72">
            <div class="WordSection1">
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <p class="section-break">
              <br clear="all" class="section"/>
@@ -2153,7 +2225,7 @@ RSpec.describe IsoDoc do
                  </table>
                </div>
              </div>
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <p class="section-break">
              <br clear="all" class="section"/>
@@ -2162,10 +2234,10 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-               .convert("test", input, true))
-               .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", input, true))
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))
+      .to be_xml_equivalent_to output
   end
 
   it "processes nested tables" do
@@ -2288,15 +2360,15 @@ RSpec.describe IsoDoc do
                 </table>
              </div>
           </div>
-          <p class="MsoNormal">\\u00a0</p>
+          <p class="MsoNormal">\u00a0</p>
        </div>
     OUTPUT
 
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(output.to_xml))
+      .to be_xml_equivalent_to html
     IsoDoc::WordConvert.new({})
       .convert("test", input, false)
     output = File.read("test.doc")
@@ -2304,8 +2376,8 @@ RSpec.describe IsoDoc do
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
     output = Nokogiri::XML(output)
     # output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)
+    expect(strip_guid(output.to_xml
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(word)
+      .to be_xml_equivalent_to word
   end
 end

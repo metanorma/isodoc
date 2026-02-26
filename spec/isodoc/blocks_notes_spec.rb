@@ -63,7 +63,7 @@ RSpec.describe IsoDoc do
         <h1 class="ForewordTitle">Foreword</h1>
                        <div id='A' class='Note' style='page-break-after: avoid;page-break-inside: avoid;'>
                  <p>
-                   <span class='note_label'>NOTE 1\\u00a0 </span>
+                   <span class='note_label'>NOTE 1\u00a0 </span>
                    These results are based on a study carried out on three
                    different types of kernel.
                  </p>
@@ -89,7 +89,7 @@ RSpec.describe IsoDoc do
                              <div id='A' class='Note' style='page-break-after: avoid;page-break-inside: avoid;'>
                  <p class='Note'>
                    <span class='note_label'>NOTE 1
-                   <span style='mso-tab-count:1'>\\u00a0 </span></span>
+                   <span style='mso-tab-count:1'>\u00a0 </span></span>
                     These results are based on a study carried out on three different
                    types of kernel.
                  </p>
@@ -101,7 +101,7 @@ RSpec.describe IsoDoc do
                  </p>
                </div>
             </div>
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <p class="section-break"><br clear="all" class="section"/></p>
           <div class="WordSection3">
@@ -112,14 +112,14 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(doc)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html4_equivalent_to doc
   end
 
   it "processes sequences of notes" do
@@ -205,10 +205,10 @@ RSpec.describe IsoDoc do
                    <div id="fwd">
                      <h1 class="ForewordTitle">Foreword</h1>
                      <div id="note1" class="Note">
-                       <p><span class="note_label">NOTE  1\\u00a0 </span>These results are based on a study carried out on three different types of kernel.</p>
+                       <p><span class="note_label">NOTE  1\u00a0 </span>These results are based on a study carried out on three different types of kernel.</p>
                      </div>
                      <div id="note2" class="Note">
-                       <p><span class="note_label">NOTE  2\\u00a0 </span>These results are based on a study carried out on three different types of kernel.</p>
+                       <p><span class="note_label">NOTE  2\u00a0 </span>These results are based on a study carried out on three different types of kernel.</p>
                      </div>
                    </div>
                  </div>
@@ -218,11 +218,11 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
   end
 
   it "processes multi-para notes" do
@@ -247,7 +247,7 @@ RSpec.describe IsoDoc do
                 <div id="fwd">
                   <h1 class="ForewordTitle">Foreword</h1>
                   <div class="Note">
-                    <p><span class="note_label">NOTE\\u00a0 </span>These results are based on a study carried out on three different types of kernel.</p>
+                    <p><span class="note_label">NOTE\u00a0 </span>These results are based on a study carried out on three different types of kernel.</p>
                     <p id="_">These results are based on a study carried out on three different types of kernel.</p>
                   </div>
                 </div>
@@ -255,9 +255,9 @@ RSpec.describe IsoDoc do
             </body>
         </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true)))
+      .to be_html5_equivalent_to output
   end
 
   it "processes non-para notes" do
@@ -282,13 +282,13 @@ RSpec.describe IsoDoc do
                 <br/>
                 <div id="fwd">
                   <h1 class="ForewordTitle">Foreword</h1>
-                  <div id="A" class="Note"><p><span class="note_label">NOTE\\u00a0 </span></p>
+                  <div id="A" class="Note"><p><span class="note_label">NOTE\u00a0 </span></p>
                    <div class="figdl">
             <dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
             </div>
             <div class="ul_wrap">
             <ul>
-            <li>C</li></ul>
+            <li id="_">C</li></ul>
             </div>
         </div>
                 </div>
@@ -306,7 +306,7 @@ RSpec.describe IsoDoc do
                       <p class="Note">
                          <span class="note_label">
                             NOTE
-                            <span style="mso-tab-count:1">\\u00a0 </span>
+                            <span style="mso-tab-count:1">\u00a0 </span>
                          </span>
                       </p>
                       <div align="left">
@@ -328,7 +328,7 @@ RSpec.describe IsoDoc do
                       </div>
                    </div>
                 </div>
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
@@ -337,10 +337,16 @@ RSpec.describe IsoDoc do
           </body>
        </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true)))).to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", input, true)))).to be_equivalent_to Canon.format_xml(doc)
+
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html4_equivalent_to doc
   end
 
   it "processes paragraphs containing notes" do
@@ -358,28 +364,35 @@ RSpec.describe IsoDoc do
             </iso-standard>
     INPUT
     html = <<~OUTPUT
-      #{HTML_HDR}
-                <br/>
-                <div id="fwd">
-                   <h1 class="ForewordTitle">Foreword</h1>
-                   <p id="A">ABC
-         </p>
-                   <div id="B" class="Note">
-                      <p>
-                         <span class="note_label">NOTE 1\\u00a0 </span>
-                         XYZ
-                      </p>
-                   </div>
-                   <div id="B1" class="Note">
-                      <p>
-                         <span class="note_label">NOTE 2\\u00a0 </span>
-                         XYZ1
-                      </p>
-                   </div>
-                </div>
-             </div>
-          </body>
-       </html>
+      <html lang="en">
+      <head/>
+      <body lang="en">
+        <div class="title-section">
+          <p> </p>
+        </div>
+        <br/>
+        <div class="prefatory-section">
+          <p> </p>
+        </div>
+        <br/>
+        <div class="main-section"><br />
+          <div id="fwd">
+            <h1 class="ForewordTitle">Foreword</h1>
+            <p id="A">ABC
+            </p>
+            <div id="B" class="Note">
+              <p><span class="note_label">NOTE 1  </span>XYZ</p>
+            </div>
+            <div id="B1" class="Note">
+              <p><span class="note_label">NOTE 2  </span>XYZ1</p>
+            </div>
+          </div><br />
+          <div id="_" class="TOC">
+            <h1 class="IntroTitle">Table of contents</h1>
+          </div>
+        </div>
+      </body>
+      </html>
     OUTPUT
 
     doc = <<~OUTPUT
@@ -392,13 +405,13 @@ RSpec.describe IsoDoc do
                <p id="A">ABC
          </p>
                <div id="B" class="Note">
-                 <p class="Note"><span class="note_label">NOTE 1<span style="mso-tab-count:1">\\u00a0 </span></span>XYZ</p>
+                 <p class="Note"><span class="note_label">NOTE 1<span style="mso-tab-count:1">\u00a0 </span></span>XYZ</p>
                </div>
                <div id="B1" class="Note">
-                 <p class="Note"><span class="note_label">NOTE 2<span style="mso-tab-count:1">\\u00a0 </span></span>XYZ1</p>
+                 <p class="Note"><span class="note_label">NOTE 2<span style="mso-tab-count:1">\u00a0 </span></span>XYZ1</p>
                </div>
              </div>
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <p class="section-break">
              <br clear="all" class="section"/>
@@ -408,12 +421,15 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(doc)
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html4_equivalent_to doc
   end
 
   it "converts notes and admonitions intended for coverpage" do
@@ -487,7 +503,7 @@ RSpec.describe IsoDoc do
                  <p>XYZ</p>
                </div>
             </div>
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <p class="section-break">
             <br clear='all' class='section'/>
@@ -500,14 +516,14 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(doc)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html4_equivalent_to doc
   end
 
   it "numbers notes in tables and figures separately from notes outside them" do
@@ -627,10 +643,10 @@ RSpec.describe IsoDoc do
           </preface>
        </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+      .convert("test", input, true)))
+      .to be_xml_equivalent_to output
   end
 
   it "processes single-paragraph admonitions" do
@@ -690,11 +706,11 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to output
   end
 
   it "processes multiple-paragraph and no-paragraph admonitions" do
@@ -761,7 +777,7 @@ RSpec.describe IsoDoc do
                    <div id="_" class="Admonition" style="page-break-after: avoid;page-break-inside: avoid;">
                       <div class="Note">
                          <p>
-                            <span class="note_label">NOTE\\u00a0 </span>
+                            <span class="note_label">NOTE\u00a0 </span>
                             Paragraph 3.
                          </p>
                       </div>
@@ -774,11 +790,11 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to output
   end
 
   it "processes empty admonitions" do
@@ -812,10 +828,10 @@ RSpec.describe IsoDoc do
         </preface>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .convert("test", input, true)))
+      .to be_xml_equivalent_to presxml
   end
 
   it "processes admonitions with titles" do
@@ -883,11 +899,11 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to output
   end
 
   it "processes box admonitions" do
@@ -922,7 +938,7 @@ RSpec.describe IsoDoc do
                           <span class="fmt-element-name">Box</span>
                           <semx element="autonum" source="_">1</semx>
                        </span>
-                       <span class="fmt-caption-delim">\\u00a0— </span>
+                       <span class="fmt-caption-delim">\u00a0— </span>
                        <semx element="name" source="_">Title</semx>
                     </fmt-name>
                     <fmt-xref-label>
@@ -970,7 +986,7 @@ RSpec.describe IsoDoc do
              <div id="fwd">
                <h1 class="ForewordTitle">Foreword</h1>
                <div id="_" class="Admonition">
-                 <p class="AdmonitionTitle" style="text-align:center;">Box  1\\u00a0— Title</p>
+                 <p class="AdmonitionTitle" style="text-align:center;">Box  1\u00a0— Title</p>
                  <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
                </div>
                <div id="_" class="Admonition">
@@ -985,10 +1001,10 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to output
   end
 end

@@ -197,20 +197,20 @@ RSpec.describe IsoDoc do
                    </div>
                 </div>
                 <div id="C">
-                   <h1>1.\\u00a0 Introduction</h1>
+                   <h1>1.\u00a0 Introduction</h1>
                    <p class="h1" id="_">A</p>
                    <div id="C1">
-                      <h2>1.1.\\u00a0 Introduction Subsection</h2>
+                      <h2>1.1.\u00a0 Introduction Subsection</h2>
                       <p class="h2" id="_">B</p>
                       <div id="C2">
-                         <h3>1.1.1.\\u00a0 Introduction Sub-subsection</h3>
+                         <h3>1.1.1.\u00a0 Introduction Sub-subsection</h3>
                          <p class="h1" id="_">C</p>
                       </div>
                    </div>
                 </div>
                 <p class="h1" id="_">D</p>
                 <div id="C4">
-                   <h1>2.\\u00a0 Clause 2</h1>
+                   <h1>2.\u00a0 Clause 2</h1>
                 </div>
              </div>
           </body>
@@ -251,7 +251,7 @@ RSpec.describe IsoDoc do
                   </div>
                </div>
             </div>
-            <p class="MsoNormal">\\u00a0</p>
+            <p class="MsoNormal">\u00a0</p>
          </div>
          <p class="MsoNormal">
             <br clear="all" class="section"/>
@@ -261,7 +261,7 @@ RSpec.describe IsoDoc do
                <a name="C" id="C"/>
                <h1>
                   1.
-                  <span style="mso-tab-count:1">\\u00a0 </span>
+                  <span style="mso-tab-count:1">\u00a0 </span>
                   Introduction
                </h1>
                <p class="h1">
@@ -272,7 +272,7 @@ RSpec.describe IsoDoc do
                   <a name="C1" id="C1"/>
                   <h2>
                      1.1.
-                     <span style="mso-tab-count:1">\\u00a0 </span>
+                     <span style="mso-tab-count:1">\u00a0 </span>
                      Introduction Subsection
                   </h2>
                   <p class="h2">
@@ -283,7 +283,7 @@ RSpec.describe IsoDoc do
                      <a name="C2" id="C2"/>
                      <h3>
                         1.1.1.
-                        <span style="mso-tab-count:1">\\u00a0 </span>
+                        <span style="mso-tab-count:1">\u00a0 </span>
                         Introduction Sub-subsection
                      </h3>
                      <p class="h1">
@@ -301,7 +301,7 @@ RSpec.describe IsoDoc do
                <a name="C4" id="C4"/>
                <h1>
                   2.
-                  <span style="mso-tab-count:1">\\u00a0 </span>
+                  <span style="mso-tab-count:1">\u00a0 </span>
                   Clause 2
                </h1>
             </div>
@@ -312,16 +312,16 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
-    expect(strip_guid(Canon.format_xml(File.read("test.doc")
+    expect(strip_guid(File.read("test.doc")
     .sub(/^.*<body/m, "<body")
-    .sub(%r{</body>.*$}m, ""))))
-      .to be_equivalent_to Canon.format_xml(word)
+    .sub(%r{</body>.*$}m, "")))
+      .to be_xml_equivalent_to word
   end
 
   it "processes disconnected titles" do
@@ -352,11 +352,11 @@ RSpec.describe IsoDoc do
          <head/>
          <body lang="en">
            <div class="title-section">
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <br/>
            <div class="prefatory-section">
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <br/>
                       <div class="main-section">
@@ -383,9 +383,9 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true)))
+      .to be_html5_equivalent_to output
   end
 
   it "leaves alone floating titles if preface sections already sorted" do
@@ -461,10 +461,10 @@ RSpec.describe IsoDoc do
             </preface>
       </standard-document>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))
+      .convert("test", input, true)
        .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .to be_xml_equivalent_to presxml
   end
 end

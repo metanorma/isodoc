@@ -193,11 +193,11 @@ RSpec.describe IsoDoc do
          </p>
       </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to output
 
     output = <<~OUTPUT
       <clause id="widgets1">
@@ -269,11 +269,11 @@ RSpec.describe IsoDoc do
           </p>
        </clause>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:clause[@id='widgets1']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .at("//xmlns:clause[@id='widgets1']").to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "cross-references term examples" do
@@ -357,11 +357,11 @@ RSpec.describe IsoDoc do
          </p>
       </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "cross-references nested term examples" do
@@ -449,11 +449,11 @@ RSpec.describe IsoDoc do
           </p>
        </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "cross-references examples nested in assets" do
@@ -872,11 +872,11 @@ RSpec.describe IsoDoc do
           </p>
        </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
-         .new(presxml_options)
-         .convert("test", input, true))
-         .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to output
 
     # test container_container scope references
     output = <<~OUTPUT
@@ -998,10 +998,10 @@ RSpec.describe IsoDoc do
           </example>
        </table>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
      .new(presxml_options)
      .convert("test", input, true))
-     .at("//xmlns:table[@id = 'scopeT']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+     .at("//xmlns:table[@id = 'scopeT']").to_xml))
+      .to be_xml_equivalent_to output
   end
 end

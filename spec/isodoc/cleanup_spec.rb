@@ -14,7 +14,6 @@ RSpec.describe IsoDoc do
       </html>
     INPUT
     output = <<~OUTPUT
-          <?xml version="1.0"?>
       <html>
       <body>
         <div class="Admonition">
@@ -24,8 +23,8 @@ RSpec.describe IsoDoc do
       </body>
       </html>
     OUTPUT
-    expect(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to Canon.format_xml((output))
+    expect(IsoDoc::WordConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s).to be_xml_equivalent_to output
   end
 
   it "cleans up inline headers" do
@@ -63,7 +62,6 @@ RSpec.describe IsoDoc do
       </html>
     INPUT
     output = <<~OUTPUT
-             <?xml version="1.0"?>
       <html xmlns:epub="http://www.idpf.org/2007/ops">
         <head>
           <title>test</title>
@@ -96,8 +94,8 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     OUTPUT
-    expect(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to Canon.format_xml((output))
+    expect(IsoDoc::WordConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s).to be_xml_equivalent_to output
   end
 
   it "cleans up footnotes (Word)" do
@@ -170,8 +168,8 @@ RSpec.describe IsoDoc do
                 </body>
             </html>
     OUTPUT
-    expect(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to Canon.format_xml((output))
+    expect(IsoDoc::WordConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s).to be_xml_equivalent_to output
   end
 
   it "cleans up tables with tfoot" do
@@ -336,8 +334,8 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     OUTPUT
-    expect(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to Canon.format_xml((html))
+    expect(IsoDoc::HtmlConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s).to be_xml_equivalent_to html
   end
 
   it "cleans up tables without tfoot" do
@@ -484,7 +482,7 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     OUTPUT
-    expect(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to Canon.format_xml((html))
+    expect(IsoDoc::HtmlConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s).to be_xml_equivalent_to html
   end
 end

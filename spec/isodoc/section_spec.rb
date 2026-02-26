@@ -26,11 +26,11 @@ RSpec.describe IsoDoc do
         <head/>
         <body lang='en'>
           <div class='title-section'>
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <br/>
           <div class='prefatory-section'>
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <br/>
           <div class='main-section'>
@@ -50,7 +50,7 @@ RSpec.describe IsoDoc do
               </div>
               <div id='O'>
                 <span class='zzMoveToFollowing inline-header'>
-                  <b>Clause 4.2\\u00a0 </b>
+                  <b>Clause 4.2\u00a0 </b>
                 </span>
               </div>
             </div>
@@ -62,14 +62,19 @@ RSpec.describe IsoDoc do
       </html>
     OUTPUT
     word = <<~OUTPUT
-          <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
+      <html
+         xmlns:epub="http://www.idpf.org/2007/ops"
+         xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+         xmlns:w="urn:schemas-microsoft-com:office:word"
+         xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+         lang="en">
         <head>
           <style>
           </style>
         </head>
         <body lang='EN-US' link='blue' vlink='#954F72'>
           <div class='WordSection1'>
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <p class="section-break">
             <br clear='all' class='section'/>
@@ -88,7 +93,7 @@ RSpec.describe IsoDoc do
               <h1 class='IntroTitle'>introduction</h1>
             </div>
             <div id="C" class="Note">note</div>
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <p class="section-break">
             <br clear='all' class='section'/>
@@ -106,7 +111,7 @@ RSpec.describe IsoDoc do
                 <span class='zzMoveToFollowing inline-header'>
                   <b>
                     Clause 4.2
-                    <span style='mso-tab-count:1'>\\u00a0 </span>
+                    <span style='mso-tab-count:1'>\u00a0 </span>
                   </b>
                 </span>
               </div>
@@ -115,12 +120,12 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", input, true)))
+      .to be_html4_equivalent_to word
   end
 
   it "processes indexsect" do
@@ -139,11 +144,11 @@ RSpec.describe IsoDoc do
          <head/>
          <body lang="en">
            <div class="title-section">
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <br/>
            <div class="prefatory-section">
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <br/>
            <div class="main-section">
@@ -159,9 +164,9 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true)))
+      .to be_html5_equivalent_to output
   end
 
   it "processes middle title" do
@@ -197,8 +202,8 @@ RSpec.describe IsoDoc do
          .new(presxml_options)
          .convert("test", input, true))
     xml = xml.at("//xmlns:sections")
-    expect(strip_guid(Canon.format_xml(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to presxml
     metadata = <<~OUTPUT
       <presentation-metadata><middle-title>
         <p class='hello'>{{ docnumeric }}: {{ doctitle | upcase }}</p>
@@ -226,8 +231,8 @@ RSpec.describe IsoDoc do
          .new(presxml_options)
          .convert("test", input, true))
     xml = xml.at("//xmlns:sections")
-    expect(strip_guid(Canon.format_xml(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "processes annexes containing one, or more than one special sections" do
@@ -631,10 +636,10 @@ RSpec.describe IsoDoc do
           </annex>
        </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .convert("test", input, true)))
+      .to be_xml_equivalent_to presxml
   end
 
   it "processes cross-align" do
@@ -663,11 +668,11 @@ RSpec.describe IsoDoc do
          <head/>
          <body lang="en">
            <div class="title-section">
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <br/>
            <div class="prefatory-section">
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <br/>
            <div class="main-section">
@@ -691,9 +696,9 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true)))
+      .to be_html5_equivalent_to output
   end
 
   it "ignores index entries" do
@@ -713,11 +718,11 @@ RSpec.describe IsoDoc do
          <bookmark primary="A" secondary="B" tertiary="C" id="_"/>
       </p>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .at("//xmlns:p[@id = 'A']").to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "generates an index in English" do
@@ -967,11 +972,11 @@ RSpec.describe IsoDoc do
          <head/>
          <body lang="en">
             <div class="title-section">
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
             </div>
             <br/>
             <div class="prefatory-section">
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
             </div>
             <br/>
             <div class="main-section">
@@ -1193,19 +1198,19 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output
-      .gsub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(pres_output
+      .gsub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_xml_equivalent_to html
     FileUtils.rm_f("test.doc")
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
     expect(File.exist?("test.doc")).to be true
     word = File.read("test.doc", encoding: "UTF-8")
       .sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>")
     wordxml = Nokogiri::XML(word)
-    expect(strip_guid(Canon.format_xml(wordxml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(doc)
+    expect(strip_guid(wordxml.to_xml))
+      .to be_xml_equivalent_to doc
   end
 end

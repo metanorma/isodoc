@@ -14,25 +14,25 @@ RSpec.describe IsoDoc do
     xrefs = new_xrefs
     xrefs.parse(input)
     expect(xrefs.anchor("A", :xref))
-      .to be_equivalent_to "<span class='fmt-element-name'>Clause</span> <semx element='autonum' source='A'>1</semx>"
+      .to be_xml_equivalent_to "<span class='fmt-element-name'>Clause</span> <semx element='autonum' source='A'>1</semx>"
     expect(xrefs.anchor("B", :xref))
-      .to be_equivalent_to "<span class='fmt-element-name'>Note</span>"
+      .to be_xml_equivalent_to "<span class='fmt-element-name'>Note</span>"
     expect(xrefs.anchor("C", :xref))
-      .to be_equivalent_to "[C]"
+      .to be_xml_equivalent_to "[C]"
 
     xrefs = new_xrefs.parse_inclusions(clauses: true)
     xrefs.parse(input)
     expect(xrefs.anchor("A", :xref))
-      .to be_equivalent_to "<span class='fmt-element-name'>Clause</span> <semx element='autonum' source='A'>1</semx>"
+      .to be_xml_equivalent_to "<span class='fmt-element-name'>Clause</span> <semx element='autonum' source='A'>1</semx>"
     expect(xrefs.anchor("B", :xref))
-      .to be_equivalent_to "[B]"
+      .to be_xml_equivalent_to "[B]"
 
     xrefs = new_xrefs.parse_inclusions(assets: true)
     xrefs.parse(input)
     expect(xrefs.anchor("A", :xref))
-      .to be_equivalent_to "[A]"
+      .to be_xml_equivalent_to "[A]"
     expect(xrefs.anchor("B", :xref))
-      .to be_equivalent_to "<span class='fmt-element-name'>Note</span>"
+      .to be_xml_equivalent_to "<span class='fmt-element-name'>Note</span>"
   end
 
   it "cross-references formulae" do
@@ -257,11 +257,11 @@ RSpec.describe IsoDoc do
          </p>
       </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "cross-references requirements" do
@@ -437,11 +437,11 @@ RSpec.describe IsoDoc do
          </p>
       </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "cross-references recommendations" do
@@ -595,11 +595,11 @@ RSpec.describe IsoDoc do
          </p>
       </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "cross-references permissions" do
@@ -753,11 +753,11 @@ RSpec.describe IsoDoc do
          </p>
       </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "labels and cross-references nested requirements" do
@@ -999,11 +999,11 @@ RSpec.describe IsoDoc do
          </p>
       </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "cross-references tables" do
@@ -1220,11 +1220,11 @@ RSpec.describe IsoDoc do
          </p>
       </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "cross-references paragraphs" do
@@ -1448,11 +1448,11 @@ RSpec.describe IsoDoc do
           </p>
        </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
    .new(presxml_options)
    .convert("test", input, true))
-   .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+   .at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "cross-references bookmarks" do
@@ -1623,10 +1623,10 @@ RSpec.describe IsoDoc do
           </p>
        </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to output
   end
 end

@@ -114,10 +114,10 @@ RSpec.describe IsoDoc do
          </preface>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to presxml
   end
 
   it "processes line breaks in MathML" do
@@ -218,7 +218,7 @@ RSpec.describe IsoDoc do
                <h1>1.</h1>
                <div id="_">
                  <div class="formula">
-                    <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>x</mi><mo>=</mo><mo linebreak="newline"/><mi>y</mi></mstyle></math></span>\\u00a0 (1)</p>
+                    <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>x</mi><mo>=</mo><mo linebreak="newline"/><mi>y</mi></mstyle></math></span>\u00a0 (1)</p>
                  </div>
                </div>
              </div>
@@ -228,7 +228,7 @@ RSpec.describe IsoDoc do
     OUTPUT
     word = <<~OUTPUT
        #{WORD_HDR}
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
       </div>
       <p class="section-break">
          <br clear="all" class="section"/>
@@ -238,7 +238,7 @@ RSpec.describe IsoDoc do
                 <h1>1.</h1>
                 <div id="_">
                   <div class="formula">
-                  <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>x</mi><mo>=</mo><mo linebreak="newline"/><mi>y</mi></mstyle></math></span><span style="mso-tab-count:1">\\u00a0 </span>(1)</p>
+                  <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>x</mi><mo>=</mo><mo linebreak="newline"/><mi>y</mi></mstyle></math></span><span style="mso-tab-count:1">\u00a0 </span>(1)</p>
                   </div>
                 </div>
               </div>
@@ -249,16 +249,16 @@ RSpec.describe IsoDoc do
     output = IsoDoc::PresentationXMLConvert.new(presxml_options
       .merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(output)
+    expect(strip_guid(output
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", output, true))))
-      .to be_equivalent_to Canon.format_xml(word)
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", output, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", output, true)))
+      .to be_html4_equivalent_to word
   end
 
   it "correctly parses options with commas inside values" do
@@ -363,15 +363,15 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
-      .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
+    expect(strip_guid(Nokogiri::XML(pres_output)
+      .at("//xmlns:p[@id = 'A']").to_xml))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
-      .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+      .at("//p[@id = 'A']").to_xml))
+      .to be_html5_equivalent_to html
   end
 
   it "overrides AsciiMath delimiters" do
@@ -408,15 +408,15 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
-      .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
+    expect(strip_guid(Nokogiri::XML(pres_output)
+      .at("//xmlns:p[@id = 'A']").to_xml))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
-      .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+      .at("//p[@id = 'A']").to_xml))
+      .to be_html5_equivalent_to html
   end
 
   it "duplicates MathML with AsciiMath" do
@@ -485,12 +485,12 @@ RSpec.describe IsoDoc do
         <sections> </sections>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
     .new(presxml_options)
       .convert("test", input, true)
       .gsub("<!--", "<comment>")
-      .gsub("-->", "</comment>"))))
-      .to be_equivalent_to Canon.format_xml(output)
+      .gsub("-->", "</comment>")))
+      .to be_xml_equivalent_to output
   end
 
   it "overrides duplication of MathML with AsciiMath" do
@@ -558,12 +558,12 @@ RSpec.describe IsoDoc do
         <sections> </sections>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new({ suppressasciimathdup: true }
       .merge(presxml_options))
       .convert("test", input, true)
       .gsub("<!--", "<comment>")
-      .gsub("-->", "</comment>"))))
-      .to be_equivalent_to Canon.format_xml(output)
+      .gsub("-->", "</comment>")))
+      .to be_xml_equivalent_to output
   end
 end
