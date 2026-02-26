@@ -66,15 +66,8 @@ RSpec.describe IsoDoc do
                    <figcaption class="SourceTitle">
                       Figure 1\\u00a0— Ruby
                       <i>code</i>
-                   </figcaption>
-                   </figure>
-                   <figure id="_" class="sourcecode" spellcheck="false" translation="no"><pre>
-                      Hey
-                      <br/>
-                      Que?
-                      <br/>
-                   </pre>
-                   </figure>
+                   </p>
+                   <pre id="_" class="sourcecode">Hey<br/>Que?<br/></pre>
                 </div>
              </div>
           </body>
