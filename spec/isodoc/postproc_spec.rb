@@ -968,7 +968,7 @@ RSpec.describe IsoDoc do
               <h1 class="ForewordTitle">Foreword</h1>
               <pre id="samplecode" class="sourcecode">
                  <br/>
-                 \\u00a0 &lt;xml&gt; &amp;
+                 \u00a0 &lt;xml&gt; &amp;
                  <br/>
               </pre>
               <p class="SourceTitle" style="text-align:center;">XML code</p>
@@ -993,12 +993,12 @@ RSpec.describe IsoDoc do
                <p class="Sourcecode" style="page-break-after:avoid;">
                   <a name="samplecode" id="samplecode"/>
                   <br/>
-                  \\u00a0 &lt;xml&gt; &amp;
+                  \u00a0 &lt;xml&gt; &amp;
                   <br/>
                </p>
                <p class="SourceTitle" style="text-align:center;">XML code</p>
             </div>
-            <p class="MsoNormal">\\u00a0</p>
+            <p class="MsoNormal">\u00a0</p>
          </div>
       OUTPUT
   end

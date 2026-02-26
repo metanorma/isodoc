@@ -818,11 +818,11 @@ RSpec.describe IsoDoc do
          <head/>
          <body lang="en">
             <div class="title-section">
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
             </div>
             <br/>
             <div class="prefatory-section">
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
             </div>
             <br/>
             <div class="main-section">
@@ -831,7 +831,7 @@ RSpec.describe IsoDoc do
                   <h1 class="IntroTitle">Table of contents</h1>
                </div>
                <div id="A">
-                  <h1>1.\\u00a0 Terms and definitions</h1>
+                  <h1>1.\u00a0 Terms and definitions</h1>
                   <p class="TermNum" id="second">1.1.</p>
                   <p class="Terms" style="text-align:left;">
                      <b>Second Term</b>

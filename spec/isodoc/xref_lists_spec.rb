@@ -506,7 +506,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="N">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">箇条</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="scope">1</semx>
                    </span>
                    <span class="fmt-conn">の</span>
@@ -519,14 +519,14 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="note1">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">箇条</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="widgets">3</semx>
                       <span class="fmt-autonum-delim">.</span>
                       <semx element="autonum" source="widgets1">1</semx>
                    </span>
                    <span class="fmt-conn">の</span>
                    <span class="fmt-element-name">リスト</span>
-                   \\u2005
+                   \u2005
                    <semx element="autonum" source="note1l">1</semx>
                    <span class="fmt-conn">の</span>
                    <semx element="autonum" source="note1">a</semx>
@@ -538,14 +538,14 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="note2">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">箇条</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="widgets">3</semx>
                       <span class="fmt-autonum-delim">.</span>
                       <semx element="autonum" source="widgets1">1</semx>
                    </span>
                    <span class="fmt-conn">の</span>
                    <span class="fmt-element-name">リスト</span>
-                   \\u2005
+                   \u2005
                    <semx element="autonum" source="note2l">2</semx>
                    <span class="fmt-conn">の</span>
                    <semx element="autonum" source="note2">I</semx>
@@ -557,7 +557,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="AN">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">附属書</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="annex1">A</semx>
                       <span class="fmt-autonum-delim">.</span>
                       <semx element="autonum" source="annex1a">1</semx>
@@ -572,14 +572,14 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="Anote1">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">附属書</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="annex1">A</semx>
                       <span class="fmt-autonum-delim">.</span>
                       <semx element="autonum" source="annex1b">2</semx>
                    </span>
                    <span class="fmt-conn">の</span>
                    <span class="fmt-element-name">リスト</span>
-                   \\u2005
+                   \u2005
                    <semx element="autonum" source="Anote1l">1</semx>
                    <span class="fmt-conn">の</span>
                    <semx element="autonum" source="Anote1">iv</semx>
@@ -591,14 +591,14 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="Anote2">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">附属書</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="annex1">A</semx>
                       <span class="fmt-autonum-delim">.</span>
                       <semx element="autonum" source="annex1b">2</semx>
                    </span>
                    <span class="fmt-conn">の</span>
                    <span class="fmt-element-name">リスト</span>
-                   \\u2005
+                   \u2005
                    <semx element="autonum" source="Anote2l">2</semx>
                    <span class="fmt-conn">の</span>
                    <semx element="autonum" source="Anote2">a</semx>
@@ -905,7 +905,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="N">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">箇条</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="scope">1</semx>
                    </span>
                    <span class="fmt-conn">の</span>
@@ -918,7 +918,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="note1">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">箇条</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="scope">1</semx>
                    </span>
                    <span class="fmt-conn">の</span>
@@ -934,7 +934,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="note2">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">箇条</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="scope">1</semx>
                    </span>
                    <span class="fmt-conn">の</span>
@@ -953,7 +953,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="AN">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">箇条</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="scope">1</semx>
                    </span>
                    <span class="fmt-conn">の</span>
@@ -975,7 +975,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="Anote1">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">箇条</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="scope">1</semx>
                    </span>
                    <span class="fmt-conn">の</span>
@@ -1000,7 +1000,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="Anote2">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">箇条</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="scope">1</semx>
                    </span>
                    <span class="fmt-conn">の</span>
@@ -1028,12 +1028,12 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="P">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">箇条</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="A">2</semx>
                    </span>
                    <span class="fmt-conn">の</span>
                    <span class="fmt-element-name">リスト</span>
-                   \\u2005
+                   \u2005
                    <semx element="autonum" source="L">1</semx>
                    <span class="fmt-conn">の</span>
                    <semx element="autonum" source="P">a</semx>
@@ -1045,12 +1045,12 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="Q">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">箇条</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="A">2</semx>
                    </span>
                    <span class="fmt-conn">の</span>
                    <span class="fmt-element-name">リスト</span>
-                   \\u2005
+                   \u2005
                    <semx element="autonum" source="L">1</semx>
                    <span class="fmt-conn">の</span>
                    <semx element="autonum" source="P">a</semx>
@@ -1065,12 +1065,12 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="R">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">箇条</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="A">2</semx>
                    </span>
                    <span class="fmt-conn">の</span>
                    <span class="fmt-element-name">リスト</span>
-                   \\u2005
+                   \u2005
                    <semx element="autonum" source="L">1</semx>
                    <span class="fmt-conn">の</span>
                    <semx element="autonum" source="P">a</semx>
@@ -1088,12 +1088,12 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="S">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">箇条</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="A">2</semx>
                    </span>
                    <span class="fmt-conn">の</span>
                    <span class="fmt-element-name">リスト</span>
-                   \\u2005
+                   \u2005
                    <semx element="autonum" source="L">1</semx>
                    <span class="fmt-conn">の</span>
                    <semx element="autonum" source="P">a</semx>
@@ -1114,12 +1114,12 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="P1">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">箇条</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="A">2</semx>
                    </span>
                    <span class="fmt-conn">の</span>
                    <span class="fmt-element-name">リスト</span>
-                   \\u2005
+                   \u2005
                    <semx element="autonum" source="L1">2</semx>
                    <span class="fmt-conn">の</span>
                    <semx element="autonum" source="P1">a</semx>

@@ -239,27 +239,32 @@ RSpec.describe IsoDoc do
     OUTPUT
     html = <<~OUTPUT
       #{HTML_HDR}
-                <div id="A">
-                   <h1>1.\\u00a0 Clause</h1>
-                   <p id="B">Text</p>
-                   <div id="C">
-                      <h2>
-                         1.1.\\u00a0 Subclause
-                         <br/>
-                         <br/>
-                         “A” ‘B’
-                      </h2>
-                      <p style="display:none;" class="variant-title-toc">
-                         Clause
-                         <i>A</i>
-                         <span class="stem">
-                            <math xmlns="http://www.w3.org/1998/Math/MathML">
-                               <mi>x</mi>
-                            </math>
-                         </span>
-                      </p>
-                      <p id="F">Text</p>
-                   </div>
+              <div id='_'>
+                <h1>
+                  <b>Annex A</b>
+                  <br/>
+                   (normative).\u00a0 Clause
+                </h1>
+                <p id='_'>Text</p>
+                <div id='_'>
+                  <h1>
+                    <b>Annex A</b>
+                    <br/>
+                     (normative).\u00a0 Subclause
+                    <br/>
+                    <br/>
+                    &#8220;A&#8221; &#8216;B&#8217;
+                  </h1>
+                  <p style='display:none;' class='variant-title-toc'>
+                     Clause
+                    <i>A</i>
+                    <span class='stem'>
+                      <math xmlns='http://www.w3.org/1998/Math/MathML'>
+                        <mi>x</mi>
+                      </math>
+                    </span>
+                  </p>
+                  <p id='_'>Text</p>
                 </div>
                 <br/>
                 <div id="G" class="Section3">
@@ -288,23 +293,40 @@ RSpec.describe IsoDoc do
     OUTPUT
     doc = <<~OUTPUT
        #{WORD_HDR}
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
       </div>
       <p class="section-break">
          <br clear="all" class="section"/>
       </p>
       <div class="WordSection3">
-                <div id="A">
+               <div id='_'>
+                 <h1>
+                   <b>Annex A</b>
+                   <br/>
+                    (normative).
+                   <span style='mso-tab-count:1'>\u00a0 </span>
+                    Clause
+                 </h1>
+                 <p id='_'>Text</p>
+                 <div id='_'>
                    <h1>
-                      1.
-                      <span style="mso-tab-count:1">\\u00a0 </span>
+                     <b>Annex A</b>
+                     <br/>
+                      (normative).
+                     <span style='mso-tab-count:1'>\u00a0 </span>
+                      Subclause
+                     <br/>
+                     <br/>
+                     &#8220;A&#8221; &#8216;B&#8217;
+                   </h1>
+                   <p style='display:none;' class='variant-title-toc'>
                       Clause
                    </h1>
                    <p id="B">Text</p>
                    <div id="C">
                       <h2>
                          1.1.
-                         <span style="mso-tab-count:1">\\u00a0 </span>
+                         <span style="mso-tab-count:1">\u00a0 </span>
                          Subclause
                          <br/>
                          <br/>
@@ -1483,13 +1505,13 @@ RSpec.describe IsoDoc do
           <semx element="xref" source="_">
              <fmt-xref target="ref1">
                 <span class="fmt-element-name">箇条</span>
-                \\u2005
+                \u2005
                 <semx element="autonum" source="ref1">1</semx>
              </fmt-xref>
              <span class="fmt-conn">～</span>
              <fmt-xref target="ref2">
                 <span class="fmt-element-name">箇条</span>
-                \\u2005
+                \u2005
                 <semx element="autonum" source="ref2">2</semx>
              </fmt-xref>
           </semx>
@@ -1512,14 +1534,14 @@ RSpec.describe IsoDoc do
           <semx element="xref" source="_">
              <fmt-xref target="ref1">
                 <span class="fmt-element-name">箇条</span>
-                \\u2005
+                \u2005
                 <semx element="autonum" source="ref1">1</semx>
              </fmt-xref>
-             \\u2005
+             \u2005
              <span class="fmt-conn">及び</span>
              <fmt-xref target="ref2">
                 <span class="fmt-element-name">箇条</span>
-                \\u2005
+                \u2005
                 <semx element="autonum" source="ref2">2</semx>
              </fmt-xref>
           </semx>
@@ -1531,19 +1553,19 @@ RSpec.describe IsoDoc do
           <semx element="xref" source="_">
              <fmt-xref target="ref1">
                 <span class="fmt-element-name">箇条</span>
-                \\u2005
+                \u2005
                 <semx element="autonum" source="ref1">1</semx>
              </fmt-xref>
              <span class="fmt-enum-comma">、</span>
              <fmt-xref target="ref2">
                 <span class="fmt-element-name">箇条</span>
-                \\u2005
+                \u2005
                 <semx element="autonum" source="ref2">2</semx>
              </fmt-xref>
              <span class="fmt-enum-comma">、</span>
              <fmt-xref target="ref3">
                 <span class="fmt-element-name">箇条</span>
-                \\u2005
+                \u2005
                 <semx element="autonum" source="ref3">3</semx>
              </fmt-xref>
           </semx>
@@ -1566,14 +1588,14 @@ RSpec.describe IsoDoc do
           <semx element="xref" source="_">
              <fmt-xref target="ref1">
                 <span class="fmt-element-name">箇条</span>
-                \\u2005
+                \u2005
                 <semx element="autonum" source="ref1">1</semx>
              </fmt-xref>
-             \\u2005
+             \u2005
              <span class="fmt-conn">または</span>
              <fmt-xref target="ref2">
                 <span class="fmt-element-name">箇条</span>
-                \\u2005
+                \u2005
                 <semx element="autonum" source="ref2">2</semx>
              </fmt-xref>
           </semx>
@@ -1585,20 +1607,20 @@ RSpec.describe IsoDoc do
           <semx element="xref" source="_">
              <fmt-xref target="ref1">
                 <span class="fmt-element-name">箇条</span>
-                \\u2005
+                \u2005
                 <semx element="autonum" source="ref1">1</semx>
              </fmt-xref>
              <span class="fmt-enum-comma">、</span>
              <fmt-xref target="ref2">
                 <span class="fmt-element-name">箇条</span>
-                \\u2005
+                \u2005
                 <semx element="autonum" source="ref2">2</semx>
              </fmt-xref>
              <span class="fmt-enum-comma">、</span>
              <span class="fmt-conn">または</span>
              <fmt-xref target="ref3">
                 <span class="fmt-element-name">箇条</span>
-                \\u2005
+                \u2005
                 <semx element="autonum" source="ref3">3</semx>
              </fmt-xref>
           </semx>
@@ -1611,26 +1633,26 @@ RSpec.describe IsoDoc do
           <semx element="xref" source="_">
              <fmt-xref target="ref1">
                 <span class="fmt-element-name">箇条</span>
-                \\u2005
+                \u2005
                 <semx element="autonum" source="ref1">1</semx>
              </fmt-xref>
              <span class="fmt-conn">～</span>
              <fmt-xref target="ref2">
                 <span class="fmt-element-name">箇条</span>
-                \\u2005
+                \u2005
                 <semx element="autonum" source="ref2">2</semx>
              </fmt-xref>
-             \\u2005
+             \u2005
              <span class="fmt-conn">及び</span>
              <fmt-xref target="ref3">
                 <span class="fmt-element-name">箇条</span>
-                \\u2005
+                \u2005
                 <semx element="autonum" source="ref3">3</semx>
              </fmt-xref>
              <span class="fmt-conn">～</span>
              <fmt-xref target="ref4">
                 <span class="fmt-element-name">箇条</span>
-                \\u2005
+                \u2005
                 <semx element="autonum" source="ref4">4</semx>
              </fmt-xref>
           </semx>
@@ -1642,7 +1664,7 @@ RSpec.describe IsoDoc do
              <fmt-xref target="item_6-4-a">
                 <span class="fmt-xref-container">
                    <span class="fmt-element-name">箇条</span>
-                   \\u2005
+                   \u2005
                    <semx element="autonum" source="id1">5</semx>
                 </span>
                 <span class="fmt-conn">の</span>
@@ -1656,7 +1678,7 @@ RSpec.describe IsoDoc do
              <fmt-xref target="item_6-4-i">
                 <span class="fmt-xref-container">
                    <span class="fmt-element-name">箇条</span>
-                   \\u2005
+                   \u2005
                    <semx element="autonum" source="id1">5</semx>
                 </span>
                 <span class="fmt-conn">の</span>
@@ -1729,7 +1751,7 @@ RSpec.describe IsoDoc do
                   <span class="fmt-element-name">Figure</span>
                   <semx element="autonum" source="B1">1</semx>
                </span>
-               <span class="fmt-caption-delim">\\u00a0— </span>
+               <span class="fmt-caption-delim">\u00a0— </span>
                <semx element="name" source="_">First</semx>
             </fmt-name>
             <fmt-xref-label>
@@ -1764,7 +1786,7 @@ RSpec.describe IsoDoc do
                      <span class="fmt-element-name">Figure</span>
                      <semx element="autonum" source="B2">2</semx>
                   </span>
-                  <span class="fmt-caption-delim">\\u00a0— </span>
+                  <span class="fmt-caption-delim">\u00a0— </span>
                   <semx element="name" source="_">Second</semx>
                </fmt-name>
                <fmt-xref-label>
@@ -1807,7 +1829,7 @@ RSpec.describe IsoDoc do
                   <span class="fmt-element-name">Figure</span>
                   <semx element="autonum" source="B3">3</semx>
                </span>
-               <span class="fmt-caption-delim">\\u00a0— </span>
+               <span class="fmt-caption-delim">\u00a0— </span>
                <semx element="name" source="_">Third</semx>
             </fmt-name>
             <fmt-xref-label>
@@ -1873,7 +1895,7 @@ RSpec.describe IsoDoc do
                <p id="_">
                   <eref type="inline" bibitemid="_607373b1-0cc4-fcdb-c482-fd86ae572bd1" citeas="ISO 639-2" id="_"/>
                   <semx element="eref" source="_">
-                     <fmt-eref type="inline" bibitemid="_607373b1-0cc4-fcdb-c482-fd86ae572bd1" citeas="ISO 639-2">ISO\\u00a0639-2</fmt-eref>
+                     <fmt-eref type="inline" bibitemid="_607373b1-0cc4-fcdb-c482-fd86ae572bd1" citeas="ISO 639-2">ISO\u00a0639-2</fmt-eref>
                   </semx>
                </p>
             </clause>

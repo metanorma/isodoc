@@ -98,7 +98,7 @@ RSpec.describe IsoDoc do
            <p class="MsoNormal">
           <a name="A" id="A"/>
           <span>
-             <tt>http://www.⁠example.⁠com\\u00a0A‑B</tt>
+             <tt>http://www.⁠example.⁠com\u00a0A‑B</tt>
           </span>
        </p>
     OUTPUT
@@ -341,7 +341,7 @@ RSpec.describe IsoDoc do
                       <em>term</em>
                       <semx element="eref" source="_">
                          (
-                         <fmt-xref type="inline" target="ISO712">ISO\\u00a0712</fmt-xref>
+                         <fmt-xref type="inline" target="ISO712">ISO\u00a0712</fmt-xref>
                          )
                       </semx>
                    </semx>
@@ -388,7 +388,7 @@ RSpec.describe IsoDoc do
                       <em>word</em>
                       <semx element="eref" source="_">
                          (
-                         <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Clause 3.1, Figure a</fmt-xref>
+                         <fmt-xref type="inline" target="ISO712">ISO\u00a0712, Clause 3.1, Figure a</fmt-xref>
                          )
                       </semx>
                    </semx>
@@ -420,7 +420,7 @@ RSpec.describe IsoDoc do
                       <semx element="eref" source="_">
                          (
                          <fmt-xref type="inline" target="ISO712">
-                            ISO\\u00a0712, Clause 3.1
+                            ISO\u00a0712, Clause 3.1
                             <span class="fmt-conn">and</span>
                             Figure b
                          </fmt-xref>
@@ -541,7 +541,7 @@ RSpec.describe IsoDoc do
                 <li id="_">
                    <i>term</i>
                    (
-                   <a href="#ISO712">ISO\\u00a0712</a>
+                   <a href="#ISO712">ISO\u00a0712</a>
                    )
                 </li>
                 <li id="_">
@@ -553,13 +553,13 @@ RSpec.describe IsoDoc do
                 <li id="_">
                    <i>word</i>
                    (
-                   <a href="#ISO712">ISO\\u00a0712, Clause 3.1, Figure a</a>
+                   <a href="#ISO712">ISO\u00a0712, Clause 3.1, Figure a</a>
                    )
                 </li>
                 <li id="_">
                    <i>word</i>
                    (
-                   <a href="#ISO712">ISO\\u00a0712, Clause 3.1 and Figure b</a>
+                   <a href="#ISO712">ISO\u00a0712, Clause 3.1 and Figure b</a>
                    )
                 </li>
                 <li id="_">
@@ -664,27 +664,33 @@ RSpec.describe IsoDoc do
       <head/>
       <body lang="en">
         <div class="title-section">
-        <p>\\u00a0</p>
+        <p>\u00a0</p>
         </div>
         <br/>
         <div class="prefatory-section">
-        <p>\\u00a0</p>
+        <p>\u00a0</p>
         </div>
         <br/>
         <div class="main-section">
-        <br/>
-        <div id="_">
-        <h1 class="ForewordTitle">Foreword</h1>
-        <p>
-        <i><b>&lt;</b></i> <tt><a href="B">B</a></tt> <a href="#_http_1_1">Requirement <tt>/req/core/http</tt></a> Requirement <tt>/req/core/http</tt>
-        </p>
-        </div>
-        <div class="TOC" id="_">
-        <h1 class="IntroTitle">Table of contents</h1>
-        </div>
-        <br/>
-        </div>
-        </div>
+          <br/>
+          <div id="_">
+          <h1 class="ForewordTitle">Foreword</h1>
+          <p>
+            <i>
+                <b>&lt;</b>
+            </i>
+            <tt>
+                <a href="B">B</a>
+            </tt>
+            <a href="#_http_1_1">Requirement <tt>/req/core/http</tt>
+            </a> Requirement <tt>/req/core/http</tt>
+          </p>
+          </div>
+          <br/>
+          <div id="_" class="TOC">
+          <h1 class="IntroTitle">Table of contents</h1>
+          </div>
+      </div>
       </body>
       </html>
     OUTPUT

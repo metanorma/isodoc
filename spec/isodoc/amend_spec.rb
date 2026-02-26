@@ -198,7 +198,7 @@ RSpec.describe IsoDoc do
                               <span class="fmt-element-name">Table</span>
                               <semx element="autonum" source="E">2</semx>
                            </span>
-                           <span class="fmt-caption-delim">\\u00a0— </span>
+                           <span class="fmt-caption-delim">\u00a0— </span>
                            <semx element="name" source="_">Edges of triangle and quadrilateral cells</semx>
                         </fmt-name>
                         <fmt-xref-label>
@@ -278,7 +278,7 @@ RSpec.describe IsoDoc do
     OUTPUT
     html = <<~OUTPUT
       <div id="A">
-         <h1>1.\\u00a0 Change Clause</h1>
+         <h1>1.\u00a0 Change Clause</h1>
          <p id="C">
             <i>
                        This table contains information on polygon cells which are not
@@ -287,7 +287,7 @@ RSpec.describe IsoDoc do
                      </i>
          </p>
          <div class="Quote" id="D">
-            <p class="TableTitle" style="text-align:center;">Table 2\\u00a0— Edges of triangle and quadrilateral cells</p>
+            <p class="TableTitle" style="text-align:center;">Table 2\u00a0— Edges of triangle and quadrilateral cells</p>
             <table id="E" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
                <tbody>
                   <tr>
@@ -678,7 +678,7 @@ RSpec.describe IsoDoc do
     INPUT
     html = <<~OUTPUT
          <div id="A">
-         <h1>1.\\u00a0 Change Clause</h1>
+         <h1>1.\u00a0 Change Clause</h1>
          <p id="_">Add the following terminological entries after 3.1.2.13:</p>
          <div class="Quote">
             <div id="F" class="example">
@@ -702,7 +702,7 @@ RSpec.describe IsoDoc do
                </div>
                <div id="_" class="Note">
                   <p>
-                     <span class="note_label">NOTE 1\\u00a0 </span>
+                     <span class="note_label">NOTE 1\u00a0 </span>
                      A
                   </p>
                </div>

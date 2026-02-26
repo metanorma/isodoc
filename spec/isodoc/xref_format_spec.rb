@@ -92,7 +92,7 @@ RSpec.describe IsoDoc do
               <p>
       <a href="a.doc#b">a#b</a>
       </p>
-            </div><p>\\u00a0</p></div>
+            </div><p>\u00a0</p></div>
     OUTPUT
     expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)

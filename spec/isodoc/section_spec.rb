@@ -26,11 +26,11 @@ RSpec.describe IsoDoc do
         <head/>
         <body lang='en'>
           <div class='title-section'>
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <br/>
           <div class='prefatory-section'>
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <br/>
           <div class='main-section'>
@@ -50,7 +50,7 @@ RSpec.describe IsoDoc do
               </div>
               <div id='O'>
                 <span class='zzMoveToFollowing inline-header'>
-                  <b>Clause 4.2\\u00a0 </b>
+                  <b>Clause 4.2\u00a0 </b>
                 </span>
               </div>
             </div>
@@ -74,7 +74,7 @@ RSpec.describe IsoDoc do
         </head>
         <body lang='EN-US' link='blue' vlink='#954F72'>
           <div class='WordSection1'>
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <p class="section-break">
             <br clear='all' class='section'/>
@@ -93,7 +93,7 @@ RSpec.describe IsoDoc do
               <h1 class='IntroTitle'>introduction</h1>
             </div>
             <div id="C" class="Note">note</div>
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <p class="section-break">
             <br clear='all' class='section'/>
@@ -111,7 +111,7 @@ RSpec.describe IsoDoc do
                 <span class='zzMoveToFollowing inline-header'>
                   <b>
                     Clause 4.2
-                    <span style='mso-tab-count:1'>\\u00a0 </span>
+                    <span style='mso-tab-count:1'>\u00a0 </span>
                   </b>
                 </span>
               </div>
@@ -144,11 +144,11 @@ RSpec.describe IsoDoc do
          <head/>
          <body lang="en">
            <div class="title-section">
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <br/>
            <div class="prefatory-section">
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <br/>
            <div class="main-section">
@@ -668,11 +668,11 @@ RSpec.describe IsoDoc do
          <head/>
          <body lang="en">
            <div class="title-section">
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <br/>
            <div class="prefatory-section">
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <br/>
            <div class="main-section">
@@ -972,11 +972,11 @@ RSpec.describe IsoDoc do
          <head/>
          <body lang="en">
             <div class="title-section">
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
             </div>
             <br/>
             <div class="prefatory-section">
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
             </div>
             <br/>
             <div class="main-section">

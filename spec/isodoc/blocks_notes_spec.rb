@@ -63,7 +63,7 @@ RSpec.describe IsoDoc do
         <h1 class="ForewordTitle">Foreword</h1>
                        <div id='A' class='Note' style='page-break-after: avoid;page-break-inside: avoid;'>
                  <p>
-                   <span class='note_label'>NOTE 1\\u00a0 </span>
+                   <span class='note_label'>NOTE 1\u00a0 </span>
                    These results are based on a study carried out on three
                    different types of kernel.
                  </p>
@@ -89,7 +89,7 @@ RSpec.describe IsoDoc do
                              <div id='A' class='Note' style='page-break-after: avoid;page-break-inside: avoid;'>
                  <p class='Note'>
                    <span class='note_label'>NOTE 1
-                   <span style='mso-tab-count:1'>\\u00a0 </span></span>
+                   <span style='mso-tab-count:1'>\u00a0 </span></span>
                     These results are based on a study carried out on three different
                    types of kernel.
                  </p>
@@ -101,7 +101,7 @@ RSpec.describe IsoDoc do
                  </p>
                </div>
             </div>
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <p class="section-break"><br clear="all" class="section"/></p>
           <div class="WordSection3">
@@ -205,10 +205,10 @@ RSpec.describe IsoDoc do
                    <div id="fwd">
                      <h1 class="ForewordTitle">Foreword</h1>
                      <div id="note1" class="Note">
-                       <p><span class="note_label">NOTE  1\\u00a0 </span>These results are based on a study carried out on three different types of kernel.</p>
+                       <p><span class="note_label">NOTE  1\u00a0 </span>These results are based on a study carried out on three different types of kernel.</p>
                      </div>
                      <div id="note2" class="Note">
-                       <p><span class="note_label">NOTE  2\\u00a0 </span>These results are based on a study carried out on three different types of kernel.</p>
+                       <p><span class="note_label">NOTE  2\u00a0 </span>These results are based on a study carried out on three different types of kernel.</p>
                      </div>
                    </div>
                  </div>
@@ -247,7 +247,7 @@ RSpec.describe IsoDoc do
                 <div id="fwd">
                   <h1 class="ForewordTitle">Foreword</h1>
                   <div class="Note">
-                    <p><span class="note_label">NOTE\\u00a0 </span>These results are based on a study carried out on three different types of kernel.</p>
+                    <p><span class="note_label">NOTE\u00a0 </span>These results are based on a study carried out on three different types of kernel.</p>
                     <p id="_">These results are based on a study carried out on three different types of kernel.</p>
                   </div>
                 </div>
@@ -282,13 +282,13 @@ RSpec.describe IsoDoc do
                 <br/>
                 <div id="fwd">
                   <h1 class="ForewordTitle">Foreword</h1>
-                  <div id="A" class="Note"><p><span class="note_label">NOTE\\u00a0 </span></p>
+                  <div id="A" class="Note"><p><span class="note_label">NOTE\u00a0 </span></p>
                    <div class="figdl">
             <dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
             </div>
             <div class="ul_wrap">
             <ul>
-            <li>C</li></ul>
+            <li id="_">C</li></ul>
             </div>
         </div>
                 </div>
@@ -306,7 +306,7 @@ RSpec.describe IsoDoc do
                       <p class="Note">
                          <span class="note_label">
                             NOTE
-                            <span style="mso-tab-count:1">\\u00a0 </span>
+                            <span style="mso-tab-count:1">\u00a0 </span>
                          </span>
                       </p>
                       <div align="left">
@@ -328,7 +328,7 @@ RSpec.describe IsoDoc do
                       </div>
                    </div>
                 </div>
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
@@ -405,13 +405,13 @@ RSpec.describe IsoDoc do
                <p id="A">ABC
          </p>
                <div id="B" class="Note">
-                 <p class="Note"><span class="note_label">NOTE 1<span style="mso-tab-count:1">\\u00a0 </span></span>XYZ</p>
+                 <p class="Note"><span class="note_label">NOTE 1<span style="mso-tab-count:1">\u00a0 </span></span>XYZ</p>
                </div>
                <div id="B1" class="Note">
-                 <p class="Note"><span class="note_label">NOTE 2<span style="mso-tab-count:1">\\u00a0 </span></span>XYZ1</p>
+                 <p class="Note"><span class="note_label">NOTE 2<span style="mso-tab-count:1">\u00a0 </span></span>XYZ1</p>
                </div>
              </div>
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <p class="section-break">
              <br clear="all" class="section"/>
@@ -503,7 +503,7 @@ RSpec.describe IsoDoc do
                  <p>XYZ</p>
                </div>
             </div>
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <p class="section-break">
             <br clear='all' class='section'/>
@@ -777,7 +777,7 @@ RSpec.describe IsoDoc do
                    <div id="_" class="Admonition" style="page-break-after: avoid;page-break-inside: avoid;">
                       <div class="Note">
                          <p>
-                            <span class="note_label">NOTE\\u00a0 </span>
+                            <span class="note_label">NOTE\u00a0 </span>
                             Paragraph 3.
                          </p>
                       </div>
@@ -938,7 +938,7 @@ RSpec.describe IsoDoc do
                           <span class="fmt-element-name">Box</span>
                           <semx element="autonum" source="_">1</semx>
                        </span>
-                       <span class="fmt-caption-delim">\\u00a0— </span>
+                       <span class="fmt-caption-delim">\u00a0— </span>
                        <semx element="name" source="_">Title</semx>
                     </fmt-name>
                     <fmt-xref-label>
@@ -986,7 +986,7 @@ RSpec.describe IsoDoc do
              <div id="fwd">
                <h1 class="ForewordTitle">Foreword</h1>
                <div id="_" class="Admonition">
-                 <p class="AdmonitionTitle" style="text-align:center;">Box  1\\u00a0— Title</p>
+                 <p class="AdmonitionTitle" style="text-align:center;">Box  1\u00a0— Title</p>
                  <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
                </div>
                <div id="_" class="Admonition">

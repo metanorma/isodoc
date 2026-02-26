@@ -229,11 +229,11 @@ RSpec.describe IsoDoc do
          <head/>
          <body lang="en">
             <div class="title-section">
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
             </div>
             <br/>
             <div class="prefatory-section">
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
             </div>
             <br/>
             <div class="main-section">
@@ -491,14 +491,14 @@ RSpec.describe IsoDoc do
                               </mrow>
                            </mrow>
                            <mrow>
-                              <mn>1\\u202f000</mn>
+                              <mn>1\u202f000</mn>
                            </mrow>
                         </munderover>
                         <mfenced open="(" close=")">
                            <mtable>
                               <mtr>
                                  <mtd>
-                                    <mn>1\\u202f000</mn>
+                                    <mn>1\u202f000</mn>
                                  </mtd>
                               </mtr>
                               <mtr>

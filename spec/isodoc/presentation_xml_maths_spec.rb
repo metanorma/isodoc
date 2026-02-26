@@ -218,7 +218,7 @@ RSpec.describe IsoDoc do
                <h1>1.</h1>
                <div id="_">
                  <div class="formula">
-                    <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>x</mi><mo>=</mo><mo linebreak="newline"/><mi>y</mi></mstyle></math></span>\\u00a0 (1)</p>
+                    <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>x</mi><mo>=</mo><mo linebreak="newline"/><mi>y</mi></mstyle></math></span>\u00a0 (1)</p>
                  </div>
                </div>
              </div>
@@ -228,7 +228,7 @@ RSpec.describe IsoDoc do
     OUTPUT
     word = <<~OUTPUT
        #{WORD_HDR}
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
       </div>
       <p class="section-break">
          <br clear="all" class="section"/>
@@ -238,7 +238,7 @@ RSpec.describe IsoDoc do
                 <h1>1.</h1>
                 <div id="_">
                   <div class="formula">
-                  <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>x</mi><mo>=</mo><mo linebreak="newline"/><mi>y</mi></mstyle></math></span><span style="mso-tab-count:1">\\u00a0 </span>(1)</p>
+                  <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>x</mi><mo>=</mo><mo linebreak="newline"/><mi>y</mi></mstyle></math></span><span style="mso-tab-count:1">\u00a0 </span>(1)</p>
                   </div>
                 </div>
               </div>
