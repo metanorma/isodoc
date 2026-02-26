@@ -239,32 +239,27 @@ RSpec.describe IsoDoc do
     OUTPUT
     html = <<~OUTPUT
       #{HTML_HDR}
-              <div id='_'>
-                <h1>
-                  <b>Annex A</b>
-                  <br/>
-                   (normative).\u00a0 Clause
-                </h1>
-                <p id='_'>Text</p>
-                <div id='_'>
-                  <h1>
-                    <b>Annex A</b>
-                    <br/>
-                     (normative).\u00a0 Subclause
-                    <br/>
-                    <br/>
-                    &#8220;A&#8221; &#8216;B&#8217;
-                  </h1>
-                  <p style='display:none;' class='variant-title-toc'>
-                     Clause
-                    <i>A</i>
-                    <span class='stem'>
-                      <math xmlns='http://www.w3.org/1998/Math/MathML'>
-                        <mi>x</mi>
-                      </math>
-                    </span>
-                  </p>
-                  <p id='_'>Text</p>
+              <div id="A">
+                   <h1>1.\u00a0 Clause</h1>
+                   <p id="B">Text</p>
+                   <div id="C">
+                      <h2>
+                         1.1.\u00a0 Subclause
+                         <br/>
+                         <br/>
+                         “A” ‘B’
+                      </h2>
+                      <p style="display:none;" class="variant-title-toc">
+                         Clause
+                         <i>A</i>
+                         <span class="stem">
+                            <math xmlns="http://www.w3.org/1998/Math/MathML">
+                               <mi>x</mi>
+                            </math>
+                         </span>
+                      </p>
+                      <p id="F">Text</p>
+                   </div>
                 </div>
                 <br/>
                 <div id="G" class="Section3">
