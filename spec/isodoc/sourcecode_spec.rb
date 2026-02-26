@@ -67,12 +67,7 @@ RSpec.describe IsoDoc do
                       Figure 1\\u00a0— Ruby
                       <i>code</i>
                    </p>
-                   <pre id="_" class="sourcecode">
-                      Hey
-                      <br/>
-                      Que?
-                      <br/>
-                   </pre>
+                   <pre id="_" class="sourcecode">Hey<br/>Que?<br/></pre>
                 </div>
              </div>
           </body>
