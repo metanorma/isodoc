@@ -26,8 +26,8 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(strip_guid(Canon.format_xml(word)))
-      .to be_equivalent_to Canon.format_xml(<<~OUTPUT)
+    expect(strip_guid(word))
+      .to be_xml_equivalent_to <<~OUTPUT
        <div class="WordSection2">
           <p class="MsoNormal">
              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -79,7 +79,7 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection1">/m, '<div class="WordSection1">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection2">.*$}m, "")
-    expect(strip_guid(Canon.format_xml(word))).to be_equivalent_to Canon.format_xml(<<~OUTPUT)
+    expect(strip_guid(word)).to be_xml_equivalent_to <<~OUTPUT
       <div class="WordSection1">
       /* an empty word cover page */
 
@@ -92,7 +92,7 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection1">/m, '<div class="WordSection1">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection2">.*$}m, "")
-    expect(Canon.format_xml(word)).to be_equivalent_to Canon.format_xml(<<~OUTPUT)
+    expect(word).to be_xml_equivalent_to <<~OUTPUT
     OUTPUT
   end
 
@@ -114,7 +114,7 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(%r{^.*Content-ID: <header.html>}m, "Content-ID: <header.html>")
       .sub(/------=_NextPart.*$/m, "")
-    expect(word).to be_equivalent_to <<~OUTPUT
+    expect(word).to be_xml_equivalent_to <<~OUTPUT
       Content-ID: <header.html>
       Content-Disposition: inline; filename="header.html"
       Content-Transfer-Encoding: base64
@@ -157,9 +157,9 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(strip_guid(Canon.format_xml(word.gsub(/_Toc\d\d+/, "_Toc")
-      .gsub(/<o:p>\\u00a0<\/o:p>/, ""))))
-      .to be_equivalent_to Canon.format_xml(<<~"OUTPUT")
+    expect(strip_guid(word.gsub(/_Toc\d\d+/, "_Toc")
+      .gsub(/<o:p>\u00a0<\/o:p>/, "")))
+      .to be_xml_equivalent_to <<~OUTPUT
           <div class="WordSection2">
         /* an empty word intro page */
 
@@ -244,9 +244,9 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(strip_guid(Canon.format_xml(word).gsub(/_Toc\d\d+/, "_Toc")
-      .gsub(/<o:p>\\u00a0<\/o:p>/, "")))
-      .to be_equivalent_to Canon.format_xml(<<~"OUTPUT")
+    expect(strip_guid(word.gsub(/_Toc\d\d+/, "_Toc")
+      .gsub(/<o:p>\u00a0<\/o:p>/, "")))
+      .to be_xml_equivalent_to <<~OUTPUT
            <div class="WordSection2">
          /* an empty word intro page */
         <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div class="TOC">
@@ -310,9 +310,9 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(strip_guid(Canon.format_xml(word.gsub(/_Toc\d\d+/, "_Toc")
-                .gsub(/<o:p>\\u00a0<\/o:p>/, ""))))
-      .to be_equivalent_to Canon.format_xml(<<~"OUTPUT")
+    expect(strip_guid(word.gsub(/_Toc\d\d+/, "_Toc")
+                .gsub(/<o:p>\u00a0<\/o:p>/, "")))
+      .to be_xml_equivalent_to <<~OUTPUT
                    <div class="WordSection2">
                /* an empty word intro page */
 
@@ -430,9 +430,9 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(strip_guid(Canon.format_xml(word.gsub(/_Toc\d\d+/, "_Toc"))
-               .gsub(/<o:p>\\u00a0<\/o:p>/, "")))
-      .to be_equivalent_to Canon.format_xml(<<~"OUTPUT")
+    expect(strip_guid(word.gsub(/_Toc\d\d+/, "_Toc"))
+               .gsub(/<o:p>\u00a0<\/o:p>/, ""))
+      .to be_xml_equivalent_to <<~OUTPUT
         <div class="WordSection2">
          /* an empty word intro page */
 
@@ -477,9 +477,9 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(strip_guid(Canon.format_xml(word.gsub(/_Toc\d\d+/, "_Toc"))
-                .gsub(/<o:p>\\u00a0<\/o:p>/, "")))
-      .to be_equivalent_to Canon.format_xml(<<~"OUTPUT")
+    expect(strip_guid(word.gsub(/_Toc\d\d+/, "_Toc")
+                .gsub(/<o:p>\u00a0<\/o:p>/, "")))
+      .to be_xml_equivalent_to <<~OUTPUT
         <div class="WordSection2">
         /* an empty word intro page */
 
@@ -609,8 +609,8 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="https://m">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(strip_guid(Canon.format_xml(word)))
-      .to be_equivalent_to Canon.format_xml(<<~OUTPUT)
+    expect(strip_guid(word))
+      .to be_xml_equivalent_to <<~OUTPUT
        <div xmlns:m="https://m" class="WordSection2">
           <p class="MsoNormal">
              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -705,8 +705,8 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(strip_guid(Canon.format_xml(word)))
-      .to be_equivalent_to Canon.format_xml(<<~OUTPUT)
+    expect(strip_guid(word))
+      .to be_xml_equivalent_to <<~OUTPUT
         <div class="WordSection2">
                      <p class="MsoNormal">
                        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -740,8 +740,8 @@ RSpec.describe IsoDoc do
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
       .sub(/src="[^"]+"/, 'src="_"')
-    expect(strip_guid(Canon.format_xml(word)))
-      .to be_equivalent_to Canon.format_xml(<<~OUTPUT)
+    expect(strip_guid(word))
+      .to be_xml_equivalent_to <<~OUTPUT
         <div class="WordSection2">
                  <p class="MsoNormal">
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -780,8 +780,8 @@ RSpec.describe IsoDoc do
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="https://m">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
       .sub(/src="[^"]+"/, 'src="_"')
-    expect(strip_guid(Canon.format_xml(word)))
-      .to be_equivalent_to Canon.format_xml(<<~OUTPUT)
+    expect(strip_guid(word))
+      .to be_xml_equivalent_to <<~OUTPUT
         <div xmlns:m="https://m" class="WordSection2">
            <p class="MsoNormal">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -852,8 +852,8 @@ RSpec.describe IsoDoc do
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="https://m">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
       .sub(/src="[^"]+"/, 'src="_"')
-    expect(strip_guid(Canon.format_xml(word)))
-      .to be_equivalent_to Canon.format_xml(<<~OUTPUT)
+    expect(strip_guid(word))
+      .to be_xml_equivalent_to <<~OUTPUT
         <div xmlns:m="https://m" class="WordSection2">
            <p class="MsoNormal">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -1074,8 +1074,8 @@ RSpec.describe IsoDoc do
          <div style="mso-element:footnote-list"/>
       </body>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(html.sub(/^.*<body /m, "<body ")
-      .sub(%r{</body>.*$}m, "</body>")))).to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(html.sub(/^.*<body /m, "<body ")
+      .sub(%r{</body>.*$}m, "</body>"))).to be_xml_equivalent_to output
   end
 
   it "expands out nested tables in Word" do
@@ -1197,12 +1197,12 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(Canon.format_xml(IsoDoc::WordConvert
+    expect(IsoDoc::WordConvert
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
-      .word_cleanup(Nokogiri::XML(input)).to_xml)
+      .word_cleanup(Nokogiri::XML(input)).to_xml
       .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
-      .to be_equivalent_to Canon.format_xml(output)
+      .to be_xml_equivalent_to output
   end
 
   it "allocate widths to tables (Word)" do
@@ -1462,12 +1462,12 @@ RSpec.describe IsoDoc do
                </body>
              </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert
+    expect(strip_guid(IsoDoc::WordConvert
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
-      .word_cleanup(Nokogiri::XML(input)).to_xml))
+      .word_cleanup(Nokogiri::XML(input)).to_xml)
       .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
-      .to be_equivalent_to Canon.format_xml(output)
+      .to be_xml_equivalent_to output
   end
 
   it "preserves Word CSS classes starting with digit" do
@@ -1630,7 +1630,7 @@ RSpec.describe IsoDoc do
       .sub(/^.*<body/m, "<body")
       .sub(%r{</body>.*$}m, "</body>"))
     word = word.at("//div[a/@name = 'A']")
-    expect(strip_guid(Canon.format_xml(word.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(word.to_xml))
+      .to be_xml_equivalent_to output
   end
 end

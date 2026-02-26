@@ -185,17 +185,17 @@ RSpec.describe IsoDoc do
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output
-      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(pres_output
+      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
     xml = Nokogiri::XML(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
     xml = xml.at("//div[@id = 'fwd']")
-    expect(strip_guid(Canon.format_xml(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(xml.to_xml))
+      .to be_html4_equivalent_to word
   end
 
   it "processes unordered checklists" do
@@ -270,12 +270,12 @@ RSpec.describe IsoDoc do
                 </body>
               </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", input, true)))
+      .to be_html4_equivalent_to word
   end
 
   it "processes ordered lists" do
@@ -496,15 +496,15 @@ RSpec.describe IsoDoc do
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output
-      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(pres_output
+      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html4_equivalent_to word
   end
 
    it "processes mixed ordered and unordered lists" do
@@ -595,9 +595,9 @@ RSpec.describe IsoDoc do
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output
-      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(pres_output
+      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")))
+      .to be_xml_equivalent_to presxml
    end
 
   it "processes Roman Upper ordered lists" do
@@ -644,9 +644,9 @@ RSpec.describe IsoDoc do
                </body>
            </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true)))
+      .to be_html5_equivalent_to output
   end
 
   it "processes definition lists" do
@@ -803,15 +803,15 @@ RSpec.describe IsoDoc do
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output
-      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(pres_output
+      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html4_equivalent_to word
   end
 
   it "processes nested definition lists (Word)" do
@@ -913,8 +913,8 @@ RSpec.describe IsoDoc do
           </body>
        </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", input, true)))
+      .to be_xml_equivalent_to output
   end
 end

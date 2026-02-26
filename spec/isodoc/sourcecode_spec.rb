@@ -105,14 +105,14 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(doc)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html4_equivalent_to doc
   end
 
   it "processes sourcecode with sourcecode highlighting" do
@@ -413,18 +413,18 @@ RSpec.describe IsoDoc do
       .new({ sourcehighlighter: true }
       .merge(presxml_options))
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output))
+    expect(strip_guid(pres_output)
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_xml_equivalent_to html
     FileUtils.rm_f("test.doc")
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
-    expect(strip_guid(Canon.format_xml(File.read("test.doc")
+    expect(strip_guid(File.read("test.doc")
       .gsub(%r{^.*<body }m, "<body ")
-      .gsub(%r{</body>.*}m, "</body>"))))
-      .to be_equivalent_to Canon.format_xml(doc)
+      .gsub(%r{</body>.*}m, "</body>")))
+      .to be_xml_equivalent_to doc
   end
 
   it "combines sourcecode highlighting stylesheet with user-css" do
@@ -500,8 +500,8 @@ RSpec.describe IsoDoc do
       .merge(presxml_options))
       .convert("test", input, true))
       .at("//xmlns:metanorma-extension")
-    expect(strip_guid(Canon.format_xml(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "processes sourcecode with escapes preserved, and XML sourcecode highlighting" do
@@ -589,13 +589,13 @@ RSpec.describe IsoDoc do
       .new({ sourcehighlighter: true }
       .merge(presxml_options))
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output))
+    expect(strip_guid(pres_output)
      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to output
   end
 
   it "processes sourcecode with annotations" do
@@ -828,16 +828,16 @@ RSpec.describe IsoDoc do
       .new({ sourcehighlighter: true }
       .merge(presxml_options))
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output))
+    expect(strip_guid(pres_output)
      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(doc)
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_xml_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html4_equivalent_to doc
   end
 
   it "processes sourcecode with annotations and line numbering" do
@@ -1192,16 +1192,16 @@ RSpec.describe IsoDoc do
       .new({ sourcehighlighter: true }
       .merge(presxml_options))
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output))
+    expect(strip_guid(pres_output)
      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(doc)
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html4_equivalent_to doc
   end
 
   it "processes sourcecode with xml formatting" do
@@ -1365,13 +1365,13 @@ RSpec.describe IsoDoc do
           </preface>
        </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new({ sourcehighlighter: true }
       .merge(presxml_options))
-      .convert("test", input, true)))
+      .convert("test", input, true))
       .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .to be_xml_equivalent_to presxml
   end
 
   it "processes pseudocode" do
@@ -1461,20 +1461,20 @@ RSpec.describe IsoDoc do
           </html>
     OUTPUT
 
-    FileUtils.rm_f "test.doc"
+   #  FileUtils.rm_f "test.doc"
     pres_output = IsoDoc::PresentationXMLConvert
       .new({ sourcehighlighter: true }
       .merge(presxml_options))
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output))
+    expect(strip_guid(pres_output)
       .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
-    expect(strip_guid(Canon.format_xml(File.read("test.doc")
+    expect(strip_guid(File.read("test.doc")
       .gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "")
       .gsub(%r{</div>.*}m, "</div>"))))
       .to be_equivalent_to Canon.format_xml(<<~"OUTPUT")

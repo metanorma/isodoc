@@ -605,12 +605,12 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input.sub("LANGUAGE", "en").sub("SCRIPT", "Latn"), true)
-    expect(strip_guid(Canon.format_xml(pres_output
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(pres_output)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
   end
 
   it "defaults to English" do
@@ -671,11 +671,11 @@ RSpec.describe IsoDoc do
           </preface>
        </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(output)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_xml_equivalent_to output
   end
 
   it "processes French" do
@@ -1195,12 +1195,12 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input.sub("LANGUAGE", "fr").sub("SCRIPT", "Latn"), true)
-    expect(strip_guid(Canon.format_xml(pres_output
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(pres_output)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
   end
 
   it "processes Simplified Chinese" do
@@ -1723,12 +1723,12 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input.sub("LANGUAGE", "zh").sub("SCRIPT", "Hans"), true)
-    expect(strip_guid(Canon.format_xml(pres_output
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(pres_output)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
   end
 
   it "processes i18n file" do
@@ -2292,13 +2292,13 @@ RSpec.describe IsoDoc do
       .new(presxml_options
       .merge({ i18nyaml: "spec/assets/i18n.yaml" }))
       .convert("test", input.sub("LANGUAGE", "eo").sub("SCRIPT", "Latn"), true)
-    expect(strip_guid(Canon.format_xml(pres_output
-    .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert
+    expect(strip_guid(pres_output
+    .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert
       .new({ i18nyaml: "spec/assets/i18n.yaml" })
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+      .convert("test", pres_output, true)))
+      .to be_xml_equivalent_to html
   end
 
   it "internationalises doctype and stage" do
@@ -2341,9 +2341,9 @@ RSpec.describe IsoDoc do
       .new(presxml_options
         .merge({ i18nyaml: "spec/assets/i18n.yaml" }))
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output
-    .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(pres_output
+    .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_xml_equivalent_to presxml
 
     ext = <<~EXT
          <metanorma-extension>
@@ -2382,9 +2382,9 @@ RSpec.describe IsoDoc do
       .new(presxml_options
         .merge({ i18nyaml: "spec/assets/i18n.yaml" }))
       .convert("test", input.sub("</bibdata>", "</bibdata>#{ext}"), true)
-    expect(strip_guid(Canon.format_xml(pres_output
-    .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(pres_output
+    .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_xml_equivalent_to presxml
   end
 
   it "internationalises locality" do
@@ -2436,12 +2436,12 @@ RSpec.describe IsoDoc do
          </semx>
       </p>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new({ i18nyaml: "spec/assets/i18n.yaml" }
       .merge(presxml_options))
       .convert("test", input, true))
-      .at("//xmlns:p[@id='A']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .at("//xmlns:p[@id='A']").to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "internationalises non-numeric edition" do
@@ -2467,9 +2467,9 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input.sub("LANGUAGE", "en").sub("SCRIPT", "Latn"), true)
-    expect(strip_guid(Canon.format_xml(pres_output
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(pres_output)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to presxml
     presxml = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <bibdata>
@@ -2483,9 +2483,9 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input.sub("LANGUAGE", "zh").sub("SCRIPT", "Hans"), true)
-    expect(strip_guid(Canon.format_xml(pres_output
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(pres_output)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to presxml
   end
 
   it "processes LTR within RTL" do
@@ -2644,10 +2644,10 @@ RSpec.describe IsoDoc do
           </preface>
        </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options).convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_xml_equivalent_to presxml
   end
 
   it "inserts localized-strings" do

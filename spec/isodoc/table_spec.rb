@@ -824,19 +824,19 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(output.to_xml))
+      .to be_xml_equivalent_to html
     output = Nokogiri::XML(IsoDoc::WordConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(output.to_xml)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))
+      .to be_xml_equivalent_to word
   end
 
   it "processes plain IsoXML tables" do
@@ -1461,19 +1461,19 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(output.to_xml))
+      .to be_xml_equivalent_to html
     output = Nokogiri::XML(IsoDoc::WordConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(output.to_xml)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))
+      .to be_xml_equivalent_to word
   end
 
   it "breaks down CSS border shorthand attributes" do
@@ -1518,8 +1518,8 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
   end
 
   it "passes on classes of tables from Presentation XML" do
@@ -1583,13 +1583,13 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
       .convert("test", presxml, true)
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
-      .to be_equivalent_to Canon.format_xml(word)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
+      .to be_html4_equivalent_to word
   end
 
   it "processes tables with big cells" do
@@ -1774,10 +1774,10 @@ RSpec.describe IsoDoc do
            </body>
          </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
+    expect(strip_guid(IsoDoc::WordConvert.new({})
       .convert("test", input, true))
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(output)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))
+      .to be_xml_equivalent_to output
   end
 
   it "processes tables with many rows" do
@@ -1885,10 +1885,10 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
+    expect(strip_guid(IsoDoc::WordConvert.new({})
         .convert("test", input, true))
-        .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(output)
+        .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))
+      .to be_xml_equivalent_to output
 
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -2004,10 +2004,10 @@ RSpec.describe IsoDoc do
       </html>
 
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
+    expect(strip_guid(IsoDoc::WordConvert.new({})
         .convert("test", input, true))
-        .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(output)
+        .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))
+      .to be_xml_equivalent_to output
   end
 
   it "processes tables with large rows" do
@@ -2117,10 +2117,10 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-           .convert("test", input, true))
-           .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", input, true))
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))
+      .to be_xml_equivalent_to output
 
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -2234,10 +2234,10 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-               .convert("test", input, true))
-               .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", input, true))
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))
+      .to be_xml_equivalent_to output
   end
 
   it "processes nested tables" do
@@ -2367,8 +2367,8 @@ RSpec.describe IsoDoc do
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(output.to_xml))
+      .to be_xml_equivalent_to html
     IsoDoc::WordConvert.new({})
       .convert("test", input, false)
     output = File.read("test.doc")
@@ -2376,8 +2376,8 @@ RSpec.describe IsoDoc do
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
     output = Nokogiri::XML(output)
     # output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)
+    expect(strip_guid(output.to_xml
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(word)
+      .to be_xml_equivalent_to word
   end
 end

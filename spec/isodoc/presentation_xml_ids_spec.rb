@@ -67,12 +67,12 @@ RSpec.describe IsoDoc do
           </sections>
        </iso-standard>
     OUTPUT
-    expect(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))
+      .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r("_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"), '"_"'))
-      .to be_equivalent_to Canon.format_xml(output)
+      .to be_xml_equivalent_to output
   end
 
   it "uses content GUIDs in Presentation XML" do
@@ -155,11 +155,11 @@ RSpec.describe IsoDoc do
          </preface>
       </standard-document>
     OUTPUT
-    expect(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to presxml
     presxml = <<~OUTPUT
       <standard-document xmlns="https://www.metanorma.org/ns/standoc" document_suffix="doc001" type="presentation">
          <bibdata/>
@@ -218,12 +218,12 @@ RSpec.describe IsoDoc do
          </preface>
       </standard-document>
     OUTPUT
-    expect(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input.sub("<standard-document ",
                                  "<standard-document document_suffix='doc001' "), true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to presxml
   end
 
   it "validates on duplicate identifiers" do
@@ -382,9 +382,9 @@ RSpec.describe IsoDoc do
       </indexsect>
           </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+      .convert("test", input, true)))
+      .to be_xml_equivalent_to output
   end
 end

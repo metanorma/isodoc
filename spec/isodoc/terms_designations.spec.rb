@@ -266,11 +266,11 @@ RSpec.describe IsoDoc do
          </term>
       </terms>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-       .convert("test", input, true))
-      .at("//xmlns:terms").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .convert("test", input, true))
+      .at("//xmlns:terms").to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "processes IsoXML term with grammatical information" do
@@ -392,11 +392,11 @@ RSpec.describe IsoDoc do
          </term>
       </terms>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-       .convert("test", input, true))
-      .at("//xmlns:terms").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .convert("test", input, true))
+      .at("//xmlns:terms").to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "processes IsoXML term with empty, mathematical, or graphical designations" do
@@ -572,11 +572,11 @@ RSpec.describe IsoDoc do
          </term>
       </terms>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-       .convert("test", input, true))
-      .at("//xmlns:terms").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .convert("test", input, true))
+      .at("//xmlns:terms").to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "processes related terms" do
@@ -877,11 +877,11 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
-      .at("//xmlns:terms").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(Nokogiri::XML(pres_output)
+      .at("//xmlns:terms").to_xml))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
   end
 end

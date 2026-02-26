@@ -1048,14 +1048,14 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html4_equivalent_to word
   end
 
   it "customises annex titles" do
@@ -1141,8 +1141,8 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
   end
 
   it "processes section subtitles" do
@@ -1808,12 +1808,12 @@ RSpec.describe IsoDoc do
     OUTPUT
     presxml = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", presxml, true))))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", presxml, true)))
+      .to be_html4_equivalent_to word
   end
 
   it "processes section names suppressing section numbering" do
@@ -2044,11 +2044,11 @@ RSpec.describe IsoDoc do
           </bibliography>
        </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new({ suppressheadingnumbers: true }
       .merge(presxml_options))
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+      .convert("test", input, true)))
+      .to be_xml_equivalent_to output
   end
 
   it "processes unnumbered section names" do
@@ -2262,10 +2262,10 @@ RSpec.describe IsoDoc do
          </bibliography>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+      .convert("test", input, true)))
+      .to be_xml_equivalent_to output
   end
 
   it "processes section titles without ID" do
@@ -2300,11 +2300,11 @@ RSpec.describe IsoDoc do
           </preface>
        </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new({ suppressheadingnumbers: true }
       .merge(presxml_options))
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+      .convert("test", input, true)))
+      .to be_xml_equivalent_to output
   end
 
   it "processes inline section headers" do
@@ -2414,11 +2414,11 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
   end
 
   it "processes inline section headers with suppressed heading numbering" do
@@ -2435,11 +2435,11 @@ RSpec.describe IsoDoc do
        </sections>
       </iso-standard>
     INPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new({ suppressheadingnumbers: true }
       .merge(presxml_options))
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(<<~OUTPUT)
+      .convert("test", input, true)))
+      .to be_xml_equivalent_to <<~OUTPUT
          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
            <preface>
               <clause type="toc" id="_" displayorder="1">
@@ -2554,9 +2554,9 @@ RSpec.describe IsoDoc do
          </sections>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+      .convert("test", input, true)))
+      .to be_xml_equivalent_to output
   end
 end
