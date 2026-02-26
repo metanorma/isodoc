@@ -358,28 +358,35 @@ RSpec.describe IsoDoc do
             </iso-standard>
     INPUT
     html = <<~OUTPUT
-      #{HTML_HDR}
-                <br/>
-                <div id="fwd">
-                   <h1 class="ForewordTitle">Foreword</h1>
-                   <p id="A">ABC
-         </p>
-                   <div id="B" class="Note">
-                      <p>
-                         <span class="note_label">NOTE 1\\u00a0 </span>
-                         XYZ
-                      </p>
-                   </div>
-                   <div id="B1" class="Note">
-                      <p>
-                         <span class="note_label">NOTE 2\\u00a0 </span>
-                         XYZ1
-                      </p>
-                   </div>
-                </div>
-             </div>
-          </body>
-       </html>
+      <html lang="en">
+      <head/>
+      <body lang="en">
+        <div class="title-section">
+          <p> </p>
+        </div>
+        <br/>
+        <div class="prefatory-section">
+          <p> </p>
+        </div>
+        <br/>
+        <div class="main-section"><br />
+          <div id="fwd">
+            <h1 class="ForewordTitle">Foreword</h1>
+            <p id="A">ABC
+            </p>
+            <div id="B" class="Note">
+              <p><span class="note_label">NOTE 1  </span>XYZ</p>
+            </div>
+            <div id="B1" class="Note">
+              <p><span class="note_label">NOTE 2  </span>XYZ1</p>
+            </div>
+          </div><br />
+          <div id="_" class="TOC">
+            <h1 class="IntroTitle">Table of contents</h1>
+          </div>
+        </div>
+      </body>
+      </html>
     OUTPUT
 
     doc = <<~OUTPUT
