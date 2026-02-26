@@ -38,14 +38,14 @@ RSpec.describe IsoDoc do
       <eref bibitemid="ISO712" id="_"/>
       <semx element="eref" source="_">
          <fmt-xref target="ISO712">
-            ISO\\u00a0712
+            ISO\u00a0712
             <sup>1</sup>
          </fmt-xref>
       </semx>
       <eref bibitemid="ISO712" citeas="x" id="_"/>
       <semx element="eref" source="_">
          <fmt-xref target="ISO712">
-            ISO\\u00a0712
+            ISO\u00a0712
             <sup>1</sup>
          </fmt-xref>
       </semx>
@@ -68,14 +68,14 @@ RSpec.describe IsoDoc do
       <eref bibitemid="ISO712" id="_"/>
       <semx element="eref" source="_">
          <fmt-link target="https://www.bipm.org/en/committees/ci/cipm/43-1950">
-            ISO\\u00a0712
+            ISO\u00a0712
             <sup>1</sup>
          </fmt-link>
       </semx>
       <eref bibitemid="ISO712" citeas="x" id="_"/>
       <semx element="eref" source="_">
          <fmt-link target="https://www.bipm.org/en/committees/ci/cipm/43-1950">
-            ISO\\u00a0712
+            ISO\u00a0712
             <sup>1</sup>
          </fmt-link>
       </semx>
@@ -128,7 +128,7 @@ RSpec.describe IsoDoc do
           <p id="_">
         <eref bibitemid="ISO712" id="_"/>
       <semx element="eref" source="_">
-         <fmt-xref target="ISO712">IEC\\u00a0217</fmt-xref>
+         <fmt-xref target="ISO712">IEC\u00a0217</fmt-xref>
       </semx>
         </p>
       </foreword>
@@ -191,7 +191,7 @@ RSpec.describe IsoDoc do
           <p id="_">
         <eref bibitemid="ISO712" id="_"/>
       <semx element="eref" source="_">
-         <fmt-xref target="ISO712">ISO\\u00a0712\\u00a0/\\u00a0IEC\\u00a0217</fmt-xref>
+         <fmt-xref target="ISO712">ISO\u00a0712\u00a0/\u00a0IEC\u00a0217</fmt-xref>
       </semx>
         </p>
       </foreword>
@@ -385,7 +385,7 @@ presxml = <<~OUTPUT
                    <semx element="autonum" source="_normative_references">1</semx>
                 </fmt-xref-label>
                 <bibitem id="ISO712" type="standard">
-                   <biblio-tag>Cereals\\u00a0or\\u00a0cereal\\u00a0products </biblio-tag>
+                   <biblio-tag>Cereals\u00a0or\u00a0cereal\u00a0products </biblio-tag>
                    <formattedref>
                       International Organization for Standardization.
                       <em>Cereals and cereal products</em>
@@ -393,7 +393,7 @@ presxml = <<~OUTPUT
                    </formattedref>
                    <title format="text/plain">Cereals or cereal products</title>
                    <title type="main" format="text/plain">Cereals and cereal products</title>
-                   <docidentifier type="title" primary="true">Cereals\\u00a0or\\u00a0cereal\\u00a0products</docidentifier>
+                   <docidentifier type="title" primary="true">Cereals\u00a0or\u00a0cereal\u00a0products</docidentifier>
                    <contributor>
                       <role type="publisher"/>
                       <organization>
@@ -422,7 +422,7 @@ presxml = <<~OUTPUT
                    <title format="text/plain">Cereals or cereal products</title>
                    <title type="main" format="text/plain">Cereals and cereal products</title>
                    <docidentifier type="metanorma-ordinal">[1]</docidentifier>
-                   <docidentifier type="title" primary="true">Cereals\\u00a0or\\u00a0cereal\\u00a0products\\u00a0#2</docidentifier>
+                   <docidentifier type="title" primary="true">Cereals\u00a0or\u00a0cereal\u00a0products\u00a0#2</docidentifier>
                    <contributor>
                       <role type="publisher"/>
                       <organization>
@@ -524,9 +524,9 @@ OUTPUT
                        .
                     </formattedref>
                     <title format="text/plain">Cereals or cereal products</title>
-                    <docidentifier type="IEC">IEC\\u00a0217</docidentifier>
-                    <docidentifier scope="biblio-tag">IEC\\u00a0217</docidentifier>
-                    <biblio-tag>IEC\\u00a0217, </biblio-tag>
+                    <docidentifier type="IEC">IEC\u00a0217</docidentifier>
+                    <docidentifier scope="biblio-tag">IEC\u00a0217</docidentifier>
+                    <biblio-tag>IEC\u00a0217, </biblio-tag>
                  </bibitem>
                  <bibitem id="ref2" type="standard">
                     <formattedref>
@@ -562,12 +562,12 @@ OUTPUT
                     </formattedref>
                     <title format="text/plain">Cereals or cereal products</title>
                     <docidentifier type="metanorma-ordinal">[2]</docidentifier>
-                    <docidentifier type="IEC">IEC\\u00a0217</docidentifier>
-                    <docidentifier scope="biblio-tag">IEC\\u00a0217</docidentifier>
+                    <docidentifier type="IEC">IEC\u00a0217</docidentifier>
+                    <docidentifier scope="biblio-tag">IEC\u00a0217</docidentifier>
                     <biblio-tag>
                        [2]
                        <tab/>
-                       IEC\\u00a0217,
+                       IEC\u00a0217,
                     </biblio-tag>
                  </bibitem>
                  <bibitem id="ref5" type="standard">
@@ -810,7 +810,7 @@ OUTPUT
             </formattedref>
             <title format="text/plain">Cereals or cereal products</title>
             <title type="main" format="text/plain">Cereals and cereal products</title>
-            <docidentifier type="ISO">ISO\\u00a0712</docidentifier>
+            <docidentifier type="ISO">ISO\u00a0712</docidentifier>
             <contributor>
                <role type="publisher"/>
                <organization>
@@ -837,7 +837,7 @@ OUTPUT
     html = <<~OUTPUT
       #{HTML_HDR}
              <div>
-               <h1>1.\\u00a0 Normative References</h1>
+               <h1>1.\u00a0 Normative References</h1>
                <p>
                  The following documents are referred to in the text in such a way that
                  some or all of their content constitutes requirements of this
@@ -937,7 +937,7 @@ OUTPUT
           <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
           <bibitem id="ISO712" type="standard">
              <biblio-tag>
-                [ISO/IEC\\u00a0Guide\\u00a099:2007], ISO/IEC\\u00a0Guide\\u00a099:2007
+                [ISO/IEC\u00a0Guide\u00a099:2007], ISO/IEC\u00a0Guide\u00a099:2007
                 <fn reference="1" id="_1" original-reference="1" target="_6">
                    <p original-id="_">Also known as JCGM 200</p>
                    <fmt-fn-label>
@@ -952,22 +952,22 @@ OUTPUT
              </biblio-tag>
              <formattedref>
                 International Organization for Standardization and International Electrotechnical Commission.
-                <em>International vocabulary of metrology\\u2009—\\u2009Basic and general concepts and associated terms (VIM)</em>
+                <em>International vocabulary of metrology\u2009—\u2009Basic and general concepts and associated terms (VIM)</em>
                 . First edition. 2007.
                 <fmt-link target="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</fmt-link>
                 .
              </formattedref>
              <title type="title-intro" format="text/plain" language="en" script="Latn">International vocabulary of metrology</title>
              <title type="title-main" format="text/plain" language="en" script="Latn">Basic and general concepts and associated terms (VIM)</title>
-             <title type="main" format="text/plain" language="en" script="Latn">International vocabulary of metrology\\u2009—\\u2009Basic and general concepts and associated terms (VIM)</title>
+             <title type="main" format="text/plain" language="en" script="Latn">International vocabulary of metrology\u2009—\u2009Basic and general concepts and associated terms (VIM)</title>
              <uri type="src">https://www.iso.org/standard/45324.html</uri>
              <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>
              <uri type="rss">https://www.iso.org/contents/data/standard/04/53/45324.detail.rss</uri>
              <uri type="pub">https://isotc.iso.org/livelink/livelink/Open/8389141</uri>
-             <docidentifier type="ISO" primary="true">ISO/IEC\\u00a0Guide\\u00a099:2007</docidentifier>
-             <docidentifier type="metanorma">[ISO/IEC\\u00a0Guide\\u00a099:2007]</docidentifier>
-             <docidentifier type="URN">URN\\u00a0urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
-             <docidentifier scope="biblio-tag">ISO/IEC\\u00a0Guide\\u00a099:2007</docidentifier>
+             <docidentifier type="ISO" primary="true">ISO/IEC\u00a0Guide\u00a099:2007</docidentifier>
+             <docidentifier type="metanorma">[ISO/IEC\u00a0Guide\u00a099:2007]</docidentifier>
+             <docidentifier type="URN">URN\u00a0urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
+             <docidentifier scope="biblio-tag">ISO/IEC\u00a0Guide\u00a099:2007</docidentifier>
              <docnumber>99</docnumber>
              <date type="published">
                 <on>2007-12</on>
@@ -994,7 +994,7 @@ OUTPUT
           </bibitem>
           <bibitem id="ISO713" type="standard">
              <biblio-tag>
-                [ISO/IEC\\u00a0Guide\\u00a099:2007], ISO/IEC\\u00a0Guide\\u00a099:2007
+                [ISO/IEC\u00a0Guide\u00a099:2007], ISO/IEC\u00a0Guide\u00a099:2007
                 <fn reference="2" id="_2" original-reference="2" target="_7">
                    <p original-id="_">
                       Also known as JCGM 200 (
@@ -1021,10 +1021,10 @@ OUTPUT
              </formattedref>
              <title type="title-main" format="text/plain" language="en" script="Latn">Another title</title>
              <title type="main" format="text/plain" language="en" script="Latn">Another title</title>
-             <docidentifier type="ISO" primary="true">ISO/IEC\\u00a0Guide\\u00a099:2007</docidentifier>
-             <docidentifier type="metanorma">[ISO/IEC\\u00a0Guide\\u00a099:2007]</docidentifier>
-             <docidentifier type="URN">URN\\u00a0urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
-             <docidentifier scope="biblio-tag">ISO/IEC\\u00a0Guide\\u00a099:2007</docidentifier>
+             <docidentifier type="ISO" primary="true">ISO/IEC\u00a0Guide\u00a099:2007</docidentifier>
+             <docidentifier type="metanorma">[ISO/IEC\u00a0Guide\u00a099:2007]</docidentifier>
+             <docidentifier type="URN">URN\u00a0urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
+             <docidentifier scope="biblio-tag">ISO/IEC\u00a0Guide\u00a099:2007</docidentifier>
              <docnumber>99</docnumber>
              <date type="published">
                 <on>2007-12</on>
@@ -1054,21 +1054,21 @@ OUTPUT
     html = <<~OUTPUT
       #{HTML_HDR}
                 <div>
-                   <h1>1.\\u00a0 Normative References</h1>
+                   <h1>1.\u00a0 Normative References</h1>
                    <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                    <p id="ISO712" class="NormRef">
-                      [ISO/IEC\\u00a0Guide\\u00a099:2007], ISO/IEC\\u00a0Guide\\u00a099:2007
+                      [ISO/IEC\u00a0Guide\u00a099:2007], ISO/IEC\u00a0Guide\u00a099:2007
                       <a class="FootnoteRef" href="#fn:_6">
                          <sup>1</sup>
                       </a>
                       , International Organization for Standardization and International Electrotechnical Commission.
-                      <i>International vocabulary of metrology\\u2009—\\u2009Basic and general concepts and associated terms (VIM)</i>
+                      <i>International vocabulary of metrology\u2009—\u2009Basic and general concepts and associated terms (VIM)</i>
                       . First edition. 2007.
                       <a href="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</a>
                       .
                    </p>
                    <p id="ISO713" class="NormRef">
-                      [ISO/IEC\\u00a0Guide\\u00a099:2007], ISO/IEC\\u00a0Guide\\u00a099:2007
+                      [ISO/IEC\u00a0Guide\u00a099:2007], ISO/IEC\u00a0Guide\u00a099:2007
                       <a class="FootnoteRef" href="#fn:_7">
                          <sup>2</sup>
                       </a>

@@ -208,7 +208,7 @@ RSpec.describe IsoDoc do
                 </fmt-xref-label>
                 <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                 <bibitem id="ISO712" type="standard">
-                   <biblio-tag>ISO\\u00a0712, </biblio-tag>
+                   <biblio-tag>ISO\u00a0712, </biblio-tag>
                    <formattedref>
                       International Organization for Standardization.
                       <em>
@@ -233,8 +233,8 @@ RSpec.describe IsoDoc do
                          <p id="_">ISO is a standards organisation.</p>
                       </fn>
                    </title>
-                   <docidentifier type="ISO">ISO\\u00a0712</docidentifier>
-                   <docidentifier scope="biblio-tag">ISO\\u00a0712</docidentifier>
+                   <docidentifier type="ISO">ISO\u00a0712</docidentifier>
+                   <docidentifier scope="biblio-tag">ISO\u00a0712</docidentifier>
                    <contributor>
                       <role type="publisher"/>
                       <organization>
@@ -340,11 +340,11 @@ RSpec.describe IsoDoc do
           <head/>
           <body lang="en">
              <div class="title-section">
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <br/>
              <div class="prefatory-section">
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <br/>
              <div class="main-section">
@@ -395,10 +395,10 @@ RSpec.describe IsoDoc do
                    </a>
                 </p>
                 <div>
-                   <h1>1.\\u00a0 Normative References</h1>
+                   <h1>1.\u00a0 Normative References</h1>
                    <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                    <p id="ISO712" class="NormRef">
-                      ISO\\u00a0712, International Organization for Standardization.
+                      ISO\u00a0712, International Organization for Standardization.
                       <i>
                          Cereals and cereal products
                          <a class="FootnoteRef" href="#fn:_20">
@@ -436,7 +436,7 @@ RSpec.describe IsoDoc do
     doc = <<~OUTPUT
       <body lang="EN-US" link="blue" vlink="#954F72">
           <div class="WordSection1">
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
           </div>
           <p class="section-break">
              <br clear="all" class="section"/>
@@ -487,7 +487,7 @@ RSpec.describe IsoDoc do
                    </span>
                 </p>
              </div>
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
           </div>
           <p class="section-break">
              <br clear="all" class="section"/>
@@ -513,12 +513,12 @@ RSpec.describe IsoDoc do
              <div>
                 <h1>
                    1.
-                   <span style="mso-tab-count:1">\\u00a0 </span>
+                   <span style="mso-tab-count:1">\u00a0 </span>
                    Normative References
                 </h1>
                 <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                 <p id="ISO712" class="NormRef">
-                   ISO\\u00a0712, International Organization for Standardization.
+                   ISO\u00a0712, International Organization for Standardization.
                    <i>
                       Cereals and cereal products
                       <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
@@ -599,7 +599,7 @@ RSpec.describe IsoDoc do
                    </span>
                 </p>
              </div>
-             <p class="MsoNormal">\\u00a0</p>
+             <p class="MsoNormal">\u00a0</p>
           </div>
           <p class="MsoNormal">
              <br clear="all" class="section"/>
@@ -626,13 +626,13 @@ RSpec.describe IsoDoc do
              <div>
                 <h1>
                    1.
-                   <span style="mso-tab-count:1">\\u00a0 </span>
+                   <span style="mso-tab-count:1">\u00a0 </span>
                    Normative References
                 </h1>
                 <p class="MsoNormal">The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                 <p class="NormRef">
                    <a name="ISO712" id="ISO712"/>
-                   ISO\\u00a0712, International Organization for Standardization.
+                   ISO\u00a0712, International Organization for Standardization.
                    <i>
                       Cereals and cereal products
                       <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
@@ -1080,7 +1080,7 @@ RSpec.describe IsoDoc do
                </span>
             </div>
             <p class="MsoNormal">
-               <span style="mso-comment-continuation:6">\\u00a0</span>
+               <span style="mso-comment-continuation:6">\u00a0</span>
             </p>
          </div>
          <p class="MsoNormal">
@@ -1423,7 +1423,7 @@ RSpec.describe IsoDoc do
                 <a name="_3" id="_3"/>
                 <h1 class="IntroTitle">Introduction</h1>
              </div>
-             <p class="MsoNormal">\\u00a0</p>
+             <p class="MsoNormal">\u00a0</p>
           </div>
           <p class="MsoNormal">
              <br clear="all" class="section"/>

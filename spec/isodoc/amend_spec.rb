@@ -198,7 +198,7 @@ RSpec.describe IsoDoc do
                               <span class="fmt-element-name">Table</span>
                               <semx element="autonum" source="E">2</semx>
                            </span>
-                           <span class="fmt-caption-delim">\\u00a0— </span>
+                           <span class="fmt-caption-delim">\u00a0— </span>
                            <semx element="name" source="_">Edges of triangle and quadrilateral cells</semx>
                         </fmt-name>
                         <fmt-xref-label>
@@ -278,7 +278,7 @@ RSpec.describe IsoDoc do
     OUTPUT
     html = <<~OUTPUT
       <div id="A">
-         <h1>1.\\u00a0 Change Clause</h1>
+         <h1>1.\u00a0 Change Clause</h1>
          <p id="C">
             <i>
                        This table contains information on polygon cells which are not

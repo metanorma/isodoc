@@ -442,7 +442,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="N">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">箇条</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="scope">1</semx>
                    </span>
                    <span class="fmt-conn">の</span>
@@ -454,7 +454,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="note1">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">箇条</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="widgets">3</semx>
                       <span class="fmt-autonum-delim">.</span>
                       <semx element="autonum" source="widgets1">1</semx>
@@ -469,7 +469,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="note2">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">箇条</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="widgets">3</semx>
                       <span class="fmt-autonum-delim">.</span>
                       <semx element="autonum" source="widgets1">1</semx>
@@ -484,7 +484,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="AN">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">附属書</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="annex1">A</semx>
                       <span class="fmt-autonum-delim">.</span>
                       <semx element="autonum" source="annex1a">1</semx>
@@ -498,7 +498,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="Anote1">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">附属書</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="annex1">A</semx>
                       <span class="fmt-autonum-delim">.</span>
                       <semx element="autonum" source="annex1b">2</semx>
@@ -513,7 +513,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="Anote2">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">附属書</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="annex1">A</semx>
                       <span class="fmt-autonum-delim">.</span>
                       <semx element="autonum" source="annex1b">2</semx>
@@ -837,7 +837,7 @@ RSpec.describe IsoDoc do
                         <semx element="autonum" source="_normative_references">1</semx>
                      </span>
                      <span class="fmt-comma">,</span>
-                     ISO\\u00a0712
+                     ISO\u00a0712
                   </span>
                   <span class="fmt-comma">,</span>
                   <span class="fmt-element-name">Note</span>
@@ -853,7 +853,7 @@ RSpec.describe IsoDoc do
                         <semx element="autonum" source="_normative_references">1</semx>
                      </span>
                      <span class="fmt-comma">,</span>
-                     ISO\\u00a0712
+                     ISO\u00a0712
                   </span>
                   <span class="fmt-comma">,</span>
                   <span class="fmt-element-name">Note</span>
@@ -868,7 +868,7 @@ RSpec.describe IsoDoc do
                         <semx element="references" source="_bibliography">Bibliography</semx>
                      </span>
                      <span class="fmt-comma">,</span>
-                     ISO\\u00a0713
+                     ISO\u00a0713
                   </span>
                   <span class="fmt-comma">,</span>
                   <span class="fmt-element-name">Note</span>

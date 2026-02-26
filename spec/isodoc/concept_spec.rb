@@ -184,7 +184,7 @@ RSpec.describe IsoDoc do
                       <em>term</em>
                       <semx element="eref" source="_">
                          (
-                         <fmt-xref type="inline" target="ISO712">ISO\\u00a0712</fmt-xref>
+                         <fmt-xref type="inline" target="ISO712">ISO\u00a0712</fmt-xref>
                          )
                       </semx>
                    </semx>
@@ -231,7 +231,7 @@ RSpec.describe IsoDoc do
                       <em>word</em>
                       <semx element="eref" source="_">
                          (
-                         <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Clause 3.1, Figure a</fmt-xref>
+                         <fmt-xref type="inline" target="ISO712">ISO\u00a0712, Clause 3.1, Figure a</fmt-xref>
                          )
                       </semx>
                    </semx>
@@ -263,7 +263,7 @@ RSpec.describe IsoDoc do
                       <semx element="eref" source="_">
                          (
                          <fmt-xref type="inline" target="ISO712">
-                            ISO\\u00a0712, Clause 3.1
+                            ISO\u00a0712, Clause 3.1
                             <span class="fmt-conn">and</span>
                             Figure b
                          </fmt-xref>
@@ -384,7 +384,7 @@ RSpec.describe IsoDoc do
                 <li id="_">
                    <i>term</i>
                    (
-                   <a href="#ISO712">ISO\\u00a0712</a>
+                   <a href="#ISO712">ISO\u00a0712</a>
                    )
                 </li>
                 <li id="_">
@@ -396,13 +396,13 @@ RSpec.describe IsoDoc do
                 <li id="_">
                    <i>word</i>
                    (
-                   <a href="#ISO712">ISO\\u00a0712, Clause 3.1, Figure a</a>
+                   <a href="#ISO712">ISO\u00a0712, Clause 3.1, Figure a</a>
                    )
                 </li>
                 <li id="_">
                    <i>word</i>
                    (
-                   <a href="#ISO712">ISO\\u00a0712, Clause 3.1 and Figure b</a>
+                   <a href="#ISO712">ISO\u00a0712, Clause 3.1 and Figure b</a>
                    )
                 </li>
                 <li id="_">

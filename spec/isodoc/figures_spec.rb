@@ -112,7 +112,7 @@ RSpec.describe IsoDoc do
                         <span class="fmt-element-name">Figure</span>
                         <semx element="autonum" source="figureA-1">1</semx>
                      </span>
-                     <span class="fmt-caption-delim">\\u00a0— </span>
+                     <span class="fmt-caption-delim">\u00a0— </span>
                      <semx element="name" source="_15">
                         Split-it-right
                         <em>sample</em>
@@ -239,7 +239,7 @@ RSpec.describe IsoDoc do
                            </localityStack>
                         </origin>
                         <semx element="origin" source="_20">
-                           <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Section 1</fmt-xref>
+                           <fmt-xref type="inline" target="ISO712">ISO\u00a0712, Section 1</fmt-xref>
                         </semx>
                         —
                         <semx element="modification" source="_5">with adjustments</semx>
@@ -254,7 +254,7 @@ RSpec.describe IsoDoc do
                            </localityStack>
                         </origin>
                         <semx element="origin" source="_21">
-                           <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Section 2</fmt-xref>
+                           <fmt-xref type="inline" target="ISO712">ISO\u00a0712, Section 2</fmt-xref>
                         </semx>
                      </semx>
                      ;
@@ -267,7 +267,7 @@ RSpec.describe IsoDoc do
                            </localityStack>
                         </origin>
                         <semx element="origin" source="_22">
-                           <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Section 3</fmt-xref>
+                           <fmt-xref type="inline" target="ISO712">ISO\u00a0712, Section 3</fmt-xref>
                         </semx>
                      </semx>
                      ]
@@ -329,7 +329,7 @@ RSpec.describe IsoDoc do
                   <semx element="autonum" source="_normative_references">1</semx>
                </fmt-xref-label>
                <bibitem id="ISO712" type="standard">
-                  <biblio-tag>ISO\\u00a0712, </biblio-tag>
+                  <biblio-tag>ISO\u00a0712, </biblio-tag>
                   <formattedref>
                      International Organization for Standardization.
                      <em>Cereals and cereal products</em>
@@ -337,8 +337,8 @@ RSpec.describe IsoDoc do
                   </formattedref>
                   <title format="text/plain">Cereals or cereal products</title>
                   <title type="main" format="text/plain">Cereals and cereal products</title>
-                  <docidentifier type="ISO">ISO\\u00a0712</docidentifier>
-                  <docidentifier scope="biblio-tag">ISO\\u00a0712</docidentifier>
+                  <docidentifier type="ISO">ISO\u00a0712</docidentifier>
+                  <docidentifier scope="biblio-tag">ISO\u00a0712</docidentifier>
                   <contributor>
                      <role type="publisher"/>
                      <organization>
@@ -468,16 +468,16 @@ RSpec.describe IsoDoc do
                       <div class="BlockSource">
                          <p>
                             [SOURCE:
-                            <a href="#ISO712">ISO\\u00a0712, Section 1</a>
+                            <a href="#ISO712">ISO\u00a0712, Section 1</a>
                             — with adjustments;
-                            <a href="#ISO712">ISO\\u00a0712, Section 2</a>
+                            <a href="#ISO712">ISO\u00a0712, Section 2</a>
                             ;
-                            <a href="#ISO712">ISO\\u00a0712, Section 3</a>
+                            <a href="#ISO712">ISO\u00a0712, Section 3</a>
                             ]
                          </p>
                       </div>
-                      <figcaption>
-                         Figure 1\\u00a0— Split-it-right
+                      <p class="FigureTitle" style="text-align:center;">
+                         Figure 1\u00a0— Split-it-right
                          <i>sample</i>
                          divider
                          <a class="FootnoteRef" href="#fn:_19">
@@ -496,9 +496,9 @@ RSpec.describe IsoDoc do
                    </figure>
                 </div>
                 <div>
-                   <h1>1.\\u00a0 Normative References</h1>
+                   <h1>1.\u00a0 Normative References</h1>
                    <p id="ISO712" class="NormRef">
-                      ISO\\u00a0712, International Organization for Standardization.
+                      ISO\u00a0712, International Organization for Standardization.
                       <i>Cereals and cereal products</i>
                       .
                    </p>
@@ -613,16 +613,16 @@ RSpec.describe IsoDoc do
                       <div class="BlockSource">
                          <p>
                             [SOURCE:
-                            <a href="#ISO712">ISO\\u00a0712,  Section 1</a>
+                            <a href="#ISO712">ISO\u00a0712,  Section 1</a>
                             — with adjustments;
-                            <a href="#ISO712">ISO\\u00a0712,  Section 2</a>
+                            <a href="#ISO712">ISO\u00a0712,  Section 2</a>
                             ;
-                            <a href="#ISO712">ISO\\u00a0712,  Section 3</a>
+                            <a href="#ISO712">ISO\u00a0712,  Section 3</a>
                             ]
                          </p>
                       </div>
                       <p class="FigureTitle" style="text-align:center;">
-                         Figure 1\\u00a0— Split-it-right
+                         Figure 1\u00a0— Split-it-right
                          <i>sample</i>
                          divider
                          <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
@@ -640,7 +640,7 @@ RSpec.describe IsoDoc do
          B</pre>
                    </div>
                 </div>
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
@@ -649,11 +649,11 @@ RSpec.describe IsoDoc do
                 <div>
                    <h1>
                       1.
-                      <span style="mso-tab-count:1">\\u00a0 </span>
+                      <span style="mso-tab-count:1">\u00a0 </span>
                       Normative References
                    </h1>
                    <p id="ISO712" class="NormRef">
-                      ISO\\u00a0712, International Organization for Standardization.
+                      ISO\u00a0712, International Organization for Standardization.
                       <i>Cereals and cereal products</i>
                       .
                    </p>
@@ -750,7 +750,7 @@ RSpec.describe IsoDoc do
                         <span class="fmt-element-name">Figure</span>
                         <semx element="autonum" source="figureA-1">1</semx>
                      </span>
-                        <span class="fmt-caption-delim">\\u00a0— </span>
+                        <span class="fmt-caption-delim">\u00a0— </span>
                         <semx element="name" source="_">Overall title</semx>
                   </fmt-name>
                   <fmt-xref-label>
@@ -766,7 +766,7 @@ RSpec.describe IsoDoc do
                            <span class="fmt-autonum-delim">-</span>
                            <semx element="autonum" source="note1">1</semx>
                         </span>
-                           <span class="fmt-caption-delim">\\u00a0— </span>
+                           <span class="fmt-caption-delim">\u00a0— </span>
                            <semx element="name" source="_">Subfigure 1</semx>
                      </fmt-name>
                      <fmt-xref-label>
@@ -786,7 +786,7 @@ RSpec.describe IsoDoc do
                            <span class="fmt-autonum-delim">-</span>
                            <semx element="autonum" source="note2">2</semx>
                         </span>
-                           <span class="fmt-caption-delim">\\u00a0— </span>
+                           <span class="fmt-caption-delim">\u00a0— </span>
                            <semx element="name" source="_">Subfigure 2</semx>
                      </fmt-name>
                      <fmt-xref-label>
@@ -812,7 +812,7 @@ RSpec.describe IsoDoc do
                            <span class="fmt-autonum-delim">-</span>
                            <semx element="autonum" source="note3">1</semx>
                         </span>
-                        <span class="fmt-caption-delim">\\u00a0— </span>
+                        <span class="fmt-caption-delim">\u00a0— </span>
                         <semx element="name" source="_">Subfigure 1</semx>
                      </fmt-name>
                      <fmt-xref-label>
@@ -831,7 +831,7 @@ RSpec.describe IsoDoc do
                         <span class="fmt-element-name">Figure</span>
                         <semx element="autonum" source="figureA-3">2</semx>
                      </span>
-                     <span class="fmt-caption-delim">\\u00a0— </span>
+                     <span class="fmt-caption-delim">\u00a0— </span>
                      <semx element="name" source="_">Overall title</semx>
                   </fmt-name>
                   <fmt-xref-label>
@@ -929,18 +929,18 @@ RSpec.describe IsoDoc do
               <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                 <div id="note1" class="figure">
                   <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
-                  <p class="FigureTitle" style="text-align:center;">Figure 1-1\\u00a0— Subfigure 1</p>
+                  <p class="FigureTitle" style="text-align:center;">Figure 1-1\u00a0— Subfigure 1</p>
                 </div>
                 <div id="note2" class="figure">
                   <img src="rice_images/rice_image1.png" height="20" width="auto"/>
-                  <p class="FigureTitle" style="text-align:center;">Figure 1-2\\u00a0— Subfigure 2</p>
+                  <p class="FigureTitle" style="text-align:center;">Figure 1-2\u00a0— Subfigure 2</p>
                 </div>
-                <p class="FigureTitle" style="text-align:center;">Figure 1\\u00a0— Overall title</p>
+                <p class="FigureTitle" style="text-align:center;">Figure 1\u00a0— Overall title</p>
               </div>
                           <div id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                <div id="note3" class="figure">
                   <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
-                  <p class="FigureTitle" style="text-align:center;">Figure -1\\u00a0— Subfigure 1</p>
+                  <p class="FigureTitle" style="text-align:center;">Figure -1\u00a0— Subfigure 1</p>
                </div>
                <p class="FigureTitle" style="text-align:center;">Overall title</p>
             </div>
@@ -949,10 +949,10 @@ RSpec.describe IsoDoc do
                   <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
                   <p class="FigureTitle" style="text-align:center;">Subfigure 1</p>
                </div>
-               <p class="FigureTitle" style="text-align:center;">Figure 2\\u00a0— Overall title</p>
+               <p class="FigureTitle" style="text-align:center;">Figure 2\u00a0— Overall title</p>
             </div>
             </div>
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <p class="section-break">
             <br clear="all" class="section"/>
@@ -1053,7 +1053,7 @@ RSpec.describe IsoDoc do
                          <span class="fmt-element-name">Figure</span>
                          <semx element="autonum" source="figureA-1">1</semx>
                       </span>
-                      <span class="fmt-caption-delim">\\u00a0— </span>
+                      <span class="fmt-caption-delim">\u00a0— </span>
                       <semx element="name" source="_">Overall title</semx>
                    </fmt-name>
                    <fmt-xref-label>
@@ -1073,7 +1073,7 @@ RSpec.describe IsoDoc do
                                         <span class="fmt-autonum-delim">-</span>
                                         <semx element="autonum" source="note1">1</semx>
                                      </span>
-                                     <span class="fmt-caption-delim">\\u00a0— </span>
+                                     <span class="fmt-caption-delim">\u00a0— </span>
                                      <semx element="name" source="_">Subfigure 1</semx>
                                   </fmt-name>
                                   <fmt-xref-label>
@@ -1095,7 +1095,7 @@ RSpec.describe IsoDoc do
                                         <span class="fmt-autonum-delim">-</span>
                                         <semx element="autonum" source="note2">2</semx>
                                      </span>
-                                     <span class="fmt-caption-delim">\\u00a0— </span>
+                                     <span class="fmt-caption-delim">\u00a0— </span>
                                      <semx element="name" source="_">Subfigure 2</semx>
                                   </fmt-name>
                                   <fmt-xref-label>
@@ -1129,7 +1129,7 @@ RSpec.describe IsoDoc do
                                         <span class="fmt-autonum-delim">-</span>
                                         <semx element="autonum" source="note3">1</semx>
                                      </span>
-                                     <span class="fmt-caption-delim">\\u00a0— </span>
+                                     <span class="fmt-caption-delim">\u00a0— </span>
                                      <semx element="name" source="_">Subfigure 1</semx>
                                   </fmt-name>
                                   <fmt-xref-label>
@@ -1152,7 +1152,7 @@ RSpec.describe IsoDoc do
                          <span class="fmt-element-name">Figure</span>
                          <semx element="autonum" source="figureA-3">2</semx>
                       </span>
-                      <span class="fmt-caption-delim">\\u00a0— </span>
+                      <span class="fmt-caption-delim">\u00a0— </span>
                       <semx element="name" source="_">Overall title</semx>
                    </fmt-name>
                    <fmt-xref-label>
@@ -1207,9 +1207,9 @@ RSpec.describe IsoDoc do
                             </tr>
                          </tbody>
                       </table>
-                      <figcaption>Figure 1\\u00a0— Overall title</figcaption>
-                   </figure>
-                   <figure id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <p class="FigureTitle" style="text-align:center;">Figure 1\u00a0— Overall title</p>
+                   </div>
+                   <div id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                       <table id="T1" class="plain">
                          <tbody>
                             <tr>
@@ -1241,9 +1241,9 @@ RSpec.describe IsoDoc do
                             </tr>
                          </tbody>
                       </table>
-                      <figcaption>Figure 2\\u00a0— Overall title</figcaption>
-                   </figure>
-                </figure>
+                      <p class="FigureTitle" style="text-align:center;">Figure 2\u00a0— Overall title</p>
+                   </div>
+                </div>
              </div>
           </body>
        </html>
@@ -1286,20 +1286,20 @@ RSpec.describe IsoDoc do
                                   <td style="page-break-after:auto;">
                                      <div id="note1" class="figure">
                                         <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
-                                        <p class="FigureTitle" style="text-align:center;">Figure 1-1\\u00a0— Subfigure 1</p>
+                                        <p class="FigureTitle" style="text-align:center;">Figure 1-1\u00a0— Subfigure 1</p>
                                      </div>
                                   </td>
                                   <td style="page-break-after:auto;">
                                      <div id="note2" class="figure">
                                         <img src="rice_images/rice_image1.png" height="20" width="auto"/>
-                                        <p class="FigureTitle" style="text-align:center;">Figure 1-2\\u00a0— Subfigure 2</p>
+                                        <p class="FigureTitle" style="text-align:center;">Figure 1-2\u00a0— Subfigure 2</p>
                                      </div>
                                   </td>
                                </tr>
                             </tbody>
                          </table>
                       </div>
-                      <p class="FigureTitle" style="text-align:center;">Figure 1\\u00a0— Overall title</p>
+                      <p class="FigureTitle" style="text-align:center;">Figure 1\u00a0— Overall title</p>
                    </div>
                    <div id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                       <div align="center" class="table_container">
@@ -1309,7 +1309,7 @@ RSpec.describe IsoDoc do
                                   <td style="page-break-after:auto;">
                                      <div id="note3" class="figure">
                                         <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
-                                        <p class="FigureTitle" style="text-align:center;">Figure -1\\u00a0— Subfigure 1</p>
+                                        <p class="FigureTitle" style="text-align:center;">Figure -1\u00a0— Subfigure 1</p>
                                      </div>
                                   </td>
                                </tr>
@@ -1333,10 +1333,10 @@ RSpec.describe IsoDoc do
                             </tbody>
                          </table>
                       </div>
-                      <p class="FigureTitle" style="text-align:center;">Figure 2\\u00a0— Overall title</p>
+                      <p class="FigureTitle" style="text-align:center;">Figure 2\u00a0— Overall title</p>
                    </div>
                 </div>
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
@@ -1418,7 +1418,7 @@ RSpec.describe IsoDoc do
                         <span class="fmt-element-name">Diagram</span>
                         <semx element="autonum" source="figureA-1">1</semx>
                      </span>
-                     <span class="fmt-caption-delim">\\u00a0— </span>
+                     <span class="fmt-caption-delim">\u00a0— </span>
                      <semx element="name" source="_">
                         Split-it-right
                         <em>sample</em>
@@ -2164,7 +2164,7 @@ RSpec.describe IsoDoc do
                  <p class='FigureTitle' style='text-align:center;'>Figure 1</p>
               </div>
             </div>
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <p class="section-break">
             <br clear='all' class='section'/>
@@ -2204,9 +2204,9 @@ RSpec.describe IsoDoc do
                 <foreword id="_" displayorder="2"><fmt-title id="_">Foreword</fmt-title>
                 <example>
                 <sourcecode id="B"><name>Label</name>A B C</sourcecode>
-          <figure id="A" class="pseudocode"><fmt-name id="_">Label</fmt-name><p id="_">\\u00a0\\u00a0<strong>A</strong></p></figure>
+          <figure id="A" class="pseudocode"><fmt-name id="_">Label</fmt-name><p id="_">\u00a0\u00a0<strong>A</strong></p></figure>
                 <sourcecode id="B1">A B C</sourcecode>
-          <figure id="A1" class="pseudocode"><p id="_">\\u00a0\\u00a0<strong>A</strong></p></figure>
+          <figure id="A1" class="pseudocode"><p id="_">\u00a0\u00a0<strong>A</strong></p></figure>
         </example></foreword>
         </preface></itu-standard>
     INPUT
@@ -2219,7 +2219,7 @@ RSpec.describe IsoDoc do
                        <figure id='B' class='sourcecode' spellcheck="false" translation="no"><pre>A B C</pre></figure>
                        <figure id='A' class='pseudocode'>
                          <p id='_'>
-                           \\u00a0\\u00a0
+                           \u00a0\u00a0
                            <b>A</b>
                          </p>
                          <figcaption class='SourceTitle'>Label</figcaption>
@@ -2227,7 +2227,7 @@ RSpec.describe IsoDoc do
                        <figure id='B1' class='sourcecode' spellcheck="false" translation="no"><pre>A B C</pre></figure>
                        <figure id='A1' class='pseudocode'>
                          <p id='_'>
-                           \\u00a0\\u00a0
+                           \u00a0\u00a0
                            <b>A</b>
                          </p>
                        </figure>

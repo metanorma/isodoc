@@ -110,7 +110,7 @@ RSpec.describe IsoDoc do
 
     doc = <<~DOC
       #{WORD_HDR}
-       <p>\\u00a0</p>
+       <p>\u00a0</p>
       </div>
       <p class="section-break">
          <br clear="all" class="section"/>

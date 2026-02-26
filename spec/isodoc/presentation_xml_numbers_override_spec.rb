@@ -1254,7 +1254,7 @@ RSpec.describe IsoDoc do
               </math>
            </stem>
            <fmt-stem type="MathML">
-              <semx element="stem" source="_">30\\u202f000,00</semx>
+              <semx element="stem" source="_">30\u202f000,00</semx>
            </fmt-stem>
         </p>
       OUTPUT
@@ -1647,7 +1647,7 @@ RSpec.describe IsoDoc do
               </math>
            </stem>
            <fmt-stem type="MathML">
-              <semx element="stem" source="_">30\\u202f000</semx>
+              <semx element="stem" source="_">30\u202f000</semx>
            </fmt-stem>
         </p>
       OUTPUT
@@ -2071,7 +2071,7 @@ RSpec.describe IsoDoc do
                </math>
             </stem>
             <fmt-stem type="MathML">
-               <semx element="stem" source="_">30\\u202f000</semx>
+               <semx element="stem" source="_">30\u202f000</semx>
             </fmt-stem>
          </p>
       OUTPUT

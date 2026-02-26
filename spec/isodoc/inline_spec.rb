@@ -95,12 +95,12 @@ RSpec.describe IsoDoc do
       </p>
     OUTPUT
     doc = <<~OUTPUT
-          <p class="MsoNormal">
-         <a name="A" id="A"/>
-         <span>
-            <tt>http://www.⁠example.⁠com\\u00a0A‑B</tt>
-         </span>
-      </p>
+           <p class="MsoNormal">
+          <a name="A" id="A"/>
+          <span>
+             <tt>http://www.⁠example.⁠com\u00a0A‑B</tt>
+          </span>
+       </p>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -664,27 +664,33 @@ RSpec.describe IsoDoc do
       <head/>
       <body lang="en">
         <div class="title-section">
-        <p>\\u00a0</p>
+        <p>\u00a0</p>
         </div>
         <br/>
         <div class="prefatory-section">
-        <p>\\u00a0</p>
+        <p>\u00a0</p>
         </div>
         <br/>
         <div class="main-section">
-        <br/>
-        <div id="_">
-        <h1 class="ForewordTitle">Foreword</h1>
-        <p>
-        <i><b>&lt;</b></i> <tt><a href="B">B</a></tt> <a href="#_http_1_1">Requirement <tt>/req/core/http</tt></a> Requirement <tt>/req/core/http</tt>
-        </p>
-        </div>
-        <div class="TOC" id="_">
-        <h1 class="IntroTitle">Table of contents</h1>
-        </div>
-        <br/>
-        </div>
-        </div>
+          <br/>
+          <div id="_">
+          <h1 class="ForewordTitle">Foreword</h1>
+          <p>
+            <i>
+                <b>&lt;</b>
+            </i>
+            <tt>
+                <a href="B">B</a>
+            </tt>
+            <a href="#_http_1_1">Requirement <tt>/req/core/http</tt>
+            </a> Requirement <tt>/req/core/http</tt>
+          </p>
+          </div>
+          <br/>
+          <div id="_" class="TOC">
+          <h1 class="IntroTitle">Table of contents</h1>
+          </div>
+      </div>
       </body>
       </html>
     OUTPUT

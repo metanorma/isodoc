@@ -197,20 +197,20 @@ RSpec.describe IsoDoc do
                    </div>
                 </div>
                 <div id="C">
-                   <h1>1.\\u00a0 Introduction</h1>
+                   <h1>1.\u00a0 Introduction</h1>
                    <p class="h1" id="_">A</p>
                    <div id="C1">
-                      <h2>1.1.\\u00a0 Introduction Subsection</h2>
+                      <h2>1.1.\u00a0 Introduction Subsection</h2>
                       <p class="h2" id="_">B</p>
                       <div id="C2">
-                         <h3>1.1.1.\\u00a0 Introduction Sub-subsection</h3>
+                         <h3>1.1.1.\u00a0 Introduction Sub-subsection</h3>
                          <p class="h1" id="_">C</p>
                       </div>
                    </div>
                 </div>
                 <p class="h1" id="_">D</p>
                 <div id="C4">
-                   <h1>2.\\u00a0 Clause 2</h1>
+                   <h1>2.\u00a0 Clause 2</h1>
                 </div>
              </div>
           </body>
@@ -251,7 +251,7 @@ RSpec.describe IsoDoc do
                   </div>
                </div>
             </div>
-            <p class="MsoNormal">\\u00a0</p>
+            <p class="MsoNormal">\u00a0</p>
          </div>
          <p class="MsoNormal">
             <br clear="all" class="section"/>
@@ -261,7 +261,7 @@ RSpec.describe IsoDoc do
                <a name="C" id="C"/>
                <h1>
                   1.
-                  <span style="mso-tab-count:1">\\u00a0 </span>
+                  <span style="mso-tab-count:1">\u00a0 </span>
                   Introduction
                </h1>
                <p class="h1">
@@ -272,7 +272,7 @@ RSpec.describe IsoDoc do
                   <a name="C1" id="C1"/>
                   <h2>
                      1.1.
-                     <span style="mso-tab-count:1">\\u00a0 </span>
+                     <span style="mso-tab-count:1">\u00a0 </span>
                      Introduction Subsection
                   </h2>
                   <p class="h2">
@@ -283,7 +283,7 @@ RSpec.describe IsoDoc do
                      <a name="C2" id="C2"/>
                      <h3>
                         1.1.1.
-                        <span style="mso-tab-count:1">\\u00a0 </span>
+                        <span style="mso-tab-count:1">\u00a0 </span>
                         Introduction Sub-subsection
                      </h3>
                      <p class="h1">
@@ -301,7 +301,7 @@ RSpec.describe IsoDoc do
                <a name="C4" id="C4"/>
                <h1>
                   2.
-                  <span style="mso-tab-count:1">\\u00a0 </span>
+                  <span style="mso-tab-count:1">\u00a0 </span>
                   Clause 2
                </h1>
             </div>
@@ -352,11 +352,11 @@ RSpec.describe IsoDoc do
          <head/>
          <body lang="en">
            <div class="title-section">
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <br/>
            <div class="prefatory-section">
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
            </div>
            <br/>
                       <div class="main-section">

@@ -94,11 +94,11 @@ RSpec.describe IsoDoc do
           <head/>
           <body lang="en">
              <div class="title-section">
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <br/>
              <div class="prefatory-section">
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <br/>
              <div class="main-section">
@@ -260,7 +260,7 @@ RSpec.describe IsoDoc do
                       </ul>
                     </div>
                     </div>
-                    <p>\\u00a0</p>
+                    <p>\u00a0</p>
                   </div>
                   <p class="section-break">
                     <br clear='all' class='section'/>
@@ -485,7 +485,7 @@ RSpec.describe IsoDoc do
                       </ol>
                    </div>
                 </div>
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
@@ -740,7 +740,7 @@ RSpec.describe IsoDoc do
                   </dd>
                 </dl>
                 <div class="Note">
-           <p><span class="note_label">NOTE\\u00a0 </span>This is a note</p>
+           <p><span class="note_label">NOTE\u00a0 </span>This is a note</p>
          </div>
          </div>
               </div>
@@ -782,7 +782,7 @@ RSpec.describe IsoDoc do
                                   <p class="Note">
                                      <span class="note_label">
                                         NOTE
-                                        <span style="mso-tab-count:1">\\u00a0 </span>
+                                        <span style="mso-tab-count:1">\u00a0 </span>
                                      </span>
                                      This is a note
                                   </p>
@@ -792,7 +792,7 @@ RSpec.describe IsoDoc do
                       </table>
                    </div>
                 </div>
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
@@ -855,7 +855,7 @@ RSpec.describe IsoDoc do
        </head>
           <body lang="EN-US" link="blue" vlink="#954F72">
              <div class="WordSection1">
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
@@ -877,7 +877,7 @@ RSpec.describe IsoDoc do
                                   <a id="_"/>
                                   <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">
                                      W
-                                     <span style="mso-tab-count:1">\\u00a0 </span>
+                                     <span style="mso-tab-count:1">\u00a0 </span>
                                      mass fraction of gelatinized kernels
                                   </p>
                                </div>
@@ -894,7 +894,7 @@ RSpec.describe IsoDoc do
                                      <a id="_"/>
                                      <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">
                                         X
-                                        <span style="mso-tab-count:1">\\u00a0 </span>
+                                        <span style="mso-tab-count:1">\u00a0 </span>
                                         expressed in per cent
                                      </p>
                                   </div>
@@ -904,7 +904,7 @@ RSpec.describe IsoDoc do
                       </table>
                    </div>
                 </div>
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
