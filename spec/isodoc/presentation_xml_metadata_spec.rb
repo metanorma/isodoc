@@ -29,10 +29,10 @@ RSpec.describe IsoDoc do
           </metanorma-extension>
        </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert.new(presxml_options)
-  .convert("test", input, true))
-  .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to output
   end
 
   it "inserts toc metadata" do
@@ -67,8 +67,8 @@ RSpec.describe IsoDoc do
       .convert("test", input, true))
     xml.xpath("//xmlns:preface | //xmlns:localized-strings | //xmlns:sections")
       .each(&:remove)
-    expect(strip_guid(Canon.format_xml(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "passes font names to Presentation XML" do
@@ -103,8 +103,8 @@ RSpec.describe IsoDoc do
       .convert("test", input, true))
     xml.xpath("//xmlns:preface | //xmlns:localized-strings | //xmlns:sections")
       .each(&:remove)
-    expect(strip_guid(Canon.format_xml(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "extracts attachments" do
@@ -339,12 +339,12 @@ wpLnRvX3MpCmVuZAo=</attachment>
           </metanorma-extension>
        </iso-standard>
     OUTPUT
-    expect(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(IsoDoc::PresentationXMLConvert
        .new(presxml_options.merge({ output_formats: { doc: "DOC", pdf: "PDF",
                                                       html: "HTML" } }))
        .convert("test", input, true)
-       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Canon.format_xml(presxml)
+       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to presxml
   end
 
   private

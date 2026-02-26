@@ -282,88 +282,11 @@ RSpec.describe IsoDoc do
          </term>
       </terms>
     PRESXML
-    html = <<~OUTPUT
-      <html lang="en">
-          <head/>
-          <body lang="en">
-             <div class="title-section">
-                <p>\\u00a0</p>
-             </div>
-             <br/>
-             <div class="prefatory-section">
-                <p>\\u00a0</p>
-             </div>
-             <br/>
-             <div class="main-section">
-                <br/>
-                <div id="_" class="TOC">
-                   <h1 class="IntroTitle">Table of contents</h1>
-                </div>
-                <div id="terms_and_definitions">
-                   <h1>1.\\u00a0 Terms and Definitions</h1>
-                   <p class="TermNum" id="paddy1">1.1.</p>
-                   <p class="Terms" style="text-align:left;">
-                      <b>
-                         <dfn>paddy</dfn>
-                      </b>
-                      ;
-                      <b>
-                         <abbr>PR</abbr>
-                      </b>
-                   </p>
-                   <p id="_">&lt;rice&gt;  rice retaining its husk after threshing</p>
-                   <p class="TermNum" id="paddy2">1.2.</p>
-                   <p class="Terms" style="text-align:left;">
-                      <b>
-                         <dfn>paddy</dfn>
-                      </b>
-                      ;
-                      <b>
-                         <dfn>muddy rice</dfn>
-                      </b>
-                   </p>
-                   <p id="_">&lt;rice&gt;  rice retaining its husk after threshing</p>
-                   <p class="TermNum" id="paddy3">1.3.</p>
-                   <p class="Terms" style="text-align:left;">
-                      <b>
-                         <dfn>paddy</dfn>
-                      </b>
-                      , US
-                   </p>
-                   <p class="Terms" style="text-align:left;">
-                      <b>
-                         <dfn>muddy rice</dfn>
-                      </b>
-                   </p>
-                   <p id="_">&lt;rice&gt;  rice retaining its husk after threshing</p>
-                   <p class="TermNum" id="paddy4">1.4.</p>
-                   <p class="Terms" style="text-align:left;">
-                      <b>
-                         <dfn>paddy</dfn>
-                      </b>
-                      , eng
-                   </p>
-                   <p class="Terms" style="text-align:left;">
-                      <b>
-                         <dfn>muddy rice</dfn>
-                      </b>
-                      , fra
-                   </p>
-                   <p id="_">&lt;rice&gt;  rice retaining its husk after threshing</p>
-                </div>
-             </div>
-          </body>
-       </html>
-    OUTPUT
-    pres_output = IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
-      .at("//xmlns:terms").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+      .convert("test", input, true))
+      .at("//xmlns:terms").to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "processes IsoXML term with grammatical information" do
@@ -489,11 +412,11 @@ RSpec.describe IsoDoc do
          </term>
       </terms>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-       .convert("test", input, true))
-      .at("//xmlns:terms").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .convert("test", input, true))
+      .at("//xmlns:terms").to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "processes IsoXML term with empty, mathematical, or graphical designations" do
@@ -675,11 +598,11 @@ RSpec.describe IsoDoc do
          </term>
       </terms>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-       .convert("test", input, true))
-      .at("//xmlns:terms").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .convert("test", input, true))
+      .at("//xmlns:terms").to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "processes related terms" do
@@ -986,11 +909,11 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
-      .at("//xmlns:terms").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(Nokogiri::XML(pres_output)
+      .at("//xmlns:terms").to_xml))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
   end
 end

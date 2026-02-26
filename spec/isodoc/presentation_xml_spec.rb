@@ -77,11 +77,11 @@ RSpec.describe IsoDoc do
         </bibdata>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Canon.format_xml(output)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to output
   end
 
   it "strips variant-title" do
@@ -352,15 +352,15 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(doc)
+    expect(strip_guid(pres_output)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html4_equivalent_to doc
   end
 
   it "configures unordered list bullets dynamically" do
@@ -486,11 +486,11 @@ RSpec.describe IsoDoc do
          </li>
       </ul>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:ul[@id = 'B1']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .at("//xmlns:ul[@id = 'B1']").to_xml))
+      .to be_xml_equivalent_to presxml
     m = <<~METADATA
       <metanorma-extension><presentation-metadata><ul-label-list>•</ul-label-list></presentation-metadata><presentation-metadata><ul-label-list>-</ul-label-list></presentation-metadata><presentation-metadata><ul-label-list>o</ul-label-list></presentation-metadata></metanorma-extension>
     METADATA
@@ -576,11 +576,11 @@ RSpec.describe IsoDoc do
          </li>
       </ul>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-        .convert("test", input.sub("</bibdata>", "</bibdata>#{m}"), true))
-      .at("//xmlns:ul[@id = 'B1']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .convert("test", input.sub("</bibdata>", "</bibdata>#{m}"), true))
+      .at("//xmlns:ul[@id = 'B1']").to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "adds types to ordered lists" do
@@ -716,11 +716,11 @@ RSpec.describe IsoDoc do
          </li>
       </ol>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:ol[@id = 'B1']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .at("//xmlns:ol[@id = 'B1']").to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "considers ul when adding types to ordered lists" do
@@ -785,11 +785,11 @@ RSpec.describe IsoDoc do
          </li>
       </ol>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:ol[@id = 'B1']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .at("//xmlns:ol[@id = 'B1']").to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "processes multiple-target xrefs in English" do
@@ -1022,13 +1022,13 @@ RSpec.describe IsoDoc do
           </p>
        </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
+    expect(strip_guid(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true),
-    )
+        .convert("test", input, true),
+      )
       .at("//xmlns:foreword")
-      .to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .to_xml)
+    ).to be_xml_equivalent_to presxml
   end
 
   it "processes multiple-target xrefs in Japanese" do
@@ -1266,13 +1266,13 @@ RSpec.describe IsoDoc do
           </semx>
        </p>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
+    expect(strip_guid(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true),
-    )
+        .convert("test", input, true),
+      )
       .at("//xmlns:p[@id = 'A']")
-      .to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "skips numbering of hidden sections" do
@@ -1368,11 +1368,11 @@ RSpec.describe IsoDoc do
       </bibliography>
       </standard-document>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to presxml
   end
 
   it "sorts preface sections" do
@@ -1455,11 +1455,11 @@ RSpec.describe IsoDoc do
          </preface>
       </standard-document>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to presxml
   end
 
   it "does not break up very long strings in tables by default" do
@@ -1499,11 +1499,11 @@ RSpec.describe IsoDoc do
            </tbody>
          </table>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:table").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .at("//xmlns:table").to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "breaks up very long strings in tables on request" do
@@ -1575,11 +1575,11 @@ RSpec.describe IsoDoc do
          </tbody>
       </table>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(breakupurlsintables: "true"))
       .convert("test", input, true))
-      .at("//xmlns:table").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .at("//xmlns:table").to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "realises custom charsets" do
@@ -1612,11 +1612,11 @@ RSpec.describe IsoDoc do
           </preface>
        </standard-document>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to presxml
   end
 
   it "realises text-transform" do
@@ -1650,11 +1650,11 @@ RSpec.describe IsoDoc do
              </p>
         </foreword></preface></standard-document>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to presxml
   end
 
   it "gets rid of empty fmt- elements" do
@@ -1676,9 +1676,9 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
-      .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Nokogiri::XML(pres_output)
+      .at("//xmlns:p[@id = 'A']").to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   private

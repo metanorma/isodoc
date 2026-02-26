@@ -312,16 +312,16 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
-    expect(strip_guid(Canon.format_xml(File.read("test.doc")
+    expect(strip_guid(File.read("test.doc")
     .sub(/^.*<body/m, "<body")
-    .sub(%r{</body>.*$}m, ""))))
-      .to be_equivalent_to Canon.format_xml(word)
+    .sub(%r{</body>.*$}m, "")))
+      .to be_xml_equivalent_to word
   end
 
   it "processes disconnected titles" do
@@ -383,9 +383,9 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true)))
+      .to be_html5_equivalent_to output
   end
 
   it "leaves alone floating titles if preface sections already sorted" do
@@ -461,10 +461,10 @@ RSpec.describe IsoDoc do
             </preface>
       </standard-document>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))
+      .convert("test", input, true)
        .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .to be_xml_equivalent_to presxml
   end
 end

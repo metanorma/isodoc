@@ -52,11 +52,11 @@ RSpec.describe IsoDoc do
         </p>
       </foreword>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
+    expect(strip_guid(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
-    ).at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      ).at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to presxml
 
     presxml = <<~PRESXML
       <foreword displayorder='2' id="_">
@@ -85,11 +85,11 @@ RSpec.describe IsoDoc do
     input = input.sub("</bibitem>", <<~XML)
       <uri type="citation" language="en" script="Latn">https://www.bipm.org/en/committees/ci/cipm/43-1950</uri></bibitem>
     XML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
+    expect(strip_guid(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
-    ).at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      ).at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "selects the primary identifier" do
@@ -133,11 +133,11 @@ RSpec.describe IsoDoc do
         </p>
       </foreword>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
+    expect(strip_guid(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
-    ).at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      ).at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "selects multiple primary identifiers" do
@@ -196,11 +196,11 @@ RSpec.describe IsoDoc do
         </p>
       </foreword>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
+    expect(strip_guid(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
-    ).at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      ).at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "renders references with no identifier" do
@@ -317,8 +317,8 @@ RSpec.describe IsoDoc do
       .convert("test", input, true),
     )
     xml.at("//xmlns:localized-strings").remove
-    expect(strip_guid(Canon.format_xml(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
     it "renders references with title and author-date identifier" do
@@ -439,8 +439,8 @@ OUTPUT
       .convert("test", input, true),
     )
     xml.at("//xmlns:localized-strings").remove
-    expect(strip_guid(Canon.format_xml(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to presxml
 
     input.sub!('<docidentifier type="title" primary="true">Cereals or cereal products</docidentifier>',
                '<docidentifier type="author-date" primary="true">Cereals or cereal products</docidentifier>')
@@ -449,9 +449,9 @@ OUTPUT
       .convert("test", input, true),
     )
     xml.at("//xmlns:localized-strings").remove
-    expect(strip_guid(Canon.format_xml(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml
-      .sub('type="title"', 'type="author-date"'))
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to presxml
+      .sub('type="title"', 'type="author-date"')
   end
 
   it "enforces consistent metanorma-ordinal numbering" do
@@ -606,8 +606,8 @@ OUTPUT
       .convert("test", input, true),
     )
     xml.at("//xmlns:localized-strings")&.remove
-    expect(strip_guid(Canon.format_xml(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "enforces consistent references numbering with hidden items: metanorma identifiers" do
@@ -672,11 +672,11 @@ OUTPUT
          </references>
       </bibliography>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
+    expect(strip_guid(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
-    ).at("//xmlns:bibliography").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      ).at("//xmlns:bibliography").to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "enforces consistent references numbering with hidden items: metanorma-ordinal identifiers" do
@@ -749,11 +749,11 @@ OUTPUT
          </references>
       </bibliography>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
+    expect(strip_guid(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
-    ).at("//xmlns:bibliography").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      ).at("//xmlns:bibliography").to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "suppresses document identifier if requested to" do
@@ -870,12 +870,12 @@ OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
-      .at("//xmlns:references").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(Nokogiri::XML(pres_output)
+      .at("//xmlns:references").to_xml))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
   end
 
   it "renders footnote in metanorma docidentifier" do
@@ -1094,14 +1094,14 @@ OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
-      .at("//xmlns:references").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Nokogiri::XML(pres_output)
+      .at("//xmlns:references").to_xml))
+      .to be_xml_equivalent_to presxml
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(output.to_xml))
+      .to be_xml_equivalent_to html
   end
 
   it "emend citeas" do
@@ -1132,9 +1132,9 @@ OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
-      .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Nokogiri::XML(pres_output)
+      .at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   xit "sets NO ID to nil" do
@@ -1189,10 +1189,10 @@ OUTPUT
        </bibliography>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to presxml
 
     mock_i18n
     presxml = <<~OUTPUT
@@ -1232,10 +1232,10 @@ OUTPUT
        </bibliography>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input.sub(">en<", ">eo<"), true))
+    expect(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input.sub(">en<", ">eo<"), true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .to be_xml_equivalent_to presxml
   end
 
   private
