@@ -41,13 +41,12 @@ module IsoDoc
         save_dataimage(node["src"])
       end
 
-      def image_parse(node, out, caption)
+      def image_parse(node, out)
         emf_attributes(node)
         attrs = { src: imgsrc(node),
                   height: node["height"], alt: node["alt"],
                   title: node["title"], width: node["width"] }
         out.img **attr_code(attrs)
-        image_title_parse(out, caption)
       end
 
       def emf_attributes(node)

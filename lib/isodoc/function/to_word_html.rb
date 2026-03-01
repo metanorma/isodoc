@@ -163,7 +163,7 @@ module IsoDoc
           when "table" then table_parse(node, out)
           when "figure" then figure_parse(node, out)
           when "example", "termexample" then example_parse(node, out)
-          when "image" then image_parse(node, out, nil)
+          when "image" then image_parse(node, out)
           when "sourcecode" then sourcecode_parse(node, out)
           when "pre" then pre_parse(node, out)
           when "callout-annotation" then annotation_parse(node, out)
