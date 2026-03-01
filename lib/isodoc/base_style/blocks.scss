@@ -32,7 +32,7 @@
 }
 
 @mixin figureBlock() {
-  .FigureTitle, .figure-title {
+  figcaption {
     @include blockTitle();
   }
 
