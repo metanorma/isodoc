@@ -106,8 +106,8 @@ module IsoDoc
       def svg_supply_viewbox(svg)
         svg["viewbox"] and return
         svg["height"] && svg["width"] or return
-        h = svg["height"].sub(/[^0-9]+$/, "")
-        w = svg["width"].sub(/[^0-9]+$/, "")
+        h = svg["height"].to_s[/\d+/].to_s
+        w = svg["width"].to_s[/\d+/].to_s
         h.to_i.positive? && w.to_i.positive? or return
         svg["viewbox"] = "0 0 #{w} #{h}"
       end
