@@ -411,7 +411,7 @@ RSpec.describe IsoDoc do
                                <br/>
                 <div id="fwd">
                    <h1 class="ForewordTitle">Foreword</h1>
-                   <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                   <figure id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                       <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
                       <img src="rice_images/rice_image1.png" height="20" width="auto"/>
                       <img src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto"/>
@@ -468,24 +468,24 @@ RSpec.describe IsoDoc do
                             ]
                          </p>
                       </div>
-                      <p class="FigureTitle" style="text-align:center;">
+                      <figcaption>
                          Figure 1\\u00a0— Split-it-right
                          <i>sample</i>
                          divider
                          <a class="FootnoteRef" href="#fn:_19">
                             <sup>1</sup>
                          </a>
-                      </p>
-                   </div>
-                   <div id="figure-B" class="figure">
+                      </figcaption>
+                   </figure>
+                   <figure id="figure-B" class="figure">
                       <pre>A &lt;
          B</pre>
-                      <p class="FigureTitle" style="text-align:center;">Figure 2</p>
-                   </div>
-                   <div id="figure-C" class="figure">
+                      <figcaption>Figure 2</figcaptionp>
+                   </figure>
+                   <figure id="figure-C" class="figure">
                       <pre>A &lt;
          B</pre>
-                   </div>
+                   </figure>
                 </div>
                 <div>
                    <h1>1.\\u00a0 Normative References</h1>
@@ -502,11 +502,11 @@ RSpec.describe IsoDoc do
                       <br/>
                       (informative)
                    </h1>
-                   <div id="AnnexFigure" class="figure">
+                   <figure id="AnnexFigure" class="figure">
                       <pre>A &lt;
          B</pre>
-                      <p class="FigureTitle" style="text-align:center;">Figure A.1</p>
-                   </div>
+                      <figcaption>Figure A.1</figcaptionp>
+                   </figure>
                 </div>
                 <aside id="fn:_19" class="footnote">
                    <p>X</p>
@@ -827,32 +827,32 @@ RSpec.describe IsoDoc do
              <br/>
                             <div id="fwd">
                    <h1 class="ForewordTitle">Foreword</h1>
-                   <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
-                      <div id="note1" class="figure">
+                   <figure id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <figure id="note1" class="figure">
                          <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
-                         <p class="FigureTitle" style="text-align:center;">Figure 1-1\\u00a0— Subfigure 1</p>
-                      </div>
-                      <div id="note2" class="figure">
+                         <figcaption>Figure 1-1\\u00a0— Subfigure 1</figcaption>
+                      </figure>
+                      <figure id="note2" class="figure">
                          <img src="rice_images/rice_image1.png" height="20" width="auto"/>
-                         <p class="FigureTitle" style="text-align:center;">Figure 1-2\\u00a0— Subfigure 2</p>
-                      </div>
-                      <p class="FigureTitle" style="text-align:center;">Figure 1\\u00a0— Overall title</p>
-                   </div>
-                   <div id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
-                      <div id="note3" class="figure">
+                         <figcaption>Figure 1-2\\u00a0— Subfigure 2</figcaption>
+                      </figure>
+                      <figcaption>Figure 1\\u00a0— Overall title</figcaption>
+                   </figure>
+                   <figure id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <figure id="note3" class="figure">
                          <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
-                         <p class="FigureTitle" style="text-align:center;">Figure -1\\u00a0— Subfigure 1</p>
-                      </div>
-                      <p class="FigureTitle" style="text-align:center;">Overall title</p>
-                   </div>
-                   <div id="figureA-3" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
-                      <div id="note4" class="figure">
+                         <figcaption>Figure -1\\u00a0— Subfigure 1</figcaption>
+                      </figure>
+                      <figcaption>Overall title</figcaption>
+                   </figure>
+                   <figure id="figureA-3" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <figure id="note4" class="figure">
                          <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
-                         <p class="FigureTitle" style="text-align:center;">Subfigure 1</p>
-                      </div>
-                      <p class="FigureTitle" style="text-align:center;">Figure 2\\u00a0— Overall title</p>
-                   </div>
-                </div>
+                         <figcaption>Subfigure 1</figcaption>
+                      </figure>
+                      <figcaption>Figure 2\\u00a0— Overall title</figcaption>
+                   </figure>
+                </figure>
              </div>
           </body>
        </html>
@@ -1122,58 +1122,58 @@ RSpec.describe IsoDoc do
              <br/>
                 <div id="fwd">
                    <h1 class="ForewordTitle">Foreword</h1>
-                   <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                   <figure id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                       <table id="T" class="plain">
                          <tbody>
                             <tr>
                                <td style="">
-                                  <div id="note1" class="figure">
+                                  <figure id="note1" class="figure">
                                      <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
-                                     <p class="FigureTitle" style="text-align:center;">Figure 1-1\\u00a0— Subfigure 1</p>
-                                  </div>
+                                     <figcaption>Figure 1-1\\u00a0— Subfigure 1</figcaption>
+                                  </figure>
                                </td>
                                <td style="">
-                                  <div id="note2" class="figure">
+                                  <figure id="note2" class="figure">
                                      <img src="rice_images/rice_image1.png" height="20" width="auto"/>
-                                     <p class="FigureTitle" style="text-align:center;">Figure 1-2\\u00a0— Subfigure 2</p>
-                                  </div>
+                                     <figcaption>Figure 1-2\\u00a0— Subfigure 2</figcaption>
+                                  </figure>
                                </td>
                             </tr>
                          </tbody>
                       </table>
-                      <p class="FigureTitle" style="text-align:center;">Figure 1\\u00a0— Overall title</p>
-                   </div>
-                   <div id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <figcaption>Figure 1\\u00a0— Overall title</figcaption>
+                   </figure>
+                   <figure id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                       <table id="T1" class="plain">
                          <tbody>
                             <tr>
                                <td style="">
-                                  <div id="note3" class="figure">
+                                  <figure id="note3" class="figure">
                                      <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
-                                     <p class="FigureTitle" style="text-align:center;">Figure -1\\u00a0— Subfigure 1</p>
-                                  </div>
+                                     <figcaption>Figure -1\\u00a0— Subfigure 1</figcaption>
+                                  </figure>
                                </td>
                             </tr>
                          </tbody>
                       </table>
-                      <p class="FigureTitle" style="text-align:center;">Overall title</p>
-                   </div>
-                   <div id="figureA-3" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <figcaption>Overall title</p>
+                   </figure>
+                   <figure id="figureA-3" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                       <table id="T2" class="plain">
                          <tbody>
                             <tr>
                                <td style="">
-                                  <div id="note4" class="figure">
+                                  <figure id="note4" class="figure">
                                      <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
-                                     <p class="FigureTitle" style="text-align:center;">Subfigure 1</p>
-                                  </div>
+                                     <figcaption>Subfigure 1</figcaption>
+                                  </figure>
                                </td>
                             </tr>
                          </tbody>
                       </table>
-                      <p class="FigureTitle" style="text-align:center;">Figure 2\\u00a0— Overall title</p>
-                   </div>
-                </div>
+                      <figcaption>Figure 2\\u00a0— Overall title</figcaption>
+                   </figure>
+                </figure>
              </div>
           </body>
        </html>
@@ -1555,15 +1555,15 @@ RSpec.describe IsoDoc do
               <br/>
                 <div id="_">
                   <h1 class='ForewordTitle'>Foreword</h1>
-                  <div id='figureA-1' class='figure'>
+                  <figure id='figureA-1' class='figure'>
                     <div class="svg-container">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
                      <circle fill="#009" r="45" cx="50" cy="50"/>
                      <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
                   </svg>
                </div>
-                    <p class='FigureTitle' style='text-align:center;'>Figure 1</p>
-                  </div>
+                    <figcaption>Figure 1</figcaption>
+                  </figure>
                 </div>
               </div>
             </body>
@@ -1635,15 +1635,15 @@ RSpec.describe IsoDoc do
               <br/>
                 <div id="_">
                   <h1 class='ForewordTitle'>Foreword</h1>
-                  <div id='figureA-1' class='figure'>
+                  <figure id='figureA-1' class='figure'>
                     <div class="svg-container">
                   <svg xmlns="http://www.w3.org/2000/svg" height="100" width="100" preserveaspectratio="xMidYMin slice" viewbox="0 0 100 100">
                      <circle fill="#009" r="45" cx="50" cy="50"/>
                      <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
                   </svg>
                </div>
-                    <p class='FigureTitle' style='text-align:center;'>Figure 1</p>
-                  </div>
+                    <figcaption>Figure 1</figcaption>
+                  </figure>
                 </div>
               </div>
             </body>

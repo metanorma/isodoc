@@ -326,9 +326,9 @@ RSpec.describe IsoDoc do
                   </tr>
                </tbody>
             </table>
-            <div id="H" class="figure">
-               <p class="FigureTitle" style="text-align:center;">Imago</p>
-            </div>
+            <figure id="H" class="figure">
+               <figcaption>Imago</figcaption>
+            </figure>
             <div id="F" class="example">
                <p class="example-title">EXAMPLE A.7</p>
                <p id="G">This is not generalised further.</p>

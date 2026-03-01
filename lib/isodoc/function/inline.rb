@@ -127,22 +127,13 @@ module IsoDoc
         [HTMLEntities.new.encode(a), /^[[0-9,.+-]]*$/.match?(a)]
       end
 
-      def image_title_parse(out, caption)
-        unless caption.nil?
-          out.p class: "FigureTitle", style: "text-align:center;" do |p|
-            p.b { |b| b << caption.to_s }
-          end
-        end
-      end
-
-      def image_parse(node, out, caption)
+      def image_parse(node, out)
         attrs = { src: node["src"],
                   height: node["height"] || "auto",
                   width: node["width"] || "auto",
                   title: node["title"],
                   alt: node["alt"] }
         image_body_parse(node, attrs, out)
-        image_title_parse(out, caption)
       end
 
       def image_body_parse(_node, attrs, out)
