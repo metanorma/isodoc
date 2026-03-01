@@ -287,8 +287,8 @@ RSpec.describe IsoDoc do
                      </i>
          </p>
          <div class="Quote" id="D">
-            <p class="TableTitle" style="text-align:center;">Table 2\\u00a0— Edges of triangle and quadrilateral cells</p>
             <table id="E" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+            <caption>Table 2\\u00a0— Edges of triangle and quadrilateral cells</caption>
                <tbody>
                   <tr>
                      <th colspan="2" style="font-weight:bold;text-align:center;vertical-align:middle;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="row">triangle</th>
@@ -706,8 +706,8 @@ RSpec.describe IsoDoc do
                      A
                   </p>
                </div>
-               <p class="TableTitle" style="text-align:center;">Table 4</p>
                <table id="_" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+               <caption>Table 4</caption>
                   <tbody>
                      <tr>
                         <td style="text-align:left;vertical-align:top;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">A</td>
@@ -735,8 +735,8 @@ RSpec.describe IsoDoc do
             <div id="_" class="Note">
                <p>Note 1 to entry: A</p>
             </div>
-            <p class="TableTitle" style="text-align:center;">Table 3</p>
             <table id="_" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+            <caption>Table 3</caption>
                <tbody>
                   <tr>
                      <td style="text-align:left;vertical-align:top;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">A</td>

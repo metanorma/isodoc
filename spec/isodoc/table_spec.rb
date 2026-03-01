@@ -476,16 +476,14 @@ RSpec.describe IsoDoc do
               <br/>
                <div id="fwd">
                   <h1 class="ForewordTitle">Foreword</h1>
-                  <p class="TableTitle" style="text-align:center;">
+                  <table id="tableD-1" class="MsoISOTable" style="border-width:1px;border-spacing:0;width:70%;page-break-after: avoid;page-break-inside: avoid;table-layout:fixed;" title="tool tip">
+                     <caption>
                      Table 1\\u00a0— Repeatability and reproducibility of
                      <i>husked</i>
                      rice yield
                      <a class="FootnoteRef" href="#fn:_19">
                         <sup>1</sup>
                      </a>
-                  </p>
-                  <table id="tableD-1" class="MsoISOTable" style="border-width:1px;border-spacing:0;width:70%;page-break-after: avoid;page-break-inside: avoid;table-layout:fixed;" title="tool tip">
-                     <caption>
                         <span style="display:none">long desc</span>
                      </caption>
                      <colgroup>
@@ -610,16 +608,16 @@ RSpec.describe IsoDoc do
                      <br/>
                      (informative)
                   </h1>
-                  <p class="TableTitle" style="text-align:center;">Table A.1</p>
                   <table id="AnnexTable" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+                  <caption>Table A.1</caption>
                      <tbody>
                         <tr>
                            <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">A</td>
                         </tr>
                      </tbody>
                   </table>
-                  <p class="TableTitle" style="text-align:center;">Table</p>
                   <table class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+                  <caption>Table</caption>
                      <tbody>
                         <tr>
                            <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">B</td>
@@ -1170,16 +1168,14 @@ RSpec.describe IsoDoc do
               <br/>
               <div id="fwd">
                   <h1 class="ForewordTitle">Foreword</h1>
-                  <p class="TableTitle" style="text-align:center;">
-                     Table 1\\u00a0— Repeatability and reproducibility of
+                  <table id="tableD-1" class="plain" style="width:70%;page-break-after: avoid;page-break-inside: avoid;table-layout:fixed;" title="tool tip">
+                     <caption>
+                        Table 1\\u00a0— Repeatability and reproducibility of
                      <i>husked</i>
                      rice yield
                      <a class="FootnoteRef" href="#fn:_14">
                         <sup>1</sup>
                      </a>
-                  </p>
-                  <table id="tableD-1" class="plain" style="width:70%;page-break-after: avoid;page-break-inside: avoid;table-layout:fixed;" title="tool tip">
-                     <caption>
                         <span style="display:none">long desc</span>
                      </caption>
                      <colgroup>
@@ -1496,13 +1492,11 @@ RSpec.describe IsoDoc do
              <br/>
              <div id="_">
                <h1 class='ForewordTitle'>Foreword</h1>
-               <p class='TableTitle' style='text-align:center;'>
+               <table id='tableD-1' class='modspec' style='border-width:1px;border-spacing:0;width:70%;page-break-after: avoid;page-break-inside: avoid;' title='tool tip'>
+                 <caption>
                  Repeatability and reproducibility of
                  <i>husked</i>
                   rice yield
-               </p>
-               <table id='tableD-1' class='modspec' style='border-width:1px;border-spacing:0;width:70%;page-break-after: avoid;page-break-inside: avoid;' title='tool tip'>
-                 <caption>
                    <span style='display:none'>long desc</span>
                  </caption>
                </table>
@@ -2203,13 +2197,11 @@ RSpec.describe IsoDoc do
                             <br/>
                <div>
                   <h1 class="ForewordTitle">Foreword</h1>
-                  <p class="TableTitle" style="text-align:center;">
+                  <table id="tableD-1" class="MsoISOTable" style="border-width:1px;border-spacing:0;width:70%;page-break-after: avoid;page-break-inside: avoid;" title="tool tip">
+                     <caption>
                      Repeatability and reproducibility of
                      <i>husked</i>
                      rice yield
-                  </p>
-                  <table id="tableD-1" class="MsoISOTable" style="border-width:1px;border-spacing:0;width:70%;page-break-after: avoid;page-break-inside: avoid;" title="tool tip">
-                     <caption>
                         <span style="display:none">long desc</span>
                      </caption>
                      <thead>

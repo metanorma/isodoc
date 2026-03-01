@@ -104,6 +104,13 @@ module IsoDoc
         end
       end
 
+      def table_title_parse(node, out)
+        name = node.at(ns("./fmt-name")) or return
+        out.p class: "TableTitle", style: "text-align:center;" do |p|
+          name&.children&.each { |n| parse(n, p) }
+        end
+      end
+
       def table_parse(node, out)
         @in_table = true
         table_title_parse(node, out)
@@ -114,13 +121,6 @@ module IsoDoc
           end
         end
         @in_table = false
-      end
-
-      def table_parse_core(node, out)
-        colgroup(node, out)
-        thead_parse(node, out)
-        tbody_parse(node, out)
-        tfoot_parse(node, out)
       end
     end
   end
