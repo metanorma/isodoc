@@ -62,13 +62,13 @@ RSpec.describe IsoDoc do
                          <br/>
                                          <div id="fwd">
                    <h1 class="ForewordTitle">Foreword</h1>
-                   <figure id="samplecode" class="sourcecode"><pre>puts x</pre>
+                   <figure id="samplecode" class="sourcecode" spellcheck="false" translation="no"><pre>puts x</pre>
                    <figcaption class="SourceTitle">
                       Figure 1\\u00a0— Ruby
                       <i>code</i>
                    </figcaption>
                    </figure>
-                   <figure id="_" class="sourcecode"><pre>
+                   <figure id="_" class="sourcecode" spellcheck="false" translation="no"><pre>
                       Hey
                       <br/>
                       Que?
@@ -280,7 +280,7 @@ RSpec.describe IsoDoc do
                    <br/>
                                 <div id="_">
                    <h1 class="ForewordTitle">Foreword</h1>
-                   <figure id="samplecode" class="sourcecode">
+                   <figure id="samplecode" class="sourcecode" spellcheck="false" translation="no">
                    <pre>
                       <span class="nb">puts</span>
                       <span class="n">x</span>
@@ -290,7 +290,7 @@ RSpec.describe IsoDoc do
                       <i>code</i>
                    </figcaption>
                    </figure>
-                   <figure id="A" class="sourcecode">
+                   <figure id="A" class="sourcecode" spellcheck="false" translation="no">
                       <table class="rouge-line-table">
                          <tbody>
                             <tr>
@@ -298,7 +298,7 @@ RSpec.describe IsoDoc do
                                   <pre>1</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">Hey</pre>
+                                  <pre class="sourcecode" spellcheck="false" translation="no">Hey</pre>
                                </td>
                             </tr>
                             <tr>
@@ -306,14 +306,14 @@ RSpec.describe IsoDoc do
                                   <pre>2</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">Que?</pre>
+                                  <pre class="sourcecode" spellcheck="false" translation="no">Que?</pre>
                                </td>
                             </tr>
                          </tbody>
                       </table>
                    <figcaption class="SourceTitle">More</figcaption>
                    </figure>
-                   <figure id="B" class="sourcecode">
+                   <figure id="B" class="sourcecode" spellcheck="false" translation="no">
                       <table class="rouge-line-table">
                          <tbody>
                             <tr>
@@ -321,7 +321,7 @@ RSpec.describe IsoDoc do
                                   <pre>1</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">Hey</pre>
+                                  <pre class="sourcecode" spellcheck="false" translation="no">Hey</pre>
                                </td>
                             </tr>
                             <tr>
@@ -329,7 +329,7 @@ RSpec.describe IsoDoc do
                                   <pre>2</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">Que?</pre>
+                                  <pre class="sourcecode" spellcheck="false" translation="no">Que?</pre>
                                </td>
                             </tr>
                          </tbody>
@@ -581,12 +581,12 @@ RSpec.describe IsoDoc do
                   <br/>
                                <div id="_">
                <h1 class="ForewordTitle">Foreword</h1>
-               <figure id="samplecode" class="sourcecode"><pre><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre>
+               <figure id="samplecode" class="sourcecode" spellcheck="false" translation="no"><pre><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre>
                <figcaption class="SourceTitle">Figure 1\\u00a0— XML code</figcaption></figure>
-               <figure id="samplecode1" class="sourcecode"><table class="rouge-line-table"><tbody><tr>
+               <figure id="samplecode1" class="sourcecode" spellcheck="false" translation="no"><table class="rouge-line-table"><tbody><tr>
                <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
                 <pre>1</pre></td>
-                <td style="" class="rouge-code"><pre class="sourcecode"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre></td></tr></tbody></table>
+                <td style="" class="rouge-code"><pre class="sourcecode" spellcheck="false" translation="no"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre></td></tr></tbody></table>
                <figcaption class="SourceTitle">Figure 2\\u00a0— XML code</figcaption>
                </figure>
              </div>
@@ -727,7 +727,7 @@ RSpec.describe IsoDoc do
                   <br/>
                   <div id="_">
                                  <h1 class="ForewordTitle">Foreword</h1>
-                                 <figure id="_" class="sourcecode">
+                                 <figure id="_" class="sourcecode" spellcheck="false" translation="no">
                <pre>puts "Hello, world." <span class="c"> &lt;1&gt;</span><span class="c"> &lt;2&gt;</span> <br/>\\u00a0\\u00a0 %w{a b c}.each do |x|<br/>\\u00a0\\u00a0\\u00a0\\u00a0 puts x <span class="c"> &lt;3&gt;</span><br/>\\u00a0\\u00a0 end</pre>
                        <div class="annotation">
                        <div class="figdl">
@@ -1008,7 +1008,7 @@ RSpec.describe IsoDoc do
                    <br/>
                 <div id="_">
                    <h1 class="ForewordTitle">Foreword</h1>
-                   <figure id="_" class="sourcecode">
+                   <figure id="_" class="sourcecode" spellcheck="false" translation="no">
                       <table class="rouge-line-table">
                          <tbody>
                             <tr>
@@ -1016,7 +1016,7 @@ RSpec.describe IsoDoc do
                                   <pre>1</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">
+                                  <pre class="sourcecode" spellcheck="false" translation="no">
                                      puts "Hello, world."
                                      <span class="c"> &lt;1&gt;</span>
                                      \\u00a0
@@ -1029,7 +1029,7 @@ RSpec.describe IsoDoc do
                                   <pre>2</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">\\u00a0\\u00a0 %w{a b c}.each do |x|</pre>
+                                  <pre class="sourcecode" spellcheck="false" translation="no">\\u00a0\\u00a0 %w{a b c}.each do |x|</pre>
                                </td>
                             </tr>
                             <tr>
@@ -1037,7 +1037,7 @@ RSpec.describe IsoDoc do
                                   <pre>3</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">
+                                  <pre class="sourcecode" spellcheck="false" translation="no">
                                      \\u00a0\\u00a0\\u00a0\\u00a0 puts x
                                      <span class="c"> &lt;3&gt;</span>
                                   </pre>
@@ -1048,7 +1048,7 @@ RSpec.describe IsoDoc do
                                   <pre>4</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">\\u00a0\\u00a0 end</pre>
+                                  <pre class="sourcecode" spellcheck="false" translation="no">\\u00a0\\u00a0 end</pre>
                                </td>
                             </tr>
                          </tbody>

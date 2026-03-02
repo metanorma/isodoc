@@ -968,7 +968,7 @@ RSpec.describe IsoDoc do
            <br/>
            <div>
               <h1 class="ForewordTitle">Foreword</h1>
-              <figure id="samplecode" class="sourcecode"><pre>
+              <figure id="samplecode" class="sourcecode" spellcheck="false" translation="no"><pre>
                  <br/>
                  \\u00a0 &lt;xml&gt; &amp;
                  <br/>

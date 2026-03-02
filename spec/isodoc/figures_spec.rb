@@ -1786,7 +1786,7 @@ RSpec.describe IsoDoc do
             <div id="_">
             <h1 class='ForewordTitle'>Foreword</h1>
                      <div class='example'>
-                       <figure id='B' class='sourcecode'><pre>A B C</pre></figure>
+                       <figure id='B' class='sourcecode' spellcheck="false" translation="no"><pre>A B C</pre></figure>
                        <figure id='A' class='pseudocode'>
                          <p id='_'>
                            \\u00a0\\u00a0
@@ -1794,7 +1794,7 @@ RSpec.describe IsoDoc do
                          </p>
                          <figcaption class='SourceTitle'>Label</figcaption>
                        </figure>
-                       <figure id='B1' class='sourcecode'><pre>A B C</pre></figure>
+                       <figure id='B1' class='sourcecode' spellcheck="false" translation="no"><pre>A B C</pre></figure>
                        <figure id='A1' class='pseudocode'>
                          <p id='_'>
                            \\u00a0\\u00a0

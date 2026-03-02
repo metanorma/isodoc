@@ -679,7 +679,7 @@ RSpec.describe IsoDoc do
                       </div>
                       <div class="requirement-verification">
                          <p id="_">The following code will be run for verification:</p>
-                         <figure id="C" class="sourcecode"><pre>
+                         <figure id="C" class="sourcecode" spellcheck="false" translation="no"><pre>
                             CoreRoot(success): HttpResponse
                             <br/>
                             \\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 if (success)
@@ -982,7 +982,7 @@ RSpec.describe IsoDoc do
                   </div>
                   <div class="requirement-verification">
                     <p id="_">The following code will be run for verification:</p>
-                    <figure id="C" class="sourcecode"><pre>CoreRoot(success): HttpResponse<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 if (success)<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 recommendation(label: success-response)<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 end<br/>\\u00a0\\u00a0\\u00a0 </pre></figure>
+                    <figure id="C" class="sourcecode" spellcheck="false" translation="no"><pre>CoreRoot(success): HttpResponse<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 if (success)<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 recommendation(label: success-response)<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 end<br/>\\u00a0\\u00a0\\u00a0 </pre></figure>
                   </div>
               <div class='requirement-component1'> <p id='_'>Hello</p> </div>
                 </div>
@@ -1257,7 +1257,7 @@ RSpec.describe IsoDoc do
                   </div>
                   <div class="requirement-verification">
                     <p id="_">The following code will be run for verification:</p>
-                    <figure id="C" class="sourcecode"><pre>CoreRoot(success): HttpResponse<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 if (success)<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 recommendation(label: success-response)<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 end<br/>\\u00a0\\u00a0\\u00a0 </pre></figure>
+                    <figure id="C" class="sourcecode" spellcheck="false" translation="no"><pre>CoreRoot(success): HttpResponse<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 if (success)<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 recommendation(label: success-response)<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 end<br/>\\u00a0\\u00a0\\u00a0 </pre></figure>
                   </div>
                           <div class='requirement-component1'> <p id='_'>Hello</p> </div>
                 </div>

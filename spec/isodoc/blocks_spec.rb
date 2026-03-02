@@ -69,7 +69,7 @@ RSpec.describe IsoDoc do
                          <div id="samplecode" class="example" style="page-break-after: avoid;page-break-inside: avoid;">
                          <p class="example-title">EXAMPLE\\u00a0&#8212; Title</p>
                  <p>Hello</p>
-                      <figure id="X" class="sourcecode"><pre>
+                      <figure id="X" class="sourcecode" spellcheck="false" translation="no"><pre>
                          <br/>
       #{'                   \\u00a0'}
                          <br/>
