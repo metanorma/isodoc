@@ -1786,21 +1786,21 @@ RSpec.describe IsoDoc do
             <div id="_">
             <h1 class='ForewordTitle'>Foreword</h1>
                      <div class='example'>
-                       <pre id='B' class='sourcecode'>A B C</pre>
-                       <div id='A' class='pseudocode'>
+                       <figure id='B' class='sourcecode'><pre>A B C</pre></figure>
+                       <figure id='A' class='pseudocode'>
                          <p id='_'>
                            \\u00a0\\u00a0
                            <b>A</b>
                          </p>
-                         <p class='SourceTitle' style='text-align:center;'>Label</p>
-                       </div>
-                       <pre id='B1' class='sourcecode'>A B C</pre>
-                       <div id='A1' class='pseudocode'>
+                         <figcaption class='SourceTitle'>Label</figcaption>
+                       </figure>
+                       <figure id='B1' class='sourcecode'><pre>A B C</pre></figure>
+                       <figure id='A1' class='pseudocode'>
                          <p id='_'>
                            \\u00a0\\u00a0
                            <b>A</b>
                          </p>
-                       </div>
+                       </figure>
                      </div>
                    </div>
                  </div>
