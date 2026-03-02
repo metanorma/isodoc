@@ -522,8 +522,9 @@ RSpec.describe IsoDoc do
                See
                <a href="#tab">Table 1</a>
             </p>
-            <p class="TableTitle" style="text-align:center;">Table 1</p>
-            <table id="tab" class="MsoISOTable" style="border-width:1px;border-spacing:0;"/>
+            <table id="tab" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+            <caption>Table 1</caption>
+            </table>
                      </div>
                      <br/>
                      <div class="Section3" id="B">
@@ -1112,8 +1113,9 @@ RSpec.describe IsoDoc do
                See
                <a href="#tab">Tableau 1</a>
             </p>
-            <p class="TableTitle" style="text-align:center;">Tableau 1</p>
-            <table id="tab" class="MsoISOTable" style="border-width:1px;border-spacing:0;"/>
+            <table id="tab" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+            <caption>Tableau 1</caption>
+            </table>
                      </div>
                      <br/>
                      <div class="Section3" id="B">
@@ -1634,8 +1636,9 @@ RSpec.describe IsoDoc do
                See
                <a href="#tab">表1</a>
             </p>
-            <p class="TableTitle" style="text-align:center;">表1</p>
-            <table id="tab" class="MsoISOTable" style="border-width:1px;border-spacing:0;"/>
+            <table id="tab" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+            <caption>表1</caption>
+            </table>
              </div>
              <br/>
              <div class="Section3" id="B">
@@ -2192,8 +2195,9 @@ RSpec.describe IsoDoc do
         See
         <a href='#tab'>tabelo 1</a>
       </p>
-      <p class='TableTitle' style='text-align:center;'>Tabelo 1</p>
-      <table id='tab' class='MsoISOTable' style='border-width:1px;border-spacing:0;'/>
+      <table id='tab' class='MsoISOTable' style='border-width:1px;border-spacing:0;'>
+      <caption>Tabelo 1</caption>
+      </table>
                    </div>
                    <br/>
                    <div class='Section3' id='B'>

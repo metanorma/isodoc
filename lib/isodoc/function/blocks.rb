@@ -5,8 +5,8 @@ module IsoDoc
     module Blocks
       def figure_name_parse(_node, div, name)
         name.nil? and return
-        div.p class: "FigureTitle", style: "text-align:center;" do |p|
-          name.children.each { |n| parse(n, p) }
+        div.figcaption do |p|
+          children_parse(name, p)
         end
       end
 
@@ -23,7 +23,7 @@ module IsoDoc
       end
 
       def figure_parse1(node, out)
-        out.div **figure_attrs(node) do |div|
+        out.figure **figure_attrs(node) do |div|
           node.children.each do |n|
             parse(n, div) unless n.name == "fmt-name"
           end

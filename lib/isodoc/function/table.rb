@@ -2,9 +2,15 @@ module IsoDoc
   module Function
     module Table
       def table_title_parse(node, out)
-        name = node.at(ns("./fmt-name")) or return
-        out.p class: "TableTitle", style: "text-align:center;" do |p|
-          name&.children&.each { |n| parse(n, p) }
+        name = node.at(ns("./fmt-name"))
+        summ =  node["summary"]
+        name || summ or return
+        # out.p class: "TableTitle", style: "text-align:center;" do |p|
+        out.caption do |p|
+          children_parse(name, p)
+          summ and p.span style: "display:none" do |s|
+            s << summ
+          end
         end
       end
 
@@ -64,15 +70,6 @@ module IsoDoc
         style
       end
 
-      def tcaption(node, table)
-        node["summary"] or return
-        table.caption do |c|
-          c.span style: "display:none" do |s|
-            s << node["summary"]
-          end
-        end
-      end
-
       def colgroup(node, table)
         colgroup = node.at(ns("./colgroup")) or return
         table.colgroup do |cg|
@@ -84,8 +81,8 @@ module IsoDoc
 
       def table_parse(node, out)
         @in_table = true
-        table_title_parse(node, out)
         out.table **table_attrs(node) do |t|
+          table_title_parse(node, t)
           table_parse_core(node, t)
           table_parse_tail(node, t)
         end
@@ -101,7 +98,6 @@ module IsoDoc
       end
 
       def table_parse_core(node, out)
-        tcaption(node, out)
         colgroup(node, out)
         thead_parse(node, out)
         tbody_parse(node, out)
