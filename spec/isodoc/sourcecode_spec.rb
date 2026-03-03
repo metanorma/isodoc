@@ -62,17 +62,19 @@ RSpec.describe IsoDoc do
                          <br/>
                                          <div id="fwd">
                    <h1 class="ForewordTitle">Foreword</h1>
-                   <pre id="samplecode" class="sourcecode">puts x</pre>
-                   <p class="SourceTitle" style="text-align:center;">
+                   <figure id="samplecode" class="sourcecode" spellcheck="false" translation="no"><pre>puts x</pre>
+                   <figcaption class="SourceTitle">
                       Figure 1\\u00a0— Ruby
                       <i>code</i>
-                   </p>
-                   <pre id="_" class="sourcecode">
+                   </figcaption>
+                   </figure>
+                   <figure id="_" class="sourcecode" spellcheck="false" translation="no"><pre>
                       Hey
                       <br/>
                       Que?
                       <br/>
                    </pre>
+                   </figure>
                 </div>
              </div>
           </body>
@@ -278,15 +280,17 @@ RSpec.describe IsoDoc do
                    <br/>
                                 <div id="_">
                    <h1 class="ForewordTitle">Foreword</h1>
-                   <pre id="samplecode" class="sourcecode">
+                   <figure id="samplecode" class="sourcecode" spellcheck="false" translation="no">
+                   <pre>
                       <span class="nb">puts</span>
                       <span class="n">x</span>
                    </pre>
-                   <p class="SourceTitle" style="text-align:center;">
+                   <figcaption class="SourceTitle">
                       Figure 1\\u00a0— Ruby
                       <i>code</i>
-                   </p>
-                   <div id="A" class="sourcecode">
+                   </figcaption>
+                   </figure>
+                   <figure id="A" class="sourcecode" spellcheck="false" translation="no">
                       <table class="rouge-line-table">
                          <tbody>
                             <tr>
@@ -294,7 +298,7 @@ RSpec.describe IsoDoc do
                                   <pre>1</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">Hey</pre>
+                                  <pre class="sourcecode" spellcheck="false" translation="no">Hey</pre>
                                </td>
                             </tr>
                             <tr>
@@ -302,14 +306,14 @@ RSpec.describe IsoDoc do
                                   <pre>2</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">Que?</pre>
+                                  <pre class="sourcecode" spellcheck="false" translation="no">Que?</pre>
                                </td>
                             </tr>
                          </tbody>
                       </table>
-                   </div>
-                   <p class="SourceTitle" style="text-align:center;">More</p>
-                   <div id="B" class="sourcecode">
+                   <figcaption class="SourceTitle">More</figcaption>
+                   </figure>
+                   <figure id="B" class="sourcecode" spellcheck="false" translation="no">
                       <table class="rouge-line-table">
                          <tbody>
                             <tr>
@@ -317,7 +321,7 @@ RSpec.describe IsoDoc do
                                   <pre>1</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">Hey</pre>
+                                  <pre class="sourcecode" spellcheck="false" translation="no">Hey</pre>
                                </td>
                             </tr>
                             <tr>
@@ -325,13 +329,13 @@ RSpec.describe IsoDoc do
                                   <pre>2</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">Que?</pre>
+                                  <pre class="sourcecode" spellcheck="false" translation="no">Que?</pre>
                                </td>
                             </tr>
                          </tbody>
                       </table>
-                   </div>
-                   <p class="SourceTitle" style="text-align:center;">More</p>
+                   <figcaption class="SourceTitle">More</figcaption>
+                   </figure>
                 </div>
              </div>
           </body>
@@ -339,80 +343,80 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     doc = <<~OUTPUT
-       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
-          <div class="WordSection2">
-             <p class="MsoNormal">
-                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-             </p>
-             <div>
-                <a name="_" id="_"/>
-                <h1 class="ForewordTitle">Foreword</h1>
-                <p class="Sourcecode" style="page-break-after:avoid;">
-                   <a name="samplecode" id="samplecode"/>
-                   <span class="nb">puts</span>
-                   <span class="n">x</span>
-                </p>
-                <p class="SourceTitle" style="text-align:center;">
-                   Figure 1\\u00a0— Ruby
-                   <i>code</i>
-                </p>
-                <div align="center" class="table_container" style="page-break-after:avoid;">
-                   <a name="A" id="A"/>
-                   <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
-                      <tbody>
-                         <tr>
-                            <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:avoid;" class="rouge-gutter gl">
-                               <pre style="page-break-after:avoid">1</pre>
-                            </td>
-                            <td style="page-break-after:avoid;" class="rouge-code">
-                               <p class="Sourcecode" style="page-break-after:avoid">Hey</p>
-                            </td>
-                         </tr>
-                         <tr>
-                            <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:auto;" class="rouge-gutter gl">
-                               <pre style="page-break-after:auto">2</pre>
-                            </td>
-                            <td style="page-break-after:auto;" class="rouge-code">
-                               <p class="Sourcecode" style="page-break-after:auto">Que?</p>
-                            </td>
-                         </tr>
-                      </tbody>
-                   </table>
-                </div>
-                <p class="SourceTitle" style="text-align:center;">More</p>
-                <div align="center" class="table_container" style="page-break-after:avoid;">
-                   <a name="B" id="B"/>
-                   <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
-                      <tbody>
-                         <tr>
-                            <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:avoid;" class="rouge-gutter gl">
-                               <pre style="page-break-after:avoid">1</pre>
-                            </td>
-                            <td style="page-break-after:avoid;" class="rouge-code">
-                               <p class="Sourcecode" style="page-break-after:avoid">Hey</p>
-                            </td>
-                         </tr>
-                         <tr>
-                            <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:auto;" class="rouge-gutter gl">
-                               <pre style="page-break-after:auto">2</pre>
-                            </td>
-                            <td style="page-break-after:auto;" class="rouge-code">
-                               <p class="Sourcecode" style="page-break-after:auto">Que?</p>
-                            </td>
-                         </tr>
-                      </tbody>
-                   </table>
-                </div>
-                <p class="SourceTitle" style="text-align:center;">More</p>
-             </div>
-             <p class="MsoNormal">\\u00a0</p>
-          </div>
-          <p class="MsoNormal">
-             <br clear="all" class="section"/>
-          </p>
-          <div class="WordSection3"/>
-          <div style="mso-element:footnote-list"/>
-       </body>
+      <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+         <div class="WordSection2">
+            <p class="MsoNormal">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+            </p>
+            <div>
+               <a name="_" id="_"/>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <p class="Sourcecode" style="page-break-after:avoid;">
+                  <a name="samplecode" id="samplecode"/>
+                  <span class="nb">puts</span>
+                  <span class="n">x</span>
+               </p>
+               <p class="SourceTitle" style="text-align:center;">
+                  Figure 1\\u00a0— Ruby
+                  <i>code</i>
+               </p>
+               <div align="center" class="table_container" style="page-break-after:avoid;">
+                  <a name="A" id="A"/>
+                  <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
+                     <tbody>
+                        <tr>
+                           <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:avoid;" class="rouge-gutter gl">
+                              <pre style="page-break-after:avoid">1</pre>
+                           </td>
+                           <td style="page-break-after:avoid;" class="rouge-code">
+                              <p class="Sourcecode" style="page-break-after:avoid">Hey</p>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:auto;" class="rouge-gutter gl">
+                              <pre style="page-break-after:auto">2</pre>
+                           </td>
+                           <td style="page-break-after:auto;" class="rouge-code">
+                              <p class="Sourcecode" style="page-break-after:auto">Que?</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <p class="SourceTitle" style="text-align:center;">More</p>
+               <div align="center" class="table_container" style="page-break-after:avoid;">
+                  <a name="B" id="B"/>
+                  <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
+                     <tbody>
+                        <tr>
+                           <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:avoid;" class="rouge-gutter gl">
+                              <pre style="page-break-after:avoid">1</pre>
+                           </td>
+                           <td style="page-break-after:avoid;" class="rouge-code">
+                              <p class="Sourcecode" style="page-break-after:avoid">Hey</p>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:auto;" class="rouge-gutter gl">
+                              <pre style="page-break-after:auto">2</pre>
+                           </td>
+                           <td style="page-break-after:auto;" class="rouge-code">
+                              <p class="Sourcecode" style="page-break-after:auto">Que?</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <p class="SourceTitle" style="text-align:center;">More</p>
+            </div>
+            <p class="MsoNormal">\\u00a0</p>
+         </div>
+         <p class="MsoNormal">
+            <br clear="all" class="section"/>
+         </p>
+         <div class="WordSection3"/>
+         <div style="mso-element:footnote-list"/>
+      </body>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new({ sourcehighlighter: true }
@@ -577,14 +581,14 @@ RSpec.describe IsoDoc do
                   <br/>
                                <div id="_">
                <h1 class="ForewordTitle">Foreword</h1>
-               <pre id="samplecode" class="sourcecode"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre>
-               <p class="SourceTitle" style="text-align:center;">Figure 1\\u00a0— XML code</p>
-               <div id="samplecode1" class="sourcecode"><table class="rouge-line-table"><tbody><tr>
+               <figure id="samplecode" class="sourcecode" spellcheck="false" translation="no"><pre><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre>
+               <figcaption class="SourceTitle">Figure 1\\u00a0— XML code</figcaption></figure>
+               <figure id="samplecode1" class="sourcecode" spellcheck="false" translation="no"><table class="rouge-line-table"><tbody><tr>
                <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
                 <pre>1</pre></td>
-                <td style="" class="rouge-code"><pre class="sourcecode"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre></td></tr></tbody></table>
-              </div>
-               <p class="SourceTitle" style="text-align:center;">Figure 2\\u00a0— XML code</p>
+                <td style="" class="rouge-code"><pre class="sourcecode" spellcheck="false" translation="no"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre></td></tr></tbody></table>
+               <figcaption class="SourceTitle">Figure 2\\u00a0— XML code</figcaption>
+               </figure>
              </div>
            </div>
          </body>
@@ -622,108 +626,109 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~INPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <bibdata/>
-          
-          
-          <preface>
-             <clause type="toc" id="_" displayorder="1">
-                <fmt-title id="_" depth="1">Table of contents</fmt-title>
-             </clause>
-             <foreword id="_" displayorder="2">
-                <title id="_">Foreword</title>
-                <fmt-title id="_" depth="1">
-                   <semx element="title" source="_">Foreword</semx>
-                </fmt-title>
-                <sourcecode id="_" autonum="1">
-                   <fmt-name id="_">
-                      <span class="fmt-caption-label">
-                         <span class="fmt-element-name">Figure</span>
-                         <semx element="autonum" source="_">1</semx>
-                      </span>
-                   </fmt-name>
-                   <fmt-xref-label>
-                      <span class="fmt-element-name">Figure</span>
-                      <semx element="autonum" source="_">1</semx>
-                   </fmt-xref-label><body>
-                   puts "Hello, world."
-                   <callout target="A">1</callout>
-                   <callout target="B">2</callout>
-                   %w{a b c}.each do |x| puts x
-                   <callout target="C">3</callout>
-                   end
-                   </body><callout-annotation original-id="A" id="_">
-                      <p original-id="_">
-                         This is
-                         <em>one</em>
-                         callout
-                      </p>
-                   </callout-annotation>
-                   <callout-annotation original-id="B" id="_">
-                      <p original-id="_">This is another callout</p>
-                   </callout-annotation>
-                   <callout-annotation original-id="C" id="_">
-                      <p original-id="_">This is yet another callout</p>
-                   </callout-annotation>
-                   <fmt-sourcecode id="_" autonum="1">
-                         puts "Hello, world."
-                         <span class="c">
-                            <callout target="A">1</callout>
-                         </span>
-                         <span class="c">
-                            <callout target="B">2</callout>
-                         </span>
-                         %w{a b c}.each do |x| puts x
-                         <span class="c">
-                            <callout target="C">3</callout>
-                         </span>
-                         end
-                         <dl>
-                            <name id="_">Key</name>
-                            <fmt-name id="_">
-                               <semx element="name" source="_">Key</semx>
-                            </fmt-name>
-                            <dt id="A">
-                               <span class="c">1</span>
-                            </dt>
-                            <dd>
-                               <semx element="callout-annotation" source="_">
-                                  <p original-id="_">
-                                     This is
-                                     <em>one</em>
-                                     callout
-                                  </p>
-                               </semx>
-                            </dd>
-                            <dt id="B">
-                               <span class="c">2</span>
-                            </dt>
-                            <dd>
-                               <semx element="callout-annotation" source="_">
-                                  <p original-id="_">This is another callout</p>
-                               </semx>
-                            </dd>
-                            <dt id="C">
-                               <span class="c">3</span>
-                            </dt>
-                            <dd>
-                               <semx element="callout-annotation" source="_">
-                                  <p original-id="_">This is yet another callout</p>
-                               </semx>
-                            </dd>
-                         </dl>
-                   </fmt-sourcecode>
-                </sourcecode>
-             </foreword>
-          </preface>
-       </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata/>
+      #{'   '}
+      #{'   '}
+         <preface>
+            <clause type="toc" id="_" displayorder="1">
+               <fmt-title id="_" depth="1">Table of contents</fmt-title>
+            </clause>
+            <foreword id="_" displayorder="2">
+               <title id="_">Foreword</title>
+               <fmt-title id="_" depth="1">
+                  <semx element="title" source="_">Foreword</semx>
+               </fmt-title>
+               <sourcecode id="_" autonum="1">
+                  <fmt-name id="_">
+                     <span class="fmt-caption-label">
+                        <span class="fmt-element-name">Figure</span>
+                        <semx element="autonum" source="_">1</semx>
+                     </span>
+                  </fmt-name>
+                  <fmt-xref-label>
+                     <span class="fmt-element-name">Figure</span>
+                     <semx element="autonum" source="_">1</semx>
+                  </fmt-xref-label><body>
+                  puts "Hello, world."
+                  <callout target="A">1</callout>
+                  <callout target="B">2</callout>
+                  %w{a b c}.each do |x| puts x
+                  <callout target="C">3</callout>
+                  end
+                  </body><callout-annotation original-id="A" id="_">
+                     <p original-id="_">
+                        This is
+                        <em>one</em>
+                        callout
+                     </p>
+                  </callout-annotation>
+                  <callout-annotation original-id="B" id="_">
+                     <p original-id="_">This is another callout</p>
+                  </callout-annotation>
+                  <callout-annotation original-id="C" id="_">
+                     <p original-id="_">This is yet another callout</p>
+                  </callout-annotation>
+                  <fmt-sourcecode id="_" autonum="1">
+                        puts "Hello, world."
+                        <span class="c">
+                           <callout target="A">1</callout>
+                        </span>
+                        <span class="c">
+                           <callout target="B">2</callout>
+                        </span>
+                        %w{a b c}.each do |x| puts x
+                        <span class="c">
+                           <callout target="C">3</callout>
+                        </span>
+                        end
+                        <dl>
+                           <name id="_">Key</name>
+                           <fmt-name id="_">
+                              <semx element="name" source="_">Key</semx>
+                           </fmt-name>
+                           <dt id="A">
+                              <span class="c">1</span>
+                           </dt>
+                           <dd>
+                              <semx element="callout-annotation" source="_">
+                                 <p original-id="_">
+                                    This is
+                                    <em>one</em>
+                                    callout
+                                 </p>
+                              </semx>
+                           </dd>
+                           <dt id="B">
+                              <span class="c">2</span>
+                           </dt>
+                           <dd>
+                              <semx element="callout-annotation" source="_">
+                                 <p original-id="_">This is another callout</p>
+                              </semx>
+                           </dd>
+                           <dt id="C">
+                              <span class="c">3</span>
+                           </dt>
+                           <dd>
+                              <semx element="callout-annotation" source="_">
+                                 <p original-id="_">This is yet another callout</p>
+                              </semx>
+                           </dd>
+                        </dl>
+                  </fmt-sourcecode>
+               </sourcecode>
+            </foreword>
+         </preface>
+      </iso-standard>
     INPUT
     html = <<~OUTPUT
       #{HTML_HDR}
                   <br/>
                   <div id="_">
                                  <h1 class="ForewordTitle">Foreword</h1>
-               <pre id="_" class="sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span><span class="c"> &lt;2&gt;</span> <br/>\\u00a0\\u00a0 %w{a b c}.each do |x|<br/>\\u00a0\\u00a0\\u00a0\\u00a0 puts x <span class="c"> &lt;3&gt;</span><br/>\\u00a0\\u00a0 end</pre>
+                                 <figure id="_" class="sourcecode" spellcheck="false" translation="no">
+               <pre>puts "Hello, world." <span class="c"> &lt;1&gt;</span><span class="c"> &lt;2&gt;</span> <br/>\\u00a0\\u00a0 %w{a b c}.each do |x|<br/>\\u00a0\\u00a0\\u00a0\\u00a0 puts x <span class="c"> &lt;3&gt;</span><br/>\\u00a0\\u00a0 end</pre>
                        <div class="annotation">
                        <div class="figdl">
           <p class="ListTitle">Key</p>
@@ -749,7 +754,8 @@ RSpec.describe IsoDoc do
           </dl>
           </div>
         </div>
-               <p class="SourceTitle" style="text-align:center;">Figure 1</p>
+               <figcaption class="SourceTitle">Figure 1</figcaption>
+               </figure>
              </div>
            </div>
          </body>
@@ -864,145 +870,145 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~INPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <bibdata/>
-          
-          
-          <preface>
-             <clause type="toc" id="_" displayorder="1">
-                <fmt-title id="_" depth="1">Table of contents</fmt-title>
-             </clause>
-             <foreword id="_" displayorder="2">
-                <title id="_">Foreword</title>
-                <fmt-title id="_" depth="1">
-                   <semx element="title" source="_">Foreword</semx>
-                </fmt-title>
-                <sourcecode id="_" linenums="true" autonum="1">
-                   <fmt-name id="_">
-                      <span class="fmt-caption-label">
-                         <span class="fmt-element-name">Figure</span>
-                         <semx element="autonum" source="_">1</semx>
-                      </span>
-                   </fmt-name>
-                   <fmt-xref-label>
-                      <span class="fmt-element-name">Figure</span>
-                      <semx element="autonum" source="_">1</semx>
-                   </fmt-xref-label><body>
-                   puts "Hello, world."
-                   <callout target="A">1</callout>
-                   <callout target="B">2</callout>
-                   %w{a b c}.each do |x| puts x
-                   <callout target="C">3</callout>
-                   end
-                   </body><callout-annotation original-id="A" id="_">
-                      <p original-id="_">
-                         This is
-                         <em>one</em>
-                         callout
-                      </p>
-                   </callout-annotation>
-                   <callout-annotation original-id="B" id="_">
-                      <p original-id="_">This is another callout</p>
-                   </callout-annotation>
-                   <callout-annotation original-id="C" id="_">
-                      <p original-id="_">This is yet another callout</p>
-                   </callout-annotation>
-                   <fmt-sourcecode id="_" linenums="true" autonum="1">
-                         <table class="rouge-line-table">
-                            <tbody>
-                               <tr id="line-1" class="lineno">
-                                  <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
-                                     <pre>1</pre>
-                                  </td>
-                                  <td class="rouge-code">
-                                     <sourcecode>
-                                        puts "Hello, world."
-                                        <span class="c">
-                                           <callout target="A">1</callout>
-                                        </span>
-                                        <span class="c">
-                                           <callout target="B">2</callout>
-                                        </span>
-                                     </sourcecode>
-                                  </td>
-                               </tr>
-                               <tr id="line-2" class="lineno">
-                                  <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
-                                     <pre>2</pre>
-                                  </td>
-                                  <td class="rouge-code">
-                                     <sourcecode>   %w{a b c}.each do |x|</sourcecode>
-                                  </td>
-                               </tr>
-                               <tr id="line-3" class="lineno">
-                                  <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
-                                     <pre>3</pre>
-                                  </td>
-                                  <td class="rouge-code">
-                                     <sourcecode>
-                                        puts x
-                                        <span class="c">
-                                           <callout target="C">3</callout>
-                                        </span>
-                                     </sourcecode>
-                                  </td>
-                               </tr>
-                               <tr id="line-4" class="lineno">
-                                  <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
-                                     <pre>4</pre>
-                                  </td>
-                                  <td class="rouge-code">
-                                     <sourcecode>   end</sourcecode>
-                                  </td>
-                               </tr>
-                            </tbody>
-                         </table>
-                         <dl>
-                            <name id="_">Key</name>
-                            <fmt-name id="_">
-                               <semx element="name" source="_">Key</semx>
-                            </fmt-name>
-                            <dt id="A">
-                               <span class="c">1</span>
-                            </dt>
-                            <dd>
-                               <semx element="callout-annotation" source="_">
-                                  <p original-id="_">
-                                     This is
-                                     <em>one</em>
-                                     callout
-                                  </p>
-                               </semx>
-                            </dd>
-                            <dt id="B">
-                               <span class="c">2</span>
-                            </dt>
-                            <dd>
-                               <semx element="callout-annotation" source="_">
-                                  <p original-id="_">This is another callout</p>
-                               </semx>
-                            </dd>
-                            <dt id="C">
-                               <span class="c">3</span>
-                            </dt>
-                            <dd>
-                               <semx element="callout-annotation" source="_">
-                                  <p original-id="_">This is yet another callout</p>
-                               </semx>
-                            </dd>
-                         </dl>
-                   </fmt-sourcecode>
-                </sourcecode>
-             </foreword>
-          </preface>
-       </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata/>
+      #{'   '}
+      #{'   '}
+         <preface>
+            <clause type="toc" id="_" displayorder="1">
+               <fmt-title id="_" depth="1">Table of contents</fmt-title>
+            </clause>
+            <foreword id="_" displayorder="2">
+               <title id="_">Foreword</title>
+               <fmt-title id="_" depth="1">
+                  <semx element="title" source="_">Foreword</semx>
+               </fmt-title>
+               <sourcecode id="_" linenums="true" autonum="1">
+                  <fmt-name id="_">
+                     <span class="fmt-caption-label">
+                        <span class="fmt-element-name">Figure</span>
+                        <semx element="autonum" source="_">1</semx>
+                     </span>
+                  </fmt-name>
+                  <fmt-xref-label>
+                     <span class="fmt-element-name">Figure</span>
+                     <semx element="autonum" source="_">1</semx>
+                  </fmt-xref-label><body>
+                  puts "Hello, world."
+                  <callout target="A">1</callout>
+                  <callout target="B">2</callout>
+                  %w{a b c}.each do |x| puts x
+                  <callout target="C">3</callout>
+                  end
+                  </body><callout-annotation original-id="A" id="_">
+                     <p original-id="_">
+                        This is
+                        <em>one</em>
+                        callout
+                     </p>
+                  </callout-annotation>
+                  <callout-annotation original-id="B" id="_">
+                     <p original-id="_">This is another callout</p>
+                  </callout-annotation>
+                  <callout-annotation original-id="C" id="_">
+                     <p original-id="_">This is yet another callout</p>
+                  </callout-annotation>
+                  <fmt-sourcecode id="_" linenums="true" autonum="1">
+                        <table class="rouge-line-table">
+                           <tbody>
+                              <tr id="line-1" class="lineno">
+                                 <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                                    <pre>1</pre>
+                                 </td>
+                                 <td class="rouge-code">
+                                    <sourcecode>
+                                       puts "Hello, world."
+                                       <span class="c">
+                                          <callout target="A">1</callout>
+                                       </span>
+                                       <span class="c">
+                                          <callout target="B">2</callout>
+                                       </span>
+                                    </sourcecode>
+                                 </td>
+                              </tr>
+                              <tr id="line-2" class="lineno">
+                                 <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                                    <pre>2</pre>
+                                 </td>
+                                 <td class="rouge-code">
+                                    <sourcecode>   %w{a b c}.each do |x|</sourcecode>
+                                 </td>
+                              </tr>
+                              <tr id="line-3" class="lineno">
+                                 <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                                    <pre>3</pre>
+                                 </td>
+                                 <td class="rouge-code">
+                                    <sourcecode>
+                                       puts x
+                                       <span class="c">
+                                          <callout target="C">3</callout>
+                                       </span>
+                                    </sourcecode>
+                                 </td>
+                              </tr>
+                              <tr id="line-4" class="lineno">
+                                 <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                                    <pre>4</pre>
+                                 </td>
+                                 <td class="rouge-code">
+                                    <sourcecode>   end</sourcecode>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <dl>
+                           <name id="_">Key</name>
+                           <fmt-name id="_">
+                              <semx element="name" source="_">Key</semx>
+                           </fmt-name>
+                           <dt id="A">
+                              <span class="c">1</span>
+                           </dt>
+                           <dd>
+                              <semx element="callout-annotation" source="_">
+                                 <p original-id="_">
+                                    This is
+                                    <em>one</em>
+                                    callout
+                                 </p>
+                              </semx>
+                           </dd>
+                           <dt id="B">
+                              <span class="c">2</span>
+                           </dt>
+                           <dd>
+                              <semx element="callout-annotation" source="_">
+                                 <p original-id="_">This is another callout</p>
+                              </semx>
+                           </dd>
+                           <dt id="C">
+                              <span class="c">3</span>
+                           </dt>
+                           <dd>
+                              <semx element="callout-annotation" source="_">
+                                 <p original-id="_">This is yet another callout</p>
+                              </semx>
+                           </dd>
+                        </dl>
+                  </fmt-sourcecode>
+               </sourcecode>
+            </foreword>
+         </preface>
+      </iso-standard>
     INPUT
     html = <<~OUTPUT
       #{HTML_HDR}
                    <br/>
                 <div id="_">
                    <h1 class="ForewordTitle">Foreword</h1>
-                   <div id="_" class="sourcecode">
+                   <figure id="_" class="sourcecode" spellcheck="false" translation="no">
                       <table class="rouge-line-table">
                          <tbody>
                             <tr>
@@ -1010,7 +1016,7 @@ RSpec.describe IsoDoc do
                                   <pre>1</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">
+                                  <pre class="sourcecode" spellcheck="false" translation="no">
                                      puts "Hello, world."
                                      <span class="c"> &lt;1&gt;</span>
                                      \\u00a0
@@ -1023,7 +1029,7 @@ RSpec.describe IsoDoc do
                                   <pre>2</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">\\u00a0\\u00a0 %w{a b c}.each do |x|</pre>
+                                  <pre class="sourcecode" spellcheck="false" translation="no">\\u00a0\\u00a0 %w{a b c}.each do |x|</pre>
                                </td>
                             </tr>
                             <tr>
@@ -1031,7 +1037,7 @@ RSpec.describe IsoDoc do
                                   <pre>3</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">
+                                  <pre class="sourcecode" spellcheck="false" translation="no">
                                      \\u00a0\\u00a0\\u00a0\\u00a0 puts x
                                      <span class="c"> &lt;3&gt;</span>
                                   </pre>
@@ -1042,12 +1048,11 @@ RSpec.describe IsoDoc do
                                   <pre>4</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">\\u00a0\\u00a0 end</pre>
+                                  <pre class="sourcecode" spellcheck="false" translation="no">\\u00a0\\u00a0 end</pre>
                                </td>
                             </tr>
                          </tbody>
                       </table>
-                   </div>
                    <div class="annotation">
                       <div class="figdl">
                          <p class="ListTitle">Key</p>
@@ -1077,8 +1082,8 @@ RSpec.describe IsoDoc do
                          </dl>
                       </div>
                    </div>
-                   <p class="SourceTitle" style="text-align:center;">Figure 1</p>
-                </div>
+                   <figcaption class="SourceTitle">Figure 1</figcaption>
+                </figure>
              </div>
           </body>
        </html>
@@ -1225,150 +1230,150 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <bibdata/>
-          
-          
-          <preface>
-             <clause type="toc" id="_" displayorder="1">
-                <fmt-title id="_" depth="1">Table of contents</fmt-title>
-             </clause>
-             <foreword id="X" displayorder="2">
-                <title id="_">Foreword</title>
-                <fmt-title id="_" depth="1">
-                   <semx element="title" source="_">Foreword</semx>
-                </fmt-title>
-                <sourcecode id="_" lang="ruby" linenums="true" autonum="1">
-                   <fmt-name id="_">
-                      <span class="fmt-caption-label">
-                         <span class="fmt-element-name">Figure</span>
-                         <semx element="autonum" source="_">1</semx>
-                      </span>
-                   </fmt-name>
-                   <fmt-xref-label>
-                      <span class="fmt-element-name">Figure</span>
-                      <semx element="autonum" source="_">1</semx>
-                   </fmt-xref-label><body>
-                   puts "Hello, world."
-                   <callout target="A">1</callout>
-                   <callout target="B">2</callout>
-                   %w{a b c}.each do |x|
-                   <strong>puts</strong>
-                   <xref target="X" id="_">x</xref>
-                   <semx element="xref" source="_">
-                      <fmt-xref target="X">x</fmt-xref>
-                   </semx>
-                   <callout target="C">3</callout>
-                   end
-                   </body><callout-annotation original-id="A" id="_">
-                      <p id="A1">
-                         This is
-                         <em>one</em>
-                         callout
-                      </p>
-                   </callout-annotation>
-                   <fmt-sourcecode id="_" lang="ruby" linenums="true" autonum="1">
-                      <table class="rouge-line-table">
-                         <tbody>
-                            <tr id="line-1" class="lineno">
-                               <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
-                                  <pre>1</pre>
-                               </td>
-                               <td class="rouge-code">
-                                  <sourcecode>
-                                     <span class="nb">puts</span>
-                                     <span class="s2">"Hello, world."</span>
-                                     <span class="c">
-                                        <callout target="A">1</callout>
-                                     </span>
-                                     <span class="c">
-                                        <callout target="B">2</callout>
-                                     </span>
-                                  </sourcecode>
-                               </td>
-                            </tr>
-                            <tr id="line-2" class="lineno">
-                               <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
-                                  <pre>2</pre>
-                               </td>
-                               <td class="rouge-code">
-                                  <sourcecode>
-                                     <span class="sx">%w{a b c}</span>
-                                     <span class="p">.</span>
-                                     <span class="nf">each</span>
-                                     <span class="k">do</span>
-                                     <span class="o">|</span>
-                                     <span class="n">x</span>
-                                     <span class="o">|</span>
-                                  </sourcecode>
-                               </td>
-                            </tr>
-                            <tr id="line-3" class="lineno">
-                               <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
-                                  <pre>3</pre>
-                               </td>
-                               <td class="rouge-code">
-                                  <sourcecode>
-                                     <strong>
-                                        <span class="nb">puts</span>
-                                     </strong>
-                                     <xref target="X" id="_">
-                                        <span class="n">x</span>
-                                     </xref>
-                                     <semx element="xref" source="_">
-                                        <fmt-xref target="X">
-                                           <span class="n">x</span>
-                                        </fmt-xref>
-                                     </semx>
-                                     <span class="c">
-                                        <callout target="C">3</callout>
-                                     </span>
-                                  </sourcecode>
-                               </td>
-                            </tr>
-                            <tr id="line-4" class="lineno">
-                               <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
-                                  <pre>4</pre>
-                               </td>
-                               <td class="rouge-code">
-                                  <sourcecode>
-                                     <span class="k">end</span>
-                                  </sourcecode>
-                               </td>
-                            </tr>
-                            <tr id="line-5" class="lineno">
-                               <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
-                                  <pre>5</pre>
-                               </td>
-                               <td class="rouge-code">
-                                  <sourcecode/>
-                               </td>
-                            </tr>
-                         </tbody>
-                      </table>
-                      <dl>
-                         <name id="_">Key</name>
-                         <fmt-name id="_">
-                            <semx element="name" source="_">Key</semx>
-                         </fmt-name>
-                         <dt id="A">
-                            <span class="c">1</span>
-                         </dt>
-                         <dd>
-                            <semx element="callout-annotation" source="_">
-                               <p original-id="A1">
-                                  This is
-                                  <em>one</em>
-                                  callout
-                               </p>
-                            </semx>
-                         </dd>
-                      </dl>
-                   </fmt-sourcecode>
-                </sourcecode>
-             </foreword>
-          </preface>
-       </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata/>
+      #{'   '}
+      #{'   '}
+         <preface>
+            <clause type="toc" id="_" displayorder="1">
+               <fmt-title id="_" depth="1">Table of contents</fmt-title>
+            </clause>
+            <foreword id="X" displayorder="2">
+               <title id="_">Foreword</title>
+               <fmt-title id="_" depth="1">
+                  <semx element="title" source="_">Foreword</semx>
+               </fmt-title>
+               <sourcecode id="_" lang="ruby" linenums="true" autonum="1">
+                  <fmt-name id="_">
+                     <span class="fmt-caption-label">
+                        <span class="fmt-element-name">Figure</span>
+                        <semx element="autonum" source="_">1</semx>
+                     </span>
+                  </fmt-name>
+                  <fmt-xref-label>
+                     <span class="fmt-element-name">Figure</span>
+                     <semx element="autonum" source="_">1</semx>
+                  </fmt-xref-label><body>
+                  puts "Hello, world."
+                  <callout target="A">1</callout>
+                  <callout target="B">2</callout>
+                  %w{a b c}.each do |x|
+                  <strong>puts</strong>
+                  <xref target="X" id="_">x</xref>
+                  <semx element="xref" source="_">
+                     <fmt-xref target="X">x</fmt-xref>
+                  </semx>
+                  <callout target="C">3</callout>
+                  end
+                  </body><callout-annotation original-id="A" id="_">
+                     <p id="A1">
+                        This is
+                        <em>one</em>
+                        callout
+                     </p>
+                  </callout-annotation>
+                  <fmt-sourcecode id="_" lang="ruby" linenums="true" autonum="1">
+                     <table class="rouge-line-table">
+                        <tbody>
+                           <tr id="line-1" class="lineno">
+                              <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                                 <pre>1</pre>
+                              </td>
+                              <td class="rouge-code">
+                                 <sourcecode>
+                                    <span class="nb">puts</span>
+                                    <span class="s2">"Hello, world."</span>
+                                    <span class="c">
+                                       <callout target="A">1</callout>
+                                    </span>
+                                    <span class="c">
+                                       <callout target="B">2</callout>
+                                    </span>
+                                 </sourcecode>
+                              </td>
+                           </tr>
+                           <tr id="line-2" class="lineno">
+                              <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                                 <pre>2</pre>
+                              </td>
+                              <td class="rouge-code">
+                                 <sourcecode>
+                                    <span class="sx">%w{a b c}</span>
+                                    <span class="p">.</span>
+                                    <span class="nf">each</span>
+                                    <span class="k">do</span>
+                                    <span class="o">|</span>
+                                    <span class="n">x</span>
+                                    <span class="o">|</span>
+                                 </sourcecode>
+                              </td>
+                           </tr>
+                           <tr id="line-3" class="lineno">
+                              <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                                 <pre>3</pre>
+                              </td>
+                              <td class="rouge-code">
+                                 <sourcecode>
+                                    <strong>
+                                       <span class="nb">puts</span>
+                                    </strong>
+                                    <xref target="X" id="_">
+                                       <span class="n">x</span>
+                                    </xref>
+                                    <semx element="xref" source="_">
+                                       <fmt-xref target="X">
+                                          <span class="n">x</span>
+                                       </fmt-xref>
+                                    </semx>
+                                    <span class="c">
+                                       <callout target="C">3</callout>
+                                    </span>
+                                 </sourcecode>
+                              </td>
+                           </tr>
+                           <tr id="line-4" class="lineno">
+                              <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                                 <pre>4</pre>
+                              </td>
+                              <td class="rouge-code">
+                                 <sourcecode>
+                                    <span class="k">end</span>
+                                 </sourcecode>
+                              </td>
+                           </tr>
+                           <tr id="line-5" class="lineno">
+                              <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                                 <pre>5</pre>
+                              </td>
+                              <td class="rouge-code">
+                                 <sourcecode/>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <dl>
+                        <name id="_">Key</name>
+                        <fmt-name id="_">
+                           <semx element="name" source="_">Key</semx>
+                        </fmt-name>
+                        <dt id="A">
+                           <span class="c">1</span>
+                        </dt>
+                        <dd>
+                           <semx element="callout-annotation" source="_">
+                              <p original-id="A1">
+                                 This is
+                                 <em>one</em>
+                                 callout
+                              </p>
+                           </semx>
+                        </dd>
+                     </dl>
+                  </fmt-sourcecode>
+               </sourcecode>
+            </foreword>
+         </preface>
+      </iso-standard>
     OUTPUT
     expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new({ sourcehighlighter: true }
@@ -1393,77 +1398,81 @@ RSpec.describe IsoDoc do
     INPUT
 
     presxml = <<~OUTPUT
-        <itu-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-           <bibdata>
-              <language current="true">en</language>
-           </bibdata>
-           
-           
-           <preface>
-              <clause type="toc" id="_" displayorder="1">
-                 <fmt-title id="_" depth="1">Table of contents</fmt-title>
-              </clause>
-              <foreword id="fwd" displayorder="2">
-                 <title id="_">Foreword</title>
-                 <fmt-title id="_" depth="1">
-                    <semx element="title" source="_">Foreword</semx>
-                 </fmt-title>
-                 <figure id="fig" class="pseudocode" keep-with-next="true" keep-lines-together="true" autonum="1">
-                    <name id="_">Label</name>
-                    <fmt-name id="_">
-                       <span class="fmt-caption-label">
-                          <span class="fmt-element-name">Figure</span>
-                          <semx element="autonum" source="fig">1</semx>
-                       </span>
-                       <span class="fmt-caption-delim">\\u00a0— </span>
-                       <semx element="name" source="_">Label</semx>
-                    </fmt-name>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Figure</span>
-                       <semx element="autonum" source="fig">1</semx>
-                    </fmt-xref-label>
-                    <p original-id="_">
-                       \\u00a0\\u00a0
-                       <strong>A</strong>
-                       <br/>
-                       \\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0
-                       <smallcap>B</smallcap>
-                    </p>
-                    <p original-id="_">
-                       \\u00a0\\u00a0
-                       <em>C</em>
-                    </p>
-                    <fmt-figure class="pseudocode" keep-with-next="true" keep-lines-together="true" autonum="1">
-                          <p id="_">
-                             \\u00a0\\u00a0
-                             <strong>A</strong>
-                             <br/>
-                             \\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0
-                             <smallcap>B</smallcap>
-                          </p>
-                          <p id="_">
-                             \\u00a0\\u00a0
-                             <em>C</em>
-                          </p>
-                    </fmt-figure>
-                 </figure>
-              </foreword>
-           </preface>
-        </itu-standard>
+      <itu-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata>
+            <language current="true">en</language>
+         </bibdata>
+         <preface>
+            <clause type="toc" id="_" displayorder="1">
+               <fmt-title id="_" depth="1">Table of contents</fmt-title>
+            </clause>
+            <foreword id="fwd" displayorder="2">
+               <title id="_">Foreword</title>
+               <fmt-title id="_" depth="1">
+                  <semx element="title" source="_">Foreword</semx>
+               </fmt-title>
+               <figure id="fig" class="pseudocode" keep-with-next="true" keep-lines-together="true" autonum="1">
+                  <name id="_">Label</name>
+                  <fmt-name id="_">
+                     <span class="fmt-caption-label">
+                        <span class="fmt-element-name">Figure</span>
+                        <semx element="autonum" source="fig">1</semx>
+                     </span>
+                     <span class="fmt-caption-delim">\\u00a0— </span>
+                     <semx element="name" source="_">Label</semx>
+                  </fmt-name>
+                  <fmt-xref-label>
+                     <span class="fmt-element-name">Figure</span>
+                     <semx element="autonum" source="fig">1</semx>
+                  </fmt-xref-label>
+                  <p original-id="_">
+                      \\u00a0\\u00a0
+                     <strong>A</strong>
+                     <br/>
+                     \\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0
+                     <smallcap>B</smallcap>
+                  </p>
+                  <p original-id="_">
+                     \\u00a0\\u00a0
+                     <em>C</em>
+                  </p>
+                  <fmt-figure class="pseudocode" keep-with-next="true" keep-lines-together="true" autonum="1">
+                        <p id="_">
+                           \\u00a0\\u00a0
+                           <strong>A</strong>
+                           <br/>
+                           \\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0
+                           <smallcap>B</smallcap>
+                        </p>
+                        <p id="_">
+                           \\u00a0\\u00a0
+                           <em>C</em>
+                        </p>
+                  </fmt-figure>
+               </figure>
+            </foreword>
+         </preface>
+      </itu-standard>
     OUTPUT
 
     html = <<~OUTPUT
       #{HTML_HDR}
-                       <br/>
-                       <div id="fwd">
-                         <h1 class="ForewordTitle">Foreword</h1>
-                         <div id="fig" class="pseudocode" style='page-break-after: avoid;page-break-inside: avoid;'><p id="_">\\u00a0\\u00a0<b>A</b><br/>
-                 \\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0<span style="font-variant:small-caps;">B</span></p>
-                 <p id="_">\\u00a0\\u00a0<i>C</i></p><p class="SourceTitle" style="text-align:center;">Figure 1\\u00a0&#x2014; Label</p></div>
-                       </div>
-                     </div>
-                   </body>
-          </html>
+                   <br/>
+                   <div id="fwd">
+                     <h1 class="ForewordTitle">Foreword</h1>
+                     <figure id="fig" class="pseudocode" style='page-break-after: avoid;page-break-inside: avoid;'><p id="_">\\u00a0\\u00a0<b>A</b><br/>
+             \\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0<span style="font-variant:small-caps;">B</span></p>
+             <p id="_">\\u00a0\\u00a0<i>C</i></p><figcaption class="SourceTitle">Figure 1\\u00a0&#x2014; Label</figcaption></div>
+                   </figure>
+                 </div>
+               </body>
+      </html>
+    OUTPUT
+
+    doc = <<~OUTPUT
+      <div class="pseudocode"  style='page-break-after: avoid;page-break-inside: avoid;'><a name="fig" id="fig"></a><p class="pseudocode"><a name="_" id="_"></a>\\u00a0\\u00a0<b>A</b><br/>
+          \\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0<span style="font-variant:small-caps;">B</span></p>
+          <p class="pseudocode" style="page-break-after:avoid;"><a name="_" id="_"></a>\\u00a0\\u00a0<i>C</i></p><p class="SourceTitle" style="text-align:center;">Figure 1\\u00a0&#x2014; Label</p></div>
     OUTPUT
 
     FileUtils.rm_f "test.doc"
@@ -1482,10 +1491,6 @@ RSpec.describe IsoDoc do
     expect(strip_guid(Canon.format_xml(File.read("test.doc")
       .gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "")
       .gsub(%r{</div>.*}m, "</div>"))))
-      .to be_equivalent_to Canon.format_xml(<<~"OUTPUT")
-             <div class="pseudocode"  style='page-break-after: avoid;page-break-inside: avoid;'><a name="fig" id="fig"></a><p class="pseudocode"><a name="_" id="_"></a>\\u00a0\\u00a0<b>A</b><br/>
-        \\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0<span style="font-variant:small-caps;">B</span></p>
-        <p class="pseudocode" style="page-break-after:avoid;"><a name="_" id="_"></a>\\u00a0\\u00a0<i>C</i></p><p class="SourceTitle" style="text-align:center;">Figure 1\\u00a0&#x2014; Label</p></div>
-      OUTPUT
+      .to be_equivalent_to(doc)
   end
 end

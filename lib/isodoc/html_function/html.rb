@@ -60,8 +60,7 @@ module IsoDoc
       end
 
       def html_button
-        return "" if @bare
-
+        @bare and return ""
         '<button onclick="topFunction()" id="myBtn" ' \
         'title="Go to top">Top</button>'.freeze
       end
@@ -74,16 +73,49 @@ module IsoDoc
       end
 
       def sourcecode_parse(node, out)
-        name = node.at(ns("./fmt-name"))
-        tag = node.at(ns(".//sourcecode | .//table")) ? "div" : "pre"
-        n = node.at(ns("./fmt-sourcecode"))
-        s = n || node
+        tag, child_tag = sourcecode_tag(node)
+        s = node.at(ns("./fmt-sourcecode")) || node
         attr = sourcecode_attrs(node).merge(class: "sourcecode")
         out.send tag, **attr do |div|
-          sourcecode_parse1(s, div)
+          sourcecode_pre_wrap(child_tag, s, div)
+          annotation_parse(s, div)
+          sourcecode_name_parse(node, div, node.at(ns("./fmt-name")))
         end
-        annotation_parse(s, out)
-        sourcecode_name_parse(node, out, name)
+      end
+
+      def sourcecode_attrs(node)
+        super.merge(spellcheck: "false", translation: "no")
+      end
+
+      def sourcecode_tag(node)
+        ancestors = node.ancestors.map(&:name)
+          .intersection(%w(sourcecode table))
+        tag = ancestors.empty? ? "figure" : "pre"
+        child_tag = "pre"
+        tag == "pre" || node.at(ns(".//sourcecode | .//table")) and
+          child_tag = "figure"
+        [tag, child_tag]
+      end
+
+      def sourcecode_pre_wrap(tag, node, div)
+        if tag == "pre"
+          div.pre do |pre|
+            sourcecode_parse1(node, pre)
+          end
+        else
+          sourcecode_parse1(node, div)
+        end
+      end
+
+      def sourcecode_name_parse(_node, div, name)
+        name.nil? and return
+        div.figcaption class: "SourceTitle" do |p|
+          children_parse(name, p)
+        end
+      end
+
+      def pseudocode_tag
+        "figure"
       end
 
       def underline_parse(node, out)

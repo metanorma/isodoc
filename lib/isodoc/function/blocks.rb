@@ -35,11 +35,15 @@ module IsoDoc
         attr_code(id: node["id"], class: "pseudocode", style: keep_style(node))
       end
 
+      def pseudocode_tag
+        "div"
+      end
+
       def pseudocode_parse(node, out)
         @in_figure = true
         name = node.at(ns("./fmt-name"))
         s = node.at(ns("./fmt-figure")) || node
-        out.div **pseudocode_attrs(node) do |div|
+        out.send pseudocode_tag, **pseudocode_attrs(node) do |div|
           s.children.each { |n| parse(n, div) unless n.name == "fmt-name" }
           sourcecode_name_parse(node, div, name)
         end
