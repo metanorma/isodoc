@@ -154,6 +154,26 @@ module IsoDoc
         end
       end
 
+      def term_parse_x(node, out)
+        node.children.each do |c|
+          if c.name == "p"
+            term_p_parse(c, out)
+          else
+            out.dfn do |d|
+              parse(c, d)
+            end
+          end
+        end
+      end
+
+      def term_p_parse_x(node, out)
+        out.p class: "Terms", style: "text-align:left;" do |p|
+          p.dfn do |d|
+            children_parse(node, d)
+          end
+        end
+      end
+
       def in_comment
         @in_comment
       end

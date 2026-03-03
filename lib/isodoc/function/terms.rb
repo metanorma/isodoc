@@ -7,7 +7,7 @@ module IsoDoc
 
       def modification_parse(node, out)
         para = node.at(ns("./p"))
-        para.children.each { |n| parse(n, out) }
+        children_parse(para, out)
       end
 
       def semx_deprecated_term_parse(node, out); end
@@ -16,7 +16,7 @@ module IsoDoc
         node.children.each do |c|
           if c.name == "p"
             out.p class: "DeprecatedTerms", style: "text-align:left;" do |p|
-              c.children.each { |c1| parse(c1, p) }
+              children_parse(c, p)
             end
           else parse(c, out)
           end
@@ -29,7 +29,7 @@ module IsoDoc
         node.children.each do |c|
           if c.name == "p"
             out.p class: "AltTerms", style: "text-align:left;" do |p|
-              c.children.each { |c1| parse(c1, p) }
+              children_parse(c, p)
             end
           else parse(c, out)
           end
@@ -38,7 +38,7 @@ module IsoDoc
 
       def related_parse(node, out)
         out.div class: "RelatedTerms", style: "text-align:left;" do |p|
-          node.children.each { |c1| parse(c1, p) }
+          children_parse(node, p)
         end
       end
 
@@ -49,11 +49,16 @@ module IsoDoc
       def term_parse(node, out)
         node.children.each do |c|
           if c.name == "p"
-            out.p class: "Terms", style: "text-align:left;" do |p|
-              c.children.each { |c1| parse(c1, p) }
-            end
-          else parse(c, out)
+            term_p_parse(c, out)
+          else
+            parse(c, out)
           end
+        end
+      end
+
+      def term_p_parse(node, out)
+        out.p class: "Terms", style: "text-align:left;" do |p|
+          children_parse(node, p)
         end
       end
 
