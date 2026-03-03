@@ -114,7 +114,8 @@ module IsoDoc
       desgn.children = name.children
     end
 
-    def designation_boldface(desgn)
+    # KILL
+    def designation_boldfacex(desgn)
       desgn["element"] == "preferred" or return
       name = desgn.at(ns("./expression/name | ./letter-symbol/name")) or return
       name.children = "<strong>#{name.children}</strong>"
@@ -128,8 +129,8 @@ module IsoDoc
       elsif origname = orig.at(ns("./graphical-symbol"))
         element = "graphical-symbol"
       end
-      name.children = <<~XML
-        <semx element='#{element}' source='#{origname['id']}'>#{to_xml(name.children)}</semx>
+      name.children = <<~XML.strip
+        <semx element='#{element}' source='#{origname['id'] || origname['original-id']}'>#{to_xml(name.children).strip}</semx>
       XML
       designation_expression_boldface(desgn, name)
     end

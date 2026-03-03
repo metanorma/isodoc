@@ -282,7 +282,7 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title id="_" depth="1">Table of contents</fmt-title>
+                <fmt-title depth="1" id="_">Table of contents</fmt-title>
              </clause>
           </preface>
           <annex id="PP" obligation="normative" autonum="A" displayorder="2">
@@ -328,13 +328,15 @@ RSpec.describe IsoDoc do
                    </fmt-xref-label>
                    <preferred id="_">
                       <expression>
-                         <name>Glossary</name>
+                         <name id="_">Glossary</name>
                       </expression>
                    </preferred>
                    <fmt-preferred>
                       <p>
                          <semx element="preferred" source="_">
-                            <strong>Glossary</strong>
+                            <strong>
+                               <semx element="expression/name" source="_">Glossary</semx>
+                            </strong>
                          </semx>
                       </p>
                    </fmt-preferred>
@@ -368,7 +370,7 @@ RSpec.describe IsoDoc do
              </fmt-xref-label>
              <terms id="QQ1" obligation="normative" autonum="B.1">
                 <title id="_">Term Collection</title>
-                <fmt-title id="_" depth="2">
+                <fmt-title depth="2" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="QQ">B</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -407,13 +409,15 @@ RSpec.describe IsoDoc do
                    </fmt-xref-label>
                    <preferred id="_">
                       <expression>
-                         <name>Term</name>
+                         <name id="_">Term</name>
                       </expression>
                    </preferred>
                    <fmt-preferred>
                       <p>
                          <semx element="preferred" source="_">
-                            <strong>Term</strong>
+                            <strong>
+                               <semx element="expression/name" source="_">Term</semx>
+                            </strong>
                          </semx>
                       </p>
                    </fmt-preferred>
@@ -421,7 +425,7 @@ RSpec.describe IsoDoc do
              </terms>
              <terms id="QQ2" obligation="normative" autonum="B.2">
                 <title id="_">Term Collection 2</title>
-                <fmt-title id="_" depth="2">
+                <fmt-title depth="2" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="QQ">B</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -460,13 +464,15 @@ RSpec.describe IsoDoc do
                    </fmt-xref-label>
                    <preferred id="_">
                       <expression>
-                         <name>Term</name>
+                         <name id="_">Term</name>
                       </expression>
                    </preferred>
                    <fmt-preferred>
                       <p>
                          <semx element="preferred" source="_">
-                            <strong>Term</strong>
+                            <strong>
+                               <semx element="expression/name" source="_">Term</semx>
+                            </strong>
                          </semx>
                       </p>
                    </fmt-preferred>
@@ -500,7 +506,7 @@ RSpec.describe IsoDoc do
              </fmt-xref-label>
              <terms id="RR1" obligation="normative" autonum="C.1">
                 <title id="_">Term Collection</title>
-                <fmt-title id="_" depth="2">
+                <fmt-title depth="2" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="RR">C</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -539,13 +545,15 @@ RSpec.describe IsoDoc do
                    </fmt-xref-label>
                    <preferred id="_">
                       <expression>
-                         <name>Term</name>
+                         <name id="_">Term</name>
                       </expression>
                    </preferred>
                    <fmt-preferred>
                       <p>
                          <semx element="preferred" source="_">
-                            <strong>Term</strong>
+                            <strong>
+                               <semx element="expression/name" source="_">Term</semx>
+                            </strong>
                          </semx>
                       </p>
                    </fmt-preferred>
@@ -553,7 +561,7 @@ RSpec.describe IsoDoc do
              </terms>
              <references id="RR2" obligation="normative" autonum="C.2">
                 <title id="_">References</title>
-                <fmt-title id="_" depth="2">
+                <fmt-title depth="2" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="RR">C</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -616,13 +624,15 @@ RSpec.describe IsoDoc do
                    </fmt-xref-label>
                    <preferred id="_">
                       <expression>
-                         <name>Term</name>
+                         <name id="_">Term</name>
                       </expression>
                    </preferred>
                    <fmt-preferred>
                       <p>
                          <semx element="preferred" source="_">
-                            <strong>Term</strong>
+                            <strong>
+                               <semx element="expression/name" source="_">Term</semx>
+                            </strong>
                          </semx>
                       </p>
                    </fmt-preferred>
