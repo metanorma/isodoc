@@ -99,7 +99,9 @@ module IsoDoc
         "//annotation | //floating-title | //li | //executivesummary | " \
         "//preface/abstract | //foreword | //introduction | //annex | " \
         "//acknowledgements | //clause | //references | //terms | " \
-        "//preferred | //deprecates | //admitted | //related")).each do |s|
+        "//preferred | //deprecates | //admitted | //related | " \
+        "//expression/name | //letter-symbol/name | //graphical-symbol"))
+        .each do |s|
         add_id(s)
       end
     end

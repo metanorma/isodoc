@@ -1024,7 +1024,7 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Canon.format_xml(html)
   end
 
-    it "do not process concept markup in Semantic XML" do
+  it "do not process concept markup in Semantic XML" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
           <bibdata><language>en</language></bibdata>
@@ -1081,13 +1081,15 @@ RSpec.describe IsoDoc do
              </fmt-xref-label>
              <preferred id="_">
                 <expression>
-                   <name>paddy</name>
+                   <name id="_">paddy</name>
                 </expression>
              </preferred>
              <fmt-preferred>
                 <p>
                    <semx element="preferred" source="_">
-                      <strong>paddy</strong>
+               <strong>
+                  <semx element="expression/name" source="_">paddy</semx>
+               </strong>
                    </semx>
                 </p>
              </fmt-preferred>

@@ -1,14 +1,14 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
-  it "processes IsoXML term with multiple preferred terms" do
+  it "processes IsoXML term with multiple preferred terms and with abbreviations" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <sections>
           <terms id="terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
       <term id="paddy1">
       <preferred><expression><name>paddy</name></expression></preferred>
-      <preferred><expression><name>muddy rice</name></expression></preferred>
+      <preferred><expression type="abbreviation"><name>PR</name></expression></preferred>
       <domain>rice</domain>
       <definition><verbal-definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></verbal-definition></definition>
       </term>
@@ -37,7 +37,7 @@ RSpec.describe IsoDoc do
     presxml = <<~PRESXML
       <terms id="terms_and_definitions" obligation="normative" displayorder="2">
          <title id="_">Terms and Definitions</title>
-         <fmt-title id="_" depth="1">
+         <fmt-title depth="1" id="_">
             <span class="fmt-caption-label">
                <semx element="autonum" source="terms_and_definitions">1</semx>
                <span class="fmt-autonum-delim">.</span>
@@ -68,22 +68,26 @@ RSpec.describe IsoDoc do
             </fmt-xref-label>
             <preferred id="_">
                <expression>
-                  <name>paddy</name>
+                  <name id="_">paddy</name>
                </expression>
             </preferred>
             <preferred id="_">
-               <expression>
-                  <name>muddy rice</name>
+               <expression type="abbreviation">
+                  <name id="_">PR</name>
                </expression>
             </preferred>
             <fmt-preferred>
                <p>
                   <semx element="preferred" source="_">
-                     <strong>paddy</strong>
+                     <strong>
+                        <semx element="expression/name" source="_">paddy</semx>
+                     </strong>
                   </semx>
                   ;
                   <semx element="preferred" source="_">
-                     <strong>muddy rice</strong>
+                     <strong>
+                        <semx element="expression/name" source="_">PR</semx>
+                     </strong>
                   </semx>
                </p>
             </fmt-preferred>
@@ -120,22 +124,26 @@ RSpec.describe IsoDoc do
             </fmt-xref-label>
             <preferred id="_">
                <expression>
-                  <name language="eng">paddy</name>
+                  <name language="eng" id="_">paddy</name>
                </expression>
             </preferred>
             <preferred id="_">
                <expression>
-                  <name language="eng">muddy rice</name>
+                  <name language="eng" id="_">muddy rice</name>
                </expression>
             </preferred>
             <fmt-preferred>
                <p>
                   <semx element="preferred" source="_">
-                     <strong>paddy</strong>
+                     <strong>
+                        <semx element="expression/name" source="_">paddy</semx>
+                     </strong>
                   </semx>
                   ;
                   <semx element="preferred" source="_">
-                     <strong>muddy rice</strong>
+                     <strong>
+                        <semx element="expression/name" source="_">muddy rice</semx>
+                     </strong>
                   </semx>
                </p>
             </fmt-preferred>
@@ -172,24 +180,28 @@ RSpec.describe IsoDoc do
             </fmt-xref-label>
             <preferred geographic-area="US" id="_">
                <expression>
-                  <name>paddy</name>
+                  <name id="_">paddy</name>
                </expression>
             </preferred>
             <preferred id="_">
                <expression>
-                  <name>muddy rice</name>
+                  <name id="_">muddy rice</name>
                </expression>
             </preferred>
             <fmt-preferred>
                <p>
                   <semx element="preferred" source="_">
-                     <strong>paddy</strong>
+                     <strong>
+                        <semx element="expression/name" source="_">paddy</semx>
+                     </strong>
                      , US
                   </semx>
                </p>
                <p>
                   <semx element="preferred" source="_">
-                     <strong>muddy rice</strong>
+                     <strong>
+                        <semx element="expression/name" source="_">muddy rice</semx>
+                     </strong>
                   </semx>
                </p>
             </fmt-preferred>
@@ -226,24 +238,28 @@ RSpec.describe IsoDoc do
             </fmt-xref-label>
             <preferred id="_">
                <expression language="eng">
-                  <name>paddy</name>
+                  <name id="_">paddy</name>
                </expression>
             </preferred>
             <preferred id="_">
                <expression language="fra">
-                  <name>muddy rice</name>
+                  <name id="_">muddy rice</name>
                </expression>
             </preferred>
             <fmt-preferred>
                <p>
                   <semx element="preferred" source="_">
-                     <strong>paddy</strong>
+                     <strong>
+                        <semx element="expression/name" source="_">paddy</semx>
+                     </strong>
                      , eng
                   </semx>
                </p>
                <p>
                   <semx element="preferred" source="_">
-                     <strong>muddy rice</strong>
+                     <strong>
+                        <semx element="expression/name" source="_">muddy rice</semx>
+                     </strong>
                      , fra
                   </semx>
                </p>
@@ -266,11 +282,88 @@ RSpec.describe IsoDoc do
          </term>
       </terms>
     PRESXML
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    html = <<~OUTPUT
+      <html lang="en">
+          <head/>
+          <body lang="en">
+             <div class="title-section">
+                <p>\\u00a0</p>
+             </div>
+             <br/>
+             <div class="prefatory-section">
+                <p>\\u00a0</p>
+             </div>
+             <br/>
+             <div class="main-section">
+                <br/>
+                <div id="_" class="TOC">
+                   <h1 class="IntroTitle">Table of contents</h1>
+                </div>
+                <div id="terms_and_definitions">
+                   <h1>1.\\u00a0 Terms and Definitions</h1>
+                   <p class="TermNum" id="paddy1">1.1.</p>
+                   <p class="Terms" style="text-align:left;">
+                      <b>
+                         <dfn>paddy</dfn>
+                      </b>
+                      ;
+                      <b>
+                         <abbr>PR</abbr>
+                      </b>
+                   </p>
+                   <p id="_">&lt;rice&gt;  rice retaining its husk after threshing</p>
+                   <p class="TermNum" id="paddy2">1.2.</p>
+                   <p class="Terms" style="text-align:left;">
+                      <b>
+                         <dfn>paddy</dfn>
+                      </b>
+                      ;
+                      <b>
+                         <dfn>muddy rice</dfn>
+                      </b>
+                   </p>
+                   <p id="_">&lt;rice&gt;  rice retaining its husk after threshing</p>
+                   <p class="TermNum" id="paddy3">1.3.</p>
+                   <p class="Terms" style="text-align:left;">
+                      <b>
+                         <dfn>paddy</dfn>
+                      </b>
+                      , US
+                   </p>
+                   <p class="Terms" style="text-align:left;">
+                      <b>
+                         <dfn>muddy rice</dfn>
+                      </b>
+                   </p>
+                   <p id="_">&lt;rice&gt;  rice retaining its husk after threshing</p>
+                   <p class="TermNum" id="paddy4">1.4.</p>
+                   <p class="Terms" style="text-align:left;">
+                      <b>
+                         <dfn>paddy</dfn>
+                      </b>
+                      , eng
+                   </p>
+                   <p class="Terms" style="text-align:left;">
+                      <b>
+                         <dfn>muddy rice</dfn>
+                      </b>
+                      , fra
+                   </p>
+                   <p id="_">&lt;rice&gt;  rice retaining its husk after threshing</p>
+                </div>
+             </div>
+          </body>
+       </html>
+    OUTPUT
+    pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-       .convert("test", input, true))
+      .convert("test", input, true)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
       .at("//xmlns:terms").to_xml)))
       .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))))
+      .to be_equivalent_to Canon.format_xml(html)
   end
 
   it "processes IsoXML term with grammatical information" do
@@ -307,7 +400,7 @@ RSpec.describe IsoDoc do
     presxml = <<~PRESXML
       <terms id="terms_and_definitions" obligation="normative" displayorder="2">
          <title id="_">Terms and Definitions</title>
-         <fmt-title id="_" depth="1">
+         <fmt-title depth="1" id="_">
             <span class="fmt-caption-label">
                <semx element="autonum" source="terms_and_definitions">1</semx>
                <span class="fmt-autonum-delim">.</span>
@@ -338,7 +431,7 @@ RSpec.describe IsoDoc do
             </fmt-xref-label>
             <preferred geographic-area="US" id="_">
                <expression language="en" script="Latn">
-                  <name>paddy</name>
+                  <name id="_">paddy</name>
                   <pronunciation>pædiː</pronunciation>
                   <grammar>
                      <gender>masculine</gender>
@@ -352,7 +445,7 @@ RSpec.describe IsoDoc do
             </preferred>
             <preferred id="_">
                <expression>
-                  <name>muddy rice</name>
+                  <name id="_">muddy rice</name>
                   <grammar>
                      <gender>neuter</gender>
                      <isNoun>true</isNoun>
@@ -361,18 +454,22 @@ RSpec.describe IsoDoc do
                </expression>
             </preferred>
             <fmt-preferred>
-            <p>
-               <semx element="preferred" source="_">
-                  <strong>paddy</strong>
-                  , m, f, sg, noun, en Latn US, /pædiː/
-               </semx>
-            </p>
-            <p>
-               <semx element="preferred" source="_">
-                  <strong>muddy rice</strong>
-                  , n, noun
-               </semx>
-            </p>
+               <p>
+                  <semx element="preferred" source="_">
+                     <strong>
+                        <semx element="expression/name" source="_">paddy</semx>
+                     </strong>
+                     , m, f, sg, noun, en Latn US, /pædiː/
+                  </semx>
+               </p>
+               <p>
+                  <semx element="preferred" source="_">
+                     <strong>
+                        <semx element="expression/name" source="_">muddy rice</semx>
+                     </strong>
+                     , n, noun
+                  </semx>
+               </p>
             </fmt-preferred>
             <domain id="_">rice</domain>
             <definition id="_">
@@ -437,7 +534,7 @@ RSpec.describe IsoDoc do
     presxml = <<~PRESXML
       <terms id="terms_and_definitions" obligation="normative" displayorder="2">
          <title id="_">Terms and Definitions</title>
-         <fmt-title id="_" depth="1">
+         <fmt-title depth="1" id="_">
             <span class="fmt-caption-label">
                <semx element="autonum" source="terms_and_definitions">1</semx>
                <span class="fmt-autonum-delim">.</span>
@@ -468,11 +565,11 @@ RSpec.describe IsoDoc do
             </fmt-xref-label>
             <preferred id="_">
                <expression>
-                  <name/>
+                  <name id="_"/>
                </expression>
             </preferred>
             <preferred isInternational="true" id="_">
-               <graphical-symbol>
+               <graphical-symbol id="_">
                   <figure autonum="1" original-id="_">
                      <pre original-id="_">&lt;LITERAL&gt; FIGURATIVE</pre>
                   </figure>
@@ -480,7 +577,7 @@ RSpec.describe IsoDoc do
             </preferred>
             <preferred id="_">
                <letter-symbol>
-                  <name>
+                  <name id="_">
                      <stem type="MathML">
                         <math xmlns="http://www.w3.org/1998/Math/MathML">
                            <msub>
@@ -499,58 +596,64 @@ RSpec.describe IsoDoc do
             <fmt-preferred>
                <p>
                   <semx element="preferred" source="_">
-                     <strong/>
+                     <strong>
+                        <semx element="expression/name" source="_"/>
+                     </strong>
                   </semx>
                   ;
                   <semx element="preferred" source="_">
                      <strong>
-                        <stem type="MathML" id="_">
-                           <math xmlns="http://www.w3.org/1998/Math/MathML">
-                              <msub>
-                                 <mrow>
-                                    <mi>x</mi>
-                                 </mrow>
-                                 <mrow>
-                                    <mn>1</mn>
-                                 </mrow>
-                              </msub>
-                           </math>
-                        </stem>
-                        <fmt-stem type="MathML">
-                           <semx element="stem" source="_">
+                        <semx element="letter-symbol/name" source="_">
+                           <stem type="MathML" id="_">
                               <math xmlns="http://www.w3.org/1998/Math/MathML">
-                                 <mstyle mathvariant="bold">
-                                    <msub>
-                                       <mrow>
-                                          <mi>x</mi>
-                                       </mrow>
-                                       <mrow>
-                                          <mn>1</mn>
-                                       </mrow>
-                                    </msub>
-                                 </mstyle>
+                                 <msub>
+                                    <mrow>
+                                       <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                       <mn>1</mn>
+                                    </mrow>
+                                 </msub>
                               </math>
-                              <asciimath>mathbf(x_(1))</asciimath>
-                           </semx>
-                        </fmt-stem>
+                           </stem>
+                           <fmt-stem type="MathML">
+                              <semx element="stem" source="_">
+                                 <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mstyle mathvariant="bold">
+                                       <msub>
+                                          <mrow>
+                                             <mi>x</mi>
+                                          </mrow>
+                                          <mrow>
+                                             <mn>1</mn>
+                                          </mrow>
+                                       </msub>
+                                    </mstyle>
+                                 </math>
+                                 <asciimath>mathbf(x_(1))</asciimath>
+                              </semx>
+                           </fmt-stem>
+                        </semx>
                      </strong>
                   </semx>
                </p>
                <p>
                   <semx element="preferred" source="_">
-                     <figure id="_" autonum="1">
-                        <fmt-name id="_">
-                           <span class="fmt-caption-label">
+                     <semx element="graphical-symbol" source="_">
+                        <figure id="_" autonum="1">
+                           <fmt-name id="_">
+                              <span class="fmt-caption-label">
+                                 <span class="fmt-element-name">Figure</span>
+                                 <semx element="autonum" source="_">1</semx>
+                              </span>
+                           </fmt-name>
+                           <fmt-xref-label>
                               <span class="fmt-element-name">Figure</span>
                               <semx element="autonum" source="_">1</semx>
-                           </span>
-                        </fmt-name>
-                        <fmt-xref-label>
-                           <span class="fmt-element-name">Figure</span>
-                           <semx element="autonum" source="_">1</semx>
-                        </fmt-xref-label>
-                        <pre id="_">&lt;LITERAL&gt; FIGURATIVE</pre>
-                     </figure>
+                           </fmt-xref-label>
+                           <pre id="_">&lt;LITERAL&gt; FIGURATIVE</pre>
+                        </figure>
+                     </semx>
                   </semx>
                </p>
             </fmt-preferred>
@@ -639,179 +742,185 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-       <terms id="A" obligation="normative" displayorder="2">
-          <title id="_">Terms and definitions</title>
-          <fmt-title depth="1" id="_">
-             <span class="fmt-caption-label">
-                <semx element="autonum" source="A">1</semx>
-                <span class="fmt-autonum-delim">.</span>
-             </span>
-             <span class="fmt-caption-delim">
-                <tab/>
-             </span>
-             <semx element="title" source="_">Terms and definitions</semx>
-          </fmt-title>
-          <fmt-xref-label>
-             <span class="fmt-element-name">Clause</span>
-             <semx element="autonum" source="A">1</semx>
-          </fmt-xref-label>
-          <term id="second">
-             <fmt-name id="_">
-                <span class="fmt-caption-label">
-                   <semx element="autonum" source="A">1</semx>
-                   <span class="fmt-autonum-delim">.</span>
-                   <semx element="autonum" source="second">1</semx>
-                   <span class="fmt-autonum-delim">.</span>
-                </span>
-             </fmt-name>
-             <fmt-xref-label>
-                <span class="fmt-element-name">Clause</span>
-                <semx element="autonum" source="A">1</semx>
-                <span class="fmt-autonum-delim">.</span>
-                <semx element="autonum" source="second">1</semx>
-             </fmt-xref-label>
-             <preferred id="_">
-                <expression>
-                   <name>Second Term</name>
-                </expression>
-                <field-of-application id="_">Field</field-of-application>
-                <usage-info id="_">Usage Info 1</usage-info>
-             </preferred>
-             <fmt-preferred>
-                <p>
-                   <semx element="preferred" source="_">
-                      <strong>Second Term</strong>
-                      <span class="fmt-designation-field">
-                         , &lt;
-                         <semx element="field-of-application" source="_">Field</semx>
-                         ,
-                         <semx element="usage-info" source="_">Usage Info 1</semx>
-                         &gt;
-                      </span>
-                   </semx>
-                </p>
-             </fmt-preferred>
-             <definition id="_">
-                <verbal-definition>Definition 1</verbal-definition>
-             </definition>
-             <fmt-definition id="_">
-                <semx element="definition" source="_">Definition 1</semx>
-             </fmt-definition>
-          </term>
-          <term id="C">
-             <fmt-name id="_">
-                <span class="fmt-caption-label">
-                   <semx element="autonum" source="A">1</semx>
-                   <span class="fmt-autonum-delim">.</span>
-                   <semx element="autonum" source="C">2</semx>
-                   <span class="fmt-autonum-delim">.</span>
-                </span>
-             </fmt-name>
-             <fmt-xref-label>
-                <span class="fmt-element-name">Clause</span>
-                <semx element="autonum" source="A">1</semx>
-                <span class="fmt-autonum-delim">.</span>
-                <semx element="autonum" source="C">2</semx>
-             </fmt-xref-label>
-             <preferred language="fr" script="Latn" type="prefix" id="_">
-                <expression>
-                   <name>First Designation</name>
-                </expression>
-             </preferred>
-             <fmt-preferred>
-                <p>
-                   <semx element="preferred" source="_">
-                      <strong>First Designation</strong>
-                   </semx>
-                </p>
-             </fmt-preferred>
-             <related type="contrast" id="_">
-                <preferred id="_">
-                   <expression>
-                      <name>Fifth Designation</name>
-                      <grammar>
-                         <gender>neuter</gender>
-                      </grammar>
-                   </expression>
-                </preferred>
-                <xref target="second"/>
-             </related>
-             <related type="see" id="_">
-                <preferred id="_">
-                   <expression>
-                      <name>Fifth Designation</name>
-                      <grammar>
-                         <gender>neuter</gender>
-                      </grammar>
-                   </expression>
-                </preferred>
-             </related>
-             <related type="seealso" id="_">
-                <xref target="second"/>
-             </related>
-             <related type="contrast" id="_">
-                <preferred id="_">
-                   <expression>
-                      <name>Fifth Designation</name>
-                   </expression>
-                </preferred>
-                <xref target="second">Fifth Designation</xref>
-             </related>
-             <fmt-related>
-                <semx element="related" source="_">
-                   <p>
-                      <strong>CONTRAST:</strong>
-                      <em>
-                         <semx element="preferred" source="_">
-                            <strong>Fifth Designation</strong>
-                            , n
-                         </semx>
-                      </em>
-                      (
-                      <xref target="second" id="_"/>
-                      <semx element="xref" source="_">
-                         <fmt-xref target="second">
-                            <span class="fmt-element-name">Clause</span>
-                            <semx element="autonum" source="A">1</semx>
-                            <span class="fmt-autonum-delim">.</span>
-                            <semx element="autonum" source="second">1</semx>
-                         </fmt-xref>
-                      </semx>
-                      )
-                   </p>
-                </semx>
-                <semx element="related" source="_">
-                   <p>
-                      <strong>SEE:</strong>
-                      <strong>**RELATED TERM NOT FOUND**</strong>
-                   </p>
-                </semx>
-                <semx element="related" source="_">
-                   <p>
-                      <strong>SEE ALSO:</strong>
-                      <strong>**RELATED TERM NOT FOUND**</strong>
-                   </p>
-                </semx>
-                <semx element="related" source="_">
-                   <p>
-                      <strong>CONTRAST:</strong>
-                      <em>
-                         <xref target="second" id="_">Fifth Designation</xref>
-                         <semx element="xref" source="_">
-                            <fmt-xref target="second">Fifth Designation</fmt-xref>
-                         </semx>
-                      </em>
-                   </p>
-                </semx>
-             </fmt-related>
-             <definition id="_">
-                <verbal-definition>Definition 2</verbal-definition>
-             </definition>
-             <fmt-definition id="_">
-                <semx element="definition" source="_">Definition 2</semx>
-             </fmt-definition>
-          </term>
-       </terms>
+      <terms id="A" obligation="normative" displayorder="2">
+         <title id="_">Terms and definitions</title>
+         <fmt-title depth="1" id="_">
+            <span class="fmt-caption-label">
+               <semx element="autonum" source="A">1</semx>
+               <span class="fmt-autonum-delim">.</span>
+            </span>
+            <span class="fmt-caption-delim">
+               <tab/>
+            </span>
+            <semx element="title" source="_">Terms and definitions</semx>
+         </fmt-title>
+         <fmt-xref-label>
+            <span class="fmt-element-name">Clause</span>
+            <semx element="autonum" source="A">1</semx>
+         </fmt-xref-label>
+         <term id="second">
+            <fmt-name id="_">
+               <span class="fmt-caption-label">
+                  <semx element="autonum" source="A">1</semx>
+                  <span class="fmt-autonum-delim">.</span>
+                  <semx element="autonum" source="second">1</semx>
+                  <span class="fmt-autonum-delim">.</span>
+               </span>
+            </fmt-name>
+            <fmt-xref-label>
+               <span class="fmt-element-name">Clause</span>
+               <semx element="autonum" source="A">1</semx>
+               <span class="fmt-autonum-delim">.</span>
+               <semx element="autonum" source="second">1</semx>
+            </fmt-xref-label>
+            <preferred id="_">
+               <expression>
+                  <name id="_">Second Term</name>
+               </expression>
+               <field-of-application id="_">Field</field-of-application>
+               <usage-info id="_">Usage Info 1</usage-info>
+            </preferred>
+            <fmt-preferred>
+               <p>
+                  <semx element="preferred" source="_">
+                     <strong>
+                        <semx element="expression/name" source="_">Second Term</semx>
+                     </strong>
+                     <span class="fmt-designation-field">
+                        , &lt;
+                        <semx element="field-of-application" source="_">Field</semx>
+                        ,
+                        <semx element="usage-info" source="_">Usage Info 1</semx>
+                        &gt;
+                     </span>
+                  </semx>
+               </p>
+            </fmt-preferred>
+            <definition id="_">
+               <verbal-definition>Definition 1</verbal-definition>
+            </definition>
+            <fmt-definition id="_">
+               <semx element="definition" source="_">Definition 1</semx>
+            </fmt-definition>
+         </term>
+         <term id="C">
+            <fmt-name id="_">
+               <span class="fmt-caption-label">
+                  <semx element="autonum" source="A">1</semx>
+                  <span class="fmt-autonum-delim">.</span>
+                  <semx element="autonum" source="C">2</semx>
+                  <span class="fmt-autonum-delim">.</span>
+               </span>
+            </fmt-name>
+            <fmt-xref-label>
+               <span class="fmt-element-name">Clause</span>
+               <semx element="autonum" source="A">1</semx>
+               <span class="fmt-autonum-delim">.</span>
+               <semx element="autonum" source="C">2</semx>
+            </fmt-xref-label>
+            <preferred language="fr" script="Latn" type="prefix" id="_">
+               <expression>
+                  <name id="_">First Designation</name>
+               </expression>
+            </preferred>
+            <fmt-preferred>
+               <p>
+                  <semx element="preferred" source="_">
+                     <strong>
+                        <semx element="expression/name" source="_">First Designation</semx>
+                     </strong>
+                  </semx>
+               </p>
+            </fmt-preferred>
+            <related type="contrast" id="_">
+               <preferred id="_">
+                  <expression>
+                     <name id="_">Fifth Designation</name>
+                     <grammar>
+                        <gender>neuter</gender>
+                     </grammar>
+                  </expression>
+               </preferred>
+               <xref target="second"/>
+            </related>
+            <related type="see" id="_">
+               <preferred id="_">
+                  <expression>
+                     <name id="_">Fifth Designation</name>
+                     <grammar>
+                        <gender>neuter</gender>
+                     </grammar>
+                  </expression>
+               </preferred>
+            </related>
+            <related type="seealso" id="_">
+               <xref target="second"/>
+            </related>
+            <related type="contrast" id="_">
+               <preferred id="_">
+                  <expression>
+                     <name id="_">Fifth Designation</name>
+                  </expression>
+               </preferred>
+               <xref target="second">Fifth Designation</xref>
+            </related>
+            <fmt-related>
+               <semx element="related" source="_">
+                  <p>
+                     <strong>CONTRAST:</strong>
+                     <em>
+                        <semx element="preferred" source="_">
+                           <strong>
+                              <semx element="expression/name" source="_">Fifth Designation</semx>
+                           </strong>
+                           , n
+                        </semx>
+                     </em>
+                     (
+                     <xref target="second" id="_"/>
+                     <semx element="xref" source="_">
+                        <fmt-xref target="second">
+                           <span class="fmt-element-name">Clause</span>
+                           <semx element="autonum" source="A">1</semx>
+                           <span class="fmt-autonum-delim">.</span>
+                           <semx element="autonum" source="second">1</semx>
+                        </fmt-xref>
+                     </semx>
+                     )
+                  </p>
+               </semx>
+               <semx element="related" source="_">
+                  <p>
+                     <strong>SEE:</strong>
+                     <strong>**RELATED TERM NOT FOUND**</strong>
+                  </p>
+               </semx>
+               <semx element="related" source="_">
+                  <p>
+                     <strong>SEE ALSO:</strong>
+                     <strong>**RELATED TERM NOT FOUND**</strong>
+                  </p>
+               </semx>
+               <semx element="related" source="_">
+                  <p>
+                     <strong>CONTRAST:</strong>
+                     <em>
+                        <xref target="second" id="_">Fifth Designation</xref>
+                        <semx element="xref" source="_">
+                           <fmt-xref target="second">Fifth Designation</fmt-xref>
+                        </semx>
+                     </em>
+                  </p>
+               </semx>
+            </fmt-related>
+            <definition id="_">
+               <verbal-definition>Definition 2</verbal-definition>
+            </definition>
+            <fmt-definition id="_">
+               <semx element="definition" source="_">Definition 2</semx>
+            </fmt-definition>
+         </term>
+      </terms>
     OUTPUT
     html = <<~OUTPUT
       <html lang="en">
@@ -834,19 +943,19 @@ RSpec.describe IsoDoc do
                   <h1>1.\\u00a0 Terms and definitions</h1>
                   <p class="TermNum" id="second">1.1.</p>
                   <p class="Terms" style="text-align:left;">
-                     <b>Second Term</b>
+                     <b><dfn>Second Term</dfn></b>
                      , &lt;Field, Usage Info 1&gt;
                   </p>
                   Definition 1
                   <p class="TermNum" id="C">1.2.</p>
                   <p class="Terms" style="text-align:left;">
-                     <b>First Designation</b>
+                     <b><dfn>First Designation</dfn></b>
                   </p>
                   <div class="RelatedTerms" style="text-align:left;">
                <p>
                   <b>CONTRAST:</b>
                   <i>
-                     <b>Fifth Designation</b>
+                     <b><dfn>Fifth Designation</dfn></b>
                      , n
                   </i>
                   (

@@ -245,13 +245,15 @@ RSpec.describe IsoDoc do
                      </fmt-xref-label>
                      <preferred id="_">
                         <expression>
-                           <name>Term2</name>
+                           <name id="_">Term2</name>
                         </expression>
                      </preferred>
                      <fmt-preferred>
                         <p>
                            <semx element="preferred" source="_">
-                              <strong>Term2</strong>
+                        <strong>
+                           <semx element="expression/name" source="_">Term2</semx>
+                        </strong>
                            </semx>
                         </p>
                      </fmt-preferred>
@@ -551,7 +553,7 @@ RSpec.describe IsoDoc do
              <div id="I">
                 <h2>3.1.\\u00a0 Normal Terms</h2>
                 <p class="TermNum" id="J">3.1.1.</p>
-                <p class="Terms" style="text-align:left;"><b>Term2</b></p>
+                <p class="Terms" style="text-align:left;"><b><dfn>Term2</dfn></b></p>
               </div><div id="K"><h2>3.2.\\u00a0 Symbols</h2>
                <div class="figdl">
                 <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
@@ -836,13 +838,15 @@ RSpec.describe IsoDoc do
                      </fmt-xref-label>
                      <preferred id="_">
                         <expression>
-                           <name>Term2</name>
+                           <name id="_">Term2</name>
                         </expression>
                      </preferred>
                      <fmt-preferred>
                         <p>
                            <semx element="preferred" source="_">
-                              <strong>Term2</strong>
+                        <strong>
+                           <semx element="expression/name" source="_">Term2</semx>
+                        </strong>
                            </semx>
                         </p>
                      </fmt-preferred>
@@ -1142,7 +1146,7 @@ RSpec.describe IsoDoc do
              <div id="I">
                 <h2>3.1.\\u00a0 Normal Terms</h2>
                 <p class="TermNum" id="J">3.1.1.</p>
-                <p class="Terms" style="text-align:left;"><b>Term2</b></p>
+                <p class="Terms" style="text-align:left;"><b><dfn>Term2</dfn></b></p>
               </div><div id="K"><h2>3.2.\\u00a0 Symboles</h2>
                <div class="figdl">
                 <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
@@ -1362,13 +1366,15 @@ RSpec.describe IsoDoc do
                       </fmt-xref-label>
                       <preferred id="_">
                          <expression>
-                            <name>Term2</name>
+                            <name id="_">Term2</name>
                          </expression>
                       </preferred>
                       <fmt-preferred>
                          <p>
                             <semx element="preferred" source="_">
-                               <strong>Term2</strong>
+                        <strong>
+                           <semx element="expression/name" source="_">Term2</semx>
+                        </strong>
                             </semx>
                          </p>
                       </fmt-preferred>
@@ -1662,7 +1668,7 @@ RSpec.describe IsoDoc do
                <div id="I"><h2>3.1.\\u3000Normal Terms</h2>
 
                 <p class="TermNum" id="J">3.1.1.</p>
-                <p class="Terms" style="text-align:left;"><b>Term2</b></p>
+                <p class="Terms" style="text-align:left;"><b><dfn>Term2</dfn></b></p>
 
               </div>
                <div id="K"><h2>3.2.\\u3000符号</h2>
@@ -1895,13 +1901,15 @@ RSpec.describe IsoDoc do
                       </fmt-xref-label>
                       <preferred id="_">
                          <expression>
-                            <name>Term2</name>
+                            <name id="_">Term2</name>
                          </expression>
                       </preferred>
                       <fmt-preferred>
                          <p>
                             <semx element="preferred" source="_">
-                               <strong>Term2</strong>
+                            <strong>
+                           <semx element="expression/name" source="_">Term2</semx>
+                        </strong>
                             </semx>
                          </p>
                       </fmt-preferred>
@@ -2224,7 +2232,7 @@ RSpec.describe IsoDoc do
                      <div id='I'>
                        <h2>3.1.\\u00a0 Normal Terms</h2>
                        <p class='TermNum' id='J'>3.1.1.</p>
-                       <p class='Terms' style='text-align:left;'><b>Term2</b></p>
+                       <p class='Terms' style='text-align:left;'><b><dfn>Term2</dfn></b></p>
                      </div>
                      <div id='K'>
                        <h2>3.2.\\u00a0 Simboloj kai mallongigitaj terminoj</h2>

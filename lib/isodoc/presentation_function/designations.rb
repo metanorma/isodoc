@@ -104,7 +104,8 @@ module IsoDoc
     end
 
     def designation_annotate(desgn, name, orig)
-      designation_boldface(desgn)
+      # designation_boldface(desgn)
+      designation_expression(desgn, name, orig)
       designation_field(desgn, name, orig)
       designation_grammar(desgn, name)
       designation_localization(desgn, name, orig)
@@ -113,10 +114,30 @@ module IsoDoc
       desgn.children = name.children
     end
 
-    def designation_boldface(desgn)
+    # KILL
+    def designation_boldfacex(desgn)
       desgn["element"] == "preferred" or return
       name = desgn.at(ns("./expression/name | ./letter-symbol/name")) or return
       name.children = "<strong>#{name.children}</strong>"
+    end
+
+    def designation_expression(desgn, name, orig)
+      if origname = orig.at(ns("./expression/name"))
+        element = "expression/name"
+      elsif origname = orig.at(ns("./letter-symbol/name"))
+        element = "letter-symbol/name"
+      elsif origname = orig.at(ns("./graphical-symbol"))
+        element = "graphical-symbol"
+      end
+      name.children = <<~XML.strip
+        <semx element='#{element}' source='#{origname['id'] || origname['original-id']}'>#{to_xml(name.children).strip}</semx>
+      XML
+      designation_expression_boldface(desgn, name)
+    end
+
+    def designation_expression_boldface(desgn, name)
+      name.name == "name" && desgn["element"] == "preferred" and
+        name.children = "<strong>#{to_xml(name.children)}</strong>"
     end
 
     def designation_field(_desgn, name, orig)

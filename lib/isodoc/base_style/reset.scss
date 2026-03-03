@@ -277,3 +277,6 @@ svg {
   height: auto;       /* ← key to maintaining aspect ratio */
   display: block;     /* ← removes unwanted inline spacing */
 }
+
+/* style dfn by override in flavor */
+dfn { font-style: inherit; }

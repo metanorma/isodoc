@@ -137,10 +137,10 @@ module IsoDoc
 
       def svg_supply_viewbox(svg)
         svg["viewbox"] and return
-        svg["height"] && svg["width"] or return
+        (svg["height"] && svg["width"]) or return
         h = svg["height"].to_s[/\d+/].to_s
         w = svg["width"].to_s[/\d+/].to_s
-        h.to_i.positive? && w.to_i.positive? or return
+        (h.to_i.positive? && w.to_i.positive?) or return
         svg["viewbox"] = "0 0 #{w} #{h}"
       end
 
@@ -152,6 +152,46 @@ module IsoDoc
           end
         else super
         end
+      end
+
+      def term_parse_x(node, out)
+        node.children.each do |c|
+          if c.name == "p"
+            term_p_parse(c, out)
+          else
+            out.dfn do |d|
+              parse(c, d)
+            end
+          end
+        end
+      end
+
+      def term_p_parse_x(node, out)
+        out.p class: "Terms", style: "text-align:left;" do |p|
+          p.dfn do |d|
+            children_parse(node, d)
+          end
+        end
+      end
+
+      def semx_parse(node, out)
+        if %w(expression/name letter-symbol/name).include?(node["element"])
+          tag = designation_tag(node)
+          out.send tag do |d|
+            children_parse(node, d)
+          end
+        else super
+        end
+      end
+
+      def designation_tag(node)
+        term = node.at("./ancestor::xmlns:term")
+        if node["element"] == "expression/name"
+          e = term.at(".//*[@id = '#{node['source']}']")
+          # <expression type='abbreviation'><name>...
+          e&.parent && e.parent["type"] == "abbreviation" and return "abbr"
+        end
+        "dfn"
       end
 
       def in_comment
