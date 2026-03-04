@@ -49,7 +49,7 @@ module IsoDoc
 
       def sourcecode_cleanup(html)
         ann = ".//div[@class = 'annotation']"
-        html.xpath("//pre[#{ann}] | //div[@class = 'sourcecode'][#{ann}]")
+        html.xpath("//pre[#{ann}] | //figure[@class = 'sourcecode'][#{ann}]")
           .each do |p|
           ins = p.after("<pre class='sourcecode'/>").next_element
           p.xpath(ann).each do |d|
