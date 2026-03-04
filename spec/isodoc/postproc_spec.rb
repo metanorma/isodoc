@@ -940,8 +940,8 @@ RSpec.describe IsoDoc do
       INPUT
     expect(File.exist?("test.html")).to be true
     html = strip_guid(File.read("test.html"))
-    expect(html).to include(%{<div id="paddy1"><h2 class="TermNum" id="_"><a class="anchor" href="#paddy1"></a><a class="header" href="#paddy1">1\.1\.</a></h2>})
-    expect(html).to include(%{<div id="paddy"><h2 class="TermNum" id="_"><a class="anchor" href="#paddy"></a><a class="header" href="#paddy">1\.2\.</a></h2>})
+    expect(html).to include(%{<div id="paddy1"><h2 class="TermNum" id="_"><a class="anchor" href="#paddy1"></a><a class="header" href="#paddy1">1.1.</a></h2>})
+    expect(html).to include(%{<div id="paddy"><h2 class="TermNum" id="_"><a class="anchor" href="#paddy"></a><a class="header" href="#paddy">1.2.</a></h2>})
   end
 
   it "does not lose HTML escapes in postprocessing" do
@@ -1417,6 +1417,78 @@ RSpec.describe IsoDoc do
     expect(Canon.format_xml(html
   .sub(/^.*<div id="footnote-container">/m, '<div id="footnote-container">').sub(%r{</div>.*$}m, "</div>")))
       .to be_equivalent_to Canon.format_xml(output1)
+  end
+
+  it "preserves ampersands in URLs" do
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
+    input = <<~INPUT
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <preface> <clause type="toc" id="_" displayorder="1">
+        <fmt-title id="_" depth="1">Table of contents</fmt-title>
+      </clause>
+        <foreword id="F" displayorder="2"><fmt-title id="_">Foreword</fmt-title>
+        <p id="_9782d5ef-1ae6-8e10-4236-65aa9266f060">A &amp; B</p>
+        <p id="_e8684b9c-3ac2-e84f-8585-8ee224169d6f">    <link target="https://fonts.googleapis.com/css?family=Space+Mono:400,400i,700,700i&amp;display=swap"/></p>
+        </foreword></preface>
+        <sections>
+        </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+            <foreword id="F" displayorder="1">
+               <title id="_">Foreword</title>
+               <fmt-title id="_" depth="1">Foreword</fmt-title>
+                <p id="_">A &amp; B</p>
+                <p id="_">
+                   <link target="https://fonts.googleapis.com/css?family=Space+Mono:400,400i,700,700i&amp;display=swap" id="_"/>
+                   <semx element="link" source="_">
+                      <fmt-link target="https://fonts.googleapis.com/css?family=Space+Mono:400,400i,700,700i&amp;display=swap"/>
+                   </semx>
+                </p>
+             </foreword>
+             <clause type="toc" id="_" displayorder="2">
+                <fmt-title id="_" depth="1">Table of contents</fmt-title>
+             </clause>
+          </preface>
+          <sections>
+         </sections>
+       </iso-standard>
+    OUTPUT
+    html = <<~OUTPUT
+      <div id="F"><h1 class="ForewordTitle"><a class="anchor" href="#F"></a><a class="header" href="#F">Foreword</a></h1><p id="_">A &#x26; B</p><p id="_">    <a href="https://fonts.googleapis.com/css?family=Space+Mono:400,400i,700,700i&display=swap">https://fonts.googleapis.com/css?family=Space+Mono:400,400i,700,700i&#x26;display=swap</a></p></div>
+    OUTPUT
+    word = <<~OUTPUT
+       <div><a name="F" id="F">
+               <h1 class="ForewordTitle">Foreword</h1>
+               <p class="MsoNormal"><a name="_" id="_"></a>A &amp; B</p>
+               <p class="MsoNormal"><a name="_" id="_"></a>    <a href="https://fonts.googleapis.com/css?family=Space+Mono:400,400i,700,700i&display=swap">https://fonts.googleapis.com/css?family=Space+Mono:400,400i,700,700i&amp;display=swap</a></p>
+             </div>
+    OUTPUT
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(strip_guid(Canon.format_xml(pres_output)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    # can't use Canon.format_xml because of raw ampersand
+    IsoDoc::HtmlConvert.new({ wordstylesheet: "spec/assets/word.css" })
+      .convert("test", pres_output, false)
+    expect(File.exist?("test.html")).to be true
+    output = File.read("test.html")
+    output = output.sub(/^.*<div id="F">/m, '<div id="F">')
+      .sub(/<\/div>.*$/m, "</div>")
+    expect(strip_guid(output))
+      .to be_equivalent_to (html)
+
+    IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css" })
+      .convert("test", pres_output, false)
+    expect(File.exist?("test.doc")).to be true
+    output = File.read("test.doc")
+    output = output.sub(/^.*<div>\s*<a name="F" id="F"><\/a>/m, '<div><a name="F" id="F">')
+      .sub(/<\/div>.*$/m, "</div>")
+    expect(strip_guid(output))
+      .to be_equivalent_to (word)
   end
 
   private
