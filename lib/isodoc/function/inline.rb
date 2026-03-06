@@ -136,8 +136,24 @@ module IsoDoc
         image_body_parse(node, attrs, out)
       end
 
-      def image_body_parse(_node, attrs, out)
-        out.img **attr_code(attrs)
+      def image_body_parse(node, attrs, out)
+        if n = select_altsource(node)
+          image_parse(n, out)
+        else
+          out.img **attr_code(attrs)
+        end
+      end
+
+      def select_altsource(node)
+        node.xpath(ns("./altsource")).each do |a|
+          tags = a["tag"].split(/,\s*/)
+          select_altsource?(a, tags) and return a
+        end
+        nil
+      end
+
+      def select_altsource?(_altsource, tags)
+        tags.include?("doc")
       end
 
       def smallcap_parse(node, xml)

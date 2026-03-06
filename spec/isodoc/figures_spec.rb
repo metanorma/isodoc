@@ -652,7 +652,7 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
     expect(strip_guid(Canon.format_xml(pres_output
-      .gsub(/&lt;/, "&#x3c;"))))
+      .gsub("&lt;", "&#x3c;"))))
       .to be_equivalent_to Canon.format_xml(presxml)
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
@@ -903,7 +903,7 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
     expect(strip_guid(Canon.format_xml(pres_output
-      .gsub(/&lt;/, "&#x3c;"))))
+      .gsub("&lt;", "&#x3c;"))))
       .to be_equivalent_to Canon.format_xml(presxml)
     expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
@@ -1255,7 +1255,7 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
     expect(strip_guid(Canon.format_xml(pres_output
-      .gsub(/&lt;/, "&#x3c;"))))
+      .gsub("&lt;", "&#x3c;"))))
       .to be_equivalent_to Canon.format_xml(presxml)
     expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
@@ -1445,8 +1445,169 @@ RSpec.describe IsoDoc do
     OUTPUT
     expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true).gsub(/&lt;/, "&#x3c;"))))
+      .convert("test", input, true).gsub("&lt;", "&#x3c;"))))
       .to be_equivalent_to Canon.format_xml(presxml)
+  end
+
+  it "processes altsource" do
+    mock_uuid_increment
+    input = <<~INPUT
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <preface><foreword id="fwd">
+        <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
+      <name>Split-it-right <em>sample</em> divider</name>
+      <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt">
+      <altsource tag="tag,html" src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f2" mimetype="image/png"/>
+      <altsource tag="doc,tag" src="data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f2" mimetype="application/xml"/>
+      </image>
+      </figure>
+      </foreword>
+      </preface>
+      </iso-standard>
+    INPUT
+    presxml = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+            <clause type="toc" id="_1" displayorder="1">
+               <fmt-title depth="1" id="_5">Table of contents</fmt-title>
+            </clause>
+            <foreword id="fwd" displayorder="2">
+               <title id="_3">Foreword</title>
+               <fmt-title depth="1" id="_6">
+                  <semx element="title" source="_3">Foreword</semx>
+               </fmt-title>
+               <figure id="figureA-1" keep-with-next="true" keep-lines-together="true" autonum="1">
+                  <name id="_4">
+                     Split-it-right
+                     <em>sample</em>
+                     divider
+                  </name>
+                  <fmt-name id="_7">
+                     <span class="fmt-caption-label">
+                        <span class="fmt-element-name">Figure</span>
+                        <semx element="autonum" source="figureA-1">1</semx>
+                     </span>
+                     <span class="fmt-caption-delim">\\u00a0— </span>
+                     <semx element="name" source="_4">
+                        Split-it-right
+                        <em>sample</em>
+                        divider
+                     </semx>
+                  </fmt-name>
+                  <fmt-xref-label>
+                     <span class="fmt-element-name">Figure</span>
+                     <semx element="autonum" source="figureA-1">1</semx>
+                  </fmt-xref-label>
+                  <image src="rice_images/rice_image1.png" height="20" width="30" id="_" mimetype="image/png" alt="alttext" title="titletxt">
+                  <altsource tag="tag,html" src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_" mimetype="image/png"/>
+                  <altsource tag="doc,tag" src="data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==" height="20" width="auto" id="_" mimetype="application/xml"/>
+                  </image>
+               </figure>
+            </foreword>
+         </preface>
+      </iso-standard>
+    INPUT
+    html = <<~OUTPUT
+      #{HTML_HDR}
+                      <br/>
+                <div id="fwd">
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <figure id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                   <img src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto"/>
+                      <figcaption>
+                         Figure 1\\u00a0— Split-it-right
+                         <i>sample</i>
+                         divider
+                      </figcaption>
+                   </figure>
+                </div>
+             </div>
+          </body>
+       </html>
+    OUTPUT
+    word = <<~OUTPUT
+      #{WORD_HDR}
+                      <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div id="fwd">
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <img src='_.xml' height="20" width="auto"/>
+                      <p class="FigureTitle" style="text-align:center;">
+                         Figure 1\\u00a0— Split-it-right
+                         <i>sample</i>
+                         divider
+                      </p>
+                   </div>
+                </div>
+                <p>\\u00a0</p>
+             </div>
+             <p class="section-break">
+                <br clear="all" class="section"/>
+             </p>
+             <div class="WordSection3"/>
+          </body>
+       </html>
+    OUTPUT
+    pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    expect(strip_guid(Canon.format_xml(pres_output
+      .gsub("&lt;", "&#x3c;"))))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    .convert("test", pres_output, true))
+    output.at("//div[@class='TOC']")["id"] = "_"
+    expect(strip_guid(Canon.format_xml(output.to_xml)))
+      .to be_equivalent_to Canon.format_xml(html)
+    output = Nokogiri::XML(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true))
+    output.at("//div[@class='TOC']")["id"] = "_"
+    expect(strip_guid(Canon.format_xml(output.to_xml)
+        .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
+        .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
+      .to be_equivalent_to Canon.format_xml(word)
+
+    word = <<~OUTPUT
+          #{WORD_HDR}
+                      <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div id="fwd">
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
+                      <p class="FigureTitle" style="text-align:center;">
+                         Figure 1\\u00a0— Split-it-right
+                         <i>sample</i>
+                         divider
+                      </p>
+                   </div>
+                </div>
+                <p>\\u00a0</p>
+             </div>
+             <p class="section-break">
+                <br clear="all" class="section"/>
+             </p>
+             <div class="WordSection3"/>
+          </body>
+       </html>
+    OUTPUT
+    input.sub!("doc,tag", "doc1,tag")
+    pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    .convert("test", pres_output, true))
+    output.at("//div[@class='TOC']")["id"] = "_"
+    expect(strip_guid(Canon.format_xml(output.to_xml)))
+      .to be_equivalent_to Canon.format_xml(html)
+    output = Nokogiri::XML(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true))
+    output.at("//div[@class='TOC']")["id"] = "_"
+    expect(strip_guid(Canon.format_xml(output.to_xml)
+        .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
+        .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
+      .to be_equivalent_to Canon.format_xml(word)
   end
 
   it "processes raw SVG" do
@@ -1498,7 +1659,7 @@ RSpec.describe IsoDoc do
     OUTPUT
     expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert.new(presxml_options)
         .convert("test", input, true)
-        .gsub(/&lt;/, "&#x3c;")
+        .gsub("&lt;", "&#x3c;")
         .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))))
       .to be_equivalent_to Canon.format_xml(presxml
            .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
@@ -1574,7 +1735,7 @@ RSpec.describe IsoDoc do
       .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
     expect(strip_guid(Canon.format_xml(output
-      .gsub(/&lt;/, "&#x3c;")
+      .gsub("&lt;", "&#x3c;")
       .sub(%r{<metanorma-extension>.*</metanorma-extension}m, "")
       .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))))
       .to be_equivalent_to Canon.format_xml(presxml
@@ -1654,7 +1815,7 @@ RSpec.describe IsoDoc do
       .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
     expect(strip_guid(Canon.format_xml(output
-      .gsub(/&lt;/, "&#x3c;")
+      .gsub("&lt;", "&#x3c;")
       .sub(%r{<metanorma-extension>.*</metanorma-extension}m, "")
       .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))))
       .to be_equivalent_to Canon.format_xml(presxml
@@ -1749,7 +1910,7 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)
     expect(strip_guid(Canon.format_xml(output
       .sub(%r{<metanorma-extension>.*</metanorma-extension}m, "")
-     .gsub(/&lt;/, "&#x3c;"))
+     .gsub("&lt;", "&#x3c;"))
           .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
       .to be_equivalent_to Canon.format_xml(presxml
         .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))

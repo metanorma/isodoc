@@ -46,7 +46,7 @@ module IsoDoc
         attrs = { src: imgsrc(node),
                   height: node["height"], alt: node["alt"],
                   title: node["title"], width: node["width"] }
-        out.img **attr_code(attrs)
+        image_body_parse(node, attrs, out)
       end
 
       def emf_attributes(node)

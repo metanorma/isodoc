@@ -194,6 +194,10 @@ module IsoDoc
         "dfn"
       end
 
+      def select_altsource?(_altsource, tags)
+        tags.include?("html")
+      end
+
       def in_comment
         @in_comment
       end
