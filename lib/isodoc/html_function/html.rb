@@ -16,8 +16,7 @@ module IsoDoc
       end
 
       def make_body1(body, _docxml)
-        return if @bare
-
+        @bare and return
         body.div class: "title-section" do |div1|
           div1.p { |p| p << "&#xa0;" } # placeholder
         end
@@ -25,8 +24,7 @@ module IsoDoc
       end
 
       def make_body2(body, _docxml)
-        return if @bare
-
+        @bare and return
         body.div class: "prefatory-section" do |div2|
           div2.p { |p| p << "&#xa0;" } # placeholder
         end
@@ -136,42 +134,61 @@ module IsoDoc
       end
 
       def svg_supply_viewbox(svg)
-        svg["viewbox"] and return
-        (svg["height"] && svg["width"]) or return
+        svg_supply_viewbox?(svg) or return
         h = svg["height"].to_s[/\d+/].to_s
         w = svg["width"].to_s[/\d+/].to_s
         (h.to_i.positive? && w.to_i.positive?) or return
         svg["viewbox"] = "0 0 #{w} #{h}"
       end
 
+      def svg_supply_viewbox?(svg)
+        svg["viewbox"] and return false
+        (svg["height"] && svg["width"]) or return false
+        true
+      end
+
+      def image_body_parse_svg(svg, out)
+        svg_supply_viewbox(svg)
+        out.div class: "svg-container" do |div|
+          div.parent.add_child(svg)
+        end
+      end
+
+      def select_altsource?(_altsource, tags)
+        tags.include?("html")
+      end
+
       def image_body_parse(node, attrs, out)
-        if svg = node.at("./m:svg", "m" => "http://www.w3.org/2000/svg")
-          svg_supply_viewbox(svg)
-          out.div class: "svg-container" do |div|
-            div.parent.add_child(svg)
-          end
-        else super
+        svg = node.at(".//m:svg", "m" => "http://www.w3.org/2000/svg")
+        alts = select_altsource(node)
+        if svg && alts.empty?
+          image_body_parse_svg(svg, out)
+        else
+          image_body_parse_picture(node, attrs, alts, out)
         end
       end
 
-      def term_parse_x(node, out)
-        node.children.each do |c|
-          if c.name == "p"
-            term_p_parse(c, out)
-          else
-            out.dfn do |d|
-              parse(c, d)
-            end
+      def image_body_parse_picture(node, attrs, alts, out)
+        out.picture do |p|
+          alts.each do |i|
+            p.source **attr_code(altsource_attrs(i)
+              .merge({ srcset: svg2datauri(i) }.compact))
           end
+          p.img **attr_code(attrs.merge({ src: svg2datauri(node) }.compact))
         end
       end
 
-      def term_p_parse_x(node, out)
-        out.p class: "Terms", style: "text-align:left;" do |p|
-          p.dfn do |d|
-            children_parse(node, d)
-          end
-        end
+      def altsource_attrs(node)
+        media = node["media"]
+        media.blank? and media = "all"
+        { srcset: node["src"], media: @c.decode(media), type: node["type"] }
+      end
+
+      def svg2datauri(node)
+        svg = node.at(".//m:svg", "m" => "http://www.w3.org/2000/svg") or
+          return nil
+        v = Vectory::Svg.from_node(svg.parent)
+        Vectory::Datauri.from_vector(v).content
       end
 
       def semx_parse(node, out)
@@ -192,10 +209,6 @@ module IsoDoc
           e&.parent && e.parent["type"] == "abbreviation" and return "abbr"
         end
         "dfn"
-      end
-
-      def select_altsource?(_altsource, tags)
-        tags.include?("html")
       end
 
       def in_comment
