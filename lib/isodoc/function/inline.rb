@@ -4,8 +4,7 @@ module IsoDoc
   module Function
     module Inline
       def link_parse(node, out)
-        url = link_parse_url(node)
-        out.a **attr_code(href: url, title: node["alt"],
+        out.a **attr_code(href: link_parse_url(node), title: node["alt"],
                           class: node["style"]) do |l|
           if node.elements.empty? && node.text.strip.empty?
             l << @c.encode(node["target"].sub(/^mailto:/, ""), :basic,
@@ -127,17 +126,41 @@ module IsoDoc
         [HTMLEntities.new.encode(a), /^[[0-9,.+-]]*$/.match?(a)]
       end
 
-      def image_parse(node, out)
-        attrs = { src: node["src"],
+      def image_attrs(node)
+        { src: node["src"],
                   height: node["height"] || "auto",
                   width: node["width"] || "auto",
                   title: node["title"],
                   alt: node["alt"] }
-        image_body_parse(node, attrs, out)
       end
 
-      def image_body_parse(_node, attrs, out)
-        out.img **attr_code(attrs)
+      def image_parse(node, out)
+        image_body_parse(node, image_attrs(node), out)
+      end
+
+      def image_body_parse(node, attrs, out)
+        n = select_altsource(node)
+        if n.empty?
+          out.img **attr_code(attrs)
+        else
+          image_parse(n.first, out)
+        end
+      end
+
+      def select_altsource(node)
+        ret = node.xpath(ns("./altsource")).each_with_object([]) do |a, m|
+          tags = a["tag"].split(/,\s*/)
+          select_altsource?(a, tags) and m << a
+        end
+        ret.empty? and
+          ret = node.xpath(ns("./altsource")).each_with_object([]) do |a, m|
+            a["tag"] == "default" and m << a
+          end
+        ret
+      end
+
+      def select_altsource?(_altsource, tags)
+        tags.include?("doc")
       end
 
       def smallcap_parse(node, xml)
