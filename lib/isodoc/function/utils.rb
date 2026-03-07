@@ -100,8 +100,7 @@ module IsoDoc
         array.nil? || array.empty? and return ""
         if array.length == 1 then array[0]
         else
-          @i18n.l10n("#{array[0..-2].join(', ')} " \
-                     "#{@i18n.and} #{array.last}",
+          @i18n.l10n("#{array[0..-2].join(', ')} #{@i18n.and} #{array.last}",
                      @lang, @script)
         end
       end
@@ -141,7 +140,7 @@ module IsoDoc
       def liquid(doc)
         # unescape HTML escapes in doc
         doc = doc.split(%r<(\{%|%\})>).each_slice(4).map do |a|
-          a[2] = a[2].gsub(/&lt;/, "<").gsub(/&gt;/, ">") if a.size > 2
+          a[2] = a[2].gsub("&lt;", "<").gsub("&gt;", ">") if a.size > 2
           a.join
         end.join
         Liquid::Template.parse(doc)
@@ -223,8 +222,7 @@ module IsoDoc
             a[0] = c.encode(c.decode(a[0]), :hexadecimal)
             a
           end.join
-        else
-          c.encode(c.decode(text), :hexadecimal)
+        else c.encode(c.decode(text), :hexadecimal)
         end
       end
 
@@ -238,6 +236,23 @@ module IsoDoc
 
       def imgfile_suffix(uri, suffix)
         "#{File.join(File.dirname(uri), File.basename(uri, '.*'))}.#{suffix}"
+      end
+
+      # Unescape &#x26; to & in href attributes only
+      # This ensures URLs work correctly while preserving &#x26; in text content
+      # This operates on the final string output after all Nokogiri processing
+      def unescape_amp_in_hrefs(html)
+        # Match href="..." and href='...' separately
+        # Note: populate_template converts &amp; to &#x26;, so we replace that
+        html.gsub(/(href\s*=\s*")([^"]*)"|(href\s*=\s*')([^']*)'/) do
+          if Regexp.last_match(1)
+            "#{Regexp.last_match(1)}#{Regexp.last_match(2).gsub('&#x26;',
+                                                                '&')}\""
+          else
+            "#{Regexp.last_match(3)}#{Regexp.last_match(4).gsub('&#x26;',
+                                                                '&')}'"
+          end
+        end
       end
     end
   end

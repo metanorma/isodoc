@@ -8,15 +8,19 @@ module IsoDoc
     module Html
       def postprocess(result, filename, _dir)
         result = from_xhtml(cleanup(to_xhtml(textcleanup(result))))
-        toHTML(result, filename)
+        result = toHTML(result, filename)
         @files_to_delete.each { |f| FileUtils.rm_rf f }
+        result
       end
 
       def toHTML(result, filename)
         result = from_xhtml(html_cleanup(to_xhtml(result)))
         result = from_xhtml(move_images(resize_images(to_xhtml(result))))
         result = html5(script_cdata(inject_script(result)))
+        # Unescape &#x26; to & in href attributes after all Nokogiri processing
+        result = unescape_amp_in_hrefs(result)
         File.open(filename, "w:UTF-8") { |f| f.write(result) }
+        result
       end
 
       def html5(doc)
@@ -31,7 +35,7 @@ module IsoDoc
       end
 
       def heading_anchors(html)
-        html.xpath("//h1 | //h2 | //h3 | //h4 | //h5 | //h6 | //h7 | //h8 "\
+        html.xpath("//h1 | //h2 | //h3 | //h4 | //h5 | //h6 | //h7 | //h8 | " \
                    "//span[@class = 'inline-header']").each do |h|
           h.at("./ancestor::div[@id='toc']") and next
           div = h.xpath("./ancestor::div[@id]")

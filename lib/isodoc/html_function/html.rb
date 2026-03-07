@@ -66,7 +66,7 @@ module IsoDoc
       end
 
       def html_main(docxml)
-        docxml.at("//head").add_child(html_head)
+        docxml.at("//head") << Nokogiri::HTML.fragment(html_head)
         d = docxml.at('//div[@class="main-section"]')
         d.name = "main"
         d.children.empty? or d.children.first.previous = html_button

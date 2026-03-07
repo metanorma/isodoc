@@ -8,6 +8,8 @@ module IsoDoc
     module Postprocess
       def postprocess(result, filename, dir)
         result = postprocess_cleanup(result)
+        # Unescape &#x26; to & in href attributes after all Nokogiri processing
+        result = unescape_amp_in_hrefs(result)
         filename = filename.sub(/\.doc$/, "")
         header = generate_header(filename, dir)
         @wordstylesheet = wordstylesheet_update
