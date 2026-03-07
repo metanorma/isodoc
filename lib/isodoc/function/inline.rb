@@ -126,13 +126,16 @@ module IsoDoc
         [HTMLEntities.new.encode(a), /^[[0-9,.+-]]*$/.match?(a)]
       end
 
-      def image_parse(node, out)
-        attrs = { src: node["src"],
+      def image_attrs(node)
+        { src: node["src"],
                   height: node["height"] || "auto",
                   width: node["width"] || "auto",
                   title: node["title"],
                   alt: node["alt"] }
-        image_body_parse(node, attrs, out)
+      end
+
+      def image_parse(node, out)
+        image_body_parse(node, image_attrs(node), out)
       end
 
       def image_body_parse(node, attrs, out)
@@ -145,10 +148,15 @@ module IsoDoc
       end
 
       def select_altsource(node)
-        node.xpath(ns("./altsource")).each_with_object([]) do |a, m|
+        ret = node.xpath(ns("./altsource")).each_with_object([]) do |a, m|
           tags = a["tag"].split(/,\s*/)
           select_altsource?(a, tags) and m << a
         end
+        ret.empty? and
+          ret = node.xpath(ns("./altsource")).each_with_object([]) do |a, m|
+            a["tag"] == "default" and m << a
+          end
+        ret
       end
 
       def select_altsource?(_altsource, tags)

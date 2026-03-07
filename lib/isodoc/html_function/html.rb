@@ -168,14 +168,23 @@ module IsoDoc
         end
       end
 
-      def image_body_parse_picture(node, attrs, alts, out)
+      def image_body_parse_picture(node, _attrs, alts, out)
         out.picture do |p|
           alts.each do |i|
-            p.source **attr_code(altsource_attrs(i)
-              .merge({ srcset: svg2datauri(i) }.compact))
+            if i["tag"] == "default" then next
+            else
+              p.source **attr_code(altsource_attrs(i)
+                .merge({ srcset: svg2datauri(i) }.compact))
+            end
           end
-          p.img **attr_code(attrs.merge({ src: svg2datauri(node) }.compact))
+          image_picture_img(node, p)
         end
+      end
+
+      def image_picture_img(node, out)
+        default = node.at(ns("./altsource[@tag = 'default']")) || node
+        out.img **attr_code(image_attrs(default)
+          .merge({ src: svg2datauri(default) }.compact))
       end
 
       def altsource_attrs(node)
