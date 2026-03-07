@@ -185,8 +185,9 @@ module IsoDoc
     end
 
     # used downstream to load svg images inline
+    # directory can be string, or array
     def svg_load(directory, filename)
-      dir = File.join(@libdir, "html", **directory.split("/"))
+      dir = File.join(@libdir, "html", *directory)
       filename = File.join(dir, filename)
       File.exist?(filename) or return
       file = File.read(filename) or return
