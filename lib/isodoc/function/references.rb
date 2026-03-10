@@ -2,7 +2,7 @@ module IsoDoc
   module Function
     module References
       def bibitem_entry(list, bib, _ordinal, biblio)
-        list.p **attr_code(iso_bibitem_entry_attrs(bib, biblio)) do |ref|
+        list.p(**attr_code(iso_bibitem_entry_attrs(bib, biblio))) do |ref|
           children_parse(bib.at(ns("./biblio-tag")), ref)
           reference_format(bib, ref)
         end

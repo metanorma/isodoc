@@ -4,7 +4,7 @@ module IsoDoc
       def make_table_footnote_link(out, fnid, node)
         attrs = { href: "##{fnid}", class: "TableFootnoteRef" }
         sup = node.at(ns(".//sup")) and sup.replace(sup.children)
-        out.a **attrs do |a|
+        out.a(**attrs) do |a|
           children_parse(node, a)
         end
       end
@@ -52,7 +52,7 @@ module IsoDoc
         fn = node["target"] # || UUIDTools::UUID.random_create.to_s
         attrs = { class: "FootnoteRef", href: "#fn:#{fn}" }
         f = node.at(ns("./fmt-fn-label"))
-        out.a **attrs do |a|
+        out.a(**attrs) do |a|
           children_parse(f, a)
         end
       end

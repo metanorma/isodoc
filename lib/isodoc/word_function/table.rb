@@ -115,7 +115,7 @@ module IsoDoc
         @in_table = true
         table_title_parse(node, out)
         out.div align: "center", class: "table_container" do |div|
-          div.table **table_attrs(node) do |t|
+          div.table(**table_attrs(node)) do |t|
             table_parse_core(node, t)
             table_parse_tail(node, t)
           end

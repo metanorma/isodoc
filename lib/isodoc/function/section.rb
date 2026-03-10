@@ -9,7 +9,7 @@ module IsoDoc
 
       # used for subclauses
       def clause_parse(node, out)
-        out.div **attr_code(clause_attrs(node)) do |div|
+        out.div(**attr_code(clause_attrs(node))) do |div|
           clause_parse_title(node, div, node.at(ns("./fmt-title")), out)
           node.children.reject { |c1| c1.name == "fmt-title" }.each do |c1|
             parse(c1, div)
@@ -18,7 +18,7 @@ module IsoDoc
       end
 
       def clause(node, out)
-        out.div **attr_code(clause_attrs(node)) do |s|
+        out.div(**attr_code(clause_attrs(node))) do |s|
           clause_name(node, node.at(ns("./fmt-title")), s, nil)
           node.elements.reject { |c1| c1.name == "fmt-title" }.each do |c1|
             parse(c1, s)
@@ -32,7 +32,7 @@ module IsoDoc
 
       def annex(node, out)
         page_break(out)
-        out.div **attr_code(annex_attrs(node)) do |s|
+        out.div(**attr_code(annex_attrs(node))) do |s|
           node.elements.each do |c1|
             if c1.name == "fmt-title" then annex_name(node, c1, s)
             else parse(c1, s)
@@ -50,7 +50,7 @@ module IsoDoc
       end
 
       def scope(node, out)
-        out.div **attr_code(id: node["id"]) do |div|
+        out.div(**attr_code(id: node["id"])) do |div|
           clause_name(node, node.at(ns("./fmt-title")), div, nil)
           node.elements.each do |e|
             parse(e, div) unless e.name == "fmt-title"
@@ -62,7 +62,7 @@ module IsoDoc
                     "//sections/clause[descendant::terms]".freeze
 
       def terms_defs(node, out)
-        out.div **attr_code(id: node["id"]) do |div|
+        out.div(**attr_code(id: node["id"])) do |div|
           clause_name(node, node.at(ns("./fmt-title")), div, nil)
           node.elements.each do |e|
             parse(e, div) unless %w{fmt-title source}.include? e.name
@@ -76,7 +76,7 @@ module IsoDoc
       end
 
       def symbols_abbrevs(node, out)
-        out.div **attr_code(id: node["id"], class: "Symbols") do |div|
+        out.div(**attr_code(id: node["id"], class: "Symbols")) do |div|
           clause_name(node, node.at(ns("./fmt-title")), div, nil)
           node.elements.each do |e|
             parse(e, div) unless e.name == "fmt-title"
@@ -102,7 +102,7 @@ module IsoDoc
 
       def foreword(clause, out)
         page_break(out)
-        out.div **attr_code(id: clause["id"]) do |s|
+        out.div(**attr_code(id: clause["id"])) do |s|
           clause_name(clause, clause.at(ns("./fmt-title")), s,
                       { class: "ForewordTitle" })
           clause.elements.each { |e| parse(e, s) unless e.name == "fmt-title" }
@@ -122,7 +122,7 @@ module IsoDoc
 
       def abstract(clause, out)
         page_break(out)
-        out.div **attr_code(id: clause["id"]) do |s|
+        out.div(**attr_code(id: clause["id"])) do |s|
           clause_name(clause, clause.at(ns("./fmt-title")), s,
                       { class: "AbstractTitle" })
           clause.elements.each { |e| parse(e, s) unless e.name == "fmt-title" }
@@ -144,7 +144,7 @@ module IsoDoc
 
       def preface_normal(clause, out)
         page_break(out)
-        out.div **attr_code(preface_attrs(clause)) do |div|
+        out.div(**attr_code(preface_attrs(clause))) do |div|
           clause_name(clause, clause.at(ns("./fmt-title")), div,
                       { class: "IntroTitle" })
           clause.elements.each do |e|
@@ -156,7 +156,7 @@ module IsoDoc
       def table_of_contents(clause, out)
         @bare and return
         page_break(out)
-        out.div **attr_code(preface_attrs(clause)) do |div|
+        out.div(**attr_code(preface_attrs(clause))) do |div|
           clause_name(clause, clause.at(ns("./fmt-title")), div,
                       { class: "IntroTitle" })
           clause.elements.each do |e|

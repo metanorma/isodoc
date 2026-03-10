@@ -69,7 +69,7 @@ module IsoDoc
       end
 
       def para_parse(node, out)
-        out.p **attr_code(para_attrs(node)) do |p|
+        out.p(**attr_code(para_attrs(node))) do |p|
           unless @termdomain.empty?
             p << "&#x3c;#{@termdomain}&#x3e; "
             @termdomain = ""
@@ -109,7 +109,7 @@ module IsoDoc
       end
 
       def formula_parse1(node, out)
-        out.div **attr_code(class: "formula") do |div|
+        out.div(**attr_code(class: "formula")) do |div|
           div.p do |_p|
             parse(node.at(ns("./fmt-stem")), div)
             insert_tab(div, 1)
@@ -151,7 +151,7 @@ module IsoDoc
 
       def table_of_contents(clause, out)
         page_break(out)
-        out.div **attr_code(preface_attrs(clause)) do |div|
+        out.div(**attr_code(preface_attrs(clause))) do |div|
           div.p class: "zzContents" do |p|
             clause.at(ns("./fmt-title"))&.children&.each { |c| parse(c, p) }
           end
@@ -162,7 +162,7 @@ module IsoDoc
       end
 
       def figure_parse1(node, out)
-        out.div **figure_attrs(node) do |div|
+        out.div(**figure_attrs(node)) do |div|
           node.children.each do |n|
             parse(n, div) unless n.name == "fmt-name"
           end

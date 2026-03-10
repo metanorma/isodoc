@@ -13,9 +13,9 @@ module IsoDoc
       end
 
       def ul_parse(node, out)
-        out.div **attr_code(class: "ul_wrap") do |div|
+        out.div(**attr_code(class: "ul_wrap")) do |div|
           list_title_parse(node, div)
-          div.ul **attr_code(ul_attrs(node)) do |ul|
+          div.ul(**attr_code(ul_attrs(node))) do |ul|
             node.children.each { |n| n.name == "fmt-name" or parse(n, ul) }
           end
         end
@@ -42,9 +42,9 @@ module IsoDoc
       end
 
       def ol_parse(node, out)
-        out.div **attr_code(class: "ol_wrap") do |div|
+        out.div(**attr_code(class: "ol_wrap")) do |div|
           list_title_parse(node, div)
-          div.ol **attr_code(ol_attrs(node)) do |ol|
+          div.ol(**attr_code(ol_attrs(node))) do |ol|
             node.children.each { |n| n.name == "fmt-name" or parse(n, ol) }
           end
         end
@@ -62,7 +62,7 @@ module IsoDoc
       end
 
       def li_parse(node, out)
-        out.li **attr_code(id: node["id"]) do |li|
+        out.li(**attr_code(id: node["id"])) do |li|
           li << li_checkbox(node)
           node.children.each do |n|
             n.name == "fmt-name" and next
@@ -90,9 +90,9 @@ module IsoDoc
       end
 
       def dl_parse(node, out)
-        out.div **attr_code(class: "figdl") do |div|
+        out.div(**attr_code(class: "figdl")) do |div|
           list_title_parse(node, div)
-          div.dl **dl_attrs(node) do |v|
+          div.dl(**dl_attrs(node)) do |v|
             node.elements.select { |n| dt_dd? n }.each_slice(2) do |dt, dd|
               dl_parse1(v, dt, dd)
             end
@@ -107,10 +107,10 @@ module IsoDoc
       end
 
       def dl_parse1(dlist, dterm, ddef)
-        dlist.dt **attr_code(id: dterm["id"]) do |term|
+        dlist.dt(**attr_code(id: dterm["id"])) do |term|
           dt_parse(dterm, term)
         end
-        dlist.dd **attr_code(id: ddef["id"]) do |listitem|
+        dlist.dd(**attr_code(id: ddef["id"])) do |listitem|
           ddef.children.each { |n| parse(n, listitem) }
         end
       end
