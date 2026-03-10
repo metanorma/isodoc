@@ -8,8 +8,6 @@ module IsoDoc
     module Postprocess
       def postprocess(result, filename, dir)
         result = postprocess_cleanup(result)
-        # Unescape &#x26; to & in href attributes after all Nokogiri processing
-        result = unescape_amp_in_hrefs(result)
         filename = filename.sub(/\.doc$/, "")
         header = generate_header(filename, dir)
         @wordstylesheet = wordstylesheet_update
@@ -19,8 +17,10 @@ module IsoDoc
 
       def postprocess_cleanup(result)
         result = cleanup(to_xhtml(textcleanup(result)))
-        from_xhtml(word_cleanup(result))
+        result = from_xhtml(word_cleanup(result))
           .gsub("-DOUBLE_HYPHEN_ESCAPE-", "--")
+        # Unescape &#x26; to & in href attributes after all Nokogiri processing
+        unescape_amp_in_hrefs(result)
       end
 
       def toWord(result, filename, dir, header)
