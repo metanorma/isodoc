@@ -1,0 +1,186 @@
+module IsoDoc
+  class PresentationXMLConvert < ::IsoDoc::Convert
+    # Entry point: find all top-level (ol|ul)[@display='table'] and convert each
+    def list_to_table(docxml)
+      docxml.xpath(ns("//ol[@display='table']") + "|" +
+                   ns("//ul[@display='table']")).each do |elem|
+        list_table_convert(elem)
+      end
+    end
+
+    # Convert a single display="table" list: build table, insert after, suppress original
+    def list_table_convert(elem)
+      n = list_table_depth(elem)
+      table = list_table_build(elem, n)
+      elem["display"] = "suppress"
+      elem.after(table)
+    end
+
+    # Maximum depth of nested ol/ul: elem itself = depth 1
+    def list_table_depth(elem)
+      depths = [1]
+      elem.xpath(ns(".//ol") + "|" + ns(".//ul")).each do |sub|
+        d = sub.ancestors.take_while { |a| a != elem }
+          .count { |a| %w[ol ul].include?(a.name) } + 2
+        depths << d
+      end
+      depths.max
+    end
+
+    # Build the full table as a Nokogiri node
+    def list_table_build(elem, n)
+      xml = "<table>"
+      xml += list_table_header(elem, n)
+      xml += list_table_body(elem, n)
+      xml += "</table>"
+      Nokogiri::XML(xml).root
+    end
+
+    # Build <thead><tr> with n <th> cells, one per depth level
+    def list_table_header(elem, n)
+      ths = (1..n).map { |i| list_table_th(elem, i) }.join
+      "<thead><tr>#{ths}</tr></thead>"
+    end
+
+    def list_table_th(elem, depth)
+      name = list_table_col_name(elem, depth)
+      return "<th/>" unless name
+
+      add_id(name)
+      src = name["original-id"] || name["id"]
+      children = to_xml(name.children)
+      "<th><fmt-name><semx element='name' source='#{src}'>#{children}</semx></fmt-name></th>"
+    end
+
+    # Find the <name> element of the first ol/ul at the given depth within elem
+    def list_table_col_name(elem, depth)
+      list_at_depth(elem, depth)&.at(ns("./name"))
+    end
+
+    # Return the first ol/ul at the given depth (depth 1 = elem itself)
+    def list_at_depth(elem, target_depth)
+      return elem if target_depth == 1
+
+      elem.xpath(ns(".//ol") + "|" + ns(".//ul")).find do |sub|
+        d = sub.ancestors.take_while { |a| a != elem }
+          .count { |a| %w[ol ul].include?(a.name) } + 2
+        d == target_depth
+      end
+    end
+
+    # Build <tbody> with one <tr> per leaf (terminal sublist) path
+    def list_table_body(elem, n)
+      paths = list_table_leaf_paths(elem, 1)
+      emitted = {} # li object_id => true when already emitted under a rowspan
+      rows = paths.map do |path|
+        list_table_row(path, n, emitted)
+      end.join
+      "<tbody>#{rows}</tbody>"
+    end
+
+    def list_table_row(path, n, emitted)
+      cells = path.map do |step|
+        if step[:terminal]
+          list_table_terminal_td(step[:list], step[:depth], n)
+        else
+          li = step[:li]
+          next if emitted[li.object_id]
+
+          rowspan = list_table_count_terminals(li)
+          emitted[li.object_id] = true
+          list_table_nonterminal_td(step[:list], li, step[:k], rowspan,
+                                    step[:depth])
+        end
+      end.compact.join
+      "<tr>#{cells}</tr>"
+    end
+
+    # Recursively collect all leaf paths from xl downward.
+    # Each path is an array of step hashes; the last step has terminal: true.
+    # Non-terminal step: { list:, li:, depth:, k: }
+    # Terminal step:     { list:, depth:, terminal: true }
+    def list_table_leaf_paths(xl, depth)
+      paths = []
+      xl.xpath(ns("./li")).each_with_index do |li, idx|
+        k = idx + 1
+        sub_xls = li.children.select { |c| %w[ol ul].include?(c.name) }
+        if sub_xls.empty?
+          # Degenerate: li with no child sublist — treat as its own terminal row
+          paths << [{ list: xl, li: li, depth: depth, k: k }]
+        else
+          sub_xls.each do |sub_xl|
+            step = { list: xl, li: li, depth: depth, k: k }
+            if (sub_xl.xpath(ns(".//ol")) + sub_xl.xpath(ns(".//ul"))).empty?
+              paths << [step,
+                        { list: sub_xl, depth: depth + 1, terminal: true }]
+            else
+              list_table_leaf_paths(sub_xl, depth + 1).each do |sub_path|
+                paths << ([step] + sub_path)
+              end
+            end
+          end
+        end
+      end
+      paths
+    end
+
+    # Count terminal sublists reachable from a li element (used for rowspan)
+    def list_table_count_terminals(li)
+      sub_xls = li.children.select { |c| %w[ol ul].include?(c.name) }
+      return 1 if sub_xls.empty?
+
+      count = 0
+      sub_xls.each do |sub_xl|
+        if (sub_xl.xpath(ns(".//ol")) + sub_xl.xpath(ns(".//ul"))).empty?
+          count += 1
+        else
+          sub_xl.xpath(ns("./li")).each do |sub_li|
+            count += list_table_count_terminals(sub_li)
+          end
+        end
+      end
+      [count, 1].max
+    end
+
+    # Build a nonterminal <td>: wraps a single li (minus nested sublists)
+    # in an ol/ul with appropriate start, type, and rowspan
+    def list_table_nonterminal_td(list, li, k, rowspan, depth)
+      rowspan_attr = rowspan > 1 ? " rowspan='#{rowspan}'" : ""
+      li_content = list_table_li_content(li)
+      if list.name == "ol"
+        start = list_table_calc_start(list, k)
+        type = @counter.ol_type(list, depth).to_s
+        "<td#{rowspan_attr}><ol start='#{start}' type='#{type}'>" \
+          "<li>#{li_content}</li></ol></td>"
+      else
+        "<td#{rowspan_attr}><ul><li>#{li_content}</li></ul></td>"
+      end
+    end
+
+    # Serialize a li's content, excluding any direct ol/ul children
+    def list_table_li_content(li)
+      li.children.reject { |c| %w[ol ul].include?(c.name) }
+        .map { |c| to_xml(c) }.join
+    end
+
+    # Build a terminal <td>: contains the whole sublist, with colspan if depth < n
+    def list_table_terminal_td(xl, depth, n)
+      colspan = n - depth + 1
+      colspan_attr = colspan > 1 ? " colspan='#{colspan}'" : ""
+      xl_dup = xl.dup
+      # Remove <name> from the copy (names go in thead, not in the cell body)
+      xl_dup.children.each { |c| c.name == "name" and c.remove }
+      if xl.name == "ol"
+        type = @counter.ol_type(xl, depth).to_s
+        xl_dup["type"] = type
+      end
+      "<td#{colspan_attr}>#{to_xml(xl_dup)}</td>"
+    end
+
+    # Calculate the start number for a wrapped ol cell
+    # (original ol start) + (0-based position of this li) = start for this li's number
+    def list_table_calc_start(list, k)
+      (list["start"] || 1).to_i + k - 1
+    end
+  end
+end
