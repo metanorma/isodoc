@@ -14,7 +14,7 @@ module IsoDoc
       end
 
       def recommendation_parse(node, out)
-        out.div **reqt_attrs(node, "recommend") do |t|
+        out.div(**reqt_attrs(node, "recommend")) do |t|
           recommendation_parse1(node, t)
         end
       end
@@ -28,19 +28,19 @@ module IsoDoc
       end
 
       def requirement_parse(node, out)
-        out.div **reqt_attrs(node, "require") do |t|
+        out.div(**reqt_attrs(node, "require")) do |t|
           recommendation_parse1(node, t)
         end
       end
 
       def permission_parse(node, out)
-        out.div **reqt_attrs(node, "permission") do |t|
+        out.div(**reqt_attrs(node, "permission")) do |t|
           recommendation_parse1(node, t)
         end
       end
 
       def div_parse(node, out)
-        out.div **reqt_attrs(node, node["type"]) do |div|
+        out.div(**reqt_attrs(node, node["type"])) do |div|
           children_parse(node, div)
         end
       end

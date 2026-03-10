@@ -18,7 +18,7 @@ module IsoDoc
 
       # used if we are boxing examples
       def example_div_parse(node, out)
-        out.div **example_div_attr(node) do |div|
+        out.div(**example_div_attr(node)) do |div|
           example_label(node, div, node.at(ns("./fmt-name")))
           node.children.each do |n|
             parse(n, div) unless n.name == "fmt-name"
@@ -36,12 +36,12 @@ module IsoDoc
         { style: "vertical-align:top;padding:0;", class: "example" }.freeze
 
       def example_table_parse(node, out)
-        out.table **example_table_attr(node) do |t|
+        out.table(**example_table_attr(node)) do |t|
           t.tr do |tr|
-            tr.td **EXAMPLE_TBL_ATTR do |td|
+            tr.td(**EXAMPLE_TBL_ATTR) do |td|
               example_label(node, td, node.at(ns("./fmt-name")))
             end
-            tr.td **EXAMPLE_TD_ATTR do |td|
+            tr.td(**EXAMPLE_TD_ATTR) do |td|
               node.children.each do |n|
                 parse(n, td) unless n.name == "fmt-name"
               end
@@ -77,7 +77,7 @@ module IsoDoc
       def note_p_parse(node, div)
         name = node.at(ns("./fmt-name"))
         para = node.at(ns("./p")) || node.at(ns("./semx/p"))
-        div.p **attr_code(class: note_p_class) do |p|
+        div.p(**attr_code(class: note_p_class)) do |p|
           name and p.span class: "note_label" do |s|
             name.children.each { |n| parse(n, s) }
           end
@@ -88,7 +88,7 @@ module IsoDoc
 
       def note_parse1(node, div)
         name = node.at(ns("./fmt-name")) and
-          div.p **attr_code(class: note_p_class) do |p|
+          div.p(**attr_code(class: note_p_class)) do |p|
             p.span class: "note_label" do |s|
               name.remove.children.each { |n| parse(n, s) }
             end
@@ -115,7 +115,7 @@ module IsoDoc
 
       def note_parse(node, out)
         @note = true
-        out.div **note_attrs(node) do |div|
+        out.div(**note_attrs(node)) do |div|
           if starts_with_para?(node)
             note_p_parse(node, div)
           else
@@ -145,7 +145,7 @@ module IsoDoc
       end
 
       def admonition_parse(node, out)
-        out.div **admonition_attrs(node) do |div|
+        out.div(**admonition_attrs(node)) do |div|
           if starts_with_para?(node)
             admonition_p_parse(node, div)
           else

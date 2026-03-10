@@ -26,7 +26,7 @@ module IsoDoc
       def index_xref_parse(node, out); end
 
       def bookmark_parse(node, out)
-        out.a **attr_code(id: node["id"])
+        out.a(**attr_code(id: node["id"]))
       end
 
       def keyword_parse(node, out)
@@ -73,7 +73,7 @@ module IsoDoc
 
       def underline_parse(node, out)
         node["style"] and style = "text-decoration: #{node['style']}"
-        out.u **attr_code(style: style) do |e|
+        out.u(**attr_code(style: style)) do |e|
           children_parse(node, e)
         end
       end

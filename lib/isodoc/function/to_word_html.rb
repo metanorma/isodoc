@@ -22,7 +22,7 @@ module IsoDoc
       end
 
       def make_body(xml, docxml)
-        xml.body **body_attr do |body|
+        xml.body(**body_attr) do |body|
           make_body1(body, docxml)
           make_body2(body, docxml)
           make_body3(body, docxml)

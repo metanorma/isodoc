@@ -2,8 +2,8 @@ module IsoDoc
   module Function
     module Form
       def form_parse(node, out)
-        out.div **attr_code(class: node["class"],
-                            id: node["id"]) do |div|
+        out.div(**attr_code(class: node["class"],
+                            id: node["id"])) do |div|
           children_parse(node, div)
         end
       end
@@ -38,7 +38,7 @@ module IsoDoc
       def option_parse(node, out); end
 
       def textarea_parse(_node, out)
-        out.table **{ border: 1, width: "50%" } do |t|
+        out.table(**{ border: 1, width: "50%" }) do |t|
           t.tr do |tr|
             tr.td do |td|
             end

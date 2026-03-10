@@ -23,7 +23,7 @@ module IsoDoc
       end
 
       def figure_parse1(node, out)
-        out.figure **figure_attrs(node) do |div|
+        out.figure(**figure_attrs(node)) do |div|
           node.children.each do |n|
             parse(n, div) unless n.name == "fmt-name"
           end
@@ -65,7 +65,7 @@ module IsoDoc
         name = node.at(ns("./fmt-name"))
         n = node.at(ns("./fmt-sourcecode"))
         s = n || node
-        out.p **sourcecode_attrs(node) do |div|
+        out.p(**sourcecode_attrs(node)) do |div|
           sourcecode_parse1(s, div)
         end
         annotation_parse(s, out)
@@ -85,7 +85,7 @@ module IsoDoc
       end
 
       def pre_parse(node, out)
-        out.pre node.text, **attr_code(id: node["id"])
+        out.pre(node.text, **attr_code(id: node["id"]))
       end
 
       def annotation_parse(node, out)
@@ -97,7 +97,7 @@ module IsoDoc
       end
 
       def formula_parse1(node, out)
-        out.div **attr_code(class: "formula") do |div|
+        out.div(**attr_code(class: "formula")) do |div|
           div.p do |_p|
             parse(node.at(ns("./fmt-stem")), div)
             if lbl = node&.at(ns("./fmt-name"))&.text
@@ -113,7 +113,7 @@ module IsoDoc
       end
 
       def formula_parse(node, out)
-        out.div **formula_attrs(node) do |div|
+        out.div(**formula_attrs(node)) do |div|
           formula_parse1(node, div)
           node.children.each do |n|
             %w(stem fmt-name fmt-stem).include? n.name and next
@@ -124,7 +124,7 @@ module IsoDoc
 
       def key_parse(node, out)
         klass = "key #{node['class']}".strip
-        out.div **attr_code(class: klass) do |div|
+        out.div(**attr_code(class: klass)) do |div|
           node.children.each do |n|
             if n.name == "name"
               key_name_parse(n, div)
@@ -164,7 +164,7 @@ module IsoDoc
       end
 
       def para_parse(node, out)
-        out.p **attr_code(para_attrs(node)) do |p|
+        out.p(**attr_code(para_attrs(node))) do |p|
           para_prefix(node, p)
           node.children.each { |n| parse(n, p) unless n.name == "note" }
         end
@@ -182,7 +182,7 @@ module IsoDoc
       def quote_parse(node, out)
         attrs = para_attrs(node)
         attrs[:class] = "Quote"
-        out.div **attr_code(attrs) do |p|
+        out.div(**attr_code(attrs)) do |p|
           node.children.each { |n| parse(n, p) unless n.name == "source" }
         end
       end

@@ -2,7 +2,7 @@ module IsoDoc
   module WordFunction
     module Body
       def insert_tab(out, count)
-        out.span **attr_code(style: "mso-tab-count:#{count}") do |span|
+        out.span(**attr_code(style: "mso-tab-count:#{count}")) do |span|
           [1..count].each { span << "&#xA0; " }
         end
       end
@@ -46,7 +46,7 @@ module IsoDoc
         attrs = { src: imgsrc(node),
                   height: node["height"], alt: node["alt"],
                   title: node["title"], width: node["width"] }
-        out.img **attr_code(attrs)
+        out.img(**attr_code(attrs))
       end
 
       def emf_attributes(node)
@@ -89,7 +89,7 @@ module IsoDoc
       end
 
       def rt_parse(node, out)
-        out.rt **{ style: "font-size: 6pt;" } do |e|
+        out.rt(**{ style: "font-size: 6pt;" }) do |e|
           children_parse(node, e)
         end
       end

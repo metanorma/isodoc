@@ -69,7 +69,7 @@ module IsoDoc
       # top level clause names
       def clause_name(_node, title, div, header_class)
         header_class = {} if header_class.nil?
-        div.h1 **attr_code(header_class) do |h1|
+        div.h1(**attr_code(header_class)) do |h1|
           if title.is_a?(String) then h1 << title
           elsif title
             children_parse(title, h1)
@@ -88,8 +88,8 @@ module IsoDoc
       end
 
       def variant_title(node, out)
-        out.p **attr_code(style: "display:none;",
-                          class: "variant-title-#{node['type']}") do |p|
+        out.p(**attr_code(style: "display:none;",
+                          class: "variant-title-#{node['type']}")) do |p|
           children_parse(node, p)
         end
       end

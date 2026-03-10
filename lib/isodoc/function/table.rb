@@ -81,7 +81,7 @@ module IsoDoc
 
       def table_parse(node, out)
         @in_table = true
-        out.table **table_attrs(node) do |t|
+        out.table(**table_attrs(node)) do |t|
           table_title_parse(node, t)
           table_parse_core(node, t)
           table_parse_tail(node, t)
@@ -140,7 +140,7 @@ module IsoDoc
 
       def tr_parse(node, out, ord, totalrows, header)
         bordered = table_bordered?(node)
-        out.tr **attr_code(style: node["style"]) do |r|
+        out.tr(**attr_code(style: node["style"])) do |r|
           node.elements.each do |td|
             attrs = make_tr_attr(td, ord, totalrows - 1, header, bordered)
             r.send td.name, **attr_code(attrs) do |entry|

@@ -5,8 +5,8 @@ module IsoDoc
     module Inline
       def link_parse(node, out)
         url = link_parse_url(node)
-        out.a **attr_code(href: url, title: node["alt"],
-                          class: node["style"]) do |l|
+        out.a(**attr_code(href: url, title: node["alt"],
+                          class: node["style"])) do |l|
           if node.elements.empty? && node.text.strip.empty?
             l << @c.encode(node["target"].sub(/^mailto:/, ""), :basic,
                            :hexadecimal)
@@ -30,8 +30,8 @@ module IsoDoc
       def span_parse(node, out)
         klass = node["style"] || node["class"]
         if klass && !SPAN_UNWRAP_CLASSES.include?(klass)
-          out.span **attr_code(style: node["style"],
-                               class: node["class"]) do |s|
+          out.span(**attr_code(style: node["style"],
+                               class: node["class"])) do |s|
             children_parse(node, s)
           end
         else children_parse(node, out)
@@ -92,7 +92,7 @@ module IsoDoc
         ret = node.at(ns("./semx[@element = 'stem']")) || node
         ooml, text_only = stem_parse1(ret, node["type"])
         klass = text_only ? {} : { class: "stem" }
-        out.span **klass do |span|
+        out.span(**klass) do |span|
           span.parent.add_child ooml
         end
       end
@@ -137,7 +137,7 @@ module IsoDoc
       end
 
       def image_body_parse(_node, attrs, out)
-        out.img **attr_code(attrs)
+        out.img(**attr_code(attrs))
       end
 
       def smallcap_parse(node, xml)

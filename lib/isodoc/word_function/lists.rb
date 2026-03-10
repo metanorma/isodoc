@@ -8,7 +8,7 @@ module IsoDoc
                         style: "margin-left:0pt;text-align:left;" }.freeze
 
       def dt_parse(dterm, term)
-        term.p **attr_code(WORD_DT_ATTRS) do |p|
+        term.p(**attr_code(WORD_DT_ATTRS)) do |p|
           if dterm.elements.empty?
             p << dterm.text
           else
@@ -24,7 +24,7 @@ module IsoDoc
       end
 
       def dl_parse_nontable(node, out)
-        out.div **attr_code(class: "figdl") do |div|
+        out.div(**attr_code(class: "figdl")) do |div|
           node["id"] and bookmark_parse(node, div)
           list_title_parse(node, div)
           node.elements.select { |n| dt_dd?(n) }
@@ -39,7 +39,7 @@ module IsoDoc
         "text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;".freeze
 
       def dl_parse_nontable1(out, dterm, ddef)
-        out.p **attr_code(style: WORD_EMBED_DL_ATTRS, id: dterm["id"]) do |p|
+        out.p(**attr_code(style: WORD_EMBED_DL_ATTRS, id: dterm["id"])) do |p|
           dterm.children.each { |n| parse(n, p) }
           insert_tab(p, 1)
           ddef["id"] and bookmark_parse(ddef, out)
@@ -70,9 +70,9 @@ module IsoDoc
       end
 
       def dl_parse_table(node, out)
-        out.div **attr_code(align: "left") do |div|
+        out.div(**attr_code(align: "left")) do |div|
           list_title_parse(node, div)
-          div.table **attr_code(dl_table_attrs(node)) do |v|
+          div.table(**attr_code(dl_table_attrs(node))) do |v|
             node.elements.select { |n| dt_dd?(n) }
               .each_slice(2) do |dt, dd|
               dl_parse_table1(v, dt, dd)
