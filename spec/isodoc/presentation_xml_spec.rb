@@ -792,7 +792,7 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Canon.format_xml(presxml)
   end
 
-    it "adds types to ordered lists" do
+  it "converts lists to tables" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata/>
@@ -1075,6 +1075,57 @@ expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .convert("test", input, true))
       .at("//xmlns:clause[@id = 'A']").to_xml)))
       .to be_equivalent_to Canon.format_xml(presxml)
+
+
+
+input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
+        <sections>
+           <clause id='A' inline-header='false' obligation='normative'>
+             <title>Clause</title>
+<ol id="A1" display="table">
+<name id="_3f6e6ed6-a66c-c79f-a9dd-3234f354a073">Targets for productive capacity (area A)</name>
+<li><p id="_29296f80-85f7-7c9f-5bb4-da7c16ff3c22">increased value addition in natural resource-based industries</p>
+<ul id="_0104e57a-0637-6f97-518e-be980c51f149">
+<name id="_9eb9640d-4c6d-239b-ea98-a073ee855d5e">Indicator</name>
+<li><p id="_35657daa-b366-b773-c791-25f0d38d7e3f">industry, value added (constant 2000 USD)</p>
+</li>
+<li><p id="_268496b0-3b65-b955-a2a1-a56b3abe565d">industry, value added (annual % growth)</p>
+</li>
+<li><p id="_e2e11bfd-182e-5e3d-6acf-ed64ae0f73e2">GDP per person employed</p>
+</li>
+<li><p id="_c4a1b276-bc7c-c64a-7a55-1393cf1bd1d2">employment in industry</p>
+</li>
+</ul>
+</li>
+<li><p id="_0777cb28-19e7-cdb1-9092-3c845c2b3322">another list</p>
+<ol id="_6162b1fd-1edf-5677-7e0f-d061c1790ffd" display=""><li><p id="_ae83a10b-ef9e-279b-c985-32f4d173be97">another sublist entry 1</p>
+</li>
+<li><p id="_f597840a-a5d2-f13c-3716-51722776fa3d">another sublist entry 2</p>
+<ol id="_3688ec57-b3d8-6a58-c534-91cc4d9f0f5e" display=""><li><p id="_011f6d7f-78e2-b9e2-10fc-f7e17c43982f">subsublist 1</p>
+</li>
+<li><p id="_a86733e8-9444-aa4d-2ee4-5311be1b4c65">subsublist 2</p>
+</li>
+<li><p id="_96554ff3-69e1-99fd-7a7a-034c72ae5732">subsublist 3</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</clause>
+</sections>
+</iso-standard>
+INPUT
+presxml = <<~OUTPUT
+OUTPUT
+expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))
+      .at("//xmlns:clause[@id = 'A']").to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+
   end
 
   it "processes multiple-target xrefs in English" do
