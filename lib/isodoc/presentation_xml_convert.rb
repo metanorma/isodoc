@@ -1,6 +1,7 @@
 require_relative "presentation_function/block"
 require_relative "presentation_function/source"
 require_relative "presentation_function/list"
+require_relative "presentation_function/list_to_table"
 require_relative "presentation_function/reqt"
 require_relative "presentation_function/concepts"
 require_relative "presentation_function/designations"
@@ -60,8 +61,8 @@ module IsoDoc
     def bibitem_lookup(docxml)
       @bibitem_lookup ||= docxml.xpath(ns("//references/bibitem"))
         .each_with_object({}) do |b, m|
-          m[b["id"]] = b
-          m[b["anchor"]] = b
+        m[b["id"]] = b
+        m[b["anchor"]] = b
       end
     end
 
@@ -106,6 +107,7 @@ module IsoDoc
       note docxml
       admonition docxml
       source docxml
+      list_to_table docxml
       ul docxml
       ol docxml
       dl docxml
