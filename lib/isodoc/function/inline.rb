@@ -129,10 +129,10 @@ module IsoDoc
 
       def image_attrs(node)
         { src: node["src"],
-                  height: node["height"] || "auto",
-                  width: node["width"] || "auto",
-                  title: node["title"],
-                  alt: node["alt"] }
+          height: node["height"] || "auto",
+          width: node["width"] || "auto",
+          title: node["title"],
+          alt: node["alt"] }
       end
 
       def image_parse(node, out)
@@ -142,7 +142,7 @@ module IsoDoc
       def image_body_parse(node, attrs, out)
         n = select_altsource(node)
         if n.empty?
-          out.img (**attr_code(attrs))
+          out.img(**attr_code(attrs))
         else
           image_parse(n.first, out)
         end
