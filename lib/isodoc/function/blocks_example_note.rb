@@ -125,14 +125,31 @@ module IsoDoc
         @note = false
       end
 
-      def admonition_name_parse(_node, div, name)
-        div.p class: "AdmonitionTitle", style: "text-align:center;" do |p|
+      def admonition_name_parse(node, div, name)
+        div.p class: "AdmonitionTitle #{admonition_subclass(node)}".strip,
+              style: "text-align:center;" do |p|
           children_parse(name, p)
         end
       end
 
-      def admonition_class(_node)
-        "Admonition"
+      def admonition_class(node)
+        "Admonition #{admonition_subclass(node)}".strip
+      end
+
+      def admonition_subclass(node)
+        case node["type"]
+        when "important" then "AdmonitionImportant"
+        when "warning" then "AdmonitionWarning"
+        when "caution" then "AdmonitionCaution"
+        when "todo" then "AdmonitionTodo"
+        when "editor" then "AdmonitionEditor"
+        when "editorial" then "AdmonitionEditorial"
+        when "tip" then "AdmonitionTip"
+        when "statement" then "AdmonitionStatement"
+        when "box" then "AdmonitionBox"
+        when "safety-precaution" then "AdmonitionSafetyPrecaution"
+        else "AdmonitionOther"
+        end
       end
 
       def admonition_name(node, _type)

@@ -679,8 +679,8 @@ RSpec.describe IsoDoc do
                      Initial note
                   </p>
                </div>
-               <div id="NN2" class="Admonition">
-                  <p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
+               <div id="NN2" class="Admonition AdmonitionWarning">
+                  <p class="AdmonitionTitle AdmonitionWarning" style="text-align:center;">WARNING</p>
                   <p>Initial admonition</p>
                </div>
                <div id="D">
@@ -1345,8 +1345,8 @@ RSpec.describe IsoDoc do
                 Initial note
               </p>
             </div>
-            <div id='NN2' class='Admonition'>
-              <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
+            <div id='NN2' class='Admonition AdmonitionWarning'>
+              <p class='AdmonitionTitle AdmonitionWarning' style='text-align:center;'>WARNING</p>
               <p>Initial admonition</p>
             </div>
             <div id='D'>

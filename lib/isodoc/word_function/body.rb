@@ -87,6 +87,10 @@ module IsoDoc
         "Note"
       end
 
+      def admonition_subclass(_node)
+        ""
+      end
+
       def para_attrs(node)
         attrs = { class: para_class(node), id: node["id"], style: "" }
         unless node["align"].nil?

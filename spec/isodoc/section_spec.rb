@@ -54,7 +54,7 @@ RSpec.describe IsoDoc do
                 </span>
               </div>
             </div>
-            <div id='L' class='Admonition'>
+            <div id='L' class='Admonition AdmonitionCaution'>
               <p>admonition</p>
             </div>
           </div>
