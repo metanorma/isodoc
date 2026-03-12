@@ -64,10 +64,10 @@ module IsoDoc
       end
 
       def starts_with_para?(node)
-        elem = block_body_first_elem(node) or return
+        elem = block_body_first_elem(node) or return false
         elem.name == "p" || block_body_first_elem(elem)&.name == "p" ||
-          elem.elements.first&.name == "semx" &&
-            block_body_first_elem(elem.elements.first)&.name == "p"
+          (elem.elements.first&.name == "semx" &&
+            block_body_first_elem(elem.elements.first)&.name == "p")
       end
 
       def note_p_class
