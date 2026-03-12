@@ -701,7 +701,9 @@ RSpec.describe IsoDoc do
             <div id="_">
               <h1 class='ForewordTitle'>Foreword</h1>
               <p>
+              <picture>
                 <img src='rice_images/rice_image1.png' height='20' width='30' title='titletxt' alt='alttext'/>
+              </picture>
               </p>
             </div>
           </div>
