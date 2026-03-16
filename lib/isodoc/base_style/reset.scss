@@ -105,6 +105,12 @@ h1, h2, h3, h4, h5, h6 {
   font-family: $headerfont;
 }
 
+p.floating-title {
+  font-family: $headerfont;
+  font-weight: bold;
+  font-size: larger;
+}
+
 blockquote, q {
   quotes: none;
 
@@ -114,7 +120,7 @@ blockquote, q {
   }
 }
 
-  .h2Annex {
+.h2Annex {
   font-family: $headerfont;
 }
 
