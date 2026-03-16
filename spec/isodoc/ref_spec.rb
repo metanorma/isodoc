@@ -966,6 +966,466 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Canon.format_xml(doc)
   end
 
+    it "processes Relaton bibliographies with references on the same date" do
+    mock_uuid_increment
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata>
+          <language>en</language>
+          </bibdata>
+          <preface><foreword>
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
+        <eref bibitemid="ref1"/>
+        <eref bibitemid="ref2"/>
+        <eref bibitemid="ref3"/>
+        <eref bibitemid="ref4"/>
+        <eref bibitemid="ref5"/>
+        <eref bibitemid="ref6"/>
+        <eref bibitemid="ref7"/>
+        <eref bibitemid="ref8"/>
+        </p>
+          </foreword></preface>
+          <bibliography>
+        <references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
+      <bibitem id="ref1" type="standard">
+        <title type="main" format="text/plain">Cereals and cereal products</title>
+        <docidentifier type="ISO">ISO 712</docidentifier>
+        <contributor>
+          <role type="author"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+        <date type="published"><on>2000</on></date>
+      </bibitem>
+      <bibitem id="ref2" type="standard">
+        <title type="main" format="text/plain">Books and book products</title>
+        <docidentifier type="ISO">ISO 713</docidentifier>
+        <contributor>
+          <role type="author"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+        <date type="published"><on>2000</on></date>
+      </bibitem>
+      <bibitem id="ref3" type="book">
+        <title type="main" format="text/plain">Cereals and cereal products</title>
+        <contributor>
+          <role type="author"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+        <date type="published"><on>2000</on></date>
+      </bibitem>
+      <bibitem id="ref4" type="book">
+        <title type="main" format="text/plain">Books and book products</title>
+        <contributor>
+          <role type="author"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+        <date type="published"><on>2000</on></date>
+      </bibitem>
+       </references>
+       <references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
+      <bibitem id="ref5" type="standard">
+        <title type="main" format="text/plain">Cereals and cereal products</title>
+        <docidentifier type="ISO">ISO 712</docidentifier>
+        <contributor>
+          <role type="author"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+        <date type="published"><on>2000</on></date>
+      </bibitem>
+      <bibitem id="ref6" type="standard">
+        <title type="main" format="text/plain">Books and book products</title>
+        <docidentifier type="ISO">ISO 713</docidentifier>
+        <contributor>
+          <role type="author"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+        <date type="published"><on>2000</on></date>
+      </bibitem>
+      <bibitem id="ref7" type="book">
+        <title type="main" format="text/plain">Cereals and cereal products</title>
+        <contributor>
+          <role type="author"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+        <date type="published"><on>2000</on></date>
+      </bibitem>
+      <bibitem id="ref8" type="book">
+        <title type="main" format="text/plain">Books and book products</title>
+        <contributor>
+          <role type="author"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+        <date type="published"><on>2000</on></date>
+      </bibitem>
+       </references>
+       </bibliography>
+       </iso-standard>
+       INPUT
+       presxml = <<~OUTPUT
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <bibdata>
+             <language current="true">en</language>
+          </bibdata>
+          
+          <preface>
+             <clause type="toc" id="_2" displayorder="1">
+                <fmt-title depth="1" id="_15">Table of contents</fmt-title>
+             </clause>
+             <foreword id="_1" displayorder="2">
+                <title id="_4">Foreword</title>
+                <fmt-title depth="1" id="_16">
+                   <semx element="title" source="_4">Foreword</semx>
+                </fmt-title>
+                <p id="_">
+                   <eref bibitemid="ref1" id="_7"/>
+                   <semx element="eref" source="_7">
+                      <fmt-xref target="ref1">ISO\\u00a0712</fmt-xref>
+                   </semx>
+                   <eref bibitemid="ref2" id="_8"/>
+                   <semx element="eref" source="_8">
+                      <fmt-xref target="ref2">ISO\\u00a0713</fmt-xref>
+                   </semx>
+                   <eref bibitemid="ref3" id="_9"/>
+                   <semx element="eref" source="_9">
+                      <fmt-xref target="ref3">???</fmt-xref>
+                   </semx>
+                   <eref bibitemid="ref4" id="_10"/>
+                   <semx element="eref" source="_10">
+                      <fmt-xref target="ref4">???</fmt-xref>
+                   </semx>
+                   <eref bibitemid="ref5" id="_11"/>
+                   <semx element="eref" source="_11">
+                      <fmt-xref target="ref5">ISO\\u00a0712</fmt-xref>
+                   </semx>
+                   <eref bibitemid="ref6" id="_12"/>
+                   <semx element="eref" source="_12">
+                      <fmt-xref target="ref6">ISO\\u00a0713</fmt-xref>
+                   </semx>
+                   <eref bibitemid="ref7" id="_13"/>
+                   <semx element="eref" source="_13">
+                      <fmt-xref target="ref7">???</fmt-xref>
+                   </semx>
+                   <eref bibitemid="ref8" id="_14"/>
+                   <semx element="eref" source="_14">
+                      <fmt-xref target="ref8">???</fmt-xref>
+                   </semx>
+                </p>
+             </foreword>
+          </preface>
+          <sections>
+             <references id="_normative_references" obligation="informative" normative="true" displayorder="3">
+                <title id="_5">Normative References</title>
+                <fmt-title depth="1" id="_17">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="_normative_references">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_5">Normative References</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Clause</span>
+                   <semx element="autonum" source="_normative_references">1</semx>
+                </fmt-xref-label>
+                <bibitem id="ref1" type="standard">
+                   <biblio-tag>ISO\\u00a0712, </biblio-tag>
+                   <formattedref>
+                      International Organization for Standardization.
+                      <em>Cereals and cereal products</em>
+                      . 2000. International Organization for Standardization.
+                   </formattedref>
+                   <title type="main" format="text/plain">Cereals and cereal products</title>
+                   <docidentifier type="ISO">ISO\\u00a0712</docidentifier>
+                   <docidentifier scope="biblio-tag">ISO\\u00a0712</docidentifier>
+                   <contributor>
+                      <role type="author"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                      </organization>
+                   </contributor>
+                   <contributor>
+                      <role type="publisher"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                      </organization>
+                   </contributor>
+                   <date type="published">
+                      <on>2000</on>
+                   </date>
+                </bibitem>
+                <bibitem id="ref2" type="standard">
+                   <biblio-tag>ISO\\u00a0713, </biblio-tag>
+                   <formattedref>
+                      International Organization for Standardization.
+                      <em>Books and book products</em>
+                      . 2000. International Organization for Standardization.
+                   </formattedref>
+                   <title type="main" format="text/plain">Books and book products</title>
+                   <docidentifier type="ISO">ISO\\u00a0713</docidentifier>
+                   <docidentifier scope="biblio-tag">ISO\\u00a0713</docidentifier>
+                   <contributor>
+                      <role type="author"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                      </organization>
+                   </contributor>
+                   <contributor>
+                      <role type="publisher"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                      </organization>
+                   </contributor>
+                   <date type="published">
+                      <on>2000</on>
+                   </date>
+                </bibitem>
+                <bibitem id="ref3" type="book">
+                   <biblio-tag/>
+                   <formattedref>
+                      International Organization for Standardization.
+                      <em>Cereals and cereal products</em>
+                      . n.p.: International Organization for Standardization. 2000.
+                   </formattedref>
+                   <title type="main" format="text/plain">Cereals and cereal products</title>
+                   <contributor>
+                      <role type="author"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                      </organization>
+                   </contributor>
+                   <contributor>
+                      <role type="publisher"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                      </organization>
+                   </contributor>
+                   <date type="published">
+                      <on>2000</on>
+                   </date>
+                </bibitem>
+                <bibitem id="ref4" type="book">
+                   <biblio-tag/>
+                   <formattedref>
+                      International Organization for Standardization.
+                      <em>Books and book products</em>
+                      . n.p.: International Organization for Standardization. 2000.
+                   </formattedref>
+                   <title type="main" format="text/plain">Books and book products</title>
+                   <contributor>
+                      <role type="author"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                      </organization>
+                   </contributor>
+                   <contributor>
+                      <role type="publisher"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                      </organization>
+                   </contributor>
+                   <date type="published">
+                      <on>2000</on>
+                   </date>
+                </bibitem>
+             </references>
+             <references id="_normative_references" obligation="informative" normative="true">
+                <title id="_6">Normative References</title>
+                <fmt-title depth="1" id="_18">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="_normative_references">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_6">Normative References</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Clause</span>
+                   <semx element="autonum" source="_normative_references">1</semx>
+                </fmt-xref-label>
+                <bibitem id="ref5" type="standard">
+                   <biblio-tag>ISO\\u00a0712, </biblio-tag>
+                   <formattedref>
+                      International Organization for Standardization.
+                      <em>Cereals and cereal products</em>
+                      . 2000. International Organization for Standardization.
+                   </formattedref>
+                   <title type="main" format="text/plain">Cereals and cereal products</title>
+                   <docidentifier type="ISO">ISO\\u00a0712</docidentifier>
+                   <docidentifier scope="biblio-tag">ISO\\u00a0712</docidentifier>
+                   <contributor>
+                      <role type="author"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                      </organization>
+                   </contributor>
+                   <contributor>
+                      <role type="publisher"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                      </organization>
+                   </contributor>
+                   <date type="published">
+                      <on>2000</on>
+                   </date>
+                </bibitem>
+                <bibitem id="ref6" type="standard">
+                   <biblio-tag>ISO\\u00a0713, </biblio-tag>
+                   <formattedref>
+                      International Organization for Standardization.
+                      <em>Books and book products</em>
+                      . 2000. International Organization for Standardization.
+                   </formattedref>
+                   <title type="main" format="text/plain">Books and book products</title>
+                   <docidentifier type="ISO">ISO\\u00a0713</docidentifier>
+                   <docidentifier scope="biblio-tag">ISO\\u00a0713</docidentifier>
+                   <contributor>
+                      <role type="author"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                      </organization>
+                   </contributor>
+                   <contributor>
+                      <role type="publisher"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                      </organization>
+                   </contributor>
+                   <date type="published">
+                      <on>2000</on>
+                   </date>
+                </bibitem>
+                <bibitem id="ref7" type="book">
+                   <biblio-tag/>
+                   <formattedref>
+                      International Organization for Standardization.
+                      <em>Cereals and cereal products</em>
+                      . n.p.: International Organization for Standardization. 2000.
+                   </formattedref>
+                   <title type="main" format="text/plain">Cereals and cereal products</title>
+                   <contributor>
+                      <role type="author"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                      </organization>
+                   </contributor>
+                   <contributor>
+                      <role type="publisher"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                      </organization>
+                   </contributor>
+                   <date type="published">
+                      <on>2000</on>
+                   </date>
+                </bibitem>
+                <bibitem id="ref8" type="book">
+                   <biblio-tag/>
+                   <formattedref>
+                      International Organization for Standardization.
+                      <em>Books and book products</em>
+                      . n.p.: International Organization for Standardization. 2000.
+                   </formattedref>
+                   <title type="main" format="text/plain">Books and book products</title>
+                   <contributor>
+                      <role type="author"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                      </organization>
+                   </contributor>
+                   <contributor>
+                      <role type="publisher"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                      </organization>
+                   </contributor>
+                   <date type="published">
+                      <on>2000</on>
+                   </date>
+                </bibitem>
+             </references>
+          </sections>
+          <bibliography>
+        </bibliography>
+       </iso-standard>
+       OUTPUT
+       pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(strip_guid(Canon.format_xml(pres_output)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .gsub(%r{<fn reference="[^"]+"}m, "<fn reference=\"_\"")))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    end
+
+
   it "marks references sections as hidden" do
     input = <<~INPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml'>
