@@ -687,10 +687,10 @@ RSpec.describe IsoDoc do
             </div>
          </div>
          <div class="Quote" id="xxx">
-            <p class="h">container</p>
+            <p class="h1">container</p>
             <p>This is a container of a subclause.</p>
             <div class="Quote" id="_">
-               <p class="h" id="_">3.1.2.15 non-canonical form</p>
+               <p class="h1" id="_">3.1.2.15 non-canonical form</p>
                <p id="_">
                   date and time expression where all its time scale components are
                   <i>unnormalised</i>
@@ -718,7 +718,7 @@ RSpec.describe IsoDoc do
             </div>
          </div>
          <div class="Quote" id="_">
-            <p class="h" id="_">
+            <p class="h1" id="_">
                3.1.2.14
                <br/>
                canonical form
