@@ -166,6 +166,7 @@ module IsoDoc
           a.next = c
         end
       end
+      elem.xpath(ns("./quote[not(node())]")).each(&:remove)
     end
 
     def amend_subclause(clause, depth)
