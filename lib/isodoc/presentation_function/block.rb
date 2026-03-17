@@ -177,6 +177,7 @@ module IsoDoc
         t["type"] = "floating-title"
       end
       clause.name = depth == 1 ? "quote" : "quote" # "div"
+      clause["type"] = "newcontent"
       clause.xpath(ns("./clause")).each { |c| amend_subclause(c, depth + 1) }
     end
 

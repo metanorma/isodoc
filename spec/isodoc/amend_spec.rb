@@ -548,10 +548,10 @@ RSpec.describe IsoDoc do
                         <p id="G">This is not generalised further.</p>
                      </example>
                   </quote>
-                  <quote id="xxx">
+                  <quote id="xxx"  type="newcontent">
                      <p type="floating-title">container</p>
                      <p>This is a container of a subclause.</p>
-                     <quote id="_" inline-header="false" obligation="normative">
+                     <quote id="_" inline-header="false" obligation="normative"  type="newcontent">
                         <p id="_" type="floating-title">3.1.2.15 non-canonical form</p>
                         <p id="_">
                            date and time expression where all its time scale components are
@@ -619,7 +619,7 @@ RSpec.describe IsoDoc do
                         </table>
                      </quote>
                   </quote>
-                  <quote id="_" inline-header="false" obligation="normative">
+                  <quote id="_" inline-header="false" obligation="normative"  type="newcontent">
                      <p id="_" type="floating-title">
                         3.1.2.14
                         <br/>
@@ -686,10 +686,10 @@ RSpec.describe IsoDoc do
                <p id="G">This is not generalised further.</p>
             </div>
          </div>
-         <div class="Quote" id="xxx">
+         <div class="Quote AmendNewcontent" id="xxx">
             <p class="h1">container</p>
             <p>This is a container of a subclause.</p>
-            <div class="Quote" id="_">
+            <div class="Quote AmendNewcontent" id="_">
                <p class="h1" id="_">3.1.2.15 non-canonical form</p>
                <p id="_">
                   date and time expression where all its time scale components are
@@ -717,7 +717,7 @@ RSpec.describe IsoDoc do
                </table>
             </div>
          </div>
-         <div class="Quote" id="_">
+         <div class="Quote AmendNewcontent" id="_">
             <p class="h1" id="_">
                3.1.2.14
                <br/>
