@@ -733,75 +733,75 @@ RSpec.describe IsoDoc do
        </standard-document>
     INPUT
     html = <<~OUTPUT
-         <div id="A">
-         <h1>1.\\u00a0 Change Clause</h1>
-         <p id="_">Add the following terminological entries after 3.1.2.13:</p>
-         <div class="Quote AmendNewcontent">
-            <div id="F" class="example">
-               <p class="example-title">EXAMPLE 10</p>
-               <p id="G">This is not generalised further.</p>
-            </div>
-         </div>
-         <div class="Quote AmendNewcontent" id="xxx">
-            <p class="h1">container</p>
-            <p>This is a container of a subclause.</p>
-            <div class="Quote AmendNewcontent" id="_">
-               <p class="h1" id="_">3.1.2.15 non-canonical form</p>
-               <p id="_">
-                  date and time expression where all its time scale components are
-                  <i>unnormalised</i>
-                  (3.1.2.1511)
-               </p>
-               <div id="_" class="example">
-                  <p class="example-title">EXAMPLE 1</p>
-                  <p id="_">example</p>
-               </div>
-               <div id="_" class="Note">
-                  <p>
-                     <span class="note_label">NOTE 1\\u00a0 </span>
-                     A
-                  </p>
-               </div>
-               <table id="_" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
-               <caption>Table 4</caption>
-                  <tbody>
-                     <tr>
-                        <td style="text-align:left;vertical-align:top;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">A</td>
-                        <td style="text-align:left;vertical-align:top;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">B</td>
-                     </tr>
-                  </tbody>
-               </table>
-            </div>
-         </div>
-         <div class="Quote AmendNewcontent" id="_">
-            <p class="h1" id="_">
-               3.1.2.14
-               <br/>
-               canonical form
-            </p>
-            <p id="_">
-               date and time expression where all its time scale components are
-               <i>normalised</i>
-               (3.1.2.15)
-            </p>
-            <div id="_" class="example">
-               <p class="example-title">EXAMPLE 1</p>
-               <p id="_">example</p>
-            </div>
-            <div id="_" class="Note">
-               <p>Note 1 to entry: A</p>
-            </div>
-            <table id="_" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
-            <caption>Table 3</caption>
-               <tbody>
-                  <tr>
-                     <td style="text-align:left;vertical-align:top;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">A</td>
-                     <td style="text-align:left;vertical-align:top;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">B</td>
-                  </tr>
-               </tbody>
-            </table>
-         </div>
-      </div>
+       <div id="A">
+          <h1>1.\\u00a0 Change Clause</h1>
+          <p id="_">Add the following terminological entries after 3.1.2.13:</p>
+          <div class="Quote AmendNewcontent">
+             <div id="F" class="example">
+                <p class="example-title">EXAMPLE 10</p>
+                <p id="G">This is not generalised further.</p>
+             </div>
+          </div>
+          <div class="Quote AmendNewcontent" id="_">
+             <p class="h1">
+                3.1.2.14.\\u00a0
+                <br/>
+                canonical form
+             </p>
+             <p id="_">
+                date and time expression where all its time scale components are
+                <i>normalised</i>
+                (3.1.2.15)
+             </p>
+             <div id="_" class="example">
+                <p class="example-title">EXAMPLE 11</p>
+                <p id="_">example</p>
+             </div>
+             <div id="_" class="Note">
+                <p>Note 1 to entry: A</p>
+             </div>
+             <table id="_" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+                <caption>Table 3</caption>
+                <tbody>
+                   <tr>
+                      <td style="text-align:left;vertical-align:top;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">A</td>
+                      <td style="text-align:left;vertical-align:top;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">B</td>
+                   </tr>
+                </tbody>
+             </table>
+          </div>
+          <div class="Quote AmendNewcontent" id="xxx">
+             <p class="h1">3.1.2.15.\\u00a0 container</p>
+             <p>This is a container of a subclause.</p>
+             <div class="Quote AmendNewcontent" id="xxy">
+                <p class="h2">3.1.2.15.1.\\u00a0 non-canonical form</p>
+                <p id="_">
+                   date and time expression where all its time scale components are
+                   <i>unnormalised</i>
+                   (3.1.2.1511)
+                </p>
+                <div id="_" class="example">
+                   <p class="example-title">EXAMPLE 12</p>
+                   <p id="_">example</p>
+                </div>
+                <div id="_" class="Note">
+                   <p>
+                      <span class="note_label">NOTE 1\\u00a0 </span>
+                      A
+                   </p>
+                </div>
+                <table id="_" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+                   <caption>Table 4</caption>
+                   <tbody>
+                      <tr>
+                         <td style="text-align:left;vertical-align:top;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">A</td>
+                         <td style="text-align:left;vertical-align:top;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">B</td>
+                      </tr>
+                   </tbody>
+                </table>
+             </div>
+          </div>
+       </div>
     OUTPUT
 
     pres_output = IsoDoc::PresentationXMLConvert
