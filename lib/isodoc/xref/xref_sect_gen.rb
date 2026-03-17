@@ -37,6 +37,7 @@ module IsoDoc
         if @parse_settings.empty? || @parse_settings[:clauses]
           preface_anchor_names(xml)
           main_anchor_names(xml)
+          amend_subclause_names(xml)
         end
       end
 
@@ -81,6 +82,13 @@ module IsoDoc
         )
       end
 
+      def amend_subclause_names(xml)
+        n = clause_counter
+        xml.xpath(ns("//amend/newcontent/clause")).each do |c|
+          section_names(c, n, 1)
+        end
+      end
+
       def unnumbered_names(clause)
         clause.nil? and return
         title = clause_title(clause, use_elem_name: true)
@@ -88,7 +96,7 @@ module IsoDoc
         clause.xpath(ns(subclauses)).each_with_index do |c, i|
           t = c.at(ns("./title"))
           tt = "#{semx(clause, title, clause.name)}" \
-            "<span class='fmt-comma'>,</span> #{semx(c, i + 1)}"
+               "<span class='fmt-comma'>,</span> #{semx(c, i + 1)}"
           preface_names1(c, t ? semx(c, t.text, c.name) : nil, tt, 2)
         end
       end
@@ -99,14 +107,12 @@ module IsoDoc
         clause.xpath(ns(subclauses)).each_with_index do |c, i|
           t = c.at(ns("./title"))
           preface_names1(c, t ? semx(c, t.text, c.name) : nil,
-                         "#{label} #{semx(c, i + 1)}",
-                         level + 1)
+                         "#{label} #{semx(c, i + 1)}", level + 1)
         end
       end
 
       def preface_name_anchors(clause, level, title)
         xref = semx(clause, title, clause.name)
-        #clause["id"] ||= "_#{UUIDTools::UUID.random_create}"
         @anchors[clause["id"]] =
           { label: nil, level:,
             xref:, title: nil,

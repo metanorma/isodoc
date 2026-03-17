@@ -161,7 +161,7 @@ module IsoDoc
       elem.xpath(ns(".//newcontent")).each do |a|
         a.name = "quote"
         a["type"] = "newcontent"
-        a.xpath(ns("./clause")).each do |c|
+        a.xpath(ns("./clause")).reverse_each do |c|
           amend_subclause(c, 1)
           a.next = c
         end
@@ -171,8 +171,11 @@ module IsoDoc
 
     def amend_subclause(clause, depth)
       clause.xpath(ns("./title")).reverse_each do |t|
+        clause1(clause) # insert title prefix
         # t.name = "floating-title"
         # t["depth"] ||= depth || "1"
+        t.remove
+        t = clause.at(ns("./fmt-title")) or next
         t.name = "p"
         t["type"] = "floating-title"
       end
