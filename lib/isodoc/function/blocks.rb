@@ -150,7 +150,7 @@ module IsoDoc
         classtype = nil
         classtype = "MsoCommentText" if in_comment
         node["type"] == "floating-title" and
-          classtype = "h#{node['depth']}"
+          classtype = "h#{node['depth'] || '1'}"
         classtype ||= node["class"]
         classtype
       end
