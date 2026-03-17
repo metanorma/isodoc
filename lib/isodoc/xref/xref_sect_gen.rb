@@ -85,7 +85,10 @@ module IsoDoc
       def amend_subclause_names(xml)
         n = clause_counter
         xml.xpath(ns("//amend/newcontent/clause")).each do |c|
-          section_names(c, n, 1)
+          if c["type"] == "annex"
+            annex_names(c, n.increment(c).print)
+          else section_names(c, n, 1)
+          end
         end
       end
 

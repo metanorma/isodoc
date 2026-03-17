@@ -170,18 +170,23 @@ module IsoDoc
     end
 
     def amend_subclause(clause, depth)
-      clause.xpath(ns("./title")).reverse_each do |t|
-        clause1(clause) # insert title prefix
-        # t.name = "floating-title"
-        # t["depth"] ||= depth || "1"
-        t.remove
-        t = clause.at(ns("./fmt-title")) or next
-        t.name = "p"
-        t["type"] = "floating-title"
-      end
+      amend_subclause_title(clause, depth)
       clause.name = depth == 1 ? "quote" : "quote" # "div"
       clause["type"] = "newcontent"
       clause.xpath(ns("./clause")).each { |c| amend_subclause(c, depth + 1) }
+    end
+
+    def amend_subclause_title(clause, depth)
+      if clause["type"] == "annex"
+        annex1(clause)
+      else
+        clause1(clause) # insert title prefix
+      end
+      clause.at(ns("./title"))&.remove
+      t = clause.at(ns("./fmt-title")) or return
+      t.name = "p"
+      t["type"] = "floating-title"
+      # t["depth"] ||= depth || "1"
     end
 
     def quote(docxml)
