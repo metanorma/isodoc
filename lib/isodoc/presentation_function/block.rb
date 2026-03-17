@@ -161,6 +161,7 @@ module IsoDoc
     def amend_newcontent(elem)
       elem.xpath(ns("./newcontent")).each do |a|
         a.name = "quote"
+        a["type"] = "newcontent"
         a.xpath(ns("./clause")).each do |c|
           amend_subclause(c, 1)
           a.next = c

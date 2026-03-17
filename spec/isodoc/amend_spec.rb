@@ -190,7 +190,7 @@ RSpec.describe IsoDoc do
                        with:
                      </em>
                   </p>
-                  <quote id="D">
+                  <quote id="D" type="newcontent">
                      <table id="E" number="2" autonum="2">
                         <name id="_">Edges of triangle and quadrilateral cells</name>
                         <fmt-name id="_">
@@ -286,7 +286,7 @@ RSpec.describe IsoDoc do
                        with:
                      </i>
          </p>
-         <div class="Quote" id="D">
+         <div class="Quote AmendNewcontent" id="D">
             <table id="E" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
             <caption>Table 2\\u00a0— Edges of triangle and quadrilateral cells</caption>
                <tbody>
@@ -524,7 +524,7 @@ RSpec.describe IsoDoc do
                </amend>
                <semx element="amend" source="_">
                   <p id="_">Add the following terminological entries after 3.1.2.13:</p>
-                  <quote>
+                  <quote type="newcontent">
                      <example id="F" number="10" autonum="10">
                         <fmt-name id="_">
                            <span class="fmt-caption-label">
@@ -680,7 +680,7 @@ RSpec.describe IsoDoc do
          <div id="A">
          <h1>1.\\u00a0 Change Clause</h1>
          <p id="_">Add the following terminological entries after 3.1.2.13:</p>
-         <div class="Quote">
+         <div class="Quote AmendNewcontent">
             <div id="F" class="example">
                <p class="example-title">EXAMPLE 10</p>
                <p id="G">This is not generalised further.</p>
