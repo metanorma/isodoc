@@ -189,7 +189,8 @@ module IsoDoc
 
       def annex_name_anchors(clause, num, level)
         label = num
-        level == 1 && clause.name == "annex" and
+        (level == 1 && clause.name == "annex") ||
+          clause["type"] == "annex" and
           label = annex_name_lbl(clause, label)
         c = clause_title(clause) and title = semx(clause, c, "title")
         @anchors[clause["id"]] =
@@ -202,6 +203,11 @@ module IsoDoc
         appendix_names(clause, num)
         label = semx(clause, num)
         annex_name_anchors(clause, label, 1)
+        annex_name_recurse(clause, label, num)
+        hierarchical_asset_names(clause, label)
+      end
+
+      def annex_name_recurse(clause, label, num)
         if @klass.single_term_clause?(clause)
           annex_names1(clause.at(ns("./references | ./terms | ./definitions")),
                        nil, num.to_s, 1)
@@ -211,7 +217,6 @@ module IsoDoc
             annex_names1(c, label, i.increment(c).print, 2)
           end
         end
-        hierarchical_asset_names(clause, label)
       end
 
       def annex_names1(clause, parentnum, num, level)
