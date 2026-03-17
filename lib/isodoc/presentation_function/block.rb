@@ -153,13 +153,12 @@ module IsoDoc
                    "./classification | ./contributor | ./fmt-name | " \
                    "./fmt-xref-label")).each(&:remove)
       amend_newcontent(ret)
-      ret.xpath(ns("./newcontent")).each { |a| a.name = "quote" }
       ret.xpath(ns("./description")).each { |a| a.replace(a.children) }
       elem.next = ret
     end
 
     def amend_newcontent(elem)
-      elem.xpath(ns("./newcontent")).each do |a|
+      elem.xpath(ns(".//newcontent")).each do |a|
         a.name = "quote"
         a["type"] = "newcontent"
         a.xpath(ns("./clause")).each do |c|
