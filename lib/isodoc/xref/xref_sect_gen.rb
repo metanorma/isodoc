@@ -180,7 +180,7 @@ module IsoDoc
         obl = "(#{@labels['inform_annex']})"
         clause["obligation"] == "normative" and
           obl = "(#{@labels['norm_annex']})"
-        obl = "<span class='fmt-obligation'>#{l10n obl}</fmt>"
+        obl = "<span class='fmt-obligation'>#{l10n obl}</span>"
         title = Common::case_with_markup(@labels["annex"], "capital",
                                          @script)
         s = labelled_autonum(title, num)

@@ -431,46 +431,60 @@ RSpec.describe IsoDoc do
   it "populates HTML ToC" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
+    input = <<~INPUT
+             <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface><foreword displayorder="1" id="fwd"><fmt-title id="_">Foreword</fmt-title>
+      <variant-title type="toc">FORVORT</variant-title>
+      </foreword></preface>
+      <sections>
+      <clause displayorder="2" id="clA"><fmt-title id="_"><strong>First</strong> Clause</fmt-title>
+      <clause id="clB"><fmt-title id="_">First Subclause</fmt-title>
+      <variant-title type="toc">SUB<tt>CLOZ</tt></variant-title>
+      </clause>
+      </clause>
+      <clause displayorder="3" id="clC"><fmt-title id="_">Second Clause</fmt-title><clause id="clD"><fmt-title id="_">Subclause</fmt-title></clause></clause>
+      </sections>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+            <div id="toc">
+         <ul>
+            <li class="h1">
+               <a href="#fwd">      FORVORT</a>
+            </li>
+            <li class="h1">
+               <a href="#clA">
+
+        <b>First</b> Clause
+      </a>
+            </li>
+            <li class="h2">
+               <a href="#clB">
+                  SUB
+                  <tt>CLOZ</tt>
+               </a>
+            </li>
+            <li class="h1">
+               <a href="#clC">
+
+        Second Clause
+      </a>
+            </li>
+            <li class="h2">
+               <a href="#clD">
+
+        Subclause
+      </a>
+            </li>
+         </ul>
+      </div>
+    OUTPUT
     IsoDoc::HtmlConvert.new({ htmlintropage: "spec/assets/htmlintro.html" })
-      .convert("test", <<~INPUT, false)
-            <iso-standard xmlns="http://riboseinc.com/isoxml">
-        <preface><foreword displayorder="1" id="fwd"><fmt-title id="_">Foreword</fmt-title>
-        <variant-title type="toc">FORVORT</variant-title>
-        </foreword></preface>
-        <sections>
-        <clause displayorder="2" id="clA"><fmt-title id="_">First Clause</fmt-title>
-        <clause id="clB"><fmt-title id="_">First Subclause</fmt-title>
-        <variant-title type="toc">SUBCLOZ</variant-title>
-        </clause>
-        </clause>
-        <clause displayorder="3" id="clC"><fmt-title id="_">Second Clause</fmt-title><clause id="clD"><fmt-title id="_">Subclause</fmt-title></clause></clause>
-        </sections>
-        </iso-standard>
-      INPUT
+      .convert("test", input, false)
     html = Nokogiri::XML(File.read("test.html"))
       .at("//div[@id = 'toc']")
     expect(strip_guid(Canon.format_xml(html.to_xml)))
-      .to be_equivalent_to Canon.format_xml(<<~OUTPUT)
-        <div id="toc">
-          <ul>
-            <li class="h1">
-              <a href="#fwd">      FORVORT</a>
-            </li>
-            <li class="h1">
-              <a href="#clA">      First Clause</a>
-            </li>
-            <li class="h2">
-              <a href="#clB">      SUBCLOZ</a>
-            </li>
-            <li class="h1">
-              <a href="#clC">      Second Clause</a>
-            </li>
-            <li class="h2">
-              <a href="#clD">      Subclause</a>
-            </li>
-          </ul>
-        </div>
-      OUTPUT
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "moves images in HTML #1" do
