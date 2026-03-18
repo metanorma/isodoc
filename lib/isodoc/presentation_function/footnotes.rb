@@ -157,7 +157,7 @@ module IsoDoc
       elem.at(ns(".//dl/name"))&.next ||
         elem.at(ns(".//dl"))&.children&.first ||
         elem.add_child("<key><dl> </dl></key>")
-        .first.elements.first.children.first
+          .first.elements.first.children.first
     end
 
     def comments(docxml)
