@@ -40,6 +40,7 @@ module IsoDoc
       node.at(ns("./sentinel"))&.remove
       strip_duplicate_ids(node, node.at(ns("./#{elem}")),
                           node.at(ns("./fmt-#{elem}")))
+      node.at(ns("./fmt-#{elem}"))
     end
 
     def transfer_id(old, new)
@@ -78,7 +79,7 @@ module IsoDoc
     end
 
     def semx(node, label, element = "autonum")
-      id = node["id"] || node[:id] || elem["original-id"]
+      id = node["id"] || node[:id] || node["original-id"]
       /<semx element='[^']+' source='#{id}'/.match?(label) and return label
       l = stripsemx(label)
       %(<semx element='#{element}' source='#{id}'>#{l}</semx>)

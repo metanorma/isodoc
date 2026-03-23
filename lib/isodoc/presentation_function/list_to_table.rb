@@ -8,12 +8,12 @@ module IsoDoc
       end
     end
 
-    # Convert a single display="table" list: build table, insert after, suppress original
+    # Convert a single display="table" list: build table, insert under fmt-ol
     def list_table_convert(elem)
       n = list_table_depth(elem)
       table = list_table_build(elem, n)
-      elem["display"] = "suppress"
-      elem.after(table)
+      elem << "<fmt-#{elem.name}></fmt-#{elem.name}>"
+      elem.elements.last << table
     end
 
     # Maximum depth of nested ol/ul: elem itself = depth 1
@@ -28,28 +28,43 @@ module IsoDoc
     end
 
     # Build the full table as a Nokogiri node
-    def list_table_build(elem, n)
+    def list_table_build(elem, cellcount)
       xml = "<table>"
-      xml += list_table_header(elem, n)
-      xml += list_table_body(elem, n)
+      xml += list_table_name(elem)
+      xml += list_table_header(elem, cellcount)
+      xml += list_table_body(elem, cellcount)
       xml += "</table>"
       Nokogiri::XML(xml).root
     end
 
+    # global table title if there are no nested titled in the list
+    def list_table_name(elem)
+      list_only_one_title(elem) or return ""
+      ret = prefix_name(elem, {}, "", "name") or return ""
+      to_xml(ret.remove) # will reposition from list/fmt-name to table/fmt-name
+    end
+
     # Build <thead><tr> with n <th> cells, one per depth level
-    def list_table_header(elem, n)
-      ths = (1..n).map { |i| list_table_th(elem, i) }.join
+    def list_table_header(elem, cellcount)
+      list_only_one_title(elem) and return ""
+      ths = (1..cellcount).map { |i| list_table_th(elem, i) }.join
       "<thead><tr>#{ths}</tr></thead>"
+    end
+
+    def list_only_one_title(elem)
+      (!elem.at(ns(".//ol//name")) && !elem.at(ns(".//ul//name"))) or return nil
+      elem.at(ns("./name"))
     end
 
     def list_table_th(elem, depth)
       name = list_table_col_name(elem, depth)
-      return "<th/>" unless name
-
+      name or return "<th/>"
       add_id(name)
       src = name["original-id"] || name["id"]
       children = to_xml(name.children)
-      "<th><fmt-name><semx element='name' source='#{src}'>#{children}</semx></fmt-name></th>"
+      <<~XML
+        <th><fmt-name><semx element='name' source='#{src}'>#{children}</semx></fmt-name></th>
+      XML
     end
 
     # Find the <name> element of the first ol/ul at the given depth within elem
@@ -69,19 +84,19 @@ module IsoDoc
     end
 
     # Build <tbody> with one <tr> per leaf (terminal sublist) path
-    def list_table_body(elem, n)
+    def list_table_body(elem, cellcount)
       paths = list_table_leaf_paths(elem, 1)
       emitted = {} # li object_id => true when already emitted under a rowspan
       rows = paths.map do |path|
-        list_table_row(path, n, emitted)
+        list_table_row(path, cellcount, emitted)
       end.join
       "<tbody>#{rows}</tbody>"
     end
 
-    def list_table_row(path, n, emitted)
+    def list_table_row(path, cellcount, emitted)
       cells = path.map do |step|
         if step[:terminal]
-          list_table_terminal_td(step[:list], step[:depth], n)
+          list_table_terminal_td(step[:list], step[:depth], cellcount)
         else
           li = step[:li]
           next if emitted[li.object_id]
@@ -125,10 +140,9 @@ module IsoDoc
     end
 
     # Count terminal sublists reachable from a li element (used for rowspan)
-    def list_table_count_terminals(li)
-      sub_xls = li.children.select { |c| %w[ol ul].include?(c.name) }
-      return 1 if sub_xls.empty?
-
+    def list_table_count_terminals(listitem)
+      sub_xls = listitem.children.select { |c| %w[ol ul].include?(c.name) }
+      sub_xls.empty? and return 1
       count = 0
       sub_xls.each do |sub_xl|
         if (sub_xl.xpath(ns(".//ol")) + sub_xl.xpath(ns(".//ul"))).empty?
@@ -144,9 +158,9 @@ module IsoDoc
 
     # Build a nonterminal <td>: wraps a single li (minus nested sublists)
     # in an ol/ul with appropriate start, type, and rowspan
-    def list_table_nonterminal_td(list, li, k, rowspan, depth)
+    def list_table_nonterminal_td(list, listitem, k, rowspan, depth)
       rowspan_attr = rowspan > 1 ? " rowspan='#{rowspan}'" : ""
-      li_content = list_table_li_content(li)
+      li_content = list_table_li_content(listitem)
       if list.name == "ol"
         start = list_table_calc_start(list, k)
         type = @counter.ol_type(list, depth).to_s
@@ -158,14 +172,15 @@ module IsoDoc
     end
 
     # Serialize a li's content, excluding any direct ol/ul children
-    def list_table_li_content(li)
-      li.children.reject { |c| %w[ol ul].include?(c.name) }
+    def list_table_li_content(listitem)
+      listitem.children.reject { |c| %w[ol ul].include?(c.name) }
         .map { |c| to_xml(c) }.join
     end
 
-    # Build a terminal <td>: contains the whole sublist, with colspan if depth < n
-    def list_table_terminal_td(xl, depth, n)
-      colspan = n - depth + 1
+    # Build a terminal <td>: contains the whole sublist,
+    # with colspan if depth < cellcount
+    def list_table_terminal_td(xl, depth, cellcount)
+      colspan = cellcount - depth + 1
       colspan_attr = colspan > 1 ? " colspan='#{colspan}'" : ""
       xl_dup = xl.dup
       # Remove <name> from the copy (names go in thead, not in the cell body)
@@ -178,7 +193,8 @@ module IsoDoc
     end
 
     # Calculate the start number for a wrapped ol cell
-    # (original ol start) + (0-based position of this li) = start for this li's number
+    # (original ol start) + (0-based position of this li) = start
+    # for this li's number
     def list_table_calc_start(list, k)
       (list["start"] || 1).to_i + k - 1
     end
