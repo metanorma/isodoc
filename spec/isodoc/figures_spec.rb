@@ -112,7 +112,7 @@ RSpec.describe IsoDoc do
                         <span class="fmt-element-name">Figure</span>
                         <semx element="autonum" source="figureA-1">1</semx>
                      </span>
-                     <span class="fmt-caption-delim">\\u00a0— </span>
+                     <span class="fmt-caption-delim">\u00a0— </span>
                      <semx element="name" source="_15">
                         Split-it-right
                         <em>sample</em>
@@ -239,7 +239,7 @@ RSpec.describe IsoDoc do
                            </localityStack>
                         </origin>
                         <semx element="origin" source="_20">
-                           <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Section 1</fmt-xref>
+                           <fmt-xref type="inline" target="ISO712">ISO\u00a0712, Section 1</fmt-xref>
                         </semx>
                         —
                         <semx element="modification" source="_5">with adjustments</semx>
@@ -254,7 +254,7 @@ RSpec.describe IsoDoc do
                            </localityStack>
                         </origin>
                         <semx element="origin" source="_21">
-                           <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Section 2</fmt-xref>
+                           <fmt-xref type="inline" target="ISO712">ISO\u00a0712, Section 2</fmt-xref>
                         </semx>
                      </semx>
                      ;
@@ -267,7 +267,7 @@ RSpec.describe IsoDoc do
                            </localityStack>
                         </origin>
                         <semx element="origin" source="_22">
-                           <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Section 3</fmt-xref>
+                           <fmt-xref type="inline" target="ISO712">ISO\u00a0712, Section 3</fmt-xref>
                         </semx>
                      </semx>
                      ]
@@ -329,7 +329,7 @@ RSpec.describe IsoDoc do
                   <semx element="autonum" source="_normative_references">1</semx>
                </fmt-xref-label>
                <bibitem id="ISO712" type="standard">
-                  <biblio-tag>ISO\\u00a0712, </biblio-tag>
+                  <biblio-tag>ISO\u00a0712, </biblio-tag>
                   <formattedref>
                      International Organization for Standardization.
                      <em>Cereals and cereal products</em>
@@ -337,8 +337,8 @@ RSpec.describe IsoDoc do
                   </formattedref>
                   <title format="text/plain">Cereals or cereal products</title>
                   <title type="main" format="text/plain">Cereals and cereal products</title>
-                  <docidentifier type="ISO">ISO\\u00a0712</docidentifier>
-                  <docidentifier scope="biblio-tag">ISO\\u00a0712</docidentifier>
+                  <docidentifier type="ISO">ISO\u00a0712</docidentifier>
+                  <docidentifier scope="biblio-tag">ISO\u00a0712</docidentifier>
                   <contributor>
                      <role type="publisher"/>
                      <organization>
@@ -468,16 +468,16 @@ RSpec.describe IsoDoc do
                       <div class="BlockSource">
                          <p>
                             [SOURCE:
-                            <a href="#ISO712">ISO\\u00a0712, Section 1</a>
+                            <a href="#ISO712">ISO\u00a0712, Section 1</a>
                             — with adjustments;
-                            <a href="#ISO712">ISO\\u00a0712, Section 2</a>
+                            <a href="#ISO712">ISO\u00a0712, Section 2</a>
                             ;
-                            <a href="#ISO712">ISO\\u00a0712, Section 3</a>
+                            <a href="#ISO712">ISO\u00a0712, Section 3</a>
                             ]
                          </p>
                       </div>
                       <figcaption>
-                         Figure 1\\u00a0— Split-it-right
+                         Figure 1\u00a0— Split-it-right
                          <i>sample</i>
                          divider
                          <a class="FootnoteRef" href="#fn:_19">
@@ -486,19 +486,17 @@ RSpec.describe IsoDoc do
                       </figcaption>
                    </figure>
                    <figure id="figure-B" class="figure">
-                      <pre>A &lt;
-         B</pre>
+                      <pre>A &lt;  B</pre>
                       <figcaption>Figure 2</figcaptionp>
                    </figure>
                    <figure id="figure-C" class="figure">
-                      <pre>A &lt;
-         B</pre>
+                      <pre>A &lt;  B</pre>
                    </figure>
                 </div>
                 <div>
-                   <h1>1.\\u00a0 Normative References</h1>
+                   <h1>1.\u00a0 Normative References</h1>
                    <p id="ISO712" class="NormRef">
-                      ISO\\u00a0712, International Organization for Standardization.
+                      ISO\u00a0712, International Organization for Standardization.
                       <i>Cereals and cereal products</i>
                       .
                    </p>
@@ -525,7 +523,30 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     word = <<~OUTPUT
-      #{WORD_HDR}
+      <html
+         xmlns:epub="http://www.idpf.org/2007/ops"
+         xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+         xmlns:w="urn:schemas-microsoft-com:office:word"
+         xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+         lang="en">
+      <head>
+        <style>
+          <!--
+          -->
+        </style>
+      </head>
+         <body lang="EN-US" link="blue" vlink="#954F72">
+           <div class="WordSection1">
+             <p> </p>
+           </div>
+           <p class="section-break"><br clear="all" class="section"/></p>
+           <div class="WordSection2">
+            <p class="page-break">
+            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div class="TOC" id="_">
+            <p class="zzContents">Table of contents</p>
+          </div>
       <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
@@ -590,16 +611,16 @@ RSpec.describe IsoDoc do
                       <div class="BlockSource">
                          <p>
                             [SOURCE:
-                            <a href="#ISO712">ISO\\u00a0712,  Section 1</a>
+                            <a href="#ISO712">ISO\u00a0712,  Section 1</a>
                             — with adjustments;
-                            <a href="#ISO712">ISO\\u00a0712,  Section 2</a>
+                            <a href="#ISO712">ISO\u00a0712,  Section 2</a>
                             ;
-                            <a href="#ISO712">ISO\\u00a0712,  Section 3</a>
+                            <a href="#ISO712">ISO\u00a0712,  Section 3</a>
                             ]
                          </p>
                       </div>
                       <p class="FigureTitle" style="text-align:center;">
-                         Figure 1\\u00a0— Split-it-right
+                         Figure 1\u00a0— Split-it-right
                          <i>sample</i>
                          divider
                          <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
@@ -617,7 +638,7 @@ RSpec.describe IsoDoc do
          B</pre>
                    </div>
                 </div>
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
@@ -626,11 +647,11 @@ RSpec.describe IsoDoc do
                 <div>
                    <h1>
                       1.
-                      <span style="mso-tab-count:1">\\u00a0 </span>
+                      <span style="mso-tab-count:1">\u00a0 </span>
                       Normative References
                    </h1>
                    <p id="ISO712" class="NormRef">
-                      ISO\\u00a0712, International Organization for Standardization.
+                      ISO\u00a0712, International Organization for Standardization.
                       <i>Cereals and cereal products</i>
                       .
                    </p>
@@ -659,22 +680,22 @@ RSpec.describe IsoDoc do
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output
-      .gsub("&lt;", "&#x3c;"))))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(pres_output
+      .gsub("&lt;", "&#x3c;")))
+      .to be_xml_equivalent_to presxml
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(output.to_xml))
+      .to be_html5_equivalent_to html
     FileUtils.rm_rf "spec/assets/odf1.emf"
     output = Nokogiri::XML(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)
+    expect(strip_guid(output.to_xml
         .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
         .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(word)
+      .to be_xml_equivalent_to word
   end
 
   it "processes subfigures" do
@@ -727,7 +748,7 @@ RSpec.describe IsoDoc do
                         <span class="fmt-element-name">Figure</span>
                         <semx element="autonum" source="figureA-1">1</semx>
                      </span>
-                        <span class="fmt-caption-delim">\\u00a0— </span>
+                        <span class="fmt-caption-delim">\u00a0— </span>
                         <semx element="name" source="_">Overall title</semx>
                   </fmt-name>
                   <fmt-xref-label>
@@ -743,7 +764,7 @@ RSpec.describe IsoDoc do
                            <span class="fmt-autonum-delim">-</span>
                            <semx element="autonum" source="note1">1</semx>
                         </span>
-                           <span class="fmt-caption-delim">\\u00a0— </span>
+                           <span class="fmt-caption-delim">\u00a0— </span>
                            <semx element="name" source="_">Subfigure 1</semx>
                      </fmt-name>
                      <fmt-xref-label>
@@ -763,7 +784,7 @@ RSpec.describe IsoDoc do
                            <span class="fmt-autonum-delim">-</span>
                            <semx element="autonum" source="note2">2</semx>
                         </span>
-                           <span class="fmt-caption-delim">\\u00a0— </span>
+                           <span class="fmt-caption-delim">\u00a0— </span>
                            <semx element="name" source="_">Subfigure 2</semx>
                      </fmt-name>
                      <fmt-xref-label>
@@ -789,7 +810,7 @@ RSpec.describe IsoDoc do
                            <span class="fmt-autonum-delim">-</span>
                            <semx element="autonum" source="note3">1</semx>
                         </span>
-                        <span class="fmt-caption-delim">\\u00a0— </span>
+                        <span class="fmt-caption-delim">\u00a0— </span>
                         <semx element="name" source="_">Subfigure 1</semx>
                      </fmt-name>
                      <fmt-xref-label>
@@ -808,7 +829,7 @@ RSpec.describe IsoDoc do
                         <span class="fmt-element-name">Figure</span>
                         <semx element="autonum" source="figureA-3">2</semx>
                      </span>
-                     <span class="fmt-caption-delim">\\u00a0— </span>
+                     <span class="fmt-caption-delim">\u00a0— </span>
                      <semx element="name" source="_">Overall title</semx>
                   </fmt-name>
                   <fmt-xref-label>
@@ -840,22 +861,22 @@ RSpec.describe IsoDoc do
                   <picture>
                      <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
                   </picture>
-                         <figcaption>Figure 1-1\\u00a0— Subfigure 1</figcaption>
+                         <figcaption>Figure 1-1\u00a0— Subfigure 1</figcaption>
                       </figure>
                       <figure id="note2" class="figure">
                   <picture>
                      <img src="rice_images/rice_image1.png" height="20" width="auto"/>
                   </picture>
-                         <figcaption>Figure 1-2\\u00a0— Subfigure 2</figcaption>
+                         <figcaption>Figure 1-2\u00a0— Subfigure 2</figcaption>
                       </figure>
-                      <figcaption>Figure 1\\u00a0— Overall title</figcaption>
+                      <figcaption>Figure 1\u00a0— Overall title</figcaption>
                    </figure>
                    <figure id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                       <figure id="note3" class="figure">
                   <picture>
                      <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
                   </picture>
-                         <figcaption>Figure -1\\u00a0— Subfigure 1</figcaption>
+                         <figcaption>Figure -1\u00a0— Subfigure 1</figcaption>
                       </figure>
                       <figcaption>Overall title</figcaption>
                    </figure>
@@ -866,7 +887,7 @@ RSpec.describe IsoDoc do
                   </picture>
                          <figcaption>Subfigure 1</figcaption>
                       </figure>
-                      <figcaption>Figure 2\\u00a0— Overall title</figcaption>
+                      <figcaption>Figure 2\u00a0— Overall title</figcaption>
                    </figure>
                 </figure>
              </div>
@@ -874,7 +895,30 @@ RSpec.describe IsoDoc do
        </html>
     OUTPUT
     word = <<~OUTPUT
-      #{WORD_HDR}
+      <html
+         xmlns:epub="http://www.idpf.org/2007/ops"
+         xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+         xmlns:w="urn:schemas-microsoft-com:office:word"
+         xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+         lang="en">
+        <head>
+          <style>
+            <!--
+            -->
+          </style>
+        </head>
+         <body lang="EN-US" link="blue" vlink="#954F72">
+           <div class="WordSection1">
+             <p> </p>
+           </div>
+           <p class="section-break"><br clear="all" class="section"/></p>
+           <div class="WordSection2">
+            <p class="page-break">
+            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div class="TOC" id="_">
+            <p class="zzContents">Table of contents</p>
+          </div>
             <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
@@ -883,18 +927,18 @@ RSpec.describe IsoDoc do
               <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                 <div id="note1" class="figure">
                   <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
-                  <p class="FigureTitle" style="text-align:center;">Figure 1-1\\u00a0— Subfigure 1</p>
+                  <p class="FigureTitle" style="text-align:center;">Figure 1-1\u00a0— Subfigure 1</p>
                 </div>
                 <div id="note2" class="figure">
                   <img src="rice_images/rice_image1.png" height="20" width="auto"/>
-                  <p class="FigureTitle" style="text-align:center;">Figure 1-2\\u00a0— Subfigure 2</p>
+                  <p class="FigureTitle" style="text-align:center;">Figure 1-2\u00a0— Subfigure 2</p>
                 </div>
-                <p class="FigureTitle" style="text-align:center;">Figure 1\\u00a0— Overall title</p>
+                <p class="FigureTitle" style="text-align:center;">Figure 1\u00a0— Overall title</p>
               </div>
                           <div id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                <div id="note3" class="figure">
                   <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
-                  <p class="FigureTitle" style="text-align:center;">Figure -1\\u00a0— Subfigure 1</p>
+                  <p class="FigureTitle" style="text-align:center;">Figure -1\u00a0— Subfigure 1</p>
                </div>
                <p class="FigureTitle" style="text-align:center;">Overall title</p>
             </div>
@@ -903,10 +947,10 @@ RSpec.describe IsoDoc do
                   <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
                   <p class="FigureTitle" style="text-align:center;">Subfigure 1</p>
                </div>
-               <p class="FigureTitle" style="text-align:center;">Figure 2\\u00a0— Overall title</p>
+               <p class="FigureTitle" style="text-align:center;">Figure 2\u00a0— Overall title</p>
             </div>
             </div>
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <p class="section-break">
             <br clear="all" class="section"/>
@@ -918,18 +962,18 @@ RSpec.describe IsoDoc do
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output
-      .gsub("&lt;", "&#x3c;"))))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(pres_output
+      .gsub("&lt;", "&#x3c;")))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
     FileUtils.rm_rf "spec/assets/odf1.emf"
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
+    expect(strip_guid(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true)
       .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
-      .to be_equivalent_to Canon.format_xml(word)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
+      .to be_xml_equivalent_to word
   end
 
   it "processes tabular subfigures" do
@@ -1007,7 +1051,7 @@ RSpec.describe IsoDoc do
                          <span class="fmt-element-name">Figure</span>
                          <semx element="autonum" source="figureA-1">1</semx>
                       </span>
-                      <span class="fmt-caption-delim">\\u00a0— </span>
+                      <span class="fmt-caption-delim">\u00a0— </span>
                       <semx element="name" source="_">Overall title</semx>
                    </fmt-name>
                    <fmt-xref-label>
@@ -1027,7 +1071,7 @@ RSpec.describe IsoDoc do
                                         <span class="fmt-autonum-delim">-</span>
                                         <semx element="autonum" source="note1">1</semx>
                                      </span>
-                                     <span class="fmt-caption-delim">\\u00a0— </span>
+                                     <span class="fmt-caption-delim">\u00a0— </span>
                                      <semx element="name" source="_">Subfigure 1</semx>
                                   </fmt-name>
                                   <fmt-xref-label>
@@ -1049,7 +1093,7 @@ RSpec.describe IsoDoc do
                                         <span class="fmt-autonum-delim">-</span>
                                         <semx element="autonum" source="note2">2</semx>
                                      </span>
-                                     <span class="fmt-caption-delim">\\u00a0— </span>
+                                     <span class="fmt-caption-delim">\u00a0— </span>
                                      <semx element="name" source="_">Subfigure 2</semx>
                                   </fmt-name>
                                   <fmt-xref-label>
@@ -1083,7 +1127,7 @@ RSpec.describe IsoDoc do
                                         <span class="fmt-autonum-delim">-</span>
                                         <semx element="autonum" source="note3">1</semx>
                                      </span>
-                                     <span class="fmt-caption-delim">\\u00a0— </span>
+                                     <span class="fmt-caption-delim">\u00a0— </span>
                                      <semx element="name" source="_">Subfigure 1</semx>
                                   </fmt-name>
                                   <fmt-xref-label>
@@ -1106,7 +1150,7 @@ RSpec.describe IsoDoc do
                          <span class="fmt-element-name">Figure</span>
                          <semx element="autonum" source="figureA-3">2</semx>
                       </span>
-                      <span class="fmt-caption-delim">\\u00a0— </span>
+                      <span class="fmt-caption-delim">\u00a0— </span>
                       <semx element="name" source="_">Overall title</semx>
                    </fmt-name>
                    <fmt-xref-label>
@@ -1147,7 +1191,7 @@ RSpec.describe IsoDoc do
                                                                <picture>
                                 <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
                              </picture>
-                                     <figcaption>Figure 1-1\\u00a0— Subfigure 1</figcaption>
+                                     <figcaption>Figure 1-1\u00a0— Subfigure 1</figcaption>
                                   </figure>
                                </td>
                                <td style="">
@@ -1155,13 +1199,13 @@ RSpec.describe IsoDoc do
                                                                 <picture>
                                  <img src="rice_images/rice_image1.png" height="20" width="auto"/>
                               </picture>
-                                     <figcaption>Figure 1-2\\u00a0— Subfigure 2</figcaption>
+                                     <figcaption>Figure 1-2\u00a0— Subfigure 2</figcaption>
                                   </figure>
                                </td>
                             </tr>
                          </tbody>
                       </table>
-                      <figcaption>Figure 1\\u00a0— Overall title</figcaption>
+                      <figcaption>Figure 1\u00a0— Overall title</figcaption>
                    </figure>
                    <figure id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                       <table id="T1" class="plain">
@@ -1172,13 +1216,13 @@ RSpec.describe IsoDoc do
                                                                 <picture>
                                  <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
                               </picture>
-                                     <figcaption>Figure -1\\u00a0— Subfigure 1</figcaption>
+                                     <figcaption>Figure -1\u00a0— Subfigure 1</figcaption>
                                   </figure>
                                </td>
                             </tr>
                          </tbody>
                       </table>
-                      <figcaption>Overall title</p>
+                      <figcaption>Overall title</figcaption>
                    </figure>
                    <figure id="figureA-3" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                       <table id="T2" class="plain">
@@ -1195,15 +1239,38 @@ RSpec.describe IsoDoc do
                             </tr>
                          </tbody>
                       </table>
-                      <figcaption>Figure 2\\u00a0— Overall title</figcaption>
+                      <figcaption>Figure 2\u00a0— Overall title</figcaption>
                    </figure>
-                </figure>
+                </div>
              </div>
           </body>
        </html>
     OUTPUT
     word = <<~OUTPUT
-      #{WORD_HDR}
+      <html
+         xmlns:epub="http://www.idpf.org/2007/ops"
+         xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+         xmlns:w="urn:schemas-microsoft-com:office:word"
+         xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+         lang="en">
+        <head>
+          <style>
+            <!--
+            -->
+          </style>
+        </head>
+         <body lang="EN-US" link="blue" vlink="#954F72">
+           <div class="WordSection1">
+             <p> </p>
+           </div>
+           <p class="section-break"><br clear="all" class="section"/></p>
+           <div class="WordSection2">
+            <p class="page-break">
+            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div class="TOC" id="_">
+            <p class="zzContents">Table of contents</p>
+          </div>
             <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
@@ -1217,20 +1284,20 @@ RSpec.describe IsoDoc do
                                   <td style="page-break-after:auto;">
                                      <div id="note1" class="figure">
                                         <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
-                                        <p class="FigureTitle" style="text-align:center;">Figure 1-1\\u00a0— Subfigure 1</p>
+                                        <p class="FigureTitle" style="text-align:center;">Figure 1-1\u00a0— Subfigure 1</p>
                                      </div>
                                   </td>
                                   <td style="page-break-after:auto;">
                                      <div id="note2" class="figure">
                                         <img src="rice_images/rice_image1.png" height="20" width="auto"/>
-                                        <p class="FigureTitle" style="text-align:center;">Figure 1-2\\u00a0— Subfigure 2</p>
+                                        <p class="FigureTitle" style="text-align:center;">Figure 1-2\u00a0— Subfigure 2</p>
                                      </div>
                                   </td>
                                </tr>
                             </tbody>
                          </table>
                       </div>
-                      <p class="FigureTitle" style="text-align:center;">Figure 1\\u00a0— Overall title</p>
+                      <p class="FigureTitle" style="text-align:center;">Figure 1\u00a0— Overall title</p>
                    </div>
                    <div id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                       <div align="center" class="table_container">
@@ -1240,7 +1307,7 @@ RSpec.describe IsoDoc do
                                   <td style="page-break-after:auto;">
                                      <div id="note3" class="figure">
                                         <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
-                                        <p class="FigureTitle" style="text-align:center;">Figure -1\\u00a0— Subfigure 1</p>
+                                        <p class="FigureTitle" style="text-align:center;">Figure -1\u00a0— Subfigure 1</p>
                                      </div>
                                   </td>
                                </tr>
@@ -1264,10 +1331,10 @@ RSpec.describe IsoDoc do
                             </tbody>
                          </table>
                       </div>
-                      <p class="FigureTitle" style="text-align:center;">Figure 2\\u00a0— Overall title</p>
+                      <p class="FigureTitle" style="text-align:center;">Figure 2\u00a0— Overall title</p>
                    </div>
                 </div>
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
@@ -1278,18 +1345,18 @@ RSpec.describe IsoDoc do
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output
-      .gsub("&lt;", "&#x3c;"))))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(pres_output
+      .gsub("&lt;", "&#x3c;")))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
     FileUtils.rm_rf "spec/assets/odf1.emf"
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
+    expect(strip_guid(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true)
       .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
-      .to be_equivalent_to Canon.format_xml(word)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
+      .to be_xml_equivalent_to word
   end
 
   it "processes figure classes, existing figure keys" do
@@ -1349,7 +1416,7 @@ RSpec.describe IsoDoc do
                         <span class="fmt-element-name">Diagram</span>
                         <semx element="autonum" source="figureA-1">1</semx>
                      </span>
-                     <span class="fmt-caption-delim">\\u00a0— </span>
+                     <span class="fmt-caption-delim">\u00a0— </span>
                      <semx element="name" source="_">
                         Split-it-right
                         <em>sample</em>
@@ -1467,10 +1534,10 @@ RSpec.describe IsoDoc do
          </fmt-footnote-container>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true).gsub("&lt;", "&#x3c;"))))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .convert("test", input, true).gsub("&lt;", "&#x3c;")))
+      .to be_xml_equivalent_to presxml
   end
 
   it "processes altsource" do
@@ -1491,47 +1558,47 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~INPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface>
-             <clause type="toc" id="_1" displayorder="1">
-                <fmt-title depth="1" id="_5">Table of contents</fmt-title>
-             </clause>
-             <foreword id="fwd" displayorder="2">
-                <title id="_3">Foreword</title>
-                <fmt-title depth="1" id="_6">
-                   <semx element="title" source="_3">Foreword</semx>
-                </fmt-title>
-                <figure id="figureA-1" keep-with-next="true" keep-lines-together="true" autonum="1">
-                   <name id="_4">
-                      Split-it-right
-                      <em>sample</em>
-                      divider
-                   </name>
-                   <fmt-name id="_7">
-                      <span class="fmt-caption-label">
-                         <span class="fmt-element-name">Figure</span>
-                         <semx element="autonum" source="figureA-1">1</semx>
-                      </span>
-                      <span class="fmt-caption-delim">\\u00a0— </span>
-                      <semx element="name" source="_4">
-                         Split-it-right
-                         <em>sample</em>
-                         divider
-                      </semx>
-                   </fmt-name>
-                   <fmt-xref-label>
-                      <span class="fmt-element-name">Figure</span>
-                      <semx element="autonum" source="figureA-1">1</semx>
-                   </fmt-xref-label>
-                   <image height="20" width="30" id="_" alt="alttext" title="titletxt">
-                      <altsource tag="tag,html" src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_" mimetype="image/png"/>
-                      <altsource tag="doc,tag" src="data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==" height="20" width="auto" id="_" mimetype="application/xml"/>
-                      <altsource tag="default" src="rice_images/rice_image1.png" height="20" width="30" id="_" mimetype="image/png" alt="alttext" title="titletxt"/>
-                   </image>
-                </figure>
-             </foreword>
-          </preface>
-       </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+            <clause type="toc" id="_1" displayorder="1">
+               <fmt-title depth="1" id="_5">Table of contents</fmt-title>
+            </clause>
+            <foreword id="fwd" displayorder="2">
+               <title id="_3">Foreword</title>
+               <fmt-title depth="1" id="_6">
+                  <semx element="title" source="_3">Foreword</semx>
+               </fmt-title>
+               <figure id="figureA-1" keep-with-next="true" keep-lines-together="true" autonum="1">
+                  <name id="_4">
+                     Split-it-right
+                     <em>sample</em>
+                     divider
+                  </name>
+                  <fmt-name id="_7">
+                     <span class="fmt-caption-label">
+                        <span class="fmt-element-name">Figure</span>
+                        <semx element="autonum" source="figureA-1">1</semx>
+                     </span>
+                     <span class="fmt-caption-delim">\u00a0— </span>
+                     <semx element="name" source="_4">
+                        Split-it-right
+                        <em>sample</em>
+                        divider
+                     </semx>
+                  </fmt-name>
+                  <fmt-xref-label>
+                     <span class="fmt-element-name">Figure</span>
+                     <semx element="autonum" source="figureA-1">1</semx>
+                  </fmt-xref-label>
+                  <image height="20" width="30" id="_" alt="alttext" title="titletxt">
+                     <altsource tag="tag,html" src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_" mimetype="image/png"/>
+                     <altsource tag="doc,tag" src="data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==" height="20" width="auto" id="_" mimetype="application/xml"/>
+                     <altsource tag="default" src="rice_images/rice_image1.png" height="20" width="30" id="_" mimetype="image/png" alt="alttext" title="titletxt"/>
+                  </image>
+               </figure>
+            </foreword>
+         </preface>
+      </iso-standard>
     INPUT
     html = <<~OUTPUT
       #{HTML_HDR}
@@ -1544,7 +1611,7 @@ RSpec.describe IsoDoc do
                          <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
                       </picture>
                       <figcaption>
-                         Figure 1\\u00a0— Split-it-right
+                         Figure 1\u00a0— Split-it-right
                          <i>sample</i>
                          divider
                       </figcaption>
@@ -1555,7 +1622,30 @@ RSpec.describe IsoDoc do
        </html>
     OUTPUT
     word = <<~OUTPUT
-      #{WORD_HDR}
+      <html
+        xmlns:epub="http://www.idpf.org/2007/ops"
+        xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:w="urn:schemas-microsoft-com:office:word"
+        xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+        lang="en">
+      <head>
+        <style>
+          <!--
+          -->
+        </style>
+      </head>
+         <body lang="EN-US" link="blue" vlink="#954F72">
+           <div class="WordSection1">
+             <p> </p>
+           </div>
+           <p class="section-break"><br clear="all" class="section"/></p>
+           <div class="WordSection2">
+            <p class="page-break">
+            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div class="TOC" id="_">
+            <p class="zzContents">Table of contents</p>
+          </div>
                       <p class="page-break">
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                 </p>
@@ -1564,13 +1654,13 @@ RSpec.describe IsoDoc do
                    <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                       <img src='_.xml' height="20" width="auto"/>
                       <p class="FigureTitle" style="text-align:center;">
-                         Figure 1\\u00a0— Split-it-right
+                         Figure 1\u00a0— Split-it-right
                          <i>sample</i>
                          divider
                       </p>
                    </div>
                 </div>
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
@@ -1581,24 +1671,47 @@ RSpec.describe IsoDoc do
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output
-      .gsub("&lt;", "&#x3c;"))))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(pres_output
+      .gsub("&lt;", "&#x3c;")))
+      .to be_xml_equivalent_to presxml
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
-    .convert("test", pres_output, true))
+      .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(output.to_xml))
+      .to be_xml_equivalent_to html
     output = Nokogiri::XML(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)
-        .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
-        .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(output.to_xml
+      .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
+      .to be_xml_equivalent_to word
 
     word = <<~OUTPUT
-         #{WORD_HDR}
+      <html
+        xmlns:epub="http://www.idpf.org/2007/ops"
+        xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:w="urn:schemas-microsoft-com:office:word"
+        xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+        lang="en">
+      <head>
+        <style>
+          <!--
+          -->
+        </style>
+      </head>
+         <body lang="EN-US" link="blue" vlink="#954F72">
+           <div class="WordSection1">
+             <p> </p>
+           </div>
+           <p class="section-break"><br clear="all" class="section"/></p>
+           <div class="WordSection2">
+            <p class="page-break">
+            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div class="TOC" id="_">
+            <p class="zzContents">Table of contents</p>
+          </div>
                      <p class="page-break">
                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                </p>
@@ -1607,13 +1720,13 @@ RSpec.describe IsoDoc do
                   <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                      <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
                      <p class="FigureTitle" style="text-align:center;">
-                        Figure 1\\u00a0— Split-it-right
+                        Figure 1\u00a0— Split-it-right
                         <i>sample</i>
                         divider
                      </p>
                   </div>
                </div>
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
             </div>
             <p class="section-break">
                <br clear="all" class="section"/>
@@ -1628,15 +1741,15 @@ RSpec.describe IsoDoc do
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(output.to_xml))
+      .to be_html5_equivalent_to html
     output = Nokogiri::XML(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)
-        .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
-        .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(output.to_xml
+      .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
+      .to be_xml_equivalent_to word
   end
 
   it "processes raw SVG" do
@@ -1653,7 +1766,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-        <?xml version='1.0'?>
+      <?xml version="1.0" encoding="UTF-8"?>
              <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
            <preface>
       <clause type="toc" id="_" displayorder="1">
@@ -1686,12 +1799,12 @@ RSpec.describe IsoDoc do
            </preface>
          </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert.new(presxml_options)
-        .convert("test", input, true)
-        .gsub("&lt;", "&#x3c;")
-        .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))))
-      .to be_equivalent_to Canon.format_xml(presxml
-           .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
+    expect(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+      .gsub("&lt;", "&#x3c;")
+      .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
+      .to be_xml_equivalent_to presxml
+        .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")
   end
 
   it "processes altsource with SVG" do
@@ -1734,75 +1847,75 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~INPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface>
-             <clause type="toc" id="_1" displayorder="1">
-                <fmt-title depth="1" id="_6">Table of contents</fmt-title>
-             </clause>
-             <foreword id="fwd" displayorder="2">
-                <title id="_3">Foreword</title>
-                <fmt-title depth="1" id="_7">
-                   <semx element="title" source="_3">Foreword</semx>
-                </fmt-title>
-                <figure id="figureA-1" keep-with-next="true" keep-lines-together="true" autonum="1">
-                   <fmt-name id="_8">
-                      <span class="fmt-caption-label">
-                         <span class="fmt-element-name">Figure</span>
-                         <semx element="autonum" source="figureA-1">1</semx>
-                      </span>
-                   </fmt-name>
-                   <fmt-xref-label>
-                      <span class="fmt-element-name">Figure</span>
-                      <semx element="autonum" source="figureA-1">1</semx>
-                   </fmt-xref-label>
-                   <image id="_" height="auto" width="auto" alt="">
-                      <altsource tag="doc" src="spec/assets/odf.svg" mimetype="image/svg+xml" height="auto" width="auto" filename="spec/assets/odf.svg">
-                         <image src="" mimetype="image/svg+xml" height="auto" width="auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
-                               <circle fill="#009" r="45" cx="50" cy="50"/>
-                               <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
-                            </svg>
-                         </image>
-                      </altsource>
-                      <altsource tag="html" src="spec/assets/odf.svg" mimetype="image/svg+xml" height="auto" width="auto" filename="spec/assets/odf.svg">
-                         <image src="" mimetype="image/svg+xml" height="auto" width="auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
-                               <circle fill="#009" r="45" cx="50" cy="50"/>
-                               <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
-                            </svg>
-                         </image>
-                      </altsource>
-                      <altsource tag="default" src="spec/assets/odf.svg" mimetype="image/svg+xml" height="auto" width="auto" filename="spec/assets/odf.svg">
-                         <image src="" mimetype="image/svg+xml" height="auto" width="auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
-                               <circle fill="#009" r="45" cx="50" cy="50"/>
-                               <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
-                            </svg>
-                         </image>
-                      </altsource>
-                   </image>
-                </figure>
-                <figure id="_" autonum="2">
-                   <fmt-name id="_9">
-                      <span class="fmt-caption-label">
-                         <span class="fmt-element-name">Figure</span>
-                         <semx element="autonum" source="_">2</semx>
-                      </span>
-                   </fmt-name>
-                   <fmt-xref-label>
-                      <span class="fmt-element-name">Figure</span>
-                      <semx element="autonum" source="_">2</semx>
-                   </fmt-xref-label>
-                   <image id="_" src="spec/assets/odf.svg" mimetype="image/svg+xml" height="auto" width="auto" filename="spec/assets/odf.svg">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
-                         <circle fill="#009" r="45" cx="50" cy="50"/>
-                         <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
-                      </svg>
-                   </image>
-                </figure>
-             </foreword>
-          </preface>
-       </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+            <clause type="toc" id="_1" displayorder="1">
+               <fmt-title depth="1" id="_6">Table of contents</fmt-title>
+            </clause>
+            <foreword id="fwd" displayorder="2">
+               <title id="_3">Foreword</title>
+               <fmt-title depth="1" id="_7">
+                  <semx element="title" source="_3">Foreword</semx>
+               </fmt-title>
+               <figure id="figureA-1" keep-with-next="true" keep-lines-together="true" autonum="1">
+                  <fmt-name id="_8">
+                     <span class="fmt-caption-label">
+                        <span class="fmt-element-name">Figure</span>
+                        <semx element="autonum" source="figureA-1">1</semx>
+                     </span>
+                  </fmt-name>
+                  <fmt-xref-label>
+                     <span class="fmt-element-name">Figure</span>
+                     <semx element="autonum" source="figureA-1">1</semx>
+                  </fmt-xref-label>
+                  <image id="_" height="auto" width="auto" alt="">
+                     <altsource tag="doc" src="spec/assets/odf.svg" mimetype="image/svg+xml" height="auto" width="auto" filename="spec/assets/odf.svg">
+                        <image src="" mimetype="image/svg+xml" height="auto" width="auto">
+                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
+                              <circle fill="#009" r="45" cx="50" cy="50"/>
+                              <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
+                           </svg>
+                        </image>
+                     </altsource>
+                     <altsource tag="html" src="spec/assets/odf.svg" mimetype="image/svg+xml" height="auto" width="auto" filename="spec/assets/odf.svg">
+                        <image src="" mimetype="image/svg+xml" height="auto" width="auto">
+                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
+                              <circle fill="#009" r="45" cx="50" cy="50"/>
+                              <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
+                           </svg>
+                        </image>
+                     </altsource>
+                     <altsource tag="default" src="spec/assets/odf.svg" mimetype="image/svg+xml" height="auto" width="auto" filename="spec/assets/odf.svg">
+                        <image src="" mimetype="image/svg+xml" height="auto" width="auto">
+                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
+                              <circle fill="#009" r="45" cx="50" cy="50"/>
+                              <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
+                           </svg>
+                        </image>
+                     </altsource>
+                  </image>
+               </figure>
+               <figure id="_" autonum="2">
+                  <fmt-name id="_9">
+                     <span class="fmt-caption-label">
+                        <span class="fmt-element-name">Figure</span>
+                        <semx element="autonum" source="_">2</semx>
+                     </span>
+                  </fmt-name>
+                  <fmt-xref-label>
+                     <span class="fmt-element-name">Figure</span>
+                     <semx element="autonum" source="_">2</semx>
+                  </fmt-xref-label>
+                  <image id="_" src="spec/assets/odf.svg" mimetype="image/svg+xml" height="auto" width="auto" filename="spec/assets/odf.svg">
+                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
+                        <circle fill="#009" r="45" cx="50" cy="50"/>
+                        <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
+                     </svg>
+                  </image>
+               </figure>
+            </foreword>
+         </preface>
+      </iso-standard>
     INPUT
     html = <<~OUTPUT
       #{HTML_HDR}
@@ -1911,15 +2024,15 @@ RSpec.describe IsoDoc do
     output = IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(output
+    expect(strip_guid(output
       .gsub("&lt;", "&#x3c;")
       .sub(%r{<metanorma-extension>.*</metanorma-extension}m, "")
-      .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))))
-      .to be_equivalent_to Canon.format_xml(presxml
-         .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", output, true))))
-      .to be_equivalent_to strip_guid(Canon.format_xml(html))
+      .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
+      .to be_xml_equivalent_to presxml
+        .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", output, true)))
+      .to be_xml_equivalent_to strip_guid(html)
   end
 
   it "processes SVG without viewbox" do
@@ -1991,15 +2104,15 @@ RSpec.describe IsoDoc do
     output = IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(output
+    expect(strip_guid(output
       .gsub("&lt;", "&#x3c;")
       .sub(%r{<metanorma-extension>.*</metanorma-extension}m, "")
-      .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))))
-      .to be_equivalent_to Canon.format_xml(presxml
-         .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", output, true))))
-      .to be_equivalent_to strip_guid(Canon.format_xml(html))
+      .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
+      .to be_xml_equivalent_to presxml
+        .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", output, true)))
+      .to be_xml_equivalent_to strip_guid(html)
   end
 
   it "converts SVG (Word)" do
@@ -2058,7 +2171,30 @@ RSpec.describe IsoDoc do
         </iso-standard>
     OUTPUT
     word = <<~OUTPUT
-      #{WORD_HDR}
+      <html
+         xmlns:epub="http://www.idpf.org/2007/ops"
+         xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+         xmlns:w="urn:schemas-microsoft-com:office:word"
+         xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+         lang="en">
+      <head>
+        <style>
+          <!--
+          -->
+        </style>
+      </head>
+         <body lang="EN-US" link="blue" vlink="#954F72">
+           <div class="WordSection1">
+             <p> </p>
+           </div>
+           <p class="section-break"><br clear="all" class="section"/></p>
+           <div class="WordSection2">
+            <p class="page-break">
+            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div class="TOC" id="_">
+            <p class="zzContents">Table of contents</p>
+          </div>
             <p class="page-break">
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
@@ -2072,7 +2208,7 @@ RSpec.describe IsoDoc do
                  <p class='FigureTitle' style='text-align:center;'>Figure 1</p>
               </div>
             </div>
-            <p>\\u00a0</p>
+            <p>\u00a0</p>
           </div>
           <p class="section-break">
             <br clear='all' class='section'/>
@@ -2085,18 +2221,18 @@ RSpec.describe IsoDoc do
     output = IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(output
+    expect(strip_guid(output
       .sub(%r{<metanorma-extension>.*</metanorma-extension}m, "")
-     .gsub("&lt;", "&#x3c;"))
-          .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
-      .to be_equivalent_to Canon.format_xml(presxml
-        .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
+      .gsub("&lt;", "&#x3c;"))
+      .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
+      .to be_xml_equivalent_to presxml
+        .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")
+    expect(strip_guid(IsoDoc::WordConvert.new({})
       .convert("test", output, true)
       .gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.emf['"]/, "'_.emf'")
       .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
-      .to be_equivalent_to strip_guid(Canon.format_xml(word))
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
+      .to be_xml_equivalent_to strip_guid(word)
   end
 
   it "does not label embedded figures, sourcecode" do
@@ -2112,9 +2248,9 @@ RSpec.describe IsoDoc do
                 <foreword id="_" displayorder="2"><fmt-title id="_">Foreword</fmt-title>
                 <example>
                 <sourcecode id="B"><name>Label</name>A B C</sourcecode>
-          <figure id="A" class="pseudocode"><fmt-name id="_">Label</fmt-name><p id="_">\\u00a0\\u00a0<strong>A</strong></p></figure>
+          <figure id="A" class="pseudocode"><fmt-name id="_">Label</fmt-name><p id="_">\u00a0\u00a0<strong>A</strong></p></figure>
                 <sourcecode id="B1">A B C</sourcecode>
-          <figure id="A1" class="pseudocode"><p id="_">\\u00a0\\u00a0<strong>A</strong></p></figure>
+          <figure id="A1" class="pseudocode"><p id="_">\u00a0\u00a0<strong>A</strong></p></figure>
         </example></foreword>
         </preface></itu-standard>
     INPUT
@@ -2127,7 +2263,7 @@ RSpec.describe IsoDoc do
                        <figure id='B' class='sourcecode' spellcheck="false" translation="no"><pre>A B C</pre></figure>
                        <figure id='A' class='pseudocode'>
                          <p id='_'>
-                           \\u00a0\\u00a0
+                           \u00a0\u00a0
                            <b>A</b>
                          </p>
                          <figcaption class='SourceTitle'>Label</figcaption>
@@ -2135,7 +2271,7 @@ RSpec.describe IsoDoc do
                        <figure id='B1' class='sourcecode' spellcheck="false" translation="no"><pre>A B C</pre></figure>
                        <figure id='A1' class='pseudocode'>
                          <p id='_'>
-                           \\u00a0\\u00a0
+                           \u00a0\u00a0
                            <b>A</b>
                          </p>
                        </figure>
@@ -2145,9 +2281,9 @@ RSpec.describe IsoDoc do
                </body>
              </html>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true)))
+      .to be_html5_equivalent_to output
   end
 
   it "processes svgmap" do
@@ -2250,13 +2386,13 @@ RSpec.describe IsoDoc do
     OUTPUT
     FileUtils.rm_rf("spec/assets/action_schemaexpg1.emf")
     FileUtils.rm_rf("spec/assets/action_schemaexpg2.emf")
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{"\.\\}, '"./')
       .gsub(%r{'\.\\}, "'./")
-      .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
-      .to be_equivalent_to Canon.format_xml(output)
+      .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
+      .to be_xml_equivalent_to output
 
     # no repeat extraction of svgmap
     output1 = <<~OUTPUT
@@ -2334,12 +2470,12 @@ RSpec.describe IsoDoc do
          </bibliography>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", output, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{"\.\\}, '"./')
       .gsub(%r{'\.\\}, "'./")
-      .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
-      .to be_equivalent_to Canon.format_xml(output1)
+      .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
+      .to be_xml_equivalent_to output1
   end
 end

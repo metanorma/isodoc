@@ -191,11 +191,11 @@ RSpec.describe IsoDoc do
           </p>
        </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "cross-references box admonitions in English and Japanese" do
@@ -398,11 +398,11 @@ RSpec.describe IsoDoc do
       </foreword>
     OUTPUT
 
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-       .convert("test", input, true))
-       .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to output
 
     input1 = input.sub(%r{<language>en</language>},
                        "<language>ja</language>")
@@ -442,7 +442,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="N">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">箇条</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="scope">1</semx>
                    </span>
                    <span class="fmt-conn">の</span>
@@ -454,7 +454,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="note1">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">箇条</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="widgets">3</semx>
                       <span class="fmt-autonum-delim">.</span>
                       <semx element="autonum" source="widgets1">1</semx>
@@ -469,7 +469,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="note2">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">箇条</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="widgets">3</semx>
                       <span class="fmt-autonum-delim">.</span>
                       <semx element="autonum" source="widgets1">1</semx>
@@ -484,7 +484,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="AN">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">附属書</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="annex1">A</semx>
                       <span class="fmt-autonum-delim">.</span>
                       <semx element="autonum" source="annex1a">1</semx>
@@ -498,7 +498,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="Anote1">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">附属書</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="annex1">A</semx>
                       <span class="fmt-autonum-delim">.</span>
                       <semx element="autonum" source="annex1b">2</semx>
@@ -513,7 +513,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref target="Anote2">
                    <span class="fmt-xref-container">
                       <span class="fmt-element-name">附属書</span>
-                      \\u2005
+                      \u2005
                       <semx element="autonum" source="annex1">A</semx>
                       <span class="fmt-autonum-delim">.</span>
                       <semx element="autonum" source="annex1b">2</semx>
@@ -536,11 +536,11 @@ RSpec.describe IsoDoc do
           </p>
        </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input1, true))
-      .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "cross-references term notes" do
@@ -678,11 +678,11 @@ RSpec.describe IsoDoc do
          </p>
       </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "cross-references nested term notes" do
@@ -771,11 +771,11 @@ RSpec.describe IsoDoc do
          </p>
       </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+      .at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "cross-references bibliographic notes" do
@@ -837,7 +837,7 @@ RSpec.describe IsoDoc do
                         <semx element="autonum" source="_normative_references">1</semx>
                      </span>
                      <span class="fmt-comma">,</span>
-                     ISO\\u00a0712
+                     ISO\u00a0712
                   </span>
                   <span class="fmt-comma">,</span>
                   <span class="fmt-element-name">Note</span>
@@ -853,7 +853,7 @@ RSpec.describe IsoDoc do
                         <semx element="autonum" source="_normative_references">1</semx>
                      </span>
                      <span class="fmt-comma">,</span>
-                     ISO\\u00a0712
+                     ISO\u00a0712
                   </span>
                   <span class="fmt-comma">,</span>
                   <span class="fmt-element-name">Note</span>
@@ -868,7 +868,7 @@ RSpec.describe IsoDoc do
                         <semx element="references" source="_bibliography">Bibliography</semx>
                      </span>
                      <span class="fmt-comma">,</span>
-                     ISO\\u00a0713
+                     ISO\u00a0713
                   </span>
                   <span class="fmt-comma">,</span>
                   <span class="fmt-element-name">Note</span>
@@ -877,11 +877,11 @@ RSpec.describe IsoDoc do
          </p>
       </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
-       .new(presxml_options)
-       .convert("test", input, true))
-       .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "cross-references notes nested in assets" do
@@ -1316,11 +1316,11 @@ RSpec.describe IsoDoc do
           </p>
        </foreword>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
-         .new(presxml_options)
-         .convert("test", input, true))
-         .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_xml_equivalent_to output
 
     # test container_container scope references
     output = <<~OUTPUT
@@ -1446,10 +1446,10 @@ RSpec.describe IsoDoc do
          </note>
       </table>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
      .new(presxml_options)
      .convert("test", input, true))
-     .at("//xmlns:table[@id = 'scopeT']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+     .at("//xmlns:table[@id = 'scopeT']").to_xml))
+      .to be_xml_equivalent_to output
   end
 end

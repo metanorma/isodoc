@@ -208,7 +208,7 @@ RSpec.describe IsoDoc do
                 </fmt-xref-label>
                 <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                 <bibitem id="ISO712" type="standard">
-                   <biblio-tag>ISO\\u00a0712, </biblio-tag>
+                   <biblio-tag>ISO\u00a0712, </biblio-tag>
                    <formattedref>
                       International Organization for Standardization.
                       <em>
@@ -233,8 +233,8 @@ RSpec.describe IsoDoc do
                          <p id="_">ISO is a standards organisation.</p>
                       </fn>
                    </title>
-                   <docidentifier type="ISO">ISO\\u00a0712</docidentifier>
-                   <docidentifier scope="biblio-tag">ISO\\u00a0712</docidentifier>
+                   <docidentifier type="ISO">ISO\u00a0712</docidentifier>
+                   <docidentifier scope="biblio-tag">ISO\u00a0712</docidentifier>
                    <contributor>
                       <role type="publisher"/>
                       <organization>
@@ -340,11 +340,11 @@ RSpec.describe IsoDoc do
           <head/>
           <body lang="en">
              <div class="title-section">
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <br/>
              <div class="prefatory-section">
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <br/>
              <div class="main-section">
@@ -395,10 +395,10 @@ RSpec.describe IsoDoc do
                    </a>
                 </p>
                 <div>
-                   <h1>1.\\u00a0 Normative References</h1>
+                   <h1>1.\u00a0 Normative References</h1>
                    <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                    <p id="ISO712" class="NormRef">
-                      ISO\\u00a0712, International Organization for Standardization.
+                      ISO\u00a0712, International Organization for Standardization.
                       <i>
                          Cereals and cereal products
                          <a class="FootnoteRef" href="#fn:_20">
@@ -436,7 +436,7 @@ RSpec.describe IsoDoc do
     doc = <<~OUTPUT
       <body lang="EN-US" link="blue" vlink="#954F72">
           <div class="WordSection1">
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
           </div>
           <p class="section-break">
              <br clear="all" class="section"/>
@@ -487,7 +487,7 @@ RSpec.describe IsoDoc do
                    </span>
                 </p>
              </div>
-             <p>\\u00a0</p>
+             <p>\u00a0</p>
           </div>
           <p class="section-break">
              <br clear="all" class="section"/>
@@ -513,12 +513,12 @@ RSpec.describe IsoDoc do
              <div>
                 <h1>
                    1.
-                   <span style="mso-tab-count:1">\\u00a0 </span>
+                   <span style="mso-tab-count:1">\u00a0 </span>
                    Normative References
                 </h1>
                 <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                 <p id="ISO712" class="NormRef">
-                   ISO\\u00a0712, International Organization for Standardization.
+                   ISO\u00a0712, International Organization for Standardization.
                    <i>
                       Cereals and cereal products
                       <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
@@ -599,7 +599,7 @@ RSpec.describe IsoDoc do
                    </span>
                 </p>
              </div>
-             <p class="MsoNormal">\\u00a0</p>
+             <p class="MsoNormal">\u00a0</p>
           </div>
           <p class="MsoNormal">
              <br clear="all" class="section"/>
@@ -626,13 +626,13 @@ RSpec.describe IsoDoc do
              <div>
                 <h1>
                    1.
-                   <span style="mso-tab-count:1">\\u00a0 </span>
+                   <span style="mso-tab-count:1">\u00a0 </span>
                    Normative References
                 </h1>
                 <p class="MsoNormal">The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                 <p class="NormRef">
                    <a name="ISO712" id="ISO712"/>
-                   ISO\\u00a0712, International Organization for Standardization.
+                   ISO\u00a0712, International Organization for Standardization.
                    <i>
                       Cereals and cereal products
                       <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
@@ -713,26 +713,26 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output))
+    expect(strip_guid(pres_output)
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .to be_xml_equivalent_to presxml
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::WordConvert.new({})
+    expect(strip_guid(output.to_xml))
+      .to be_xml_equivalent_to html
+    expect(strip_guid(Nokogiri::XML(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
-      .at("//body").to_xml)))
-      .to be_equivalent_to strip_guid(Canon.format_xml(doc))
+      .at("//body").to_xml))
+      .to be_html4_equivalent_to strip_guid(doc)
     FileUtils.rm_f("test.doc")
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
     expect(File.exist?("test.doc")).to be true
     output = File.read("test.doc").sub(/^.*<body/m, "<body").sub(
       %r{</body>.*$}m, "</body>"
     )
-    expect(strip_guid(Canon.format_xml(output)))
-      .to be_equivalent_to Canon.format_xml(doc1)
+    expect(strip_guid(output))
+      .to be_xml_equivalent_to doc1
   end
 
   it "processes IsoXML annotations" do
@@ -1080,7 +1080,7 @@ RSpec.describe IsoDoc do
                </span>
             </div>
             <p class="MsoNormal">
-               <span style="mso-comment-continuation:6">\\u00a0</span>
+               <span style="mso-comment-continuation:6">\u00a0</span>
             </p>
          </div>
          <p class="MsoNormal">
@@ -1205,24 +1205,24 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
     IsoDoc::HtmlConvert.new({ wordstylesheet: "spec/assets/word.css",
                               htmlstylesheet: "spec/assets/html.scss" })
       .convert("test", pres_output, false)
     out = File.read("test.html").sub(/^.*<main/m, "<main").sub(
       %r{</main>.*$}m, "</main>"
     )
-    expect(strip_guid(Canon.format_xml(out)))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(out))
+      .to be_xml_equivalent_to html
     FileUtils.rm_f "test.doc"
     IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css",
                               htmlstylesheet: "spec/assets/html.scss" })
       .convert("test", pres_output, false)
     out = File.read("test.doc").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m,
                                                               "</body>")
-    expect(strip_guid(Canon.format_xml(out)))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(out))
+      .to be_xml_equivalent_to word
   end
 
   it "processes IsoXML annotations spanning list" do
@@ -1423,7 +1423,7 @@ RSpec.describe IsoDoc do
                 <a name="_3" id="_3"/>
                 <h1 class="IntroTitle">Introduction</h1>
              </div>
-             <p class="MsoNormal">\\u00a0</p>
+             <p class="MsoNormal">\u00a0</p>
           </div>
           <p class="MsoNormal">
              <br clear="all" class="section"/>
@@ -1451,24 +1451,24 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
     IsoDoc::HtmlConvert.new({ wordstylesheet: "spec/assets/word.css",
                               htmlstylesheet: "spec/assets/html.scss" })
       .convert("test", pres_output, false)
     out = File.read("test.html").sub(/^.*<main/m, "<main").sub(
       %r{</main>.*$}m, "</main>"
     )
-    expect(strip_guid(Canon.format_xml(out)))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(out))
+      .to be_xml_equivalent_to html
     FileUtils.rm_f "test.doc"
     IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css",
                               htmlstylesheet: "spec/assets/html.scss" })
       .convert("test", pres_output, false)
     out = File.read("test.doc")
       .sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>")
-    expect(strip_guid(Canon.format_xml(out)))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(out))
+      .to be_xml_equivalent_to word
   end
 
   it "outputs IsoXML annotations if draft or if instructed" do
@@ -1567,15 +1567,15 @@ RSpec.describe IsoDoc do
       .convert("test", input.sub("PUBLISHED", "false"), true))
     pres_output.xpath("//xmlns:localized-strings | " \
       "//xmlns:metanorma-extension | //xmlns:bibdata").each(&:remove)
-    expect(strip_guid(Canon.format_xml(pres_output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml_annotated)
+    expect(strip_guid(pres_output.to_xml))
+      .to be_xml_equivalent_to presxml_annotated
     pres_output = Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input.sub("PUBLISHED", "true"), true))
     pres_output.xpath("//xmlns:localized-strings | " \
       "//xmlns:metanorma-extension | //xmlns:bibdata").each(&:remove)
-    expect(strip_guid(Canon.format_xml(pres_output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml_unannotated)
+    expect(strip_guid(pres_output.to_xml))
+      .to be_xml_equivalent_to presxml_unannotated
     pres_output = Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input.sub("PUBLISHED", "true")
@@ -1583,8 +1583,8 @@ RSpec.describe IsoDoc do
       .sub("DIRECTIVE", "true"), true))
     pres_output.xpath("//xmlns:localized-strings | " \
       "//xmlns:metanorma-extension | //xmlns:bibdata").each(&:remove)
-    expect(strip_guid(Canon.format_xml(pres_output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml_annotated)
+    expect(strip_guid(pres_output.to_xml))
+      .to be_xml_equivalent_to presxml_annotated
     pres_output = Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input.sub("PUBLISHED", "false")
@@ -1592,7 +1592,7 @@ RSpec.describe IsoDoc do
       .sub("DIRECTIVE", "false"), true))
     pres_output.xpath("//xmlns:localized-strings | " \
       "//xmlns:metanorma-extension | //xmlns:bibdata").each(&:remove)
-    expect(strip_guid(Canon.format_xml(pres_output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml_unannotated)
+    expect(strip_guid(pres_output.to_xml))
+      .to be_xml_equivalent_to presxml_unannotated
   end
 end
