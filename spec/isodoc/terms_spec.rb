@@ -438,7 +438,7 @@ RSpec.describe IsoDoc do
                   <fmt-preferred>
                      <p>
                         <semx element="preferred" source="_">
-                           <strong>paddy</strong>
+                           <strong><semx element="expression/name" source="_">paddy</semx></strong>
                         </semx>
                      </p>
                   </fmt-preferred>
@@ -456,7 +456,7 @@ RSpec.describe IsoDoc do
                   <fmt-admitted>
                      <p>
                         <semx element="admitted" source="_">
-                           paddy rice
+                           <semx element="letter-symbol/name" source="_">paddy rice</semx>
                            <span class="fmt-designation-field">
                               , &lt;
                               <semx element="field-of-application" source="_">in agriculture</semx>
@@ -465,7 +465,9 @@ RSpec.describe IsoDoc do
                         </semx>
                      </p>
                      <p>
-                        <semx element="admitted" source="_">rough rice</semx>
+                        <semx element="admitted" source="_">
+                          <semx element="expression/name" source="_">rough rice</semx>
+                        </semx>
                      </p>
                   </fmt-admitted>
                   <deprecates id="_">
@@ -476,7 +478,9 @@ RSpec.describe IsoDoc do
                   <fmt-deprecates>
                      <p>
                         DEPRECATED:
-                        <semx element="deprecates" source="_">cargo rice</semx>
+                        <semx element="deprecates" source="_">
+                          <semx element="expression/name" source="_">cargo rice</semx>
+                        </semx>
                      </p>
                   </fmt-deprecates>
                   <definition id="_">
