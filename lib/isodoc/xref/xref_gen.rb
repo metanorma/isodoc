@@ -11,32 +11,41 @@ module IsoDoc
         end
       end
 
-      def amend_preprocess1(amend, subclause: false)
-        autonum = amend_autonums(amend)
+      def amend_preprocess1(amend, subclause: false, autonum: {})
+        newautonum = amend_autonums(amend).merge(autonum)
         NUMBERED_BLOCKS.each do |b|
-          amend_blocks(amend, autonum, b, subclause)
+          amend_blocks(amend, newautonum, autonum, b, subclause)
         end
-        amend.xpath(ns(".#{amend_newcontent(subclause)}/clause")).each do |c|
-          amend_preprocess1(c, subclause: true)
+        amend.xpath(ns(".#{amend_newcontent(subclause)}/clause"))
+          .each_with_index do |c, i|
+          amend_autonumber(c, "clause", newautonum, autonum, i)
+          amend_preprocess1(c, subclause: true, autonum: newautonum)
         end
       end
 
       def amend_autonums(amend)
-        autonum = {}
-        amend.xpath(ns("./autonumber")).each do |n|
-          autonum[n["type"]] = n.text
+        amend.xpath(ns("./autonumber")).each_with_object({}) do |n, m|
+          m[n["type"]] = n.text
         end
-        autonum
       end
 
-      def amend_blocks(amend, autonum, blocktype, subclause)
+      def amend_blocks(amend, autonum, old_autonum, blocktype, subclause)
         newc = amend_newcontent(subclause)
         (amend.xpath(ns(".#{newc}//#{blocktype}")) -
          amend.xpath(ns(".#{newc}/clause//#{blocktype}")))
           .each_with_index do |e, i|
-            autonum[blocktype] && i.zero? and e["number"] = autonum[blocktype]
-            !autonum[blocktype] and e["unnumbered"] = "true"
+          amend_autonumber(e, blocktype, autonum, old_autonum, i)
         end
+      end
+
+      # only autonumber first instance of an asset in a subclause,
+      # if the autonumbering for that asset isn't a continuation of
+      # its ancestor clause
+      def amend_autonumber(node, blocktype, autonum, old_autonum, idx)
+        autonum[blocktype] && idx.zero? &&
+          autonum[blocktype] != old_autonum[blocktype] and
+          node["number"] = autonum[blocktype]
+        !autonum[blocktype] and node["unnumbered"] = "true"
       end
 
       def amend_newcontent(subclause)
@@ -110,7 +119,7 @@ module IsoDoc
         sections.each do |s|
           notes = s.xpath(child_asset_path("note")) -
             s.xpath(ns(".//figure//note | .//table//note | //permission//note | " \
-              "//recommendation//note | //requirement//note"))
+                       "//recommendation//note | //requirement//note"))
           note_anchor_names1(notes, Counter.new)
           note_anchor_names(s.xpath(ns(child_sections)))
         end
@@ -159,7 +168,7 @@ module IsoDoc
         sections.each do |s|
           notes = s.xpath(child_asset_path("example")) -
             s.xpath(ns("//permission//note | " \
-              "//recommendation//note | //requirement//note"))
+                       "//recommendation//note | //requirement//note"))
           example_anchor_names1(notes, Counter.new)
           example_anchor_names(s.xpath(ns(child_sections)))
         end

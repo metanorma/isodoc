@@ -1,2 +1,2 @@
-gem "html2doc", git: "https://github.com/metanorma/html2doc", branch: "main"
+gem "relaton-render", git: "https://github.com/relaton/relaton-render", branch: "features/disambiguated_date"
 

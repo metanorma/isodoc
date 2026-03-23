@@ -150,7 +150,7 @@ module IsoDoc
         classtype = nil
         classtype = "MsoCommentText" if in_comment
         node["type"] == "floating-title" and
-          classtype = "h#{node['depth']}"
+          classtype = "h#{node['depth'] || '1'}"
         classtype ||= node["class"]
         classtype
       end
@@ -180,11 +180,17 @@ module IsoDoc
       end
 
       def quote_parse(node, out)
-        attrs = para_attrs(node)
-        attrs[:class] = "Quote"
+        attrs = quote_attrs(node)
         out.div(**attr_code(attrs)) do |p|
           node.children.each { |n| parse(n, p) unless n.name == "source" }
         end
+      end
+
+      def quote_attrs(node)
+        ret = para_attrs(node).merge(class: "Quote")
+        node["type"] == "newcontent" and
+          ret[:class] += " AmendNewcontent"
+        ret
       end
 
       def passthrough_parse(node, out)

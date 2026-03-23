@@ -37,6 +37,7 @@ module IsoDoc
         if @parse_settings.empty? || @parse_settings[:clauses]
           preface_anchor_names(xml)
           main_anchor_names(xml)
+          amend_subclause_names(xml)
         end
       end
 
@@ -81,6 +82,16 @@ module IsoDoc
         )
       end
 
+      def amend_subclause_names(xml)
+        n = clause_counter
+        xml.xpath(ns("//amend/newcontent/clause")).each do |c|
+          if c["type"] == "annex"
+            annex_names(c, n.increment(c).print)
+          else section_names(c, n, 1)
+          end
+        end
+      end
+
       def unnumbered_names(clause)
         clause.nil? and return
         title = clause_title(clause, use_elem_name: true)
@@ -88,7 +99,7 @@ module IsoDoc
         clause.xpath(ns(subclauses)).each_with_index do |c, i|
           t = c.at(ns("./title"))
           tt = "#{semx(clause, title, clause.name)}" \
-            "<span class='fmt-comma'>,</span> #{semx(c, i + 1)}"
+               "<span class='fmt-comma'>,</span> #{semx(c, i + 1)}"
           preface_names1(c, t ? semx(c, t.text, c.name) : nil, tt, 2)
         end
       end
@@ -99,14 +110,12 @@ module IsoDoc
         clause.xpath(ns(subclauses)).each_with_index do |c, i|
           t = c.at(ns("./title"))
           preface_names1(c, t ? semx(c, t.text, c.name) : nil,
-                         "#{label} #{semx(c, i + 1)}",
-                         level + 1)
+                         "#{label} #{semx(c, i + 1)}", level + 1)
         end
       end
 
       def preface_name_anchors(clause, level, title)
         xref = semx(clause, title, clause.name)
-        #clause["id"] ||= "_#{UUIDTools::UUID.random_create}"
         @anchors[clause["id"]] =
           { label: nil, level:,
             xref:, title: nil,
@@ -171,7 +180,7 @@ module IsoDoc
         obl = "(#{@labels['inform_annex']})"
         clause["obligation"] == "normative" and
           obl = "(#{@labels['norm_annex']})"
-        obl = "<span class='fmt-obligation'>#{l10n obl}</fmt>"
+        obl = "<span class='fmt-obligation'>#{l10n obl}</span>"
         title = Common::case_with_markup(@labels["annex"], "capital",
                                          @script)
         s = labelled_autonum(title, num)
@@ -180,7 +189,8 @@ module IsoDoc
 
       def annex_name_anchors(clause, num, level)
         label = num
-        level == 1 && clause.name == "annex" and
+        (level == 1 && clause.name == "annex") ||
+          clause["type"] == "annex" and
           label = annex_name_lbl(clause, label)
         c = clause_title(clause) and title = semx(clause, c, "title")
         @anchors[clause["id"]] =
@@ -193,6 +203,11 @@ module IsoDoc
         appendix_names(clause, num)
         label = semx(clause, num)
         annex_name_anchors(clause, label, 1)
+        annex_name_recurse(clause, label, num)
+        hierarchical_asset_names(clause, label)
+      end
+
+      def annex_name_recurse(clause, label, num)
         if @klass.single_term_clause?(clause)
           annex_names1(clause.at(ns("./references | ./terms | ./definitions")),
                        nil, num.to_s, 1)
@@ -202,7 +217,6 @@ module IsoDoc
             annex_names1(c, label, i.increment(c).print, 2)
           end
         end
-        hierarchical_asset_names(clause, label)
       end
 
       def annex_names1(clause, parentnum, num, level)

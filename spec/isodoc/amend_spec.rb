@@ -190,7 +190,7 @@ RSpec.describe IsoDoc do
                        with:
                      </em>
                   </p>
-                  <quote id="D">
+                  <quote id="D" type="newcontent">
                      <table id="E" number="2" autonum="2">
                         <name id="_">Edges of triangle and quadrilateral cells</name>
                         <fmt-name id="_">
@@ -286,7 +286,7 @@ RSpec.describe IsoDoc do
                        with:
                      </i>
          </p>
-         <div class="Quote" id="D">
+         <div class="Quote AmendNewcontent" id="D">
             <table id="E" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
             <caption>Table 2\\u00a0— Edges of triangle and quadrilateral cells</caption>
                <tbody>
@@ -370,12 +370,13 @@ RSpec.describe IsoDoc do
                      <title>Change Clause</title>
                      <amend id="_2ecb7ba1-ced4-18d1-bc8c-d7d03139b0de" change="add">
                      <autonumber type="example">10</autonumber>
+                     <autonumber type='clause'>3.1.2.14</autonumber>
                         <description><p id="_5162a644-6c8a-c719-da08-3a79c4b52e06">Add the following terminological entries after 3.1.2.13:</p></description><newcontent>
                                         <example id='F'>
                            <p id='G'>This is not generalised further.</p>
                          </example>
       <clause id="_813c4603-f691-7798-852f-962a3686c35b" inline-header="false" obligation="normative">
-      <title id="_d1ac9d3a-cabe-0e32-34f6-e6a8cf430fdf">3.1.2.14 <br/>canonical form</title>
+      <title id="_d1ac9d3a-cabe-0e32-34f6-e6a8cf430fdf"><br/>canonical form</title>
 
 
       <p id="_144e133e-157f-fe37-f92b-0b4f4957c772">date and time expression where all its time scale components are <em>normalised</em> (3.1.2.15)</p>
@@ -393,8 +394,8 @@ RSpec.describe IsoDoc do
       <autonumber type="example">1</autonumber><autonumber type="table">3</autonumber></clause>
       <clause id="xxx"><title>container</title>
       <p>This is a container of a subclause.</p>
-      <clause id="_204d0c25-9e04-1223-a5a5-adb046b5ab75" inline-header="false" obligation="normative">
-      <title id="_f88ca02a-e3cf-23b0-0ae4-c113bacffa23">3.1.2.15 non-canonical form</title>
+      <clause id="xxy" inline-header="false" obligation="normative">
+      <title id="_f88ca02a-e3cf-23b0-0ae4-c113bacffa23">non-canonical form</title>
 
 
       <p id="_89d15cba-4db5-02f0-9b84-945c5fdd9966">date and time expression where all its time scale components are <em>unnormalised</em> (3.1.2.1511)</p>
@@ -456,6 +457,7 @@ RSpec.describe IsoDoc do
                </fmt-xref-label>
                <amend id="_" change="add">
                   <autonumber type="example">10</autonumber>
+                  <autonumber type="clause">3.1.2.14</autonumber>
                   <description>
                      <p original-id="_">Add the following terminological entries after 3.1.2.13:</p>
                   </description>
@@ -463,9 +465,8 @@ RSpec.describe IsoDoc do
                      <example number="10" original-id="F">
                         <p original-id="G">This is not generalised further.</p>
                      </example>
-                     <clause inline-header="false" obligation="normative" original-id="_">
-                        <title original-id="_">
-                           3.1.2.14
+                     <clause inline-header="false" obligation="normative" number="3.1.2.14" original-id="_">
+                        <title id="_">
                            <br/>
                            canonical form
                         </title>
@@ -474,7 +475,7 @@ RSpec.describe IsoDoc do
                            <em>normalised</em>
                            (3.1.2.15)
                         </p>
-                        <example number="1" original-id="_">
+                        <example original-id="_">
                            <p original-id="_">example</p>
                         </example>
                         <note unnumbered="true" original-id="_">
@@ -494,14 +495,14 @@ RSpec.describe IsoDoc do
                      <clause original-id="xxx">
                         <title>container</title>
                         <p>This is a container of a subclause.</p>
-                        <clause inline-header="false" obligation="normative" original-id="_">
-                           <title original-id="_">3.1.2.15 non-canonical form</title>
+                        <clause inline-header="false" obligation="normative" original-id="xxy">
+                           <title id="_">non-canonical form</title>
                            <p original-id="_">
                               date and time expression where all its time scale components are
                               <em>unnormalised</em>
                               (3.1.2.1511)
                            </p>
-                           <example number="1" original-id="_">
+                           <example original-id="_">
                               <p original-id="_">example</p>
                            </example>
                            <note number="1" original-id="_">
@@ -524,7 +525,7 @@ RSpec.describe IsoDoc do
                </amend>
                <semx element="amend" source="_">
                   <p id="_">Add the following terminological entries after 3.1.2.13:</p>
-                  <quote>
+                  <quote type="newcontent">
                      <example id="F" number="10" autonum="10">
                         <fmt-name id="_">
                            <span class="fmt-caption-label">
@@ -548,32 +549,134 @@ RSpec.describe IsoDoc do
                         <p id="G">This is not generalised further.</p>
                      </example>
                   </quote>
-                  <quote id="xxx">
-                     <p type="floating-title">container</p>
+                  <quote id="_" inline-header="false" obligation="normative" number="3.1.2.14" type="newcontent">
+                     <p depth="1" type="floating-title">
+                        <span class="fmt-caption-label">
+                           <semx element="autonum" source="_">3.1.2.14</semx>
+                           <span class="fmt-autonum-delim">.</span>
+                        </span>
+                        <span class="fmt-caption-delim">
+                           <tab/>
+                        </span>
+                        <semx element="title" source="_">
+                           <br/>
+                           canonical form
+                        </semx>
+                     </p>
+                     <fmt-xref-label>
+                        <span class="fmt-element-name">Clause</span>
+                        <semx element="autonum" source="_">3.1.2.14</semx>
+                     </fmt-xref-label>
+                     <p id="_">
+                        date and time expression where all its time scale components are
+                        <em>normalised</em>
+                        (3.1.2.15)
+                     </p>
+                     <example id="_" autonum="11">
+                        <fmt-name id="_">
+                           <span class="fmt-caption-label">
+                              <span class="fmt-element-name">EXAMPLE</span>
+                              <semx element="autonum" source="_">11</semx>
+                           </span>
+                        </fmt-name>
+                        <fmt-xref-label>
+                           <span class="fmt-element-name">Example</span>
+                           <semx element="autonum" source="_">11</semx>
+                        </fmt-xref-label>
+                        <fmt-xref-label container="_">
+                           <span class="fmt-xref-container">
+                              <span class="fmt-element-name">Clause</span>
+                              <semx element="autonum" source="_">3.1.2.14</semx>
+                           </span>
+                           <span class="fmt-comma">,</span>
+                           <span class="fmt-element-name">Example</span>
+                           <semx element="autonum" source="_">11</semx>
+                        </fmt-xref-label>
+                        <p id="_">example</p>
+                     </example>
+                     <note id="_" unnumbered="true">
+                        <p id="_">Note 1 to entry: A</p>
+                     </note>
+                     <table id="_" number="3" autonum="3">
+                        <fmt-name id="_">
+                           <span class="fmt-caption-label">
+                              <span class="fmt-element-name">Table</span>
+                              <semx element="autonum" source="_">3</semx>
+                           </span>
+                        </fmt-name>
+                        <fmt-xref-label>
+                           <span class="fmt-element-name">Table</span>
+                           <semx element="autonum" source="_">3</semx>
+                        </fmt-xref-label>
+                        <tbody>
+                           <tr id="_">
+                              <td id="_" valign="top" align="left">A</td>
+                              <td id="_" valign="top" align="left">B</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </quote>
+                  <quote id="xxx" type="newcontent">
+                     <p depth="1" type="floating-title">
+                        <span class="fmt-caption-label">
+                           <semx element="autonum" source="xxx">3.1.2.15</semx>
+                           <span class="fmt-autonum-delim">.</span>
+                        </span>
+                        <span class="fmt-caption-delim">
+                           <tab/>
+                        </span>
+                        <semx element="title" source="_">container</semx>
+                     </p>
+                     <fmt-xref-label>
+                        <span class="fmt-element-name">Clause</span>
+                        <semx element="autonum" source="xxx">3.1.2.15</semx>
+                     </fmt-xref-label>
                      <p>This is a container of a subclause.</p>
-                     <quote id="_" inline-header="false" obligation="normative">
-                        <p id="_" type="floating-title">3.1.2.15 non-canonical form</p>
+                     <quote id="xxy" inline-header="false" obligation="normative" type="newcontent">
+                        <p depth="2" type="floating-title">
+                           <span class="fmt-caption-label">
+                              <semx element="autonum" source="xxx">3.1.2.15</semx>
+                              <span class="fmt-autonum-delim">.</span>
+                              <semx element="autonum" source="xxy">1</semx>
+                              <span class="fmt-autonum-delim">.</span>
+                           </span>
+                           <span class="fmt-caption-delim">
+                              <tab/>
+                           </span>
+                           <semx element="title" source="_">non-canonical form</semx>
+                        </p>
+                        <fmt-xref-label>
+                           <span class="fmt-element-name">Clause</span>
+                           <semx element="autonum" source="xxx">3.1.2.15</semx>
+                           <span class="fmt-autonum-delim">.</span>
+                           <semx element="autonum" source="xxy">1</semx>
+                        </fmt-xref-label>
                         <p id="_">
                            date and time expression where all its time scale components are
                            <em>unnormalised</em>
                            (3.1.2.1511)
                         </p>
-                        <example id="_" number="1" autonum="1">
+                        <example id="_" autonum="12">
                            <fmt-name id="_">
                               <span class="fmt-caption-label">
                                  <span class="fmt-element-name">EXAMPLE</span>
-                                 <semx element="autonum" source="_">1</semx>
+                                 <semx element="autonum" source="_">12</semx>
                               </span>
                            </fmt-name>
                            <fmt-xref-label>
                               <span class="fmt-element-name">Example</span>
-                              <semx element="autonum" source="_">1</semx>
+                              <semx element="autonum" source="_">12</semx>
                            </fmt-xref-label>
-                           <fmt-xref-label container="_">
-                              <span class="fmt-xref-container"/>
+                           <fmt-xref-label container="xxy">
+                              <span class="fmt-xref-container">
+                                 <span class="fmt-element-name">Clause</span>
+                                 <semx element="autonum" source="xxx">3.1.2.15</semx>
+                                 <span class="fmt-autonum-delim">.</span>
+                                 <semx element="autonum" source="xxy">1</semx>
+                              </span>
                               <span class="fmt-comma">,</span>
                               <span class="fmt-element-name">Example</span>
-                              <semx element="autonum" source="_">1</semx>
+                              <semx element="autonum" source="_">12</semx>
                            </fmt-xref-label>
                            <p id="_">example</p>
                         </example>
@@ -591,8 +694,13 @@ RSpec.describe IsoDoc do
                               <span class="fmt-element-name">Note</span>
                               <semx element="autonum" source="_">1</semx>
                            </fmt-xref-label>
-                           <fmt-xref-label container="_">
-                              <span class="fmt-xref-container"/>
+                           <fmt-xref-label container="xxy">
+                              <span class="fmt-xref-container">
+                                 <span class="fmt-element-name">Clause</span>
+                                 <semx element="autonum" source="xxx">3.1.2.15</semx>
+                                 <span class="fmt-autonum-delim">.</span>
+                                 <semx element="autonum" source="xxy">1</semx>
+                              </span>
                               <span class="fmt-comma">,</span>
                               <span class="fmt-element-name">Note</span>
                               <semx element="autonum" source="_">1</semx>
@@ -619,107 +727,24 @@ RSpec.describe IsoDoc do
                         </table>
                      </quote>
                   </quote>
-                  <quote id="_" inline-header="false" obligation="normative">
-                     <p id="_" type="floating-title">
-                        3.1.2.14
-                        <br/>
-                        canonical form
-                     </p>
-                     <p id="_">
-                        date and time expression where all its time scale components are
-                        <em>normalised</em>
-                        (3.1.2.15)
-                     </p>
-                     <example id="_" number="1" autonum="1">
-                        <fmt-name id="_">
-                           <span class="fmt-caption-label">
-                              <span class="fmt-element-name">EXAMPLE</span>
-                              <semx element="autonum" source="_">1</semx>
-                           </span>
-                        </fmt-name>
-                        <fmt-xref-label>
-                           <span class="fmt-element-name">Example</span>
-                           <semx element="autonum" source="_">1</semx>
-                        </fmt-xref-label>
-                        <fmt-xref-label container="_">
-                           <span class="fmt-xref-container"/>
-                           <span class="fmt-comma">,</span>
-                           <span class="fmt-element-name">Example</span>
-                           <semx element="autonum" source="_">1</semx>
-                        </fmt-xref-label>
-                        <p id="_">example</p>
-                     </example>
-                     <note id="_" unnumbered="true">
-                        <p id="_">Note 1 to entry: A</p>
-                     </note>
-                     <table id="_" number="3" autonum="3">
-                        <fmt-name id="_">
-                           <span class="fmt-caption-label">
-                              <span class="fmt-element-name">Table</span>
-                              <semx element="autonum" source="_">3</semx>
-                           </span>
-                        </fmt-name>
-                        <fmt-xref-label>
-                           <span class="fmt-element-name">Table</span>
-                           <semx element="autonum" source="_">3</semx>
-                        </fmt-xref-label>
-                        <tbody>
-                           <tr id="_">
-                              <td id="_" valign="top" align="left">A</td>
-                              <td id="_" valign="top" align="left">B</td>
-                           </tr>
-                        </tbody>
-                     </table>
-                  </quote>
                </semx>
             </clause>
          </sections>
       </standard-document>
     INPUT
     html = <<~OUTPUT
-         <div id="A">
+      <div id="A">
          <h1>1.\\u00a0 Change Clause</h1>
          <p id="_">Add the following terminological entries after 3.1.2.13:</p>
-         <div class="Quote">
+         <div class="Quote AmendNewcontent">
             <div id="F" class="example">
                <p class="example-title">EXAMPLE 10</p>
                <p id="G">This is not generalised further.</p>
             </div>
          </div>
-         <div class="Quote" id="xxx">
-            <p class="h">container</p>
-            <p>This is a container of a subclause.</p>
-            <div class="Quote" id="_">
-               <p class="h" id="_">3.1.2.15 non-canonical form</p>
-               <p id="_">
-                  date and time expression where all its time scale components are
-                  <i>unnormalised</i>
-                  (3.1.2.1511)
-               </p>
-               <div id="_" class="example">
-                  <p class="example-title">EXAMPLE 1</p>
-                  <p id="_">example</p>
-               </div>
-               <div id="_" class="Note">
-                  <p>
-                     <span class="note_label">NOTE 1\\u00a0 </span>
-                     A
-                  </p>
-               </div>
-               <table id="_" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
-               <caption>Table 4</caption>
-                  <tbody>
-                     <tr>
-                        <td style="text-align:left;vertical-align:top;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">A</td>
-                        <td style="text-align:left;vertical-align:top;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">B</td>
-                     </tr>
-                  </tbody>
-               </table>
-            </div>
-         </div>
-         <div class="Quote" id="_">
-            <p class="h" id="_">
-               3.1.2.14
+         <div class="Quote AmendNewcontent" id="_">
+            <p class="h1">
+               3.1.2.14.\\u00a0
                <br/>
                canonical form
             </p>
@@ -729,14 +754,14 @@ RSpec.describe IsoDoc do
                (3.1.2.15)
             </p>
             <div id="_" class="example">
-               <p class="example-title">EXAMPLE 1</p>
+               <p class="example-title">EXAMPLE 11</p>
                <p id="_">example</p>
             </div>
             <div id="_" class="Note">
                <p>Note 1 to entry: A</p>
             </div>
             <table id="_" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
-            <caption>Table 3</caption>
+               <caption>Table 3</caption>
                <tbody>
                   <tr>
                      <td style="text-align:left;vertical-align:top;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">A</td>
@@ -744,6 +769,37 @@ RSpec.describe IsoDoc do
                   </tr>
                </tbody>
             </table>
+         </div>
+         <div class="Quote AmendNewcontent" id="xxx">
+            <p class="h1">3.1.2.15.\\u00a0 container</p>
+            <p>This is a container of a subclause.</p>
+            <div class="Quote AmendNewcontent" id="xxy">
+               <p class="h2">3.1.2.15.1.\\u00a0 non-canonical form</p>
+               <p id="_">
+                  date and time expression where all its time scale components are
+                  <i>unnormalised</i>
+                  (3.1.2.1511)
+               </p>
+               <div id="_" class="example">
+                  <p class="example-title">EXAMPLE 12</p>
+                  <p id="_">example</p>
+               </div>
+               <div id="_" class="Note">
+                  <p>
+                     <span class="note_label">NOTE 1\\u00a0 </span>
+                     A
+                  </p>
+               </div>
+               <table id="_" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+                  <caption>Table 4</caption>
+                  <tbody>
+                     <tr>
+                        <td style="text-align:left;vertical-align:top;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">A</td>
+                        <td style="text-align:left;vertical-align:top;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">B</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
          </div>
       </div>
     OUTPUT
@@ -758,5 +814,233 @@ RSpec.describe IsoDoc do
       .convert("test", pres_output, true))
       .at("//div[@id ='A']").to_xml)))
       .to be_equivalent_to Canon.format_xml(html)
+
+    presxml = <<~OUTPUT
+      <semx element="amend" source="_">
+         <p id="_">Add the following terminological entries after 3.1.2.13:</p>
+         <quote type="newcontent">
+            <example id="F" number="10" autonum="10">
+               <fmt-name id="_">
+                  <span class="fmt-caption-label">
+                     <span class="fmt-element-name">EXAMPLE</span>
+                     <semx element="autonum" source="F">10</semx>
+                  </span>
+               </fmt-name>
+               <fmt-xref-label>
+                  <span class="fmt-element-name">Example</span>
+                  <semx element="autonum" source="F">10</semx>
+               </fmt-xref-label>
+               <fmt-xref-label container="A">
+                  <span class="fmt-xref-container">
+                     <span class="fmt-element-name">Clause</span>
+                     <semx element="autonum" source="A">1</semx>
+                  </span>
+                  <span class="fmt-comma">,</span>
+                  <span class="fmt-element-name">Example</span>
+                  <semx element="autonum" source="F">10</semx>
+               </fmt-xref-label>
+               <p id="G">This is not generalised further.</p>
+            </example>
+         </quote>
+         <quote type="newcontent" id="_" inline-header="false" obligation="normative" number="3.1.2.14" autonum="3.1.2.14">
+            <p type="floating-title">
+               <strong>
+                  <span class="fmt-caption-label">
+                     <span class="fmt-element-name">Annex</span>
+                     <semx element="autonum" source="_">3.1.2.14</semx>
+                  </span>
+               </strong>
+               <br/>
+               <span class="fmt-obligation">(normative)</span>
+               <span class="fmt-caption-delim">
+                  <br/>
+                  <br/>
+               </span>
+               <semx element="title" source="_">
+                  <strong>
+                     <br/>
+                     canonical form
+                  </strong>
+               </semx>
+            </p>
+            <fmt-xref-label>
+               <span class="fmt-element-name">Annex</span>
+               <semx element="autonum" source="_">3.1.2.14</semx>
+            </fmt-xref-label>
+            <p id="_">
+               date and time expression where all its time scale components are
+               <em>normalised</em>
+               (3.1.2.15)
+            </p>
+            <example id="_" autonum="11">
+               <fmt-name id="_">
+                  <span class="fmt-caption-label">
+                     <span class="fmt-element-name">EXAMPLE</span>
+                     <semx element="autonum" source="_">11</semx>
+                  </span>
+               </fmt-name>
+               <fmt-xref-label>
+                  <span class="fmt-element-name">Example</span>
+                  <semx element="autonum" source="_">11</semx>
+               </fmt-xref-label>
+               <fmt-xref-label container="_">
+                  <span class="fmt-xref-container">
+                     <span class="fmt-element-name">Annex</span>
+                     <semx element="autonum" source="_">3.1.2.14</semx>
+                  </span>
+                  <span class="fmt-comma">,</span>
+                  <span class="fmt-element-name">Example</span>
+                  <semx element="autonum" source="_">11</semx>
+               </fmt-xref-label>
+               <p id="_">example</p>
+            </example>
+            <note id="_" unnumbered="true">
+               <p id="_">Note 1 to entry: A</p>
+            </note>
+            <table id="_" number="3" autonum="3.1.2.14.3">
+               <fmt-name id="_">
+                  <span class="fmt-caption-label">
+                     <span class="fmt-element-name">Table</span>
+                     <semx element="autonum" source="_">3.1.2.14</semx>
+                     <span class="fmt-autonum-delim">.</span>
+                     <semx element="autonum" source="_">3</semx>
+                  </span>
+               </fmt-name>
+               <fmt-xref-label>
+                  <span class="fmt-element-name">Table</span>
+                  <semx element="autonum" source="_">3.1.2.14</semx>
+                  <span class="fmt-autonum-delim">.</span>
+                  <semx element="autonum" source="_">3</semx>
+               </fmt-xref-label>
+               <tbody>
+                  <tr id="_">
+                     <td id="_" valign="top" align="left">A</td>
+                     <td id="_" valign="top" align="left">B</td>
+                  </tr>
+               </tbody>
+            </table>
+         </quote>
+         <quote id="xxx" type="newcontent">
+            <p depth="1" type="floating-title">
+               <span class="fmt-caption-label">
+                  <semx element="autonum" source="xxx">3.1.2.15</semx>
+                  <span class="fmt-autonum-delim">.</span>
+               </span>
+               <span class="fmt-caption-delim">
+                  <tab/>
+               </span>
+               <semx element="title" source="_">container</semx>
+            </p>
+            <fmt-xref-label>
+               <span class="fmt-element-name">Clause</span>
+               <semx element="autonum" source="xxx">3.1.2.15</semx>
+            </fmt-xref-label>
+            <p>This is a container of a subclause.</p>
+            <quote id="xxy" inline-header="false" obligation="normative" type="newcontent">
+               <p depth="2" type="floating-title">
+                  <span class="fmt-caption-label">
+                     <semx element="autonum" source="xxx">3.1.2.15</semx>
+                     <span class="fmt-autonum-delim">.</span>
+                     <semx element="autonum" source="xxy">1</semx>
+                     <span class="fmt-autonum-delim">.</span>
+                  </span>
+                  <span class="fmt-caption-delim">
+                     <tab/>
+                  </span>
+                  <semx element="title" source="_">non-canonical form</semx>
+               </p>
+               <fmt-xref-label>
+                  <span class="fmt-element-name">Clause</span>
+                  <semx element="autonum" source="xxx">3.1.2.15</semx>
+                  <span class="fmt-autonum-delim">.</span>
+                  <semx element="autonum" source="xxy">1</semx>
+               </fmt-xref-label>
+               <p id="_">
+                  date and time expression where all its time scale components are
+                  <em>unnormalised</em>
+                  (3.1.2.1511)
+               </p>
+               <example id="_" autonum="12">
+                  <fmt-name id="_">
+                     <span class="fmt-caption-label">
+                        <span class="fmt-element-name">EXAMPLE</span>
+                        <semx element="autonum" source="_">12</semx>
+                     </span>
+                  </fmt-name>
+                  <fmt-xref-label>
+                     <span class="fmt-element-name">Example</span>
+                     <semx element="autonum" source="_">12</semx>
+                  </fmt-xref-label>
+                  <fmt-xref-label container="xxy">
+                     <span class="fmt-xref-container">
+                        <span class="fmt-element-name">Clause</span>
+                        <semx element="autonum" source="xxx">3.1.2.15</semx>
+                        <span class="fmt-autonum-delim">.</span>
+                        <semx element="autonum" source="xxy">1</semx>
+                     </span>
+                     <span class="fmt-comma">,</span>
+                     <span class="fmt-element-name">Example</span>
+                     <semx element="autonum" source="_">12</semx>
+                  </fmt-xref-label>
+                  <p id="_">example</p>
+               </example>
+               <note id="_" number="1" autonum="1">
+                  <fmt-name id="_">
+                     <span class="fmt-caption-label">
+                        <span class="fmt-element-name">NOTE</span>
+                        <semx element="autonum" source="_">1</semx>
+                     </span>
+                     <span class="fmt-label-delim">
+                        <tab/>
+                     </span>
+                  </fmt-name>
+                  <fmt-xref-label>
+                     <span class="fmt-element-name">Note</span>
+                     <semx element="autonum" source="_">1</semx>
+                  </fmt-xref-label>
+                  <fmt-xref-label container="xxy">
+                     <span class="fmt-xref-container">
+                        <span class="fmt-element-name">Clause</span>
+                        <semx element="autonum" source="xxx">3.1.2.15</semx>
+                        <span class="fmt-autonum-delim">.</span>
+                        <semx element="autonum" source="xxy">1</semx>
+                     </span>
+                     <span class="fmt-comma">,</span>
+                     <span class="fmt-element-name">Note</span>
+                     <semx element="autonum" source="_">1</semx>
+                  </fmt-xref-label>
+                  <p id="_">A</p>
+               </note>
+               <table id="_" number="4" autonum="4">
+                  <fmt-name id="_">
+                     <span class="fmt-caption-label">
+                        <span class="fmt-element-name">Table</span>
+                        <semx element="autonum" source="_">4</semx>
+                     </span>
+                  </fmt-name>
+                  <fmt-xref-label>
+                     <span class="fmt-element-name">Table</span>
+                     <semx element="autonum" source="_">4</semx>
+                  </fmt-xref-label>
+                  <tbody>
+                     <tr id="_">
+                        <td id="_" valign="top" align="left">A</td>
+                        <td id="_" valign="top" align="left">B</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </quote>
+         </quote>
+      </semx>
+    OUTPUT
+
+    input.sub!('<clause id="_813c4603-f691-7798-852f-962a3686c35b"',
+               '<clause type="annex" id="_813c4603-f691-7798-852f-962a3686c35b"')
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    pres_output = Nokogiri::XML(pres_output).at("//xmlns:semx[@element='amend']")
+    expect(strip_guid(Canon.format_xml(pres_output.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 end

@@ -111,14 +111,15 @@ module IsoDoc
     end
 
     def compile_scss(filename)
-      load_scss_paths(filename)
+      load_paths = load_scss_paths(filename)
       Dir.mktmpdir do |dir|
         File.write(File.join(dir, "variables.scss"), fonts_placeholder)
-        SassC.load_paths << dir
         sheet_content = File.read(filename, encoding: "UTF-8")
           .gsub(%r<([a-z])\.([0-9])(?=[^{}]*{)>m, "\\1.__WORD__\\2")
         SassC::Engine.new(%<@use "variables" as *;\n#{sheet_content}>,
-                          syntax: :scss, quiet_deps: true, importer: SasscImporter)
+                          syntax: :scss, quiet_deps: true,
+                          load_paths: load_paths + [dir],
+                          importer: SasscImporter)
           .render.gsub(/__WORD__/, "")
       end
     end
@@ -131,10 +132,7 @@ module IsoDoc
                                 "lib", "isodoc")
                     else File.join("lib", "isodoc")
                     end
-      [isodoc_path,
-       File.dirname(filename)].each do |name|
-         SassC.load_paths << name
-       end
+      [isodoc_path, File.dirname(filename)]
     end
 
     def compile_scss_task(current_task)

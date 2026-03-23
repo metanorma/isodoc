@@ -153,30 +153,40 @@ module IsoDoc
                    "./classification | ./contributor | ./fmt-name | " \
                    "./fmt-xref-label")).each(&:remove)
       amend_newcontent(ret)
-      ret.xpath(ns("./newcontent")).each { |a| a.name = "quote" }
       ret.xpath(ns("./description")).each { |a| a.replace(a.children) }
       elem.next = ret
     end
 
     def amend_newcontent(elem)
-      elem.xpath(ns("./newcontent")).each do |a|
+      elem.xpath(ns(".//newcontent")).each do |a|
         a.name = "quote"
-        a.xpath(ns("./clause")).each do |c|
+        a["type"] = "newcontent"
+        a.xpath(ns("./clause")).reverse_each do |c|
           amend_subclause(c, 1)
           a.next = c
         end
       end
+      elem.xpath(ns("./quote[not(node())]")).each(&:remove)
     end
 
     def amend_subclause(clause, depth)
-      clause.xpath(ns("./title")).reverse_each do |t|
-        # t.name = "floating-title"
-        # t["depth"] ||= depth || "1"
-        t.name = "p"
-        t["type"] = "floating-title"
-      end
+      amend_subclause_title(clause, depth)
       clause.name = depth == 1 ? "quote" : "quote" # "div"
+      clause["type"] = "newcontent"
       clause.xpath(ns("./clause")).each { |c| amend_subclause(c, depth + 1) }
+    end
+
+    def amend_subclause_title(clause, depth)
+      if clause["type"] == "annex"
+        annex1(clause)
+      else
+        clause1(clause) # insert title prefix
+      end
+      clause.xpath(ns("./title | ./variant-title")).each(&:remove)
+      t = clause.at(ns("./fmt-title")) or return
+      t.name = "p"
+      t["type"] = "floating-title"
+      # t["depth"] ||= depth || "1"
     end
 
     def quote(docxml)

@@ -461,8 +461,8 @@ RSpec.describe IsoDoc do
                    XYZ
                  </p>
                </div>
-               <div id='FC' class='Admonition' coverpage='true'>
-                 <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
+               <div id='FC' class='Admonition AdmonitionWarning' coverpage='true'>
+                 <p class='AdmonitionTitle AdmonitionWarning' style='text-align:center;'>WARNING</p>
                  <p>XYZ</p>
                </div>
             </div>
@@ -676,10 +676,11 @@ RSpec.describe IsoDoc do
       <br/>
         <div id="fwd">
         <h1 class="ForewordTitle">Foreword</h1>
-        <div class="Admonition" id='_' style='page-break-after: avoid;page-break-inside: avoid;'><p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
+        <div class="Admonition AdmonitionCaution" id='_' style='page-break-after: avoid;page-break-inside: avoid;'>
+        <p class="AdmonitionTitle AdmonitionCaution" style="text-align:center;">CAUTION</p>
         <p id='_'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
         </div>
-        <div id='_' class='Admonition' style='page-break-after: avoid;page-break-inside: avoid;'>
+        <div id='_' class='Admonition AdmonitionCaution' style='page-break-after: avoid;page-break-inside: avoid;'>
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
         </div>
         </div>
@@ -753,12 +754,12 @@ RSpec.describe IsoDoc do
                 <br/>
                 <div id="fwd">
                    <h1 class="ForewordTitle">Foreword</h1>
-                   <div id="_" class="Admonition" style="page-break-after: avoid;page-break-inside: avoid;">
-                      <p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
+                   <div id="_" class="Admonition AdmonitionCaution" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <p class="AdmonitionTitle AdmonitionCaution" style="text-align:center;">CAUTION</p>
                       <p id="_">Paragraph 1.</p>
                       <p id="_">Paragraph 2.</p>
                    </div>
-                   <div id="_" class="Admonition" style="page-break-after: avoid;page-break-inside: avoid;">
+                   <div id="_" class="Admonition AdmonitionCaution" style="page-break-after: avoid;page-break-inside: avoid;">
                       <div class="Note">
                          <p>
                             <span class="note_label">NOTE\\u00a0 </span>
@@ -867,12 +868,12 @@ RSpec.describe IsoDoc do
                   <br/>
                   <div id="fwd">
                     <h1 class="ForewordTitle">Foreword</h1>
-                    <div class="Admonition" id="_">
-                             <p class='AdmonitionTitle' style='text-align:center;'>Title</p>
+                    <div class="Admonition AdmonitionCaution" id="_">
+                             <p class='AdmonitionTitle AdmonitionCaution' style='text-align:center;'>Title</p>
          <p id='_'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </div>
-       <div id='_' class='Admonition'>
-         <p class='AdmonitionTitle' style='text-align:center;'>Title</p>
+       <div id='_' class='Admonition AdmonitionCaution'>
+         <p class='AdmonitionTitle AdmonitionCaution' style='text-align:center;'>Title</p>
             <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
           </div>
                   </div>
@@ -969,12 +970,12 @@ RSpec.describe IsoDoc do
              <br/>
              <div id="fwd">
                <h1 class="ForewordTitle">Foreword</h1>
-               <div id="_" class="Admonition">
-                 <p class="AdmonitionTitle" style="text-align:center;">Box  1\\u00a0— Title</p>
+               <div id="_" class="Admonition AdmonitionBox">
+                 <p class="AdmonitionTitle AdmonitionBox" style="text-align:center;">Box  1\\u00a0— Title</p>
                  <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
                </div>
-               <div id="_" class="Admonition">
-                 <p class="AdmonitionTitle" style="text-align:center;">Box  2</p>
+               <div id="_" class="Admonition AdmonitionBox">
+                 <p class="AdmonitionTitle AdmonitionBox" style="text-align:center;">Box  2</p>
                  <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
                </div>
              </div>

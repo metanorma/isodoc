@@ -75,31 +75,29 @@ module IsoDoc
     end
 
     def convert_scss(filename, stylesheet, stripwordcss)
-      load_scss_paths(filename)
+      load_paths = scss_load_paths(filename)
       Dir.mktmpdir do |dir|
         variables_file_path = File.join(dir, "variables.scss")
         File.write(variables_file_path, scss_fontheader(stripwordcss))
-        SassC.load_paths << dir
         modified_stylesheet = %( @use "variables" as *;\n#{stylesheet})
-        compile_scss(modified_stylesheet)
+        compile_scss(modified_stylesheet, load_paths + [dir])
       end
     end
 
-    def compile_scss(modified_stylesheet)
+    def compile_scss(modified_stylesheet, load_paths = [])
       SassC::Engine
         .new(modified_stylesheet, quiet_deps: true, syntax: :scss,
+                                  load_paths: load_paths,
                                   importer: SasscImporter)
         .render.gsub(/__WORD__/, "")
     end
 
-    def load_scss_paths(filename)
+    def scss_load_paths(filename)
       require "sassc-embedded"
       require "isodoc/sassc_importer"
       [File.join(Gem.loaded_specs["isodoc"].full_gem_path,
                  "lib", "isodoc"),
-       File.dirname(filename)].each do |name|
-        SassC.load_paths << name
-      end
+       File.dirname(filename)]
     end
 
     # stripwordcss if HTML stylesheet, !stripwordcss if DOC stylesheet

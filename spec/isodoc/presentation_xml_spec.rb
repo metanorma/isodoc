@@ -192,9 +192,7 @@ RSpec.describe IsoDoc do
              </clause>
           </sections>
           <annex id="G" inline-header="false" obligation="normative" autonum="A" displayorder="3">
-             <title id="_">
-                <strong>Clause</strong>
-             </title>
+          <title id="_">Clause</title>
              <fmt-title id="_">
                 <strong>
                    <span class="fmt-caption-label">
@@ -249,15 +247,15 @@ RSpec.describe IsoDoc do
                          <br/>
                          “A” ‘B’
                       </h2>
-                      <p style="display:none;" class="variant-title-toc">
-                         Clause
-                         <i>A</i>
-                         <span class="stem">
-                            <math xmlns="http://www.w3.org/1998/Math/MathML">
-                               <mi>x</mi>
-                            </math>
-                         </span>
-                      </p>
+               <p style="display:none;" class="variant-title-toc">
+                  Clause
+                  <i>A</i>
+                  <span class="stem">
+                     <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>x</mi>
+                     </math>
+                  </span>
+               </p>
                       <p id="F">Text</p>
                    </div>
                 </div>
@@ -271,15 +269,15 @@ RSpec.describe IsoDoc do
                       <br/>
                       <b>Clause</b>
                    </h1>
-                   <p style="display:none;" class="variant-title-toc">
-                      Clause
-                      <i>A</i>
-                      <span class="stem">
-                         <math xmlns="http://www.w3.org/1998/Math/MathML">
-                            <mi>x</mi>
-                         </math>
-                      </span>
-                   </p>
+            <p style="display:none;" class="variant-title-toc">
+               Clause
+               <i>A</i>
+               <span class="stem">
+                  <math xmlns="http://www.w3.org/1998/Math/MathML">
+                     <mi>x</mi>
+                  </math>
+               </span>
+            </p>
                    <p id="_">Text</p>
                 </div>
              </div>
