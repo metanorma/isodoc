@@ -476,7 +476,7 @@ RSpec.describe IsoDoc do
                             ]
                          </p>
                       </div>
-                      <p class="FigureTitle" style="text-align:center;">
+                      <figcaption>
                          Figure 1\u00a0— Split-it-right
                          <i>sample</i>
                          divider
@@ -1207,9 +1207,9 @@ RSpec.describe IsoDoc do
                             </tr>
                          </tbody>
                       </table>
-                      <p class="FigureTitle" style="text-align:center;">Figure 1\u00a0— Overall title</p>
-                   </div>
-                   <div id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <figcaption>Figure 1\u00a0— Overall title</figcaption>
+                   </figure>
+                   <figure id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                       <table id="T1" class="plain">
                          <tbody>
                             <tr>
@@ -1224,7 +1224,7 @@ RSpec.describe IsoDoc do
                             </tr>
                          </tbody>
                       </table>
-                      <figcaption>Overall title</p>
+                      <figcaption>Overall title</figcaption>
                    </figure>
                    <figure id="figureA-3" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                       <table id="T2" class="plain">
@@ -1241,8 +1241,8 @@ RSpec.describe IsoDoc do
                             </tr>
                          </tbody>
                       </table>
-                      <p class="FigureTitle" style="text-align:center;">Figure 2\u00a0— Overall title</p>
-                   </div>
+                      <figcaption>Figure 2\u00a0— Overall title</figcaption>
+                   </figure>
                 </div>
              </div>
           </body>

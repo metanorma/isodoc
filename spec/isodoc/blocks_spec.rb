@@ -69,9 +69,10 @@ RSpec.describe IsoDoc do
                          <div id="samplecode" class="example" style="page-break-after: avoid;page-break-inside: avoid;">
                          <p class="example-title">EXAMPLE&nbsp;&#8212; Title</p>
                  <p>Hello</p>
-                      <pre id="X" class="sourcecode"><br/>#{'&nbsp; '}<br/>#{'&nbsp; '}</pre>
-          <p class='SourceTitle' style='text-align:center;'>Sample</p>
-                         </div>
+                 <figure id="X" class="sourcecode" spellcheck="false" translation="no">
+                    <pre><br/>#{'&nbsp; '}<br/>#{'&nbsp; '}</pre>
+                    <figcaption class="SourceTitle">Sample</figcaption>
+                  </figure>
                        </div>
                      </div>
                    </body>

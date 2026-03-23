@@ -59,19 +59,23 @@ RSpec.describe IsoDoc do
 
     html = <<~OUTPUT
       #{HTML_HDR}
-                         <br/>
-                                         <div id="fwd">
-                   <h1 class="ForewordTitle">Foreword</h1>
-                   <pre id="samplecode" class="sourcecode">puts x</pre>
-                   <p class="SourceTitle" style="text-align:center;">
-                      Figure 1\u00a0— Ruby
-                      <i>code</i>
-                   </p>
-                   <pre id="_" class="sourcecode">Hey<br/>Que?<br/></pre>
-                </div>
-             </div>
-          </body>
-       </html>
+            <br/>
+            <div id="fwd">
+              <h1 class="ForewordTitle">Foreword</h1>
+              <figure id="samplecode" class="sourcecode" spellcheck="false" translation="no">
+                <pre>puts x</pre>
+                <figcaption class="SourceTitle">
+                    Figure 1\u00a0— Ruby
+                    <i>code</i>
+                </figcaption>
+              </figure>
+              <figure id="_" class="sourcecode" spellcheck="false" translation="no">
+                <pre>Hey<br/>Que?<br/></pre>
+              </figure>
+            </div>
+          </div>
+        </body>
+      </html>
     OUTPUT
 
     doc = <<~OUTPUT
@@ -274,11 +278,8 @@ RSpec.describe IsoDoc do
                                 <div id="_">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <figure id="samplecode" class="sourcecode" spellcheck="false" translation="no">
-                   <pre>
-                      <span class="nb">puts</span>
-                      <span class="n">x</span>
-                   </pre>
-                   <p class="SourceTitle" style="text-align:center;">
+                   <pre><span class="nb">puts</span> <span class="n">x</span></pre>
+                   <figcaption class="SourceTitle">
                       Figure 1\u00a0— Ruby
                       <i>code</i>
                    </figcaption>
@@ -717,10 +718,11 @@ RSpec.describe IsoDoc do
     INPUT
     html = <<~OUTPUT
       #{HTML_HDR}
-                  <br/>
-                  <div id="_">
-                                 <h1 class="ForewordTitle">Foreword</h1>
-               <pre id="_" class="sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span><span class="c"> &lt;2&gt;</span> <br/>\u00a0\u00a0 %w{a b c}.each do |x|<br/>\u00a0\u00a0\u00a0\u00a0 puts x <span class="c"> &lt;3&gt;</span><br/>\u00a0\u00a0 end</pre>
+          <br/>
+          <div id="_">
+            <h1 class="ForewordTitle">Foreword</h1>
+            <figure id="_" class="sourcecode" spellcheck="false" translation="no">
+              <pre>puts "Hello, world." <span class="c"> &lt;1&gt;</span><span class="c"> &lt;2&gt;</span> <br/>\u00a0\u00a0 %w{a b c}.each do |x|<br/>\u00a0\u00a0\u00a0\u00a0 puts x <span class="c"> &lt;3&gt;</span> <br/>\u00a0\u00a0 end</pre>
                        <div class="annotation">
                        <div class="figdl">
           <p class="ListTitle">Key</p>
@@ -1440,16 +1442,20 @@ RSpec.describe IsoDoc do
 
     html = <<~OUTPUT
       #{HTML_HDR}
-                       <br/>
-                       <div id="fwd">
-                         <h1 class="ForewordTitle">Foreword</h1>
-                         <div id="fig" class="pseudocode" style='page-break-after: avoid;page-break-inside: avoid;'><p id="_">\u00a0\u00a0<b>A</b><br/>
-                 \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0<span style="font-variant:small-caps;">B</span></p>
-                 <p id="_">\u00a0\u00a0<i>C</i></p><p class="SourceTitle" style="text-align:center;">Figure 1\u00a0&#x2014; Label</p></div>
-                       </div>
-                     </div>
-                   </body>
-          </html>
+            <br/>
+            <div id="fwd">
+              <h1 class="ForewordTitle">Foreword</h1>
+              <figure id="fig" class="pseudocode" style='page-break-after: avoid;page-break-inside: avoid;'>
+                <p id="_">\u00a0\u00a0<b>A</b><br/>
+                \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0<span style="font-variant:small-caps;">B</span>
+                </p>
+                <p id="_">\u00a0\u00a0<i>C</i></p>
+                <figcaption class="SourceTitle">Figure 1\u00a0&#x2014; Label</figcaption>
+              </figure>
+            </div>
+          </div>
+        </body>
+      </html>
     OUTPUT
 
    #  FileUtils.rm_f "test.doc"
