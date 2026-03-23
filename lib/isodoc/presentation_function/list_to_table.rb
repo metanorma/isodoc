@@ -56,13 +56,15 @@ module IsoDoc
     end
 
     def list_table_normalise_colgroup(vals, cellcount)
-      vals.size > cellcount and vals = vals[0..cellcount]
+      vals.size > cellcount and vals = vals[0...cellcount]
       if vals.size < cellcount
-        (vals.size..cellcount).each do |_i|
+        (vals.size...cellcount).each do |_i|
           vals << "10"
         end
       end
-      vals
+      vals.map!(&:to_f)
+      sum = vals.sum
+      vals.map { |i| 100 * i / sum }
     end
 
     # Build <thead><tr> with n <th> cells, one per depth level
@@ -95,8 +97,7 @@ module IsoDoc
 
     # Return the first ol/ul at the given depth (depth 1 = elem itself)
     def list_at_depth(elem, target_depth)
-      return elem if target_depth == 1
-
+      target_depth == 1 and return elem
       elem.xpath(ns(".//ol") + "|" + ns(".//ul")).find do |sub|
         d = sub.ancestors.take_while { |a| a != elem }
           .count { |a| %w[ol ul].include?(a.name) } + 2
@@ -120,8 +121,7 @@ module IsoDoc
           list_table_terminal_td(step[:list], step[:depth], cellcount)
         else
           li = step[:li]
-          next if emitted[li.object_id]
-
+          emitted[li.object_id] and next
           rowspan = list_table_count_terminals(li)
           emitted[li.object_id] = true
           list_table_nonterminal_td(step[:list], li, step[:k], rowspan,
