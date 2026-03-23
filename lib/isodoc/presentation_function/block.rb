@@ -182,7 +182,7 @@ module IsoDoc
       else
         clause1(clause) # insert title prefix
       end
-      clause.at(ns("./title"))&.remove
+      clause.xpath(ns("./title | ./variant-title")).each(&:remove)
       t = clause.at(ns("./fmt-title")) or return
       t.name = "p"
       t["type"] = "floating-title"
