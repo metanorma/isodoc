@@ -337,80 +337,80 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     doc = <<~OUTPUT
-       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
-          <div class="WordSection2">
-             <p class="MsoNormal">
-                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-             </p>
-             <div>
-                <a name="_" id="_"/>
-                <h1 class="ForewordTitle">Foreword</h1>
-                <p class="Sourcecode" style="page-break-after:avoid;">
-                   <a name="samplecode" id="samplecode"/>
-                   <span class="nb">puts</span>
-                   <span class="n">x</span>
-                </p>
-                <p class="SourceTitle" style="text-align:center;">
-                   Figure 1\u00a0— Ruby
-                   <i>code</i>
-                </p>
-                <div align="center" class="table_container" style="page-break-after:avoid;">
-                   <a name="A" id="A"/>
-                   <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
-                      <tbody>
-                         <tr>
-                            <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:avoid;" class="rouge-gutter gl">
-                               <pre style="page-break-after:avoid">1</pre>
-                            </td>
-                            <td style="page-break-after:avoid;" class="rouge-code">
-                               <p class="Sourcecode" style="page-break-after:avoid">Hey</p>
-                            </td>
-                         </tr>
-                         <tr>
-                            <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:auto;" class="rouge-gutter gl">
-                               <pre style="page-break-after:auto">2</pre>
-                            </td>
-                            <td style="page-break-after:auto;" class="rouge-code">
-                               <p class="Sourcecode" style="page-break-after:auto">Que?</p>
-                            </td>
-                         </tr>
-                      </tbody>
-                   </table>
-                </div>
-                <p class="SourceTitle" style="text-align:center;">More</p>
-                <div align="center" class="table_container" style="page-break-after:avoid;">
-                   <a name="B" id="B"/>
-                   <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
-                      <tbody>
-                         <tr>
-                            <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:avoid;" class="rouge-gutter gl">
-                               <pre style="page-break-after:avoid">1</pre>
-                            </td>
-                            <td style="page-break-after:avoid;" class="rouge-code">
-                               <p class="Sourcecode" style="page-break-after:avoid">Hey</p>
-                            </td>
-                         </tr>
-                         <tr>
-                            <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:auto;" class="rouge-gutter gl">
-                               <pre style="page-break-after:auto">2</pre>
-                            </td>
-                            <td style="page-break-after:auto;" class="rouge-code">
-                               <p class="Sourcecode" style="page-break-after:auto">Que?</p>
-                            </td>
-                         </tr>
-                      </tbody>
-                   </table>
-                </div>
-                <p class="SourceTitle" style="text-align:center;">More</p>
-             </div>
-             <p class="MsoNormal">\u00a0</p>
-          </div>
-          <p class="MsoNormal">
-             <br clear="all" class="section"/>
-          </p>
-          <div class="WordSection3"/>
-          <div style="mso-element:footnote-list"/>
-       </body>
+      <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+         <div class="WordSection2">
+            <p class="MsoNormal">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+            </p>
+            <div>
+               <a name="_" id="_"/>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <p class="Sourcecode" style="page-break-after:avoid;">
+                  <a name="samplecode" id="samplecode"/>
+                  <span class="nb">puts</span>
+                  <span class="n">x</span>
+               </p>
+               <p class="SourceTitle" style="text-align:center;">
+                  Figure 1\u00a0— Ruby
+                  <i>code</i>
+               </p>
+               <div align="center" class="table_container" style="page-break-after:avoid;">
+                  <a name="A" id="A"/>
+                  <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
+                     <tbody>
+                        <tr>
+                           <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:avoid;" class="rouge-gutter gl">
+                              <pre style="page-break-after:avoid">1</pre>
+                           </td>
+                           <td style="page-break-after:avoid;" class="rouge-code">
+                              <p class="Sourcecode" style="page-break-after:avoid">Hey</p>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:auto;" class="rouge-gutter gl">
+                              <pre style="page-break-after:auto">2</pre>
+                           </td>
+                           <td style="page-break-after:auto;" class="rouge-code">
+                              <p class="Sourcecode" style="page-break-after:auto">Que?</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <p class="SourceTitle" style="text-align:center;">More</p>
+               <div align="center" class="table_container" style="page-break-after:avoid;">
+                  <a name="B" id="B"/>
+                  <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
+                     <tbody>
+                        <tr>
+                           <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:avoid;" class="rouge-gutter gl">
+                              <pre style="page-break-after:avoid">1</pre>
+                           </td>
+                           <td style="page-break-after:avoid;" class="rouge-code">
+                              <p class="Sourcecode" style="page-break-after:avoid">Hey</p>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:auto;" class="rouge-gutter gl">
+                              <pre style="page-break-after:auto">2</pre>
+                           </td>
+                           <td style="page-break-after:auto;" class="rouge-code">
+                              <p class="Sourcecode" style="page-break-after:auto">Que?</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <p class="SourceTitle" style="text-align:center;">More</p>
+            </div>
+            <p class="MsoNormal">\u00a0</p>
+         </div>
+         <p class="MsoNormal">
+            <br clear="all" class="section"/>
+         </p>
+         <div class="WordSection3"/>
+         <div style="mso-element:footnote-list"/>
+      </body>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new({ sourcehighlighter: true }
@@ -421,7 +421,7 @@ RSpec.describe IsoDoc do
       .to be_xml_equivalent_to presxml
     expect(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true)))
-      .to be_xml_equivalent_to html
+      .to be_html5_equivalent_to html
     FileUtils.rm_f("test.doc")
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
     expect(strip_guid(File.read("test.doc")
@@ -575,14 +575,25 @@ RSpec.describe IsoDoc do
                   <br/>
                                <div id="_">
                <h1 class="ForewordTitle">Foreword</h1>
-               <pre id="samplecode" class="sourcecode"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre>
-               <p class="SourceTitle" style="text-align:center;">Figure 1\u00a0— XML code</p>
-               <div id="samplecode1" class="sourcecode"><table class="rouge-line-table"><tbody><tr>
-               <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
-                <pre>1</pre></td>
-                <td style="" class="rouge-code"><pre class="sourcecode"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre></td></tr></tbody></table>
-              </div>
-               <p class="SourceTitle" style="text-align:center;">Figure 2\u00a0— XML code</p>
+               <figure id="samplecode" class="sourcecode" spellcheck="false" translation="no">
+                <pre><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre>
+                <figcaption class="SourceTitle">Figure 1\u00a0— XML code</figcaption>
+               </figure>
+               <figure id="samplecode1" class="sourcecode" spellcheck="false" translation="no">
+                <table class="rouge-line-table">
+                  <tbody>
+                    <tr>
+                      <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
+                        <pre>1</pre>
+                      </td>
+                      <td style="" class="rouge-code">
+                        <pre class="sourcecode"  spellcheck="false" translation="no"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+               <figcaption class="SourceTitle">Figure 2\u00a0— XML code</figcaption>
+               </figure>
              </div>
            </div>
          </body>
@@ -1387,61 +1398,61 @@ RSpec.describe IsoDoc do
     INPUT
 
     presxml = <<~OUTPUT
-        <itu-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-           <bibdata/><language>en</language>
-           
-           
-           <preface>
-              <clause type="toc" id="_" displayorder="1">
-                 <fmt-title id="_" depth="1">Table of contents</fmt-title>
-              </clause>
-              <foreword id="fwd" displayorder="2">
-                 <title id="_">Foreword</title>
-                 <fmt-title id="_" depth="1">
-                    <semx element="title" source="_">Foreword</semx>
-                 </fmt-title>
-                 <figure id="fig" class="pseudocode" keep-with-next="true" keep-lines-together="true" autonum="1">
-                    <name id="_">Label</name>
-                    <fmt-name id="_">
-                       <span class="fmt-caption-label">
-                          <span class="fmt-element-name">Figure</span>
-                          <semx element="autonum" source="fig">1</semx>
-                       </span>
-                       <span class="fmt-caption-delim">\u00a0— </span>
-                       <semx element="name" source="_">Label</semx>
-                    </fmt-name>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Figure</span>
-                       <semx element="autonum" source="fig">1</semx>
-                    </fmt-xref-label>
-                    <p original-id="_">
-                       \u00a0\u00a0
-                       <strong>A</strong>
-                       <br/>
-                       \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0
-                       <smallcap>B</smallcap>
-                    </p>
-                    <p original-id="_">
-                       \u00a0\u00a0
-                       <em>C</em>
-                    </p>
-                    <fmt-figure class="pseudocode" keep-with-next="true" keep-lines-together="true" autonum="1">
-                          <p id="_">
-                             \u00a0\u00a0
-                             <strong>A</strong>
-                             <br/>
-                             \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0
-                             <smallcap>B</smallcap>
-                          </p>
-                          <p id="_">
-                             \u00a0\u00a0
-                             <em>C</em>
-                          </p>
-                    </fmt-figure>
-                 </figure>
-              </foreword>
-           </preface>
-        </itu-standard>
+      <itu-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata/><language>en</language>
+      #{'   '}
+      #{'   '}
+         <preface>
+            <clause type="toc" id="_" displayorder="1">
+               <fmt-title id="_" depth="1">Table of contents</fmt-title>
+            </clause>
+            <foreword id="fwd" displayorder="2">
+               <title id="_">Foreword</title>
+               <fmt-title id="_" depth="1">
+                  <semx element="title" source="_">Foreword</semx>
+               </fmt-title>
+               <figure id="fig" class="pseudocode" keep-with-next="true" keep-lines-together="true" autonum="1">
+                  <name id="_">Label</name>
+                  <fmt-name id="_">
+                     <span class="fmt-caption-label">
+                        <span class="fmt-element-name">Figure</span>
+                        <semx element="autonum" source="fig">1</semx>
+                     </span>
+                     <span class="fmt-caption-delim">\u00a0— </span>
+                     <semx element="name" source="_">Label</semx>
+                  </fmt-name>
+                  <fmt-xref-label>
+                     <span class="fmt-element-name">Figure</span>
+                     <semx element="autonum" source="fig">1</semx>
+                  </fmt-xref-label>
+                  <p original-id="_">
+                     \u00a0\u00a0
+                     <strong>A</strong>
+                     <br/>
+                     \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0
+                     <smallcap>B</smallcap>
+                  </p>
+                  <p original-id="_">
+                     \u00a0\u00a0
+                     <em>C</em>
+                  </p>
+                  <fmt-figure class="pseudocode" keep-with-next="true" keep-lines-together="true" autonum="1">
+                        <p id="_">
+                           \u00a0\u00a0
+                           <strong>A</strong>
+                           <br/>
+                           \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0
+                           <smallcap>B</smallcap>
+                        </p>
+                        <p id="_">
+                           \u00a0\u00a0
+                           <em>C</em>
+                        </p>
+                  </fmt-figure>
+               </figure>
+            </foreword>
+         </preface>
+      </itu-standard>
     OUTPUT
 
     html = <<~OUTPUT
@@ -1462,7 +1473,7 @@ RSpec.describe IsoDoc do
       </html>
     OUTPUT
 
-   #  FileUtils.rm_f "test.doc"
+    #  FileUtils.rm_f "test.doc"
     pres_output = IsoDoc::PresentationXMLConvert
       .new({ sourcehighlighter: true }
       .merge(presxml_options))

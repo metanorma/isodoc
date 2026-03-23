@@ -827,7 +827,7 @@ RSpec.describe IsoDoc do
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_xml))
-      .to be_xml_equivalent_to html
+      .to be_html5_equivalent_to html
     output = Nokogiri::XML(IsoDoc::WordConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
@@ -1461,9 +1461,9 @@ RSpec.describe IsoDoc do
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_xml))
-      .to be_xml_equivalent_to html
+      .to be_html5_equivalent_to html
     output = Nokogiri::XML(IsoDoc::WordConvert.new({})
-    .convert("test", pres_output, true))
+      .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_xml)
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))
@@ -2030,7 +2030,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       <html
         xmlns:epub="http://www.idpf.org/2007/ops"
-        xmlns:v="urn:schemas-microsoft-com:vml" 
+        xmlns:v="urn:schemas-microsoft-com:vml"#{' '}
         xmlns:o="urn:schemas-microsoft-com:office:office"
         xmlns:w="urn:schemas-microsoft-com:office:word"
         xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"

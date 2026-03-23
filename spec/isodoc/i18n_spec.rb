@@ -553,7 +553,7 @@ RSpec.describe IsoDoc do
              <div id="I">
                 <h2>3.1.\u00a0 Normal Terms</h2>
                 <p class="TermNum" id="J">3.1.1.</p>
-                <p class="Terms" style="text-align:left;"><b>Term2</b></p>
+                <p class="Terms" style="text-align:left;"><b><dfn>Term2</dfn></b></p>
               </div><div id="K"><h2>3.2.\u00a0 Symbols</h2>
                <div class="figdl">
                 <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
@@ -1146,7 +1146,7 @@ RSpec.describe IsoDoc do
              <div id="I">
                 <h2>3.1.\u00a0 Normal Terms</h2>
                 <p class="TermNum" id="J">3.1.1.</p>
-                <p class="Terms" style="text-align:left;"><b>Term2</b></p>
+                <p class="Terms" style="text-align:left;"><b><dfn>Term2</dfn></b></p>
               </div><div id="K"><h2>3.2.\u00a0 Symboles</h2>
                <div class="figdl">
                 <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
@@ -2366,28 +2366,28 @@ RSpec.describe IsoDoc do
       </metanorma-extension>
     EXT
     presxml = <<~OUTPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-         <bibdata>
-            <language current="true">eo</language>
-            <script current="true">Latn</script>
-                 <status>
-        <stage language="">published</stage>
-        <stage language="eo">eldonita</stage>
-        <substage language="">withdrawn</substage>
-        <substage language="eo">fortirita</substage>
-     </status>
-            <ext>
-               <doctype language="">brochure</doctype>
-               <doctype language="eo">konferencaktoj</doctype>
-            </ext>
-         </bibdata>
-            <metanorma-extension>
-             <presentation-metadata>
-                <doctype-alias>conference proceedings</doctype-alias>
-                <stage-alias>circulated</stage-alias>
-             </presentation-metadata>
-          </metanorma-extension>
-      </iso-standard>
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <bibdata>
+             <language current="true">eo</language>
+             <script current="true">Latn</script>
+                  <status>
+         <stage language="">published</stage>
+         <stage language="eo">eldonita</stage>
+         <substage language="">withdrawn</substage>
+         <substage language="eo">fortirita</substage>
+      </status>
+             <ext>
+                <doctype language="">brochure</doctype>
+                <doctype language="eo">konferencaktoj</doctype>
+             </ext>
+          </bibdata>
+             <metanorma-extension>
+              <presentation-metadata>
+                 <doctype-alias>conference proceedings</doctype-alias>
+                 <stage-alias>circulated</stage-alias>
+              </presentation-metadata>
+           </metanorma-extension>
+       </iso-standard>
     OUTPUT
 
     pres_output = IsoDoc::PresentationXMLConvert
@@ -2677,7 +2677,7 @@ RSpec.describe IsoDoc do
     expect(xml.at("//xmlns:localized-string[@language = 'fr']")).to be nil
     expect(xml.at("//xmlns:localized-string[@language = 'ja'][@key = 'scope']").text).to eq "適用範囲"
 
-       input = <<~INPUT
+    input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
         <bibdata type="standard">
         <title language="en">Title</title>

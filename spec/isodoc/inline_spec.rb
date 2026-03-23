@@ -95,12 +95,12 @@ RSpec.describe IsoDoc do
       </p>
     OUTPUT
     doc = <<~OUTPUT
-           <p class="MsoNormal">
-          <a name="A" id="A"/>
-          <span>
-             <tt>http://www.⁠example.⁠com\u00a0A‑B</tt>
-          </span>
-       </p>
+          <p class="MsoNormal">
+         <a name="A" id="A"/>
+         <span>
+            <tt>http://www.⁠example.⁠com\u00a0A‑B</tt>
+         </span>
+      </p>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -695,7 +695,7 @@ RSpec.describe IsoDoc do
       </html>
     OUTPUT
 
-   pres_output = IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
     expect(strip_guid(pres_output))

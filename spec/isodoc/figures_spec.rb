@@ -681,13 +681,13 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
     expect(strip_guid(pres_output
-      .gsub(/&lt;/, "&#x3c;")))
+      .gsub("&lt;", "&#x3c;")))
       .to be_xml_equivalent_to presxml
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_xml))
-      .to be_xml_equivalent_to html
+      .to be_html5_equivalent_to html
     FileUtils.rm_rf "spec/assets/odf1.emf"
     output = Nokogiri::XML(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
@@ -963,7 +963,7 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
     expect(strip_guid(pres_output
-      .gsub(/&lt;/, "&#x3c;")))
+      .gsub("&lt;", "&#x3c;")))
       .to be_xml_equivalent_to presxml
     expect(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true)))
@@ -1346,7 +1346,7 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
     expect(strip_guid(pres_output
-      .gsub(/&lt;/, "&#x3c;")))
+      .gsub("&lt;", "&#x3c;")))
       .to be_xml_equivalent_to presxml
     expect(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true)))
@@ -1536,7 +1536,7 @@ RSpec.describe IsoDoc do
     OUTPUT
     expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true).gsub(/&lt;/, "&#x3c;")))
+      .convert("test", input, true).gsub("&lt;", "&#x3c;")))
       .to be_xml_equivalent_to presxml
   end
 
@@ -1558,47 +1558,47 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~INPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface>
-             <clause type="toc" id="_1" displayorder="1">
-                <fmt-title depth="1" id="_5">Table of contents</fmt-title>
-             </clause>
-             <foreword id="fwd" displayorder="2">
-                <title id="_3">Foreword</title>
-                <fmt-title depth="1" id="_6">
-                   <semx element="title" source="_3">Foreword</semx>
-                </fmt-title>
-                <figure id="figureA-1" keep-with-next="true" keep-lines-together="true" autonum="1">
-                   <name id="_4">
-                      Split-it-right
-                      <em>sample</em>
-                      divider
-                   </name>
-                   <fmt-name id="_7">
-                      <span class="fmt-caption-label">
-                         <span class="fmt-element-name">Figure</span>
-                         <semx element="autonum" source="figureA-1">1</semx>
-                      </span>
-                      <span class="fmt-caption-delim">\\u00a0— </span>
-                      <semx element="name" source="_4">
-                         Split-it-right
-                         <em>sample</em>
-                         divider
-                      </semx>
-                   </fmt-name>
-                   <fmt-xref-label>
-                      <span class="fmt-element-name">Figure</span>
-                      <semx element="autonum" source="figureA-1">1</semx>
-                   </fmt-xref-label>
-                   <image height="20" width="30" id="_" alt="alttext" title="titletxt">
-                      <altsource tag="tag,html" src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_" mimetype="image/png"/>
-                      <altsource tag="doc,tag" src="data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==" height="20" width="auto" id="_" mimetype="application/xml"/>
-                      <altsource tag="default" src="rice_images/rice_image1.png" height="20" width="30" id="_" mimetype="image/png" alt="alttext" title="titletxt"/>
-                   </image>
-                </figure>
-             </foreword>
-          </preface>
-       </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+            <clause type="toc" id="_1" displayorder="1">
+               <fmt-title depth="1" id="_5">Table of contents</fmt-title>
+            </clause>
+            <foreword id="fwd" displayorder="2">
+               <title id="_3">Foreword</title>
+               <fmt-title depth="1" id="_6">
+                  <semx element="title" source="_3">Foreword</semx>
+               </fmt-title>
+               <figure id="figureA-1" keep-with-next="true" keep-lines-together="true" autonum="1">
+                  <name id="_4">
+                     Split-it-right
+                     <em>sample</em>
+                     divider
+                  </name>
+                  <fmt-name id="_7">
+                     <span class="fmt-caption-label">
+                        <span class="fmt-element-name">Figure</span>
+                        <semx element="autonum" source="figureA-1">1</semx>
+                     </span>
+                     <span class="fmt-caption-delim">\u00a0— </span>
+                     <semx element="name" source="_4">
+                        Split-it-right
+                        <em>sample</em>
+                        divider
+                     </semx>
+                  </fmt-name>
+                  <fmt-xref-label>
+                     <span class="fmt-element-name">Figure</span>
+                     <semx element="autonum" source="figureA-1">1</semx>
+                  </fmt-xref-label>
+                  <image height="20" width="30" id="_" alt="alttext" title="titletxt">
+                     <altsource tag="tag,html" src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_" mimetype="image/png"/>
+                     <altsource tag="doc,tag" src="data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==" height="20" width="auto" id="_" mimetype="application/xml"/>
+                     <altsource tag="default" src="rice_images/rice_image1.png" height="20" width="30" id="_" mimetype="image/png" alt="alttext" title="titletxt"/>
+                  </image>
+               </figure>
+            </foreword>
+         </preface>
+      </iso-standard>
     INPUT
     html = <<~OUTPUT
       #{HTML_HDR}
@@ -1622,7 +1622,30 @@ RSpec.describe IsoDoc do
        </html>
     OUTPUT
     word = <<~OUTPUT
-      #{WORD_HDR}
+      <html
+        xmlns:epub="http://www.idpf.org/2007/ops"
+        xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:w="urn:schemas-microsoft-com:office:word"
+        xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+        lang="en">
+      <head>
+        <style>
+          <!--
+          -->
+        </style>
+      </head>
+         <body lang="EN-US" link="blue" vlink="#954F72">
+           <div class="WordSection1">
+             <p> </p>
+           </div>
+           <p class="section-break"><br clear="all" class="section"/></p>
+           <div class="WordSection2">
+            <p class="page-break">
+            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div class="TOC" id="_">
+            <p class="zzContents">Table of contents</p>
+          </div>
                       <p class="page-break">
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                 </p>
@@ -1648,24 +1671,47 @@ RSpec.describe IsoDoc do
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output
-      .gsub("&lt;", "&#x3c;"))))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(pres_output
+      .gsub("&lt;", "&#x3c;")))
+      .to be_xml_equivalent_to presxml
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
-    .convert("test", pres_output, true))
+      .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(output.to_xml))
+      .to be_xml_equivalent_to html
     output = Nokogiri::XML(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)
-        .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
-        .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(output.to_xml
+      .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
+      .to be_xml_equivalent_to word
 
     word = <<~OUTPUT
-         #{WORD_HDR}
+      <html
+        xmlns:epub="http://www.idpf.org/2007/ops"
+        xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:w="urn:schemas-microsoft-com:office:word"
+        xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+        lang="en">
+      <head>
+        <style>
+          <!--
+          -->
+        </style>
+      </head>
+         <body lang="EN-US" link="blue" vlink="#954F72">
+           <div class="WordSection1">
+             <p> </p>
+           </div>
+           <p class="section-break"><br clear="all" class="section"/></p>
+           <div class="WordSection2">
+            <p class="page-break">
+            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div class="TOC" id="_">
+            <p class="zzContents">Table of contents</p>
+          </div>
                      <p class="page-break">
                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                </p>
@@ -1695,15 +1741,15 @@ RSpec.describe IsoDoc do
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(output.to_xml))
+      .to be_html5_equivalent_to html
     output = Nokogiri::XML(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)
-        .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
-        .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Canon.format_xml(word)
+    expect(strip_guid(output.to_xml
+      .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
+      .to be_xml_equivalent_to word
   end
 
   it "processes raw SVG" do
@@ -1755,10 +1801,10 @@ RSpec.describe IsoDoc do
     OUTPUT
     expect(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-      .gsub(/&lt;/, "&#x3c;")
+      .gsub("&lt;", "&#x3c;")
       .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
       .to be_xml_equivalent_to presxml
-      .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")
+        .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")
   end
 
   it "processes altsource with SVG" do
@@ -1801,75 +1847,75 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~INPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface>
-             <clause type="toc" id="_1" displayorder="1">
-                <fmt-title depth="1" id="_6">Table of contents</fmt-title>
-             </clause>
-             <foreword id="fwd" displayorder="2">
-                <title id="_3">Foreword</title>
-                <fmt-title depth="1" id="_7">
-                   <semx element="title" source="_3">Foreword</semx>
-                </fmt-title>
-                <figure id="figureA-1" keep-with-next="true" keep-lines-together="true" autonum="1">
-                   <fmt-name id="_8">
-                      <span class="fmt-caption-label">
-                         <span class="fmt-element-name">Figure</span>
-                         <semx element="autonum" source="figureA-1">1</semx>
-                      </span>
-                   </fmt-name>
-                   <fmt-xref-label>
-                      <span class="fmt-element-name">Figure</span>
-                      <semx element="autonum" source="figureA-1">1</semx>
-                   </fmt-xref-label>
-                   <image id="_" height="auto" width="auto" alt="">
-                      <altsource tag="doc" src="spec/assets/odf.svg" mimetype="image/svg+xml" height="auto" width="auto" filename="spec/assets/odf.svg">
-                         <image src="" mimetype="image/svg+xml" height="auto" width="auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
-                               <circle fill="#009" r="45" cx="50" cy="50"/>
-                               <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
-                            </svg>
-                         </image>
-                      </altsource>
-                      <altsource tag="html" src="spec/assets/odf.svg" mimetype="image/svg+xml" height="auto" width="auto" filename="spec/assets/odf.svg">
-                         <image src="" mimetype="image/svg+xml" height="auto" width="auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
-                               <circle fill="#009" r="45" cx="50" cy="50"/>
-                               <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
-                            </svg>
-                         </image>
-                      </altsource>
-                      <altsource tag="default" src="spec/assets/odf.svg" mimetype="image/svg+xml" height="auto" width="auto" filename="spec/assets/odf.svg">
-                         <image src="" mimetype="image/svg+xml" height="auto" width="auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
-                               <circle fill="#009" r="45" cx="50" cy="50"/>
-                               <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
-                            </svg>
-                         </image>
-                      </altsource>
-                   </image>
-                </figure>
-                <figure id="_" autonum="2">
-                   <fmt-name id="_9">
-                      <span class="fmt-caption-label">
-                         <span class="fmt-element-name">Figure</span>
-                         <semx element="autonum" source="_">2</semx>
-                      </span>
-                   </fmt-name>
-                   <fmt-xref-label>
-                      <span class="fmt-element-name">Figure</span>
-                      <semx element="autonum" source="_">2</semx>
-                   </fmt-xref-label>
-                   <image id="_" src="spec/assets/odf.svg" mimetype="image/svg+xml" height="auto" width="auto" filename="spec/assets/odf.svg">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
-                         <circle fill="#009" r="45" cx="50" cy="50"/>
-                         <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
-                      </svg>
-                   </image>
-                </figure>
-             </foreword>
-          </preface>
-       </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+            <clause type="toc" id="_1" displayorder="1">
+               <fmt-title depth="1" id="_6">Table of contents</fmt-title>
+            </clause>
+            <foreword id="fwd" displayorder="2">
+               <title id="_3">Foreword</title>
+               <fmt-title depth="1" id="_7">
+                  <semx element="title" source="_3">Foreword</semx>
+               </fmt-title>
+               <figure id="figureA-1" keep-with-next="true" keep-lines-together="true" autonum="1">
+                  <fmt-name id="_8">
+                     <span class="fmt-caption-label">
+                        <span class="fmt-element-name">Figure</span>
+                        <semx element="autonum" source="figureA-1">1</semx>
+                     </span>
+                  </fmt-name>
+                  <fmt-xref-label>
+                     <span class="fmt-element-name">Figure</span>
+                     <semx element="autonum" source="figureA-1">1</semx>
+                  </fmt-xref-label>
+                  <image id="_" height="auto" width="auto" alt="">
+                     <altsource tag="doc" src="spec/assets/odf.svg" mimetype="image/svg+xml" height="auto" width="auto" filename="spec/assets/odf.svg">
+                        <image src="" mimetype="image/svg+xml" height="auto" width="auto">
+                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
+                              <circle fill="#009" r="45" cx="50" cy="50"/>
+                              <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
+                           </svg>
+                        </image>
+                     </altsource>
+                     <altsource tag="html" src="spec/assets/odf.svg" mimetype="image/svg+xml" height="auto" width="auto" filename="spec/assets/odf.svg">
+                        <image src="" mimetype="image/svg+xml" height="auto" width="auto">
+                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
+                              <circle fill="#009" r="45" cx="50" cy="50"/>
+                              <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
+                           </svg>
+                        </image>
+                     </altsource>
+                     <altsource tag="default" src="spec/assets/odf.svg" mimetype="image/svg+xml" height="auto" width="auto" filename="spec/assets/odf.svg">
+                        <image src="" mimetype="image/svg+xml" height="auto" width="auto">
+                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
+                              <circle fill="#009" r="45" cx="50" cy="50"/>
+                              <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
+                           </svg>
+                        </image>
+                     </altsource>
+                  </image>
+               </figure>
+               <figure id="_" autonum="2">
+                  <fmt-name id="_9">
+                     <span class="fmt-caption-label">
+                        <span class="fmt-element-name">Figure</span>
+                        <semx element="autonum" source="_">2</semx>
+                     </span>
+                  </fmt-name>
+                  <fmt-xref-label>
+                     <span class="fmt-element-name">Figure</span>
+                     <semx element="autonum" source="_">2</semx>
+                  </fmt-xref-label>
+                  <image id="_" src="spec/assets/odf.svg" mimetype="image/svg+xml" height="auto" width="auto" filename="spec/assets/odf.svg">
+                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
+                        <circle fill="#009" r="45" cx="50" cy="50"/>
+                        <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
+                     </svg>
+                  </image>
+               </figure>
+            </foreword>
+         </preface>
+      </iso-standard>
     INPUT
     html = <<~OUTPUT
       #{HTML_HDR}
@@ -1979,11 +2025,11 @@ RSpec.describe IsoDoc do
       .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
     expect(strip_guid(output
-      .gsub(/&lt;/, "&#x3c;")
+      .gsub("&lt;", "&#x3c;")
       .sub(%r{<metanorma-extension>.*</metanorma-extension}m, "")
       .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
       .to be_xml_equivalent_to presxml
-         .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")
+        .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")
     expect(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", output, true)))
       .to be_xml_equivalent_to strip_guid(html)
@@ -2059,11 +2105,11 @@ RSpec.describe IsoDoc do
       .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
     expect(strip_guid(output
-      .gsub(/&lt;/, "&#x3c;")
+      .gsub("&lt;", "&#x3c;")
       .sub(%r{<metanorma-extension>.*</metanorma-extension}m, "")
       .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
       .to be_xml_equivalent_to presxml
-         .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")
+        .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")
     expect(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", output, true)))
       .to be_xml_equivalent_to strip_guid(html)
@@ -2177,7 +2223,7 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)
     expect(strip_guid(output
       .sub(%r{<metanorma-extension>.*</metanorma-extension}m, "")
-      .gsub(/&lt;/, "&#x3c;"))
+      .gsub("&lt;", "&#x3c;"))
       .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
       .to be_xml_equivalent_to presxml
         .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")
