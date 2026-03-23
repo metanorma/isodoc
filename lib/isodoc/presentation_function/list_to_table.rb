@@ -31,6 +31,7 @@ module IsoDoc
     def list_table_build(elem, cellcount)
       xml = "<table>"
       xml += list_table_name(elem)
+      xml += list_table_colgroup(elem, cellcount)
       xml += list_table_header(elem, cellcount)
       xml += list_table_body(elem, cellcount)
       xml += "</table>"
@@ -42,6 +43,26 @@ module IsoDoc
       list_only_one_title(elem) or return ""
       ret = prefix_name(elem, {}, "", "name") or return ""
       to_xml(ret.remove) # will reposition from list/fmt-name to table/fmt-name
+    end
+
+    def list_table_colgroup(elem, cellcount)
+      n = elem["display-directives"] or return ""
+      attrs = csv_attribute_extract(n)
+      attrs[:colgroup] or return ""
+      vals = attrs[:colgroup].split(",").map(&:strip)
+      vals = list_table_normalise_colgroup(vals, cellcount)
+      ret = vals.map { |n| "<col width='#{n}'/>" }.join
+      "<colgroup>#{ret}</colgroup>"
+    end
+
+    def list_table_normalise_colgroup(vals, cellcount)
+      vals.size > cellcount and vals = vals[0..cellcount]
+      if vals.size < cellcount
+        (vals.size..cellcount).each do |_i|
+          vals << "10"
+        end
+      end
+      vals
     end
 
     # Build <thead><tr> with n <th> cells, one per depth level

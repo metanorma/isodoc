@@ -913,7 +913,7 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Canon.format_xml(output)
   end
 
-  it "converts lists to tables" do
+  it "converts simple lists to tables" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata/>
@@ -1295,14 +1295,16 @@ RSpec.describe IsoDoc do
     expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Canon.format_xml(html)
+  end 
 
+  it "converts complex lists to tables" do
     input = <<~INPUT
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <bibdata/>
               <sections>
                  <clause id='A' inline-header='false' obligation='normative'>
                    <title>Clause</title>
-      <ol id="A1" display="table">
+      <ol id="A1" display="table" display-directives="colgroup='25,50,25'">
       <name id="_3f6e6ed6-a66c-c79f-a9dd-3234f354a073">Targets for productive capacity (area A)</name>
       <li><p id="_29296f80-85f7-7c9f-5bb4-da7c16ff3c22">increased value addition in natural resource-based industries</p>
       <ul id="_0104e57a-0637-6f97-518e-be980c51f149">
@@ -1353,7 +1355,7 @@ RSpec.describe IsoDoc do
              <span class="fmt-element-name">Clause</span>
              <semx element="autonum" source="A">1</semx>
           </fmt-xref-label>
-          <ol id="A1" display="table" type="alphabet" autonum="">
+          <ol id="A1" display="table" type="alphabet" autonum="" display-directives="colgroup='25,50,25'">
              <name id="_">Targets for productive capacity (area A)</name>
              <fmt-name id="_">
                 <semx element="name" source="_">Targets for productive capacity (area A)</semx>
@@ -1443,6 +1445,11 @@ RSpec.describe IsoDoc do
              </li>
              <fmt-ol>
                 <table>
+             <colgroup>
+               <col width="25"/>
+               <col width="50"/>
+               <col width="25"/>
+            </colgroup>
                    <thead>
                       <tr>
                          <th>
