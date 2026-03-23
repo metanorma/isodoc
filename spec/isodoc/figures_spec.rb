@@ -486,13 +486,11 @@ RSpec.describe IsoDoc do
                       </figcaption>
                    </figure>
                    <figure id="figure-B" class="figure">
-                      <pre>A &lt;
-         B</pre>
+                      <pre>A &lt;  B</pre>
                       <figcaption>Figure 2</figcaptionp>
                    </figure>
                    <figure id="figure-C" class="figure">
-                      <pre>A &lt;
-         B</pre>
+                      <pre>A &lt;  B</pre>
                    </figure>
                 </div>
                 <div>

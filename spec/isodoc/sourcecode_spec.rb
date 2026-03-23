@@ -1010,7 +1010,8 @@ RSpec.describe IsoDoc do
                                   <pre>1</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span>  <span class="c"> &lt;2&gt;</span> </pre>
+                                  <pre class="sourcecode" spellcheck="false"
+                           translation="no">puts "Hello, world." <span class="c"> &lt;1&gt;</span>  <span class="c"> &lt;2&gt;</span> </pre>
                                </td>
                             </tr>
                             <tr>
@@ -1018,7 +1019,8 @@ RSpec.describe IsoDoc do
                                   <pre>2</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">\u00a0\u00a0 %w{a b c}.each do |x|</pre>
+                                  <pre class="sourcecode" spellcheck="false"
+                           translation="no">\u00a0\u00a0 %w{a b c}.each do |x|</pre>
                                </td>
                             </tr>
                             <tr>
@@ -1026,7 +1028,8 @@ RSpec.describe IsoDoc do
                                   <pre>3</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">\u00a0\u00a0\u00a0\u00a0 puts x <span class="c"> &lt;3&gt;</span> </pre>
+                                  <pre class="sourcecode" spellcheck="false"
+                           translation="no">\u00a0\u00a0\u00a0\u00a0 puts x <span class="c"> &lt;3&gt;</span> </pre>
                                </td>
                             </tr>
                             <tr>
@@ -1034,7 +1037,8 @@ RSpec.describe IsoDoc do
                                   <pre>4</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode">\u00a0\u00a0 end</pre>
+                                  <pre class="sourcecode" spellcheck="false"
+                           translation="no">\u00a0\u00a0 end</pre>
                                </td>
                             </tr>
                          </tbody>
