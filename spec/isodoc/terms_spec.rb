@@ -880,13 +880,13 @@ RSpec.describe IsoDoc do
              </fmt-xref-label>
              <preferred id="_">
                 <expression>
-                   <name>paddy</name>
+                   <name id="_">paddy</name>
                 </expression>
              </preferred>
              <fmt-preferred>
                 <p>
                    <semx element="preferred" source="_">
-                      <strong>paddy</strong>
+                      <strong><semx element="expression/name" source="_">paddy</semx></strong>
                    </semx>
                 </p>
              </fmt-preferred>
