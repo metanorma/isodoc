@@ -537,7 +537,7 @@ RSpec.describe IsoDoc do
           </p>
           <p style="text-align:justify;font-size:9pt;page-break-after: avoid;page-break-inside: avoid;">Justify</p>
               </div>
-              <p>\&nbsp;</p>
+              <p>&nbsp;</p>
             </div>
             <p class="section-break"><br clear="all" class="section"/></p>
             <div class="WordSection3">
@@ -622,7 +622,7 @@ RSpec.describe IsoDoc do
 
 
         <p id="_">This International Standard gives the minimum specifications for rice (<i>Oryza sativa</i> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
-      <div class="QuoteAttribution"><p>&#8212; ISO, ISO\&nbsp;7301:2011, Clause 1</p></div></div>
+      <div class="QuoteAttribution"><p>&#8212; ISO, ISO&nbsp;7301:2011, Clause 1</p></div></div>
               </div>
             </div>
           </body>
@@ -737,11 +737,11 @@ RSpec.describe IsoDoc do
       <head/>
       <body lang="en">
         <div class="title-section">
-          <p>\&nbsp;</p>
+          <p>&nbsp;</p>
         </div>
         <br/>
         <div class="prefatory-section">
-          <p>\&nbsp;</p>
+          <p>&nbsp;</p>
         </div>
         <br/>
         <div class="main-section">
@@ -1267,52 +1267,52 @@ RSpec.describe IsoDoc do
         #{HTML_HDR}
                      <p class='zzSTDTitle1'>Document title</p>
             <div id='clause1'>
-              <h1>1.\&nbsp; Clause 1</h1>
+              <h1>1.&nbsp; Clause 1</h1>
               <div id='clause1A'>
-                <h2>1.1.\&nbsp; Clause 1A</h2>
+                <h2>1.1.&nbsp; Clause 1A</h2>
                 <div id='clause1Aa'>
-                  <h3>1.1.1.\&nbsp; Clause 1Aa</h3>
+                  <h3>1.1.1.&nbsp; Clause 1Aa</h3>
                 </div>
                 <div id='clause1Ab'>
-                  <h3>1.1.2.\&nbsp; Clause 1Ab</h3>
+                  <h3>1.1.2.&nbsp; Clause 1Ab</h3>
                 </div>
               </div>
               <div id='clause1B'>
-                <h2>1.2.\&nbsp; Clause 1B</h2>
+                <h2>1.2.&nbsp; Clause 1B</h2>
                 <div id='clause1Ba'>
-                  <h3>1.2.1.\&nbsp; Clause 1Ba</h3>
+                  <h3>1.2.1.&nbsp; Clause 1Ba</h3>
                 </div>
               </div>
             </div>
             <div id='clause2'>
-              <h1>2.\&nbsp; Clause 2</h1>
+              <h1>2.&nbsp; Clause 2</h1>
               <p id='A'>And introducing: </p>
               <div class='toc'>
               <div class="ul_wrap">
                 <ul id='B'>
                   <li id="_">
-                    <a href='#clause1A'>1.1\&nbsp; Clause 1A</a>
+                    <a href='#clause1A'>1.1&nbsp; Clause 1A</a>
                   </li>
                   <li id="_">
                   <div class="ul_wrap">
                     <ul id='C'>
                       <li id="_">
-                        <a href='#clause1Aa'>1.1.1\&nbsp; Clause 1Aa</a>
+                        <a href='#clause1Aa'>1.1.1&nbsp; Clause 1Aa</a>
                       </li>
                       <li id="_">
-                        <a href='#clause1Ab'>1.1.2\&nbsp; Clause 1Ab</a>
+                        <a href='#clause1Ab'>1.1.2&nbsp; Clause 1Ab</a>
                       </li>
                     </ul>
                     </div>
                   </li>
                   <li id="_">
-                    <a href='#clause1B'>1.2\&nbsp; Clause 1B</a>
+                    <a href='#clause1B'>1.2&nbsp; Clause 1B</a>
                   </li>
                   <li id="_">
                   <div class="ul_wrap">
                     <ul id='D'>
                       <li id="_">
-                        <a href='#clause1Ba'>1.2.1\&nbsp; Clause 1Ba</a>
+                        <a href='#clause1Ba'>1.2.1&nbsp; Clause 1Ba</a>
                       </li>
                     </ul>
                     </div>
@@ -1324,10 +1324,10 @@ RSpec.describe IsoDoc do
                   <div class="ul_wrap">
                 <ul id='E'>
                   <li id="_">
-                    <a href='#clause1A'>1.1\&nbsp; Clause 1A</a>
+                    <a href='#clause1A'>1.1&nbsp; Clause 1A</a>
                   </li>
                   <li id="_">
-                    <a href='#clause1B'>1.2\&nbsp; Clause 1B</a>
+                    <a href='#clause1B'>1.2&nbsp; Clause 1B</a>
                   </li>
                 </ul>
                 </div>

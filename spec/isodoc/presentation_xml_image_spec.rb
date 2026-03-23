@@ -455,7 +455,7 @@ RSpec.describe IsoDoc do
                   <span class="fmt-element-name">Figure</span>
                   <semx element="autonum" source="B1">1</semx>
                </span>
-               <span class="fmt-caption-delim">\\u00a0— </span>
+               <span class="fmt-caption-delim">\u00a0— </span>
                <semx element="name" source="_">First</semx>
             </fmt-name>
             <fmt-xref-label>
@@ -490,7 +490,7 @@ RSpec.describe IsoDoc do
                      <span class="fmt-element-name">Figure</span>
                      <semx element="autonum" source="B2">2</semx>
                   </span>
-                  <span class="fmt-caption-delim">\\u00a0— </span>
+                  <span class="fmt-caption-delim">\u00a0— </span>
                   <semx element="name" source="_">Second</semx>
                </fmt-name>
                <fmt-xref-label>
@@ -533,7 +533,7 @@ RSpec.describe IsoDoc do
                   <span class="fmt-element-name">Figure</span>
                   <semx element="autonum" source="B3">3</semx>
                </span>
-               <span class="fmt-caption-delim">\\u00a0— </span>
+               <span class="fmt-caption-delim">\u00a0— </span>
                <semx element="name" source="_">Third</semx>
             </fmt-name>
             <fmt-xref-label>

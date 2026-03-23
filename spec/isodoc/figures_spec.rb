@@ -863,22 +863,22 @@ RSpec.describe IsoDoc do
                   <picture>
                      <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
                   </picture>
-                         <figcaption>Figure 1-1\\u00a0— Subfigure 1</figcaption>
+                         <figcaption>Figure 1-1\u00a0— Subfigure 1</figcaption>
                       </figure>
                       <figure id="note2" class="figure">
                   <picture>
                      <img src="rice_images/rice_image1.png" height="20" width="auto"/>
                   </picture>
-                         <figcaption>Figure 1-2\\u00a0— Subfigure 2</figcaption>
+                         <figcaption>Figure 1-2\u00a0— Subfigure 2</figcaption>
                       </figure>
-                      <figcaption>Figure 1\\u00a0— Overall title</figcaption>
+                      <figcaption>Figure 1\u00a0— Overall title</figcaption>
                    </figure>
                    <figure id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                       <figure id="note3" class="figure">
                   <picture>
                      <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
                   </picture>
-                         <figcaption>Figure -1\\u00a0— Subfigure 1</figcaption>
+                         <figcaption>Figure -1\u00a0— Subfigure 1</figcaption>
                       </figure>
                       <figcaption>Overall title</figcaption>
                    </figure>
@@ -889,7 +889,7 @@ RSpec.describe IsoDoc do
                   </picture>
                          <figcaption>Subfigure 1</figcaption>
                       </figure>
-                      <figcaption>Figure 2\\u00a0— Overall title</figcaption>
+                      <figcaption>Figure 2\u00a0— Overall title</figcaption>
                    </figure>
                 </figure>
              </div>
@@ -1193,7 +1193,7 @@ RSpec.describe IsoDoc do
                                                                <picture>
                                 <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
                              </picture>
-                                     <figcaption>Figure 1-1\\u00a0— Subfigure 1</figcaption>
+                                     <figcaption>Figure 1-1\u00a0— Subfigure 1</figcaption>
                                   </figure>
                                </td>
                                <td style="">
@@ -1201,7 +1201,7 @@ RSpec.describe IsoDoc do
                                                                 <picture>
                                  <img src="rice_images/rice_image1.png" height="20" width="auto"/>
                               </picture>
-                                     <figcaption>Figure 1-2\\u00a0— Subfigure 2</figcaption>
+                                     <figcaption>Figure 1-2\u00a0— Subfigure 2</figcaption>
                                   </figure>
                                </td>
                             </tr>
@@ -1218,7 +1218,7 @@ RSpec.describe IsoDoc do
                                                                 <picture>
                                  <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
                               </picture>
-                                     <figcaption>Figure -1\\u00a0— Subfigure 1</figcaption>
+                                     <figcaption>Figure -1\u00a0— Subfigure 1</figcaption>
                                   </figure>
                                </td>
                             </tr>
@@ -1613,7 +1613,7 @@ RSpec.describe IsoDoc do
                          <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
                       </picture>
                       <figcaption>
-                         Figure 1\\u00a0— Split-it-right
+                         Figure 1\u00a0— Split-it-right
                          <i>sample</i>
                          divider
                       </figcaption>
@@ -1633,13 +1633,13 @@ RSpec.describe IsoDoc do
                    <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                       <img src='_.xml' height="20" width="auto"/>
                       <p class="FigureTitle" style="text-align:center;">
-                         Figure 1\\u00a0— Split-it-right
+                         Figure 1\u00a0— Split-it-right
                          <i>sample</i>
                          divider
                       </p>
                    </div>
                 </div>
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
@@ -1676,13 +1676,13 @@ RSpec.describe IsoDoc do
                   <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                      <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
                      <p class="FigureTitle" style="text-align:center;">
-                        Figure 1\\u00a0— Split-it-right
+                        Figure 1\u00a0— Split-it-right
                         <i>sample</i>
                         divider
                      </p>
                   </div>
                </div>
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
             </div>
             <p class="section-break">
                <br clear="all" class="section"/>
