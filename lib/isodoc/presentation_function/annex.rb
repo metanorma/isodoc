@@ -30,8 +30,12 @@ module IsoDoc
         v["type"] = "_toc_temp"
       end
       orig_title = to_xml(t.children)
-      t.children = "<strong>#{orig_title}</strong>"
+      t.children = annex1_title_fmt_inline(t)
       orig_title
+    end
+
+    def annex1_title_fmt_inline(title)
+      "<strong>#{to_xml(title.children)}</strong>"
     end
 
     def annex1_title_prefix(elem, lbl, tag)
@@ -48,7 +52,7 @@ module IsoDoc
       delim = annex_delim_override(elem)
       if tag == "variant-title" # strip obligation, boldface
         lbl &&= lbl.gsub("<strong>", "").gsub("</strong>", "")
-          .sub(%r{(<br/>)*<span class=.fmt-obligation.>.+</span>}, "")
+          .sub(%r{(<br/>)*<span class=.fmt-obligation.>.+?</span>}, "")
         delim = "<tab/>"
       end
       [delim, lbl]
