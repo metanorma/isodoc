@@ -147,41 +147,41 @@ RSpec.describe IsoDoc do
        </html>
     OUTPUT
     word = <<~OUTPUT
-       <div id="fwd">
-          <h1 class="ForewordTitle">Foreword</h1>
-          <div class="ul_wrap">
-             <p class="ListTitle">Caption</p>
-             <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                <li id="_">
-                   <p id="_">Level 1</p>
-                </li>
-                <li id="_">
-                   <p id="_">deletion of 4.3.</p>
-                   <div class="ul_wrap">
-                      <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                         <li id="_">
-                            <p id="_">Level 2</p>
-                            <div class="ul_wrap">
-                               <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                                  <li id="_">
-                                     <p id="_">Level 3</p>
-                                     <div class="ul_wrap">
-                                        <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                                           <li id="_">
-                                              <p id="_">Level 4</p>
-                                           </li>
-                                        </ul>
-                                     </div>
-                                  </li>
-                               </ul>
-                            </div>
-                         </li>
-                      </ul>
-                   </div>
-                </li>
-             </ul>
-          </div>
-       </div>
+      <div id="fwd">
+         <h1 class="ForewordTitle">Foreword</h1>
+         <div class="ul_wrap">
+            <p class="ListTitle">Caption</p>
+            <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
+               <li id="_">
+                  <p id="_">Level 1</p>
+               </li>
+               <li id="_">
+                  <p id="_">deletion of 4.3.</p>
+                  <div class="ul_wrap">
+                     <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
+                        <li id="_">
+                           <p id="_">Level 2</p>
+                           <div class="ul_wrap">
+                              <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
+                                 <li id="_">
+                                    <p id="_">Level 3</p>
+                                    <div class="ul_wrap">
+                                       <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
+                                          <li id="_">
+                                             <p id="_">Level 4</p>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+            </ul>
+         </div>
+      </div>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
@@ -318,75 +318,75 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~INPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface>
-             <clause type="toc" id="_" displayorder="1">
-                <fmt-title id="_" depth="1">Table of contents</fmt-title>
-             </clause>
-             <foreword id="_" displayorder="2">
-                <title id="_">Foreword</title>
-                <fmt-title id="_" depth="1">
-                   <semx element="title" source="_">Foreword</semx>
-                </fmt-title>
-                <ol id="_" type="alphabet" keep-with-next="true" keep-lines-together="true" autonum="1">
-                   <name id="_">Caption</name>
-                   <fmt-name id="_">
-                      <semx element="name" source="_">Caption</semx>
-                   </fmt-name>
-                   <li id="_">
-                      <fmt-name id="_">
-                         <semx element="autonum" source="_">a</semx>
-                         <span class="fmt-label-delim">)</span>
-                      </fmt-name>
-                      <p id="_">Level 1</p>
-                   </li>
-                </ol>
-                <ol id="A" type="alphabet">
-                   <li id="_">
-                      <fmt-name id="_">
-                         <semx element="autonum" source="_">a</semx>
-                         <span class="fmt-label-delim">)</span>
-                      </fmt-name>
-                      <p id="_">Level 1</p>
-                   </li>
-                   <li id="_">
-                      <fmt-name id="_">
-                         <semx element="autonum" source="_">b</semx>
-                         <span class="fmt-label-delim">)</span>
-                      </fmt-name>
-                      <p id="_">Level 1</p>
-                      <ol type="arabic">
-                         <li id="_">
-                            <fmt-name id="_">
-                               <semx element="autonum" source="_">1</semx>
-                               <span class="fmt-label-delim">)</span>
-                            </fmt-name>
-                            <p id="_">Level 2</p>
-                            <ol type="roman" start="3">
-                               <li id="_">
-                                  <fmt-name id="_">
-                                     <semx element="autonum" source="_">iii</semx>
-                                     <span class="fmt-label-delim">)</span>
-                                  </fmt-name>
-                                  <p id="_">Level 3</p>
-                                  <ol type="alphabet_upper">
-                                     <li id="_">
-                                        <fmt-name id="_">
-                                           <semx element="autonum" source="_">A</semx>
-                                           <span class="fmt-label-delim">.</span>
-                                        </fmt-name>
-                                        <p id="_">Level 4</p>
-                                     </li>
-                                  </ol>
-                               </li>
-                            </ol>
-                         </li>
-                      </ol>
-                   </li>
-                </ol>
-             </foreword>
-          </preface>
-       </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+            <clause type="toc" id="_" displayorder="1">
+               <fmt-title id="_" depth="1">Table of contents</fmt-title>
+            </clause>
+            <foreword id="_" displayorder="2">
+               <title id="_">Foreword</title>
+               <fmt-title id="_" depth="1">
+                  <semx element="title" source="_">Foreword</semx>
+               </fmt-title>
+               <ol id="_" type="alphabet" keep-with-next="true" keep-lines-together="true" autonum="1">
+                  <name id="_">Caption</name>
+                  <fmt-name id="_">
+                     <semx element="name" source="_">Caption</semx>
+                  </fmt-name>
+                  <li id="_">
+                     <fmt-name id="_">
+                        <semx element="autonum" source="_">a</semx>
+                        <span class="fmt-label-delim">)</span>
+                     </fmt-name>
+                     <p id="_">Level 1</p>
+                  </li>
+               </ol>
+               <ol id="A" type="alphabet">
+                  <li id="_">
+                     <fmt-name id="_">
+                        <semx element="autonum" source="_">a</semx>
+                        <span class="fmt-label-delim">)</span>
+                     </fmt-name>
+                     <p id="_">Level 1</p>
+                  </li>
+                  <li id="_">
+                     <fmt-name id="_">
+                        <semx element="autonum" source="_">b</semx>
+                        <span class="fmt-label-delim">)</span>
+                     </fmt-name>
+                     <p id="_">Level 1</p>
+                     <ol type="arabic">
+                        <li id="_">
+                           <fmt-name id="_">
+                              <semx element="autonum" source="_">1</semx>
+                              <span class="fmt-label-delim">)</span>
+                           </fmt-name>
+                           <p id="_">Level 2</p>
+                           <ol type="roman" start="3">
+                              <li id="_">
+                                 <fmt-name id="_">
+                                    <semx element="autonum" source="_">iii</semx>
+                                    <span class="fmt-label-delim">)</span>
+                                 </fmt-name>
+                                 <p id="_">Level 3</p>
+                                 <ol type="alphabet_upper">
+                                    <li id="_">
+                                       <fmt-name id="_">
+                                          <semx element="autonum" source="_">A</semx>
+                                          <span class="fmt-label-delim">.</span>
+                                       </fmt-name>
+                                       <p id="_">Level 4</p>
+                                    </li>
+                                 </ol>
+                              </li>
+                           </ol>
+                        </li>
+                     </ol>
+                  </li>
+               </ol>
+            </foreword>
+         </preface>
+      </iso-standard>
     INPUT
 
     html = <<~OUTPUT
@@ -507,7 +507,7 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Canon.format_xml(word)
   end
 
-   it "processes mixed ordered and unordered lists" do
+  it "processes mixed ordered and unordered lists" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
@@ -598,7 +598,7 @@ RSpec.describe IsoDoc do
     expect(strip_guid(Canon.format_xml(pres_output
       .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, ""))))
       .to be_equivalent_to Canon.format_xml(presxml)
-   end
+  end
 
   it "processes Roman Upper ordered lists" do
     input = <<~INPUT
@@ -670,51 +670,51 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~INPUT
-        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-           <preface>
-              <clause type="toc" id="_" displayorder="1">
-                 <fmt-title id="_" depth="1">Table of contents</fmt-title>
-              </clause>
-              <foreword id="_" displayorder="2">
-                 <title id="_">Foreword</title>
-                 <fmt-title id="_" depth="1">
-                    <semx element="title" source="_">Foreword</semx>
-                 </fmt-title>
-                 <dl id="_" keep-with-next="true" keep-lines-together="true" autonum="">
-                    <name id="_">Caption</name>
-                    <fmt-name id="_">
-                       <semx element="name" source="_">Caption</semx>
-                    </fmt-name>
-                    <dt>
-            W
-          </dt>
-                    <dd>
-                       <p id="_">mass fraction of gelatinized kernels, expressed in per cent</p>
-                    </dd>
-                    <dt>
-               <stem type="AsciiMath" id="_">w</stem>
-               <fmt-stem type="AsciiMath">
-                  <semx element="stem" source="_">w</semx>
-               </fmt-stem>
-                    </dt>
-                    <dd>
-                       <p>??</p>
-                    </dd>
-                    <note>
-                       <fmt-name id="_">
-                          <span class="fmt-caption-label">
-                             <span class="fmt-element-name">NOTE</span>
-                          </span>
-                          <span class="fmt-label-delim">
-                             <tab/>
-                          </span>
-                       </fmt-name>
-                       <p>This is a note</p>
-                    </note>
-                 </dl>
-              </foreword>
-           </preface>
-        </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+            <clause type="toc" id="_" displayorder="1">
+               <fmt-title id="_" depth="1">Table of contents</fmt-title>
+            </clause>
+            <foreword id="_" displayorder="2">
+               <title id="_">Foreword</title>
+               <fmt-title id="_" depth="1">
+                  <semx element="title" source="_">Foreword</semx>
+               </fmt-title>
+               <dl id="_" keep-with-next="true" keep-lines-together="true" autonum="">
+                  <name id="_">Caption</name>
+                  <fmt-name id="_">
+                     <semx element="name" source="_">Caption</semx>
+                  </fmt-name>
+                  <dt>
+          W
+        </dt>
+                  <dd>
+                     <p id="_">mass fraction of gelatinized kernels, expressed in per cent</p>
+                  </dd>
+                  <dt>
+             <stem type="AsciiMath" id="_">w</stem>
+             <fmt-stem type="AsciiMath">
+                <semx element="stem" source="_">w</semx>
+             </fmt-stem>
+                  </dt>
+                  <dd>
+                     <p>??</p>
+                  </dd>
+                  <note>
+                     <fmt-name id="_">
+                        <span class="fmt-caption-label">
+                           <span class="fmt-element-name">NOTE</span>
+                        </span>
+                        <span class="fmt-label-delim">
+                           <tab/>
+                        </span>
+                     </fmt-name>
+                     <p>This is a note</p>
+                  </note>
+               </dl>
+            </foreword>
+         </preface>
+      </iso-standard>
     INPUT
     html = <<~OUTPUT
          #{HTML_HDR}
@@ -952,7 +952,7 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <clause id="A" inline-header="false" obligation="normative" displayorder="2">
+       <clause id="A" inline-header="false" obligation="normative" displayorder="2">
           <title id="_">Clause</title>
           <fmt-title depth="1" id="_">
              <span class="fmt-caption-label">
@@ -968,11 +968,8 @@ RSpec.describe IsoDoc do
              <span class="fmt-element-name">Clause</span>
              <semx element="autonum" source="A">1</semx>
           </fmt-xref-label>
-             <ol id="B1" display="table" type="alphabet" autonum="">
-      <name id="_">List Title</name>
-      <fmt-name id="_">
-         <semx element="name" source="_">List Title</semx>
-      </fmt-name>
+          <ol id="B1" display="table" type="alphabet" autonum="">
+             <name id="_">List Title</name>
              <li id="_">
                 <fmt-name id="_">
                    <semx element="autonum" source="_">a</semx>
@@ -1062,229 +1059,229 @@ RSpec.describe IsoDoc do
                 </ol>
              </li>
              <fmt-ol>
-          <table>
-             <fmt-name id="_">
-               <semx element="name" source="_">List Title</semx>
-            </fmt-name>
-             <tbody>
-                <tr>
-                   <td>
-                      <ol start="1" type="alphabet">
-                         <li>
-                            <fmt-name id="_">
-                               <semx element="autonum" source=""/>
-                               <span class="fmt-label-delim">)</span>
-                            </fmt-name>
-                            A1
-                         </li>
-                      </ol>
-                   </td>
-                   <td colspan="3">
-                      <ul>
-                         <li id="_">
-                            <fmt-name id="_">
-                               <semx element="autonum" source="_">—</semx>
-                            </fmt-name>
-                            B1
-                         </li>
-                         <li id="_">
-                            <fmt-name id="_">
-                               <semx element="autonum" source="_">—</semx>
-                            </fmt-name>
-                            B2
-                         </li>
-                         <li id="_">
-                            <fmt-name id="_">
-                               <semx element="autonum" source="_">—</semx>
-                            </fmt-name>
-                            B3
-                         </li>
-                      </ul>
-                   </td>
-                </tr>
-                <tr>
-                   <td rowspan="3">
-                      <ol start="2" type="alphabet">
-                         <li>
-                            <fmt-name id="_">
-                               <semx element="autonum" source=""/>
-                               <span class="fmt-label-delim">)</span>
-                            </fmt-name>
-                            A2
-                         </li>
-                      </ol>
-                   </td>
-                   <td rowspan="2">
-                      <ol start="1" type="arabic">
-                         <li>
-                            <fmt-name id="_">
-                               <semx element="autonum" source=""/>
-                               <span class="fmt-label-delim">)</span>
-                            </fmt-name>
-                            B4
-                         </li>
-                      </ol>
-                   </td>
-                   <td>
-                      <ol start="1" type="roman">
-                         <li>
-                            <fmt-name id="_">
-                               <semx element="autonum" source=""/>
-                               <span class="fmt-label-delim">)</span>
-                            </fmt-name>
-                         </li>
-                      </ol>
-                   </td>
-                   <td>
-                      <ol type="alphabet_upper">
-                         <li id="_">
-                            <fmt-name id="_">
-                               <semx element="autonum" source="_">A</semx>
-                               <span class="fmt-label-delim">.</span>
-                            </fmt-name>
-                            C1
-                         </li>
-                         <li id="_">
-                            <fmt-name id="_">
-                               <semx element="autonum" source="_">B</semx>
-                               <span class="fmt-label-delim">.</span>
-                            </fmt-name>
-                            C2
-                         </li>
-                         <li id="_">
-                            <fmt-name id="_">
-                               <semx element="autonum" source="_">C</semx>
-                               <span class="fmt-label-delim">.</span>
-                            </fmt-name>
-                            C3
-                         </li>
-                      </ol>
-                   </td>
-                </tr>
-                <tr>
-                   <td>
-                      <ol start="2" type="roman">
-                         <li>
-                            <fmt-name id="_">
-                               <semx element="autonum" source=""/>
-                               <span class="fmt-label-delim">)</span>
-                            </fmt-name>
-                            B5
-                         </li>
-                      </ol>
-                   </td>
-                </tr>
-                <tr>
-                   <td>
-                      <ol start="2" type="arabic">
-                         <li>
-                            <fmt-name id="_">
-                               <semx element="autonum" source=""/>
-                               <span class="fmt-label-delim">)</span>
-                            </fmt-name>
-                            B6
-                         </li>
-                      </ol>
-                   </td>
-                </tr>
-             </tbody>
-          </table>
-          </fmt-ol>
+                <table>
+                   <fmt-name id="_">
+                      <semx element="name" source="_">List Title</semx>
+                   </fmt-name>
+                   <tbody>
+                      <tr>
+                         <td>
+                            <ol start="1" type="alphabet">
+                               <li>
+                                  <fmt-name id="_">
+                                     <semx element="autonum" source="_">a</semx>
+                                     <span class="fmt-label-delim">)</span>
+                                  </fmt-name>
+                                  A1
+                               </li>
+                            </ol>
+                         </td>
+                         <td colspan="3">
+                            <ul>
+                               <li id="_">
+                                  <fmt-name id="_">
+                                     <semx element="autonum" source="_">—</semx>
+                                  </fmt-name>
+                                  B1
+                               </li>
+                               <li id="_">
+                                  <fmt-name id="_">
+                                     <semx element="autonum" source="_">—</semx>
+                                  </fmt-name>
+                                  B2
+                               </li>
+                               <li id="_">
+                                  <fmt-name id="_">
+                                     <semx element="autonum" source="_">—</semx>
+                                  </fmt-name>
+                                  B3
+                               </li>
+                            </ul>
+                         </td>
+                      </tr>
+                      <tr>
+                         <td rowspan="5">
+                            <ol start="2" type="alphabet">
+                               <li>
+                                  <fmt-name id="_">
+                                     <semx element="autonum" source="_">b</semx>
+                                     <span class="fmt-label-delim">)</span>
+                                  </fmt-name>
+                                  A2
+                               </li>
+                            </ol>
+                         </td>
+                         <td rowspan="3">
+                            <ol start="1" type="arabic">
+                               <li>
+                                  <fmt-name id="_">
+                                     <semx element="autonum" source="_">1</semx>
+                                     <span class="fmt-label-delim">)</span>
+                                  </fmt-name>
+                                  B4
+                               </li>
+                            </ol>
+                         </td>
+                         <td>
+                            <ol start="1" type="roman">
+                               <li>
+                                  <fmt-name id="_">
+                                     <semx element="autonum" source="_">i</semx>
+                                     <span class="fmt-label-delim">)</span>
+                                  </fmt-name>
+                               </li>
+                            </ol>
+                         </td>
+                         <td>
+                            <ol type="alphabet_upper">
+                               <li id="_">
+                                  <fmt-name id="_">
+                                     <semx element="autonum" source="_">A</semx>
+                                     <span class="fmt-label-delim">.</span>
+                                  </fmt-name>
+                                  C1
+                               </li>
+                               <li id="_">
+                                  <fmt-name id="_">
+                                     <semx element="autonum" source="_">B</semx>
+                                     <span class="fmt-label-delim">.</span>
+                                  </fmt-name>
+                                  C2
+                               </li>
+                               <li id="_">
+                                  <fmt-name id="_">
+                                     <semx element="autonum" source="_">C</semx>
+                                     <span class="fmt-label-delim">.</span>
+                                  </fmt-name>
+                                  C3
+                               </li>
+                            </ol>
+                         </td>
+                      </tr>
+                      <tr>
+                         <td colspan="2">
+                            <ol start="2" type="roman">
+                               <li>
+                                  <fmt-name id="_">
+                                     <semx element="autonum" source="_">ii</semx>
+                                     <span class="fmt-label-delim">)</span>
+                                  </fmt-name>
+                                  B5
+                               </li>
+                            </ol>
+                         </td>
+                      </tr>
+                      <tr>
+                         <td colspan="3">
+                            <ol start="2" type="arabic">
+                               <li>
+                                  <fmt-name id="_">
+                                     <semx element="autonum" source="_">2</semx>
+                                     <span class="fmt-label-delim">)</span>
+                                  </fmt-name>
+                                  B6
+                               </li>
+                            </ol>
+                         </td>
+                      </tr>
+                   </tbody>
+                </table>
+             </fmt-ol>
           </ol>
        </clause>
     OUTPUT
     html = <<~OUTPUT
        #{HTML_HDR}
-               <div id="A">
-                  <h1>1.\\u00a0 Clause</h1>
-                  <div class="ol_wrap" id="B1">
-                     <table class="MsoISOTable" style="border-width:1px;border-spacing:0;">
-                        <caption>List Title</caption>
-                        <tbody>
-                           <tr>
-                              <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">
-                                 <div class="ol_wrap">
-                                    <ol type="a" start="1">
-                                       <li>A1
-
-             </li>
-                                    </ol>
-                                 </div>
-                              </td>
-                              <td colspan="3" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">
-                                 <div class="ul_wrap">
-                                    <ul>
-                                       <li id="_">B1</li>
-                                       <li id="_">B2</li>
-                                       <li id="_">B3</li>
-                                    </ul>
-                                 </div>
-                              </td>
-                           </tr>
-                           <tr>
-                              <td rowspan="3" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
-                                 <div class="ol_wrap">
-                                    <ol type="a" start="2">
-                                       <li>A2
-
-             </li>
-                                    </ol>
-                                 </div>
-                              </td>
-                              <td rowspan="2" style="border-top:none;border-bottom:solid windowtext 1.0pt;">
-                                 <div class="ol_wrap">
-                                    <ol type="1" start="1">
-                                       <li>B4
-
-             </li>
-                                    </ol>
-                                 </div>
-                              </td>
-                              <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
-                                 <div class="ol_wrap">
-                                    <ol type="i" start="1">
-                                       <li>
-
-             </li>
-                                    </ol>
-                                 </div>
-                              </td>
-                              <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
-                                 <div class="ol_wrap">
-                                    <ol type="A">
-                                       <li id="_">C1</li>
-                                       <li id="_">C2</li>
-                                       <li id="_">C3</li>
-                                    </ol>
-                                 </div>
-                              </td>
-                           </tr>
-                           <tr>
-                              <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
-                                 <div class="ol_wrap">
-                                    <ol type="i" start="2">
-                                       <li>B5</li>
-                                    </ol>
-                                 </div>
-                              </td>
-                           </tr>
-                           <tr>
-                              <td style="border-top:none;border-bottom:solid windowtext 1.5pt;">
-                                 <div class="ol_wrap">
-                                    <ol type="1" start="2">
-                                       <li>B6
-             </li>
-                                    </ol>
-                                 </div>
-                              </td>
-                           </tr>
-                        </tbody>
-                     </table>
-                  </div>
-               </div>
-            </div>
-         </body>
-      </html>
+                <div id="A">
+                   <h1>1.\\u00a0 Clause</h1>
+                   <div class="ol_wrap" id="B1">
+                      <table class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+                         <caption>List Title</caption>
+                         <tbody>
+                            <tr>
+                               <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">
+                                  <div class="ol_wrap">
+                                     <ol type="a" start="1">
+                                        <li>A1
+     
+              </li>
+                                     </ol>
+                                  </div>
+                               </td>
+                               <td colspan="3" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">
+                                  <div class="ul_wrap">
+                                     <ul>
+                                        <li id="_">B1</li>
+                                        <li id="_">B2</li>
+                                        <li id="_">B3</li>
+                                     </ul>
+                                  </div>
+                               </td>
+                            </tr>
+                            <tr>
+                               <td rowspan="5" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
+                                  <div class="ol_wrap">
+                                     <ol type="a" start="2">
+                                        <li>A2
+     
+              </li>
+                                     </ol>
+                                  </div>
+                               </td>
+                               <td rowspan="3" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
+                                  <div class="ol_wrap">
+                                     <ol type="1" start="1">
+                                        <li>B4
+     
+              </li>
+                                     </ol>
+                                  </div>
+                               </td>
+                               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                                  <div class="ol_wrap">
+                                     <ol type="i" start="1">
+                                        <li>
+     
+              </li>
+                                     </ol>
+                                  </div>
+                               </td>
+                               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                                  <div class="ol_wrap">
+                                     <ol type="A">
+                                        <li id="_">C1</li>
+                                        <li id="_">C2</li>
+                                        <li id="_">C3</li>
+                                     </ol>
+                                  </div>
+                               </td>
+                            </tr>
+                            <tr>
+                               <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                                  <div class="ol_wrap">
+                                     <ol type="i" start="2">
+                                        <li>B5</li>
+                                     </ol>
+                                  </div>
+                               </td>
+                            </tr>
+                            <tr>
+                               <td colspan="3" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
+                                  <div class="ol_wrap">
+                                     <ol type="1" start="2">
+                                        <li>B6
+              </li>
+                                     </ol>
+                                  </div>
+                               </td>
+                            </tr>
+                         </tbody>
+                      </table>
+                   </div>
+                </div>
+             </div>
+          </body>
+       </html>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -1295,7 +1292,7 @@ RSpec.describe IsoDoc do
     expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Canon.format_xml(html)
-  end 
+  end
 
   it "converts complex lists to tables" do
     input = <<~INPUT
@@ -1355,7 +1352,7 @@ RSpec.describe IsoDoc do
              <span class="fmt-element-name">Clause</span>
              <semx element="autonum" source="A">1</semx>
           </fmt-xref-label>
-          <ol id="A1" display="table" type="alphabet" autonum="" display-directives="colgroup='25,30,25'">
+          <ol id="A1" display="table" display-directives="colgroup='25,30,25'" type="alphabet" autonum="">
              <name id="_">Targets for productive capacity (area A)</name>
              <fmt-name id="_">
                 <semx element="name" source="_">Targets for productive capacity (area A)</semx>
@@ -1445,11 +1442,11 @@ RSpec.describe IsoDoc do
              </li>
              <fmt-ol>
                 <table>
-             <colgroup>
-               <col width="31.25"/>
-               <col width="37.5"/>
-               <col width="31.25"/>
-            </colgroup>
+                   <colgroup>
+                      <col width="31.25"/>
+                      <col width="37.5"/>
+                      <col width="31.25"/>
+                   </colgroup>
                    <thead>
                       <tr>
                          <th>
@@ -1471,7 +1468,7 @@ RSpec.describe IsoDoc do
                             <ol start="1" type="alphabet">
                                <li>
                                   <fmt-name id="_">
-                                     <semx element="autonum" source=""/>
+                                     <semx element="autonum" source="_">a</semx>
                                      <span class="fmt-label-delim">)</span>
                                   </fmt-name>
                                   <p id="_">increased value addition in natural resource-based industries</p>
@@ -1480,6 +1477,9 @@ RSpec.describe IsoDoc do
                          </td>
                          <td colspan="2">
                             <ul id="_">
+                               <fmt-name id="_">
+                                  <semx element="name" source="_">Indicator</semx>
+                               </fmt-name>
                                <li id="_">
                                   <fmt-name id="_">
                                      <semx element="autonum" source="_">—</semx>
@@ -1508,22 +1508,22 @@ RSpec.describe IsoDoc do
                          </td>
                       </tr>
                       <tr>
-                         <td rowspan="2">
+                         <td rowspan="3">
                             <ol start="2" type="alphabet">
                                <li>
                                   <fmt-name id="_">
-                                     <semx element="autonum" source=""/>
+                                     <semx element="autonum" source="_">b</semx>
                                      <span class="fmt-label-delim">)</span>
                                   </fmt-name>
                                   <p id="_">another list</p>
                                </li>
                             </ol>
                          </td>
-                         <td>
+                         <td colspan="2">
                             <ol start="1" type="arabic">
                                <li>
                                   <fmt-name id="_">
-                                     <semx element="autonum" source=""/>
+                                     <semx element="autonum" source="_">1</semx>
                                      <span class="fmt-label-delim">)</span>
                                   </fmt-name>
                                   <p id="_">another sublist entry 1</p>
@@ -1536,7 +1536,7 @@ RSpec.describe IsoDoc do
                             <ol start="2" type="arabic">
                                <li>
                                   <fmt-name id="_">
-                                     <semx element="autonum" source=""/>
+                                     <semx element="autonum" source="_">2</semx>
                                      <span class="fmt-label-delim">)</span>
                                   </fmt-name>
                                   <p id="_">another sublist entry 2</p>
@@ -1581,29 +1581,29 @@ RSpec.describe IsoDoc do
           .at("//xmlns:clause[@id = 'A']").to_xml)))
       .to be_equivalent_to Canon.format_xml(presxml)
 
-  # undercount, overcount colgroup
-  expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
-          .new(presxml_options)
-    .convert("test", input.sub("25,30,25", "25,30,25,25"), true))
-          .at("//xmlns:colgroup").to_xml)))
+    # undercount, overcount colgroup
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+            .new(presxml_options)
+      .convert("test", input.sub("25,30,25", "25,30,25,25"), true))
+            .at("//xmlns:colgroup").to_xml)))
       .to be_equivalent_to <<~XML
-               <colgroup>
-               <col width="31.25"/>
-               <col width="37.5"/>
-               <col width="31.25"/>
-            </colgroup>
-  XML
+           <colgroup>
+           <col width="31.25"/>
+           <col width="37.5"/>
+           <col width="31.25"/>
+        </colgroup>
+      XML
 
     expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
           .new(presxml_options)
     .convert("test", input.sub("25,30,25", "80"), true))
           .at("//xmlns:colgroup").to_xml)))
       .to be_equivalent_to <<~XML
-               <colgroup>
-               <col width="80"/>
-               <col width="10"/>
-               <col width="10"/>
-            </colgroup>
-  XML
+           <colgroup>
+           <col width="80.0"/>
+           <col width="10.0"/>
+           <col width="10.0"/>
+        </colgroup>
+      XML
   end
 end

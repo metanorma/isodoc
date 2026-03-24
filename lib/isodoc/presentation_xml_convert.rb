@@ -108,9 +108,9 @@ module IsoDoc
       note docxml
       admonition docxml
       source docxml
+      ul docxml # feeds list_to_table
+      ol docxml # feeds list_to_table
       list_to_table docxml
-      ul docxml
-      ol docxml
       dl docxml
       quote docxml
       permission docxml
