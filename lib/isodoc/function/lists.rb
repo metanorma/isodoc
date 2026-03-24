@@ -14,11 +14,19 @@ module IsoDoc
 
       def ul_parse(node, out)
         out.div(**attr_code(class: "ul_wrap")) do |div|
+          n = node.at(ns("./fmt-ul")) and return fmt_ul_parse(node, n, out)
           list_title_parse(node, div)
           div.ul(**attr_code(ul_attrs(node))) do |ul|
             node.children.each { |n| n.name == "fmt-name" or parse(n, ul) }
           end
         end
+      end
+
+      def fmt_ul_parse(elem, fmt_ul, out)
+        children_parse(fmt_ul, out)
+        output_elem = out.parent.elements.last
+        output_elem.parent["id"] = elem["id"]
+        s = keep_style(elem) and output_elem.parent["style"] = s
       end
 
       OL_STYLE = {
@@ -38,11 +46,13 @@ module IsoDoc
         { # type: node["type"] ? ol_style(node["type"].to_sym) : ol_depth(node),
           type: ol_style(node["type"]&.to_sym),
           start: node["start"],
-          id: node["id"], style: keep_style(node) }
+          id: node["id"], style: keep_style(node)
+        }
       end
 
       def ol_parse(node, out)
         out.div(**attr_code(class: "ol_wrap")) do |div|
+          n = node.at(ns("./fmt-ol")) and return fmt_ul_parse(node, n, out)
           list_title_parse(node, div)
           div.ol(**attr_code(ol_attrs(node))) do |ol|
             node.children.each { |n| n.name == "fmt-name" or parse(n, ol) }
@@ -53,10 +63,10 @@ module IsoDoc
       def li_checkbox(node)
         if node["uncheckedcheckbox"] == "true"
           '<span class="zzMoveToFollowing">' \
-                '<input type="checkbox" checked="checked"/></span>'
+            '<input type="checkbox" checked="checked"/></span>'
         elsif node["checkedcheckbox"] == "true"
           '<span class="zzMoveToFollowing">' \
-                '<input type="checkbox"/></span>'
+            '<input type="checkbox"/></span>'
         else ""
         end
       end

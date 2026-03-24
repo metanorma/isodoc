@@ -194,7 +194,7 @@ module IsoDoc
     end
 
     def capitalise_xref(node, linkend, label)
-      linktext = linkend.gsub(/<[^<>]+>/, "")
+      linktext = linkend.gsub(/<[^<>]*>/, "")
       (label && !label.empty? && /^#{Regexp.escape(label)}/.match?(linktext)) ||
         linktext[0, 1].match?(/\p{Upper}/) and return linkend
       node["case"] and

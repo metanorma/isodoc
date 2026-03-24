@@ -8,8 +8,8 @@ module IsoDoc
       def passthrough_cleanup(docxml)
         docxml.split(%r{(<passthrough>|</passthrough>)}).each_slice(4)
           .map do |a|
-            a.size > 2 and a[2] = HTMLEntities.new.decode(a[2])
-            [a[0], a[2]]
+          a.size > 2 and a[2] = HTMLEntities.new.decode(a[2])
+          [a[0], a[2]]
         end.join
       end
 
@@ -84,8 +84,11 @@ module IsoDoc
       end
 
       def remove_bottom_border(cell)
+        # [^;]* (not +): the preceding property name is the unambiguous
+        # delimiter, so zero-or-more is equivalent and avoids polynomial
+        # backtracking on the value portion.
         cell["style"] =
-          cell["style"].gsub(/border-bottom:[^;]+;/, "border-bottom:0pt;")
+          cell["style"].gsub(/border-bottom:[^;]*;/, "border-bottom:0pt;")
       end
 
       def table_get_or_make_tfoot(table)
@@ -112,7 +115,7 @@ module IsoDoc
       end
 
       TABLENOTE_CSS = "div[@class = 'Note' or @class = 'BlockSource' " \
-        "or @class = 'TableFootnote' or @class = 'figdl' or @class = 'key']"
+                      "or @class = 'TableFootnote' or @class = 'figdl' or @class = 'key']"
         .freeze
 
       def table_note_cleanup(docxml)
@@ -121,7 +124,7 @@ module IsoDoc
           insert_here = new_fullcolspan_row(t, tfoot)
           t.xpath("dl | p[@class = 'ListTitle'] | #{TABLENOTE_CSS}")
             .each do |d|
-              d.parent = insert_here
+            d.parent = insert_here
           end
         end
       end

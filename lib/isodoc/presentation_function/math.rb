@@ -50,32 +50,6 @@ module IsoDoc
                                   precision: num_precision(num.text))
     end
 
-    COMMA_PLACEHOLDER = "##COMMA##".freeze
-
-    # Temporarily replace commas inside quotes with a placeholder
-    def comma_placeholder(options)
-      processed = ""
-      in_quotes = false
-      options.each_char do |c|
-        c == "'" and in_quotes = !in_quotes
-        processed << if c == "," && in_quotes
-                       COMMA_PLACEHOLDER
-                     else c end
-      end
-      processed
-    end
-
-    def numberformat_extract(options)
-      options.gsub!(/([a-z_]+)='/, %('\\1=))
-      processed = comma_placeholder(options)
-      CSV.parse_line(processed,
-                     quote_char: "'").each_with_object({}) do |x, acc|
-        x.gsub!(COMMA_PLACEHOLDER, ",")
-        m = /^(.+?)=(.+)?$/.match(x) or next
-        acc[m[1].to_sym] = m[2].sub(/^(["'])(.+)\1$/, "\\2")
-      end
-    end
-
     def numberformat_type(ret)
       %i(precision significant digit_count group_digits fraction_group_digits)
         .each do |i|
@@ -88,7 +62,7 @@ module IsoDoc
     end
 
     def explicit_number_formatter(num, locale, options)
-      ret = numberformat_type(numberformat_extract(options))
+      ret = numberformat_type(csv_attribute_extract(options))
       l = ret[:locale] || locale
       precision, symbols, significant = explicit_number_formatter_cfg(num, ret)
       n = normalise_number(num.text)
@@ -137,7 +111,9 @@ module IsoDoc
       precision = nil
       /\.(?!\d+e)/.match?(num) and
         precision = twitter_cldr_localiser_symbols[:precision] ||
-          num.sub(/^.*\./, "").size
+          # [^.]* excludes the delimiter itself, preventing polynomial
+          # backtracking on strings with multiple dots.
+          num.sub(/\A[^.]*\./, "").size
       precision
     end
 
@@ -145,7 +121,9 @@ module IsoDoc
       totaldigits = nil
       /\.(?=\d+e)/.match?(num) and
         totaldigits = twitter_cldr_localiser_symbols[:significant] ||
-          num.sub(/^0\./, ".").sub(/^.*\./, "").sub(/e.*$/, "").size
+          # [^.]* and [^e]* exclude their respective delimiters,
+          # preventing polynomial backtracking.
+          num.sub(/\A0\./, ".").sub(/\A[^.]*\./, "").sub(/e[^e]*\z/, "").size
       totaldigits
     end
 
@@ -155,9 +133,9 @@ module IsoDoc
 
     def asciimath_dup(node)
       @suppressasciimathdup || node.parent.at(ns("./asciimath")) and return
-      math = node.to_xml.gsub(/ xmlns=["'][^"']+["']/, "")
-        .gsub(%r{<[^:/>]+:}, "<").gsub(%r{</[^:/>]+:}, "</")
-        .gsub(%r{ data-metanorma-numberformat="[^"]+"}, "")
+      math = node.to_xml.gsub(/ xmlns=["'][^"']*["']/, "")
+        .gsub(%r{<[^:/>]*:}, "<").gsub(%r{</[^:/>]*:}, "</")
+        .gsub(%r{ data-metanorma-numberformat="[^"]*"}, "")
       ret = Plurimath::Math.parse(math, "mathml").to_asciimath
       node.next = "<asciimath>#{@c.encode(ret, :basic)}</asciimath>"
     rescue StandardError => e
