@@ -1,2 +1,2 @@
-gem "relaton-render", git: "https://github.com/relaton/relaton-render", branch: "features/disambiguated_date"
+gem "relaton-render", git: "https://github.com/relaton/relaton-render", branch: "main"
 
