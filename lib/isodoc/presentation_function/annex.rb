@@ -52,7 +52,10 @@ module IsoDoc
       delim = annex_delim_override(elem)
       if tag == "variant-title" # strip obligation, boldface
         lbl &&= lbl.gsub("<strong>", "").gsub("</strong>", "")
-          .sub(%r{(<br/>)*<span class=.fmt-obligation.>.+?</span>}, "")
+          # Use (?:<br/>)* (non-capturing) and [^<]* instead of .+? so the
+          # obligation-span content is matched without polynomial backtracking.
+          # fmt-obligation spans contain plain text, so [^<]* is equivalent.
+          .sub(%r{(?:<br/>)*<span class=.fmt-obligation.>[^<]*</span>}, "")
         delim = "<tab/>"
       end
       [delim, lbl]

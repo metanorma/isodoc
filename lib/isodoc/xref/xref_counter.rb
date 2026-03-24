@@ -18,6 +18,7 @@ module IsoDoc
 
     class Counter
       include OlTypeProvider
+
       attr_accessor :prefix_override
 
       def initialize(num = 0, opts = { numerals: :arabic })
@@ -57,7 +58,7 @@ module IsoDoc
       end
 
       def new_subseq_increment1(node)
-        /^(?<b>.*?)(?<n>\d*)(?<a>[a-zA-Z]*)$/ =~ node["number"]
+        b, n, a = parse_number_suffix(node["number"])
         if !n.empty? || !a.empty?
           @letter_override = @letter = a unless a.empty?
           @number_override = @num = n.to_i unless n.empty?
@@ -73,7 +74,10 @@ module IsoDoc
           @prefix_override = node["branch-number"]
         elsif node["number"]
           @base = @letter_override = @number_override = ""
-          /^(?<b>.*?)(?<n>\d+)$/ =~ node["number"]
+          b, n, a = parse_number_suffix(node["number"])
+          # Original required digits at the absolute end (no trailing letters).
+          # If there are trailing letters, treat as a no-digit-at-end match.
+          n = "" unless a.empty?
           if blank?(n)
             @num = nil
             @base = node["number"][0..-2]
@@ -92,7 +96,16 @@ module IsoDoc
 
         @base = ""
         @letter_override = node["number"]
-        /^(?<b>.*?)(?<n>\d*)(?<a>[a-zA-Z])$/ =~ node["number"]
+        # Replace polynomial /^(?<b>.*?)(?<n>\d*)(?<a>[a-zA-Z])$/ with
+        # sequential parsing from the right: last char must be a single letter;
+        # before it are optional digits; before that is the base prefix b.
+        a = /[a-zA-Z]/.match?(node["number"][-1]) ? node["number"][-1] : nil
+        if a
+          rest = node["number"][..-2]
+          j = rest.rindex(/[^\d]/)
+          n = j.nil? ? rest : rest[(j + 1)..]
+          b = j.nil? ? "" : rest[..j]
+        end
         if blank?(a) then subsequence_increment_no_letter(node)
         else
           @letter_override = @letter = a
@@ -172,6 +185,26 @@ module IsoDoc
         prefix = @prefix
         prefix &&= "#{prefix}#{@separator}"
         "#{prefix}#{@base}#{out}#{@letter_override || @letter}"
+      end
+
+      # Decompose a counter number string into [prefix, digits, letters]
+      # by scanning from the right. Examples:
+      #   "A1b"      => ["A",       "1",  "b"  ]
+      #   "prefix-3" => ["prefix-", "3",  ""   ]
+      #   "ABC"      => ["",        "",   "ABC" ]
+      #   "42"       => ["",        "42", ""   ]
+      # Replaces polynomial regexes like /^(?<b>.*?)(?<n>\d*)(?<a>[a-zA-Z]*)$/
+      # with O(n) rindex operations that cannot backtrack.
+      def parse_number_suffix(str)
+        # Step 1: split off all trailing letters
+        i = str.rindex(/[^a-zA-Z]/) # index of last non-letter char
+        a = i.nil? ? str : str[(i + 1)..]
+        rest = i.nil? ? "" : str[..i]
+        # Step 2: split off all trailing digits from the remaining prefix
+        j = rest.rindex(/[^\d]/) # index of last non-digit char
+        n = j.nil? ? rest : rest[(j + 1)..]
+        b = j.nil? ? "" : rest[..j]
+        [b, n, a]
       end
 
       def listlabel(list, depth)

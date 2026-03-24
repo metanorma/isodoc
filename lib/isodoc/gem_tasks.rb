@@ -115,12 +115,14 @@ module IsoDoc
       Dir.mktmpdir do |dir|
         File.write(File.join(dir, "variables.scss"), fonts_placeholder)
         sheet_content = File.read(filename, encoding: "UTF-8")
-          .gsub(%r<([a-z])\.([0-9])(?=[^{}]*{)>m, "\\1.__WORD__\\2")
+          # Drop the m flag and use [^{}\n]* so the lookahead is bounded to
+          # one line, preventing O(n^2) scanning across multi-line inputs.
+          .gsub(/([a-z])\.([0-9])(?=[^{}\n]*{)/, "\\1.__WORD__\\2")
         SassC::Engine.new(%<@use "variables" as *;\n#{sheet_content}>,
                           syntax: :scss, quiet_deps: true,
                           load_paths: load_paths + [dir],
                           importer: SasscImporter)
-          .render.gsub(/__WORD__/, "")
+          .render.gsub("__WORD__", "")
       end
     end
 

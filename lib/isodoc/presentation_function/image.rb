@@ -48,7 +48,7 @@ module IsoDoc
 
       svg = Base64.strict_decode64(elem["src"]
         .sub(%r{^data:image/svg\+xml;(charset=[^;]+;)?base64,}, ""))
-      x = Nokogiri::XML.fragment(svg.sub(/<\?xml[^<>]*>/, ""), &:huge)
+      x = Nokogiri::XML.fragment(svg.sub(/\A<\?xml[^<>]*>\n?/, ""), &:huge)
       elem["src"] = ""
       elem.children = x
     end

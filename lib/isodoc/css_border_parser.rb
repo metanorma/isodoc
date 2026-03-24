@@ -90,11 +90,17 @@ module IsoDoc
       # Extract rule sets from CSS string
       def extract_rule_sets(css_string)
         rule_sets = {}
-        css_string = css_string.gsub(/\/\*.*?\*\//m, "") # Remove comments
-        css_string.scan(/([^{]+)\{([^}]+)\}/m) do |selector, declarations|
+        # Safe C-style comment removal without polynomial backtracking:
+        # /\*[^*]*(?:\*+[^*/][^*]*)*\*+\/ matches /* ... */ in linear time
+        # by keeping the "star runs not followed by /" separate from non-star
+        # content, so no position can be matched by multiple paths.
+        css_string = css_string.gsub(%r{/\*[^*]*(?:\*+[^*/][^*]*)*\*+/}, "")
+        # [^{}]+ for selector and [^{}]* for declarations: both exclude braces,
+        # making the grouping unambiguous without the m flag.
+        css_string.scan(/([^{}]+)\{([^{}]*)\}/) do |selector, declarations|
           selector = selector.strip
           declarations_hash = {} # Extract declarations
-          declarations.scan(/([^:;]+):([^;]+);?/) do |property, value|
+          declarations.scan(/([^:;]+):([^;]*);?/) do |property, value|
             declarations_hash[property.strip] = value.strip
           end
           rule_sets[selector] = declarations_hash
@@ -149,8 +155,10 @@ module IsoDoc
           "color" => DEFAULT_VALUES["color"],
         }
         value.split(/\s+/).each do |part|
-          if width?(part) then components["width"] = part
-          elsif style?(part) then components["style"] = part
+          if width?(part)
+            components["width"] = part
+          elsif style?(part)
+            components["style"] = part
           elsif color?(part)
             components["color"] = convert_color_to_rgb(part)
           end

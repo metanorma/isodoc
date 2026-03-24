@@ -111,7 +111,9 @@ module IsoDoc
       precision = nil
       /\.(?!\d+e)/.match?(num) and
         precision = twitter_cldr_localiser_symbols[:precision] ||
-          num.sub(/^.*\./, "").size
+          # [^.]* excludes the delimiter itself, preventing polynomial
+          # backtracking on strings with multiple dots.
+          num.sub(/\A[^.]*\./, "").size
       precision
     end
 
@@ -119,7 +121,9 @@ module IsoDoc
       totaldigits = nil
       /\.(?=\d+e)/.match?(num) and
         totaldigits = twitter_cldr_localiser_symbols[:significant] ||
-          num.sub(/^0\./, ".").sub(/^.*\./, "").sub(/e.*$/, "").size
+          # [^.]* and [^e]* exclude their respective delimiters,
+          # preventing polynomial backtracking.
+          num.sub(/\A0\./, ".").sub(/\A[^.]*\./, "").sub(/e[^e]*\z/, "").size
       totaldigits
     end
 
@@ -129,9 +133,9 @@ module IsoDoc
 
     def asciimath_dup(node)
       @suppressasciimathdup || node.parent.at(ns("./asciimath")) and return
-      math = node.to_xml.gsub(/ xmlns=["'][^"']+["']/, "")
-        .gsub(%r{<[^:/>]+:}, "<").gsub(%r{</[^:/>]+:}, "</")
-        .gsub(%r{ data-metanorma-numberformat="[^"]+"}, "")
+      math = node.to_xml.gsub(/ xmlns=["'][^"']*["']/, "")
+        .gsub(%r{<[^:/>]*:}, "<").gsub(%r{</[^:/>]*:}, "</")
+        .gsub(%r{ data-metanorma-numberformat="[^"]*"}, "")
       ret = Plurimath::Math.parse(math, "mathml").to_asciimath
       node.next = "<asciimath>#{@c.encode(ret, :basic)}</asciimath>"
     rescue StandardError => e

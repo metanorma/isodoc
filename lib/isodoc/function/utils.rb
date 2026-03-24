@@ -62,7 +62,7 @@ module IsoDoc
       end
 
       def to_xhtml_prep(xml)
-        xml.gsub!(/<\?xml[^<>]*>/, "")
+        xml.gsub!(/\A<\?xml[^<>]*>\n?/, "")
         xml.include?("<!DOCTYPE ") || (xml = DOCTYPE_HDR + xml)
         numeric_escapes(xml)
       end
@@ -118,8 +118,11 @@ module IsoDoc
       end
 
       def header_strip(hdr)
+        # \s[^<>]* rather than \s[^<>]+: \s already guarantees one whitespace
+        # char after <p, so [^<>]* (zero or more) suffices for any attributes,
+        # and removes the polynomial interaction between \s and [^<>]+.
         h1 = to_xhtml_fragment(hdr.to_s.gsub(%r{<br\s*/>}, " ")
-          .gsub(%r{</?p(\s[^<>]+)?>}, "")
+          .gsub(%r{</?p(\s[^<>]*)?>}, "")
           .gsub(/<\/?h[123456][^<>]*>/, "").dup)
         h1.traverse do |x|
           if x.name == "span" && x["style"]&.include?("mso-tab-count")
