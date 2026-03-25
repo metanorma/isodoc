@@ -1,2 +1,2 @@
-gem "relaton-render", git: "https://github.com/relaton/relaton-render", branch: "main"
+gem "relaton-render", git: "https://github.com/relaton/relaton-render", branch: "fix/relaton-2.0"
 
