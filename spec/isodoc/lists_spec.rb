@@ -1100,7 +1100,7 @@ RSpec.describe IsoDoc do
                          </td>
                       </tr>
                       <tr>
-                         <td rowspan="5">
+                         <td rowspan="3">
                             <ol start="2" type="alphabet">
                                <li>
                                   <fmt-name id="_">
@@ -1111,7 +1111,7 @@ RSpec.describe IsoDoc do
                                </li>
                             </ol>
                          </td>
-                         <td rowspan="3">
+                         <td rowspan="2">
                             <ol start="1" type="arabic">
                                <li>
                                   <fmt-name id="_">
@@ -1219,7 +1219,7 @@ RSpec.describe IsoDoc do
                                </td>
                             </tr>
                             <tr>
-                               <td rowspan="5" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
+                               <td rowspan="3" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
                                   <div class="ol_wrap">
                                      <ol type="a" start="2">
                                         <li>A2
@@ -1228,7 +1228,7 @@ RSpec.describe IsoDoc do
                                      </ol>
                                   </div>
                                </td>
-                               <td rowspan="3" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
+                               <td rowspan="2" style="border-top:none;border-bottom:solid windowtext 1.0pt;">
                                   <div class="ol_wrap">
                                      <ol type="1" start="1">
                                         <li>B4
@@ -1508,7 +1508,7 @@ RSpec.describe IsoDoc do
                          </td>
                       </tr>
                       <tr>
-                         <td rowspan="3">
+                         <td rowspan="2">
                             <ol start="2" type="alphabet">
                                <li>
                                   <fmt-name id="_">

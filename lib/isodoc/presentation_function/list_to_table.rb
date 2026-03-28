@@ -179,9 +179,9 @@ module IsoDoc
     end
 
     def list_table_count_terminals_recurse(sub_xl)
-      ret = 1
+      ret = 0
       (sub_xl.xpath(ns(".//ol")) + sub_xl.xpath(ns(".//ul"))).empty? and
-        return ret
+        return 1
       sub_xl.xpath(ns("./li")).each do |sub_li|
         ret += list_table_count_terminals(sub_li)
       end
