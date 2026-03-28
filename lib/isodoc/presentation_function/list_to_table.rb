@@ -52,7 +52,7 @@ module IsoDoc
       attrs[:colgroup] or return ""
       vals = attrs[:colgroup].split(",").map(&:to_f)
       vals = list_table_normalise_colgroup(vals, cellcount)
-      ret = vals.map { |n| "<col width='#{n}'/>" }.join
+      ret = vals.map { |n| "<col width='#{n}%'/>" }.join
       "<colgroup>#{ret}</colgroup>"
     end
 

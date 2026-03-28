@@ -1443,9 +1443,9 @@ RSpec.describe IsoDoc do
              <fmt-ol>
                 <table>
                    <colgroup>
-                      <col width="31.25"/>
-                      <col width="37.5"/>
-                      <col width="31.25"/>
+                      <col width="31.25%"/>
+                      <col width="37.5%"/>
+                      <col width="31.25%"/>
                    </colgroup>
                    <thead>
                       <tr>
@@ -1588,9 +1588,9 @@ RSpec.describe IsoDoc do
             .at("//xmlns:colgroup").to_xml)))
       .to be_equivalent_to <<~XML
            <colgroup>
-           <col width="31.25"/>
-           <col width="37.5"/>
-           <col width="31.25"/>
+           <col width="31.25%"/>
+           <col width="37.5%"/>
+           <col width="31.25%"/>
         </colgroup>
       XML
 
@@ -1600,9 +1600,9 @@ RSpec.describe IsoDoc do
           .at("//xmlns:colgroup").to_xml)))
       .to be_equivalent_to <<~XML
            <colgroup>
-           <col width="80.0"/>
-           <col width="10.0"/>
-           <col width="10.0"/>
+           <col width="80.0%"/>
+           <col width="10.0%"/>
+           <col width="10.0%"/>
         </colgroup>
       XML
   end
