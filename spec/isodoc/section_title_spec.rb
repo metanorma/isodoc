@@ -459,9 +459,7 @@ RSpec.describe IsoDoc do
              </references>
           </sections>
           <annex id="P" inline-header="false" obligation="normative" autonum="A" displayorder="16">
-             <title id="_">
-                <strong>Annex</strong>
-             </title>
+          <title id="_">Annex</title>
              <fmt-title id="_">
                 <strong>
                    <span class="fmt-caption-label">
@@ -483,6 +481,16 @@ RSpec.describe IsoDoc do
                 <span class="fmt-element-name">Annex</span>
                 <semx element="autonum" source="P">A</semx>
              </fmt-xref-label>
+      <variant-title type="toc">
+         <span class="fmt-caption-label">
+            <span class="fmt-element-name">Annex</span>
+            <semx element="autonum" source="P">A</semx>
+         </span>
+         <span class="fmt-caption-delim">
+            <tab/>
+         </span>
+         <semx element="title" source="_">Annex</semx>
+      </variant-title>
              <clause id="Q" inline-header="false" obligation="normative" autonum="A.1">
                 <title id="_">Annex A.1</title>
                 <fmt-title depth="2" id="_">
@@ -556,6 +564,12 @@ RSpec.describe IsoDoc do
              </clause>
           </annex>
           <annex id="P1" inline-header="false" obligation="normative" autonum="B" displayorder="17">
+      <variant-title type="toc">
+         <span class="fmt-caption-label">
+            <span class="fmt-element-name">Annex</span>
+            <semx element="autonum" source="P1">B</semx>
+         </span>
+      </variant-title>
              <fmt-title id="_">
                 <strong>
                    <span class="fmt-caption-label">
@@ -744,6 +758,7 @@ RSpec.describe IsoDoc do
                      <br/>
                      <b>Annex</b>
                   </h1>
+                  <p style="display:none;" class="variant-title-toc">Annex A\\u00a0 Annex</p>
                   <div id="Q">
                      <h2>A.1.\u00a0 Annex A.1</h2>
                      <div id="Q1">
@@ -756,6 +771,7 @@ RSpec.describe IsoDoc do
                </div>
                <br/>
                <div id="P1" class="Section3">
+               <p style="display:none;" class="variant-title-toc">Annex B</p>
                   <h1 class="Annex">
                      <b>Annex B</b>
                      <br/>
@@ -993,6 +1009,11 @@ RSpec.describe IsoDoc do
                       <br/>
                       <b>Annex</b>
                    </h1>
+                   <p style="display:none;" class="variant-title-toc">
+               Annex A
+               <span style="mso-tab-count:1">\\u00a0 </span>
+               Annex
+            </p>
                    <div id="Q">
                       <h2>
                          A.1.
@@ -1019,6 +1040,7 @@ RSpec.describe IsoDoc do
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                 </p>
                 <div id="P1" class="Section3">
+                <p style="display:none;" class="variant-title-toc">Annex B</p>
                    <h1 class="Annex">
                       <b>Annex B</b>
                       <br/>
@@ -1094,9 +1116,7 @@ RSpec.describe IsoDoc do
             </clause>
          </preface>
          <annex id="P" inline-header="false" obligation="normative" autonum="A" displayorder="2">
-            <title id="_">
-               <strong>Annex</strong>
-            </title>
+         <title id="_">Annex</title>
             <fmt-title id="_">
                <strong>
                   <span class="fmt-caption-label">
@@ -1121,6 +1141,16 @@ RSpec.describe IsoDoc do
                <span class="fmt-element-name">Annex</span>
                <semx element="autonum" source="P">A</semx>
             </fmt-xref-label>
+      <variant-title type="toc">
+         <span class="fmt-caption-label">
+            <span class="fmt-element-name">Annex</span>
+            <semx element="autonum" source="P">A</semx>
+         </span>
+         <span class="fmt-caption-delim">
+            <tab/>
+         </span>
+         <semx element="title" source="_">Annex</semx>
+      </variant-title>
             <clause id="Q" inline-header="false" obligation="normative" autonum="A.1">
                <fmt-title depth="2" id="_">
                   <span class="fmt-caption-label">
@@ -1145,6 +1175,74 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)
     expect(strip_guid(pres_output))
       .to be_xml_equivalent_to presxml
+  end
+
+   it "preempts generation of ToC variant title for annex" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <annex id="P" inline-header="false" obligation="normative">
+         <title>Annex</title>
+         <variant-title type="toc">0: Annex</variant-title>
+         <clause id="Q" inline-header="false" obligation="normative">
+       </clause>
+       </annex>
+      </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+           <preface>
+              <clause type="toc" id="_" displayorder="1">
+                 <fmt-title depth="1" id="_">Table of contents</fmt-title>
+              </clause>
+           </preface>
+           <annex id="P" inline-header="false" obligation="normative" autonum="A" displayorder="2">
+           <title id="_">Annex</title>
+              <fmt-title id="_">
+                 <strong>
+                    <span class="fmt-caption-label">
+                       <span class="fmt-element-name">Annex</span>
+                       <semx element="autonum" source="P">A</semx>
+                    </span>
+                 </strong>
+                 <br/>
+                 <span class="fmt-obligation">(normative)</span>
+                 <span class="fmt-caption-delim">
+                    <br/>
+                    <br/>
+                 </span>
+                 <semx element="title" source="_">
+                    <strong>Annex</strong>
+                 </semx>
+              </fmt-title>
+              <fmt-xref-label>
+                 <span class="fmt-element-name">Annex</span>
+                 <semx element="autonum" source="P">A</semx>
+              </fmt-xref-label>
+              <variant-title type="toc">0: Annex</variant-title>
+              <clause id="Q" inline-header="false" obligation="normative" autonum="A.1">
+                 <fmt-title depth="2" id="_">
+                    <span class="fmt-caption-label">
+                       <semx element="autonum" source="P">A</semx>
+                       <span class="fmt-autonum-delim">.</span>
+                       <semx element="autonum" source="Q">1</semx>
+                       <span class="fmt-autonum-delim">.</span>
+                    </span>
+                 </fmt-title>
+                 <fmt-xref-label>
+                    <span class="fmt-element-name">Annex</span>
+                    <semx element="autonum" source="P">A</semx>
+                    <span class="fmt-autonum-delim">.</span>
+                    <semx element="autonum" source="Q">1</semx>
+                 </fmt-xref-label>
+              </clause>
+           </annex>
+        </iso-standard>
+OUTPUT
+pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(strip_guid(Canon.format_xml(pres_output)))
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "processes section subtitles" do
@@ -1461,6 +1559,7 @@ RSpec.describe IsoDoc do
                 <br/>
                 Variant 1
               </h1>
+              <p style="display:none;" class="variant-title-toc">Annex A\\u00a0 Annex</p>
               <p style='display:none;' class='variant-title-sub'>Variant 1</p>
               <div id='Q'>
                 <h2>
@@ -1489,6 +1588,7 @@ RSpec.describe IsoDoc do
             </div>
             <br/>
             <div id='P1' class='Section3'>
+            <p style="display:none;" class="variant-title-toc">Annex B</p>
               <h1 class='Annex'>
                 <b>Annex B</b>
                 <br/>
@@ -1747,6 +1847,11 @@ RSpec.describe IsoDoc do
                       <br/>
                       Variant 1
                    </h1>
+                   <p style="display:none;" class="variant-title-toc">
+              Annex A
+              <span style="mso-tab-count:1">\\u00a0 </span>
+              Annex
+           </p>
                    <p style="display:none;" class="variant-title-sub">Variant 1</p>
                    <div id="Q">
                       <h2>
@@ -1783,6 +1888,7 @@ RSpec.describe IsoDoc do
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                 </p>
                 <div id="P1" class="Section3">
+                <p style="display:none;" class="variant-title-toc">Annex B</p>
                    <h1 class="Annex">
                       <b>Annex B</b>
                       <br/>
@@ -2011,14 +2117,15 @@ RSpec.describe IsoDoc do
              </references>
           </sections>
           <annex id="P" inline-header="false" obligation="normative" autonum="A" displayorder="9">
-             <title id="_">
-                <strong>Annex</strong>
-             </title>
+          <title id="_">Annex</title>
              <fmt-title id="_">
                 <semx element="title" source="_">
                    <strong>Annex</strong>
                 </semx>
              </fmt-title>
+             <variant-title type="toc">
+         <semx element="title" source="_">Annex</semx>
+      </variant-title>
              <clause id="Q" inline-header="false" obligation="normative" autonum="A.1">
                 <title id="_">Annex A.1</title>
                 <fmt-title depth="2" id="_">
@@ -2231,14 +2338,15 @@ RSpec.describe IsoDoc do
              </references>
           </sections>
           <annex id="P" inline-header="false" obligation="normative" unnumbered="true" displayorder="10">
-             <title id="_">
-                <strong>Annex</strong>
-             </title>
+          <title id="_">Annex</title>
              <fmt-title id="_">
                 <semx element="title" source="_">
                    <strong>Annex</strong>
                 </semx>
              </fmt-title>
+             <variant-title type="toc">
+         <semx element="title" source="_">Annex</semx>
+            </variant-title>
              <clause id="Q" inline-header="false" obligation="normative">
                 <title id="_">Annex A.1</title>
                 <fmt-title depth="2" id="_">

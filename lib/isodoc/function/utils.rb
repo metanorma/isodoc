@@ -1,4 +1,5 @@
 require "metanorma-utils"
+require_relative "utils_img"
 
 module IsoDoc
   module Function
@@ -61,7 +62,7 @@ module IsoDoc
       end
 
       def to_xhtml_prep(xml)
-        xml.gsub!(/<\?xml[^<>]*>/, "")
+        xml.gsub!(/\A<\?xml[^<>]*>\n?/, "")
         xml.include?("<!DOCTYPE ") || (xml = DOCTYPE_HDR + xml)
         numeric_escapes(xml)
       end
@@ -117,9 +118,12 @@ module IsoDoc
       end
 
       def header_strip(hdr)
+        # \s[^<>]* rather than \s[^<>]+: \s already guarantees one whitespace
+        # char after <p, so [^<>]* (zero or more) suffices for any attributes,
+        # and removes the polynomial interaction between \s and [^<>]+.
         h1 = to_xhtml_fragment(hdr.to_s.gsub(%r{<br\s*/>}, " ")
-          .gsub(%r{</?p(\s[^<>]+)?>}, "")
-          .gsub(/<\/?h[123456][^<>]*>/, "").gsub(/<\/?b[^<>]*>/, "").dup)
+          .gsub(%r{</?p(\s[^<>]*)?>}, "")
+          .gsub(/<\/?h[123456][^<>]*>/, "").dup)
         h1.traverse do |x|
           if x.name == "span" && x["style"]&.include?("mso-tab-count")
             x.replace(" ")
@@ -162,41 +166,6 @@ module IsoDoc
           .gsub("&lt;", "&#x3c;").gsub("&gt;", "&#x3e;").gsub("&amp;", "&#x26;")
       end
 
-      def save_dataimage(uri, _relative_dir = true)
-        %r{^data:(?<imgclass>image|application)/(?<imgtype>[^;]+);(?:charset=[^;]+;)?base64,(?<imgdata>.+)$} =~ uri
-        imgtype = "emf" if emf?("#{imgclass}/#{imgtype}")
-        imgtype = imgtype.sub(/\+[a-z0-9]+$/, "") # svg+xml
-        imgtype = "png" unless /^[a-z0-9]+$/.match? imgtype
-        imgtype == "postscript" and imgtype = "eps"
-        Tempfile.open(["image", ".#{imgtype}"],
-                      mode: File::BINARY | File::SHARE_DELETE) do |f|
-          f.binmode
-          f.write(Base64.strict_decode64(imgdata))
-          @tempfile_cache << f # persist to the end
-          f.path
-        end
-      end
-
-      def save_svg(img)
-        Tempfile.open(["image", ".svg"],
-                      mode: File::BINARY | File::SHARE_DELETE) do |f|
-          f.write(img.to_xml)
-          @tempfile_cache << f # persist to the end
-          f.path
-        end
-      end
-
-      def image_localfile(img)
-        img.name == "svg" && !img["src"] and
-          return save_svg(img)
-        case img["src"]
-        when /^data:/ then save_dataimage(img["src"], false)
-        when %r{^([A-Z]:)?/} then img["src"]
-        when nil then nil
-        else File.join(@localdir, img["src"])
-        end
-      end
-
       LABELLED_ANCESTOR_ELEMENTS =
         %w(example requirement recommendation permission
            note table figure sourcecode).freeze
@@ -204,15 +173,6 @@ module IsoDoc
       def labelled_ancestor(elem, exceptions = [])
         !elem.ancestors.map(&:name)
           .intersection(LABELLED_ANCESTOR_ELEMENTS - exceptions).empty?
-      end
-
-      def emf?(type)
-        %w(application/emf application/x-emf image/x-emf image/x-mgx-emf
-           application/x-msmetafile image/x-xbitmap image/emf).include? type
-      end
-
-      def eps?(type)
-        %w(application/postscript image/x-eps).include? type
       end
 
       def cleanup_entities(text, is_xml: true)
@@ -234,10 +194,6 @@ module IsoDoc
         path[/\s/] ? "\"#{path}\"" : path
       end
 
-      def imgfile_suffix(uri, suffix)
-        "#{File.join(File.dirname(uri), File.basename(uri, '.*'))}.#{suffix}"
-      end
-
       # Unescape &#x26; to & in href attributes only
       # This ensures URLs work correctly while preserving &#x26; in text content
       # This operates on the final string output after all Nokogiri processing
@@ -252,6 +208,34 @@ module IsoDoc
             "#{Regexp.last_match(3)}#{Regexp.last_match(4).gsub('&#x26;',
                                                                 '&')}'"
           end
+        end
+      end
+
+      # parse CSV-encoded key=value attribute
+      COMMA_PLACEHOLDER = "##COMMA##".freeze
+
+      # Temporarily replace commas inside quotes with a placeholder
+      def comma_placeholder(options)
+        processed = ""
+        in_quotes = false
+        options.each_char do |c|
+          c == "'" and in_quotes = !in_quotes
+          processed << if c == "," && in_quotes
+                         COMMA_PLACEHOLDER
+                       else c
+                       end
+        end
+        processed
+      end
+
+      def csv_attribute_extract(options)
+        options.gsub!(/([a-z_]+)='/, %('\\1=))
+        processed = comma_placeholder(options)
+        CSV.parse_line(processed, quote_char: "'")
+          .each_with_object({}) do |x, acc|
+          x.gsub!(COMMA_PLACEHOLDER, ",")
+          m = /^(.+?)=(.+)?$/.match(x) or next
+          acc[m[1].to_sym] = m[2].sub(/^(["'])(.+)\1$/, "\\2")
         end
       end
     end

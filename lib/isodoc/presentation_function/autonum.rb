@@ -1,10 +1,10 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
-    def prefix_name(node, delims, label, elem)
+    def prefix_name(node, delims, label, elem, fmt_xref_label: true)
       sem_xml_descendant?(node) and return
       label, delims = prefix_name_defaults(node, delims, label, elem)
       name, ins, ids, number = prefix_name_prep(node, elem)
-      ins.next = fmt_xref_label(label, number, ids)
+      fmt_xref_label and ins.next = fmt_xref_label(label, number, ids)
       # autonum can be empty, e.g single note in clause: "NOTE []"
       number and node["autonum"] = number.gsub(/<[^>]+>/, "")
       !node.at(ns("./fmt-#{elem}")) &&
@@ -40,6 +40,7 @@ module IsoDoc
       node.at(ns("./sentinel"))&.remove
       strip_duplicate_ids(node, node.at(ns("./#{elem}")),
                           node.at(ns("./fmt-#{elem}")))
+      node.at(ns("./fmt-#{elem}"))
     end
 
     def transfer_id(old, new)
@@ -67,7 +68,7 @@ module IsoDoc
     # remove ids duplicated between sem_title and pres_title
     # index terms are assumed transferred to pres_title from sem_title
     def strip_duplicate_ids(_node, sem_title, pres_title)
-      sem_title && pres_title or return
+      (sem_title && pres_title) or return
       ids = gather_all_ids(pres_title)
       sem_title.xpath(".//*[@id]").each do |x|
         ids.include?(x["id"]) or next
@@ -78,7 +79,7 @@ module IsoDoc
     end
 
     def semx(node, label, element = "autonum")
-      id = node["id"] || node[:id] || elem["original-id"]
+      id = node["id"] || node[:id] || node["original-id"]
       /<semx element='[^']+' source='#{id}'/.match?(label) and return label
       l = stripsemx(label)
       %(<semx element='#{element}' source='#{id}'>#{l}</semx>)
@@ -202,7 +203,7 @@ module IsoDoc
     def sem_xml_descendant_inline?(_node, ancestor_names)
       %w[xref eref origin link name title newcontent]
         .any? do |name|
-          ancestor_names.include?(name)
+        ancestor_names.include?(name)
       end and return true
     end
 
@@ -213,7 +214,7 @@ module IsoDoc
       block?(node) and return false
       %w[preferred admitted deprecated related definition source]
         .any? do |name|
-          ancestor_names.include?(name)
+        ancestor_names.include?(name)
       end
     end
 

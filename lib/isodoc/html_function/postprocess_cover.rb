@@ -6,14 +6,17 @@ module IsoDoc
   module HtmlFunction
     module Html
       def script_cdata(result)
-        result.gsub(%r{<script([^<>]*)>\s*<!\[CDATA\[}m, "<script\\1>")
-          .gsub(%r{\]\]>\s*</script>}, "</script>")
-          .gsub(%r{<!\[CDATA\[\s*<script([^<>]*)>}m, "<script\\1>")
-          .gsub(%r{</script>\s*\]\]>}, "</script>")
-          .gsub(%r{<style([^<>]*)>\s*<!\[CDATA\[}m, "<style\\1>")
-          .gsub(%r{\]\]>\s*</style>}, "</style>")
-          .gsub(%r{<!\[CDATA\[\s*<style([^<>]*)>}m, "<style\\1>")
-          .gsub(%r{</style>\s*\]\]>}, "</style>")
+        # Use explicit [ \t\n\r]* rather than \s* with the m flag:
+        # [^<>]* and [ \t\n\r]* are disjoint character classes (whitespace
+        # chars are not < or >), preventing polynomial backtracking.
+        result.gsub(%r{<script([^<>]*)>[ \t\n\r]*<!\[CDATA\[}, "<script\\1>")
+          .gsub(%r{\]\]>[ \t\n\r]*</script>}, "</script>")
+          .gsub(%r{<!\[CDATA\[[ \t\n\r]*<script([^<>]*)>}, "<script\\1>")
+          .gsub(%r{</script>[ \t\n\r]*\]\]>}, "</script>")
+          .gsub(%r{<style([^<>]*)>[ \t\n\r]*<!\[CDATA\[}, "<style\\1>")
+          .gsub(%r{\]\]>[ \t\n\r]*</style>}, "</style>")
+          .gsub(%r{<!\[CDATA\[[ \t\n\r]*<style([^<>]*)>}, "<style\\1>")
+          .gsub(%r{</style>[ \t\n\r]*\]\]>}, "</style>")
       end
 
       def htmlstylesheet(file)
@@ -31,7 +34,7 @@ module IsoDoc
         head << Nokogiri::HTML.fragment("<style>#{htmlstylesheet(@htmlstylesheet)}</style>")
         s = htmlstylesheet(@htmlstylesheet_override) and head << Nokogiri::HTML.fragment("<style>#{s}</style>")
         s = @meta.get[:code_css] and
-          head << Nokogiri::HTML.fragment("<style>#{s.gsub(/sourcecode/,
+          head << Nokogiri::HTML.fragment("<style>#{s.gsub('sourcecode',
                                                            'pre.sourcecode')}</style>")
         @bare and
           head << "<style>body {margin-left: 2em; margin-right: 2em;}</style>"

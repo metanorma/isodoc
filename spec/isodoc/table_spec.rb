@@ -480,7 +480,7 @@ RSpec.describe IsoDoc do
                      Table 1\u00a0— Repeatability and reproducibility of
                      <i>husked</i>
                      rice yield
-                     <a class="FootnoteRef" href="#fn:_19">
+                     <a class="FootnoteRef" href="#fn:_20">
                         <sup>1</sup>
                      </a>
                         <span style="display:none">long desc</span>
@@ -602,6 +602,7 @@ RSpec.describe IsoDoc do
                </div>
                <br/>
                <div id="Annex1" class="Section3">
+               <p style="display:none;" class="variant-title-toc">Annex A</p>
                   <h1 class="Annex">
                      <b>Annex A</b>
                      <br/>
@@ -624,7 +625,7 @@ RSpec.describe IsoDoc do
                      </tbody>
                   </table>
                </div>
-               <aside id="fn:_19" class="footnote">
+               <aside id="fn:_20" class="footnote">
                   <p>X</p>
                </aside>
             </div>
@@ -666,7 +667,7 @@ RSpec.describe IsoDoc do
                        Table 1\u00a0— Repeatability and reproducibility of
                        <i>husked</i>
                         rice yield
-                       <span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" href="#ftn_19" epub:type="footnote">1</a></span>
+                       <span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" href="#ftn_20" epub:type="footnote">1</a></span>
                      </p>
                <div align="center" class="table_container">
                  <table id="tableD-1" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;" title="tool tip" summary="long desc" width="70%">
@@ -785,6 +786,7 @@ RSpec.describe IsoDoc do
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                 </p>
                 <div id="Annex1" class="Section3">
+               <p style="display:none;" class="variant-title-toc">Annex A</p>
                    <h1 class="Annex">
                       <b>Annex A</b>
                       <br/>
@@ -811,7 +813,7 @@ RSpec.describe IsoDoc do
                       </table>
                    </div>
                 </div>
-                <aside id="ftn_19">
+                <aside id="ftn_20">
                    <p>X</p>
                 </aside>
              </div>

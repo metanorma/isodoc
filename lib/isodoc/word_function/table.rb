@@ -2,9 +2,12 @@ module IsoDoc
   module WordFunction
     module Body
       def remove_bottom_border(cell)
+        # [^;]* (not +): the preceding property name is the unambiguous
+        # delimiter, so zero-or-more is equivalent and avoids polynomial
+        # backtracking on the value portion.
         cell["style"] =
-          cell["style"].gsub(/border-bottom:[^;]+;/, "border-bottom:0pt;")
-            .gsub(/mso-border-bottom-alt:[^;]+;/, "mso-border-bottom-alt:0pt;")
+          cell["style"].gsub(/border-bottom:[^;]*;/, "border-bottom:0pt;")
+            .gsub(/mso-border-bottom-alt:[^;]*;/, "mso-border-bottom-alt:0pt;")
       end
 
       SW1 = "solid windowtext".freeze
@@ -40,7 +43,7 @@ module IsoDoc
           border-top:#{top}mso-border-top-alt:#{top}
           border-bottom:#{bottom}mso-border-bottom-alt:#{bottom}
         STYLE
-        opt[:bordered] && !cell["style"] or ret = ""
+        (opt[:bordered] && !cell["style"]) or ret = ""
         pb = keep_rows_together(cell, rowmax, totalrows, opt) ? "avoid" : "auto"
         "#{ret}page-break-after:#{pb};"
       end
@@ -76,7 +79,7 @@ module IsoDoc
         ret = { summary: node["summary"], width: node["width"],
                 class: table_class(node),
                 style: "mso-table-anchor-horizontal:column;" \
-                "mso-table-overlap:never;#{style}#{keep_style(node)}" }
+                       "mso-table-overlap:never;#{style}#{keep_style(node)}" }
         style or ret.delete(:class)
         super.merge(attr_code(ret))
       end

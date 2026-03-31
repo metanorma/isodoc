@@ -409,7 +409,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
                                <br/>
-                <div id="fwd">
+               <div id="fwd">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <figure id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                       <picture>
@@ -426,44 +426,44 @@ RSpec.describe IsoDoc do
                       </picture>
                       <a href="#figureA-1a" class="TableFootnoteRef">a</a>
                       <a href="#figureA-1b" class="TableFootnoteRef">b</a>
-                       <div class="key formula_dl">
-                      <p style="page-break-after: avoid;">
-                         <b>Key</b>
-                      </p>
-                      <div class="figdl">
-                         <dl>
-                            <dt>
-                               <p>
-                                  <sup>a</sup>
-                               </p>
-                            </dt>
-                            <dd>
-                               <div id="fn:figureA-1a" class="footnote">
-                                  <p id="_">
-                                     The time
-                                     <span class="stem">(#(t_90)#)</span>
-                                     was estimated to be 18,2 min for this example.
+                      <div class="key formula_dl">
+                         <p style="page-break-after: avoid;">
+                            <b>Key</b>
+                         </p>
+                         <div class="figdl">
+                            <dl>
+                               <dt>
+                                  <p>
+                                     <sup>a</sup>
                                   </p>
-                               </div>
-                            </dd>
-                            <dt>
-                               <p>
-                                  <sup>b</sup>
-                               </p>
-                            </dt>
-                            <dd>
-                               <div id="fn:figureA-1b" class="footnote">
-                                  <p id="_">Second footnote.</p>
-                               </div>
-                            </dd>
-                            <dt>
-                               <p>A</p>
-                            </dt>
-                            <dd>
-                               <p>B</p>
-                            </dd>
-                         </dl>
-                      </div>
+                               </dt>
+                               <dd>
+                                  <div id="fn:figureA-1a" class="footnote">
+                                     <p id="_">
+                                        The time
+                                        <span class="stem">(#(t_90)#)</span>
+                                        was estimated to be 18,2 min for this example.
+                                     </p>
+                                  </div>
+                               </dd>
+                               <dt>
+                                  <p>
+                                     <sup>b</sup>
+                                  </p>
+                               </dt>
+                               <dd>
+                                  <div id="fn:figureA-1b" class="footnote">
+                                     <p id="_">Second footnote.</p>
+                                  </div>
+                               </dd>
+                               <dt>
+                                  <p>A</p>
+                               </dt>
+                               <dd>
+                                  <p>B</p>
+                               </dd>
+                            </dl>
+                         </div>
                       </div>
                       <div class="BlockSource">
                          <p>
@@ -480,7 +480,7 @@ RSpec.describe IsoDoc do
                          Figure 1\u00a0— Split-it-right
                          <i>sample</i>
                          divider
-                         <a class="FootnoteRef" href="#fn:_19">
+                         <a class="FootnoteRef" href="#fn:_20">
                             <sup>1</sup>
                          </a>
                       </figcaption>
@@ -503,6 +503,7 @@ RSpec.describe IsoDoc do
                 </div>
                 <br/>
                 <div id="Annex" class="Section3">
+                   <p style="display:none;" class="variant-title-toc">Annex A</p>
                    <h1 class="Annex">
                       <b>Annex A</b>
                       <br/>
@@ -511,10 +512,10 @@ RSpec.describe IsoDoc do
                    <figure id="AnnexFigure" class="figure">
                       <pre>A &lt;
          B</pre>
-                      <figcaption>Figure A.1</figcaptionp>
+                      <figcaption>Figure A.1</figcaption>
                    </figure>
                 </div>
-                <aside id="fn:_19" class="footnote">
+                <aside id="fn:_20" class="footnote">
                    <p>X</p>
                 </aside>
              </div>
@@ -624,7 +625,7 @@ RSpec.describe IsoDoc do
                          <i>sample</i>
                          divider
                          <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
-                            <a class="FootnoteRef" epub:type="footnote" href="#ftn_19">1</a>
+                            <a class="FootnoteRef" epub:type="footnote" href="#ftn_20">1</a>
                          </span>
                       </p>
                    </div>
@@ -660,6 +661,7 @@ RSpec.describe IsoDoc do
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                 </p>
                 <div id="Annex" class="Section3">
+                <p style="display:none;" class="variant-title-toc">Annex A</p>
                    <h1 class="Annex">
                       <b>Annex A</b>
                       <br/>
@@ -671,7 +673,7 @@ RSpec.describe IsoDoc do
                       <p class="FigureTitle" style="text-align:center;">Figure A.1</p>
                    </div>
                 </div>
-                <aside id="ftn_19">
+                <aside id="ftn_20">
                    <p>X</p>
                 </aside>
              </div>

@@ -33,15 +33,12 @@ module IsoDoc
 
     def clausedelim
       ret = super
-      ret && !ret.empty? or return ret
+      (ret && !ret.empty?) or return ret
       "<span class='fmt-autonum-delim'>#{ret}</span>"
     end
 
     def clause1(elem)
-      level = @xrefs.anchor(elem["id"], :level, false) ||
-        (elem.ancestors("clause, annex").size + 1)
-      is_unnumbered = unnumbered_clause?(elem)
-      lbl = @xrefs.anchor(elem["id"], :label, false)
+      level, is_unnumbered, lbl = clause1_prep(elem)
       if is_unnumbered || !lbl
         prefix_name(elem, {}, nil, "title")
       else
@@ -51,34 +48,12 @@ module IsoDoc
       t = elem.at(ns("./fmt-title")) and t["depth"] = level
     end
 
-    def annex(docxml)
-      docxml.xpath(ns("//annex")).each do |f|
-        @xrefs.klass.single_term_clause?(f) and single_term_clause_retitle(f)
-        annex1(f)
-        @xrefs.klass.single_term_clause?(f) and single_term_clause_unnest(f)
-      end
-      @xrefs.parse_inclusions(clauses: true).parse(docxml)
-    end
-
-    def annex1(elem)
+    def clause1_prep(elem)
+      level = @xrefs.anchor(elem["id"], :level, false) ||
+        (elem.ancestors("clause, annex").size + 1)
+      is_unnumbered = unnumbered_clause?(elem)
       lbl = @xrefs.anchor(elem["id"], :label, false)
-      # TODO: do not alter title, alter semx/@element = title
-      t = elem.at(ns("./title")) and
-        t.children = "<strong>#{to_xml(t.children)}</strong>"
-      if unnumbered_clause?(elem)
-        prefix_name(elem, {}, nil, "title")
-      else
-        prefix_name(elem, { caption: annex_delim_override(elem) }, lbl, "title")
-      end
-    end
-
-    def annex_delim_override(elem)
-      m = elem.document.root.at(ns("//presentation-metadata/annex-delim"))
-      m ? to_xml(m.children) : annex_delim(elem)
-    end
-
-    def annex_delim(_elem)
-      "<br/><br/>"
+      [level, is_unnumbered, lbl]
     end
 
     def single_term_clause_retitle(elem)

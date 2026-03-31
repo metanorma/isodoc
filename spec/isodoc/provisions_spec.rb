@@ -710,6 +710,7 @@ RSpec.describe IsoDoc do
                 </div>
                 <br/>
                 <div id="Annex" class="Section3">
+                <p style="display:none;" class="variant-title-toc">Annex A</p>
                    <h1 class="Annex">
                       <b>Annex A</b>
                       <br/>

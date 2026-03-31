@@ -107,11 +107,16 @@ module IsoDoc
       docxml.xpath(ns("//table")).each { |f| table1(f) }
     end
 
+    def table1_caption?(elem)
+      !labelled_ancestor(elem) &&
+        !(elem["unnumbered"] && !elem.at(ns("./name"))) &&
+        !%w(fmt-ol fmt-ul).include?(elem.parent.name)
+    end
+
     def table1(elem)
       table_fn(elem)
       table_css(elem)
-      labelled_ancestor(elem) and return
-      elem["unnumbered"] && !elem.at(ns("./name")) and return
+      table1_caption?(elem) or return
       n = @xrefs.anchor(elem["id"] || elem["original-id"], :label, false)
       lbl = labelled_autonum(lower2cap(@i18n.table),
                              elem["id"] || elem["original-id"], n)
@@ -176,13 +181,13 @@ module IsoDoc
       clause.xpath(ns("./clause")).each { |c| amend_subclause(c, depth + 1) }
     end
 
-    def amend_subclause_title(clause, depth)
+    def amend_subclause_title(clause, _depth)
       if clause["type"] == "annex"
         annex1(clause)
       else
         clause1(clause) # insert title prefix
       end
-      clause.at(ns("./title"))&.remove
+      clause.xpath(ns("./title | ./variant-title")).each(&:remove)
       t = clause.at(ns("./fmt-title")) or return
       t.name = "p"
       t["type"] = "floating-title"
