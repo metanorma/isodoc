@@ -455,7 +455,7 @@ RSpec.describe IsoDoc do
                   <span class="fmt-element-name">Figure</span>
                   <semx element="autonum" source="B1">1</semx>
                </span>
-               <span class="fmt-caption-delim">\\u00a0— </span>
+               <span class="fmt-caption-delim">\u00a0— </span>
                <semx element="name" source="_">First</semx>
             </fmt-name>
             <fmt-xref-label>
@@ -490,7 +490,7 @@ RSpec.describe IsoDoc do
                      <span class="fmt-element-name">Figure</span>
                      <semx element="autonum" source="B2">2</semx>
                   </span>
-                  <span class="fmt-caption-delim">\\u00a0— </span>
+                  <span class="fmt-caption-delim">\u00a0— </span>
                   <semx element="name" source="_">Second</semx>
                </fmt-name>
                <fmt-xref-label>
@@ -533,7 +533,7 @@ RSpec.describe IsoDoc do
                   <span class="fmt-element-name">Figure</span>
                   <semx element="autonum" source="B3">3</semx>
                </span>
-               <span class="fmt-caption-delim">\\u00a0— </span>
+               <span class="fmt-caption-delim">\u00a0— </span>
                <semx element="name" source="_">Third</semx>
             </fmt-name>
             <fmt-xref-label>
@@ -543,11 +543,11 @@ RSpec.describe IsoDoc do
          </figure>
       </clause>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:clause[@id = 'A']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .at("//xmlns:clause[@id = 'A']").to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "label figures embedded within other assets" do
