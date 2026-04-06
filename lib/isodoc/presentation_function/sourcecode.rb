@@ -153,6 +153,9 @@ module IsoDoc
         pre.name = "sourcecode"
         pre.children = to_xml(pre.children).sub(/\s+$/, "")
       end
+      r.xpath(".//tr[@id]").each do |tr| # disambig Rouge ids
+        tr["id"] = "#{elem['source']}_#{tr['id']}"
+      end
       r
     end
 
@@ -160,7 +163,7 @@ module IsoDoc
       lexer = Rouge::Lexer.find(lang || "plaintext") ||
         Rouge::Lexer.find("plaintext")
       l = Rouge::Lexers::Escape.new(start: "{^^{", end: "}^^}", lang: lexer)
-      source = to_xml(elem.children).gsub(/</, "{^^{<").gsub(/>/, ">}^^}")
+      source = to_xml(elem.children).gsub("<", "{^^{<").gsub(">", ">}^^}")
       l.lang.reset!
       l.lex(@c.decode(source))
     end
