@@ -229,11 +229,11 @@ RSpec.describe IsoDoc do
          <head/>
          <body lang="en">
             <div class="title-section">
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
             </div>
             <br/>
             <div class="prefatory-section">
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
             </div>
             <br/>
             <div class="main-section">
@@ -335,13 +335,13 @@ RSpec.describe IsoDoc do
     output = IsoDoc::PresentationXMLConvert.new(presxml_options
       .merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(output)
+    expect(strip_guid(output
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", output, true)))
+      .to be_html5_equivalent_to html
   end
 
   it "localises numbers in MathML in French" do
@@ -491,14 +491,14 @@ RSpec.describe IsoDoc do
                               </mrow>
                            </mrow>
                            <mrow>
-                              <mn>1\\u202f000</mn>
+                              <mn>1\u202f000</mn>
                            </mrow>
                         </munderover>
                         <mfenced open="(" close=")">
                            <mtable>
                               <mtr>
                                  <mtd>
-                                    <mn>1\\u202f000</mn>
+                                    <mn>1\u202f000</mn>
                                  </mtd>
                               </mtr>
                               <mtr>
@@ -542,10 +542,10 @@ RSpec.describe IsoDoc do
          </preface>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Canon.format_xml(output)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to output
   end
 end

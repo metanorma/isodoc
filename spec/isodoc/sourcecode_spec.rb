@@ -33,7 +33,7 @@ RSpec.describe IsoDoc do
                          <span class="fmt-element-name">Figure</span>
                          <semx element="autonum" source="samplecode">1</semx>
                       </span>
-                      <span class="fmt-caption-delim">\\u00a0— </span>
+                      <span class="fmt-caption-delim">\u00a0— </span>
                       <semx element="name" source="_">
                          Ruby
                          <em>code</em>
@@ -59,26 +59,23 @@ RSpec.describe IsoDoc do
 
     html = <<~OUTPUT
       #{HTML_HDR}
-                         <br/>
-                                         <div id="fwd">
-                   <h1 class="ForewordTitle">Foreword</h1>
-                   <figure id="samplecode" class="sourcecode" spellcheck="false" translation="no"><pre>puts x</pre>
-                   <figcaption class="SourceTitle">
-                      Figure 1\\u00a0— Ruby
-                      <i>code</i>
-                   </figcaption>
-                   </figure>
-                   <figure id="_" class="sourcecode" spellcheck="false" translation="no"><pre>
-                      Hey
-                      <br/>
-                      Que?
-                      <br/>
-                   </pre>
-                   </figure>
-                </div>
-             </div>
-          </body>
-       </html>
+            <br/>
+            <div id="fwd">
+              <h1 class="ForewordTitle">Foreword</h1>
+              <figure id="samplecode" class="sourcecode" spellcheck="false" translation="no">
+                <pre>puts x</pre>
+                <figcaption class="SourceTitle">
+                    Figure 1\u00a0— Ruby
+                    <i>code</i>
+                </figcaption>
+              </figure>
+              <figure id="_" class="sourcecode" spellcheck="false" translation="no">
+                <pre>Hey<br/>Que?<br/></pre>
+              </figure>
+            </div>
+          </div>
+        </body>
+      </html>
     OUTPUT
 
     doc = <<~OUTPUT
@@ -90,7 +87,7 @@ RSpec.describe IsoDoc do
                   <h1 class="ForewordTitle">Foreword</h1>
                   <p id="samplecode" class="Sourcecode">puts x</p>
                   <p class="SourceTitle" style="text-align:center;">
-                     Figure 1\\u00a0— Ruby
+                     Figure 1\u00a0— Ruby
                      <i>code</i>
                   </p>
                   <p id="_" class="Sourcecode">
@@ -100,7 +97,7 @@ RSpec.describe IsoDoc do
                      <br/>
                   </p>
                </div>
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
             </div>
             <p class="section-break">
                <br clear="all" class="section"/>
@@ -112,14 +109,14 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(doc)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html4_equivalent_to doc
   end
 
   it "processes sourcecode with sourcecode highlighting" do
@@ -138,7 +135,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <bibdata/>
          <metanorma-extension>
            <source-highlighter-css>sourcecode table td { padding: 5px; }
@@ -179,107 +176,102 @@ RSpec.describe IsoDoc do
        sourcecode .nt {
          color: #0000FF;
        }
+     
        </source-highlighter-css>
          </metanorma-extension>
-          <preface>
-             <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1" id="_">Table of contents</fmt-title>
-             </clause>
-             <foreword id="_" displayorder="2">
-                <title id="_">Foreword</title>
-                <fmt-title depth="1" id="_">
-                   <semx element="title" source="_">Foreword</semx>
-                </fmt-title>
-                <sourcecode lang="ruby" id="samplecode" autonum="1">
-                   <name id="_">
-                      Ruby
-                      <em>code</em>
-                   </name>
-                   <fmt-name id="_">
-                      <span class="fmt-caption-label">
-                         <span class="fmt-element-name">Figure</span>
-                         <semx element="autonum" source="samplecode">1</semx>
-                      </span>
-                      <span class="fmt-caption-delim">\\u00a0— </span>
-                      <semx element="name" source="_">
-                         Ruby
-                         <em>code</em>
-                      </semx>
-                   </fmt-name>
-                   <fmt-xref-label>
-                      <span class="fmt-element-name">Figure</span>
-                      <semx element="autonum" source="samplecode">1</semx>
-                   </fmt-xref-label>
-                   <body>puts x</body>
-                   <fmt-sourcecode lang="ruby" autonum="1" id="_">
-                      <span class="nb">puts</span>
-                      <span class="n">x</span>
-                   </fmt-sourcecode>
-                </sourcecode>
-                <sourcecode unnumbered="true" linenums="true" id="A">
-                   <name id="_">More</name>
-                   <fmt-name id="_">
-                      <semx element="name" source="_">More</semx>
-                   </fmt-name>
-                   <body>Hey
+         <preface>
+           <clause type="toc" id="_" displayorder="1">
+             <fmt-title depth="1" id="_">Table of contents</fmt-title>
+           </clause>
+           <foreword id="_" displayorder="2">
+             <title id="_">Foreword</title>
+             <fmt-title depth="1" id="_">
+               <semx element="title" source="_">Foreword</semx>
+             </fmt-title>
+             <sourcecode lang="ruby" id="samplecode" autonum="1">
+               <name id="_">Ruby <em>code</em></name>
+               <fmt-name id="_">
+                 <span class="fmt-caption-label">
+                   <span class="fmt-element-name">Figure</span>
+                   <semx element="autonum" source="samplecode">1</semx>
+                 </span>
+                 <span class="fmt-caption-delim"> — </span>
+                 <semx element="name" source="_">Ruby <em>code</em></semx>
+               </fmt-name>
+               <fmt-xref-label>
+                 <span class="fmt-element-name">Figure</span>
+                 <semx element="autonum" source="samplecode">1</semx>
+               </fmt-xref-label>
+               <body>puts x</body>
+               <fmt-sourcecode lang="ruby" autonum="1" id="_">
+                 <span class="nb">puts</span>
+                 <span class="n">x</span>
+               </fmt-sourcecode>
+             </sourcecode>
+             <sourcecode unnumbered="true" linenums="true" id="A">
+               <name id="_">More</name>
+               <fmt-name id="_">
+                 <semx element="name" source="_">More</semx>
+               </fmt-name>
+               <body>Hey
        Que?
        </body>
-                   <fmt-sourcecode unnumbered="true" linenums="true" id="_">
-                      <table class="rouge-line-table">
-                         <tbody>
-                            <tr id="A_line-1" class="lineno">
-                               <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
-                                  <pre>1</pre>
-                               </td>
-                               <td class="rouge-code">
-                                  <sourcecode>Hey</sourcecode>
-                               </td>
-                            </tr>
-                            <tr id="A_line-2" class="lineno">
-                               <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
-                                  <pre>2</pre>
-                               </td>
-                               <td class="rouge-code">
-                                  <sourcecode>Que?</sourcecode>
-                               </td>
-                            </tr>
-                         </tbody>
-                      </table>
-                   </fmt-sourcecode>
-                </sourcecode>
-                <sourcecode unnumbered="true" linenums="true" id="B">
-                   <name id="_">More</name>
-                   <fmt-name id="_">
-                      <semx element="name" source="_">More</semx>
-                   </fmt-name>
-                   <body>Hey
+               <fmt-sourcecode unnumbered="true" linenums="true" id="_">
+                 <table class="rouge-line-table">
+                   <tbody>
+                     <tr id="A_line-1" class="lineno">
+                       <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                         <pre>1</pre>
+                       </td>
+                       <td class="rouge-code">
+                         <sourcecode>Hey</sourcecode>
+                       </td>
+                     </tr>
+                     <tr id="A_line-2" class="lineno">
+                       <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                         <pre>2</pre>
+                       </td>
+                       <td class="rouge-code">
+                         <sourcecode>Que?</sourcecode>
+                       </td>
+                     </tr>
+                   </tbody>
+                 </table>
+               </fmt-sourcecode>
+             </sourcecode>
+             <sourcecode unnumbered="true" linenums="true" id="B">
+               <name id="_">More</name>
+               <fmt-name id="_">
+                 <semx element="name" source="_">More</semx>
+               </fmt-name>
+               <body>Hey
        Que?
        </body>
-                   <fmt-sourcecode unnumbered="true" linenums="true" id="_">
-                      <table class="rouge-line-table">
-                         <tbody>
-                            <tr id="B_line-1" class="lineno">
-                               <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
-                                  <pre>1</pre>
-                               </td>
-                               <td class="rouge-code">
-                                  <sourcecode>Hey</sourcecode>
-                               </td>
-                            </tr>
-                            <tr id="B_line-2" class="lineno">
-                               <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
-                                  <pre>2</pre>
-                               </td>
-                               <td class="rouge-code">
-                                  <sourcecode>Que?</sourcecode>
-                               </td>
-                            </tr>
-                         </tbody>
-                      </table>
-                   </fmt-sourcecode>
-                </sourcecode>
-             </foreword>
-          </preface>
+               <fmt-sourcecode unnumbered="true" linenums="true" id="_">
+                 <table class="rouge-line-table">
+                   <tbody>
+                     <tr id="B_line-1" class="lineno">
+                       <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                         <pre>1</pre>
+                       </td>
+                       <td class="rouge-code">
+                         <sourcecode>Hey</sourcecode>
+                       </td>
+                     </tr>
+                     <tr id="B_line-2" class="lineno">
+                       <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                         <pre>2</pre>
+                       </td>
+                       <td class="rouge-code">
+                         <sourcecode>Que?</sourcecode>
+                       </td>
+                     </tr>
+                   </tbody>
+                 </table>
+               </fmt-sourcecode>
+             </sourcecode>
+           </foreword>
+         </preface>
        </iso-standard>
     OUTPUT
 
@@ -289,12 +281,9 @@ RSpec.describe IsoDoc do
                                 <div id="_">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <figure id="samplecode" class="sourcecode" spellcheck="false" translation="no">
-                   <pre>
-                      <span class="nb">puts</span>
-                      <span class="n">x</span>
-                   </pre>
+                   <pre><span class="nb">puts</span> <span class="n">x</span></pre>
                    <figcaption class="SourceTitle">
-                      Figure 1\\u00a0— Ruby
+                      Figure 1\u00a0— Ruby
                       <i>code</i>
                    </figcaption>
                    </figure>
@@ -365,7 +354,7 @@ RSpec.describe IsoDoc do
                   <span class="n">x</span>
                </p>
                <p class="SourceTitle" style="text-align:center;">
-                  Figure 1\\u00a0— Ruby
+                  Figure 1\u00a0— Ruby
                   <i>code</i>
                </p>
                <div align="center" class="table_container" style="page-break-after:avoid;">
@@ -417,7 +406,7 @@ RSpec.describe IsoDoc do
                </div>
                <p class="SourceTitle" style="text-align:center;">More</p>
             </div>
-            <p class="MsoNormal">\\u00a0</p>
+            <p class="MsoNormal">\u00a0</p>
          </div>
          <p class="MsoNormal">
             <br clear="all" class="section"/>
@@ -430,18 +419,18 @@ RSpec.describe IsoDoc do
       .new({ sourcehighlighter: true }
       .merge(presxml_options))
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output))
+    expect(strip_guid(pres_output)
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
     FileUtils.rm_f("test.doc")
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
-    expect(strip_guid(Canon.format_xml(File.read("test.doc")
+    expect(strip_guid(File.read("test.doc")
       .gsub(%r{^.*<body }m, "<body ")
-      .gsub(%r{</body>.*}m, "</body>"))))
-      .to be_equivalent_to Canon.format_xml(doc)
+      .gsub(%r{</body>.*}m, "</body>")))
+      .to be_xml_equivalent_to doc
   end
 
   it "combines sourcecode highlighting stylesheet with user-css" do
@@ -517,8 +506,8 @@ RSpec.describe IsoDoc do
       .merge(presxml_options))
       .convert("test", input, true))
       .at("//xmlns:metanorma-extension")
-    expect(strip_guid(Canon.format_xml(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "processes sourcecode with escapes preserved, and XML sourcecode highlighting" do
@@ -532,80 +521,56 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~INPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <bibdata/>
-          
-          
-          <preface>
-             <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1" id="_">Table of contents</fmt-title>
-             </clause>
-             <foreword id="_" displayorder="2">
-                <title id="_">Foreword</title>
-                <fmt-title depth="1" id="_">
-                   <semx element="title" source="_">Foreword</semx>
-                </fmt-title>
-                <sourcecode id="samplecode" lang="xml" autonum="1">
-                   <name id="_">XML code</name>
-                   <fmt-name id="_">
-                      <span class="fmt-caption-label">
-                         <span class="fmt-element-name">Figure</span>
-                         <semx element="autonum" source="samplecode">1</semx>
-                      </span>
-                      <span class="fmt-caption-delim">\\u00a0— </span>
-                      <semx element="name" source="_">XML code</semx>
-                   </fmt-name>
-                   <fmt-xref-label>
-                      <span class="fmt-element-name">Figure</span>
-                      <semx element="autonum" source="samplecode">1</semx>
-                   </fmt-xref-label>
-                   <body>&lt;xml&gt;A&lt;b&gt;C&lt;/b&gt;&lt;/xml&gt;</body>
-                   <fmt-sourcecode lang="xml" autonum="1" id="_">
-                      <span class="nt">&lt;xml&gt;</span>
-                      A
-                      <span class="nt">&lt;b&gt;</span>
-                      C
-                      <span class="nt">&lt;/b&gt;&lt;/xml&gt;</span>
-                   </fmt-sourcecode>
-                </sourcecode>
-                <sourcecode id="samplecode1" lang="xml" linenums="true" autonum="2">
-                   <name id="_">XML code</name>
-                   <fmt-name id="_">
-                      <span class="fmt-caption-label">
-                         <span class="fmt-element-name">Figure</span>
-                         <semx element="autonum" source="samplecode1">2</semx>
-                      </span>
-                      <span class="fmt-caption-delim">\\u00a0— </span>
-                      <semx element="name" source="_">XML code</semx>
-                   </fmt-name>
-                   <fmt-xref-label>
-                      <span class="fmt-element-name">Figure</span>
-                      <semx element="autonum" source="samplecode1">2</semx>
-                   </fmt-xref-label>
-                   <body>&lt;xml&gt;A&lt;b&gt;C&lt;/b&gt;&lt;/xml&gt;</body>
-                   <fmt-sourcecode lang="xml" linenums="true" autonum="2" id="_">
-                      <table class="rouge-line-table">
-                         <tbody>
-                            <tr id="samplecode1_line-1" class="lineno">
-                               <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
-                                  <pre>1</pre>
-                               </td>
-                               <td class="rouge-code">
-                                  <sourcecode>
-                                     <span class="nt">&lt;xml&gt;</span>
-                                     A
-                                     <span class="nt">&lt;b&gt;</span>
-                                     C
-                                     <span class="nt">&lt;/b&gt;&lt;/xml&gt;</span>
-                                  </sourcecode>
-                               </td>
-                            </tr>
-                         </tbody>
-                      </table>
-                   </fmt-sourcecode>
-                </sourcecode>
-             </foreword>
-          </preface>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+      <bibdata/>
+      <preface>    <clause type="toc" id="_" displayorder="1">
+      <fmt-title id="_" depth="1">Table of contents</fmt-title>
+      </clause>
+      <foreword id="_" displayorder="2">
+               <title id="_">Foreword</title>
+         <fmt-title id="_" depth="1">
+               <semx element="title" source="_">Foreword</semx>
+         </fmt-title>
+                  <sourcecode id="samplecode" lang="xml" autonum="1"><name id="_">XML code</name><fmt-name id="_">
+               <span class="fmt-caption-label">
+                  <span class="fmt-element-name">Figure</span>
+                  <semx element="autonum" source="samplecode">1</semx>
+                  </span>
+                  <span class="fmt-caption-delim">\u00a0— </span>
+                  <semx element="name" source="_">XML code</semx>
+            </fmt-name><fmt-xref-label>
+               <span class="fmt-element-name">Figure</span>
+               <semx element="autonum" source="samplecode">1</semx>
+            </fmt-xref-label><body>&lt;xml&gt;A&lt;b&gt;C&lt;/b&gt;&lt;/xml&gt;</body><fmt-sourcecode id="_" lang="xml" autonum="1"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></fmt-sourcecode></sourcecode>
+                     <sourcecode id="samplecode1" lang="xml" linenums="true" autonum="2">
+            <name id="_">XML code</name>
+            <fmt-name id="_">
+               <span class="fmt-caption-label">
+                  <span class="fmt-element-name">Figure</span>
+                  <semx element="autonum" source="samplecode1">2</semx>
+                  </span>
+                  <span class="fmt-caption-delim">\u00a0— </span>
+                  <semx element="name" source="_">XML code</semx>
+            </fmt-name>
+            <fmt-xref-label>
+               <span class="fmt-element-name">Figure</span>
+               <semx element="autonum" source="samplecode1">2</semx>
+            </fmt-xref-label><body>&lt;xml&gt;A&lt;b&gt;C&lt;/b&gt;&lt;/xml&gt;</body>
+               <fmt-sourcecode id="_" lang="xml" linenums="true" autonum="2"><table class="rouge-line-table">
+                                <tbody>
+                   <tr id="samplecode1_line-1" class="lineno">
+                     <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                       <pre>1</pre>
+                     </td>
+                     <td class="rouge-code">
+                       <sourcecode><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></sourcecode>
+                     </td>
+                   </tr>
+                 </tbody>
+               </table></fmt-sourcecode>
+             </sourcecode>
+           </foreword>
+         </preface>
        </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -613,13 +578,24 @@ RSpec.describe IsoDoc do
                   <br/>
                                <div id="_">
                <h1 class="ForewordTitle">Foreword</h1>
-               <figure id="samplecode" class="sourcecode" spellcheck="false" translation="no"><pre><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre>
-               <figcaption class="SourceTitle">Figure 1\\u00a0— XML code</figcaption></figure>
-               <figure id="samplecode1" class="sourcecode" spellcheck="false" translation="no"><table class="rouge-line-table"><tbody><tr>
-               <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
-                <pre>1</pre></td>
-                <td style="" class="rouge-code"><pre class="sourcecode" spellcheck="false" translation="no"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre></td></tr></tbody></table>
-               <figcaption class="SourceTitle">Figure 2\\u00a0— XML code</figcaption>
+               <figure id="samplecode" class="sourcecode" spellcheck="false" translation="no">
+                <pre><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre>
+                <figcaption class="SourceTitle">Figure 1\u00a0— XML code</figcaption>
+               </figure>
+               <figure id="samplecode1" class="sourcecode" spellcheck="false" translation="no">
+                <table class="rouge-line-table">
+                  <tbody>
+                    <tr>
+                      <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
+                        <pre>1</pre>
+                      </td>
+                      <td style="" class="rouge-code">
+                        <pre class="sourcecode"  spellcheck="false" translation="no"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+               <figcaption class="SourceTitle">Figure 2\u00a0— XML code</figcaption>
                </figure>
              </div>
            </div>
@@ -630,13 +606,13 @@ RSpec.describe IsoDoc do
       .new({ sourcehighlighter: true }
       .merge(presxml_options))
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output))
+    expect(strip_guid(pres_output)
      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(output)
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to output
   end
 
   it "processes sourcecode with annotations" do
@@ -756,11 +732,11 @@ RSpec.describe IsoDoc do
     INPUT
     html = <<~OUTPUT
       #{HTML_HDR}
-                  <br/>
-                  <div id="_">
-                                 <h1 class="ForewordTitle">Foreword</h1>
-                                 <figure id="_" class="sourcecode" spellcheck="false" translation="no">
-               <pre>puts "Hello, world." <span class="c"> &lt;1&gt;</span><span class="c"> &lt;2&gt;</span> <br/>\\u00a0\\u00a0 %w{a b c}.each do |x|<br/>\\u00a0\\u00a0\\u00a0\\u00a0 puts x <span class="c"> &lt;3&gt;</span><br/>\\u00a0\\u00a0 end</pre>
+          <br/>
+          <div id="_">
+            <h1 class="ForewordTitle">Foreword</h1>
+            <figure id="_" class="sourcecode" spellcheck="false" translation="no">
+              <pre>puts "Hello, world." <span class="c"> &lt;1&gt;</span><span class="c"> &lt;2&gt;</span> <br/>\u00a0\u00a0 %w{a b c}.each do |x|<br/>\u00a0\u00a0\u00a0\u00a0 puts x <span class="c"> &lt;3&gt;</span> <br/>\u00a0\u00a0 end</pre>
                        <div class="annotation">
                        <div class="figdl">
           <p class="ListTitle">Key</p>
@@ -805,12 +781,12 @@ RSpec.describe IsoDoc do
                       <span class="c"> &lt;1&gt;</span>
                       <span class="c"> &lt;2&gt;</span>
                       <br/>
-                      \\u00a0\\u00a0 %w{a b c}.each do |x|
+                      \u00a0\u00a0 %w{a b c}.each do |x|
                       <br/>
-                      \\u00a0\\u00a0\\u00a0\\u00a0 puts x
+                      \u00a0\u00a0\u00a0\u00a0 puts x
                       <span class="c"> &lt;3&gt;</span>
                       <br/>
-                      \\u00a0\\u00a0 end
+                      \u00a0\u00a0 end
                    </p>
                    <div class="annotation">
                       <div align="left">
@@ -858,7 +834,7 @@ RSpec.describe IsoDoc do
                    </div>
                    <p class="SourceTitle" style="text-align:center;">Figure 1</p>
                 </div>
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
@@ -871,16 +847,16 @@ RSpec.describe IsoDoc do
       .new({ sourcehighlighter: true }
       .merge(presxml_options))
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output))
+    expect(strip_guid(pres_output)
      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(doc)
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html4_equivalent_to doc
   end
 
   it "processes sourcecode with annotations and line numbering" do
@@ -1050,12 +1026,8 @@ RSpec.describe IsoDoc do
                                   <pre>1</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode" spellcheck="false" translation="no">
-                                     puts "Hello, world."
-                                     <span class="c"> &lt;1&gt;</span>
-                                     \\u00a0
-                                     <span class="c"> &lt;2&gt;</span>
-                                  </pre>
+                                  <pre class="sourcecode" spellcheck="false"
+                           translation="no">puts "Hello, world." <span class="c"> &lt;1&gt;</span>  <span class="c"> &lt;2&gt;</span> </pre>
                                </td>
                             </tr>
                             <tr>
@@ -1063,7 +1035,8 @@ RSpec.describe IsoDoc do
                                   <pre>2</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode" spellcheck="false" translation="no">\\u00a0\\u00a0 %w{a b c}.each do |x|</pre>
+                                  <pre class="sourcecode" spellcheck="false"
+                           translation="no">\u00a0\u00a0 %w{a b c}.each do |x|</pre>
                                </td>
                             </tr>
                             <tr>
@@ -1071,10 +1044,8 @@ RSpec.describe IsoDoc do
                                   <pre>3</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode" spellcheck="false" translation="no">
-                                     \\u00a0\\u00a0\\u00a0\\u00a0 puts x
-                                     <span class="c"> &lt;3&gt;</span>
-                                  </pre>
+                                  <pre class="sourcecode" spellcheck="false"
+                           translation="no">\u00a0\u00a0\u00a0\u00a0 puts x <span class="c"> &lt;3&gt;</span> </pre>
                                </td>
                             </tr>
                             <tr>
@@ -1082,7 +1053,8 @@ RSpec.describe IsoDoc do
                                   <pre>4</pre>
                                </td>
                                <td style="" class="rouge-code">
-                                  <pre class="sourcecode" spellcheck="false" translation="no">\\u00a0\\u00a0 end</pre>
+                                  <pre class="sourcecode" spellcheck="false"
+                           translation="no">\u00a0\u00a0 end</pre>
                                </td>
                             </tr>
                          </tbody>
@@ -1141,7 +1113,7 @@ RSpec.describe IsoDoc do
                                      <p class="Sourcecode">
                                         puts "Hello, world."
                                         <span class="c"> &lt;1&gt;</span>
-                                        \\u00a0
+                                        \u00a0
                                         <span class="c"> &lt;2&gt;</span>
                                      </p>
                                   </td>
@@ -1151,7 +1123,7 @@ RSpec.describe IsoDoc do
                                      <pre>2</pre>
                                   </td>
                                   <td style="page-break-after:avoid;" class="rouge-code">
-                                     <p class="Sourcecode">\\u00a0\\u00a0 %w{a b c}.each do |x|</p>
+                                     <p class="Sourcecode">\u00a0\u00a0 %w{a b c}.each do |x|</p>
                                   </td>
                                </tr>
                                <tr>
@@ -1160,7 +1132,7 @@ RSpec.describe IsoDoc do
                                   </td>
                                   <td style="page-break-after:avoid;" class="rouge-code">
                                      <p class="Sourcecode">
-                                        \\u00a0\\u00a0\\u00a0\\u00a0 puts x
+                                        \u00a0\u00a0\u00a0\u00a0 puts x
                                         <span class="c"> &lt;3&gt;</span>
                                      </p>
                                   </td>
@@ -1170,7 +1142,7 @@ RSpec.describe IsoDoc do
                                      <pre>4</pre>
                                   </td>
                                   <td style="page-break-after:auto;" class="rouge-code">
-                                     <p class="Sourcecode">\\u00a0\\u00a0 end</p>
+                                     <p class="Sourcecode">\u00a0\u00a0 end</p>
                                   </td>
                                </tr>
                             </tbody>
@@ -1223,7 +1195,7 @@ RSpec.describe IsoDoc do
                    </div>
                    <p class="SourceTitle" style="text-align:center;">Figure 1</p>
                 </div>
-                <p>\\u00a0</p>
+                <p>\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
@@ -1236,16 +1208,16 @@ RSpec.describe IsoDoc do
       .new({ sourcehighlighter: true }
       .merge(presxml_options))
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output))
+    expect(strip_guid(pres_output)
      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
-    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(doc)
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
+    expect(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html4_equivalent_to doc
   end
 
   it "processes sourcecode with xml formatting" do
@@ -1411,33 +1383,32 @@ RSpec.describe IsoDoc do
           </preface>
        </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new({ sourcehighlighter: true }
       .merge(presxml_options))
-      .convert("test", input, true)))
+      .convert("test", input, true))
       .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .to be_xml_equivalent_to presxml
   end
 
   it "processes pseudocode" do
     input = <<~INPUT
       <itu-standard xmlns="http://riboseinc.com/isoxml">
-          <bibdata>
-          <language>en</language>
-          </bibdata>
-              <preface><foreword id="fwd">
-        <figure id="fig" class="pseudocode" keep-with-next="true" keep-lines-together="true"><name>Label</name><p id="_">\\u00a0\\u00a0<strong>A</strong><br/>
-      \\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0<smallcap>B</smallcap></p>
-      <p id="_">\\u00a0\\u00a0<em>C</em></p></figure>
+        <bibdata/>
+        <language>en</language>
+        <preface><foreword id="fwd">
+        <figure id="fig" class="pseudocode" keep-with-next="true" keep-lines-together="true"><name>Label</name><p id="_">\u00a0\u00a0<strong>A</strong><br/>
+      \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0<smallcap>B</smallcap></p>
+      <p id="_">\u00a0\u00a0<em>C</em></p></figure>
       </preface></itu-standard>
     INPUT
 
     presxml = <<~OUTPUT
       <itu-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-         <bibdata>
-            <language current="true">en</language>
-         </bibdata>
+         <bibdata/><language>en</language>
+      #{'   '}
+      #{'   '}
          <preface>
             <clause type="toc" id="_" displayorder="1">
                <fmt-title id="_" depth="1">Table of contents</fmt-title>
@@ -1454,7 +1425,7 @@ RSpec.describe IsoDoc do
                         <span class="fmt-element-name">Figure</span>
                         <semx element="autonum" source="fig">1</semx>
                      </span>
-                     <span class="fmt-caption-delim">\\u00a0— </span>
+                     <span class="fmt-caption-delim">\u00a0— </span>
                      <semx element="name" source="_">Label</semx>
                   </fmt-name>
                   <fmt-xref-label>
@@ -1462,26 +1433,26 @@ RSpec.describe IsoDoc do
                      <semx element="autonum" source="fig">1</semx>
                   </fmt-xref-label>
                   <p original-id="_">
-                      \\u00a0\\u00a0
+                     \u00a0\u00a0
                      <strong>A</strong>
                      <br/>
-                     \\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0
+                     \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0
                      <smallcap>B</smallcap>
                   </p>
                   <p original-id="_">
-                     \\u00a0\\u00a0
+                     \u00a0\u00a0
                      <em>C</em>
                   </p>
                   <fmt-figure class="pseudocode" keep-with-next="true" keep-lines-together="true" autonum="1">
                         <p id="_">
-                           \\u00a0\\u00a0
+                           \u00a0\u00a0
                            <strong>A</strong>
                            <br/>
-                           \\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0
+                           \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0
                            <smallcap>B</smallcap>
                         </p>
                         <p id="_">
-                           \\u00a0\\u00a0
+                           \u00a0\u00a0
                            <em>C</em>
                         </p>
                   </fmt-figure>
@@ -1493,40 +1464,42 @@ RSpec.describe IsoDoc do
 
     html = <<~OUTPUT
       #{HTML_HDR}
-                   <br/>
-                   <div id="fwd">
-                     <h1 class="ForewordTitle">Foreword</h1>
-                     <figure id="fig" class="pseudocode" style='page-break-after: avoid;page-break-inside: avoid;'><p id="_">\\u00a0\\u00a0<b>A</b><br/>
-             \\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0<span style="font-variant:small-caps;">B</span></p>
-             <p id="_">\\u00a0\\u00a0<i>C</i></p><figcaption class="SourceTitle">Figure 1\\u00a0&#x2014; Label</figcaption></div>
-                   </figure>
-                 </div>
-               </body>
+            <br/>
+            <div id="fwd">
+              <h1 class="ForewordTitle">Foreword</h1>
+              <figure id="fig" class="pseudocode" style='page-break-after: avoid;page-break-inside: avoid;'>
+                <p id="_">\u00a0\u00a0<b>A</b><br/>
+                \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0<span style="font-variant:small-caps;">B</span>
+                </p>
+                <p id="_">\u00a0\u00a0<i>C</i></p>
+                <figcaption class="SourceTitle">Figure 1\u00a0&#x2014; Label</figcaption>
+              </figure>
+            </div>
+          </div>
+        </body>
       </html>
     OUTPUT
 
-    doc = <<~OUTPUT
-      <div class="pseudocode"  style='page-break-after: avoid;page-break-inside: avoid;'><a name="fig" id="fig"></a><p class="pseudocode"><a name="_" id="_"></a>\\u00a0\\u00a0<b>A</b><br/>
-          \\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0<span style="font-variant:small-caps;">B</span></p>
-          <p class="pseudocode" style="page-break-after:avoid;"><a name="_" id="_"></a>\\u00a0\\u00a0<i>C</i></p><p class="SourceTitle" style="text-align:center;">Figure 1\\u00a0&#x2014; Label</p></div>
-    OUTPUT
-
-    FileUtils.rm_f "test.doc"
+    #  FileUtils.rm_f "test.doc"
     pres_output = IsoDoc::PresentationXMLConvert
       .new({ sourcehighlighter: true }
       .merge(presxml_options))
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output))
+    expect(strip_guid(pres_output)
       .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
-    expect(strip_guid(Canon.format_xml(File.read("test.doc")
+    expect(strip_guid(File.read("test.doc")
       .gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "")
-      .gsub(%r{</div>.*}m, "</div>"))))
-      .to be_equivalent_to(doc)
+      .gsub(%r{</div>.*}m, "</div>")))
+      .to be_html4_equivalent_to <<~OUTPUT
+             <div class="pseudocode"  style='page-break-after: avoid;page-break-inside: avoid;'><a name="fig" id="fig"></a><p class="pseudocode"><a name="_" id="_"></a>\u00a0\u00a0<b>A</b><br/>
+        \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0<span style="font-variant:small-caps;">B</span></p>
+        <p class="pseudocode" style="page-break-after:avoid;"><a name="_" id="_"></a>\u00a0\u00a0<i>C</i></p><p class="SourceTitle" style="text-align:center;">Figure 1\u00a0&#x2014; Label</p></div>
+      OUTPUT
   end
 end
