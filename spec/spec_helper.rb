@@ -34,14 +34,14 @@ Canon::Config.instance.tap do |cfg|
   cfg.xml.diff.show_line_numbered_inputs = false
 
   cfg.xml.diff.show_raw_inputs = false # disable combined flag
-  cfg.xml.diff.show_raw_received = true # show only received output
+  cfg.xml.diff.show_raw_received = false # show only received output
   cfg.xml.diff.show_raw_expected = false # suppress fixture
-  cfg.html.diff.show_raw_inputs = false # disable combined flag
-  cfg.html.diff.show_raw_received = true # show only received output
+  cfg.html.diff.show_raw_inputs = true # disable combined flag
+  cfg.html.diff.show_raw_received = false # show only received output
   cfg.html.diff.show_raw_expected = false # suppress fixture
 
-  cfg.html.diff.show_preprocessed_inputs = false
-  cfg.xml.diff.show_preprocessed_inputs = false
+  cfg.xml.diff.show_prettyprint_expected = false
+  cfg.html.diff.show_prettyprint_expected = false
 
   cfg.html.diff.context_lines = 5
   cfg.xml.diff.context_lines = 5
@@ -60,6 +60,15 @@ Canon::Config.instance.tap do |cfg|
 
   cfg.xml.diff.compact_semantic_report = true
   cfg.html.diff.compact_semantic_report = true
+
+  cfg.xml.diff.pretty_printed_expected = true
+  cfg.html.diff.pretty_printed_expected = true
+
+  cfg.xml.diff.expand_difference = true
+  cfg.html.diff.expand_difference = true
+
+  cfg.xml.diff.pretty_printer_sort_attributes = true
+  cfg.html.diff.pretty_printer_sort_attributes = true
 
   # Presence-sensitive: " " and "\n  " both → single ░A
   # note and abstract are for Relaton not Metanorma encoding,

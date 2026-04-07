@@ -135,7 +135,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <bibdata/>
          <metanorma-extension>
            <source-highlighter-css>sourcecode table td { padding: 5px; }
@@ -176,95 +176,98 @@ RSpec.describe IsoDoc do
        sourcecode .nt {
          color: #0000FF;
        }
+     
        </source-highlighter-css>
          </metanorma-extension>
-          <preface>
-             <clause type="toc" id="_" displayorder="1">
-             <fmt-title id="_" depth="1">Table of contents</fmt-title>
-        </clause>
-        <foreword id="_" displayorder="2">
-                 <title id="_">Foreword</title>
-         <fmt-title id="_" depth="1">
+         <preface>
+           <clause type="toc" id="_" displayorder="1">
+             <fmt-title depth="1" id="_">Table of contents</fmt-title>
+           </clause>
+           <foreword id="_" displayorder="2">
+             <title id="_">Foreword</title>
+             <fmt-title depth="1" id="_">
                <semx element="title" source="_">Foreword</semx>
-         </fmt-title>
-         <sourcecode lang="ruby" id="samplecode" autonum="1">
-            <name id="_">
-               Ruby
-               <em>code</em>
-            </name>
-            <fmt-name id="_">
-               <span class="fmt-caption-label">
-                  <span class="fmt-element-name">Figure</span>
-                  <semx element="autonum" source="samplecode">1</semx>
-                  </span>
-                  <span class="fmt-caption-delim">\u00a0— </span>
-                  <semx element="name" source="_">
-                     Ruby
-                     <em>code</em>
-                  </semx>
-            </fmt-name>
-            <fmt-xref-label>
-               <span class="fmt-element-name">Figure</span>
-               <semx element="autonum" source="samplecode">1</semx>
-            </fmt-xref-label><body>puts x</body><fmt-sourcecode id="_" lang="ruby" autonum="1">
-               <span class="nb">puts</span>
-               <span class="n">x</span>
+             </fmt-title>
+             <sourcecode lang="ruby" id="samplecode" autonum="1">
+               <name id="_">Ruby <em>code</em></name>
+               <fmt-name id="_">
+                 <span class="fmt-caption-label">
+                   <span class="fmt-element-name">Figure</span>
+                   <semx element="autonum" source="samplecode">1</semx>
+                 </span>
+                 <span class="fmt-caption-delim"> — </span>
+                 <semx element="name" source="_">Ruby <em>code</em></semx>
+               </fmt-name>
+               <fmt-xref-label>
+                 <span class="fmt-element-name">Figure</span>
+                 <semx element="autonum" source="samplecode">1</semx>
+               </fmt-xref-label>
+               <body>puts x</body>
+               <fmt-sourcecode lang="ruby" autonum="1" id="_">
+                 <span class="nb">puts</span>
+                 <span class="n">x</span>
                </fmt-sourcecode>
              </sourcecode>
              <sourcecode unnumbered="true" linenums="true" id="A">
-            <name id="_">More</name>
-            <fmt-name id="_">
-                  <semx element="name" source="_">More</semx>
-            </fmt-name><body>Hey
-      Que?</body><fmt-sourcecode id="_" unnumbered="true" linenums="true">
-               <table class="rouge-line-table">
-                 <tbody>
-                   <tr id="line-1" class="lineno">
-                     <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
-                       <pre>1</pre>
-                     </td>
-                     <td class="rouge-code">
-                       <sourcecode>Hey</sourcecode>
-                     </td>
-                   </tr>
-                   <tr id="line-2" class="lineno">
-                     <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
-                       <pre>2</pre>
-                     </td>
-                     <td class="rouge-code">
-                       <sourcecode>Que?</sourcecode>
-                     </td>
-                   </tr>
-                 </tbody>
-               </table>
+               <name id="_">More</name>
+               <fmt-name id="_">
+                 <semx element="name" source="_">More</semx>
+               </fmt-name>
+               <body>Hey
+       Que?
+       </body>
+               <fmt-sourcecode unnumbered="true" linenums="true" id="_">
+                 <table class="rouge-line-table">
+                   <tbody>
+                     <tr id="A_line-1" class="lineno">
+                       <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                         <pre>1</pre>
+                       </td>
+                       <td class="rouge-code">
+                         <sourcecode>Hey</sourcecode>
+                       </td>
+                     </tr>
+                     <tr id="A_line-2" class="lineno">
+                       <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                         <pre>2</pre>
+                       </td>
+                       <td class="rouge-code">
+                         <sourcecode>Que?</sourcecode>
+                       </td>
+                     </tr>
+                   </tbody>
+                 </table>
                </fmt-sourcecode>
              </sourcecode>
              <sourcecode unnumbered="true" linenums="true" id="B">
                <name id="_">More</name>
-            <fmt-name id="_">
-                  <semx element="name" source="_">More</semx>
-            </fmt-name><body>Hey
-      Que?</body><fmt-sourcecode id="_" unnumbered="true" linenums="true">
-               <table class="rouge-line-table">
-                 <tbody>
-                   <tr id="line-1" class="lineno">
-                     <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
-                       <pre>1</pre>
-                     </td>
-                     <td class="rouge-code">
-                       <sourcecode>Hey</sourcecode>
-                     </td>
-                   </tr>
-                   <tr id="line-2" class="lineno">
-                     <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
-                       <pre>2</pre>
-                     </td>
-                     <td class="rouge-code">
-                       <sourcecode>Que?</sourcecode>
-                     </td>
-                   </tr>
-                 </tbody>
-               </table>
+               <fmt-name id="_">
+                 <semx element="name" source="_">More</semx>
+               </fmt-name>
+               <body>Hey
+       Que?
+       </body>
+               <fmt-sourcecode unnumbered="true" linenums="true" id="_">
+                 <table class="rouge-line-table">
+                   <tbody>
+                     <tr id="B_line-1" class="lineno">
+                       <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                         <pre>1</pre>
+                       </td>
+                       <td class="rouge-code">
+                         <sourcecode>Hey</sourcecode>
+                       </td>
+                     </tr>
+                     <tr id="B_line-2" class="lineno">
+                       <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                         <pre>2</pre>
+                       </td>
+                       <td class="rouge-code">
+                         <sourcecode>Que?</sourcecode>
+                       </td>
+                     </tr>
+                   </tbody>
+                 </table>
                </fmt-sourcecode>
              </sourcecode>
            </foreword>
@@ -555,7 +558,7 @@ RSpec.describe IsoDoc do
             </fmt-xref-label><body>&lt;xml&gt;A&lt;b&gt;C&lt;/b&gt;&lt;/xml&gt;</body>
                <fmt-sourcecode id="_" lang="xml" linenums="true" autonum="2"><table class="rouge-line-table">
                                 <tbody>
-                   <tr id="line-1" class="lineno">
+                   <tr id="samplecode1_line-1" class="lineno">
                      <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
                        <pre>1</pre>
                      </td>
@@ -850,7 +853,7 @@ RSpec.describe IsoDoc do
       .to be_xml_equivalent_to presxml
     expect(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true)))
-      .to be_xml_equivalent_to html
+      .to be_html5_equivalent_to html
     expect(strip_guid(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true)))
       .to be_html4_equivalent_to doc

@@ -952,7 +952,7 @@ RSpec.describe IsoDoc do
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_xml))
-      .to be_xml_equivalent_to html
+      .to be_html5_equivalent_to html
     IsoDoc::WordConvert.new({})
       .convert("test", pres_output, false)
     expect(File.exist?("test.doc")).to be true
@@ -2641,7 +2641,7 @@ RSpec.describe IsoDoc do
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_xml))
-      .to be_xml_equivalent_to html
+      .to be_html5_equivalent_to html
   end
 
   it "processes clauses containing normative references" do

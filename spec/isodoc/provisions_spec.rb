@@ -397,6 +397,12 @@ RSpec.describe IsoDoc do
             </foreword>
          </preface>
          <annex id="Annex" autonum="A" displayorder="3">
+              <variant-title type="toc">
+       <span class="fmt-caption-label">
+         <span class="fmt-element-name">Annex</span> 
+         <semx element="autonum" source="Annex">A</semx>
+       </span>
+     </variant-title>
             <fmt-title id="_">
                <strong>
                   <span class="fmt-caption-label">

@@ -798,7 +798,7 @@ RSpec.describe IsoDoc do
     expect(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true)
       .sub(/^.*<h1/m, "<div><h1").sub(%r{</div>.*$}m, "</div>"))
-      .to be_xml_equivalent_to html
+      .to be_html5_equivalent_to html
     expect(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true)
       .sub(/^.*<h1/m, "<div><h1").sub(%r{</div>.*$}m, "</div>"))

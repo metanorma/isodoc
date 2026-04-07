@@ -1245,7 +1245,7 @@ RSpec.describe IsoDoc do
       .to be_xml_equivalent_to presxml
     expect(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true)))
-      .to be_xml_equivalent_to html
+      .to be_html5_equivalent_to html
     FileUtils.rm_f("test.doc")
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
     expect(File.exist?("test.doc")).to be true

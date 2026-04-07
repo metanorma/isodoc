@@ -335,7 +335,7 @@ RSpec.describe IsoDoc do
       </html>
     OUTPUT
     expect(IsoDoc::HtmlConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s).to be_xml_equivalent_to html
+      .cleanup(Nokogiri::XML(input)).to_s).to be_html5_equivalent_to html
   end
 
   it "cleans up tables without tfoot" do
@@ -483,6 +483,6 @@ RSpec.describe IsoDoc do
       </html>
     OUTPUT
     expect(IsoDoc::HtmlConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s).to be_xml_equivalent_to html
+      .cleanup(Nokogiri::XML(input)).to_s).to be_html5_equivalent_to html
   end
 end
