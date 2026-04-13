@@ -334,7 +334,7 @@ RSpec.describe IsoDoc do
                       <name>Cambridge University Press</name>
                     </organization>
                   </contributor>
-                  <place>Cambridge, UK</place>
+                  <place><formattedPlace>Cambridge, UK</formattedPlace></place>
                 <size><value type="volume">1</value></size>
       </bibitem>
           </references>
