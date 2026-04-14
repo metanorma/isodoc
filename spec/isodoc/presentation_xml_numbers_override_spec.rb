@@ -923,7 +923,7 @@ RSpec.describe IsoDoc do
               </math>
            </stem>
            <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428</semx>
+              <semx element="stem" source="_">327,429</semx>
            </fmt-stem>
            <stem type="MathML" id="_">
               <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -963,7 +963,7 @@ RSpec.describe IsoDoc do
               </math>
            </stem>
            <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428</semx>
+              <semx element="stem" source="_">327,429</semx>
            </fmt-stem>
            <stem type="MathML" id="_">
               <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -1316,7 +1316,7 @@ RSpec.describe IsoDoc do
               </math>
            </stem>
            <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428</semx>
+              <semx element="stem" source="_">327,429</semx>
            </fmt-stem>
            <stem type="MathML" id="_">
               <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -1356,7 +1356,7 @@ RSpec.describe IsoDoc do
               </math>
            </stem>
            <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428</semx>
+              <semx element="stem" source="_">327,429</semx>
            </fmt-stem>
            <stem type="MathML" id="_">
               <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -1710,7 +1710,7 @@ RSpec.describe IsoDoc do
                </math>
             </stem>
             <fmt-stem type="MathML">
-               <semx element="stem" source="_">327,428</semx>
+               <semx element="stem" source="_">327,429</semx>
             </fmt-stem>
             <stem type="MathML" id="_">
                <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -1750,7 +1750,7 @@ RSpec.describe IsoDoc do
                </math>
             </stem>
             <fmt-stem type="MathML">
-               <semx element="stem" source="_">327,428</semx>
+               <semx element="stem" source="_">327,429</semx>
             </fmt-stem>
             <stem type="MathML" id="_">
                <math xmlns="http://www.w3.org/1998/Math/MathML">

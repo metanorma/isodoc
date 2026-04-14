@@ -403,28 +403,23 @@ RSpec.describe IsoDoc do
     html.xpath("//script").each(&:remove)
     expect(strip_guid(html.to_xml))
       .to be_xml_equivalent_to <<~OUTPUT
-        <body lang="en" xml:lang="en">
-            <div class="title-section">
+        <body lang="en" xml:lang="en"><div class="title-section">
         /* an empty html cover page */
-            </div>
-            <br/>
-            <div class="prefatory-section">
+
+
+        </div><br/><div class="prefatory-section">
         /* an empty html intro page */
+
         <ul id="toc-list"/>
-               <div id="toc"><ul><li class="h1"><a href="#fwd">      Foreword</a></li></ul></div>
-         </div>
-           <br/>
-           <main class="main-section">
-             <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-             <br/>
-             <div id="fwd">
-               <h1 class="ForewordTitle" id="_"><a class="anchor" href="#fwd"/><a class="header" href="#fwd">Foreword</a></h1>
-               <div class="Note">
-                 <p>These results are based on a study carried out on three different types of kernel.</p>
-               </div>
-             </div>
-           </main>
-         </body>
+        <div id="toc"><ul><li class="h1"><a href="#fwd">#{'      '}
+        #{'  '}
+          Foreword
+        </a></li></ul></div>
+        </div><br/><main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button><br/><div id="fwd"><h1 class="ForewordTitle" id="_"><a class="anchor" href="#fwd"/><a class="header" href="#fwd">Foreword</a></h1><div class="Note"><p>These results are based on a study carried out on three different types of kernel.</p></div></div></main>
+
+
+
+        </body>
       OUTPUT
   end
 
@@ -483,7 +478,7 @@ RSpec.describe IsoDoc do
       .convert("test", input, false)
     html = Nokogiri::XML(File.read("test.html"))
       .at("//div[@id = 'toc']")
-    expect(strip_guid((html.to_xml)))
+    expect(strip_guid(html.to_xml))
       .to be_xml_equivalent_to output
   end
 

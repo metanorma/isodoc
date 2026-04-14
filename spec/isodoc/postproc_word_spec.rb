@@ -1140,11 +1140,7 @@ RSpec.describe IsoDoc do
            </table>
          </div>
          <div id='_second_sample'>
-           <h2>
-             1.2.
-             <span style='mso-tab-count:1'>\u00a0 </span>
-             Second sample
-           </h2>
+           <h2>1.2.<span style='mso-tab-count:1'>\u00a0 </span>Second sample</h2>
            <table id='_9846c486-14e5-4b1c-bb2f-55cc254dd309' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
              <thead>
                <tr style='background:#A5A5A5;'>

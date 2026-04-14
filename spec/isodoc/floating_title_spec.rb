@@ -259,33 +259,21 @@ RSpec.describe IsoDoc do
          <div class="WordSection3">
             <div>
                <a name="C" id="C"/>
-               <h1>
-                  1.
-                  <span style="mso-tab-count:1">\u00a0 </span>
-                  Introduction
-               </h1>
+               <h1>1.<span style="mso-tab-count:1">\u00a0 </span>Introduction</h1>
                <p class="h1">
                   <a name="_" id="_"/>
                   A
                </p>
                <div>
                   <a name="C1" id="C1"/>
-                  <h2>
-                     1.1.
-                     <span style="mso-tab-count:1">\u00a0 </span>
-                     Introduction Subsection
-                  </h2>
+                  <h2>1.1.<span style="mso-tab-count:1">\u00a0 </span>Introduction Subsection</h2>
                   <p class="h2">
                      <a name="_" id="_"/>
                      B
                   </p>
                   <div>
                      <a name="C2" id="C2"/>
-                     <h3>
-                        1.1.1.
-                        <span style="mso-tab-count:1">\u00a0 </span>
-                        Introduction Sub-subsection
-                     </h3>
+                     <h3>1.1.1.<span style="mso-tab-count:1">\u00a0 </span>Introduction Sub-subsection</h3>
                      <p class="h1">
                         <a name="_" id="_"/>
                         C
@@ -299,11 +287,7 @@ RSpec.describe IsoDoc do
             </p>
             <div>
                <a name="C4" id="C4"/>
-               <h1>
-                  2.
-                  <span style="mso-tab-count:1">\u00a0 </span>
-                  Clause 2
-               </h1>
+               <h1>2.<span style="mso-tab-count:1">\u00a0 </span>Clause 2</h1>
             </div>
          </div>
          <div style="mso-element:footnote-list"/>

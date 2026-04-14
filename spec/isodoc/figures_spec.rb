@@ -543,12 +543,12 @@ RSpec.describe IsoDoc do
                    </div>
                    <div id="figure-B" class="figure">
                       <pre>A &lt;
-         B</pre>
+        B</pre>
                       <p class="FigureTitle" style="text-align:center;">Figure 2</p>
                    </div>
                    <div id="figure-C" class="figure">
                       <pre>A &lt;
-         B</pre>
+        B</pre>
                    </div>
                 </div>
                 <p>\u00a0</p>
@@ -558,11 +558,7 @@ RSpec.describe IsoDoc do
              </p>
              <div class="WordSection3">
                 <div>
-                   <h1>
-                      1.
-                      <span style="mso-tab-count:1">\u00a0 </span>
-                      Normative References
-                   </h1>
+                   <h1>1.<span style="mso-tab-count:1">\u00a0 </span>Normative References</h1>
                    <p id="ISO712" class="NormRef">
                       ISO\u00a0712, International Organization for Standardization.
                       <i>Cereals and cereal products</i>
@@ -576,12 +572,10 @@ RSpec.describe IsoDoc do
                 <p style="display:none;" class="variant-title-toc">Annex A</p>
                    <h1 class="Annex">
                       <b>Annex A</b>
-                      <br/>
-                      (informative)
-                   </h1>
+                      <br/>(informative)</h1>
                    <div id="AnnexFigure" class="figure">
                       <pre>A &lt;
-         B</pre>
+        B</pre>
                       <p class="FigureTitle" style="text-align:center;">Figure A.1</p>
                    </div>
                 </div>

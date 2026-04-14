@@ -576,11 +576,7 @@ RSpec.describe IsoDoc do
                </span>
             </p>
             <div>
-               <h1>
-                  1.
-                  <span style="mso-tab-count:1">\u00a0 </span>
-                  Normative References
-               </h1>
+               <h1>1.<span style="mso-tab-count:1">\u00a0 </span>Normative References</h1>
                <p class="MsoNormal">The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                <p class="NormRef">
                   <a name="ISO712" id="ISO712"/>
