@@ -150,7 +150,7 @@ RSpec.describe IsoDoc do
                <p id="_">
                   <eref bibitemid="ISO712" id="_20"/>
                   <semx element="eref" source="_20">
-                     <fmt-xref target="ISO712">ISO\\u00a0712</fmt-xref>
+                     <fmt-xref target="ISO712">ISO\u00a0712</fmt-xref>
                   </semx>
                   <eref bibitemid="ISBN" id="_21"/>
                   <semx element="eref" source="_21">
@@ -162,7 +162,7 @@ RSpec.describe IsoDoc do
                   </semx>
                   <eref bibitemid="ISO16634" id="_23"/>
                   <semx element="eref" source="_23">
-                     <fmt-xref target="ISO16634">ISO\\u00a016634:--</fmt-xref>
+                     <fmt-xref target="ISO16634">ISO\u00a016634:--</fmt-xref>
                   </semx>
                   <eref bibitemid="ref1" id="_24"/>
                   <semx element="eref" source="_24">
@@ -202,7 +202,7 @@ RSpec.describe IsoDoc do
                </fmt-xref-label>
                <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                <bibitem id="ISO712" type="standard">
-                  <biblio-tag>[1], ISO\\u00a0712, </biblio-tag>
+                  <biblio-tag>[1], ISO\u00a0712, </biblio-tag>
                   <formattedref>
                      International Organization for Standardization.
                      <em>Cereals and cereal products</em>
@@ -211,8 +211,8 @@ RSpec.describe IsoDoc do
                   <title format="text/plain">Cereals or cereal products</title>
                   <title type="main" format="text/plain">Cereals and cereal products</title>
                   <docidentifier type="metanorma-ordinal">[1]</docidentifier>
-                  <docidentifier type="ISO">ISO\\u00a0712</docidentifier>
-                  <docidentifier scope="biblio-tag">ISO\\u00a0712</docidentifier>
+                  <docidentifier type="ISO">ISO\u00a0712</docidentifier>
+                  <docidentifier scope="biblio-tag">ISO\u00a0712</docidentifier>
                   <contributor>
                      <role type="publisher"/>
                      <organization>
@@ -222,7 +222,7 @@ RSpec.describe IsoDoc do
                </bibitem>
                <bibitem id="ISO16634" type="standard">
                   <biblio-tag>
-                     ISO\\u00a016634:--\\u00a0(all\\u00a0parts)
+                     ISO\u00a016634:--\u00a0(all\u00a0parts)
                      <fn id="_8" reference="1" original-reference="_8" target="_18">
                         <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
                         <fmt-fn-label>
@@ -241,8 +241,8 @@ RSpec.describe IsoDoc do
                   </formattedref>
                   <title language="x" format="text/plain">Cereals, pulses, milled cereal products, xxxx, oilseeds and animal feeding stuffs</title>
                   <title language="en" format="text/plain">Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</title>
-                  <docidentifier type="ISO">ISO\\u00a016634:--\\u00a0(all\\u00a0parts)</docidentifier>
-                  <docidentifier scope="biblio-tag">ISO\\u00a016634:--\\u00a0(all\\u00a0parts)</docidentifier>
+                  <docidentifier type="ISO">ISO\u00a016634:--\u00a0(all\u00a0parts)</docidentifier>
+                  <docidentifier scope="biblio-tag">ISO\u00a016634:--\u00a0(all\u00a0parts)</docidentifier>
                   <date type="published">
                      <on>--</on>
                   </date>
@@ -258,15 +258,15 @@ RSpec.describe IsoDoc do
                   </extent>
                </bibitem>
                <bibitem id="ISO20483" type="standard">
-                  <biblio-tag>ISO\\u00a020483:2013-2014, </biblio-tag>
+                  <biblio-tag>ISO\u00a020483:2013-2014, </biblio-tag>
                   <formattedref>
                      International Organization for Standardization.
                      <em>Cereals and pulses</em>
                      . 2013–2014.
                   </formattedref>
                   <title format="text/plain">Cereals and pulses</title>
-                  <docidentifier type="ISO">ISO\\u00a020483:2013-2014</docidentifier>
-                  <docidentifier scope="biblio-tag">ISO\\u00a020483:2013-2014</docidentifier>
+                  <docidentifier type="ISO">ISO\u00a020483:2013-2014</docidentifier>
+                  <docidentifier scope="biblio-tag">ISO\u00a020483:2013-2014</docidentifier>
                   <date type="published">
                      <from>2013</from>
                      <to>2014</to>
@@ -446,7 +446,7 @@ RSpec.describe IsoDoc do
                   <biblio-tag>
                      [5]
                      <tab/>
-                     ISO\\u00a03696
+                     ISO\u00a03696
                      <fn id="_9" reference="2" original-reference="_9" target="_19">
                         <p>Under preparation. (Stage at the time of publication ISO/DIS 3696)</p>
                         <fmt-fn-label>
@@ -465,8 +465,8 @@ RSpec.describe IsoDoc do
                   </formattedref>
                   <title format="text/plain">Water for analytical laboratory use</title>
                   <docidentifier type="metanorma-ordinal">[5]</docidentifier>
-                  <docidentifier type="ISO">ISO\\u00a03696</docidentifier>
-                  <docidentifier scope="biblio-tag">ISO\\u00a03696</docidentifier>
+                  <docidentifier type="ISO">ISO\u00a03696</docidentifier>
+                  <docidentifier scope="biblio-tag">ISO\u00a03696</docidentifier>
                   <contributor>
                      <role type="publisher"/>
                      <organization>
@@ -499,14 +499,14 @@ RSpec.describe IsoDoc do
                      .
                   </formattedref>
                   <title>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
-                  <docidentifier type="IETF">IETF\\u00a0RFC\\u00a020</docidentifier>
-                  <docidentifier scope="biblio-tag">IETF\\u00a0RFC\\u00a020</docidentifier>
+                  <docidentifier type="IETF">IETF\u00a0RFC\u00a020</docidentifier>
+                  <docidentifier scope="biblio-tag">IETF\u00a0RFC\u00a020</docidentifier>
                </bibitem>
                <bibitem id="ref11">
                   <biblio-tag>
                      [7]
                      <tab/>
-                     IETF\\u00a0RFC\\u00a010,
+                     IETF\u00a0RFC\u00a010,
                   </biblio-tag>
                   <formattedref>
                      <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>
@@ -514,14 +514,14 @@ RSpec.describe IsoDoc do
                   </formattedref>
                   <title>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
                   <docidentifier type="metanorma-ordinal">[7]</docidentifier>
-                  <docidentifier type="IETF">IETF\\u00a0RFC\\u00a010</docidentifier>
-                  <docidentifier scope="biblio-tag">IETF\\u00a0RFC\\u00a010</docidentifier>
+                  <docidentifier type="IETF">IETF\u00a0RFC\u00a010</docidentifier>
+                  <docidentifier scope="biblio-tag">IETF\u00a0RFC\u00a010</docidentifier>
                </bibitem>
                <bibitem id="ref12">
                   <biblio-tag>
                      [Citn]
                      <tab/>
-                     IETF\\u00a0RFC\\u00a020,
+                     IETF\u00a0RFC\u00a020,
                   </biblio-tag>
                   <formattedref format="application/x-isodoc+xml">
                      CitationWorks. 2019.
@@ -529,14 +529,14 @@ RSpec.describe IsoDoc do
                      .
                   </formattedref>
                   <docidentifier type="metanorma">[Citn]</docidentifier>
-                  <docidentifier type="IETF">IETF\\u00a0RFC\\u00a020</docidentifier>
-                  <docidentifier scope="biblio-tag">IETF\\u00a0RFC\\u00a020</docidentifier>
+                  <docidentifier type="IETF">IETF\u00a0RFC\u00a020</docidentifier>
+                  <docidentifier scope="biblio-tag">IETF\u00a0RFC\u00a020</docidentifier>
                </bibitem>
                <bibitem id="ref10b">
                   <biblio-tag>
                      [8]
                      <tab/>
-                     IETF\\u00a0RFC\\u00a020,
+                     IETF\u00a0RFC\u00a020,
                   </biblio-tag>
                   <formattedref>
                      <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>
@@ -544,8 +544,8 @@ RSpec.describe IsoDoc do
                   </formattedref>
                   <title>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
                   <docidentifier type="metanorma-ordinal">[8]</docidentifier>
-                  <docidentifier type="IETF">IETF\\u00a0RFC\\u00a020</docidentifier>
-                  <docidentifier scope="biblio-tag">IETF\\u00a0RFC\\u00a020</docidentifier>
+                  <docidentifier type="IETF">IETF\u00a0RFC\u00a020</docidentifier>
+                  <docidentifier scope="biblio-tag">IETF\u00a0RFC\u00a020</docidentifier>
                </bibitem>
                <bibitem id="ref10c">
                   <biblio-tag>
@@ -558,7 +558,7 @@ RSpec.describe IsoDoc do
                   </formattedref>
                   <title>Internet Calendaring &amp; Scheduling Core Object Specification (iCalendar)</title>
                   <docidentifier type="metanorma-ordinal">[9]</docidentifier>
-                  <docidentifier type="DOI">DOI\\u00a0ABC\\u00a020</docidentifier>
+                  <docidentifier type="DOI">DOI\u00a0ABC\u00a020</docidentifier>
                </bibitem>
             </references>
          </bibliography>
@@ -607,10 +607,10 @@ RSpec.describe IsoDoc do
                 <div id="_1">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <p id="_">
-                      <a href="#ISO712">ISO\\u00a0712</a>
+                      <a href="#ISO712">ISO\u00a0712</a>
                       <a href="#ISBN">[3]</a>
                       <a href="#ISSN">[4]</a>
-                      <a href="#ISO16634">ISO\\u00a016634:--</a>
+                      <a href="#ISO16634">ISO\u00a016634:--</a>
                       <a href="#ref1">ICC/167</a>
                       <a href="#ref10">[6]</a>
                       <a href="#ref12">[Citn]</a>
@@ -618,15 +618,15 @@ RSpec.describe IsoDoc do
                    </p>
                 </div>
                 <div>
-                   <h1>1.\\u00a0 Normative References</h1>
+                   <h1>1.\u00a0 Normative References</h1>
                    <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                    <p id="ISO712" class="NormRef">
-                      [1], ISO\\u00a0712, International Organization for Standardization.
+                      [1], ISO\u00a0712, International Organization for Standardization.
                       <i>Cereals and cereal products</i>
                       .
                    </p>
                    <p id="ISO16634" class="NormRef">
-                      ISO\\u00a016634:--\\u00a0(all\\u00a0parts)
+                      ISO\u00a016634:--\u00a0(all\u00a0parts)
                       <a class="FootnoteRef" href="#fn:_18">
                          <sup>1</sup>
                       </a>
@@ -635,7 +635,7 @@ RSpec.describe IsoDoc do
                       .
                    </p>
                    <p id="ISO20483" class="NormRef">
-                      ISO\\u00a020483:2013-2014, International Organization for Standardization.
+                      ISO\u00a020483:2013-2014, International Organization for Standardization.
                       <i>Cereals and pulses</i>
                       . 2013–2014.
                    </p>
@@ -650,7 +650,7 @@ RSpec.describe IsoDoc do
                    </p>
                    <div id="_2" class="Note NormRef">
                       <p>
-                         <span class="note_label">NOTE\\u00a0 </span>
+                         <span class="note_label">NOTE\u00a0 </span>
                          This is an annotation of ISO 20483:2013-2014
                       </p>
                    </div>
@@ -660,29 +660,29 @@ RSpec.describe IsoDoc do
                 <div>
                    <h1 class="Section3">Bibliography</h1>
                    <p id="ISBN" class="Biblio">
-                      [3]\\u00a0
+                      [3]\u00a0
                       <i>Chemicals for analytical laboratory use</i>
                       . n.p.: n.d. ISBN: ISBN.
                    </p>
                    <p id="ISSN" class="Biblio">
-                      [4]\\u00a0
+                      [4]\u00a0
                       <i>Instruments for analytical laboratory use</i>
                       . n.d. ISSN: ISSN.
                    </p>
                    <div id="_4" class="Note Biblio">
                       <p>
-                         <span class="note_label">NOTE 1\\u00a0 </span>
+                         <span class="note_label">NOTE 1\u00a0 </span>
                          This is an annotation of document ISSN.
                       </p>
                    </div>
                    <div id="_5" class="Note Biblio">
                       <p>
-                         <span class="note_label">NOTE 2\\u00a0 </span>
+                         <span class="note_label">NOTE 2\u00a0 </span>
                          This is another annotation of document ISSN.
                       </p>
                    </div>
                    <p id="ISO3696" class="Biblio">
-                      [5]\\u00a0 ISO\\u00a03696
+                      [5]\u00a0 ISO\u00a03696
                       <a class="FootnoteRef" href="#fn:_19">
                          <sup>2</sup>
                       </a>
@@ -691,7 +691,7 @@ RSpec.describe IsoDoc do
                       .
                    </p>
                    <p id="ref10" class="Biblio">
-                      [6]\\u00a0
+                      [6]\u00a0
                       <span style="font-variant:small-caps;">Standard No I.C.C 167</span>
                       .
                       <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i>
@@ -700,22 +700,22 @@ RSpec.describe IsoDoc do
                       )
                    </p>
                    <p id="ref11" class="Biblio">
-                      [7]\\u00a0 IETF\\u00a0RFC\\u00a010,
+                      [7]\u00a0 IETF\u00a0RFC\u00a010,
                       <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
                       .
                    </p>
                    <p id="ref12" class="Biblio">
-                      [Citn]\\u00a0 IETF\\u00a0RFC\\u00a020, CitationWorks. 2019.
+                      [Citn]\u00a0 IETF\u00a0RFC\u00a020, CitationWorks. 2019.
                       <i>How to cite a reference</i>
                       .
                    </p>
                    <p id="ref10b" class="Biblio">
-                      [8]\\u00a0 IETF\\u00a0RFC\\u00a020,
+                      [8]\u00a0 IETF\u00a0RFC\u00a020,
                       <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
                       .
                    </p>
                    <p id="ref10c" class="Biblio">
-                      [9]\\u00a0
+                      [9]\u00a0
                       <i>Internet Calendaring &amp; Scheduling Core Object Specification (iCalendar)</i>
                       .
                    </p>
@@ -742,38 +742,34 @@ RSpec.describe IsoDoc do
                <h1 class="ForewordTitle">Foreword</h1>
                <p class="MsoNormal">
                   <a name="_" id="_"/>
-                  <a href="#ISO712">ISO\\u00a0712</a>
+                  <a href="#ISO712">ISO\u00a0712</a>
                   <a href="#ISBN">[3]</a>
                   <a href="#ISSN">[4]</a>
-                  <a href="#ISO16634">ISO\\u00a016634:--</a>
+                  <a href="#ISO16634">ISO\u00a016634:--</a>
                   <a href="#ref1">ICC/167</a>
                   <a href="#ref10">[6]</a>
                   <a href="#ref12">[Citn]</a>
                   <a href="#zip_ffs">[2]</a>
                </p>
             </div>
-            <p class="MsoNormal">\\u00a0</p>
+            <p class="MsoNormal">\u00a0</p>
          </div>
          <p class="MsoNormal">
             <br clear="all" class="section"/>
          </p>
          <div class="WordSection3">
             <div>
-               <h1>
-                  1.
-                  <span style="mso-tab-count:1">\\u00a0 </span>
-                  Normative References
-               </h1>
+               <h1>1.<span style="mso-tab-count:1">\u00a0 </span>Normative References</h1>
                <p class="MsoNormal">The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                <p class="NormRef">
                   <a name="ISO712" id="ISO712"/>
-                  [1], ISO\\u00a0712, International Organization for Standardization.
+                  [1], ISO\u00a0712, International Organization for Standardization.
                   <i>Cereals and cereal products</i>
                   .
                </p>
                <p class="NormRef">
                   <a name="ISO16634" id="ISO16634"/>
-                  ISO\\u00a016634:--\\u00a0(all\\u00a0parts)
+                  ISO\u00a016634:--\u00a0(all\u00a0parts)
                   <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
                      <a class="FootnoteRef" type="footnote" href="#_ftn1" style="mso-footnote-id:ftn1" name="_ftnref1" title="" id="_ftnref1">
                         <span class="MsoFootnoteReference">
@@ -787,7 +783,7 @@ RSpec.describe IsoDoc do
                </p>
                <p class="NormRef">
                   <a name="ISO20483" id="ISO20483"/>
-                  ISO\\u00a020483:2013-2014, International Organization for Standardization.
+                  ISO\u00a020483:2013-2014, International Organization for Standardization.
                   <i>Cereals and pulses</i>
                   . 2013–2014.
                </p>
@@ -806,7 +802,7 @@ RSpec.describe IsoDoc do
                   <p class="Note">
                      <span class="note_label">
                         NOTE
-                        <span style="mso-tab-count:1">\\u00a0 </span>
+                        <span style="mso-tab-count:1">\u00a0 </span>
                      </span>
                      This is an annotation of ISO 20483:2013-2014
                   </p>
@@ -824,14 +820,14 @@ RSpec.describe IsoDoc do
                <p class="Biblio">
                   <a name="ISBN" id="ISBN"/>
                   [3]
-                  <span style="mso-tab-count:1">\\u00a0 </span>
+                  <span style="mso-tab-count:1">\u00a0 </span>
                   <i>Chemicals for analytical laboratory use</i>
                   . n.p.: n.d. ISBN: ISBN.
                </p>
                <p class="Biblio">
                   <a name="ISSN" id="ISSN"/>
                   [4]
-                  <span style="mso-tab-count:1">\\u00a0 </span>
+                  <span style="mso-tab-count:1">\u00a0 </span>
                   <i>Instruments for analytical laboratory use</i>
                   . n.d. ISSN: ISSN.
                </p>
@@ -840,7 +836,7 @@ RSpec.describe IsoDoc do
                   <p class="Note">
                      <span class="note_label">
                         NOTE 1
-                        <span style="mso-tab-count:1">\\u00a0 </span>
+                        <span style="mso-tab-count:1">\u00a0 </span>
                      </span>
                      This is an annotation of document ISSN.
                   </p>
@@ -850,7 +846,7 @@ RSpec.describe IsoDoc do
                   <p class="Note">
                      <span class="note_label">
                         NOTE 2
-                        <span style="mso-tab-count:1">\\u00a0 </span>
+                        <span style="mso-tab-count:1">\u00a0 </span>
                      </span>
                      This is another annotation of document ISSN.
                   </p>
@@ -858,8 +854,8 @@ RSpec.describe IsoDoc do
                <p class="Biblio">
                   <a name="ISO3696" id="ISO3696"/>
                   [5]
-                  <span style="mso-tab-count:1">\\u00a0 </span>
-                  ISO\\u00a03696
+                  <span style="mso-tab-count:1">\u00a0 </span>
+                  ISO\u00a03696
                   <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
                      <a class="FootnoteRef" type="footnote" href="#_ftn2" style="mso-footnote-id:ftn2" name="_ftnref2" title="" id="_ftnref2">
                         <span class="MsoFootnoteReference">
@@ -874,7 +870,7 @@ RSpec.describe IsoDoc do
                <p class="Biblio">
                   <a name="ref10" id="ref10"/>
                   [6]
-                  <span style="mso-tab-count:1">\\u00a0 </span>
+                  <span style="mso-tab-count:1">\u00a0 </span>
                   <span style="font-variant:small-caps;">Standard No I.C.C 167</span>
                   .
                   <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i>
@@ -885,31 +881,31 @@ RSpec.describe IsoDoc do
                <p class="Biblio">
                   <a name="ref11" id="ref11"/>
                   [7]
-                  <span style="mso-tab-count:1">\\u00a0 </span>
-                  IETF\\u00a0RFC\\u00a010,
+                  <span style="mso-tab-count:1">\u00a0 </span>
+                  IETF\u00a0RFC\u00a010,
                   <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
                   .
                </p>
                <p class="Biblio">
                   <a name="ref12" id="ref12"/>
                   [Citn]
-                  <span style="mso-tab-count:1">\\u00a0 </span>
-                  IETF\\u00a0RFC\\u00a020, CitationWorks. 2019.
+                  <span style="mso-tab-count:1">\u00a0 </span>
+                  IETF\u00a0RFC\u00a020, CitationWorks. 2019.
                   <i>How to cite a reference</i>
                   .
                </p>
                <p class="Biblio">
                   <a name="ref10b" id="ref10b"/>
                   [8]
-                  <span style="mso-tab-count:1">\\u00a0 </span>
-                  IETF\\u00a0RFC\\u00a020,
+                  <span style="mso-tab-count:1">\u00a0 </span>
+                  IETF\u00a0RFC\u00a020,
                   <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
                   .
                </p>
                <p class="Biblio">
                   <a name="ref10c" id="ref10c"/>
                   [9]
-                  <span style="mso-tab-count:1">\\u00a0 </span>
+                  <span style="mso-tab-count:1">\u00a0 </span>
                   <i>Internet Calendaring &amp; Scheduling Core Object Specification (iCalendar)</i>
                   .
                </p>
@@ -944,15 +940,15 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)
+    expect(strip_guid(pres_output)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
-      .gsub(%r{<fn reference="[^"]+"}m, "<fn reference=\"_\"")))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .gsub(%r{<fn reference="[^"]+"}m, "<fn reference=\"_\""))
+      .to be_xml_equivalent_to presxml
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(output.to_xml))
+      .to be_html5_equivalent_to html
     IsoDoc::WordConvert.new({})
       .convert("test", pres_output, false)
     expect(File.exist?("test.doc")).to be true
@@ -962,8 +958,8 @@ RSpec.describe IsoDoc do
       .gsub("epub:", "")
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
       .gsub(/NOTEREF _Ref\d+/, "NOTEREF _Ref")
-    expect(strip_guid(Canon.format_xml(html)))
-      .to be_equivalent_to Canon.format_xml(doc)
+    expect(strip_guid(html))
+      .to be_xml_equivalent_to doc
   end
 
   it "processes Relaton bibliographies with references on the same date" do
@@ -1143,11 +1139,11 @@ RSpec.describe IsoDoc do
                <p id="_">
                   <eref bibitemid="ref1" id="_7"/>
                   <semx element="eref" source="_7">
-                     <fmt-xref target="ref1">ISO\\u00a0712</fmt-xref>
+                     <fmt-xref target="ref1">ISO\u00a0712</fmt-xref>
                   </semx>
                   <eref bibitemid="ref2" id="_8"/>
                   <semx element="eref" source="_8">
-                     <fmt-xref target="ref2">ISO\\u00a0713</fmt-xref>
+                     <fmt-xref target="ref2">ISO\u00a0713</fmt-xref>
                   </semx>
                   <eref bibitemid="ref3" id="_9"/>
                   <semx element="eref" source="_9">
@@ -1159,11 +1155,11 @@ RSpec.describe IsoDoc do
                   </semx>
                   <eref bibitemid="ref5" id="_11"/>
                   <semx element="eref" source="_11">
-                     <fmt-xref target="ref5">ISO\\u00a0712</fmt-xref>
+                     <fmt-xref target="ref5">ISO\u00a0712</fmt-xref>
                   </semx>
                   <eref bibitemid="ref6" id="_12"/>
                   <semx element="eref" source="_12">
-                     <fmt-xref target="ref6">ISO\\u00a0713</fmt-xref>
+                     <fmt-xref target="ref6">ISO\u00a0713</fmt-xref>
                   </semx>
                   <eref bibitemid="ref7" id="_13"/>
                   <semx element="eref" source="_13">
@@ -1194,15 +1190,15 @@ RSpec.describe IsoDoc do
                   <semx element="autonum" source="_normative_references">1</semx>
                </fmt-xref-label>
                <bibitem id="ref1" type="standard">
-                  <biblio-tag>ISO\\u00a0712, </biblio-tag>
+                  <biblio-tag>ISO\u00a0712, </biblio-tag>
                   <formattedref>
                      International Organization for Standardization.
                      <em>Cereals and cereal products</em>
                      . 2000. International Organization for Standardization.
                   </formattedref>
                   <title type="main" format="text/plain">Cereals and cereal products</title>
-                  <docidentifier type="ISO">ISO\\u00a0712</docidentifier>
-                  <docidentifier scope="biblio-tag">ISO\\u00a0712</docidentifier>
+                  <docidentifier type="ISO">ISO\u00a0712</docidentifier>
+                  <docidentifier scope="biblio-tag">ISO\u00a0712</docidentifier>
                   <contributor>
                      <role type="author"/>
                      <organization>
@@ -1220,15 +1216,15 @@ RSpec.describe IsoDoc do
                   </date>
                </bibitem>
                <bibitem id="ref2" type="standard">
-                  <biblio-tag>ISO\\u00a0713, </biblio-tag>
+                  <biblio-tag>ISO\u00a0713, </biblio-tag>
                   <formattedref>
                      International Organization for Standardization.
                      <em>Books and book products</em>
                      . 2000. International Organization for Standardization.
                   </formattedref>
                   <title type="main" format="text/plain">Books and book products</title>
-                  <docidentifier type="ISO">ISO\\u00a0713</docidentifier>
-                  <docidentifier scope="biblio-tag">ISO\\u00a0713</docidentifier>
+                  <docidentifier type="ISO">ISO\u00a0713</docidentifier>
+                  <docidentifier scope="biblio-tag">ISO\u00a0713</docidentifier>
                   <contributor>
                      <role type="author"/>
                      <organization>
@@ -1311,15 +1307,15 @@ RSpec.describe IsoDoc do
                   <semx element="autonum" source="_normative_references">1</semx>
                </fmt-xref-label>
                <bibitem id="ref5" type="standard">
-                  <biblio-tag>ISO\\u00a0712, </biblio-tag>
+                  <biblio-tag>ISO\u00a0712, </biblio-tag>
                   <formattedref>
                      International Organization for Standardization.
                      <em>Cereals and cereal products</em>
                      . 2000. International Organization for Standardization.
                   </formattedref>
                   <title type="main" format="text/plain">Cereals and cereal products</title>
-                  <docidentifier type="ISO">ISO\\u00a0712</docidentifier>
-                  <docidentifier scope="biblio-tag">ISO\\u00a0712</docidentifier>
+                  <docidentifier type="ISO">ISO\u00a0712</docidentifier>
+                  <docidentifier scope="biblio-tag">ISO\u00a0712</docidentifier>
                   <contributor>
                      <role type="author"/>
                      <organization>
@@ -1337,15 +1333,15 @@ RSpec.describe IsoDoc do
                   </date>
                </bibitem>
                <bibitem id="ref6" type="standard">
-                  <biblio-tag>ISO\\u00a0713, </biblio-tag>
+                  <biblio-tag>ISO\u00a0713, </biblio-tag>
                   <formattedref>
                      International Organization for Standardization.
                      <em>Books and book products</em>
                      . 2000. International Organization for Standardization.
                   </formattedref>
                   <title type="main" format="text/plain">Books and book products</title>
-                  <docidentifier type="ISO">ISO\\u00a0713</docidentifier>
-                  <docidentifier scope="biblio-tag">ISO\\u00a0713</docidentifier>
+                  <docidentifier type="ISO">ISO\u00a0713</docidentifier>
+                  <docidentifier scope="biblio-tag">ISO\u00a0713</docidentifier>
                   <contributor>
                      <role type="author"/>
                      <organization>
@@ -1419,10 +1415,10 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)
+    expect(strip_guid(pres_output
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{<fn reference="[^"]+"}m, "<fn reference=\"_\"")))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .to be_xml_equivalent_to presxml
   end
 
   it "marks references sections as hidden" do
@@ -1479,11 +1475,11 @@ RSpec.describe IsoDoc do
         </bibliography>
       </iso-standard>
     PRESXML
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_xml_equivalent_to presxml
   end
 
   it "processes hidden references sections in Relaton bibliographies #1" do
@@ -1740,7 +1736,7 @@ RSpec.describe IsoDoc do
                amendments) applies.
              </p>
                 <bibitem id="ISO712" type="standard">
-                   <biblio-tag>ISO\\u00a0712, </biblio-tag>
+                   <biblio-tag>ISO\u00a0712, </biblio-tag>
                    <formattedref>
                       International Organization for Standardization.
                       <em>Cereals and cereal products</em>
@@ -1748,8 +1744,8 @@ RSpec.describe IsoDoc do
                    </formattedref>
                    <title format="text/plain">Cereals or cereal products</title>
                    <title type="main" format="text/plain">Cereals and cereal products</title>
-                   <docidentifier type="ISO">ISO\\u00a0712</docidentifier>
-                   <docidentifier scope="biblio-tag">ISO\\u00a0712</docidentifier>
+                   <docidentifier type="ISO">ISO\u00a0712</docidentifier>
+                   <docidentifier scope="biblio-tag">ISO\u00a0712</docidentifier>
                    <contributor>
                       <role type="publisher"/>
                       <organization>
@@ -1759,7 +1755,7 @@ RSpec.describe IsoDoc do
                 </bibitem>
                 <bibitem id="ISO16634" type="standard">
                    <biblio-tag>
-                      ISO\\u00a016634:--\\u00a0(all\\u00a0parts)
+                      ISO\u00a016634:--\u00a0(all\u00a0parts)
                       <fn id="_" reference="1" original-reference="_" target="_">
                          <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
                          <fmt-fn-label>
@@ -1781,8 +1777,8 @@ RSpec.describe IsoDoc do
                  feeding stuffs
                </title>
                    <title language="en" format="text/plain">Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</title>
-                   <docidentifier type="ISO">ISO\\u00a016634:--\\u00a0(all\\u00a0parts)</docidentifier>
-                   <docidentifier scope="biblio-tag">ISO\\u00a016634:--\\u00a0(all\\u00a0parts)</docidentifier>
+                   <docidentifier type="ISO">ISO\u00a016634:--\u00a0(all\u00a0parts)</docidentifier>
+                   <docidentifier scope="biblio-tag">ISO\u00a016634:--\u00a0(all\u00a0parts)</docidentifier>
                    <date type="published">
                       <on>--</on>
                    </date>
@@ -1798,15 +1794,15 @@ RSpec.describe IsoDoc do
                    </extent>
                 </bibitem>
                 <bibitem id="ISO20483" type="standard">
-                   <biblio-tag>ISO\\u00a020483:2013-2014, </biblio-tag>
+                   <biblio-tag>ISO\u00a020483:2013-2014, </biblio-tag>
                    <formattedref>
                       International Organization for Standardization.
                       <em>Cereals and pulses</em>
                       . 2013–2014.
                    </formattedref>
                    <title format="text/plain">Cereals and pulses</title>
-                   <docidentifier type="ISO">ISO\\u00a020483:2013-2014</docidentifier>
-                   <docidentifier scope="biblio-tag">ISO\\u00a020483:2013-2014</docidentifier>
+                   <docidentifier type="ISO">ISO\u00a020483:2013-2014</docidentifier>
+                   <docidentifier scope="biblio-tag">ISO\u00a020483:2013-2014</docidentifier>
                    <date type="published">
                       <from>2013</from>
                       <to>2014</to>
@@ -1993,15 +1989,15 @@ RSpec.describe IsoDoc do
                    <biblio-tag>
                       [3]
                       <tab/>
-                      ISO\\u00a03696,
+                      ISO\u00a03696,
                    </biblio-tag>
                    <formattedref>
                       <em>Water for analytical laboratory use</em>
                       .
                    </formattedref>
                    <title format="text/plain">Water for analytical laboratory use</title>
-                   <docidentifier type="ISO">ISO\\u00a03696</docidentifier>
-                   <docidentifier scope="biblio-tag">ISO\\u00a03696</docidentifier>
+                   <docidentifier type="ISO">ISO\u00a03696</docidentifier>
+                   <docidentifier scope="biblio-tag">ISO\u00a03696</docidentifier>
                    <contributor>
                       <role type="publisher"/>
                       <organization>
@@ -2034,21 +2030,21 @@ RSpec.describe IsoDoc do
                    <biblio-tag>
                       [5]
                       <tab/>
-                      IETF\\u00a0RFC\\u00a010,
+                      IETF\u00a0RFC\u00a010,
                    </biblio-tag>
                    <formattedref>
                       <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>
                       .
                    </formattedref>
                    <title>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
-                   <docidentifier type="IETF">IETF\\u00a0RFC\\u00a010</docidentifier>
-                   <docidentifier scope="biblio-tag">IETF\\u00a0RFC\\u00a010</docidentifier>
+                   <docidentifier type="IETF">IETF\u00a0RFC\u00a010</docidentifier>
+                   <docidentifier scope="biblio-tag">IETF\u00a0RFC\u00a010</docidentifier>
                 </bibitem>
                 <bibitem id="ref12">
                    <biblio-tag>
                       [Citn]
                       <tab/>
-                      IETF\\u00a0RFC\\u00a020,
+                      IETF\u00a0RFC\u00a020,
                    </biblio-tag>
                    <formattedref format="application/x-isodoc+xml">
                       CitationWorks. 2019.
@@ -2056,8 +2052,8 @@ RSpec.describe IsoDoc do
                       .
                    </formattedref>
                    <docidentifier type="metanorma">[Citn]</docidentifier>
-                   <docidentifier type="IETF">IETF\\u00a0RFC\\u00a020</docidentifier>
-                   <docidentifier scope="biblio-tag">IETF\\u00a0RFC\\u00a020</docidentifier>
+                   <docidentifier type="IETF">IETF\u00a0RFC\u00a020</docidentifier>
+                   <docidentifier scope="biblio-tag">IETF\u00a0RFC\u00a020</docidentifier>
                 </bibitem>
              </references>
           </bibliography>
@@ -2082,11 +2078,11 @@ RSpec.describe IsoDoc do
           </fmt-footnote-container>
        </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_xml_equivalent_to presxml
   end
 
   it "processes hidden references sections in Relaton bibliographies #2" do
@@ -2207,8 +2203,8 @@ RSpec.describe IsoDoc do
                   </formattedref>
                   <title format="text/plain">Cereals or cereal products</title>
                   <title type="main" format="text/plain">Cereals and cereal products</title>
-                  <docidentifier type="ISO">ISO\\u00a0712</docidentifier>
-                  <docidentifier scope="biblio-tag">ISO\\u00a0712</docidentifier>
+                  <docidentifier type="ISO">ISO\u00a0712</docidentifier>
+                  <docidentifier scope="biblio-tag">ISO\u00a0712</docidentifier>
                   <contributor>
                      <role type="publisher"/>
                      <organization>
@@ -2220,8 +2216,8 @@ RSpec.describe IsoDoc do
                   <formattedref language="en" format="text/plain">
                      <em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em>
                   </formattedref>
-                  <docidentifier type="ISO">ISO\\u00a016634:--\\u00a0(all\\u00a0parts)</docidentifier>
-                  <docidentifier scope="biblio-tag">ISO\\u00a016634:--\\u00a0(all\\u00a0parts)</docidentifier>
+                  <docidentifier type="ISO">ISO\u00a016634:--\u00a0(all\u00a0parts)</docidentifier>
+                  <docidentifier scope="biblio-tag">ISO\u00a016634:--\u00a0(all\u00a0parts)</docidentifier>
                   <date type="published">
                      <on>--</on>
                   </date>
@@ -2236,7 +2232,7 @@ RSpec.describe IsoDoc do
                      <referenceFrom>all</referenceFrom>
                   </extent>
                   <biblio-tag>
-                     ISO\\u00a016634:--\\u00a0(all\\u00a0parts)
+                     ISO\u00a016634:--\u00a0(all\u00a0parts)
                      <fn id="_" reference="1" original-reference="_" target="_">
                         <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
                         <fmt-fn-label>
@@ -2275,11 +2271,11 @@ RSpec.describe IsoDoc do
          </fmt-footnote-container>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_xml_equivalent_to presxml
   end
 
   it "renders mixed bibitems and bibliographic subclauses" do
@@ -2555,11 +2551,11 @@ RSpec.describe IsoDoc do
          <head/>
          <body lang="en">
             <div class="title-section">
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
             </div>
             <br/>
             <div class="prefatory-section">
-               <p>\\u00a0</p>
+               <p>\u00a0</p>
             </div>
             <br/>
             <div class="main-section">
@@ -2568,7 +2564,7 @@ RSpec.describe IsoDoc do
                   <h1 class="IntroTitle">Table of contents</h1>
                </div>
                <div>
-                  <h1>1.\\u00a0 Normative References</h1>
+                  <h1>1.\u00a0 Normative References</h1>
                   <p id="_">Text</p>
                   <div>
                      <p id="iso122" class="Biblio">
@@ -2583,7 +2579,7 @@ RSpec.describe IsoDoc do
                      <p id="_">More text</p>
                   </div>
                   <div>
-                     <h2 class="Section3">1.1.\\u00a0 Normative 1</h2>
+                     <h2 class="Section3">1.1.\u00a0 Normative 1</h2>
                      <p id="iso123" class="Biblio">
                         [<b>A</b>
                         .], XYZ
@@ -2602,7 +2598,7 @@ RSpec.describe IsoDoc do
                   <div>
                      <p id="iso124" class="Biblio">
                         [<b>A</b>
-                        .]\\u00a0 XYZ
+                        .]\u00a0 XYZ
                         <a class="FootnoteRef" href="#fn:_13">
                            <sup>1</sup>
                         </a>
@@ -2615,7 +2611,7 @@ RSpec.describe IsoDoc do
                      <h2 class="Section3">Bibliography 1</h2>
                      <p id="iso125" class="Biblio">
                         [<b>A</b>
-                        .]\\u00a0 XYZ
+                        .]\u00a0 XYZ
                         <a class="FootnoteRef" href="#fn:_13">
                            <sup>1</sup>
                         </a>
@@ -2635,13 +2631,13 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
-    expect(strip_guid(Canon.format_xml(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to presxml
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(output.to_xml))
+      .to be_html5_equivalent_to html
   end
 
   it "processes clauses containing normative references" do
@@ -2763,12 +2759,12 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
                  <div>
-                   <h1>1.\\u00a0 First References</h1>
+                   <h1>1.\u00a0 First References</h1>
                    <div>
-                     <h2 class='Section3'>1.1.\\u00a0 Normative References 1</h2>
+                     <h2 class='Section3'>1.1.\u00a0 Normative References 1</h2>
                    </div>
                    <div>
-                     <h2 class='Section3'>1.2.\\u00a0 Normative References 2</h2>
+                     <h2 class='Section3'>1.2.\u00a0 Normative References 2</h2>
                    </div>
                  </div>
                  <br/>
@@ -2788,10 +2784,10 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)))
+      .to be_html5_equivalent_to html
   end
 end
