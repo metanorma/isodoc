@@ -1312,8 +1312,7 @@ RSpec.describe IsoDoc do
     html = File.read("test.html")
       .sub(%r{^.*<body}m, "<body")
       .sub(%r{</body>.*$}m, "</body>")
-      .gsub(%r{<script.+?</script>}mi, "<script/>")
-      .sub(%r{(<script/>\s+)+}mi, "<script/>")
+      .gsub(%r{<script.+?</script>}mi, "<script></script>")
     expect(html).to be_html5_equivalent_to output
   end
 
@@ -1358,6 +1357,31 @@ RSpec.describe IsoDoc do
   .html_cleanup(Nokogiri::XML(input)).to_xml
   .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
       .to be_html5_equivalent_to output
+  end
+
+  it "expands empty non-void HTML tags" do
+    FileUtils.rm_f "test.html"
+    input = <<~INPUT
+      <html xmlns:epub="http://www.idpf.org/2007/ops">
+      <head/>
+      <body>
+        <div class="main-section">
+        <br/>
+        <a href="http://www.example.com"/>
+        <p id="x"/>
+        </div>
+      </body>
+      </html>
+    INPUT
+    c = IsoDoc::HtmlConvert.new(htmlstylesheet: "spec/assets/html.scss")
+    c.init_file("test", false)
+    result = c.toHTML(input.dup, "test.html")
+    expect(result).to include("<br />")
+    expect(result).not_to include("<br></br>")
+    expect(result).to include('<a href="http://www.example.com"></a>')
+    expect(result).to include('<p id="x"></p>')
+    expect(result).not_to include('<a href="http://www.example.com"/>')
+    expect(result).not_to include('<p id="x"/>')
   end
 
   it "has hex-only XML escapes" do

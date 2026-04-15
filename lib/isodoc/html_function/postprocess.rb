@@ -16,7 +16,7 @@ module IsoDoc
       def toHTML(result, filename)
         result = from_xhtml(html_cleanup(to_xhtml(result)))
         result = from_xhtml(move_images(resize_images(to_xhtml(result))))
-        result = html5(script_cdata(inject_script(result)))
+        result = html5(empty_tags(script_cdata(inject_script(result))))
         # Unescape &#x26; to & in href attributes after all Nokogiri processing
         result = unescape_amp_in_hrefs(result)
         File.open(filename, "w:UTF-8") { |f| f.write(result) }
@@ -32,6 +32,18 @@ module IsoDoc
         html = term_header(html_preface(htmlstyle(html)))
         html = html_list_clean(remove_placeholder_paras(html_footnote(html)))
         html_toc(heading_anchors(sourcecode_cleanup(mathml(html))))
+      end
+
+      def empty_tags(html)
+        void_elements = %w[area base br col embed hr img input link meta
+                           source track wbr]
+        html.gsub(%r{<(\w+)((?:[^>/]|"[^"]*"|'[^']*')*)\s*/>}) do
+          if void_elements.include?($1)
+            $&
+          else
+            "<#{$1}#{$2}></#{$1}>"
+          end
+        end
       end
 
       def heading_anchors(html)
