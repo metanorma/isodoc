@@ -1312,7 +1312,7 @@ RSpec.describe IsoDoc do
     html = File.read("test.html")
       .sub(%r{^.*<body}m, "<body")
       .sub(%r{</body>.*$}m, "</body>")
-      .gsub(%r{<script.+?</script>}mi, "<script></script>")
+      .gsub(%r{<script\b[^>]*>.*?</script\b[^>]*>}mi, "<script></script>")
     expect(html).to be_html5_equivalent_to output
   end
 
