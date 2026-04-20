@@ -1026,18 +1026,18 @@ RSpec.describe IsoDoc do
                <div id="A">
                   <h1>1.</h1>
                   <p>A</p>
-                  <a id="_"/>
-                  <a id="_"/>
-                  <a id="_"/>
-                  <a id="_"/>
-                  <a id="_"/>
+                  <a id="_"></a>
+                  <a id="_"></a>
+                  <a id="_"></a>
+                  <a id="_"></a>
+                  <a id="_"></a>
                   <div id="B">
                      <h2>1.1.</h2>
                      <p>B</p>
-                     <a id="_"/>
-                     <a id="_"/>
-                     <a id="_"/>
-                     <a id="_"/>
+                     <a id="_"></a>
+                     <a id="_"></a>
+                     <a id="_"></a>
+                     <a id="_"></a>
                   </div>
                </div>
                <div id="_">

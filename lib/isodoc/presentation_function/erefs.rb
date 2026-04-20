@@ -10,7 +10,7 @@ module IsoDoc
         (e["bibitemid"] && e["citeas"]) or next
         a = @xrefs.anchor(e["bibitemid"], :xref, false) or next
         e["citeas"] = citeas_cleanup(a)
-          # link generated in collection postprocessing from eref
+        # link generated in collection postprocessing from eref
         e.name == "fmt-link" && e.text.empty? and e.children = e["citeas"]
       end
     end
@@ -42,14 +42,27 @@ module IsoDoc
     end
 
     def resolve_eref_connectives(locs)
+      locs = resolve_eref_connectives1(locs)
+      locs.size < 3 and return locs.map do |x|
+        x[:custom] || x[:conn] || x[:ref]
+      end
+      locs = resolve_eref_connectives_split(locs)
+      locs = locs.each_slice(2).with_object([]) do |a, m|
+        m << { custom: a[0][:custom], conn: a[0][:conn], label: a.dig(1, :ref) }
+      end
+      [", ", combine_conn(locs)]
+    end
+
+    def resolve_eref_connectives1(locs)
       locs = escape_l10n(locs)
       locs = resolve_comma_connectives(locs)
-      locs = resolve_to_connectives(locs)
-      locs.size < 3 and return locs.map { |x|
- x[:custom] || x[:conn] || x[:ref]
-}
-      locs = locs.each_with_object([]) do |x, m|
-        if m.empty? m << x
+      resolve_to_connectives(locs)
+    end
+
+    def resolve_eref_connectives_split(locs)
+      locs.each_with_object([]) do |x, m|
+        if m.empty?
+          m << x
         elsif m[-1][:conn] && x[:conn]
           m[-1][:conn] += x[:conn]
           x[:custom] and m[-1][:custom] = x[:custom]
@@ -58,10 +71,6 @@ module IsoDoc
         else m << x
         end
       end
-      locs = locs.each_slice(2).with_object([]) do |a, m|
-        m << { custom: a[0][:custom], conn: a[0][:conn], label: a.dig(1, :ref) }
-      end
-      [", ", combine_conn(locs)]
     end
 
     XREF_CONNECTIVES = %w(from to or and).freeze
@@ -107,9 +116,9 @@ module IsoDoc
         elsif locs[0][:conn] == "from" && locs[0][:custom]
           locs1 << { conn: locs[0][:custom] }
           locs.shift # strip "from" and English
-            # TODO languages with obligatory "from"
+        # TODO languages with obligatory "from"
         else
-            locs1 << locs.shift
+          locs1 << locs.shift
         end
       end
       locs1

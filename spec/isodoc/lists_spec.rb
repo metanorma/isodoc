@@ -849,10 +849,7 @@ RSpec.describe IsoDoc do
         xmlns:w="urn:schemas-microsoft-com:office:word"
         xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
         lang="en">
-       <head>
-         <style>
-         </style>
-       </head>
+       <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> <style> </style> </head>
           <body lang="EN-US" link="blue" vlink="#954F72">
              <div class="WordSection1">
                 <p>\u00a0</p>
@@ -1198,7 +1195,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
                <div id="A">
-                  <h1>1.\\u00a0 Clause</h1>
+                  <h1>1.\u00a0 Clause</h1>
                   <div class="ol_wrap" id="B1">
                      <table class="MsoISOTable" style="border-width:1px;border-spacing:0;">
                         <caption>List Title</caption>
