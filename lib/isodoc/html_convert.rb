@@ -18,6 +18,14 @@ module IsoDoc
       super
     end
 
+    # Apply empty_tags even when postprocess is skipped (debug mode),
+    # so convert1's output is valid HTML5 (non-void self-closing tags
+    # expanded: <a id="_"/> -> <a id="_"></a>). Idempotent: running
+    # again in postprocess#toHTML is a no-op.
+    def convert1(docxml, filename, dir)
+      empty_tags(super)
+    end
+
     def convert(filename, file = nil, debug = false, output_filename = nil)
       ret = super
       Dir.exist?(tmpimagedir) and Dir["#{tmpimagedir}/*"].empty? and
