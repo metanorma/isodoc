@@ -37,7 +37,11 @@ module IsoDoc
       def empty_tags(html)
         void_elements = %w[area base br col embed hr img input link meta
                            source track wbr]
-        html.gsub(%r{<(\w+)((?:[^>/]|"[^"]*"|'[^']*')*)\s*/>}) do
+        # Atomic group (?>...) prevents catastrophic backtracking across `>`
+        # characters. Quoted alternatives listed first so `/` inside
+        # attribute values (e.g. URLs in href="...") is consumed as part
+        # of the quoted string, not rejected by [^>/].
+        html.gsub(%r{<(\w+)((?>"[^"]*"|'[^']*'|[^>/])*)\s*/>}) do
           if void_elements.include?($1)
             $&
           else

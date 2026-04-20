@@ -93,7 +93,7 @@ WORD_HDR = <<~HEADER.freeze
          xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
          lang="en">
            <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <style>
       <!--
       -->

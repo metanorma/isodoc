@@ -323,7 +323,7 @@ RSpec.describe IsoDoc do
                       </div>
                       <div class="ul_wrap">
                          <ul>
-                            <li>C</li>
+                            <li id="_">C</li>
                          </ul>
                       </div>
                    </div>

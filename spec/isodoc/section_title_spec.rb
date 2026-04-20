@@ -758,7 +758,7 @@ RSpec.describe IsoDoc do
                      <br/>
                      <b>Annex</b>
                   </h1>
-                  <p style="display:none;" class="variant-title-toc">Annex A\\u00a0 Annex</p>
+                  <p style="display:none;" class="variant-title-toc">Annex A\u00a0 Annex</p>
                   <div id="Q">
                      <h2>A.1.\u00a0 Annex A.1</h2>
                      <div id="Q1">
@@ -804,7 +804,7 @@ RSpec.describe IsoDoc do
         xmlns:w="urn:schemas-microsoft-com:office:word"
         xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
         lang="en">
-       <head><style/></head>
+       <head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><style/></head>
                  <body lang="EN-US" link="blue" vlink="#954F72">
              <div class="WordSection1">
                 <p>\u00a0</p>
@@ -1011,7 +1011,7 @@ RSpec.describe IsoDoc do
                    </h1>
                    <p style="display:none;" class="variant-title-toc">
                Annex A
-               <span style="mso-tab-count:1">\\u00a0 </span>
+               <span style="mso-tab-count:1">\u00a0 </span>
                Annex
             </p>
                    <div id="Q">
@@ -1559,7 +1559,7 @@ pres_output = IsoDoc::PresentationXMLConvert
                 <br/>
                 Variant 1
               </h1>
-              <p style="display:none;" class="variant-title-toc">Annex A\\u00a0 Annex</p>
+              <p style="display:none;" class="variant-title-toc">Annex A\u00a0 Annex</p>
               <p style='display:none;' class='variant-title-sub'>Variant 1</p>
               <div id='Q'>
                 <h2>
@@ -1849,7 +1849,7 @@ pres_output = IsoDoc::PresentationXMLConvert
                    </h1>
                    <p style="display:none;" class="variant-title-toc">
               Annex A
-              <span style="mso-tab-count:1">\\u00a0 </span>
+              <span style="mso-tab-count:1">\u00a0 </span>
               Annex
            </p>
                    <p style="display:none;" class="variant-title-sub">Variant 1</p>
