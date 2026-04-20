@@ -41,7 +41,7 @@ module IsoDoc
         xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
         xmlns:w="urn:schemas-microsoft-com:office:word"
         xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
-        <head> <title></title> <meta charset="UTF-8" /> </head>
+        <head> <title></title> <meta charset="UTF-8"/> </head>
         <body> </body> </html>
       HERE
 
