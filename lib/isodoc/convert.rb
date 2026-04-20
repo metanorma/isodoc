@@ -115,10 +115,15 @@ module IsoDoc
       docxml_var_init(docxml)
       convert_i18n_init(docxml)
       metadata_init(@lang, @script, @locale, @i18n)
+      convert_xref_init
+      [docxml, filename, dir]
+    end
+
+    def convert_xref_init
       xref_init(@lang, @script, self, @i18n,
                 { locale: @locale, bibrender: @bibrender })
+      @xrefs.reqt_models = @reqt_models
       @xrefs.klass.doctype = @doctype
-      [docxml, filename, dir]
     end
 
     def convert_i18n_init(docxml)
@@ -126,7 +131,8 @@ module IsoDoc
       i18n_init(@lang, @script, @locale)
       @bibrender ||= bibrenderer
       @reqt_models = requirements_processor
-        .new({ default: "default", lang: @lang, script: @script,
+        .new({ conv: presentation_xml_converter, default: "default",
+               lang: @lang, script: @script,
                locale: @locale, labels: @i18n.get,
                modspecidentifierbase: @modspecidentifierbase })
     end

@@ -19,6 +19,13 @@ module IsoDoc
       @i18n.l10n(expr, lang, script, opt)
     end
 
+    def presentation_xml_converter
+      parts = self.class.name.split("::")
+      parts[-1] = "PresentationXMLConvert"
+      Object.const_get(parts.join("::"))
+        .new(language: @lang, script: @script)
+    end
+
     def docxml_var_init(docxml)
       doctype_init(docxml)
       toc_init(docxml)
@@ -27,8 +34,8 @@ module IsoDoc
     def doctype_init(docxml)
       @doctype = docxml.at(ns("//bibdata/ext/doctype"))&.text
       @subdoctype = docxml.at(ns("//bibdata/ext/subdoctype"))&.text
-      @docscheme = docxml.at(ns("//metanorma-extension/presentation-metadata/"\
-        "document-scheme"))&.text
+      @docscheme = docxml.at(ns("//metanorma-extension/presentation-metadata/" \
+                                "document-scheme"))&.text
     end
 
     def toc_init(docxml)
@@ -73,12 +80,12 @@ module IsoDoc
     def log_messages
       # rubocop:disable Naming/VariableNumber
       {
-        "STANDOC_36": { category: "Anchors",
-                        error: "ID %s has already been used at line %s",
-                        severity: 0 },
-        "ISODOC_1": { category: "Crossreferences",
-                      error: "Anchor %s pointed to by %s " \
-             "is not defined in the document", severity: 1 },
+        STANDOC_36: { category: "Anchors",
+                      error: "ID %s has already been used at line %s",
+                      severity: 0 },
+        ISODOC_1: { category: "Crossreferences",
+                    error: "Anchor %s pointed to by %s " \
+                           "is not defined in the document", severity: 1 },
       }
       # rubocop:enable Naming/VariableNumber
     end
