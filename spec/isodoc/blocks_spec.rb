@@ -86,18 +86,18 @@ RSpec.describe IsoDoc do
             <div id="fwd">
               <h1 class='ForewordTitle'>Foreword</h1>
               <div id='samplecode' class='example' style='page-break-after: avoid;page-break-inside: avoid;'>
-                <p class='example-title'>EXAMPLE&nbsp;&#8212; Title</p>
+                <p class='example-title'>EXAMPLE&#xa0;&#8212; Title</p>
                 <p>Hello</p>
                       <p id="X" class="Sourcecode">
                          <br/>
-      #{'                   &nbsp;'}
+      #{'                   &#xa0;'}
                          <br/>
-      #{'                   &nbsp;'}
+      #{'                   &#xa0;'}
                       </p>
                 <p class='SourceTitle' style='text-align:center;'>Sample</p>
               </div>
             </div>
-            <p>&nbsp;</p>
+            <p>&#xa0;</p>
           </div>
           <p class="section-break">
             <br clear='all' class='section'/>
@@ -546,7 +546,7 @@ RSpec.describe IsoDoc do
           </p>
           <p style="text-align:justify;font-size:9pt;page-break-after: avoid;page-break-inside: avoid;">Justify</p>
               </div>
-              <p>&nbsp;</p>
+              <p>&#xa0;</p>
             </div>
             <p class="section-break"><br clear="all" class="section"/></p>
             <div class="WordSection3">
@@ -559,10 +559,10 @@ RSpec.describe IsoDoc do
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_html))
       .to be_html5_equivalent_to html
-    output = Nokogiri::HTML4(IsoDoc::WordConvert.new({})
+    output = Nokogiri::XML(IsoDoc::WordConvert.new({})
     .convert("test", input, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_html))
+    expect(strip_guid(output.to_xml))
       .to be_html4_equivalent_to word
   end
 

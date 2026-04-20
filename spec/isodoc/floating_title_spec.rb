@@ -345,7 +345,7 @@ RSpec.describe IsoDoc do
            <br/>
                       <div class="main-section">
              <div id="A1">
-               <h1/>
+               <h1></h1>
                <div id="A2">
                  <div id="A3">
                    <table>

@@ -10,8 +10,12 @@ module IsoDoc
     end
 
     def i18n_init(lang, script, locale, i18nyaml = nil)
-      @i18n = I18n.new(lang, script, locale: locale,
-                                     i18nyaml: i18nyaml || @i18nyaml)
+      payload = i18nyaml || @i18nyaml
+      @i18n = if payload.is_a?(Hash)
+                I18n.new(lang, script, locale: locale, i18nhash: payload)
+              else
+                I18n.new(lang, script, locale: locale, i18nyaml: payload)
+              end
     end
 
     def l10n(expr, lang = @lang, script = @script, opt = {})
