@@ -574,7 +574,7 @@ RSpec.describe IsoDoc do
                      <br/>
                      <div id="P" class="Section3">
                        <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
-                       <p style="display:none;" class="variant-title-toc">Annex A\\u00a0 Annex</p>
+                       <p style="display:none;" class="variant-title-toc">Annex A\u00a0 Annex</p>
                        <div id="Q">
                 <h2>A.1.\u00a0 Annex A.1</h2>
                 <div id="Q1">
@@ -1605,7 +1605,7 @@ RSpec.describe IsoDoc do
                      <br/>
                      <div id="P" class="Section3">
                        <h1 class="Annex"><b>Annexe A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
-                       <p style="display:none;" class="variant-title-toc">Annexe A\\u00a0 Annex</p>
+                       <p style="display:none;" class="variant-title-toc">Annexe A\u00a0 Annex</p>
                        <div id="Q">
                 <h2>A.1.\u00a0 Annex A.1</h2>
                 <div id="Q1">
@@ -2145,7 +2145,7 @@ RSpec.describe IsoDoc do
                       <br/>
                       <b>Annex</b>
                    </h1>
-                    <p style="display:none;" class="variant-title-toc">附件A\\u3000Annex</p>
+                    <p style="display:none;" class="variant-title-toc">附件A\u3000Annex</p>
                    <div id="Q">
                       <h2>A.1.\u3000Annex A.1</h2>
                       <div id="Q1">
@@ -2703,7 +2703,7 @@ RSpec.describe IsoDoc do
                        <br/>
                        <b>Annex</b>
                      </h1>
-                     <p style="display:none;" class="variant-title-toc">Aldono A\\u00a0 Annex</p>
+                     <p style="display:none;" class="variant-title-toc">Aldono A\u00a0 Annex</p>
                      <div id='Q'>
                        <h2>A.1.\u00a0 Annex A.1</h2>
                        <div id='Q1'>
@@ -3128,6 +3128,11 @@ RSpec.describe IsoDoc do
     allow_any_instance_of(IsoDoc::I18n)
       .to receive(:load_yaml)
       .with("eo", "Latn", "spec/assets/i18n.yaml", anything)
+      .and_return(IsoDoc::I18n.new("eo", "Latn")
+      .normalise_hash(YAML.load_file("spec/assets/i18n.yaml")))
+    allow_any_instance_of(IsoDoc::I18n)
+      .to receive(:load_yaml)
+      .with("eo", "Latn", anything, kind_of(Hash))
       .and_return(IsoDoc::I18n.new("eo", "Latn")
       .normalise_hash(YAML.load_file("spec/assets/i18n.yaml")))
   end

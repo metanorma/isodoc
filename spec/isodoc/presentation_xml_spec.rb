@@ -292,77 +292,34 @@ RSpec.describe IsoDoc do
          <br clear="all" class="section"/>
       </p>
       <div class="WordSection3">
-               <div id='_'>
-                 <h1>
-                   <b>Annex A</b>
-                   <br/>
-                    (normative).
-                   <span style='mso-tab-count:1'>\u00a0 </span>
-                    Clause
-                 </h1>
-                 <p id='_'>Text</p>
-                 <div id='_'>
-                   <h1>
-                     <b>Annex A</b>
-                     <br/>
-                      (normative).
-                     <span style='mso-tab-count:1'>\u00a0 </span>
-                      Subclause
-                     <br/>
-                     <br/>
-                     &#8220;A&#8221; &#8216;B&#8217;
-                   </h1>
-                   <p style='display:none;' class='variant-title-toc'>
-                      Clause
-                   </h1>
-                   <p id="B">Text</p>
-                   <div id="C">
-                      <h2>
-                         1.1.
-                         <span style="mso-tab-count:1">\u00a0 </span>
-                         Subclause
-                         <br/>
-                         <br/>
-                         “A” ‘B’
-                      </h2>
-                      <p style="display:none;" class="variant-title-toc">
-                         Clause
-                         <i>A</i>
-                         <span class="stem">
-                            <math xmlns="http://www.w3.org/1998/Math/MathML">
-                               <mi>x</mi>
-                            </math>
-                         </span>
-                      </p>
-                      <p id="F">Text</p>
-                   </div>
-                </div>
-                <p class="page-break">
-                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+        <div id="A">
+        <h1>1.<span style="mso-tab-count:1">  </span>Clause</h1>
+          <p id="B">Text</p>
+          <div id="C">
+            <h2>1.1.<span style="mso-tab-count:1">  </span>Subclause<br/><br/>“A” ‘B’</h2>
+                <p style="display:none;" class="variant-title-toc">
+                  Clause
+                  <i>A</i>
+                  <span class="stem">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                      <mi>x</mi>
+                    </math>
+                  </span>
                 </p>
-                <div id="G" class="Section3">
-                   <h1 class="Annex">
-                      <b>Annex A</b>
-                      <br/>
-                      (normative)
-                      <br/>
-                      <br/>
-                      <b>Clause</b>
-                   </h1>
-                   <p style="display:none;" class="variant-title-toc">
-                      Clause
-                      <i>A</i>
-                      <span class="stem">
-                         <math xmlns="http://www.w3.org/1998/Math/MathML">
-                            <mi>x</mi>
-                         </math>
-                      </span>
-                   </p>
-                   <p id="_">Text</p>
-                </div>
-             </div>
-          </body>
-       </html>
+                <p id="F">Text</p>
+              </div></div>
+              <p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
+              <div id="G" class="Section3">
+              <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Clause</b></h1>
+              <p style="display:none;" class="variant-title-toc">
+              Clause
+              <i>A</i>
+              <span class="stem">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <mi>x</mi>
+                </math>
+              </span>
+            </p><p id="_">Text</p></div></div></body></html>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
