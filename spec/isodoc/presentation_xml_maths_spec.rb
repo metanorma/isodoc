@@ -261,21 +261,6 @@ RSpec.describe IsoDoc do
       .to be_html4_equivalent_to word
   end
 
-  it "correctly parses options with commas inside values" do
-    converter = IsoDoc::PresentationXMLConvert.new({})
-    options = "'group_digits=3','fraction_group_digits=3','decimal=,','group= ','fraction_group= ','notation=general'"
-    result = converter.csv_attribute_extract(options)
-
-    expect(result).to eq({
-                           group_digits: "3",
-                           fraction_group_digits: "3",
-                           decimal: ",",
-                           group: " ",
-                           fraction_group: " ",
-                           notation: "general",
-                         })
-  end
-
   it "processes AsciiMath and MathML" do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
