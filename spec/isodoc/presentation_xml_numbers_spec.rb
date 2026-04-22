@@ -1,5 +1,58 @@
 require "spec_helper"
 RSpec.describe IsoDoc do
+  it "processes base attributes on numbers in MathML" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata>
+           <title language="en">test</title>
+           </bibdata>
+           <preface>
+           <p>
+           <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn>65535</mn></mstyle></math></stem>
+           <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn data-metanorma-numberformat="base='10'">65535</mn></mstyle></math></stem>
+           <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn data-metanorma-numberformat="group=' ',base='10'">65535</mn></mstyle></math></stem>
+           <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn data-metanorma-numberformat="group=' ',base='16'">65535</mn></mstyle></math></stem>
+           <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn data-metanorma-numberformat="group=' ',base='16',hex_capital='true'">65535</mn></mstyle></math></stem>
+           <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn data-metanorma-numberformat="group=' ',base='16',hex_capital='true',base_prefix=''">65535</mn></mstyle></math></stem>
+           <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn data-metanorma-numberformat="group=' ',base='16',hex_capital='true',base_prefix='nil'">65535</mn></mstyle></math></stem>
+           <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn data-metanorma-numberformat="group=' ',base='16',hex_capital='true',base_prefix='HEX '">65535</mn></mstyle></math></stem>
+           <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn data-metanorma-numberformat="group=' ',base='16',hex_capital='true',base_postfix='x'">65535</mn></mstyle></math></stem>
+           <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn data-metanorma-numberformat="group=' ',base='16',hex_capital='true',base_prefix='',base_postfix='x'">65535</mn></mstyle></math></stem>
+           <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn data-metanorma-numberformat="group=' ',base='2'base_postfix='b'">65535</mn></mstyle></math></stem>
+           </preface>
+      </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+       <bibdata>
+            <title language="en">test</title>
+            </bibdata>
+            <preface><clause type="toc" id="_" displayorder="1"><fmt-title depth="1" id="_">Table of contents</fmt-title></clause>
+            <p displayorder="2">
+            <stem type="MathML" id="_"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn>65535</mn></mstyle></math></stem><fmt-stem type="MathML"><semx element="stem" source="_">65,535</semx></fmt-stem>
+            <stem type="MathML" id="_"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn data-metanorma-numberformat="base='10'">65535</mn></mstyle></math></stem><fmt-stem type="MathML"><semx element="stem" source="_">65,535</semx></fmt-stem>
+            <stem type="MathML" id="_"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn data-metanorma-numberformat="group='&#xA0;',base='10'">65535</mn></mstyle></math></stem><fmt-stem type="MathML"><semx element="stem" source="_">65&#xA0;535</semx></fmt-stem>
+            <stem type="MathML" id="_"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn data-metanorma-numberformat="group='&#xA0;',base='16'">65535</mn></mstyle></math></stem><fmt-stem type="MathML"><semx element="stem" source="_">0xf&#xA0;fff</semx></fmt-stem>
+            <stem type="MathML" id="_"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn data-metanorma-numberformat="group='&#xA0;',base='16',hex_capital='true'">65535</mn></mstyle></math></stem><fmt-stem type="MathML"><semx element="stem" source="_">0xF&#xA0;FFF</semx></fmt-stem>
+            <stem type="MathML" id="_"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn data-metanorma-numberformat="group='&#xA0;',base='16',hex_capital='true',base_prefix=''">65535</mn></mstyle></math></stem><fmt-stem type="MathML"><semx element="stem" source="_">F&#xA0;FFF</semx></fmt-stem>
+            <stem type="MathML" id="_"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn data-metanorma-numberformat="group='&#xA0;',base='16',hex_capital='true',base_prefix='nil'">65535</mn></mstyle></math></stem><fmt-stem type="MathML"><semx element="stem" source="_">F&#xA0;FFF</semx></fmt-stem>
+            <stem type="MathML" id="_"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn data-metanorma-numberformat="group='&#xA0;',base='16',hex_capital='true',base_prefix='HEX '">65535</mn></mstyle></math></stem><fmt-stem type="MathML"><semx element="stem" source="_">HEX F&#xA0;FFF</semx></fmt-stem>
+            <stem type="MathML" id="_"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn data-metanorma-numberformat="group='&#xA0;',base='16',hex_capital='true',base_postfix='x'">65535</mn></mstyle></math></stem><fmt-stem type="MathML"><semx element="stem" source="_">F&#xA0;FFFx</semx></fmt-stem>
+            <stem type="MathML" id="_"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn data-metanorma-numberformat="group='&#xA0;',base='16',hex_capital='true',base_prefix='',base_postfix='x'">65535</mn></mstyle></math></stem><fmt-stem type="MathML"><semx element="stem" source="_">F&#xA0;FFFx</semx></fmt-stem>
+            <stem type="MathML" id="_"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><mn data-metanorma-numberformat="group='&#xA0;',base='2'base_postfix='b'">65535</mn></mstyle></math></stem><fmt-stem type="MathML"><semx element="stem" source="_">0b1&#xA0;111&#xA0;111&#xA0;111&#xA0;111&#xA0;111</semx></fmt-stem>
+            </p>
+       </preface>
+       </iso-standard>
+    OUTPUT
+    output = IsoDoc::PresentationXMLConvert.new(presxml_options
+      .merge(output_formats: { html: "html", doc: "doc" }))
+      .convert("test", input, true)
+    expect(strip_guid(output
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .gsub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")))
+      .to be_xml_equivalent_to presxml
+  end
+
   it "localises numbers in MathML" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -547,5 +600,601 @@ RSpec.describe IsoDoc do
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_xml_equivalent_to output
+  end
+
+  it "customises localisation of numbers" do
+    mock_symbols
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata>
+           <title language="en">test</title>
+           <language>fr</language>
+           </bibdata>
+           <preface>
+           <p><stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>30000</mn></math></stem>
+           <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mfenced open="(" close=")"><mrow><mi>X</mi><mo>≥</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mfenced><mo>=</mo><munderover><mrow><mo>∑</mo></mrow><mrow><mrow><mi>j</mi><mo>=</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mrow><mrow><mn>1000</mn></mrow></munderover><mfenced open="(" close=")"><mtable><mtr><mtd><mn>1000</mn></mtd></mtr><mtr><mtd><mi>j</mi></mtd></mtr></mtable></mfenced><msup><mrow><mi>p</mi></mrow><mrow><mi>j</mi></mrow></msup><msup><mrow><mfenced open="(" close=")"><mrow><mn>0.0000032</mn><mo>−</mo><mi>p</mi></mrow></mfenced></mrow><mrow><mrow><mn>1.003</mn><mo>−</mo><mi>j</mi></mrow></mrow></msup></math></stem></p>
+           </preface>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata>
+            <title language="en">test</title>
+            <language current="true">fr</language>
+         </bibdata>
+         <preface>
+            <clause type="toc" id="_" displayorder="1">
+               <fmt-title id="_" depth="1">Sommaire</fmt-title>
+            </clause>
+            <p displayorder="2">
+               <stem type="MathML" id="_">
+                  <math xmlns="http://www.w3.org/1998/Math/MathML">
+                     <mn>30000</mn>
+                  </math>
+               </stem>
+               <fmt-stem type="MathML">
+                  <semx element="stem" source="_">30'000</semx>
+               </fmt-stem>
+               <stem type="MathML" id="_">
+                  <math xmlns="http://www.w3.org/1998/Math/MathML">
+                     <mi>P</mi>
+                     <mfenced open="(" close=")">
+                        <mrow>
+                           <mi>X</mi>
+                           <mo>≥</mo>
+                           <msub>
+                              <mrow>
+                                 <mi>X</mi>
+                              </mrow>
+                              <mrow>
+                                 <mo>max</mo>
+                              </mrow>
+                           </msub>
+                        </mrow>
+                     </mfenced>
+                     <mo>=</mo>
+                     <munderover>
+                        <mrow>
+                           <mo>∑</mo>
+                        </mrow>
+                        <mrow>
+                           <mrow>
+                              <mi>j</mi>
+                              <mo>=</mo>
+                              <msub>
+                                 <mrow>
+                                    <mi>X</mi>
+                                 </mrow>
+                                 <mrow>
+                                    <mo>max</mo>
+                                 </mrow>
+                              </msub>
+                           </mrow>
+                        </mrow>
+                        <mrow>
+                           <mn>1000</mn>
+                        </mrow>
+                     </munderover>
+                     <mfenced open="(" close=")">
+                        <mtable>
+                           <mtr>
+                              <mtd>
+                                 <mn>1000</mn>
+                              </mtd>
+                           </mtr>
+                           <mtr>
+                              <mtd>
+                                 <mi>j</mi>
+                              </mtd>
+                           </mtr>
+                        </mtable>
+                     </mfenced>
+                     <msup>
+                        <mrow>
+                           <mi>p</mi>
+                        </mrow>
+                        <mrow>
+                           <mi>j</mi>
+                        </mrow>
+                     </msup>
+                     <msup>
+                        <mrow>
+                           <mfenced open="(" close=")">
+                              <mrow>
+                                 <mn>0.0000032</mn>
+                                 <mo>−</mo>
+                                 <mi>p</mi>
+                              </mrow>
+                           </mfenced>
+                        </mrow>
+                        <mrow>
+                           <mrow>
+                              <mn>1.003</mn>
+                              <mo>−</mo>
+                              <mi>j</mi>
+                           </mrow>
+                        </mrow>
+                     </msup>
+                  </math>
+               </stem>
+               <fmt-stem type="MathML">
+                  <semx element="stem" source="_">
+                     <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>P</mi>
+                        <mfenced open="(" close=")">
+                           <mrow>
+                              <mi>X</mi>
+                              <mo>≥</mo>
+                              <msub>
+                                 <mrow>
+                                    <mi>X</mi>
+                                 </mrow>
+                                 <mrow>
+                                    <mo>max</mo>
+                                 </mrow>
+                              </msub>
+                           </mrow>
+                        </mfenced>
+                        <mo>=</mo>
+                        <munderover>
+                           <mrow>
+                              <mo>∑</mo>
+                           </mrow>
+                           <mrow>
+                              <mrow>
+                                 <mi>j</mi>
+                                 <mo>=</mo>
+                                 <msub>
+                                    <mrow>
+                                       <mi>X</mi>
+                                    </mrow>
+                                    <mrow>
+                                       <mo>max</mo>
+                                    </mrow>
+                                 </msub>
+                              </mrow>
+                           </mrow>
+                           <mrow>
+                              <mn>1'000</mn>
+                           </mrow>
+                        </munderover>
+                        <mfenced open="(" close=")">
+                           <mtable>
+                              <mtr>
+                                 <mtd>
+                                   <mn>1'000</mn>
+                                 </mtd>
+                              </mtr>
+                              <mtr>
+                                 <mtd>
+                                    <mi>j</mi>
+                                 </mtd>
+                              </mtr>
+                           </mtable>
+                        </mfenced>
+                        <msup>
+                           <mrow>
+                              <mi>p</mi>
+                           </mrow>
+                           <mrow>
+                              <mi>j</mi>
+                           </mrow>
+                        </msup>
+                        <msup>
+                           <mrow>
+                              <mfenced open="(" close=")">
+                                 <mrow>
+                                    <mn>0,0000032</mn>
+                                    <mo>−</mo>
+                                    <mi>p</mi>
+                                 </mrow>
+                              </mfenced>
+                           </mrow>
+                           <mrow>
+                              <mrow>
+                                 <mn>1,003</mn>
+                                 <mo>−</mo>
+                                 <mi>j</mi>
+                              </mrow>
+                           </mrow>
+                        </msup>
+                     </math>
+                     <asciimath>P (X ge X_(max)) = sum_(j = X_(max))^(1000) ([[1000], [j]]) p^(j) (0.0000032 - p)^(1.003 - j)</asciimath>
+                  </semx>
+               </fmt-stem>
+            </p>
+         </preface>
+      </iso-standard>
+    OUTPUT
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to output
+  end
+
+  context "when twitter_cldr_localiser_symbols has additional options" do
+    let(:input) do
+      <<~INPUT
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata>
+            <title language="en">test</title>
+          </bibdata>
+          <preface>
+            <p>
+              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>30000</mn></math></stem>
+              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+              <mi>P</mi>
+              <mfenced open="(" close=")">
+                <mrow>
+                  <mi>X</mi>
+                  <mo>≥</mo>
+                  <msub>
+                    <mrow>
+                      <mi>X</mi>
+                    </mrow>
+                    <mrow>
+                      <mo>max</mo>
+                    </mrow>
+                  </msub>
+                </mrow>
+              </mfenced>
+              <mo>=</mo>
+              <munderover>
+                <mrow>
+                  <mo>∑</mo>
+                </mrow>
+                <mrow>
+                  <mrow>
+                    <mi>j</mi>
+                    <mo>=</mo>
+                    <msub>
+                      <mrow>
+                        <mi>X</mi>
+                      </mrow>
+                      <mrow>
+                        <mo>max</mo>
+                      </mrow>
+                    </msub>
+                  </mrow>
+                </mrow>
+                <mrow>
+                  <mn>1000</mn>
+                </mrow>
+              </munderover>
+              <mfenced open="(" close=")">
+                <mtable>
+                  <mtr>
+                    <mtd>
+                      <mn>1000</mn>
+                    </mtd>
+                  </mtr>
+                  <mtr>
+                    <mtd>
+                      <mi>j</mi>
+                    </mtd>
+                  </mtr>
+                </mtable>
+              </mfenced>
+              <msup>
+                <mrow>
+                  <mi>p</mi>
+                </mrow>
+                <mrow>
+                  <mi>j</mi>
+                </mrow>
+              </msup>
+              <msup>
+                <mrow>
+                  <mfenced open="(" close=")">
+                    <mrow>
+                      <mn>1</mn>
+                      <mo>−</mo>
+                      <mi>p</mi>
+                    </mrow>
+                  </mfenced>
+                </mrow>
+                <mrow>
+                  <mrow>
+                    <mn>1.003</mn>
+                    <mo>−</mo>
+                    <mi>j</mi>
+                  </mrow>
+                </mrow>
+              </msup>
+              <msup>
+                <mrow>
+                  <mfenced open="(" close=")">
+                    <mrow>
+                      <mn>1</mn>
+                      <mo>−</mo>
+                      <mi>p</mi>
+                    </mrow>
+                  </mfenced>
+                </mrow>
+                <mrow>
+                  <mrow>
+                    <mn>459384.123456789</mn>
+                    <mo>−</mo>
+                    <mi>j</mi>
+                  </mrow>
+                </mrow>
+              </msup>
+            </math></stem>
+          </p>
+          </preface>
+        </iso-standard>
+      INPUT
+    end
+    let(:output) do
+      <<~OUTPUT
+        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+           <bibdata>
+              <title language="en">test</title>
+           </bibdata>
+           <preface>
+              <clause type="toc" id="_" displayorder="1">
+                 <fmt-title id="_" depth="1">Table of contents</fmt-title>
+              </clause>
+              <p displayorder="2">
+                 <stem type="MathML" id="_">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                       <mn>30000</mn>
+                    </math>
+                 </stem>
+                 <fmt-stem type="MathML">
+                    <semx element="stem" source="_">30,000</semx>
+                 </fmt-stem>
+                 <stem type="MathML" id="_">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                       <mi>P</mi>
+                       <mfenced open="(" close=")">
+                          <mrow>
+                             <mi>X</mi>
+                             <mo>≥</mo>
+                             <msub>
+                                <mrow>
+                                   <mi>X</mi>
+                                </mrow>
+                                <mrow>
+                                   <mo>max</mo>
+                                </mrow>
+                             </msub>
+                          </mrow>
+                       </mfenced>
+                       <mo>=</mo>
+                       <munderover>
+                          <mrow>
+                             <mo>∑</mo>
+                          </mrow>
+                          <mrow>
+                             <mrow>
+                                <mi>j</mi>
+                                <mo>=</mo>
+                                <msub>
+                                   <mrow>
+                                      <mi>X</mi>
+                                   </mrow>
+                                   <mrow>
+                                      <mo>max</mo>
+                                  </mrow>
+                                </msub>
+                             </mrow>
+                          </mrow>
+                          <mrow>
+                             <mn>1000</mn>
+                          </mrow>
+                       </munderover>
+                       <mfenced open="(" close=")">
+                          <mtable>
+                             <mtr>
+                                <mtd>
+                                   <mn>1000</mn>
+                                </mtd>
+                             </mtr>
+                             <mtr>
+                                <mtd>
+                                   <mi>j</mi>
+                                </mtd>
+                             </mtr>
+                          </mtable>
+                       </mfenced>
+                       <msup>
+                          <mrow>
+                             <mi>p</mi>
+                          </mrow>
+                          <mrow>
+                             <mi>j</mi>
+                          </mrow>
+                       </msup>
+                       <msup>
+                          <mrow>
+                             <mfenced open="(" close=")">
+                                <mrow>
+                                   <mn>1</mn>
+                                   <mo>−</mo>
+                                   <mi>p</mi>
+                                </mrow>
+                             </mfenced>
+                          </mrow>
+                          <mrow>
+                             <mrow>
+                                <mn>1.003</mn>
+                                <mo>−</mo>
+                                <mi>j</mi>
+                             </mrow>
+                          </mrow>
+                       </msup>
+                       <msup>
+                          <mrow>
+                             <mfenced open="(" close=")">
+                                <mrow>
+                                   <mn>1</mn>
+                                   <mo>−</mo>
+                                   <mi>p</mi>
+                                </mrow>
+                             </mfenced>
+                          </mrow>
+                          <mrow>
+                             <mrow>
+                                <mn>459384.123456789</mn>
+                                <mo>−</mo>
+                                <mi>j</mi>
+                             </mrow>
+                          </mrow>
+                       </msup>
+                    </math>
+                 </stem>
+                 <fmt-stem type="MathML">
+                    <semx element="stem" source="_">
+                       <math xmlns="http://www.w3.org/1998/Math/MathML">
+                          <mi>P</mi>
+                          <mfenced open="(" close=")">
+                             <mrow>
+                                <mi>X</mi>
+                                <mo>≥</mo>
+                                <msub>
+                                   <mrow>
+                                      <mi>X</mi>
+                                   </mrow>
+                                   <mrow>
+                                      <mo>max</mo>
+                                  </mrow>
+                                </msub>
+                             </mrow>
+                          </mfenced>
+                          <mo>=</mo>
+                          <munderover>
+                             <mrow>
+                                <mo>∑</mo>
+                             </mrow>
+                             <mrow>
+                                <mrow>
+                                   <mi>j</mi>
+                                   <mo>=</mo>
+                                   <msub>
+                                      <mrow>
+                                         <mi>X</mi>
+                                      </mrow>
+                                      <mrow>
+                                         <mo>max</mo>
+                                      </mrow>
+                                   </msub>
+                                </mrow>
+                             </mrow>
+                             <mrow>
+                                <mn>1,000</mn>
+                             </mrow>
+                          </munderover>
+                          <mfenced open="(" close=")">
+                             <mtable>
+                                <mtr>
+                                   <mtd>
+                                      <mn>1,000</mn>
+                                   </mtd>
+                                </mtr>
+                                <mtr>
+                                   <mtd>
+                                      <mi>j</mi>
+                                   </mtd>
+                                </mtr>
+                             </mtable>
+                          </mfenced>
+                          <msup>
+                             <mrow>
+                                <mi>p</mi>
+                             </mrow>
+                             <mrow>
+                                <mi>j</mi>
+                             </mrow>
+                          </msup>
+                          <msup>
+                             <mrow>
+                                <mfenced open="(" close=")">
+                                   <mrow>
+                                      <mn>1</mn>
+                                      <mo>−</mo>
+                                      <mi>p</mi>
+                                   </mrow>
+                                </mfenced>
+                             </mrow>
+                             <mrow>
+                                <mrow>
+                                   <mn>1.00'30'0</mn>
+                                   <mo>−</mo>
+                                   <mi>j</mi>
+                                </mrow>
+                             </mrow>
+                          </msup>
+                          <msup>
+                             <mrow>
+                                <mfenced open="(" close=")">
+                                   <mrow>
+                                      <mn>1</mn>
+                                      <mo>−</mo>
+                                      <mi>p</mi>
+                                   </mrow>
+                                </mfenced>
+                             </mrow>
+                             <mrow>
+                                <mrow>
+                                   <mn>459,384.12'34'5</mn>
+                                   <mo>−</mo>
+                                   <mi>j</mi>
+                               </mrow>
+                             </mrow>
+                          </msup>
+                       </math>
+                       <asciimath>P (X ge X_(max)) = sum_(j = X_(max))^(1000) ([[1000], [j]]) p^(j) (1 - p)^(1.003 - j) (1 - p)^(459384.123456789 - j)</asciimath>
+                    </semx>
+                 </fmt-stem>
+              </p>
+           </preface>
+        </iso-standard>
+      OUTPUT
+    end
+    let(:additional_symbols) do
+      {
+        fraction_group_digits: 2,
+        fraction_group: "'",
+        precision: 5,
+      }
+    end
+
+    before do
+      allow_any_instance_of(IsoDoc::PresentationXMLConvert)
+        .to(receive(:twitter_cldr_localiser_symbols)
+        .and_return(additional_symbols))
+    end
+
+    it "Supports twitter_cldr_localiser_symbols fraction options" do
+      expect(strip_guid(IsoDoc::PresentationXMLConvert
+        .new(presxml_options)
+        .convert("test", input, true))
+        .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+        .to be_xml_equivalent_to output
+    end
+  end
+
+  it "correctly parses options with commas inside values" do
+    converter = IsoDoc::PresentationXMLConvert.new({})
+    options = "'group_digits=3','fraction_group_digits=3','decimal=,','group= ','fraction_group= ','notation=general'"
+    result = converter.csv_attribute_extract(options)
+
+    expect(result).to eq({
+                           group_digits: "3",
+                           fraction_group_digits: "3",
+                           decimal: ",",
+                           group: " ",
+                           fraction_group: " ",
+                           notation: "general",
+                         })
+  end
+
+  private
+
+  def mock_symbols
+    allow_any_instance_of(IsoDoc::PresentationXMLConvert)
+      .to receive(:twitter_cldr_localiser_symbols).and_return(group: "'")
   end
 end

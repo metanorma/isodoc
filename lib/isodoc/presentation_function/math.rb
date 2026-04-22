@@ -51,12 +51,15 @@ module IsoDoc
     end
 
     def numberformat_type(ret)
-      %i(precision significant digit_count group_digits fraction_group_digits)
-        .each do |i|
-          ret[i] &&= ret[i].to_i
-        end
-      %i(notation exponent_sign number_sign locale).each do |i|
+      %i(precision significant digit_count group_digits fraction_group_digits
+         base).each do |i|
+        ret[i] &&= ret[i].to_i
+      end
+      %i(notation exponent_sign number_sign locale hex_capital).each do |i|
         ret[i] &&= ret[i].to_sym
+      end
+      %i(base_prefix base_suffix).each do |i|
+        ["", "nil"].include?(ret[i]) and ret[i] = nil
       end
       ret
     end
