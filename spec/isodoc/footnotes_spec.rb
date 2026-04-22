@@ -850,21 +850,21 @@ RSpec.describe IsoDoc do
          <br/>
          <div id="_8" class="TOC">
             <h1 class="IntroTitle">
-               <a class="anchor" href="#_8"/>
+               <a class="anchor" href="#_8"></a>
                <a class="header" href="#_8">Table of contents</a>
             </h1>
          </div>
          <br/>
          <div id="_1">
             <h1 class="ForewordTitle">
-               <a class="anchor" href="#_1"/>
+               <a class="anchor" href="#_1"></a>
                <a class="header" href="#_1">Foreword</a>
             </h1>
             <p id="A">
                <i>
                   <b>A.</b>
                </i>
-               <a id="A1"/>
+               <a id="A1"></a>
                B
                <i>
                   <b>C.</b>
@@ -883,7 +883,7 @@ RSpec.describe IsoDoc do
          <br/>
          <div class="Section3" id="_2">
             <h1 class="IntroTitle">
-               <a class="anchor" href="#_2"/>
+               <a class="anchor" href="#_2"></a>
                <a class="header" href="#_2">Introduction</a>
             </h1>
             <p id="C">C.</p>

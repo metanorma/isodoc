@@ -14,6 +14,8 @@ module IsoDoc
       end
 
       def define_head(head, filename, _dir)
+        head.meta "http-equiv": "Content-Type",
+                  content: "text/html; charset=UTF-8"
         head.style do |style|
           loc = File.join(File.dirname(__FILE__), "..", "base_style",
                           "metanorma_word.scss")

@@ -68,10 +68,7 @@ RSpec.describe IsoDoc do
          xmlns:w="urn:schemas-microsoft-com:office:word"
          xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
          lang="en">
-        <head>
-          <style>
-          </style>
-        </head>
+        <head> <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/> <style></style> </head>
         <body lang='EN-US' link='blue' vlink='#954F72'>
           <div class='WordSection1'>
             <p>\u00a0</p>
@@ -99,9 +96,6 @@ RSpec.describe IsoDoc do
             <br clear='all' class='section'/>
           </p>
           <div class='WordSection3'>
-            <div id='L' class='Admonition'>
-              <p>admonition</p>
-            </div>
             <div id='M'>
               <h1>Clause 4</h1>
               <div id='N'>
@@ -115,6 +109,9 @@ RSpec.describe IsoDoc do
                   </b>
                 </span>
               </div>
+            </div>
+            <div id='L' class='Admonition'>
+              <p>admonition</p>
             </div>
           </div>
         </body>
@@ -1029,18 +1026,18 @@ RSpec.describe IsoDoc do
                <div id="A">
                   <h1>1.</h1>
                   <p>A</p>
-                  <a id="_"/>
-                  <a id="_"/>
-                  <a id="_"/>
-                  <a id="_"/>
-                  <a id="_"/>
+                  <a id="_"></a>
+                  <a id="_"></a>
+                  <a id="_"></a>
+                  <a id="_"></a>
+                  <a id="_"></a>
                   <div id="B">
                      <h2>1.1.</h2>
                      <p>B</p>
-                     <a id="_"/>
-                     <a id="_"/>
-                     <a id="_"/>
-                     <a id="_"/>
+                     <a id="_"></a>
+                     <a id="_"></a>
+                     <a id="_"></a>
+                     <a id="_"></a>
                   </div>
                </div>
                <div id="_">
@@ -1118,7 +1115,8 @@ RSpec.describe IsoDoc do
             </div>
          </body>
       </html>
-    OUTPUT
+
+             OUTPUT
     doc = <<~DOC
       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
           <div class="WordSection3">

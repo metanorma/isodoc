@@ -53,42 +53,42 @@ RSpec.describe IsoDoc do
     html = <<~HTML
       #{HTML_HDR}
                <div id='A'>
-                 <h1/>
+                 <h1></h1>
                <form id='F0' name='F1' action='/action_page.php' class="C">
                   <label for='fname'>First name:</label>
                    <br/>
-                   <input id='fname' name='fname' type='text'/>
+                   <input id='fname' name='fname' type='text'></input>
                    <br/>
                    <label for='lname'>Last name:</label>
                    <br/>
-                   <input id='lname' name='lname' type='text'/>
+                   <input id='lname' name='lname' type='text'></input>
                    <br/>
                    <label for='pwd'>Password:</label>
                    <br/>
-                   <input id='pwd' name='pwd' type='password'/>
+                   <input id='pwd' name='pwd' type='password'></input>
                    <br/>
-                   <input id='male' name='gender' type='radio' value='male'/>
+                   <input id='male' name='gender' type='radio' value='male'></input>
                    <label for='male'>Male</label>
                    <br/>
-                   <input id='female' name='gender' type='radio' value='female'/>
+                   <input id='female' name='gender' type='radio' value='female'></input>
                    <label for='female'>Female</label>
                    <br/>
-                   <input id='other' name='gender' type='radio' value='other'/>
+                   <input id='other' name='gender' type='radio' value='other'></input>
                    <label for='other'>Other</label>
                    <br/>
-                   <input id='vehicle1' name='vehicle1' type='checkbox' value='Bike' checked='true'/>
+                   <input id='vehicle1' name='vehicle1' type='checkbox' value='Bike' checked='true'></input>
                    <label for='vehicle1'> I have a bike</label>
                    <br/>
-                   <input id='vehicle2' name='vehicle2' type='checkbox' value='Car'/>
+                   <input id='vehicle2' name='vehicle2' type='checkbox' value='Car'></input>
                    <label for='vehicle2'> I have a car</label>
                    <br/>
-                   <input id='vehicle3' name='vehicle3' type='checkbox' value='Boat'/>
+                   <input id='vehicle3' name='vehicle3' type='checkbox' value='Boat'></input>
                    <label for='vehicle3'> I have a boat</label>
                    <br/>
-                   <input id='birthday' name='birthday' type='date'/>
+                   <input id='birthday' name='birthday' type='date'></input>
                    <br/>
                    <label for='myfile'>Select a file:</label>
-                   <input id='myfile' name='myfile' type='file'/>
+                   <input id='myfile' name='myfile' type='file'></input>
                    <br/>
                    <label for='cars'>Select a car:</label>
                    <select id='cars' name='cars'>
@@ -98,9 +98,9 @@ RSpec.describe IsoDoc do
                      <option value='audi'>Audi</option>
                    </select>
                    <textarea id='t1' name='message' rows='10' cols='30'>The cat was playing in the garden.</textarea>
-                   <input type='button' value='Click Me!'/>
-                   <input type='button'/>
-                   <input type='submit' value='Submit'/>
+                   <input type='button' value='Click Me!'></input>
+                   <input type='button'></input>
+                   <input type='submit' value='Submit'></input>
                   </form>
                </div>
              </div>

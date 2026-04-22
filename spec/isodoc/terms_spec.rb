@@ -727,7 +727,7 @@ RSpec.describe IsoDoc do
                    <p>For the purposes of this document, the following terms and definitions apply.</p>
                    <p class="TermNum" id="paddy1">1.1.</p>
                    <p class="Terms" style="text-align:left;">
-                      <b><dfn>paddy</dfn></b>
+                      <b>paddy</b>
                       , &lt;in agriculture, dated&gt; [SOURCE: ISO\u00a07301:2011, Clause 3.1, modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]
                    </p>
                    <p id="_">&lt;rice&gt;  rice retaining its husk after threshing</p>
@@ -750,10 +750,10 @@ RSpec.describe IsoDoc do
                    </div>
                    <p>[SOURCE: t1 — comment; Termbase IEV, term ID xyz, modified — with adjustments; t1, adapted]</p>
                    <p class="TermNum" id="paddy">1.2.</p>
-                   <p class="Terms" style="text-align:left;"><b><dfn>paddy</dfn></b></p>
-                   <p class="AltTerms" style="text-align:left;"><dfn>paddy rice</dfn>, &lt;in agriculture&gt;</p>
-                   <p class="AltTerms" style="text-align:left;"><dfn>rough rice</dfn></p>
-                   <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: <dfn>cargo rice</dfn></p>
+                   <p class="Terms" style="text-align:left;"><b>paddy</b></p>
+                   <p class="AltTerms" style="text-align:left;">paddy rice, &lt;in agriculture&gt;</p>
+                   <p class="AltTerms" style="text-align:left;">rough rice</p>
+                   <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: cargo rice</p>
                    <p id="_">rice retaining its husk after threshing</p>
                    <div id="_" class="example">
                       <p class="example-title">EXAMPLE</p>

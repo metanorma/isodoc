@@ -733,7 +733,7 @@ RSpec.describe IsoDoc do
           <div id="_">
             <h1 class="ForewordTitle">Foreword</h1>
             <figure id="_" class="sourcecode" spellcheck="false" translation="no">
-              <pre>puts "Hello, world." <span class="c"> &lt;1&gt;</span><span class="c"> &lt;2&gt;</span> <br/>\u00a0\u00a0 %w{a b c}.each do |x|<br/>\u00a0\u00a0\u00a0\u00a0 puts x <span class="c"> &lt;3&gt;</span> <br/>\u00a0\u00a0 end</pre>
+            <pre>puts "Hello, world." <span class="c"> &lt;1&gt;</span> <span class="c"> &lt;2&gt;</span> <br/>   %w{a b c}.each do |x|<br/>     puts x <span class="c"> &lt;3&gt;</span> <br/>   end</pre>
                        <div class="annotation">
                        <div class="figdl">
           <p class="ListTitle">Key</p>
