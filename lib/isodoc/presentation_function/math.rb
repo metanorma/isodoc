@@ -51,8 +51,8 @@ module IsoDoc
     end
 
     def numberformat_type(ret)
-      %i(precision significant digit_count group_digits fraction_group_digits
-         base).each do |i|
+      %i(precision significant digit_count group_digits fraction_group_digits base)
+        .each do |i|
         ret[i] &&= ret[i].to_i
       end
       %i(notation exponent_sign number_sign locale hex_capital).each do |i|
