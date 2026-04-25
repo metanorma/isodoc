@@ -18,7 +18,6 @@ module IsoDoc
       # expanded: <a id="_"/> -> <a id="_"></a>). Idempotent: running
       # again in postprocess#toHTML is a no-op.
       def convert1(docxml, filename, dir)
-        require "debug"; binding.b
         empty_tags(super)
       end
 
