@@ -1249,7 +1249,7 @@ RSpec.describe IsoDoc do
     expect(File.exist?("test.doc")).to be true
     word = File.read("test.doc", encoding: "UTF-8")
       .sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>")
-    wordxml = Nokogiri::XML(word)
+    wordxml = Nokogiri::HTML5(word)
     expect(strip_guid(wordxml.to_xml))
       .to be_xml_equivalent_to doc
   end

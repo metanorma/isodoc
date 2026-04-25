@@ -434,75 +434,75 @@ RSpec.describe IsoDoc do
       </html>
     OUTPUT
     doc = <<~OUTPUT
-       <body lang="EN-US" link="blue" vlink="#954F72">
-         <div class="WordSection1">
-           <p> </p>
-         </div>
-         <p class="section-break">
-           <br clear="all" class="section"/>
-         </p>
-         <div class="WordSection2">
-           <div class="authority">
-             <div class="boilerplate-copyright">
-               <div id="_2">
-                 <h1>
-                   <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
-                     <a class="FootnoteRef" epub:type="footnote" href="#ftn_17">1</a>
-                   </span>
-                 </h1>
-               </div>
-             </div>
-           </div>
-           <p class="page-break">
-             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-           </p>
-           <div id="_11" class="TOC">
-             <p class="zzContents">Table of contents</p>
-           </div>
-           <p class="page-break">
-             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-           </p>
-           <div id="F">
-             <h1 class="ForewordTitle">Foreword</h1>
-             <p>A.<span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" epub:type="footnote" href="#ftn_18">2</a></span></p>
-             <p>B.<span class="MsoFootnoteReference"><span style="mso-element:field-begin"/> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"/>2<span style="mso-element:field-end"/></span></p>
-             <p>C.<span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" epub:type="footnote" href="#ftn_19">3</a></span></p>
-           </div>
-           <p> </p>
-         </div>
-         <p class="section-break">
-           <br clear="all" class="section"/>
-         </p>
-         <div class="WordSection3">
-           <p>B.<span class="MsoFootnoteReference"><span style="mso-element:field-begin"/> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"/>2<span style="mso-element:field-end"/></span><span class="MsoFootnoteReference"><span style="mso-element:field-begin"/> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"/>3<span style="mso-element:field-end"/></span></p>
-           <div>
-             <h1>1.<span style="mso-tab-count:1">  </span>Normative References</h1>
-             <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-             <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products<span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" epub:type="footnote" href="#ftn_20">4</a></span></i>.</p>
-           </div>
-           <div id="A">
-             <h1>2.</h1>
-             <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
-               <a class="FootnoteRef" epub:type="footnote" href="#ftn_21">5</a>
-             </span>
-           </div>
-           <aside id="ftn_17">
-             <p>D</p>
-           </aside>
-           <aside id="ftn_18">
-             <p id="_">Formerly denoted as 15 % (m/m).</p>
-           </aside>
-           <aside id="ftn_19">
-             <p id="_">Hello! denoted as 15 % (m/m).</p>
-           </aside>
-           <aside id="ftn_20">
-             <p id="_">ISO is a standards organisation.</p>
-           </aside>
-           <aside id="ftn_21">
-             <p id="_">Third footnote.</p>
-           </aside>
-         </div>
-       </body>
+      <body lang="EN-US" link="blue" vlink="#954F72">
+        <div class="WordSection1">
+          <p> </p>
+        </div>
+        <p class="section-break">
+          <br clear="all" class="section"/>
+        </p>
+        <div class="WordSection2">
+          <div class="authority">
+            <div class="boilerplate-copyright">
+              <div id="_2">
+                <h1>
+                  <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
+                    <a class="FootnoteRef" epub:type="footnote" href="#ftn_17">1</a>
+                  </span>
+                </h1>
+              </div>
+            </div>
+          </div>
+          <p class="page-break">
+            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div id="_11" class="TOC">
+            <p class="zzContents">Table of contents</p>
+          </div>
+          <p class="page-break">
+            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div id="F">
+            <h1 class="ForewordTitle">Foreword</h1>
+            <p>A.<span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" epub:type="footnote" href="#ftn_18">2</a></span></p>
+            <p>B.<span class="MsoFootnoteReference"><span style="mso-element:field-begin"/> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"/>2<span style="mso-element:field-end"/></span></p>
+            <p>C.<span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" epub:type="footnote" href="#ftn_19">3</a></span></p>
+          </div>
+          <p> </p>
+        </div>
+        <p class="section-break">
+          <br clear="all" class="section"/>
+        </p>
+        <div class="WordSection3">
+          <p>B.<span class="MsoFootnoteReference"><span style="mso-element:field-begin"/> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"/>2<span style="mso-element:field-end"/></span><span class="MsoFootnoteReference"><span style="mso-element:field-begin"/> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"/>3<span style="mso-element:field-end"/></span></p>
+          <div>
+            <h1>1.<span style="mso-tab-count:1">  </span>Normative References</h1>
+            <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+            <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products<span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" epub:type="footnote" href="#ftn_20">4</a></span></i>.</p>
+          </div>
+          <div id="A">
+            <h1>2.</h1>
+            <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
+              <a class="FootnoteRef" epub:type="footnote" href="#ftn_21">5</a>
+            </span>
+          </div>
+          <aside id="ftn_17">
+            <p>D</p>
+          </aside>
+          <aside id="ftn_18">
+            <p id="_">Formerly denoted as 15 % (m/m).</p>
+          </aside>
+          <aside id="ftn_19">
+            <p id="_">Hello! denoted as 15 % (m/m).</p>
+          </aside>
+          <aside id="ftn_20">
+            <p id="_">ISO is a standards organisation.</p>
+          </aside>
+          <aside id="ftn_21">
+            <p id="_">Third footnote.</p>
+          </aside>
+        </div>
+      </body>
     OUTPUT
     doc1 = <<~OUTPUT
       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
@@ -664,12 +664,12 @@ RSpec.describe IsoDoc do
     expect(strip_guid(pres_output)
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_xml_equivalent_to presxml
-    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_xml))
       .to be_html5_equivalent_to html
-    expect(strip_guid(Nokogiri::XML(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Nokogiri::HTML5(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
       .at("//body").to_xml))
       .to be_html4_equivalent_to strip_guid(doc)
@@ -1514,14 +1514,16 @@ RSpec.describe IsoDoc do
       .new(presxml_options)
       .convert("test", input.sub("PUBLISHED", "false"), true))
     pres_output.xpath("//xmlns:localized-strings | " \
-                      "//xmlns:metanorma-extension | //xmlns:bibdata").each(&:remove)
+                      "//xmlns:metanorma-extension | //xmlns:bibdata")
+      .each(&:remove)
     expect(strip_guid(pres_output.to_xml))
       .to be_xml_equivalent_to presxml_annotated
     pres_output = Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input.sub("PUBLISHED", "true"), true))
     pres_output.xpath("//xmlns:localized-strings | " \
-                      "//xmlns:metanorma-extension | //xmlns:bibdata").each(&:remove)
+                      "//xmlns:metanorma-extension | //xmlns:bibdata")
+      .each(&:remove)
     expect(strip_guid(pres_output.to_xml))
       .to be_xml_equivalent_to presxml_unannotated
     pres_output = Nokogiri::XML(IsoDoc::PresentationXMLConvert
@@ -1530,7 +1532,8 @@ RSpec.describe IsoDoc do
       .sub("</bibdata>", "</bibdata>#{directive}")
       .sub("DIRECTIVE", "true"), true))
     pres_output.xpath("//xmlns:localized-strings | " \
-                      "//xmlns:metanorma-extension | //xmlns:bibdata").each(&:remove)
+                      "//xmlns:metanorma-extension | //xmlns:bibdata")
+      .each(&:remove)
     expect(strip_guid(pres_output.to_xml))
       .to be_xml_equivalent_to presxml_annotated
     pres_output = Nokogiri::XML(IsoDoc::PresentationXMLConvert
@@ -1539,7 +1542,8 @@ RSpec.describe IsoDoc do
       .sub("</bibdata>", "</bibdata>#{directive}")
       .sub("DIRECTIVE", "false"), true))
     pres_output.xpath("//xmlns:localized-strings | " \
-                      "//xmlns:metanorma-extension | //xmlns:bibdata").each(&:remove)
+                      "//xmlns:metanorma-extension | //xmlns:bibdata")
+      .each(&:remove)
     expect(strip_guid(pres_output.to_xml))
       .to be_xml_equivalent_to presxml_unannotated
   end

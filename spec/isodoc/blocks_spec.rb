@@ -559,7 +559,7 @@ RSpec.describe IsoDoc do
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_html))
       .to be_html5_equivalent_to html
-    output = Nokogiri::XML(IsoDoc::WordConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::WordConvert.new({})
     .convert("test", input, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_xml))

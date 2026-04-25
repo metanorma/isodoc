@@ -1016,7 +1016,7 @@ RSpec.describe IsoDoc do
     expect(strip_guid(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml))
       .to be_xml_equivalent_to presxml
-    expect(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Nokogiri::HTML5(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )

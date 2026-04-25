@@ -108,7 +108,7 @@ RSpec.describe IsoDoc do
     expect(strip_guid(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml))
       .to be_xml_equivalent_to presxml
-    expect(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Nokogiri::HTML5(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
@@ -119,7 +119,7 @@ RSpec.describe IsoDoc do
     expect(File.exist?("test.doc")).to be true
     word = File.read("test.doc", encoding: "UTF-8")
       .sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>")
-    wordxml = Nokogiri::XML(word)
+    wordxml = Nokogiri::HTML5(word)
     expect(strip_guid(wordxml.at("//p").to_xml))
       .to be_xml_equivalent_to doc
   end
@@ -150,7 +150,7 @@ RSpec.describe IsoDoc do
     expect(strip_guid(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml))
       .to be_xml_equivalent_to presxml
-    expect(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Nokogiri::HTML5(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
@@ -593,7 +593,7 @@ RSpec.describe IsoDoc do
     expect(strip_guid(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml))
       .to be_xml_equivalent_to presxml
-    expect(strip_guid(Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
       .at("//p[@id = 'A']").to_xml))
       .to be_xml_equivalent_to output
@@ -947,13 +947,13 @@ RSpec.describe IsoDoc do
     expect(strip_guid(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml))
       .to be_xml_equivalent_to presxml
-    expect(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Nokogiri::HTML5(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
       .at("//p[@id = 'A']").to_xml))
       .to be_html5_equivalent_to html
-    expect(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Nokogiri::HTML5(
       IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true),
     )

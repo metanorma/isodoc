@@ -586,13 +586,13 @@ RSpec.describe IsoDoc do
     expect(strip_guid(pres_output
       .gsub("&lt;", "&#x3c;")))
       .to be_xml_equivalent_to presxml
-    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_xml))
       .to be_html5_equivalent_to html
     FileUtils.rm_rf "spec/assets/odf1.emf"
-    output = Nokogiri::XML(IsoDoc::WordConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_xml
@@ -1562,12 +1562,12 @@ RSpec.describe IsoDoc do
     expect(strip_guid(pres_output
       .gsub("&lt;", "&#x3c;")))
       .to be_xml_equivalent_to presxml
-    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_xml))
       .to be_html5_equivalent_to html
-    output = Nokogiri::XML(IsoDoc::WordConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_xml
@@ -1621,12 +1621,12 @@ RSpec.describe IsoDoc do
     input.sub!("doc,tag", "doc1,tag")
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_xml))
       .to be_html5_equivalent_to html
-    output = Nokogiri::XML(IsoDoc::WordConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_xml
@@ -1831,7 +1831,7 @@ RSpec.describe IsoDoc do
     expect(strip_guid(Canon.format_xml(pres_output
       .gsub("&lt;", "&#x3c;"))))
       .to be_equivalent_to Canon.format_xml(presxml)
-    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(Canon.format_xml(output.to_xml)))
