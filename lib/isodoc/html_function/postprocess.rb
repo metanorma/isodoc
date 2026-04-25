@@ -34,22 +34,6 @@ module IsoDoc
         html_toc(heading_anchors(sourcecode_cleanup(mathml(html))))
       end
 
-      def empty_tags(html)
-        void_elements = %w[area base br col embed hr img input link meta
-                           source track wbr]
-        # Atomic group (?>...) prevents catastrophic backtracking across `>`
-        # characters. Quoted alternatives listed first so `/` inside
-        # attribute values (e.g. URLs in href="...") is consumed as part
-        # of the quoted string, not rejected by [^>/].
-        html.gsub(%r{<(\w+)((?>"[^"]*"|'[^']*'|[^>/])*)\s*/>}) do
-          if void_elements.include?($1)
-            $&
-          else
-            "<#{$1}#{$2}></#{$1}>"
-          end
-        end
-      end
-
       def heading_anchors(html)
         html.xpath("//h1 | //h2 | //h3 | //h4 | //h5 | //h6 | //h7 | //h8 | " \
                    "//span[@class = 'inline-header']").each do |h|

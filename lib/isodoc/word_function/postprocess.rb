@@ -20,7 +20,8 @@ module IsoDoc
         result = from_xhtml(word_cleanup(result))
           .gsub("-DOUBLE_HYPHEN_ESCAPE-", "--")
         # Unescape &#x26; to & in href attributes after all Nokogiri processing
-        unescape_amp_in_hrefs(result)
+        require "debug"; binding.b
+        unescape_amp_in_hrefs(empty_tags(result))
       end
 
       def toWord(result, filename, dir, header)
