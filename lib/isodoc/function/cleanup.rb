@@ -144,7 +144,7 @@ module IsoDoc
       def empty_tags(html)
         void_elements = %w[area base br col embed hr img input link meta
                            source track wbr]
-        html.gsub(%r{<(\w+)((?>"[^"]*"|'[^']*'|[^>/])*)\s*/>}) do
+        html.gsub(%r{<([\w:]+)((?>"[^"]*"|'[^']*'|[^>/])*)\s*/>}) do
           if void_elements.include?($1)
             $&
           else

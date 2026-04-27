@@ -44,14 +44,15 @@ module IsoDoc
     def implicit_number_formatter(num, locale)
       num.ancestors("formula").empty? or return
       ## by default, no formatting in formulas
-      fmt = { significant: num_totaldigits(num.text) }.compact
+      fmt = { significant: num_totaldigits(num.text, 10) }.compact
       n = normalise_number(num.text)
       @numfmt.localized_number(n, locale:, format: fmt,
                                   precision: num_precision(num.text))
     end
 
     def numberformat_type(ret)
-      %i(precision significant digit_count group_digits fraction_group_digits base)
+      %i(precision significant digit_count group_digits fraction_group_digits
+         base)
         .each do |i|
         ret[i] &&= ret[i].to_i
       end
@@ -79,14 +80,17 @@ module IsoDoc
         v.is_a?(String) ? HTMLEntities.new.decode(v) : v
       end.merge(fmt)
       symbols = large_notation_fmt(symbols, num.text)
-      [symbols[:precision] || num_precision(num.text), symbols,
-       explicit_number_formatter_signif(num, symbols)]
+      significant = explicit_number_formatter_signif(num, symbols)
+      precision = symbols[:precision] || num_precision(num.text) ||
+        num_precision_from_significant(num.text, significant,
+                                       (symbols[:base] || 10).to_i)
+      [precision, symbols, significant]
     end
 
     def explicit_number_formatter_signif(num, symbols)
       signif = symbols[:significant]
       (symbols.keys & %i(precision digit_count)).empty? and
-        signif ||= num_totaldigits(num.text)
+        signif ||= num_totaldigits(num.text, (symbols[:base] || 10).to_i)
       signif
     end
 
@@ -120,14 +124,54 @@ module IsoDoc
       precision
     end
 
-    def num_totaldigits(num)
+    def num_totaldigits(num, base = 10)
       totaldigits = nil
       /\.(?=\d+e)/.match?(num) and
         totaldigits = twitter_cldr_localiser_symbols[:significant] ||
-          # [^.]* and [^e]* exclude their respective delimiters,
-          # preventing polynomial backtracking.
-          num.sub(/\A0\./, ".").sub(/\A[^.]*\./, "").sub(/e[^e]*\z/, "").size
+          num_totaldigits_compute(num, base)
       totaldigits
+    end
+
+    # In base 10, total significant digits = source mantissa length.
+    # In other bases, the converted value may have fewer digits. Per
+    # https://github.com/metanorma/isodoc/issues/788: if the source has
+    # no fractional part after E-notation expansion, return the
+    # length of the integer in the target base (e.g. 123 -> 7B = 2
+    # digits, not 3); if the source has a fractional part, preserve
+    # the source mantissa length so Plurimath pads the converted
+    # fraction (e.g. 123.25 -> 7B.400, 123.0 -> 7B.00).
+    def num_totaldigits_compute(num, base)
+      # [^.]* and [^e]* exclude their respective delimiters,
+      # preventing polynomial backtracking.
+      mantissa = num.sub(/\A0\./, ".").sub(/\A[^.]*\./, "")
+        .sub(/e[^e]*\z/, "")
+      return mantissa.size if base == 10
+
+      m = num.match(/\A-?0?\.(\d+)e(-?\d+)\z/)
+      if m && m[1].length <= m[2].to_i
+        BigDecimal(num).to_i.abs.to_s(base).length
+      else
+        mantissa.size
+      end
+    end
+
+    # When base != 10 and the source is in E-notation, derive the
+    # target-base fractional digit count from the total significant
+    # digit count we computed. Plurimath's default precision_from()
+    # returns the decimal fractional digit count, which
+    # Numbers::Fraction#change_base then uses as the target-base
+    # fractional digit count -- producing too few fractional digits
+    # in non-decimal bases. Workaround pending upstream fix; see
+    # https://github.com/metanorma/isodoc/issues/788.
+    def num_precision_from_significant(num, significant, base)
+      base == 10 and return nil
+      significant.nil? and return nil
+      /\.(?=\d+e)/.match?(num) or return nil
+      m = num.match(/\A-?0?\.(\d+)e(-?\d+)\z/) or return nil
+      m[1].length <= m[2].to_i and return 0
+      val = BigDecimal(num).abs
+      integer_len = val.to_i.zero? ? 0 : val.to_i.to_s(base).length
+      [significant - integer_len, 0].max
     end
 
     def twitter_cldr_localiser_symbols
