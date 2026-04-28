@@ -65,7 +65,7 @@ module IsoDoc
 
       # preempt html2doc putting MsoNormal under TableFootnote class
       def table_footnote_cleanup(docxml)
-        docxml.xpath("//table[descendant::aside]").each do |t|
+        docxml.xpath("//tfoot[descendant::aside]").each do |t|
           t.xpath(".//aside").each do |a|
             merge_fnref_into_fn_text(a)
             a.name = "div"

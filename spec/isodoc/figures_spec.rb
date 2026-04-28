@@ -473,6 +473,7 @@ RSpec.describe IsoDoc do
                       </p>
                       <div align="left">
                          <table style="text-align:left;" class="formula_dl">
+                         <tbody>
                             <tr>
                                <td valign="top" align="left">
                                   <p align="left" style="margin-left:0pt;text-align:left;">
@@ -513,6 +514,7 @@ RSpec.describe IsoDoc do
                                   <p>B</p>
                                </td>
                             </tr>
+                            </tbody>
                          </table>
                       </div>
                       </div>
