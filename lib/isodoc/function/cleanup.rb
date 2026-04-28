@@ -60,17 +60,17 @@ module IsoDoc
       def merge_fnref_into_fn_text(elem)
         fn = elem.at('.//span[@class="TableFootnoteRef"]/..') or return
         n = fn.next_element
-        n&.children&.first&.add_previous_sibling(fn.remove)
+        n or return
+        n.children.first.add_previous_sibling(fn.remove)
       end
 
       # preempt html2doc putting MsoNormal under TableFootnote class
       def table_footnote_cleanup(docxml)
-        docxml.xpath("//tfoot[descendant::aside]").each do |t|
+        docxml.xpath("//tfoot//[descendant::aside]").each do |t|
           t.xpath(".//aside").each do |a|
             merge_fnref_into_fn_text(a)
             a.name = "div"
             a["class"] = "TableFootnote"
-            t << a.remove # this is redundant
           end
         end
         table_footnote_cleanup_propagate(docxml)
