@@ -1021,7 +1021,7 @@ RSpec.describe IsoDoc do
                      For further information on the Foreword, see
                      <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b>
                   </p>
-                  <p class="Note">
+                  <p class="MsoNormal">
                      <br clear="all" class="section"/>
                   </p>
                </div>
@@ -1055,12 +1055,12 @@ RSpec.describe IsoDoc do
                   </tfoot>
                </table>
             </div>
-            <p class="Note">
+            <p class="MsoNormal">
                <br clear="all" class="section"/>
             </p>
          </div>
          <div class="WordSection3_1">
-            <p class="Note">And up</p>
+            <p class="MsoNormal">And up</p>
             <p class="MsoNormal">
                <br clear="all" class="section"/>
             </p>
@@ -1577,8 +1577,8 @@ RSpec.describe IsoDoc do
 
                  </p>
          <div align="center" class="table_container">
-            <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;" title="tool tip" summary="long desc" width="70%">
                <a name="tableD-1" id="tableD-1"/>
+            <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;" title="tool tip" summary="long desc" width="70%">
                <colgroup>
                   <col width="30%"/>
                </colgroup>

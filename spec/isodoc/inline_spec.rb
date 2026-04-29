@@ -596,7 +596,7 @@ RSpec.describe IsoDoc do
     expect(strip_guid(Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
       .at("//p[@id = 'A']").to_xml))
-      .to be_xml_equivalent_to output
+      .to be_html5_equivalent_to output
   end
 
   it "processes embedded inline formatting" do

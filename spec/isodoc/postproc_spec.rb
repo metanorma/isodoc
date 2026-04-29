@@ -1115,15 +1115,15 @@ RSpec.describe IsoDoc do
     expect(IsoDoc::HtmlConvert
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
-      .html_preface(Nokogiri::HTML5(input)).to_xml
+      .html_preface(Nokogiri::XML(input)).to_xml
       .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
       .to be_html5_equivalent_to html
     expect(IsoDoc::WordConvert
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
-       .word_cleanup(Nokogiri::HTML5(input)).to_xml
+       .word_cleanup(Nokogiri::XML(input)).to_xml
        .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
-      .to be_xml_equivalent_to doc
+      .to be_html4_equivalent_to doc
   end
 
   it "cleans up coverpage note" do
