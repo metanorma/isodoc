@@ -83,26 +83,8 @@ module IsoDoc
         end
       end
 
-      # KILL
-      TABLENOTE_CSS = "div[@class = 'Note' or @class = 'BlockSource' " \
-                      "or @class = 'TableFootnote' or @class = 'figdl' or @class = 'key']"
-        .freeze
-
-      # KILL
-      def table_note_cleanup(docxml)
-        docxml.xpath("//table[dl or #{TABLENOTE_CSS}]").each do |t|
-          tfoot = table_get_or_make_tfoot(t)
-          insert_here = new_fullcolspan_row(t, tfoot)
-          t.xpath("dl | p[@class = 'ListTitle'] | #{TABLENOTE_CSS}")
-            .each do |d|
-            d.parent = insert_here
-          end
-        end
-      end
-
       def table_cleanup(docxml)
         table_footnote_cleanup(docxml)
-        #table_note_cleanup(docxml)
         docxml
       end
 
@@ -112,9 +94,10 @@ module IsoDoc
       # characters. Quoted alternatives listed first so `/` inside
       # attribute values (e.g. URLs in href="...") is consumed as part
       # of the quoted string, not rejected by [^>/].
+      # Includes Word HTML tags
       def empty_tags(html)
         void_elements = %w[area base br col embed hr img input link meta
-                           source track wbr]
+                           source track wbr wrapblock]
         html.gsub(%r{<([\w:]+)((?>"[^"]*"|'[^']*'|[^>/])*)\s*/>}) do
           if void_elements.include?($1)
             $&
