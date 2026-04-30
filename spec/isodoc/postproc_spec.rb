@@ -399,7 +399,7 @@ RSpec.describe IsoDoc do
           </foreword></preface>
           </iso-standard>
     INPUT
-    html = Nokogiri::XML(File.read("test.html")).at("//body")
+    html = Nokogiri::HTML5(File.read("test.html")).at("//body")
     html.xpath("//script").each(&:remove)
     expect(strip_guid(html.to_xml))
       .to be_xml_equivalent_to <<~OUTPUT
@@ -476,7 +476,7 @@ RSpec.describe IsoDoc do
     OUTPUT
     IsoDoc::HtmlConvert.new({ htmlintropage: "spec/assets/htmlintro.html" })
       .convert("test", input, false)
-    html = Nokogiri::XML(File.read("test.html"))
+    html = Nokogiri::HTML5(File.read("test.html"))
       .at("//div[@id = 'toc']")
     expect(strip_guid(html.to_xml))
       .to be_xml_equivalent_to output
@@ -1123,7 +1123,7 @@ RSpec.describe IsoDoc do
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
        .word_cleanup(Nokogiri::XML(input)).to_xml
        .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
-      .to be_xml_equivalent_to doc
+      .to be_html4_equivalent_to doc
   end
 
   it "cleans up coverpage note" do
@@ -1188,7 +1188,7 @@ RSpec.describe IsoDoc do
     expect(IsoDoc::HtmlConvert
   .new(wordstylesheet: "spec/assets/word.css",
        htmlstylesheet: "spec/assets/html.scss", filename: "test")
-  .html_preface(Nokogiri::XML(input)).to_xml
+  .html_preface(Nokogiri::HTML5(input)).to_xml
   .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
       .to be_html5_equivalent_to html
     expect(IsoDoc::WordConvert

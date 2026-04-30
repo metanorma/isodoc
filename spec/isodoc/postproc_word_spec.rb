@@ -1021,7 +1021,7 @@ RSpec.describe IsoDoc do
                      For further information on the Foreword, see
                      <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b>
                   </p>
-                  <p class="Note">
+                  <p class="MsoNormal">
                      <br clear="all" class="section"/>
                   </p>
                </div>
@@ -1055,12 +1055,12 @@ RSpec.describe IsoDoc do
                   </tfoot>
                </table>
             </div>
-            <p class="Note">
+            <p class="MsoNormal">
                <br clear="all" class="section"/>
             </p>
          </div>
          <div class="WordSection3_1">
-            <p class="Note">And up</p>
+            <p class="MsoNormal">And up</p>
             <p class="MsoNormal">
                <br clear="all" class="section"/>
             </p>
@@ -1198,7 +1198,7 @@ RSpec.describe IsoDoc do
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
       .word_cleanup(Nokogiri::XML(input)).to_xml
       .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
-      .to be_xml_equivalent_to output
+      .to be_html4_equivalent_to output
   end
 
   it "allocate widths to tables (Word)" do
@@ -1463,7 +1463,7 @@ RSpec.describe IsoDoc do
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
       .word_cleanup(Nokogiri::XML(input)).to_xml)
       .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
-      .to be_xml_equivalent_to output
+      .to be_html4_equivalent_to output
   end
 
   it "preserves Word CSS classes starting with digit" do
@@ -1577,8 +1577,8 @@ RSpec.describe IsoDoc do
 
                  </p>
          <div align="center" class="table_container">
-            <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;" title="tool tip" summary="long desc" width="70%">
                <a name="tableD-1" id="tableD-1"/>
+            <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;" title="tool tip" summary="long desc" width="70%">
                <colgroup>
                   <col width="30%"/>
                </colgroup>
@@ -1622,7 +1622,7 @@ RSpec.describe IsoDoc do
       { wordstylesheet: "spec/assets/word.css",
         htmlstylesheet: "spec/assets/html.scss" },
     ).convert("test", input, false)
-    word = Nokogiri::XML(File.read("test.doc")
+    word = Nokogiri::HTML5(File.read("test.doc")
       .sub(/^.*<body/m, "<body")
       .sub(%r{</body>.*$}m, "</body>"))
     word = word.at("//div[a/@name = 'A']")

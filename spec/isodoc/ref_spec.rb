@@ -944,7 +944,7 @@ RSpec.describe IsoDoc do
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{<fn reference="[^"]+"}m, "<fn reference=\"_\""))
       .to be_xml_equivalent_to presxml
-    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_xml))
@@ -2633,7 +2633,7 @@ RSpec.describe IsoDoc do
     xml.at("//xmlns:localized-strings").remove
     expect(strip_guid(xml.to_xml))
       .to be_xml_equivalent_to presxml
-    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
     expect(strip_guid(output.to_xml))
