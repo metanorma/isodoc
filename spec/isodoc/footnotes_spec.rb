@@ -849,46 +849,29 @@ RSpec.describe IsoDoc do
          <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
          <br/>
          <div id="_8" class="TOC">
-            <h1 class="IntroTitle">
-               <a class="anchor" href="#_8"></a>
-               <a class="header" href="#_8">Table of contents</a>
-            </h1>
+           <h1 class="IntroTitle">
+             <a class="anchor" href="#_8"></a>
+             <a class="header" href="#_8">Table of contents</a>
+           </h1>
          </div>
          <br/>
          <div id="_1">
-            <h1 class="ForewordTitle">
-               <a class="anchor" href="#_1"></a>
-               <a class="header" href="#_1">Foreword</a>
-            </h1>
-            <p id="A">
-               <i>
-                  <b>A.</b>
-               </i>
-               <a id="A1"></a>
-               B
-               <i>
-                  <b>C.</b>
-               </i>
-            </p>
-            <p id="B">
-               <i>
-                  <b>A.</b>
-               </i>
-               B
-               <i>
-                  <b>C.</b>
-               </i>
-            </p>
+           <h1 class="ForewordTitle">
+             <a class="anchor" href="#_1"></a>
+             <a class="header" href="#_1">Foreword</a>
+           </h1>
+           <p id="A"><i><b>A.</b></i><a id="A1"></a> B <i><b>C.</b></i></p>
+           <p id="B"><i><b>A.</b></i> B <i><b>C.</b></i></p>
          </div>
          <br/>
          <div class="Section3" id="_2">
-            <h1 class="IntroTitle">
-               <a class="anchor" href="#_2"></a>
-               <a class="header" href="#_2">Introduction</a>
-            </h1>
-            <p id="C">C.</p>
+           <h1 class="IntroTitle">
+             <a class="anchor" href="#_2"></a>
+             <a class="header" href="#_2">Introduction</a>
+           </h1>
+           <p id="C">C.</p>
          </div>
-      </main>
+       </main>
     OUTPUT
 
     word = <<~OUTPUT
@@ -1274,8 +1257,7 @@ RSpec.describe IsoDoc do
     INPUT
     html = <<~OUTPUT
       <main class="main-section">
-         <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-         <br/>
+         <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button><br/>
          <div id="_4" class="TOC">
             <h1 class="IntroTitle">
                <a class="anchor" href="#_4"/>
