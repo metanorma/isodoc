@@ -1497,25 +1497,33 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     html = <<~OUTPUT
-      #{HTML_HDR}
-                      <br/>
-                <div id="fwd">
-                   <h1 class="ForewordTitle">Foreword</h1>
-                   <figure id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
-                      <picture>
-                         <source srcset="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" media="all"/>
-                         <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
-                      </picture>
-                      <figcaption>
-                         Figure 1\u00a0— Split-it-right
-                         <i>sample</i>
-                         divider
-                      </figcaption>
-                   </figure>
-                </div>
+       <body lang="en" xml:lang="en">
+           <div class="title-section">
+             <p> </p>
+           </div>
+           <br/>
+           <div class="prefatory-section">
+             <p> </p>
+           </div>
+           <br/>
+           <div class="main-section">
+             <br/>
+             <div id="_" class="TOC">
+               <h1 class="IntroTitle">Table of contents</h1>
              </div>
-          </body>
-       </html>
+             <br/>
+             <div id="fwd">
+               <h1 class="ForewordTitle">Foreword</h1>
+               <figure id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                 <picture>
+                   <source srcset="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" media="all"/>
+                   <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
+                 </picture>
+                 <figcaption>Figure 1 — Split-it-right <i>sample</i> divider</figcaption>
+               </figure>
+             </div>
+           </div>
+         </body>
     OUTPUT
     word = <<~OUTPUT
       <html
@@ -1568,6 +1576,7 @@ RSpec.describe IsoDoc do
     output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
+    output = output.at("//body")
     expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
     output = Nokogiri::HTML5(IsoDoc::WordConvert.new({})
@@ -1839,7 +1848,7 @@ RSpec.describe IsoDoc do
     output = IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true)
     expect(strip_guid(output))
-      .to be_html5_equivalent_to Canon.format_xml(html)
+      .to be_html5_equivalent_to html
   end
 
   it "processes SVG with viewbox" do

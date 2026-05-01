@@ -1197,7 +1197,7 @@ RSpec.describe IsoDoc do
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
       .word_cleanup(Nokogiri::XML(input)).to_xhtml
-      .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
+      .sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>"))
       .to be_html4_equivalent_to output
   end
 
@@ -1330,10 +1330,6 @@ RSpec.describe IsoDoc do
              </html>
     INPUT
     output = <<~OUTPUT
-      <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
-               <head>
-                 <style></style>
-               </head>
                <body lang='EN-US' link='blue' vlink='#954F72'>
                  <div class='WordSection2'>
                    <p>
@@ -1456,13 +1452,12 @@ RSpec.describe IsoDoc do
                    </aside>
                  </div>
                </body>
-             </html>
     OUTPUT
     expect(strip_guid(IsoDoc::WordConvert
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
       .word_cleanup(Nokogiri::XML(input)).to_xhtml)
-      .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
+      .sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>"))
       .to be_html4_equivalent_to output
   end
 

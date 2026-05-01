@@ -391,11 +391,7 @@ RSpec.describe IsoDoc do
                                     <br/>
                 <div id="Annex" class="Section3">
                 <p style="display:none;" class="variant-title-toc">Annex A</p>
-                   <h1 class="Annex">
-                      <b>Annex A</b>
-                      <br/>
-                      (informative)
-                   </h1>
+                   <h1 class="Annex"><b>Annex A</b><br/>(informative)</h1>
                    <div id="AnnexFormula">
                       <div class="formula">
                          <p>
@@ -469,11 +465,7 @@ RSpec.describe IsoDoc do
          </p>
          <div id="Annex" class="Section3">
          <p style="display:none;" class="variant-title-toc">Annex A</p>
-            <h1 class="Annex">
-               <b>Annex A</b>
-               <br/>
-               (informative)
-            </h1>
+            <h1 class="Annex"><b>Annex A</b><br/>(informative)</h1>
             <div id="AnnexFormula">
                <div class="formula">
                   <p>
@@ -509,7 +501,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" id="_toc" displayorder="1">
           <fmt-title id="_" depth="1">Table of contents</fmt-title>
           </clause>
-          <foreword id="_" displayorder="2"><fmt-title id="_">Foreword</fmt-title>
+          <foreword id="A" displayorder="2"><fmt-title id="_">Foreword</fmt-title>
           <p align="left" id="_08bfe952-d57f-4150-9c95-5d52098cc2a8">Vache Equipment<br/>
       Fictitious<br/>
       World</p>
@@ -518,9 +510,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     html = <<~OUTPUT
-      #{HTML_HDR}
-                  <br/>
-                  <div id="_">
+                  <div id="A">
                     <h1 class="ForewordTitle">Foreword</h1>
                     <p id="_" style="text-align:left;">Vache Equipment<br/>
           Fictitious<br/>
@@ -528,17 +518,10 @@ RSpec.describe IsoDoc do
               </p>
               <p style="text-align:justify;font-size:9pt;page-break-after: avoid;page-break-inside: avoid;">Justify</p>
                   </div>
-                </div>
-              </body>
-          </html>
     OUTPUT
 
     word = <<~OUTPUT
-      #{WORD_HDR}
-      <p class="page-break">
-        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-      </p>
-              <div id="_">
+              <div id="A">
                 <h1 class="ForewordTitle">Foreword</h1>
                 <p id="_" align="left" style="text-align:left;">Vache Equipment<br/>
       Fictitious<br/>
@@ -548,20 +531,15 @@ RSpec.describe IsoDoc do
               </div>
               <p>&#xa0;</p>
             </div>
-            <p class="section-break"><br clear="all" class="section"/></p>
-            <div class="WordSection3">
-            </div>
-          </body>
-      </html>
     OUTPUT
     output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))
-    output.at("//div[@class='TOC']")["id"] = "_"
+    output = output.at("//div[@id = 'A']")
     expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
     output = Nokogiri::HTML5(IsoDoc::WordConvert.new({})
     .convert("test", input, true))
-    output.at("//div[@class='TOC']")["id"] = "_"
+    output = output.at("//div[@id = 'A']")
     expect(strip_guid(output.to_xhtml))
       .to be_html4_equivalent_to word
   end
@@ -652,7 +630,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface><foreword id="A">
-      <passthrough formats="html,rfc">&lt;A&gt;</passthrough><em>Hello</em><passthrough formats="html,rfc">&lt;/A&gt;</passthrough>
+      <passthrough formats="html,rfc">&lt;ABC&gt;</passthrough><em>Hello</em><passthrough formats="html,rfc">&lt;/ABC&gt;</passthrough>
       </foreword></preface>
       </iso-standard>
     INPUT

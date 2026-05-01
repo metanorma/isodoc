@@ -402,20 +402,21 @@ RSpec.describe IsoDoc do
     html = Nokogiri::HTML5(File.read("test.html")).at("//body")
     html.xpath("//script").each(&:remove)
     expect(strip_guid(html.to_xhtml))
-      .to be_xml_equivalent_to <<~OUTPUT
-        <body lang="en" xml:lang="en"><div class="title-section">
+      .to be_html5_equivalent_to <<~OUTPUT
+        <body lang="en" xml:lang="en" xml:lang="en"><div class="title-section">
         /* an empty html cover page */
 
 
-        </div><br/><div class="prefatory-section">
+        </div><br /><div class="prefatory-section">
         /* an empty html intro page */
 
-        <ul id="toc-list"/>
+        <ul id="toc-list"></ul>
         <div id="toc"><ul><li class="h1"><a href="#fwd">#{'      '}
         #{'  '}
           Foreword
         </a></li></ul></div>
-        </div><br/><main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button><br/><div id="fwd"><h1 class="ForewordTitle" id="_"><a class="anchor" href="#fwd"/><a class="header" href="#fwd">Foreword</a></h1><div class="Note"><p>These results are based on a study carried out on three different types of kernel.</p></div></div></main>
+        </div><br /><main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button><br /><div id="fwd"><h1 class="ForewordTitle" id="_"><a class="anchor" href="#fwd"></a><a class="header" href="#fwd">Foreword</a></h1><div class="Note"><p>These results are based on a study carried out on three different types of kernel.</p></div></div></main>
+
 
 
 
@@ -1091,26 +1092,23 @@ RSpec.describe IsoDoc do
       </main>
     OUTPUT
     doc = <<~OUTPUT
-          <html>
-        <head/>
-        <body>
-          <div class='main-section'>
-            <hr/>
-            <div id='boilerplate-feedback'>
-              <p class='TitlePageSubhead'>Feedback</p>
-            </div>
-            <div id='boilerplate-legal'>
-              <p class='TitlePageSubhead'>Legal</p>
-            </div>
-            <div id='boilerplate-license'>
-              <p class='TitlePageSubhead'>License</p>
-            </div>
-            <div id='boilerplate-copyright'>
-              <p class='TitlePageSubhead'>Copyright</p>
-            </div>
+      <body>
+        <div class='main-section'>
+          <hr/>
+          <div id='boilerplate-feedback'>
+            <p class='TitlePageSubhead'>Feedback</p>
           </div>
-        </body>
-      </html>
+          <div id='boilerplate-legal'>
+            <p class='TitlePageSubhead'>Legal</p>
+          </div>
+          <div id='boilerplate-license'>
+            <p class='TitlePageSubhead'>License</p>
+          </div>
+          <div id='boilerplate-copyright'>
+            <p class='TitlePageSubhead'>Copyright</p>
+          </div>
+        </div>
+      </body>
     OUTPUT
     expect(IsoDoc::HtmlConvert
       .new(wordstylesheet: "spec/assets/word.css",
@@ -1122,7 +1120,7 @@ RSpec.describe IsoDoc do
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
        .word_cleanup(Nokogiri::XML(input)).to_xhtml
-       .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
+       .sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>"))
       .to be_html4_equivalent_to doc
   end
 
@@ -1164,26 +1162,23 @@ RSpec.describe IsoDoc do
       </main>
     OUTPUT
     doc = <<~OUTPUT
-          <html>
-        <head/>
-        <body>
-          <div class='main-section'>
-            <hr/>
-            <div id='coverpage-note-destination'>
-              <div id='FB' class='Note'>
-                <p>
-                  <span class='note_label'>NOTE</span>
-                  XYZ
-                </p>
-              </div>
-              <div id='FC' class='Admonition'>
-                <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
-                <p>XYZ</p>
-              </div>
+      <body>
+        <div class='main-section'>
+          <hr/>
+          <div id='coverpage-note-destination'>
+            <div id='FB' class='Note'>
+              <p>
+                <span class='note_label'>NOTE</span>
+                XYZ
+              </p>
+            </div>
+            <div id='FC' class='Admonition'>
+              <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
+              <p>XYZ</p>
             </div>
           </div>
-        </body>
-      </html>
+        </div>
+      </body>
     OUTPUT
     expect(IsoDoc::HtmlConvert
   .new(wordstylesheet: "spec/assets/word.css",
@@ -1195,7 +1190,7 @@ RSpec.describe IsoDoc do
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
        .word_cleanup(Nokogiri::XML(input)).to_xhtml
-       .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
+       .sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>"))
       .to be_xml_equivalent_to doc
   end
 
@@ -1235,24 +1230,21 @@ RSpec.describe IsoDoc do
       </main>
     OUTPUT
     doc = <<~OUTPUT
-          <html>
-        <head/>
-        <body>
-          <div class='main-section'>
-            <div id='FB' class='Note'>
-              <p>
-                <span class='note_label'>NOTE</span>
-                XYZ
-              </p>
-            </div>
-            <div id='FC' class='Admonition'>
-              <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
-              <p>XYZ</p>
-            </div>
-            <hr/>
+      <body>
+        <div class='main-section'>
+          <div id='FB' class='Note'>
+            <p>
+              <span class='note_label'>NOTE</span>
+              XYZ
+            </p>
           </div>
-        </body>
-      </html>
+          <div id='FC' class='Admonition'>
+            <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
+            <p>XYZ</p>
+          </div>
+          <hr/>
+        </div>
+      </body>
     OUTPUT
     expect(IsoDoc::HtmlConvert
   .new(wordstylesheet: "spec/assets/word.css",
@@ -1264,7 +1256,7 @@ RSpec.describe IsoDoc do
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
        .word_cleanup(Nokogiri::XML(input)).to_xhtml
-       .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
+       .sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>"))
       .to be_xml_equivalent_to doc
   end
 
@@ -1298,14 +1290,23 @@ RSpec.describe IsoDoc do
           <div>
             <h1 class='ForewordTitle'>Foreword</h1>
             <div class='Note'>
-              <p>
-                These results are based on a study carried out on three
-                different types of kernel.
-              </p>
+              <p>These results are based on a study carried out on three
+                different types of kernel.</p>
             </div>
           </div>
         </main>
-        <script/>
+        <script></script>
+        <script></script>
+        <script></script>
+        <script></script>
+        <script></script>
+        <script></script>
+        <script></script>
+        <script></script>
+        <script></script>
+        <script></script>
+        <script></script>
+        <script></script>
       </body>
     OUTPUT
     expect(File.exist?("test.html")).to be true
@@ -1428,11 +1429,9 @@ RSpec.describe IsoDoc do
         </table>
         </div>
         <div id="footnote-container">
-        <aside>
-        <a id="1a"/>Footnote 1
+        <aside><a id="1a"/>Footnote 1
         </aside>
-        <aside>
-        <a id="2a"/>Footnote 2
+        <aside><a id="2a"/>Footnote 2
         </aside>
         </div>
       </body>
@@ -1442,20 +1441,12 @@ RSpec.describe IsoDoc do
       <main class="main-section">
          <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
          <ul>
-            <li>
-               A
-               <a class="FootnoteRef" href="#1a" id="fnref:1">1, </a>
-               <a class="FootnoteRef" href="#2a" id="fnref:2">2</a>
-            </li>
+            <li>A<a class="FootnoteRef" href="#1a" id="fnref:1">1, </a><a class="FootnoteRef" href="#2a" id="fnref:2">2</a></li>
          </ul>
          <table>
             <tbody>
                <tr>
-                  <td>
-                     A
-                     <a class="TableFootnoteRef">a, </a>
-                     <a class="TableFootnoteRef">b</a>
-                  </td>
+                  <td>A<a class="TableFootnoteRef">a, </a><a class="TableFootnoteRef">b</a></td>
                </tr>
             </tbody>
          </table>
@@ -1463,20 +1454,10 @@ RSpec.describe IsoDoc do
     OUTPUT
     output1 = <<~OUTPUT
       <div id="footnote-container">
-         <aside>
-            <a id="1a">
-               <a class="FootnoteRef" href="#1a">1</a>
-               <a href="#fnref:1">↩</a>
-            </a>
-            Footnote 1
-         </aside>
-         <aside>
-            <a id="2a">
-               <a class="FootnoteRef" href="#2a">2</a>
-               <a href="#fnref:2">↩</a>
-            </a>
-            Footnote 2
-         </aside>
+      <aside><a id="1a"><a class="FootnoteRef" href="#1a">1</a><a href="#fnref:1">&#x21A9;</a></a>Footnote 1
+      </aside>
+      <aside><a id="2a"><a class="FootnoteRef" href="#2a">2</a><a href="#fnref:2">&#x21A9;</a></a>Footnote 2
+      </aside>
       </div>
     OUTPUT
     html = IsoDoc::HtmlConvert
@@ -1486,7 +1467,8 @@ RSpec.describe IsoDoc do
   .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
       .to be_html5_equivalent_to output
     expect(html
-  .sub(/^.*<div id="footnote-container">/m, '<div id="footnote-container">').sub(%r{</div>.*$}m, "</div>"))
+  .sub(/^.*<div id="footnote-container">/m, '<div id="footnote-container">')
+      .sub(%r{</div>.*$}m, "</div>"))
       .to be_html5_equivalent_to output1
   end
 
