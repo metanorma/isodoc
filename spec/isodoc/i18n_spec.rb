@@ -2137,14 +2137,7 @@ RSpec.describe IsoDoc do
              </div>
              <br/>
                              <div id="P" class="Section3">
-                   <h1 class="Annex">
-                      <b>附件A</b>
-                      <br/>
-                      （规范性附录）
-                      <br/>
-                      <br/>
-                      <b>Annex</b>
-                   </h1>
+                   <h1 class="Annex"><b>附件A</b><br/>（规范性附录）<br/><br/><b>Annex</b></h1>
                     <p style="display:none;" class="variant-title-toc">附件A\u3000Annex</p>
                    <div id="Q">
                       <h2>A.1.\u3000Annex A.1</h2>
@@ -2695,14 +2688,7 @@ RSpec.describe IsoDoc do
                    </div>
                    <br/>
                    <div id='P' class='Section3'>
-                     <h1 class='Annex'>
-                       <b><b>Aldono</b> A</b>
-                       <br/>
-                       (normative)
-                       <br/>
-                       <br/>
-                       <b>Annex</b>
-                     </h1>
+                     <h1 class='Annex'><b><b>Aldono</b> A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
                      <p style="display:none;" class="variant-title-toc">Aldono A\u00a0 Annex</p>
                      <div id='Q'>
                        <h2>A.1.\u00a0 Annex A.1</h2>

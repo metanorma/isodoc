@@ -1008,7 +1008,7 @@ RSpec.describe IsoDoc do
     OUTPUT
     html = <<~OUTPUT
       <html lang="en">
-         <head/>
+         <head></head>
          <body lang="en">
             <div class="title-section">
                <p>\u00a0</p>
@@ -1025,20 +1025,19 @@ RSpec.describe IsoDoc do
                </div>
                <div id="A">
                   <h1>1.</h1>
-                  <p>A</p>
-                  <a id="_"></a>
-                  <a id="_"></a>
-                  <a id="_"></a>
-                  <a id="_"></a>
-                  <a id="_"></a>
-                  <div id="B">
-                     <h2>1.1.</h2>
-                     <p>B</p>
-                     <a id="_"></a>
-                     <a id="_"></a>
-                     <a id="_"></a>
-                     <a id="_"></a>
-                  </div>
+                  <p>A</p><a id="_"></a><a id="_"></a><a id="_"></a><a id="_"></a><a id="_"></a>
+                  <div id="B"><h2>1.1.</h2>
+               <p>B</p>
+               <a id="_"></a>
+               <a id="_"></a>
+               <a id="_"></a>
+               <a id="_"></a>
+
+
+
+
+
+             </div>
                </div>
                <div id="_">
                   <h1>Index</h1>
@@ -1119,45 +1118,33 @@ RSpec.describe IsoDoc do
     doc = <<~DOC
       <div class="WordSection3">
             <div>
-              <a name="A" id="A"/>
+              <a name="A" id="A"></a>
               <h1>1.</h1>
               <p class="MsoNormal">A</p>
-              <a>
-                </a><a name="_" id="_"/>
-              <a>
-                </a><a name="_" id="_"/>
-              <a>
-                </a><a name="_" id="_"/>
-              <a>
-                </a><a name="_" id="_"/>
-              <a>
-                </a><a name="_" id="_"/>
-              <div><a name="B" id="B"/><h2>1.1.</h2>
+              <a></a><a name="_" id="_"></a><a></a><a name="_" id="_"></a><a></a><a name="_" id="_"></a><a></a><a name="_" id="_"></a><a></a><a name="_" id="_"></a>
+              <div><a name="B" id="B"></a><h2>1.1.</h2>
               <p class="MsoNormal">B</p>
-              <a/><a name="_" id="_"/>
-              <a/><a name="_" id="_"/>
-              <a/><a name="_" id="_"/>
-              <a/><a name="_" id="_"/>
+              <a/><a name="_" id="_"></a><a/><a name="_" id="_"></a><a/><a name="_" id="_"></a><a/><a name="_" id="_"></a>
             </div>
             </div>
             <div>
-              <a name="_" id="_"/>
+              <a name="_" id="_"></a>
               <h1>Index</h1>
               <div class="ul_wrap">
-                <p class="MsoListParagraphCxSpFirst"><a name="_" id="_"/><i>Dasein</i>, see <i>Eman</i>cipation, être</p>
-                <p class="MsoListParagraphCxSpMiddle"><a name="_" id="_"/>élongé,  <a href="#_">Clause 1</a></p>
-                <p class="MsoListParagraphCxSpMiddle"><a name="_" id="_"/><i>Eman</i>cipation,  <a href="#_">Clause 1</a>, <a href="#_">Clause 1.1</a></p>
-                <div class="ul_wrap"><p class="MsoListParagraphCxSpFirst"><a name="_" id="_"/>dans la France,  <a href="#_">Clause 1</a></p>
+                <p class="MsoListParagraphCxSpFirst"><a name="_" id="_"></a><i>Dasein</i>, see <i>Eman</i>cipation, être</p>
+                <p class="MsoListParagraphCxSpMiddle"><a name="_" id="_"></a>élongé,  <a href="#_">Clause 1</a></p>
+                <p class="MsoListParagraphCxSpMiddle"><a name="_" id="_"></a><i>Eman</i>cipation,  <a href="#_">Clause 1</a>, <a href="#_">Clause 1.1</a></p>
+                <div class="ul_wrap"><p class="MsoListParagraphCxSpFirst"><a name="_" id="_"></a>dans la France,  <a href="#_">Clause 1</a></p>
                  <div class="ul_wrap">
-                     <p class="MsoListParagraphCxSpFirst"><a name="_" id="_"/>à Paris,  <a href="#_">Clause 1.1</a></p><p class="MsoListParagraphCxSpLast"><a name="_" id="_"/>en Bretagne,  <a href="#_">Clause 1</a></p>
-               </div><p/>
-               <p class="MsoListParagraphCxSpLast"><a name="_" id="_"/>dans les États-Unis,  <a href="#_">Clause 1.1</a></p></div><p/>
-                <p class="MsoListParagraphCxSpMiddle"><a name="_" id="_"/>être</p>
+                     <p class="MsoListParagraphCxSpFirst"><a name="_" id="_"></a>à Paris,  <a href="#_">Clause 1.1</a></p><p class="MsoListParagraphCxSpLast"><a name="_" id="_"></a>en Bretagne,  <a href="#_">Clause 1</a></p>
+               </div><p></a>
+               <p class="MsoListParagraphCxSpLast"><a name="_" id="_"></a>dans les États-Unis,  <a href="#_">Clause 1.1</a></p></div><p></p>
+                <p class="MsoListParagraphCxSpMiddle"><a name="_" id="_"></a>être</p>
                  <div class="ul_wrap">
-                 <p class="MsoListParagraphCxSpFirst"><a name="_" id="_"/>Husserl, see zebra, see also <i>Eman</i>cipation, zebra</p>
-                 <div class="ul_wrap"><p class="MsoListParagraphCxSpFirst"><a name="_" id="_"/>en allemand,  <a href="#_">Clause 1</a></p></div>
-                 <p/></div><p/>
-                <p class="MsoListParagraphCxSpLast"><a name="_" id="_"/>zebra,  <a href="#_">Clause 1.1</a></p>
+                 <p class="MsoListParagraphCxSpFirst"><a name="_" id="_"></a>Husserl, see zebra, see also <i>Eman</i>cipation, zebra</p>
+                 <div class="ul_wrap"><p class="MsoListParagraphCxSpFirst"><a name="_" id="_"></a>en allemand,  <a href="#_">Clause 1</a></p></div>
+                 <p></p></div><p></p>
+                <p class="MsoListParagraphCxSpLast"><a name="_" id="_"></a>zebra,  <a href="#_">Clause 1.1</a></p>
               </div>
             </div>
           </div>
@@ -1177,7 +1164,7 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc", encoding: "UTF-8")
       .sub(/^.*<html /m, "<html ").sub(%r{</html>.*$}m, "</html>")
     wordxml = Nokogiri::HTML5(word)
-    expect(strip_guid(wordxml.at("//div[@class = 'WordSection3']").to_xml))
+    expect(strip_guid(wordxml.at("//div[@class = 'WordSection3']").to_xhtml))
       .to be_xml_equivalent_to doc
   end
 end

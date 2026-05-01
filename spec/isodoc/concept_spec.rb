@@ -965,11 +965,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface><foreword>
-      <p id="A">
-      <ul>
+      <ul id="A">
       <li><concept><refterm>term</refterm><renderterm>ISO</renderterm><xref target='d1'/></concept></li>
         </ul>
-        </p>
         </foreword>
         </preface>
         <sections>
@@ -983,8 +981,7 @@ RSpec.describe IsoDoc do
         </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-       <p id="A">
-          <ul>
+         <ul id="A">
              <li id="_">
                 <fmt-name id="_">
                    <semx element="autonum" source="_">—</semx>
@@ -999,28 +996,23 @@ RSpec.describe IsoDoc do
                 </fmt-concept>
              </li>
           </ul>
-       </p>
     OUTPUT
     html = <<~OUTPUT
-      <p id="A">
-      <div class="ul_wrap">
-        <ul>
+        <ul id="A">
           <li id="_">ISO</li>
         </ul>
-        </div>
-      </p>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
     expect(strip_guid(Nokogiri::XML(pres_output)
-      .at("//xmlns:p[@id = 'A']").to_xml))
+      .at("//xmlns:ul[@id = 'A']").to_xml))
       .to be_xml_equivalent_to presxml
     expect(strip_guid(Nokogiri::HTML5(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
-      .at("//p[@id = 'A']").to_xml))
+      .at("//ul[@id = 'A']").to_xhtml))
       .to be_html5_equivalent_to html
   end
 

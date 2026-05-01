@@ -346,19 +346,15 @@ RSpec.describe IsoDoc do
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
             <div>
-               <a name="_" id="_"/>
+               <a name="_" id="_"></a>
                <h1 class="ForewordTitle">Foreword</h1>
-               <p class="Sourcecode" style="page-break-after:avoid;">
-                  <a name="samplecode" id="samplecode"/>
-                  <span class="nb">puts</span>
-                  <span class="n">x</span>
-               </p>
+               <p class="Sourcecode" style="page-break-after:avoid;"><a name="samplecode" id="samplecode"></a><span class="nb">puts</span> <span class="n">x</span></p>
                <p class="SourceTitle" style="text-align:center;">
                   Figure 1\u00a0— Ruby
                   <i>code</i>
                </p>
                <div align="center" class="table_container" style="page-break-after:avoid;">
-                  <a name="A" id="A"/>
+                  <a name="A" id="A"></a>
                   <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
                      <tbody>
                         <tr>
@@ -382,7 +378,7 @@ RSpec.describe IsoDoc do
                </div>
                <p class="SourceTitle" style="text-align:center;">More</p>
                <div align="center" class="table_container" style="page-break-after:avoid;">
-                  <a name="B" id="B"/>
+                  <a name="B" id="B"></a>
                   <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
                      <tbody>
                         <tr>
@@ -411,8 +407,8 @@ RSpec.describe IsoDoc do
          <p class="MsoNormal">
             <br clear="all" class="section"/>
          </p>
-         <div class="WordSection3"/>
-         <div style="mso-element:footnote-list"/>
+         <div class="WordSection3"></div>
+         <div style="mso-element:footnote-list"></div>
       </body>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
@@ -430,7 +426,7 @@ RSpec.describe IsoDoc do
     expect(strip_guid(File.read("test.doc")
       .gsub(%r{^.*<body }m, "<body ")
       .gsub(%r{</body>.*}m, "</body>")))
-      .to be_xml_equivalent_to doc
+      .to be_html4_equivalent_to doc
   end
 
   it "combines sourcecode highlighting stylesheet with user-css" do

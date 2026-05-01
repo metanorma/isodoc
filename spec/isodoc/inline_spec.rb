@@ -22,7 +22,7 @@ RSpec.describe IsoDoc do
                <p>
        <i>A</i> <b>B</b> <sup>C</sup> <sub>D</sub> <tt>E</tt>
        <s>F</s> <span style="font-variant:small-caps;">G</span> <span class="keyword">I</span> <br/> <hr/>
-       <a id="H"/> <br/> <br/> <span style="text-decoration: underline">J</span>
+       <a id="H"></a> <br/> <br/> <span style="text-decoration: underline">J</span>
        <span style="text-decoration: underline wavy">J1</span>
        <span class="A"><i>A</i> <b>B</b> <sup>C</sup> <sub>D</sub> <tt>E</tt> F</span>
        <span style="font-family:&quot;Arial&quot;"><i>A</i> F</span>
@@ -43,7 +43,7 @@ RSpec.describe IsoDoc do
              <span class="keyword">I</span>
              <br/>
              <hr/>
-             <a id="H"/>
+             <a id="H"></a>
              <p class="page-break">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
@@ -112,7 +112,7 @@ RSpec.describe IsoDoc do
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
-      .at("//p[@id = 'A']").to_xml))
+      .at("//p[@id = 'A']").to_xhtml))
       .to be_html5_equivalent_to html
     FileUtils.rm_f("test.doc")
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
@@ -120,7 +120,7 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc", encoding: "UTF-8")
       .sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>")
     wordxml = Nokogiri::HTML5(word)
-    expect(strip_guid(wordxml.at("//p").to_xml))
+    expect(strip_guid(wordxml.at("//p").to_xhtml))
       .to be_xml_equivalent_to doc
   end
 
@@ -154,7 +154,7 @@ RSpec.describe IsoDoc do
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
-      .at("//p[@id = 'A']").to_xml))
+      .at("//p[@id = 'A']").to_xhtml))
       .to be_html5_equivalent_to html
   end
 
@@ -162,8 +162,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
-          <p id="A">
-          <ul>
+          <ul id="A">
           <li>
           <concept><refterm>term</refterm>
               <xref target='clause1'/>
@@ -239,7 +238,6 @@ RSpec.describe IsoDoc do
               </concept>
               </li>
             </ul>
-          </p>
           </foreword></preface>
           <sections>
           <clause id="clause1"><title>Clause 1</title></clause>
@@ -261,8 +259,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <p id="A">
-         <ul>
+      <ul id="A">
             <li id="_">
                <fmt-name id="_">
                   <semx element="autonum" source="_">—</semx>
@@ -515,12 +512,10 @@ RSpec.describe IsoDoc do
                </fmt-concept>
             </li>
          </ul>
-      </p>
     OUTPUT
     output = <<~OUTPUT
-        <p id="A">
          <div class="ul_wrap">
-            <ul>
+            <ul id="A">
                <li id="_">
                   (
                   <a href="#clause1">Clause 2</a>
@@ -585,17 +580,16 @@ RSpec.describe IsoDoc do
                </li>
             </ul>
          </div>
-      </p>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
     expect(strip_guid(Nokogiri::XML(pres_output)
-      .at("//xmlns:p[@id = 'A']").to_xml))
+      .at("//xmlns:ul[@id = 'A']").to_xml))
       .to be_xml_equivalent_to presxml
     expect(strip_guid(Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
-      .at("//p[@id = 'A']").to_xml))
+      .at("//div[@class = 'ul_wrap']").to_xhtml))
       .to be_html5_equivalent_to output
   end
 
@@ -880,19 +874,12 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       #{HTML_HDR}
              <br/>
-                 <div id="A">
-                    <h1 class="ForewordTitle">Foreword</h1>
-                    <span class="addition">
-                       ABC
-                       <a href="#A"/>
-                    </span>
-                    <span class="deletion">
-                       <b>B</b>
-                    </span>
-                 </div>
-              </div>
-           </body>
-        </html>
+             <div id="A">
+                <h1 class="ForewordTitle">Foreword</h1>
+                <span class="addition">ABC <a href="#A"></a></span><span class="deletion"><b>B</b></span>
+             </div>
+          </div>
+      </body></html>
     OUTPUT
     expect(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true)))
@@ -951,13 +938,13 @@ RSpec.describe IsoDoc do
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
-      .at("//p[@id = 'A']").to_xml))
+      .at("//p[@id = 'A']").to_xhtml))
       .to be_html5_equivalent_to html
     expect(strip_guid(Nokogiri::HTML5(
       IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true),
     )
-  .at("//p[@id = 'A']").to_xml))
+  .at("//p[@id = 'A']").to_xhtml))
       .to be_xml_equivalent_to doc
   end
 end

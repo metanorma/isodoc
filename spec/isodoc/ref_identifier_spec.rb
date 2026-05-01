@@ -1052,7 +1052,20 @@ OUTPUT
        </references>
     PRESXML
     html = <<~OUTPUT
-      #{HTML_HDR}
+              <body lang="en" xml:lang="en">
+            <div class="title-section">
+              <p> </p>
+            </div>
+            <br/>
+            <div class="prefatory-section">
+              <p> </p>
+            </div>
+            <br/>
+            <div class="main-section">
+              <br/>
+              <div id="_" class="TOC">
+                <h1 class="IntroTitle">Table of contents</h1>
+              </div>
                 <div>
                    <h1>1.\u00a0 Normative References</h1>
                    <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
@@ -1089,7 +1102,6 @@ OUTPUT
                 </aside>
              </div>
           </body>
-       </html>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -1100,7 +1112,8 @@ OUTPUT
     output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml))
+    output = output.at("//body")
+    expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
   end
 
