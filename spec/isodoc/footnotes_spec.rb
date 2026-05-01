@@ -336,8 +336,6 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     html = <<~OUTPUT
-      <html lang="en">
-         <head/>
          <body lang="en">
             <div class="title-section">
                <p>\u00a0</p>
@@ -366,34 +364,11 @@ RSpec.describe IsoDoc do
                <br/>
                <div id="F">
                   <h1 class="ForewordTitle">Foreword</h1>
-                  <p>
-                     A.
-                     <a class="FootnoteRef" href="#fn:_18">
-                        <sup>2</sup>
-                     </a>
-                  </p>
-                  <p>
-                     B.
-                     <a class="FootnoteRef" href="#fn:_18">
-                        <sup>2</sup>
-                     </a>
-                  </p>
-                  <p>
-                     C.
-                     <a class="FootnoteRef" href="#fn:_19">
-                        <sup>3</sup>
-                     </a>
-                  </p>
+             <p>A.<a class="FootnoteRef" href="#fn:_18"><sup>2</sup></a></p>
+             <p>B.<a class="FootnoteRef" href="#fn:_18"><sup>2</sup></a></p>
+             <p>C.<a class="FootnoteRef" href="#fn:_19"><sup>3</sup></a></p>
                </div>
-               <p>
-                  B.
-                  <a class="FootnoteRef" href="#fn:_18">
-                     <sup>2</sup>
-                  </a>
-                  <a class="FootnoteRef" href="#fn:_19">
-                     <sup>3</sup>
-                  </a>
-               </p>
+               <p>B.<a class="FootnoteRef" href="#fn:_18"><sup>2</sup></a><a class="FootnoteRef" href="#fn:_19"><sup>3</sup></a></p>
                <div>
                   <h1>1.\u00a0 Normative References</h1>
                   <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
@@ -431,78 +406,77 @@ RSpec.describe IsoDoc do
                </aside>
             </div>
          </body>
-      </html>
     OUTPUT
     doc = <<~OUTPUT
-      <body lang="EN-US" link="blue" vlink="#954F72">
-        <div class="WordSection1">
-          <p> </p>
-        </div>
-        <p class="section-break">
-          <br clear="all" class="section"/>
-        </p>
-        <div class="WordSection2">
-          <div class="authority">
-            <div class="boilerplate-copyright">
-              <div id="_2">
-                <h1>
-                  <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
-                    <a class="FootnoteRef" epub:type="footnote" href="#ftn_17">1</a>
-                  </span>
-                </h1>
-              </div>
-            </div>
-          </div>
-          <p class="page-break">
-            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-          </p>
-          <div id="_11" class="TOC">
-            <p class="zzContents">Table of contents</p>
-          </div>
-          <p class="page-break">
-            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-          </p>
-          <div id="F">
-            <h1 class="ForewordTitle">Foreword</h1>
-            <p>A.<span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" epub:type="footnote" href="#ftn_18">2</a></span></p>
-            <p>B.<span class="MsoFootnoteReference"><span style="mso-element:field-begin"/> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"/>2<span style="mso-element:field-end"/></span></p>
-            <p>C.<span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" epub:type="footnote" href="#ftn_19">3</a></span></p>
-          </div>
-          <p> </p>
-        </div>
-        <p class="section-break">
-          <br clear="all" class="section"/>
-        </p>
-        <div class="WordSection3">
-          <p>B.<span class="MsoFootnoteReference"><span style="mso-element:field-begin"/> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"/>2<span style="mso-element:field-end"/></span><span class="MsoFootnoteReference"><span style="mso-element:field-begin"/> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"/>3<span style="mso-element:field-end"/></span></p>
-          <div>
-            <h1>1.<span style="mso-tab-count:1">  </span>Normative References</h1>
-            <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-            <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products<span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" epub:type="footnote" href="#ftn_20">4</a></span></i>.</p>
-          </div>
-          <div id="A">
-            <h1>2.</h1>
-            <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
-              <a class="FootnoteRef" epub:type="footnote" href="#ftn_21">5</a>
-            </span>
-          </div>
-          <aside id="ftn_17">
-            <p>D</p>
-          </aside>
-          <aside id="ftn_18">
-            <p id="_">Formerly denoted as 15 % (m/m).</p>
-          </aside>
-          <aside id="ftn_19">
-            <p id="_">Hello! denoted as 15 % (m/m).</p>
-          </aside>
-          <aside id="ftn_20">
-            <p id="_">ISO is a standards organisation.</p>
-          </aside>
-          <aside id="ftn_21">
-            <p id="_">Third footnote.</p>
-          </aside>
-        </div>
-      </body>
+       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+         <div class="WordSection1">
+           <p> </p>
+         </div>
+         <p class="section-break">
+           <br clear="all" class="section"/>
+         </p>
+         <div class="WordSection2">
+           <div class="authority">
+             <div class="boilerplate-copyright">
+               <div id="_2">
+                 <h1>
+                   <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
+                     <a class="FootnoteRef" epub:type="footnote" href="#ftn_17">1</a>
+                   </span>
+                 </h1>
+               </div>
+             </div>
+           </div>
+           <p class="page-break">
+             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+           </p>
+           <div id="_11" class="TOC">
+             <p class="zzContents">Table of contents</p>
+           </div>
+           <p class="page-break">
+             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+           </p>
+           <div id="F">
+             <h1 class="ForewordTitle">Foreword</h1>
+             <p>A.<span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" epub:type="footnote" href="#ftn_18">2</a></span></p>
+             <p>B.<span class="MsoFootnoteReference"><span style="mso-element:field-begin"></span> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"></span>2<span style="mso-element:field-end"></span></span></p>
+             <p>C.<span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" epub:type="footnote" href="#ftn_19">3</a></span></p>
+           </div>
+           <p> </p>
+         </div>
+         <p class="section-break">
+           <br clear="all" class="section"/>
+         </p>
+         <div class="WordSection3">
+           <p>B.<span class="MsoFootnoteReference"><span style="mso-element:field-begin"></span> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"></span>2<span style="mso-element:field-end"></span></span><span class="MsoFootnoteReference"><span style="mso-element:field-begin"></span> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"></span>3<span style="mso-element:field-end"></span></span></p>
+           <div>
+             <h1>1.<span style="mso-tab-count:1">  </span>Normative References</h1>
+             <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+             <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products<span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" epub:type="footnote" href="#ftn_20">4</a></span></i>.</p>
+           </div>
+           <div id="A">
+             <h1>2.</h1>
+             <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
+               <a class="FootnoteRef" epub:type="footnote" href="#ftn_21">5</a>
+             </span>
+           </div>
+           <aside id="ftn_17">
+             <p>D</p>
+           </aside>
+           <aside id="ftn_18">
+             <p id="_">Formerly denoted as 15 % (m/m).</p>
+           </aside>
+           <aside id="ftn_19">
+             <p id="_">Hello! denoted as 15 % (m/m).</p>
+           </aside>
+           <aside id="ftn_20">
+             <p id="_">ISO is a standards organisation.</p>
+           </aside>
+           <aside id="ftn_21">
+             <p id="_">Third footnote.</p>
+           </aside>
+         </div>
+       </body>
     OUTPUT
     doc1 = <<~OUTPUT
       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
@@ -667,6 +641,7 @@ RSpec.describe IsoDoc do
     output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
+    output = output.at("//body")
     expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
     expect(strip_guid(Nokogiri::HTML5(IsoDoc::WordConvert.new({})
@@ -845,33 +820,32 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     html = <<~OUTPUT
-      <main class="main-section">
-         <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-         <br/>
-         <div id="_8" class="TOC">
-           <h1 class="IntroTitle">
-             <a class="anchor" href="#_8"></a>
-             <a class="header" href="#_8">Table of contents</a>
-           </h1>
-         </div>
-         <br/>
-         <div id="_1">
-           <h1 class="ForewordTitle">
-             <a class="anchor" href="#_1"></a>
-             <a class="header" href="#_1">Foreword</a>
-           </h1>
-           <p id="A"><i><b>A.</b></i><a id="A1"></a> B <i><b>C.</b></i></p>
-           <p id="B"><i><b>A.</b></i> B <i><b>C.</b></i></p>
-         </div>
-         <br/>
-         <div class="Section3" id="_2">
-           <h1 class="IntroTitle">
-             <a class="anchor" href="#_2"></a>
-             <a class="header" href="#_2">Introduction</a>
-           </h1>
-           <p id="C">C.</p>
-         </div>
-       </main>
+        <main class="main-section">
+          <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button><br/>
+          <div id="_8" class="TOC">
+            <h1 class="IntroTitle">
+              <a class="anchor" href="#_8"/>
+              <a class="header" href="#_8">Table of contents</a>
+            </h1>
+          </div>
+          <br/>
+          <div id="_1">
+            <h1 class="ForewordTitle">
+              <a class="anchor" href="#_1"/>
+              <a class="header" href="#_1">Foreword</a>
+            </h1>
+            <p id="A"><i><b>A.</b></i> <a id="A1"></a> B <i><b>C.</b></i></p>
+            <p id="B"><i><b>A.</b></i> B <i><b>C.</b></i></p>
+          </div>
+          <br/>
+          <div class="Section3" id="_2">
+            <h1 class="IntroTitle">
+              <a class="anchor" href="#_2"/>
+              <a class="header" href="#_2">Introduction</a>
+            </h1>
+            <p id="C">C.</p>
+          </div>
+        </main>
     OUTPUT
 
     word = <<~OUTPUT
