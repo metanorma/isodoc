@@ -13,6 +13,11 @@ require_relative "support/uuid_mock"
 
 Canon::Config.instance.profile = :metanorma
 
+# Local guard — fail loudly when an HTML matcher receives a string
+# that begins with "<?xml ?>", instead of letting Canon emit a
+# misleading diff report.  See the file's own header for rationale.
+require "isodoc/spec_helpers/canon_html_input_guard"
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
