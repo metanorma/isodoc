@@ -667,11 +667,11 @@ RSpec.describe IsoDoc do
     output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml))
+    expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
     expect(strip_guid(Nokogiri::HTML5(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
-      .at("//body").to_xml))
+      .at("//body").to_xhtml))
       .to be_html4_equivalent_to strip_guid(doc)
     FileUtils.rm_f("test.doc")
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)

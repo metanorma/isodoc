@@ -591,13 +591,13 @@ RSpec.describe IsoDoc do
     output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml))
+    expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
     FileUtils.rm_rf "spec/assets/odf1.emf"
     output = Nokogiri::HTML5(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml
+    expect(strip_guid(output.to_xhtml
         .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
         .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
         .gsub(%r{<style>[^>]+</style>}m, "")))
@@ -1568,12 +1568,12 @@ RSpec.describe IsoDoc do
     output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml))
+    expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
     output = Nokogiri::HTML5(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml
+    expect(strip_guid(output.to_xhtml
       .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
       .gsub(%r{<style>[^>]+</style>}m, "")))
@@ -1628,12 +1628,12 @@ RSpec.describe IsoDoc do
     output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml))
+    expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
     output = Nokogiri::HTML5(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml
+    expect(strip_guid(output.to_xhtml
       .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
       .gsub(%r{<style>[^>]+</style>}m, "")))

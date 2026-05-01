@@ -68,7 +68,7 @@ end
 
 HTML_HDR = <<~HEADER.freeze
   <html lang="en">
-    <head/>
+    <head></head>
     <body lang="en">
       <div class="title-section">
         <p> </p>

@@ -344,7 +344,7 @@ RSpec.describe IsoDoc do
       .to be_xml_equivalent_to presxml
     expect(strip_guid(Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
-      .at("//div[@id ='A']").to_xml))
+      .at("//div[@id ='A']").to_xhtml))
       .to be_html5_equivalent_to html
   end
 
@@ -812,7 +812,7 @@ RSpec.describe IsoDoc do
       .to be_xml_equivalent_to presxml
     expect(strip_guid(Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
-      .at("//div[@id ='A']").to_xml))
+      .at("//div[@id ='A']").to_xhtml))
       .to be_html5_equivalent_to html
 
     presxml = <<~OUTPUT

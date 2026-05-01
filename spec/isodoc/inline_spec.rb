@@ -112,7 +112,7 @@ RSpec.describe IsoDoc do
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
-      .at("//p[@id = 'A']").to_xml))
+      .at("//p[@id = 'A']").to_xhtml))
       .to be_html5_equivalent_to html
     FileUtils.rm_f("test.doc")
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
@@ -120,7 +120,7 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc", encoding: "UTF-8")
       .sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>")
     wordxml = Nokogiri::HTML5(word)
-    expect(strip_guid(wordxml.at("//p").to_xml))
+    expect(strip_guid(wordxml.at("//p").to_xhtml))
       .to be_xml_equivalent_to doc
   end
 
@@ -154,7 +154,7 @@ RSpec.describe IsoDoc do
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
-      .at("//p[@id = 'A']").to_xml))
+      .at("//p[@id = 'A']").to_xhtml))
       .to be_html5_equivalent_to html
   end
 
@@ -595,7 +595,7 @@ RSpec.describe IsoDoc do
       .to be_xml_equivalent_to presxml
     expect(strip_guid(Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
-      .at("//p[@id = 'A']").to_xml))
+      .at("//p[@id = 'A']").to_xhtml))
       .to be_html5_equivalent_to output
   end
 
@@ -951,13 +951,13 @@ RSpec.describe IsoDoc do
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
-      .at("//p[@id = 'A']").to_xml))
+      .at("//p[@id = 'A']").to_xhtml))
       .to be_html5_equivalent_to html
     expect(strip_guid(Nokogiri::HTML5(
       IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true),
     )
-  .at("//p[@id = 'A']").to_xml))
+  .at("//p[@id = 'A']").to_xhtml))
       .to be_xml_equivalent_to doc
   end
 end

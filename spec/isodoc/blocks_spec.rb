@@ -557,12 +557,12 @@ RSpec.describe IsoDoc do
     output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_html))
+    expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
     output = Nokogiri::HTML5(IsoDoc::WordConvert.new({})
     .convert("test", input, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml))
+    expect(strip_guid(output.to_xhtml))
       .to be_html4_equivalent_to word
   end
 
@@ -667,9 +667,9 @@ RSpec.describe IsoDoc do
          <fmt-title id="_" depth="1">
                <semx element="title" source="_">Foreword</semx>
          </fmt-title>
-              <passthrough formats=" html rfc ">&lt;A&gt;</passthrough>
+              <passthrough formats=" html rfc ">&lt;ABC&gt;</passthrough>
               <em>Hello</em>
-              <passthrough formats=" html rfc ">&lt;/A&gt;</passthrough>
+              <passthrough formats=" html rfc ">&lt;/ABC&gt;</passthrough>
            </foreword>
         </preface>
       </iso-standard>
@@ -683,16 +683,16 @@ RSpec.describe IsoDoc do
       .to be_xml_equivalent_to presxml
     IsoDoc::HtmlConvert.new({}).convert("test", output, false)
     expect(Nokogiri::HTML5(File.read("test.html"))
-      .at("//*[@id = 'A']").to_html)
+      .at("//*[@id = 'A']").to_xhtml)
       .to be_html5_equivalent_to(<<~OUTPUT)
         <div id="A">
                 <h1 class="ForewordTitle">
                    <a class="anchor" href="#A"/>
                    <a class="header" href="#A">Foreword</a>
                 </h1>
-                <A>
+                <abc>
                    <i>Hello</i>
-                </A>
+                </abc>
              </div>
       OUTPUT
 
@@ -742,29 +742,26 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     html = <<~OUTPUT
-      <html lang="en">
-      <head/>
-      <body lang="en">
-        <div class="title-section">
-          <p>&nbsp;</p>
-        </div>
-        <br/>
-        <div class="prefatory-section">
-          <p>&nbsp;</p>
-        </div>
-        <br/>
-        <div class="main-section">
-          <br/>
-                <div id="_">
-                  <h1 class='ForewordTitle'>Foreword</h1>
-                </div>
-                <br/>
-                <div class="TOC" id="_">
-                  <h1 class="IntroTitle">Table of contents</h1>
-                </div>
-              </div>
-            </body>
-          </html>
+        <body lang="en" xml:lang="en">
+           <div class="title-section">
+             <p> </p>
+           </div>
+           <br/>
+           <div class="prefatory-section">
+             <p> </p>
+           </div>
+           <br/>
+           <div class="main-section">
+             <br/>
+             <div id="_">
+               <h1 class="ForewordTitle">Foreword</h1>
+             </div>
+             <br/>
+             <div id="_" class="TOC">
+               <h1 class="IntroTitle">Table of contents</h1>
+             </div>
+           </div>
+         </body>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(output_formats: { html: "html", rfc: "rfc" }))
@@ -772,7 +769,8 @@ RSpec.describe IsoDoc do
     output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_html))
+    output = output.at("//body")
+    expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
   end
 
@@ -789,19 +787,32 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     html = <<~OUTPUT
-      #{HTML_HDR}
-                <br/>
-                <div id="_">
-                  <h1 class='ForewordTitle'>Foreword</h1>
-                </div>
-              </div>
-            </body>
-          </html>
+         <body lang="en" xml:lang="en">
+           <div class="title-section">
+             <p> </p>
+           </div>
+           <br />
+           <div class="prefatory-section">
+             <p> </p>
+           </div>
+           <br />
+           <div class="main-section">
+             <br />
+             <div id="_" class="TOC">
+               <h1 class="IntroTitle">Table of contents</h1>
+             </div>
+             <br />
+             <div id="_">
+               <h1 class="ForewordTitle">Foreword</h1>
+             </div>
+           </div>
+         </body>
     OUTPUT
     output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
     .convert("test", input, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_html))
+    output = output.at("//body")
+    expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
   end
 

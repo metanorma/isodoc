@@ -401,7 +401,7 @@ RSpec.describe IsoDoc do
     INPUT
     html = Nokogiri::HTML5(File.read("test.html")).at("//body")
     html.xpath("//script").each(&:remove)
-    expect(strip_guid(html.to_xml))
+    expect(strip_guid(html.to_xhtml))
       .to be_xml_equivalent_to <<~OUTPUT
         <body lang="en" xml:lang="en"><div class="title-section">
         /* an empty html cover page */
@@ -478,7 +478,7 @@ RSpec.describe IsoDoc do
       .convert("test", input, false)
     html = Nokogiri::HTML5(File.read("test.html"))
       .at("//div[@id = 'toc']")
-    expect(strip_guid(html.to_xml))
+    expect(strip_guid(html.to_xhtml))
       .to be_xml_equivalent_to output
   end
 
@@ -1121,7 +1121,7 @@ RSpec.describe IsoDoc do
     expect(IsoDoc::WordConvert
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
-       .word_cleanup(Nokogiri::XML(input)).to_xml
+       .word_cleanup(Nokogiri::XML(input)).to_xhtml
        .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
       .to be_html4_equivalent_to doc
   end
@@ -1194,7 +1194,7 @@ RSpec.describe IsoDoc do
     expect(IsoDoc::WordConvert
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
-       .word_cleanup(Nokogiri::XML(input)).to_xml
+       .word_cleanup(Nokogiri::XML(input)).to_xhtml
        .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
       .to be_xml_equivalent_to doc
   end
@@ -1263,7 +1263,7 @@ RSpec.describe IsoDoc do
     expect(IsoDoc::WordConvert
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
-       .word_cleanup(Nokogiri::XML(input)).to_xml
+       .word_cleanup(Nokogiri::XML(input)).to_xhtml
        .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
       .to be_xml_equivalent_to doc
   end
@@ -1354,7 +1354,7 @@ RSpec.describe IsoDoc do
     OUTPUT
     expect(IsoDoc::HtmlConvert
   .new(htmlstylesheet: "spec/assets/html.scss", filename: "test")
-  .html_cleanup(Nokogiri::XML(input)).to_xml
+  .html_cleanup(Nokogiri::XML(input)).to_xhtml
   .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
       .to be_html5_equivalent_to output
   end
@@ -1481,7 +1481,7 @@ RSpec.describe IsoDoc do
     OUTPUT
     html = IsoDoc::HtmlConvert
       .new(htmlstylesheet: "spec/assets/html.scss", filename: "test")
-      .html_cleanup(Nokogiri::XML(input)).to_xml
+      .html_cleanup(Nokogiri::XML(input)).to_xhtml
     expect(html
   .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
       .to be_html5_equivalent_to output
