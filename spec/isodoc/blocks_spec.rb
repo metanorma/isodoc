@@ -394,10 +394,8 @@ RSpec.describe IsoDoc do
                    <h1 class="Annex"><b>Annex A</b><br/>(informative)</h1>
                    <div id="AnnexFormula">
                       <div class="formula">
-                         <p>
-                            <span class="stem">(#(r = 1 %)#)</span>
-                              (A.1)
-                         </p>
+                         <p><span class="stem">(#(r = 1 %)#)</span>
+                              (A.1)</p>
                       </div>
                    </div>
                 </div>
@@ -414,10 +412,7 @@ RSpec.describe IsoDoc do
                 <div id="fwd">
                   <h1 class='ForewordTitle'>Foreword</h1>
                   <div id='_' style='page-break-after: avoid;page-break-inside: avoid;'><div class='formula'>
-                    <p>
-                      <span class='stem'>(#(r = 1 %)#)</span>
-                      <span style='mso-tab-count:1'>  </span>
-                    </p>
+                    <p><span class='stem'>(#(r = 1 %)#)</span><span style='mso-tab-count:1'>  </span></p>
                   </div>
                   <p style="page-break-after: avoid;">where</p>
                   <div class="key formula_dl">

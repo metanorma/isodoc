@@ -1635,7 +1635,7 @@ RSpec.describe IsoDoc do
       .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
       .gsub(%r{<style>[^>]+</style>}m, "")))
-      .to be_xml_equivalent_to word
+      .to be_html4_equivalent_to word
   end
 
   it "processes raw SVG" do
