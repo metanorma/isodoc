@@ -1,3 +1,4 @@
-gem "canon", git: "https://github.com/lutaml/canon", branch: "fix/133-followup-html-pretty-print-mixed-content"
+gem "canon", git: "https://github.com/lutaml/canon", branch: "fix/144-asymmetric-comments-element-structure"
+gem "html2doc", git: "https://github.com/metanorma/html2doc", branch: "main"
 
 
