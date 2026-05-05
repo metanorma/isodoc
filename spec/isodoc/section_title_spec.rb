@@ -750,14 +750,7 @@ RSpec.describe IsoDoc do
                </div>
                <br/>
                <div id="P" class="Section3">
-                  <h1 class="Annex">
-                     <b>Annex A</b>
-                     <br/>
-                     (normative)
-                     <br/>
-                     <br/>
-                     <b>Annex</b>
-                  </h1>
+                  <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
                   <p style="display:none;" class="variant-title-toc">Annex A\u00a0 Annex</p>
                   <div id="Q">
                      <h2>A.1.\u00a0 Annex A.1</h2>
@@ -772,11 +765,7 @@ RSpec.describe IsoDoc do
                <br/>
                <div id="P1" class="Section3">
                <p style="display:none;" class="variant-title-toc">Annex B</p>
-                  <h1 class="Annex">
-                     <b>Annex B</b>
-                     <br/>
-                     (normative)
-                  </h1>
+                  <h1 class="Annex"><b>Annex B</b><br/>(normative)</h1>
                </div>
                <br/>
                <div>
@@ -804,8 +793,8 @@ RSpec.describe IsoDoc do
         xmlns:w="urn:schemas-microsoft-com:office:word"
         xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
         lang="en">
-       <head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><style/></head>
-                 <body lang="EN-US" link="blue" vlink="#954F72">
+       <head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"></meta><style></style></head>
+            <body lang="EN-US" link="blue" vlink="#954F72">
              <div class="WordSection1">
                 <p>\u00a0</p>
              </div>
@@ -1001,38 +990,15 @@ RSpec.describe IsoDoc do
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                 </p>
                 <div id="P" class="Section3">
-                   <h1 class="Annex">
-                      <b>Annex A</b>
-                      <br/>
-                      (normative)
-                      <br/>
-                      <br/>
-                      <b>Annex</b>
-                   </h1>
-                   <p style="display:none;" class="variant-title-toc">
-               Annex A
-               <span style="mso-tab-count:1">\u00a0 </span>
-               Annex
-            </p>
+                   <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
+                   <p style="display:none;" class="variant-title-toc">Annex A<span style="mso-tab-count:1">\u00a0 </span>Annex</p>
                    <div id="Q">
-                      <h2>
-                         A.1.
-                         <span style="mso-tab-count:1">\u00a0 </span>
-                         Annex A.1
-                      </h2>
+                      <h2>A.1. <span style="mso-tab-count:1">\u00a0 </span>Annex A.1</h2>
                       <div id="Q1">
-                         <h3>
-                            A.1.1.
-                            <span style="mso-tab-count:1">\u00a0 </span>
-                            Annex A.1a
-                         </h3>
+                         <h3>A.1.1. <span style="mso-tab-count:1">\u00a0 </span>Annex A.1a</h3>
                       </div>
                       <div>
-                         <h3 class="Section3">
-                            A.1.2.
-                            <span style="mso-tab-count:1">\u00a0 </span>
-                            Annex Bibliography
-                         </h3>
+                         <h3 class="Section3">A.1.2. <span style="mso-tab-count:1">\u00a0 </span>Annex Bibliography</h3>
                       </div>
                    </div>
                 </div>
@@ -1041,11 +1007,7 @@ RSpec.describe IsoDoc do
                 </p>
                 <div id="P1" class="Section3">
                 <p style="display:none;" class="variant-title-toc">Annex B</p>
-                   <h1 class="Annex">
-                      <b>Annex B</b>
-                      <br/>
-                      (normative)
-                   </h1>
+                   <h1 class="Annex"><b>Annex B</b><br/>(normative)</h1>
                 </div>
                 <p class="page-break">
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -1359,8 +1321,8 @@ pres_output = IsoDoc::PresentationXMLConvert
        </iso-standard>
     INPUT
     html = <<~OUTPUT
-          <html lang='en'>
-        <head/>
+      <html lang='en'>
+        <head></head>
         <body lang='en'>
           <div class='title-section'>
             <p>\u00a0</p>
@@ -1377,70 +1339,35 @@ pres_output = IsoDoc::PresentationXMLConvert
           </div>
           <br/>
             <div id="_">
-              <h1 class='AbstractTitle'>
-                Abstract
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
+              <h1 class='AbstractTitle'>Abstract<br/><br/>Variant 1</h1>
             </div>
             <br/>
             <div id="_">
-              <h1 class='ForewordTitle'>
-                Foreword
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
+              <h1 class='ForewordTitle'>Foreword<br/><br/>Variant 1</h1>
               <p id='A'>This is a preamble</p>
             </div>
             <br/>
             <div class='Section3' id='B'>
               <h1 class='IntroTitle'>Introduction</h1>
               <div id='C'>
-                <h2>
-                  Introduction Subsection
-                  <br/>
-                  <br/>
-                  Variant 1
-                </h2>
+                <h2>Introduction Subsection<br/><br/>Variant 1</h2>
               </div>
             </div>
             <br/>
             <div class='Section3' id='B1'>
-              <h1 class='IntroTitle'>
-                Dedication
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
+              <h1 class='IntroTitle'>Dedication<br/><br/>Variant 1</h1>
             </div>
             <br/>
             <div class='Section3' id='B2'>
-              <h1 class='IntroTitle'>
-                Note to reader
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
+              <h1 class='IntroTitle'>Note to reader<br/><br/>Variant 1</h1>
             </div>
             <br/>
             <div class='Section3' id='_'>
-              <h1 class='IntroTitle'>
-                Acknowledgements
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
+              <h1 class='IntroTitle'>Acknowledgements<br/><br/>Variant 1</h1>
             </div>
                 <br/>
                 <div class="Section3" id="_">
-                   <h1 class="IntroTitle">
-                      Executive Summary
-                      <br/>
-                      <br/>
-                      Variant 1
-                   </h1>
+                   <h1 class="IntroTitle">Executive Summary<br/><br/>Variant 1</h1>
                 </div>
             <div id='NN1' class='Note'>
               <p>
@@ -1453,46 +1380,21 @@ pres_output = IsoDoc::PresentationXMLConvert
               <p>Initial admonition</p>
             </div>
             <div id='D'>
-              <h1>
-                1.\u00a0 Scope
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
+              <h1>1.\u00a0 Scope<br/><br/>Variant 1</h1>
               <p id='E'>Text</p>
             </div>
             <div>
-              <h1>
-                2.\u00a0 Normative References
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
+              <h1>2.\u00a0 Normative References<br/><br/>Variant 1</h1>
             </div>
             <div id='H'>
-              <h1>
-                3.\u00a0 Terms, Definitions, Symbols and Abbreviated Terms
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
+              <h1>3.\u00a0 Terms, Definitions, Symbols and Abbreviated Terms<br/><br/>Variant 1</h1>
               <div id='I'>
-                <h2>
-                  3.1.\u00a0 Normal Terms
-                  <br/>
-                  <br/>
-                  Variant 1
-                </h2>
+                <h2>3.1.\u00a0 Normal Terms<br/><br/>Variant 1</h2>
                 <p class='TermNum' id='J'>3.1.1.</p>
                 <p class='Terms' style='text-align:left;'><b><dfn>Term2</dfn></b></p>
               </div>
               <div id='K'>
-                <h2>
-                  3.2.\u00a0 Definitions
-                  <br/>
-                  <br/>
-                  Variant 1
-                </h2>
+                <h2>3.2.\u00a0 Definitions<br/><br/>Variant 1</h2>
                 <div class="figdl">
                 <dl>
                   <dt>
@@ -1504,12 +1406,7 @@ pres_output = IsoDoc::PresentationXMLConvert
               </div>
             </div>
             <div id='L' class='Symbols'>
-              <h1>
-                4.\u00a0 Symbols and abbreviated terms
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
+              <h1>4.\u00a0 Symbols and abbreviated terms<br/><br/>Variant 1</h1>
               <div class="figdl">
               <dl>
                 <dt>
@@ -1520,27 +1417,12 @@ pres_output = IsoDoc::PresentationXMLConvert
               </div>
             </div>
             <div id='M'>
-              <h1>
-                5.\u00a0 Clause 4
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
+              <h1>5.\u00a0 Clause 4<br/><br/>Variant 1</h1>
               <div id='N'>
-                <h2>
-                  5.1.\u00a0 Introduction
-                  <br/>
-                  <br/>
-                  Variant 1
-                </h2>
+                <h2>5.1.\u00a0 Introduction<br/><br/>Variant 1</h2>
               </div>
               <div id='O'>
-                <h2>
-                  5.2.\u00a0 Clause 4.2
-                  <br/>
-                  <br/>
-                  Variant 1
-                </h2>
+                <h2>5.2.\u00a0 Clause 4.2<br/><br/>Variant 1</h2>
               </div>
               <div id='O1'>
                 <h2>5.3.</h2>
@@ -1548,64 +1430,30 @@ pres_output = IsoDoc::PresentationXMLConvert
             </div>
             <br/>
             <div id='P' class='Section3'>
-              <h1 class='Annex'>
-                <b>Annex A</b>
-                <br/>
-                (normative)
-                <br/>
-                <br/>
-                <b>Annex</b>
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
+              <h1 class='Annex'><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b><br/><br/>Variant 1</h1>
               <p style="display:none;" class="variant-title-toc">Annex A\u00a0 Annex</p>
               <p style='display:none;' class='variant-title-sub'>Variant 1</p>
               <div id='Q'>
-                <h2>
-                  A.1.\u00a0 Annex A.1
-                  <br/>
-                  <br/>
-                  Variant 1
-                </h2>
+                <h2>A.1.\u00a0 Annex A.1<br/><br/>Variant 1</h2>
                 <div id='Q1'>
-                  <h3>
-                    A.1.1.\u00a0 Annex A.1a
-                    <br/>
-                    <br/>
-                    Variant 1
-                  </h3>
+                  <h3>A.1.1.\u00a0 Annex A.1a<br/><br/>Variant 1</h3>
                 </div>
                 <div>
-                  <h3 class='Section3'>
-                    A.1.2.\u00a0 Annex Bibliography
-                    <br/>
-                    <br/>
-                    Variant 1
-                  </h3>
+                  <h3 class='Section3'>A.1.2.\u00a0 Annex Bibliography<br/><br/>Variant 1</h3>
                 </div>
               </div>
             </div>
             <br/>
             <div id='P1' class='Section3'>
             <p style="display:none;" class="variant-title-toc">Annex B</p>
-              <h1 class='Annex'>
-                <b>Annex B</b>
-                <br/>
-                (normative)
-              </h1>
+              <h1 class='Annex'><b>Annex B</b><br/>(normative)</h1>
             </div>
             <br/>
             <div>
               <h1 class='Section3'>Bibliography</h1>
               <p style='display:none;' class='variant-title-sub'>Variant 1</p>
               <div>
-                <h2 class='Section3'>
-                  Bibliography Subsection
-                  <br/>
-                  <br/>
-                  Variant 1
-                </h2>
+                <h2 class='Section3'>Bibliography Subsection<br/><br/>Variant 1</h2>
               </div>
             </div>
           </div>
@@ -1618,23 +1466,13 @@ pres_output = IsoDoc::PresentationXMLConvert
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
                 <div id="_">
-                   <h1 class="AbstractTitle">
-                      Abstract
-                      <br/>
-                      <br/>
-                      Variant 1
-                   </h1>
+                   <h1 class="AbstractTitle">Abstract<br/><br/>Variant 1</h1>
                 </div>
                 <p class="page-break">
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                 </p>
                 <div id="_">
-                   <h1 class="ForewordTitle">
-                      Foreword
-                      <br/>
-                      <br/>
-                      Variant 1
-                   </h1>
+                   <h1 class="ForewordTitle">Foreword<br/><br/>Variant 1</h1>
                    <p id="A">This is a preamble</p>
                 </div>
                 <p class="page-break">
@@ -1643,57 +1481,32 @@ pres_output = IsoDoc::PresentationXMLConvert
                 <div class="Section3" id="B">
                    <h1 class="IntroTitle">Introduction</h1>
                    <div id="C">
-                      <h2>
-                         Introduction Subsection
-                         <br/>
-                         <br/>
-                         Variant 1
-                      </h2>
+                      <h2>Introduction Subsection<br/><br/>Variant 1</h2>
                    </div>
                 </div>
                 <p class="page-break">
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                 </p>
                 <div id="B1" class="Section3">
-                   <h1 class="IntroTitle">
-                      Dedication
-                      <br/>
-                      <br/>
-                      Variant 1
-                   </h1>
+                   <h1 class="IntroTitle">Dedication<br/><br/>Variant 1</h1>
                 </div>
                 <p class="page-break">
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                 </p>
                 <div id="B2" class="Section3">
-                   <h1 class="IntroTitle">
-                      Note to reader
-                      <br/>
-                      <br/>
-                      Variant 1
-                   </h1>
+                   <h1 class="IntroTitle">Note to reader<br/><br/>Variant 1</h1>
                 </div>
                 <p class="page-break">
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                 </p>
                 <div class="Section3" id="_">
-                   <h1 class="IntroTitle">
-                      Acknowledgements
-                      <br/>
-                      <br/>
-                      Variant 1
-                   </h1>
+                   <h1 class="IntroTitle">Acknowledgements<br/><br/>Variant 1</h1>
                 </div>
                 <p class="page-break">
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                 </p>
                 <div class="Section3" id="_">
-                   <h1 class="IntroTitle">
-                      Executive Summary
-                      <br/>
-                      <br/>
-                      Variant 1
-                   </h1>
+                   <h1 class="IntroTitle">Executive Summary<br/><br/>Variant 1</h1>
                 </div>
                 <p>\u00a0</p>
              </div>
@@ -1703,10 +1516,7 @@ pres_output = IsoDoc::PresentationXMLConvert
              <div class="WordSection3">
                 <div id="NN1" class="Note">
                    <p class="Note">
-                      <span class="note_label">
-                         NOTE
-                         <span style="mso-tab-count:1">\u00a0 </span>
-                      </span>
+                      <span class="note_label">NOTE<span style="mso-tab-count:1">\u00a0 </span></span>
                       Initial note
                    </p>
                 </div>
@@ -1715,58 +1525,23 @@ pres_output = IsoDoc::PresentationXMLConvert
                    <p>Initial admonition</p>
                 </div>
                 <div id="D">
-                   <h1>
-                      1.
-                      <span style="mso-tab-count:1">\u00a0 </span>
-                      Scope
-                      <br/>
-                      <br/>
-                      Variant 1
-                   </h1>
+                   <h1>1. <span style="mso-tab-count:1">\u00a0 </span>Scope<br/><br/>Variant 1</h1>
                    <p id="E">Text</p>
                 </div>
                 <div>
-                   <h1>
-                      2.
-                      <span style="mso-tab-count:1">\u00a0 </span>
-                      Normative References
-                      <br/>
-                      <br/>
-                      Variant 1
-                   </h1>
+                   <h1>2. <span style="mso-tab-count:1">\u00a0 </span>Normative References<br/><br/>Variant 1</h1>
                 </div>
                 <div id="H">
-                   <h1>
-                      3.
-                      <span style="mso-tab-count:1">\u00a0 </span>
-                      Terms, Definitions, Symbols and Abbreviated Terms
-                      <br/>
-                      <br/>
-                      Variant 1
-                   </h1>
+                   <h1>3. <span style="mso-tab-count:1">\u00a0 </span>Terms, Definitions, Symbols and Abbreviated Terms<br/><br/>Variant 1</h1>
                    <div id="I">
-                      <h2>
-                         3.1.
-                         <span style="mso-tab-count:1">\u00a0 </span>
-                         Normal Terms
-                         <br/>
-                         <br/>
-                         Variant 1
-                      </h2>
+                      <h2>3.1. <span style="mso-tab-count:1">\u00a0 </span>Normal Terms<br/><br/>Variant 1</h2>
                       <p class="TermNum" id="J">3.1.1.</p>
                       <p class="Terms" style="text-align:left;">
                          <b>Term2</b>
                       </p>
                    </div>
                    <div id="K">
-                      <h2>
-                         3.2.
-                         <span style="mso-tab-count:1">\u00a0 </span>
-                         Definitions
-                         <br/>
-                         <br/>
-                         Variant 1
-                      </h2>
+                      <h2>3.2. <span style="mso-tab-count:1">\u00a0 </span>Definitions<br/><br/>Variant 1</h2>
                       <div align="left">
                          <table class="dl">
                             <tr>
@@ -1780,14 +1555,7 @@ pres_output = IsoDoc::PresentationXMLConvert
                    </div>
                 </div>
                 <div id="L" class="Symbols">
-                   <h1>
-                      4.
-                      <span style="mso-tab-count:1">\u00a0 </span>
-                      Symbols and abbreviated terms
-                      <br/>
-                      <br/>
-                      Variant 1
-                   </h1>
+                   <h1>4. <span style="mso-tab-count:1">\u00a0 </span>Symbols and abbreviated terms<br/><br/>Variant 1</h1>
                    <div align="left">
                       <table class="dl">
                          <tr>
@@ -1800,33 +1568,12 @@ pres_output = IsoDoc::PresentationXMLConvert
                    </div>
                 </div>
                 <div id="M">
-                   <h1>
-                      5.
-                      <span style="mso-tab-count:1">\u00a0 </span>
-                      Clause 4
-                      <br/>
-                      <br/>
-                      Variant 1
-                   </h1>
+                   <h1>5. <span style="mso-tab-count:1">\u00a0 </span>Clause 4<br/><br/>Variant 1</h1>
                    <div id="N">
-                      <h2>
-                         5.1.
-                         <span style="mso-tab-count:1">\u00a0 </span>
-                         Introduction
-                         <br/>
-                         <br/>
-                         Variant 1
-                      </h2>
+                      <h2>5.1. <span style="mso-tab-count:1">\u00a0 </span>Introduction<br/><br/>Variant 1</h2>
                    </div>
                    <div id="O">
-                      <h2>
-                         5.2.
-                         <span style="mso-tab-count:1">\u00a0 </span>
-                         Clause 4.2
-                         <br/>
-                         <br/>
-                         Variant 1
-                      </h2>
+                      <h2>5.2. <span style="mso-tab-count:1">\u00a0 </span>Clause 4.2<br/><br/>Variant 1</h2>
                    </div>
                    <div id="O1">
                       <h2>5.3.</h2>
@@ -1836,17 +1583,7 @@ pres_output = IsoDoc::PresentationXMLConvert
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                 </p>
                 <div id="P" class="Section3">
-                   <h1 class="Annex">
-                      <b>Annex A</b>
-                      <br/>
-                      (normative)
-                      <br/>
-                      <br/>
-                      <b>Annex</b>
-                      <br/>
-                      <br/>
-                      Variant 1
-                   </h1>
+                   <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b><br/><br/>Variant 1</h1>
                    <p style="display:none;" class="variant-title-toc">
               Annex A
               <span style="mso-tab-count:1">\u00a0 </span>
@@ -1854,33 +1591,12 @@ pres_output = IsoDoc::PresentationXMLConvert
            </p>
                    <p style="display:none;" class="variant-title-sub">Variant 1</p>
                    <div id="Q">
-                      <h2>
-                         A.1.
-                         <span style="mso-tab-count:1">\u00a0 </span>
-                         Annex A.1
-                         <br/>
-                         <br/>
-                         Variant 1
-                      </h2>
+                      <h2>A.1. <span style="mso-tab-count:1">\u00a0 </span>Annex A.1<br/><br/>Variant 1</h2>
                       <div id="Q1">
-                         <h3>
-                            A.1.1.
-                            <span style="mso-tab-count:1">\u00a0 </span>
-                            Annex A.1a
-                            <br/>
-                            <br/>
-                            Variant 1
-                         </h3>
+                         <h3>A.1.1. <span style="mso-tab-count:1">\u00a0 </span>Annex A.1a<br/><br/>Variant 1</h3>
                       </div>
                       <div>
-                         <h3 class="Section3">
-                            A.1.2.
-                            <span style="mso-tab-count:1">\u00a0 </span>
-                            Annex Bibliography
-                            <br/>
-                            <br/>
-                            Variant 1
-                         </h3>
+                         <h3 class="Section3">A.1.2. <span style="mso-tab-count:1">\u00a0 </span>Annex Bibliography<br/><br/>Variant 1</h3>
                       </div>
                    </div>
                 </div>
@@ -1889,11 +1605,7 @@ pres_output = IsoDoc::PresentationXMLConvert
                 </p>
                 <div id="P1" class="Section3">
                 <p style="display:none;" class="variant-title-toc">Annex B</p>
-                   <h1 class="Annex">
-                      <b>Annex B</b>
-                      <br/>
-                      (normative)
-                   </h1>
+                   <h1 class="Annex"><b>Annex B</b><br/>(normative)</h1>
                 </div>
                 <p class="page-break">
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -1902,12 +1614,7 @@ pres_output = IsoDoc::PresentationXMLConvert
                    <h1 class="Section3">Bibliography</h1>
                    <p style="display:none;" class="variant-title-sub">Variant 1</p>
                    <div>
-                      <h2 class="Section3">
-                         Bibliography Subsection
-                         <br/>
-                         <br/>
-                         Variant 1
-                      </h2>
+                      <h2 class="Section3">Bibliography Subsection<br/><br/>Variant 1</h2>
                    </div>
                 </div>
              </div>

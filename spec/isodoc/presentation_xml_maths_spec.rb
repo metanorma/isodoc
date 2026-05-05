@@ -355,7 +355,7 @@ RSpec.describe IsoDoc do
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
-      .at("//p[@id = 'A']").to_xml))
+      .at("//p[@id = 'A']").to_xhtml))
       .to be_html5_equivalent_to html
   end
 
@@ -400,7 +400,7 @@ RSpec.describe IsoDoc do
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
-      .at("//p[@id = 'A']").to_xml))
+      .at("//p[@id = 'A']").to_xhtml))
       .to be_html5_equivalent_to html
   end
 

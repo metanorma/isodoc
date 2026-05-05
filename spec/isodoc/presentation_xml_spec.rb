@@ -241,14 +241,8 @@ RSpec.describe IsoDoc do
                    <h1>1.\u00a0 Clause</h1>
                    <p id="B">Text</p>
                    <div id="C">
-                      <h2>
-                         1.1.\u00a0 Subclause
-                         <br/>
-                         <br/>
-                         “A” ‘B’
-                      </h2>
-               <p style="display:none;" class="variant-title-toc">
-                  Clause
+                      <h2>1.1.\u00a0 Subclause<br/><br/>“A” ‘B’</h2>
+               <p style="display:none;" class="variant-title-toc">Clause
                   <i>A</i>
                   <span class="stem">
                      <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -261,17 +255,8 @@ RSpec.describe IsoDoc do
                 </div>
                 <br/>
                 <div id="G" class="Section3">
-                   <h1 class="Annex">
-                      <b>Annex A</b>
-                      <br/>
-                      (normative)
-                      <br/>
-                      <br/>
-                      <b>Clause</b>
-                   </h1>
-            <p style="display:none;" class="variant-title-toc">
-               Clause
-               <i>A</i>
+                   <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Clause</b></h1>
+            <p style="display:none;" class="variant-title-toc">Clause <i>A</i>
                <span class="stem">
                   <math xmlns="http://www.w3.org/1998/Math/MathML">
                      <mi>x</mi>

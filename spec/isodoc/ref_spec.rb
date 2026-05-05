@@ -602,8 +602,21 @@ RSpec.describe IsoDoc do
     PRESXML
 
     html = <<~OUTPUT
-      #{HTML_HDR}
-                <br/>
+              <body lang="en" xml:lang="en">
+            <div class="title-section">
+              <p> </p>
+            </div>
+            <br/>
+            <div class="prefatory-section">
+              <p> </p>
+            </div>
+            <br/>
+            <div class="main-section">
+              <br/>
+              <div id="_" class="TOC">
+                <h1 class="IntroTitle">Table of contents</h1>
+              </div>
+              <br/>
                 <div id="_1">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <p id="_">
@@ -728,7 +741,6 @@ RSpec.describe IsoDoc do
                 </aside>
              </div>
           </body>
-       </html>
     OUTPUT
 
     doc = <<~OUTPUT
@@ -947,7 +959,8 @@ RSpec.describe IsoDoc do
     output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml))
+    output = output.at("//body")
+    expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
     IsoDoc::WordConvert.new({})
       .convert("test", pres_output, false)
@@ -2547,8 +2560,6 @@ RSpec.describe IsoDoc do
       </iso-standard>
     PRESXML
     html = <<~OUTPUT
-      <html lang="en">
-         <head/>
          <body lang="en">
             <div class="title-section">
                <p>\u00a0</p>
@@ -2625,7 +2636,6 @@ RSpec.describe IsoDoc do
                </aside>
             </div>
          </body>
-      </html>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
@@ -2636,7 +2646,8 @@ RSpec.describe IsoDoc do
     output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml))
+    output = output.at("//body")
+    expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
   end
 
