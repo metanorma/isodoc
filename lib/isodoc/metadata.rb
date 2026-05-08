@@ -116,7 +116,7 @@ module IsoDoc
       return "" unless draft
 
       draftinfo = " (#{@labels['draft_label']} <esc>#{draft}</esc>"
-      draftinfo += ", #{revdate}" if revdate
+      draftinfo += ", #{revdate}" if revdate && revdate != draft
       draftinfo += ")"
       l10n(draftinfo, @lang, @script)
     end
@@ -126,8 +126,8 @@ module IsoDoc
       set(:edition_display,
           isoxml.at(ns("//bibdata/edition#{currlang}"))&.text)
       set(:docyear, isoxml.at(ns("//bibdata/copyright/from"))&.text)
-      set(:draft, isoxml.at(ns("//bibdata/version/draft"))&.text)
-      revdate = isoxml.at(ns("//bibdata/version/revision-date"))&.text
+      set(:draft, isoxml.at(ns("//bibdata/version"))&.text)
+      revdate = isoxml.at(ns("//bibdata/date[@type='updated']"))&.text
       set(:revdate, revdate)
       set(:revdate_monthyear, monthyr(revdate))
       set(:draftinfo,
