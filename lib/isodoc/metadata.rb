@@ -127,7 +127,7 @@ module IsoDoc
           isoxml.at(ns("//bibdata/edition#{currlang}"))&.text)
       set(:docyear, isoxml.at(ns("//bibdata/copyright/from"))&.text)
       set(:draft, isoxml.at(ns("//bibdata/version"))&.text)
-      revdate = isoxml.at(ns("//bibdata/date[@type='updated']"))&.text
+      revdate = isoxml.at(ns("//bibdata/date[@type='updated']/on"))&.text
       set(:revdate, revdate)
       set(:revdate_monthyear, monthyr(revdate))
       set(:draftinfo,
