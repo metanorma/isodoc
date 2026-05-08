@@ -2,5 +2,4 @@ gem "relaton-render", git: "https://github.com/relaton/relaton-render", branch: 
 gem "html2doc", git: "https://github.com/metanorma/html2doc", branch: "fix/lutaml-model-0.8.0"
 gem "metanorma-core", git: "https://github.com/metanorma/metanorma-core", branch: "main"
 gem "plurimath", git: "https://github.com/plurimath/plurimath", branch: "main"
-#gem "moxml", git: "https://github.com/opoudjis/moxml", branch: "fix/customized-ox-text-to-xml"
 

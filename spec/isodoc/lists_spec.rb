@@ -194,7 +194,7 @@ RSpec.describe IsoDoc do
     xml = Nokogiri::HTML5(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
     xml = xml.at("//div[@id = 'fwd']")
-    expect(strip_guid(xml.to_xml))
+    expect(strip_guid(xml.to_xhtml))
       .to be_html4_equivalent_to word
   end
 
