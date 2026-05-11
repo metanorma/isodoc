@@ -1102,8 +1102,6 @@ RSpec.describe IsoDoc do
           </html>
     INPUT
     output = <<~OUTPUT
-          <html>
-        <head></head>
         <body>
           <div class='main-section'>
                <table id='_7830dff8-419e-4b9e-85cf-a063689f44ca' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
@@ -1191,7 +1189,6 @@ RSpec.describe IsoDoc do
            </table>
           </div>
         </body>
-      </html>
     OUTPUT
     expect(IsoDoc::WordConvert
       .new(wordstylesheet: "spec/assets/word.css",

@@ -432,15 +432,14 @@ RSpec.describe IsoDoc do
                   </div>
                   </div>
                   <div id='_' class='Note'>
-                    <p class='Note'>
-                      <span class='note_label'>NOTE<span style='mso-tab-count:1'>  </span></span>
-                      [durationUnits] is essentially a duration statement without the "P"
+                    <p class='Note'><span class="note_label">NOTE<span style="mso-tab-count:1">\u00a0 </span></span>[durationUnits] 
+                      is essentially a duration statement without the "P"
                       prefix. "P" is unnecessary because between "G" and "U" duration is
                       always expressed.</p>
                   </div>
                   </div>
                   <div id='_'>
-                  <div class="formula"><p><span class="stem">(#(r = 1 %)#)</span><span style="mso-tab-count:1">&nbsp; </span>(1)</p></div>
+                  <div class="formula"><p><span class="stem">(#(r = 1 %)#)</span><span style="mso-tab-count:1">\u00a0 </span>(1)</p></div>
                   </div>
                 </div>
                 <p> </p>
@@ -457,7 +456,7 @@ RSpec.describe IsoDoc do
             <h1 class="Annex"><b>Annex A</b><br/>(informative)</h1>
             <div id="AnnexFormula">
                <div class="formula">
-                  <p><span class="stem">(#(r = 1 %)#)</span><span style="mso-tab-count:1">&nbsp; </span>(A.1)</p>
+                  <p><span class="stem">(#(r = 1 %)#)</span><span style="mso-tab-count:1">\u00a0 </span>(A.1)</p>
                   </div>
                </div>
             </div>
@@ -495,13 +494,13 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     html = <<~OUTPUT
-                  <div id="A">
-                    <h1 class="ForewordTitle">Foreword</h1>
-                    <p id="_" style="text-align:left;">Vache Equipment<br/>
-          Fictitious<br/>
-          World</p>
-              <p style="text-align:justify;font-size:9pt;page-break-after: avoid;page-break-inside: avoid;">Justify</p>
-                  </div>
+              <div id="A">
+                <h1 class="ForewordTitle">Foreword</h1>
+                <p id="_" style="text-align:left;">Vache Equipment<br/>
+      Fictitious<br/>
+      World</p>
+          <p style="text-align:justify;font-size:9pt;page-break-after: avoid;page-break-inside: avoid;">Justify</p>
+              </div>
     OUTPUT
 
     word = <<~OUTPUT
@@ -645,15 +644,15 @@ RSpec.describe IsoDoc do
     expect(Nokogiri::HTML5(File.read("test.html"))
       .at("//*[@id = 'A']").to_xhtml)
       .to be_html5_equivalent_to(<<~OUTPUT)
-            <div id="A">
-                <h1 class="ForewordTitle">
-                   <a class="anchor" href="#A"></a>
-                   <a class="header" href="#A">Foreword</a>
-                </h1>
-                <abc>
-                   <i>Hello</i>
-                </abc>
-             </div>
+        <div id="A">
+            <h1 class="ForewordTitle">
+               <a class="anchor" href="#A"></a>
+               <a class="header" href="#A">Foreword</a>
+            </h1>
+            <abc>
+               <i>Hello</i>
+            </abc>
+         </div>
       OUTPUT
 
     output = IsoDoc::PresentationXMLConvert
@@ -702,26 +701,26 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     html = <<~OUTPUT
-        <body lang="en" xml:lang="en">
-           <div class="title-section">
-             <p> </p>
+      <body lang="en" xml:lang="en">
+         <div class="title-section">
+           <p> </p>
+         </div>
+         <br/>
+         <div class="prefatory-section">
+           <p> </p>
+         </div>
+         <br/>
+         <div class="main-section">
+           <br/>
+           <div id="_">
+             <h1 class="ForewordTitle">Foreword</h1>
            </div>
            <br/>
-           <div class="prefatory-section">
-             <p> </p>
+           <div id="_" class="TOC">
+             <h1 class="IntroTitle">Table of contents</h1>
            </div>
-           <br/>
-           <div class="main-section">
-             <br/>
-             <div id="_">
-               <h1 class="ForewordTitle">Foreword</h1>
-             </div>
-             <br/>
-             <div id="_" class="TOC">
-               <h1 class="IntroTitle">Table of contents</h1>
-             </div>
-           </div>
-         </body>
+         </div>
+       </body>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(output_formats: { html: "html", rfc: "rfc" }))
@@ -747,26 +746,26 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     html = <<~OUTPUT
-         <body lang="en" xml:lang="en">
-           <div class="title-section">
-             <p> </p>
-           </div>
-           <br />
-           <div class="prefatory-section">
-             <p> </p>
-           </div>
-           <br />
-           <div class="main-section">
-             <br />
-             <div id="_" class="TOC">
-               <h1 class="IntroTitle">Table of contents</h1>
-             </div>
-             <br />
-             <div id="_">
-               <h1 class="ForewordTitle">Foreword</h1>
-             </div>
-           </div>
-         </body>
+      <body lang="en" xml:lang="en">
+        <div class="title-section">
+          <p> </p>
+        </div>
+        <br />
+        <div class="prefatory-section">
+          <p> </p>
+        </div>
+        <br />
+        <div class="main-section">
+          <br />
+          <div id="_" class="TOC">
+            <h1 class="IntroTitle">Table of contents</h1>
+          </div>
+          <br />
+          <div id="_">
+            <h1 class="ForewordTitle">Foreword</h1>
+          </div>
+        </div>
+      </body>
     OUTPUT
     output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
     .convert("test", input, true))
