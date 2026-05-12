@@ -1021,7 +1021,7 @@ RSpec.describe IsoDoc do
                      For further information on the Foreword, see
                      <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b>
                   </p>
-                  <p class="Note">
+                  <p class="MsoNormal">
                      <br clear="all" class="section"/>
                   </p>
                </div>
@@ -1055,12 +1055,12 @@ RSpec.describe IsoDoc do
                   </tfoot>
                </table>
             </div>
-            <p class="Note">
+            <p class="MsoNormal">
                <br clear="all" class="section"/>
             </p>
          </div>
          <div class="WordSection3_1">
-            <p class="Note">And up</p>
+            <p class="MsoNormal">And up</p>
             <p class="MsoNormal">
                <br clear="all" class="section"/>
             </p>
@@ -1102,8 +1102,6 @@ RSpec.describe IsoDoc do
           </html>
     INPUT
     output = <<~OUTPUT
-          <html>
-        <head/>
         <body>
           <div class='main-section'>
                <table id='_7830dff8-419e-4b9e-85cf-a063689f44ca' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
@@ -1191,14 +1189,13 @@ RSpec.describe IsoDoc do
            </table>
           </div>
         </body>
-      </html>
     OUTPUT
     expect(IsoDoc::WordConvert
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
-      .word_cleanup(Nokogiri::XML(input)).to_xml
-      .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
-      .to be_xml_equivalent_to output
+      .word_cleanup(Nokogiri::XML(input)).to_xhtml
+      .sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>"))
+      .to be_html4_equivalent_to output
   end
 
   it "allocate widths to tables (Word)" do
@@ -1330,10 +1327,6 @@ RSpec.describe IsoDoc do
              </html>
     INPUT
     output = <<~OUTPUT
-      <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
-               <head>
-                 <style/>
-               </head>
                <body lang='EN-US' link='blue' vlink='#954F72'>
                  <div class='WordSection2'>
                    <p>
@@ -1456,14 +1449,13 @@ RSpec.describe IsoDoc do
                    </aside>
                  </div>
                </body>
-             </html>
     OUTPUT
     expect(strip_guid(IsoDoc::WordConvert
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
-      .word_cleanup(Nokogiri::XML(input)).to_xml)
-      .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
-      .to be_xml_equivalent_to output
+      .word_cleanup(Nokogiri::XML(input)).to_xhtml)
+      .sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>"))
+      .to be_html4_equivalent_to output
   end
 
   it "preserves Word CSS classes starting with digit" do
@@ -1577,8 +1569,8 @@ RSpec.describe IsoDoc do
 
                  </p>
          <div align="center" class="table_container">
-            <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;" title="tool tip" summary="long desc" width="70%">
                <a name="tableD-1" id="tableD-1"/>
+            <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;" title="tool tip" summary="long desc" width="70%">
                <colgroup>
                   <col width="30%"/>
                </colgroup>
@@ -1622,11 +1614,11 @@ RSpec.describe IsoDoc do
       { wordstylesheet: "spec/assets/word.css",
         htmlstylesheet: "spec/assets/html.scss" },
     ).convert("test", input, false)
-    word = Nokogiri::XML(File.read("test.doc")
+    word = Nokogiri::HTML5(File.read("test.doc")
       .sub(/^.*<body/m, "<body")
       .sub(%r{</body>.*$}m, "</body>"))
     word = word.at("//div[a/@name = 'A']")
-    expect(strip_guid(word.to_xml))
+    expect(strip_guid(word.to_xhtml))
       .to be_xml_equivalent_to output
   end
 end

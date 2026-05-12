@@ -42,7 +42,7 @@ module IsoDoc
 
     def concept_dup_cleanup_orig(node)
       node.xpath(".//xmlns:semx[xmlns:fmt-xref | xmlns:fmt-eref | " \
-         "xmlns:fmt-origin | xmlns:fmt-link]").each(&:remove)
+                 "xmlns:fmt-origin | xmlns:fmt-link]").each(&:remove)
       node.xpath(ns(".//xref | .//eref | .//origin | .//link")).each do |x|
         x["original-id"] or next
         x["id"] = x["original-id"]

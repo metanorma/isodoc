@@ -336,8 +336,6 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     html = <<~OUTPUT
-      <html lang="en">
-         <head/>
          <body lang="en">
             <div class="title-section">
                <p>\u00a0</p>
@@ -366,34 +364,11 @@ RSpec.describe IsoDoc do
                <br/>
                <div id="F">
                   <h1 class="ForewordTitle">Foreword</h1>
-                  <p>
-                     A.
-                     <a class="FootnoteRef" href="#fn:_18">
-                        <sup>2</sup>
-                     </a>
-                  </p>
-                  <p>
-                     B.
-                     <a class="FootnoteRef" href="#fn:_18">
-                        <sup>2</sup>
-                     </a>
-                  </p>
-                  <p>
-                     C.
-                     <a class="FootnoteRef" href="#fn:_19">
-                        <sup>3</sup>
-                     </a>
-                  </p>
+             <p>A.<a class="FootnoteRef" href="#fn:_18"><sup>2</sup></a></p>
+             <p>B.<a class="FootnoteRef" href="#fn:_18"><sup>2</sup></a></p>
+             <p>C.<a class="FootnoteRef" href="#fn:_19"><sup>3</sup></a></p>
                </div>
-               <p>
-                  B.
-                  <a class="FootnoteRef" href="#fn:_18">
-                     <sup>2</sup>
-                  </a>
-                  <a class="FootnoteRef" href="#fn:_19">
-                     <sup>3</sup>
-                  </a>
-               </p>
+               <p>B.<a class="FootnoteRef" href="#fn:_18"><sup>2</sup></a><a class="FootnoteRef" href="#fn:_19"><sup>3</sup></a></p>
                <div>
                   <h1>1.\u00a0 Normative References</h1>
                   <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
@@ -431,10 +406,9 @@ RSpec.describe IsoDoc do
                </aside>
             </div>
          </body>
-      </html>
     OUTPUT
     doc = <<~OUTPUT
-       <body lang="EN-US" link="blue" vlink="#954F72">
+       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
          <div class="WordSection1">
            <p> </p>
          </div>
@@ -465,7 +439,7 @@ RSpec.describe IsoDoc do
            <div id="F">
              <h1 class="ForewordTitle">Foreword</h1>
              <p>A.<span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" epub:type="footnote" href="#ftn_18">2</a></span></p>
-             <p>B.<span class="MsoFootnoteReference"><span style="mso-element:field-begin"/> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"/>2<span style="mso-element:field-end"/></span></p>
+             <p>B.<span class="MsoFootnoteReference"><span style="mso-element:field-begin"></span> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"></span>2<span style="mso-element:field-end"></span></span></p>
              <p>C.<span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" epub:type="footnote" href="#ftn_19">3</a></span></p>
            </div>
            <p> </p>
@@ -474,7 +448,7 @@ RSpec.describe IsoDoc do
            <br clear="all" class="section"/>
          </p>
          <div class="WordSection3">
-           <p>B.<span class="MsoFootnoteReference"><span style="mso-element:field-begin"/> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"/>2<span style="mso-element:field-end"/></span><span class="MsoFootnoteReference"><span style="mso-element:field-begin"/> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"/>3<span style="mso-element:field-end"/></span></p>
+           <p>B.<span class="MsoFootnoteReference"><span style="mso-element:field-begin"></span> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"></span>2<span style="mso-element:field-end"></span></span><span class="MsoFootnoteReference"><span style="mso-element:field-begin"></span> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"></span>3<span style="mso-element:field-end"></span></span></p>
            <div>
              <h1>1.<span style="mso-tab-count:1">  </span>Normative References</h1>
              <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
@@ -664,14 +638,15 @@ RSpec.describe IsoDoc do
     expect(strip_guid(pres_output)
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_xml_equivalent_to presxml
-    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml))
+    output = output.at("//body")
+    expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
-    expect(strip_guid(Nokogiri::XML(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Nokogiri::HTML5(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
-      .at("//body").to_xml))
+      .at("//body").to_xhtml))
       .to be_html4_equivalent_to strip_guid(doc)
     FileUtils.rm_f("test.doc")
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
@@ -845,50 +820,32 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     html = <<~OUTPUT
-      <main class="main-section">
-         <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-         <br/>
-         <div id="_8" class="TOC">
+        <main class="main-section">
+          <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button><br/>
+          <div id="_8" class="TOC">
             <h1 class="IntroTitle">
-               <a class="anchor" href="#_8"/>
-               <a class="header" href="#_8">Table of contents</a>
+              <a class="anchor" href="#_8"/>
+              <a class="header" href="#_8">Table of contents</a>
             </h1>
-         </div>
-         <br/>
-         <div id="_1">
+          </div>
+          <br/>
+          <div id="_1">
             <h1 class="ForewordTitle">
-               <a class="anchor" href="#_1"/>
-               <a class="header" href="#_1">Foreword</a>
+              <a class="anchor" href="#_1"/>
+              <a class="header" href="#_1">Foreword</a>
             </h1>
-            <p id="A">
-               <i>
-                  <b>A.</b>
-               </i>
-               <a id="A1"/>
-               B
-               <i>
-                  <b>C.</b>
-               </i>
-            </p>
-            <p id="B">
-               <i>
-                  <b>A.</b>
-               </i>
-               B
-               <i>
-                  <b>C.</b>
-               </i>
-            </p>
-         </div>
-         <br/>
-         <div class="Section3" id="_2">
+            <p id="A"><i><b>A.</b></i> <a id="A1"></a> B <i><b>C.</b></i></p>
+            <p id="B"><i><b>A.</b></i> B <i><b>C.</b></i></p>
+          </div>
+          <br/>
+          <div class="Section3" id="_2">
             <h1 class="IntroTitle">
-               <a class="anchor" href="#_2"/>
-               <a class="header" href="#_2">Introduction</a>
+              <a class="anchor" href="#_2"/>
+              <a class="header" href="#_2">Introduction</a>
             </h1>
             <p id="C">C.</p>
-         </div>
-      </main>
+          </div>
+        </main>
     OUTPUT
 
     word = <<~OUTPUT
@@ -1274,8 +1231,7 @@ RSpec.describe IsoDoc do
     INPUT
     html = <<~OUTPUT
       <main class="main-section">
-         <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-         <br/>
+         <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button><br/>
          <div id="_4" class="TOC">
             <h1 class="IntroTitle">
                <a class="anchor" href="#_4"/>
@@ -1514,14 +1470,16 @@ RSpec.describe IsoDoc do
       .new(presxml_options)
       .convert("test", input.sub("PUBLISHED", "false"), true))
     pres_output.xpath("//xmlns:localized-strings | " \
-                      "//xmlns:metanorma-extension | //xmlns:bibdata").each(&:remove)
+                      "//xmlns:metanorma-extension | //xmlns:bibdata")
+      .each(&:remove)
     expect(strip_guid(pres_output.to_xml))
       .to be_xml_equivalent_to presxml_annotated
     pres_output = Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input.sub("PUBLISHED", "true"), true))
     pres_output.xpath("//xmlns:localized-strings | " \
-                      "//xmlns:metanorma-extension | //xmlns:bibdata").each(&:remove)
+                      "//xmlns:metanorma-extension | //xmlns:bibdata")
+      .each(&:remove)
     expect(strip_guid(pres_output.to_xml))
       .to be_xml_equivalent_to presxml_unannotated
     pres_output = Nokogiri::XML(IsoDoc::PresentationXMLConvert
@@ -1530,7 +1488,8 @@ RSpec.describe IsoDoc do
       .sub("</bibdata>", "</bibdata>#{directive}")
       .sub("DIRECTIVE", "true"), true))
     pres_output.xpath("//xmlns:localized-strings | " \
-                      "//xmlns:metanorma-extension | //xmlns:bibdata").each(&:remove)
+                      "//xmlns:metanorma-extension | //xmlns:bibdata")
+      .each(&:remove)
     expect(strip_guid(pres_output.to_xml))
       .to be_xml_equivalent_to presxml_annotated
     pres_output = Nokogiri::XML(IsoDoc::PresentationXMLConvert
@@ -1539,7 +1498,8 @@ RSpec.describe IsoDoc do
       .sub("</bibdata>", "</bibdata>#{directive}")
       .sub("DIRECTIVE", "false"), true))
     pres_output.xpath("//xmlns:localized-strings | " \
-                      "//xmlns:metanorma-extension | //xmlns:bibdata").each(&:remove)
+                      "//xmlns:metanorma-extension | //xmlns:bibdata")
+      .each(&:remove)
     expect(strip_guid(pres_output.to_xml))
       .to be_xml_equivalent_to presxml_unannotated
   end

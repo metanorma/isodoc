@@ -13,7 +13,17 @@ module IsoDoc
         html.add_namespace("m", "http://schemas.microsoft.com/office/2004/12/omml")
       end
 
+      # Apply empty_tags even when postprocess is skipped (debug mode),
+      # so convert1's output is valid HTML5 (non-void self-closing tags
+      # expanded: <a id="_"/> -> <a id="_"></a>). Idempotent: running
+      # again in postprocess#toHTML is a no-op.
+      def convert1(docxml, filename, dir)
+        empty_tags(super)
+      end
+
       def define_head(head, filename, _dir)
+        head.meta "http-equiv": "Content-Type",
+                  content: "text/html; charset=UTF-8"
         head.style do |style|
           loc = File.join(File.dirname(__FILE__), "..", "base_style",
                           "metanorma_word.scss")

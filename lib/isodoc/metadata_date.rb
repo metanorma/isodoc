@@ -23,26 +23,28 @@ module IsoDoc
     end
 
     def monthyr(isodate)
-      m = /(?<yr>\d\d\d\d)-(?<mo>\d\d)/.match isodate
-      return isodate unless m && m[:yr] && m[:mo]
-
-      l10n("#{months[m[:mo].to_sym]} #{m[:yr]}")
+      out = IsoDoc::ExtendedDateFormatter.format_iso_date(
+        isodate,
+        lang: @lang,
+        year_month: "%B %Y",
+        full: "%B %Y",
+      )
+      out == isodate ? out : l10n(out)
     end
 
     def MMMddyyyy(isodate)
-      isodate.nil? and return nil
-
-      arr = isodate.split("-")
-      arr.size == 1 && (/^\d+$/.match isodate) and
-        return Date.new(*arr.map(&:to_i)).strftime("%Y")
-      arr.size == 2 and
-        return Date.new(*arr.map(&:to_i)).strftime("%B %Y")
-      Date.parse(isodate).strftime("%B %d, %Y")
+      IsoDoc::ExtendedDateFormatter.format_iso_date(
+        isodate,
+        lang: @lang,
+        year: "%Y",
+        year_month: "%B %Y",
+        full: "%B %d, %Y",
+      )
     end
 
     def bibdate(isoxml, _out)
       isoxml.xpath(ns("//bibdata/date")).each do |d|
-        set("#{d['type'].tr('-', '_')}date".to_sym, Common::date_range(d))
+        set(:"#{d['type'].tr('-', '_')}date", Common::date_range(d))
       end
     end
   end

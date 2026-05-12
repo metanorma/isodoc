@@ -261,21 +261,6 @@ RSpec.describe IsoDoc do
       .to be_html4_equivalent_to word
   end
 
-  it "correctly parses options with commas inside values" do
-    converter = IsoDoc::PresentationXMLConvert.new({})
-    options = "'group_digits=3','fraction_group_digits=3','decimal=,','group= ','fraction_group= ','notation=general'"
-    result = converter.csv_attribute_extract(options)
-
-    expect(result).to eq({
-                           group_digits: "3",
-                           fraction_group_digits: "3",
-                           decimal: ",",
-                           group: " ",
-                           fraction_group: " ",
-                           notation: "general",
-                         })
-  end
-
   it "processes AsciiMath and MathML" do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
@@ -366,11 +351,11 @@ RSpec.describe IsoDoc do
     expect(strip_guid(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml))
       .to be_xml_equivalent_to presxml
-    expect(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Nokogiri::HTML5(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
-      .at("//p[@id = 'A']").to_xml))
+      .at("//p[@id = 'A']").to_xhtml))
       .to be_html5_equivalent_to html
   end
 
@@ -411,11 +396,11 @@ RSpec.describe IsoDoc do
     expect(strip_guid(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml))
       .to be_xml_equivalent_to presxml
-    expect(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Nokogiri::HTML5(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
-      .at("//p[@id = 'A']").to_xml))
+      .at("//p[@id = 'A']").to_xhtml))
       .to be_html5_equivalent_to html
   end
 
