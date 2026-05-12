@@ -617,7 +617,7 @@ RSpec.describe IsoDoc do
         publisher: "International Organization for Standardization et International Electrotechnical Commission",
         receiveddate: "XXX",
         revdate: "2016-05",
-        revdate_monthyear: "Mai 2016",
+        revdate_monthyear: "mai 2016",
         script: "Latn",
         stable_untildate: "XXX",
         stage: "Committee Draft",
