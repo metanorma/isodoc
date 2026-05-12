@@ -6,12 +6,12 @@ module IsoDoc
     def citeas(xmldoc)
       xmldoc.xpath(ns("//fmt-eref | //fmt-origin | //fmt-link"))
         .each do |e|
-          sem_xml_descendant?(e) and next
-          e["bibitemid"] && e["citeas"] or next
-          a = @xrefs.anchor(e["bibitemid"], :xref, false) or next
-          e["citeas"] = citeas_cleanup(a)
-          # link generated in collection postprocessing from eref
-          e.name == "fmt-link" && e.text.empty? and e.children = e["citeas"]
+        sem_xml_descendant?(e) and next
+        (e["bibitemid"] && e["citeas"]) or next
+        a = @xrefs.anchor(e["bibitemid"], :xref, false) or next
+        e["citeas"] = citeas_cleanup(a)
+        # link generated in collection postprocessing from eref
+        e.name == "fmt-link" && e.text.empty? and e.children = e["citeas"]
       end
     end
 
@@ -42,24 +42,35 @@ module IsoDoc
     end
 
     def resolve_eref_connectives(locs)
-      locs = escape_l10n(locs)
-      locs = resolve_comma_connectives(locs)
-      locs = resolve_to_connectives(locs)
-      locs.size < 3 and return locs.map { |x| x[:custom] || x[:conn] || x[:ref] }
-      locs = locs.each_with_object([]) do |x, m|
-        if m.empty? then m << x
-        elsif m[-1][:conn] && x[:conn]
-          m[-1][:conn] += x[:conn]
-          x[:custom] and m[-1][:custom] = x[:custom]
-        elsif  m[-1][:conn] && x[:conn]
-          m[-1][:ref] += x[:ref]
-        else  m << x
-        end
+      locs = resolve_eref_connectives1(locs)
+      locs.size < 3 and return locs.map do |x|
+        x[:custom] || x[:conn] || x[:ref]
       end
+      locs = resolve_eref_connectives_split(locs)
       locs = locs.each_slice(2).with_object([]) do |a, m|
         m << { custom: a[0][:custom], conn: a[0][:conn], label: a.dig(1, :ref) }
       end
       [", ", combine_conn(locs)]
+    end
+
+    def resolve_eref_connectives1(locs)
+      locs = escape_l10n(locs)
+      locs = resolve_comma_connectives(locs)
+      resolve_to_connectives(locs)
+    end
+
+    def resolve_eref_connectives_split(locs)
+      locs.each_with_object([]) do |x, m|
+        if m.empty?
+          m << x
+        elsif m[-1][:conn] && x[:conn]
+          m[-1][:conn] += x[:conn]
+          x[:custom] and m[-1][:custom] = x[:custom]
+        elsif m[-1][:conn] && x[:conn]
+          m[-1][:ref] += x[:ref]
+        else m << x
+        end
+      end
     end
 
     XREF_CONNECTIVES = %w(from to or and).freeze
@@ -82,7 +93,8 @@ module IsoDoc
 
     def resolve_comma_connectives1(locs, locs1, add)
       if [", ", " ", ""].include?(locs.dig(1, :conn)) && locs.size > 2
-        add += [locs[0][:ref], locs[1][:custom] || locs[1][:conn], locs[2][:ref]].join
+        add += [locs[0][:ref], locs[1][:custom] || locs[1][:conn],
+                locs[2][:ref]].join
         locs.shift(3)
       else
         locs1 << add unless add.empty?
@@ -101,14 +113,12 @@ module IsoDoc
           c = locs[1][:custom] and x = conn_sub(x, c)
           locs1 << { ref: connectives_spans(x) }
           locs.shift(3)
+        elsif locs[0][:conn] == "from" && locs[0][:custom]
+          locs1 << { conn: locs[0][:custom] }
+          locs.shift # strip "from" and English
+        # TODO languages with obligatory "from"
         else
-          if locs[0][:conn] == "from" && locs[0][:custom] # strip "from" and English
-            # TODO languages with obligatory "from"
-            locs1 << { conn: locs[0][:custom] }
-            locs.shift
-          else
-            locs1 << locs.shift
-          end
+          locs1 << locs.shift
         end
       end
       locs1
@@ -118,14 +128,15 @@ module IsoDoc
       docxml.xpath(ns("//display-text")).each { |f| f.replace(f.children) }
       docxml.xpath(ns("//fmt-eref | //fmt-origin[not(.//termref)]"))
         .each do |e|
-          sem_xml_descendant?(e) and next
-          href = eref_target(e) or next
-          e.xpath(ns("./locality | ./localityStack")).each(&:remove)
-          if %w(short).include?(e["style"]) then eref2linkshort(e, href)
-          elsif href[:type] == :anchor || %w(full).include?(e["style"])
-            eref2xref(e)
-          else eref2link1(e, href)
-          end
+        sem_xml_descendant?(e) and next
+        href = eref_target(e) or next
+        e.xpath(ns("./locality | ./localityStack")).each(&:remove)
+        if %w(short).include?(e["style"])
+          eref2linkshort(e, href)
+        elsif href[:type] == :anchor || %w(full).include?(e["style"])
+          eref2xref(e)
+        else eref2link1(e, href)
+        end
       end
     end
 

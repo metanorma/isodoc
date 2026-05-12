@@ -323,7 +323,7 @@ RSpec.describe IsoDoc do
                       </div>
                       <div class="ul_wrap">
                          <ul>
-                            <li>C</li>
+                            <li id="_">C</li>
                          </ul>
                       </div>
                    </div>
@@ -351,7 +351,7 @@ RSpec.describe IsoDoc do
 
   it "processes paragraphs containing notes" do
     input = <<~INPUT
-                <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>    <clause type="toc" id="_" displayorder="1">
         <fmt-title id="_" depth="1">Table of contents</fmt-title>
       </clause>
@@ -396,10 +396,8 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     doc = <<~OUTPUT
-      #{WORD_HDR}
-             <p class="page-break">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-             </p>
+      <html xmlns:epub="http://www.idpf.org/2007/ops" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><style></style></head>
+      <body lang="EN-US" link="blue" vlink="#954F72"><div class="WordSection1"><p> </p></div><p class="section-break"><br clear="all" class="section"/></p><div class="WordSection2"><p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
              <div id="fwd">
                <h1 class="ForewordTitle">Foreword</h1>
                <p id="A">ABC
@@ -411,6 +409,12 @@ RSpec.describe IsoDoc do
                  <p class="Note"><span class="note_label">NOTE 2<span style="mso-tab-count:1">\u00a0 </span></span>XYZ1</p>
                </div>
              </div>
+             <p class="page-break">
+         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+       </p>
+       <div class="TOC" id="_">
+         <p class="zzContents">Table of contents</p>
+       </div>
              <p>\u00a0</p>
            </div>
            <p class="section-break">

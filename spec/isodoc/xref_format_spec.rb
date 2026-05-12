@@ -101,9 +101,9 @@ RSpec.describe IsoDoc do
     expect(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true)))
       .to be_html5_equivalent_to html
-    expect(strip_guid(Nokogiri::XML(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Nokogiri::HTML5(IsoDoc::WordConvert.new({})
       .convert("test", presxml, true))
-      .at("//div[@class = 'WordSection2']").to_xml))
+      .at("//div[@class = 'WordSection2']").to_xhtml))
       .to be_xml_equivalent_to doc
   end
 

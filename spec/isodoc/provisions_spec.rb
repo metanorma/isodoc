@@ -190,37 +190,17 @@ RSpec.describe IsoDoc do
                 <div id="fwd">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <div class="permission" id="A" style="page-break-after: avoid;page-break-inside: avoid;">
-                      <p class="RecommendationTitle">
-                         Permission 1:
-                         <br/>
-                         /ogc/recommendation/wfs/2
-                      </p>
-                      <p>
-                         <i>Subject: user</i>
-                         <br/>
-                         <i>Subject: non-user</i>
-                         <br/>
-                         <i>Inherits: /ss/584/2015/level/1</i>
-                         <br/>
-                         <i>
-                            Inherits:
-                            <a href="#rfc2616">RFC 2616 (HTTP/1.1)</a>
-                         </i>
-                         <br/>
-                         <i>Control-class: Technical</i>
-                         <br/>
-                         <i>Priority: P0</i>
-                         <br/>
-                         <i>Family: System and Communications Protection</i>
-                         <br/>
-                         <i>Family: System and Communications Protocols</i>
-                      </p>
+                      <p class="RecommendationTitle">Permission 1:<br/>/ogc/recommendation/wfs/2</p>
+                      <p><i>Subject: user</i><br/>
+                         <i>Subject: non-user</i><br/>
+                         <i>Inherits: /ss/584/2015/level/1</i><br/>
+                         <i>Inherits: <a href="#rfc2616">RFC 2616 (HTTP/1.1)</a></i><br/>
+                         <i>Control-class: Technical</i><br/>
+                         <i>Priority: P0</i><br/>
+                         <i>Family: System and Communications Protection</i><br/>
+                         <i>Family: System and Communications Protocols</i></p>
                       <div class="requirement-description">
-                         <p id="_">
-                            I recommend
-                            <i>this</i>
-                            .
-                         </p>
+                         <p id="_">I recommend <i>this</i>.</p>
                       </div>
                       <div class="requirement-description">
                          <p id="_">As for the measurement targets,</p>
@@ -228,12 +208,7 @@ RSpec.describe IsoDoc do
                       <div class="requirement-measurement-target">
                          <p id="_">The measurement target shall be measured as:</p>
                          <div id="B">
-                            <div class="formula">
-                               <p>
-                                  <span class="stem">(#(r/1 = 0)#)</span>
-                                  \u00a0 (1)
-                               </p>
-                            </div>
+                            <div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>\u00a0 (1)</p></div>
                          </div>
                       </div>
                       <div class="requirement-verification">
@@ -242,64 +217,40 @@ RSpec.describe IsoDoc do
                          <pre>CoreRoot(success): HttpResponse<br/>      if (success)<br/>      recommendation(label: success-response)<br/>      end<br/>    </pre>
                          </figure>
                          <div id="N1" class="Note">
-                            <p>
-                               <span class="note_label">NOTE 1\u00a0 </span>
-                            </p>
-                            text
-                         </div>
+                            <p><span class="note_label">NOTE 1\u00a0 </span></p>text</div>
                          <div id="E1" class="example">
-                            <p class="example-title">EXAMPLE 1</p>
-                            text
-                         </div>
+                            <p class="example-title">EXAMPLE 1</p>text</div>
                       </div>
                       <div class="requirement-component1">
                          <p id="_">Hello</p>
                          <div id="N2" class="Note">
-                            <p>
-                               <span class="note_label">NOTE 2\u00a0 </span>
-                            </p>
-                            text
-                         </div>
+                            <p><span class="note_label">NOTE 2\u00a0 </span></p>text</div>
                          <div id="E2" class="example">
-                            <p class="example-title">EXAMPLE 2</p>
-                            text
-                         </div>
+                            <p class="example-title">EXAMPLE 2</p>text</div>
                       </div>
                    </div>
                 </div>
                 <br/>
                 <div id="Annex" class="Section3">
                 <p style="display:none;" class="variant-title-toc">Annex A</p>
-                   <h1 class="Annex">
-                      <b>Annex A</b>
-                      <br/>
-                      (informative)
-                   </h1>
+                   <h1 class="Annex"><b>Annex A</b><br/>(informative)</h1>
                    <div class="permission" id="AnnexPermission">
                       <p class="RecommendationTitle">Permission A.1</p>
                       <div class="requirement-description">
                          <p id="_">As for the measurement targets,</p>
                          <div id="N3" class="Note">
-                            <p>
-                               <span class="note_label">NOTE\u00a0 </span>
-                            </p>
+                            <p><span class="note_label">NOTE\u00a0 </span></p>
                             text
                          </div>
                          <div id="E3" class="example">
-                            <p class="example-title">EXAMPLE</p>
-                            text
-                         </div>
+                            <p class="example-title">EXAMPLE</p>text</div>
                       </div>
                    </div>
                 </div>
                 <br/>
                 <div>
                    <h1 class="Section3">Bibliography</h1>
-                   <p id="rfc2616" class="Biblio">
-                      [1]\u00a0 IETF\u00a0RFC\u00a02616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE.
-                      <i>Hypertext Transfer Protocol\u2009—\u2009HTTP/1.1</i>
-                      . 1999. Fremont, CA.
-                   </p>
+                   <p id="rfc2616" class="Biblio">[1]\u00a0 IETF\u00a0RFC\u00a02616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <i>Hypertext Transfer Protocol\u2009—\u2009HTTP/1.1</i>. 1999. Fremont, CA. </p>
                 </div>
              </div>
           </body>
@@ -453,7 +404,8 @@ RSpec.describe IsoDoc do
                       <div id="fwd">
                         <h1 class="ForewordTitle">Foreword</h1>
                         <div class="require" id='A' style='page-break-after: avoid;page-break-inside: avoid;'>
-                <p><i>Subject: user</i><br/><i>Inherits: /ss/584/2015/level/1</i></p>
+                <p><i>Subject: user</i><br/>
+                <i>Inherits: /ss/584/2015/level/1</i></p>
                   <div class="requirement-description">
                     <p id="_">I recommend <i>this</i>.</p>
                   </div>
@@ -630,7 +582,11 @@ RSpec.describe IsoDoc do
                       <div id="fwd">
                         <h1 class="ForewordTitle">Foreword</h1>
                 <div class="recommend"  id='A' style='page-break-after: avoid;page-break-inside: avoid;'>
-                <p class="RecommendationTitle">Recommendation 1:<br/>/ogc/recommendation/wfs/2</p><p><i>Obligation: shall,could</i><br/><i>Subject: user</i><br/><i>Inherits: /ss/584/2015/level/1</i><br/><i>Type: text</i><br/><i>Language: BASIC</i></p>
+                <p class="RecommendationTitle">Recommendation 1:<br/>/ogc/recommendation/wfs/2</p><p><i>Obligation: shall,could</i><br/>
+                  <i>Subject: user</i><br/>
+                  <i>Inherits: /ss/584/2015/level/1</i><br/>
+                  <i>Type: text</i><br/>
+                  <i>Language: BASIC</i></p>
                   <div class="requirement-description">
                     <p id="_">I recommend <i>this</i>.</p>
                   </div>
@@ -647,7 +603,7 @@ RSpec.describe IsoDoc do
                     <pre>CoreRoot(success): HttpResponse<br/>\u00a0\u00a0\u00a0\u00a0\u00a0 if (success)<br/>\u00a0\u00a0\u00a0\u00a0\u00a0 recommendation(label: success-response)<br/>\u00a0\u00a0\u00a0\u00a0\u00a0 end<br/>\u00a0\u00a0\u00a0 </pre>
                     </figure>
                   </div>
-                          <div class='requirement-component1'> <p id='_'>Hello</p> </div>
+                          <div class='requirement-component1'><p id='_'>Hello</p></div>
                 </div>
                       </div>
                     </div>

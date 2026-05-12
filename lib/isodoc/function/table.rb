@@ -89,12 +89,26 @@ module IsoDoc
         @in_table = false
       end
 
+      def table_parse_tail_elems
+        ["./key", "./fmt-source", "./note",
+         "./fmt-footnote-container/fmt-fn-body"]
+      end
+
       def table_parse_tail(node, out)
-        (dl = node.at(ns("./key"))) && parse(dl, out)
-        node.xpath(ns("./fmt-source")).each { |n| parse(n, out) }
-        node.xpath(ns("./note")).each { |n| parse(n, out) }
-        node.xpath(ns("./fmt-footnote-container/fmt-fn-body"))
-          .each { |n| parse(n, out) }
+        table_parse_tail?(node) or return
+        tfoot = table_get_or_make_tfoot(out.parent)
+        ins = new_fullcolspan_row(out.parent, tfoot)
+        b = Nokogiri::XML::Builder.with(ins)
+        table_parse_tail_elems.each do |k|
+          node.xpath(ns(k)).each { |n| parse(n, b) }
+        end
+      end
+
+      def table_parse_tail?(node)
+        table_parse_tail_elems.each do |k|
+          !node.xpath(ns(k)).empty? and return true
+        end
+        false
       end
 
       def table_parse_core(node, out)
@@ -139,15 +153,46 @@ module IsoDoc
       end
 
       def tr_parse(node, out, ord, totalrows, header)
-        bordered = table_bordered?(node)
         out.tr(**attr_code(style: node["style"])) do |r|
           node.elements.each do |td|
-            attrs = make_tr_attr(td, ord, totalrows - 1, header, bordered)
+            attrs = make_tr_attr(td, ord, totalrows - 1, header,
+                                 table_bordered?(node))
             r.send td.name, **attr_code(attrs) do |entry|
               td.children.each { |n| parse(n, entry) }
             end
           end
         end
+      end
+
+      def remove_bottom_border(cell)
+        # [^;]* (not +): the preceding property name is the unambiguous
+        # delimiter, so zero-or-more is equivalent and avoids polynomial
+        # backtracking on the value portion.
+        cell["style"] &&=
+          cell["style"].gsub(/border-bottom:[^;]*;/, "border-bottom:0pt;")
+      end
+
+      def table_get_or_make_tfoot(table)
+        tfoot = table.at(".//tfoot")
+        if tfoot.nil?
+          table.add_child("<tfoot></tfoot>")
+          tfoot = table.at(".//tfoot")
+        else
+          tfoot.xpath(".//td | .//th").each { |td| remove_bottom_border(td) }
+        end
+        tfoot
+      end
+
+      def new_fullcolspan_row(table, tfoot)
+        # how many columns in the table?
+        cols = 0
+        table.at(".//tr").xpath("./td | ./th").each do |td|
+          cols += (td["colspan"] ? td["colspan"].to_i : 1)
+        end
+        table["class"].nil? or # = plain table
+          s = "style='border-top:0pt;border-bottom:#{SW} 1.5pt;'"
+        tfoot.add_child("<tr><td colspan='#{cols}' #{s}/></tr>")
+        tfoot.xpath(".//td").last
       end
     end
   end

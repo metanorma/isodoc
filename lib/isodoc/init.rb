@@ -10,13 +10,24 @@ module IsoDoc
     end
 
     def i18n_init(lang, script, locale, i18nyaml = nil)
-      @i18n = I18n.new(lang, script, locale: locale,
-                                     i18nyaml: i18nyaml || @i18nyaml)
+      payload = i18nyaml || @i18nyaml
+      @i18n = if payload.is_a?(Hash)
+                I18n.new(lang, script, locale: locale, i18nhash: payload)
+              else
+                I18n.new(lang, script, locale: locale, i18nyaml: payload)
+              end
     end
 
     def l10n(expr, lang = @lang, script = @script, opt = {})
       opt[:locale] ||= @locale
       @i18n.l10n(expr, lang, script, opt)
+    end
+
+    def presentation_xml_converter
+      parts = self.class.name.split("::")
+      parts[-1] = "PresentationXMLConvert"
+      Object.const_get(parts.join("::"))
+        .new(language: @lang, script: @script)
     end
 
     def docxml_var_init(docxml)
@@ -27,8 +38,8 @@ module IsoDoc
     def doctype_init(docxml)
       @doctype = docxml.at(ns("//bibdata/ext/doctype"))&.text
       @subdoctype = docxml.at(ns("//bibdata/ext/subdoctype"))&.text
-      @docscheme = docxml.at(ns("//metanorma-extension/presentation-metadata/"\
-        "document-scheme"))&.text
+      @docscheme = docxml.at(ns("//metanorma-extension/presentation-metadata/" \
+                                "document-scheme"))&.text
     end
 
     def toc_init(docxml)
@@ -73,12 +84,12 @@ module IsoDoc
     def log_messages
       # rubocop:disable Naming/VariableNumber
       {
-        "STANDOC_36": { category: "Anchors",
-                        error: "ID %s has already been used at line %s",
-                        severity: 0 },
-        "ISODOC_1": { category: "Crossreferences",
-                      error: "Anchor %s pointed to by %s " \
-             "is not defined in the document", severity: 1 },
+        STANDOC_36: { category: "Anchors",
+                      error: "ID %s has already been used at line %s",
+                      severity: 0 },
+        ISODOC_1: { category: "Crossreferences",
+                    error: "Anchor %s pointed to by %s " \
+                           "is not defined in the document", severity: 1 },
       }
       # rubocop:enable Naming/VariableNumber
     end

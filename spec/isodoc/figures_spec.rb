@@ -88,351 +88,342 @@ RSpec.describe IsoDoc do
     INPUT
 
     presxml = <<~OUTPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-         <preface>
-           <clause type="toc" id="_8" displayorder="1">
-             <fmt-title depth="1" id="_26">Table of contents</fmt-title>
-           </clause>
-           <foreword id="fwd" displayorder="2">
-             <title id="_12">Foreword</title>
-             <fmt-title depth="1" id="_27">
-               <semx element="title" source="_12">Foreword</semx>
-             </fmt-title>
-             <figure id="figureA-1" keep-with-next="true" keep-lines-together="true" autonum="1">
-               <name id="_16">Split-it-right <em>sample</em> divider<fn original-id="_1" original-reference="1"><p>X</p></fn></name>
-               <fmt-name id="_28">
-                 <span class="fmt-caption-label">
-                   <span class="fmt-element-name">Figure</span>
-                   <semx element="autonum" source="figureA-1">1</semx>
-                 </span>
-                 <span class="fmt-caption-delim"> — </span>
-                 <semx element="name" source="_16">Split-it-right <em>sample</em> divider<fn reference="1" id="_1" original-reference="1" target="_20"><p>X</p><fmt-fn-label><span class="fmt-caption-label"><sup><semx element="autonum" source="_1">1</semx></sup></span></fmt-fn-label></fn></semx>
-               </fmt-name>
-               <fmt-xref-label>
-                 <span class="fmt-element-name">Figure</span>
-                 <semx element="autonum" source="figureA-1">1</semx>
-               </fmt-xref-label>
-               <image src="rice_images/rice_image1.png" height="20" width="30" id="_" mimetype="image/png" alt="alttext" title="titletxt"/>
-               <image src="rice_images/rice_image1.png" height="20" width="auto" id="_" mimetype="image/png"/>
-               <image src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_" mimetype="image/png"/>
-               <image src="data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==" height="20" width="auto" id="_" mimetype="application/xml"/>
-               <fn reference="a" id="_2" target="_14">
-                 <p original-id="_">The time <stem type="AsciiMath" id="_24">t_90</stem><fmt-stem type="AsciiMath"><semx element="stem" source="_24">t_90</semx></fmt-stem> was estimated to be 18,2 min for this example.</p>
-                 <fmt-fn-label>
-                   <span class="fmt-caption-label">
-                     <sup>
-                       <semx element="autonum" source="_2">a</semx>
-                     </sup>
-                   </span>
-                 </fmt-fn-label>
-               </fn>
-               <fn reference="b" id="_3" target="_15">
-                 <p original-id="_">Second footnote.</p>
-                 <fmt-fn-label>
-                   <span class="fmt-caption-label">
-                     <sup>
-                       <semx element="autonum" source="_3">b</semx>
-                     </sup>
-                   </span>
-                 </fmt-fn-label>
-               </fn>
-               <key class="formula_dl">
-                 <name>Key</name>
-                 <dl>
-                   <dt>
-                     <p>
-                       <fmt-fn-label>
-                         <span class="fmt-caption-label">
-                           <sup>
-                             <semx element="autonum" source="_2">a</semx>
-                           </sup>
-                         </span>
-                       </fmt-fn-label>
-                     </p>
-                   </dt>
-                   <dd>
-                     <fmt-fn-body id="_14" target="_2" reference="a">
-                       <semx element="fn" source="_2">
-                         <p id="_">The time <stem type="AsciiMath" id="_25">t_90</stem><fmt-stem type="AsciiMath"><semx element="stem" source="_25">t_90</semx></fmt-stem> was estimated to be 18,2 min for this example.</p>
-                       </semx>
-                     </fmt-fn-body>
-                   </dd>
-                   <dt>
-                     <p>
-                       <fmt-fn-label>
-                         <span class="fmt-caption-label">
-                           <sup>
-                             <semx element="autonum" source="_3">b</semx>
-                           </sup>
-                         </span>
-                       </fmt-fn-label>
-                     </p>
-                   </dt>
-                   <dd>
-                     <fmt-fn-body id="_15" target="_3" reference="b">
-                       <semx element="fn" source="_3">
-                         <p id="_">Second footnote.</p>
-                       </semx>
-                     </fmt-fn-body>
-                   </dd>
-                   <dt>A</dt>
-                   <dd>
-                     <p>B</p>
-                   </dd>
-                 </dl>
-               </key>
-               <source status="generalisation" id="_4">
-                 <origin bibitemid="ISO712" type="inline" citeas="ISO 712">
-                   <localityStack>
-                     <locality type="section">
-                       <referenceFrom>1</referenceFrom>
-                     </locality>
-                   </localityStack>
-                 </origin>
-                 <modification id="_5">
-                   <p id="_">with adjustments</p>
-                 </modification>
-               </source>
-               <fmt-source>[SOURCE: <semx element="source" source="_4"><origin bibitemid="ISO712" type="inline" citeas="ISO 712" id="_21"><localityStack><locality type="section"><referenceFrom>1</referenceFrom></locality></localityStack></origin><semx element="origin" source="_21"><fmt-xref type="inline" target="ISO712">ISO 712,  Section 1</fmt-xref></semx> — <semx element="modification" source="_5">with adjustments</semx></semx>; <semx element="source" source="_6"><origin bibitemid="ISO712" type="inline" citeas="ISO 712" id="_22"><localityStack><locality type="section"><referenceFrom>2</referenceFrom></locality></localityStack></origin><semx element="origin" source="_22"><fmt-xref type="inline" target="ISO712">ISO 712,  Section 2</fmt-xref></semx></semx>; <semx element="source" source="_7"><origin bibitemid="ISO712" type="inline" citeas="ISO 712" id="_23"><localityStack><locality type="section"><referenceFrom>3</referenceFrom></locality></localityStack></origin><semx element="origin" source="_23"><fmt-xref type="inline" target="ISO712">ISO 712,  Section 3</fmt-xref></semx></semx>]</fmt-source>
-               <source status="specialisation" id="_6">
-                 <origin bibitemid="ISO712" type="inline" citeas="ISO 712">
-                   <localityStack>
-                     <locality type="section">
-                       <referenceFrom>2</referenceFrom>
-                     </locality>
-                   </localityStack>
-                 </origin>
-               </source>
-               <source status="specialisation" id="_7">
-                 <origin bibitemid="ISO712" type="inline" citeas="ISO 712">
-                   <localityStack>
-                     <locality type="section">
-                       <referenceFrom>3</referenceFrom>
-                     </locality>
-                   </localityStack>
-                 </origin>
-               </source>
-             </figure>
-             <figure id="figure-B" autonum="2">
-               <fmt-name id="_29">
-                 <span class="fmt-caption-label">
-                   <span class="fmt-element-name">Figure</span>
-                   <semx element="autonum" source="figure-B">2</semx>
-                 </span>
-               </fmt-name>
-               <fmt-xref-label>
-                 <span class="fmt-element-name">Figure</span>
-                 <semx element="autonum" source="figure-B">2</semx>
-               </fmt-xref-label>
-               <pre alt="A B">A &lt;
-         B</pre>
-             </figure>
-             <figure id="figure-C" unnumbered="true">
-               <pre>A &lt;
-         B</pre>
-             </figure>
-           </foreword>
-         </preface>
-         <sections>
-           <references id="_normative_references" obligation="informative" normative="true" displayorder="3">
-             <title id="_13">Normative References</title>
-             <fmt-title depth="1" id="_30">
-               <span class="fmt-caption-label">
-                 <semx element="autonum" source="_normative_references">1</semx>
-                 <span class="fmt-autonum-delim">.</span>
-               </span>
-               <span class="fmt-caption-delim">
-                 <tab/>
-               </span>
-               <semx element="title" source="_13">Normative References</semx>
-             </fmt-title>
-             <fmt-xref-label>
-               <span class="fmt-element-name">Clause</span>
-               <semx element="autonum" source="_normative_references">1</semx>
-             </fmt-xref-label>
-             <bibitem id="ISO712" type="standard">
-               <biblio-tag>ISO 712, </biblio-tag>
-               <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
-               <title format="text/plain">Cereals or cereal products</title>
-               <title type="main" format="text/plain">Cereals and cereal products</title>
-               <docidentifier type="ISO">ISO 712</docidentifier>
-               <docidentifier scope="biblio-tag">ISO 712</docidentifier>
-               <contributor>
-                 <role type="publisher"/>
-                 <organization>
-                   <name>International Organization for Standardization</name>
-                 </organization>
-               </contributor>
-             </bibitem>
-           </references>
-         </sections>
-         <annex id="Annex" autonum="A" displayorder="4">
-           <variant-title type="toc">
-             <span class="fmt-caption-label">
-               <span class="fmt-element-name">Annex</span>
-               <semx element="autonum" source="Annex">A</semx>
-             </span>
-           </variant-title>
-           <fmt-title id="_31">
-             <strong>
-               <span class="fmt-caption-label">
-                 <span class="fmt-element-name">Annex</span>
-                 <semx element="autonum" source="Annex">A</semx>
-               </span>
-             </strong>
-             <br/>
-             <span class="fmt-obligation">(informative)</span>
-           </fmt-title>
-           <fmt-xref-label>
-             <span class="fmt-element-name">Annex</span>
-             <semx element="autonum" source="Annex">A</semx>
-           </fmt-xref-label>
-           <figure id="AnnexFigure" autonum="A.1">
-             <fmt-name id="_32">
-               <span class="fmt-caption-label">
-                 <span class="fmt-element-name">Figure</span>
-                 <semx element="autonum" source="Annex">A</semx>
-                 <span class="fmt-autonum-delim">.</span>
-                 <semx element="autonum" source="AnnexFigure">1</semx>
-               </span>
-             </fmt-name>
-             <fmt-xref-label>
-               <span class="fmt-element-name">Figure</span>
-               <semx element="autonum" source="Annex">A</semx>
-               <span class="fmt-autonum-delim">.</span>
-               <semx element="autonum" source="AnnexFigure">1</semx>
-             </fmt-xref-label>
-             <pre>A &lt;
-         B</pre>
-           </figure>
-         </annex>
-         <bibliography>
-             </bibliography>
-         <fmt-footnote-container>
-           <fmt-fn-body id="_20" target="_1" reference="1">
-             <semx element="fn" source="_1">
-               <p><fmt-fn-label><span class="fmt-caption-label"><sup><semx element="autonum" source="_1">1</semx></sup></span><span class="fmt-caption-delim"><tab/></span></fmt-fn-label>X</p>
-             </semx>
-           </fmt-fn-body>
-         </fmt-footnote-container>
-       </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+        <preface>
+          <clause type="toc" id="_8" displayorder="1">
+            <fmt-title depth="1" id="_26">Table of contents</fmt-title>
+          </clause>
+          <foreword id="fwd" displayorder="2">
+            <title id="_12">Foreword</title>
+            <fmt-title depth="1" id="_27">
+              <semx element="title" source="_12">Foreword</semx>
+            </fmt-title>
+            <figure id="figureA-1" keep-with-next="true" keep-lines-together="true" autonum="1">
+              <name id="_16">Split-it-right <em>sample</em> divider<fn original-id="_1" original-reference="1"><p>X</p></fn></name>
+              <fmt-name id="_28">
+                <span class="fmt-caption-label">
+                  <span class="fmt-element-name">Figure</span>
+                  <semx element="autonum" source="figureA-1">1</semx>
+                </span>
+                <span class="fmt-caption-delim"> — </span>
+                <semx element="name" source="_16">Split-it-right <em>sample</em> divider<fn reference="1" id="_1" original-reference="1" target="_20"><p>X</p><fmt-fn-label><span class="fmt-caption-label"><sup><semx element="autonum" source="_1">1</semx></sup></span></fmt-fn-label></fn></semx>
+              </fmt-name>
+              <fmt-xref-label>
+                <span class="fmt-element-name">Figure</span>
+                <semx element="autonum" source="figureA-1">1</semx>
+              </fmt-xref-label>
+              <image src="rice_images/rice_image1.png" height="20" width="30" id="_" mimetype="image/png" alt="alttext" title="titletxt"/>
+              <image src="rice_images/rice_image1.png" height="20" width="auto" id="_" mimetype="image/png"/>
+              <image src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_" mimetype="image/png"/>
+              <image src="data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==" height="20" width="auto" id="_" mimetype="application/xml"/>
+              <fn reference="a" id="_2" target="_14">
+                <p original-id="_">The time <stem type="AsciiMath" id="_24">t_90</stem><fmt-stem type="AsciiMath"><semx element="stem" source="_24">t_90</semx></fmt-stem> was estimated to be 18,2 min for this example.</p>
+                <fmt-fn-label>
+                  <span class="fmt-caption-label">
+                    <sup>
+                      <semx element="autonum" source="_2">a</semx>
+                    </sup>
+                  </span>
+                </fmt-fn-label>
+              </fn>
+              <fn reference="b" id="_3" target="_15">
+                <p original-id="_">Second footnote.</p>
+                <fmt-fn-label>
+                  <span class="fmt-caption-label">
+                    <sup>
+                      <semx element="autonum" source="_3">b</semx>
+                    </sup>
+                  </span>
+                </fmt-fn-label>
+              </fn>
+              <key class="formula_dl">
+                <name>Key</name>
+                <dl>
+                  <dt>
+                    <p>
+                      <fmt-fn-label>
+                        <span class="fmt-caption-label">
+                          <sup>
+                            <semx element="autonum" source="_2">a</semx>
+                          </sup>
+                        </span>
+                      </fmt-fn-label>
+                    </p>
+                  </dt>
+                  <dd>
+                    <fmt-fn-body id="_14" target="_2" reference="a">
+                      <semx element="fn" source="_2">
+                        <p id="_">The time <stem type="AsciiMath" id="_25">t_90</stem><fmt-stem type="AsciiMath"><semx element="stem" source="_25">t_90</semx></fmt-stem> was estimated to be 18,2 min for this example.</p>
+                      </semx>
+                    </fmt-fn-body>
+                  </dd>
+                  <dt>
+                    <p>
+                      <fmt-fn-label>
+                        <span class="fmt-caption-label">
+                          <sup>
+                            <semx element="autonum" source="_3">b</semx>
+                          </sup>
+                        </span>
+                      </fmt-fn-label>
+                    </p>
+                  </dt>
+                  <dd>
+                    <fmt-fn-body id="_15" target="_3" reference="b">
+                      <semx element="fn" source="_3">
+                        <p id="_">Second footnote.</p>
+                      </semx>
+                    </fmt-fn-body>
+                  </dd>
+                  <dt>A</dt>
+                  <dd>
+                    <p>B</p>
+                  </dd>
+                </dl>
+              </key>
+              <source status="generalisation" id="_4">
+                <origin bibitemid="ISO712" type="inline" citeas="ISO 712">
+                  <localityStack>
+                    <locality type="section">
+                      <referenceFrom>1</referenceFrom>
+                    </locality>
+                  </localityStack>
+                </origin>
+                <modification id="_5">
+                  <p id="_">with adjustments</p>
+                </modification>
+              </source>
+              <fmt-source>[SOURCE: <semx element="source" source="_4"><origin bibitemid="ISO712" type="inline" citeas="ISO 712" id="_21"><localityStack><locality type="section"><referenceFrom>1</referenceFrom></locality></localityStack></origin><semx element="origin" source="_21"><fmt-xref type="inline" target="ISO712">ISO 712,  Section 1</fmt-xref></semx> — <semx element="modification" source="_5">with adjustments</semx></semx>; <semx element="source" source="_6"><origin bibitemid="ISO712" type="inline" citeas="ISO 712" id="_22"><localityStack><locality type="section"><referenceFrom>2</referenceFrom></locality></localityStack></origin><semx element="origin" source="_22"><fmt-xref type="inline" target="ISO712">ISO 712,  Section 2</fmt-xref></semx></semx>; <semx element="source" source="_7"><origin bibitemid="ISO712" type="inline" citeas="ISO 712" id="_23"><localityStack><locality type="section"><referenceFrom>3</referenceFrom></locality></localityStack></origin><semx element="origin" source="_23"><fmt-xref type="inline" target="ISO712">ISO 712,  Section 3</fmt-xref></semx></semx>]</fmt-source>
+              <source status="specialisation" id="_6">
+                <origin bibitemid="ISO712" type="inline" citeas="ISO 712">
+                  <localityStack>
+                    <locality type="section">
+                      <referenceFrom>2</referenceFrom>
+                    </locality>
+                  </localityStack>
+                </origin>
+              </source>
+              <source status="specialisation" id="_7">
+                <origin bibitemid="ISO712" type="inline" citeas="ISO 712">
+                  <localityStack>
+                    <locality type="section">
+                      <referenceFrom>3</referenceFrom>
+                    </locality>
+                  </localityStack>
+                </origin>
+              </source>
+            </figure>
+            <figure id="figure-B" autonum="2">
+              <fmt-name id="_29">
+                <span class="fmt-caption-label">
+                  <span class="fmt-element-name">Figure</span>
+                  <semx element="autonum" source="figure-B">2</semx>
+                </span>
+              </fmt-name>
+              <fmt-xref-label>
+                <span class="fmt-element-name">Figure</span>
+                <semx element="autonum" source="figure-B">2</semx>
+              </fmt-xref-label>
+              <pre alt="A B">A &lt;
+        B</pre>
+            </figure>
+            <figure id="figure-C" unnumbered="true">
+              <pre>A &lt;
+        B</pre>
+            </figure>
+          </foreword>
+        </preface>
+        <sections>
+          <references id="_normative_references" obligation="informative" normative="true" displayorder="3">
+            <title id="_13">Normative References</title>
+            <fmt-title depth="1" id="_30">
+              <span class="fmt-caption-label">
+                <semx element="autonum" source="_normative_references">1</semx>
+                <span class="fmt-autonum-delim">.</span>
+              </span>
+              <span class="fmt-caption-delim">
+                <tab/>
+              </span>
+              <semx element="title" source="_13">Normative References</semx>
+            </fmt-title>
+            <fmt-xref-label>
+              <span class="fmt-element-name">Clause</span>
+              <semx element="autonum" source="_normative_references">1</semx>
+            </fmt-xref-label>
+            <bibitem id="ISO712" type="standard">
+              <biblio-tag>ISO 712, </biblio-tag>
+              <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
+              <title format="text/plain">Cereals or cereal products</title>
+              <title type="main" format="text/plain">Cereals and cereal products</title>
+              <docidentifier type="ISO">ISO 712</docidentifier>
+              <docidentifier scope="biblio-tag">ISO 712</docidentifier>
+              <contributor>
+                <role type="publisher"/>
+                <organization>
+                  <name>International Organization for Standardization</name>
+                </organization>
+              </contributor>
+            </bibitem>
+          </references>
+        </sections>
+        <annex id="Annex" autonum="A" displayorder="4">
+          <variant-title type="toc">
+            <span class="fmt-caption-label">
+              <span class="fmt-element-name">Annex</span>
+              <semx element="autonum" source="Annex">A</semx>
+            </span>
+          </variant-title>
+          <fmt-title id="_31">
+            <strong>
+              <span class="fmt-caption-label">
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="Annex">A</semx>
+              </span>
+            </strong>
+            <br/>
+            <span class="fmt-obligation">(informative)</span>
+          </fmt-title>
+          <fmt-xref-label>
+            <span class="fmt-element-name">Annex</span>
+            <semx element="autonum" source="Annex">A</semx>
+          </fmt-xref-label>
+          <figure id="AnnexFigure" autonum="A.1">
+            <fmt-name id="_32">
+              <span class="fmt-caption-label">
+                <span class="fmt-element-name">Figure</span>
+                <semx element="autonum" source="Annex">A</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="AnnexFigure">1</semx>
+              </span>
+            </fmt-name>
+            <fmt-xref-label>
+              <span class="fmt-element-name">Figure</span>
+              <semx element="autonum" source="Annex">A</semx>
+              <span class="fmt-autonum-delim">.</span>
+              <semx element="autonum" source="AnnexFigure">1</semx>
+            </fmt-xref-label>
+            <pre>A &lt;
+        B</pre>
+          </figure>
+        </annex>
+        <bibliography>
+            </bibliography>
+        <fmt-footnote-container>
+          <fmt-fn-body id="_20" target="_1" reference="1">
+            <semx element="fn" source="_1">
+              <p><fmt-fn-label><span class="fmt-caption-label"><sup><semx element="autonum" source="_1">1</semx></sup></span><span class="fmt-caption-delim"><tab/></span></fmt-fn-label>X</p>
+            </semx>
+          </fmt-fn-body>
+        </fmt-footnote-container>
+      </iso-standard>
     OUTPUT
 
     html = <<~OUTPUT
-      #{HTML_HDR}
-                               <br/>
-               <div id="fwd">
-                   <h1 class="ForewordTitle">Foreword</h1>
-                   <figure id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
-                      <picture>
-                         <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
-                      </picture>
-                      <picture>
-                         <img src="rice_images/rice_image1.png" height="20" width="auto"/>
-                      </picture>
-                      <picture>
-                         <img src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto"/>
-                      </picture>
-                      <picture>
-                         <img src="data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==" height="20" width="auto"/>
-                      </picture>
-                      <a href="#figureA-1a" class="TableFootnoteRef">a</a>
-                      <a href="#figureA-1b" class="TableFootnoteRef">b</a>
-                      <div class="key formula_dl">
-                         <p style="page-break-after: avoid;">
-                            <b>Key</b>
-                         </p>
-                         <div class="figdl">
-                            <dl>
-                               <dt>
-                                  <p>
-                                     <sup>a</sup>
-                                  </p>
-                               </dt>
-                               <dd>
-                                  <div id="fn:figureA-1a" class="footnote">
-                                     <p id="_">
-                                        The time
-                                        <span class="stem">(#(t_90)#)</span>
-                                        was estimated to be 18,2 min for this example.
-                                     </p>
-                                  </div>
-                               </dd>
-                               <dt>
-                                  <p>
-                                     <sup>b</sup>
-                                  </p>
-                               </dt>
-                               <dd>
-                                  <div id="fn:figureA-1b" class="footnote">
-                                     <p id="_">Second footnote.</p>
-                                  </div>
-                               </dd>
-                               <dt>
-                                  <p>A</p>
-                               </dt>
-                               <dd>
-                                  <p>B</p>
-                               </dd>
-                            </dl>
-                         </div>
+      <body lang="en" xml:lang="en">
+        <div class="title-section">
+          <p> </p>
+        </div>
+        <br/>
+        <div class="prefatory-section">
+          <p> </p>
+        </div>
+        <br/>
+        <div class="main-section">
+          <br/>
+          <div id="_" class="TOC">
+            <h1 class="IntroTitle">Table of contents</h1>
+          </div>
+          <br/>
+          <div id="fwd">
+            <h1 class="ForewordTitle">Foreword</h1>
+            <figure id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+              <picture>
+                <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
+              </picture>
+              <picture>
+                <img src="rice_images/rice_image1.png" height="20" width="auto"/>
+              </picture>
+              <picture>
+                <img src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto"/>
+              </picture>
+              <picture>
+                <img src="data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==" height="20" width="auto"/>
+              </picture>
+              <a href="#figureA-1a" class="TableFootnoteRef">a</a>
+              <a href="#figureA-1b" class="TableFootnoteRef">b</a>
+              <div class="key formula_dl">
+                <p style="page-break-after: avoid;">
+                  <b>Key</b>
+                </p>
+                <div class="figdl">
+                  <dl>
+                    <dt>
+                      <p>
+                        <sup>a</sup>
+                      </p>
+                    </dt>
+                    <dd>
+                      <div id="fn:figureA-1a" class="footnote">
+                        <p id="_">The time <span class="stem">(#(t_90)#)</span> was estimated to be 18,2 min for this example.</p>
                       </div>
-                      <div class="BlockSource">
-                         <p>
-                            [SOURCE:
-                            <a href="#ISO712">ISO\u00a0712, Section 1</a>
-                            — with adjustments;
-                            <a href="#ISO712">ISO\u00a0712, Section 2</a>
-                            ;
-                            <a href="#ISO712">ISO\u00a0712, Section 3</a>
-                            ]
-                         </p>
+                    </dd>
+                    <dt>
+                      <p>
+                        <sup>b</sup>
+                      </p>
+                    </dt>
+                    <dd>
+                      <div id="fn:figureA-1b" class="footnote">
+                        <p id="_">Second footnote.</p>
                       </div>
-                      <figcaption>
-                         Figure 1\u00a0— Split-it-right
-                         <i>sample</i>
-                         divider
-                         <a class="FootnoteRef" href="#fn:_20">
-                            <sup>1</sup>
-                         </a>
-                      </figcaption>
-                   </figure>
-                   <figure id="figure-B" class="figure">
-                      <pre>A &lt;  B</pre>
-                      <figcaption>Figure 2</figcaptionp>
-                   </figure>
-                   <figure id="figure-C" class="figure">
-                      <pre>A &lt;  B</pre>
-                   </figure>
+                    </dd>
+                    <dt>
+                      <p>A</p>
+                    </dt>
+                    <dd>
+                      <p>B</p>
+                    </dd>
+                  </dl>
                 </div>
-                <div>
-                   <h1>1.\u00a0 Normative References</h1>
-                   <p id="ISO712" class="NormRef">
-                      ISO\u00a0712, International Organization for Standardization.
-                      <i>Cereals and cereal products</i>
-                      .
-                   </p>
-                </div>
-                <br/>
-                <div id="Annex" class="Section3">
-                   <p style="display:none;" class="variant-title-toc">Annex A</p>
-                   <h1 class="Annex">
-                      <b>Annex A</b>
-                      <br/>
-                      (informative)
-                   </h1>
-                   <figure id="AnnexFigure" class="figure">
-                      <pre>A &lt;
-         B</pre>
-                      <figcaption>Figure A.1</figcaption>
-                   </figure>
-                </div>
-                <aside id="fn:_20" class="footnote">
-                   <p>X</p>
-                </aside>
-             </div>
-          </body>
-       </html>
+              </div>
+              <div class="BlockSource">
+                <p>[SOURCE: <a href="#ISO712">ISO 712,  Section 1</a> — with adjustments;
+          <a href="#ISO712">ISO 712,  Section 2</a>
+        ;
+          <a href="#ISO712">ISO 712,  Section 3</a>
+        ]</p>
+              </div>
+              <figcaption>Figure 1 — Split-it-right <i>sample</i> divider<a class="FootnoteRef" href="#fn:_20"><sup>1</sup></a></figcaption>
+            </figure>
+            <figure id="figure-B" class="figure">
+              <pre>A &lt;
+        B</pre>
+              <figcaption>Figure 2</figcaption>
+            </figure>
+            <figure id="figure-C" class="figure">
+              <pre>A &lt;
+        B</pre>
+            </figure>
+          </div>
+          <div>
+            <h1>1.  Normative References</h1>
+            <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
+          </div>
+          <br/>
+          <div id="Annex" class="Section3">
+            <p style="display:none;" class="variant-title-toc">Annex A</p>
+            <h1 class="Annex"><b>Annex A</b><br/>(informative)</h1>
+            <figure id="AnnexFigure" class="figure">
+              <pre>A &lt;
+        B</pre>
+              <figcaption>Figure A.1</figcaption>
+            </figure>
+          </div>
+          <aside id="fn:_20" class="footnote">
+            <p>X</p>
+          </aside>
+        </div>
+      </body>
     OUTPUT
 
     word = <<~OUTPUT
@@ -442,12 +433,7 @@ RSpec.describe IsoDoc do
          xmlns:w="urn:schemas-microsoft-com:office:word"
          xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
          lang="en">
-      <head>
-        <style>
-          <!--
-          -->
-        </style>
-      </head>
+      <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> </head>
          <body lang="EN-US" link="blue" vlink="#954F72">
            <div class="WordSection1">
              <p> </p>
@@ -478,9 +464,10 @@ RSpec.describe IsoDoc do
                       </p>
                       <div align="left">
                          <table style="text-align:left;" class="formula_dl">
+                         <tbody>
                             <tr>
                                <td valign="top" align="left">
-                                  <p align="left" style="margin-left:0pt;text-align:left;">
+                                  <p align="left" style="margin-left:0pt;text-align:left;"/>
                                      <p>
                                         <sup>a</sup>
                                      </p>
@@ -498,7 +485,7 @@ RSpec.describe IsoDoc do
                             </tr>
                             <tr>
                                <td valign="top" align="left">
-                                  <p align="left" style="margin-left:0pt;text-align:left;">
+                                  <p align="left" style="margin-left:0pt;text-align:left;"/>
                                      <p>
                                         <sup>b</sup>
                                      </p>
@@ -518,6 +505,7 @@ RSpec.describe IsoDoc do
                                   <p>B</p>
                                </td>
                             </tr>
+                            </tbody>
                          </table>
                       </div>
                       </div>
@@ -570,9 +558,7 @@ RSpec.describe IsoDoc do
                 </p>
                 <div id="Annex" class="Section3">
                 <p style="display:none;" class="variant-title-toc">Annex A</p>
-                   <h1 class="Annex">
-                      <b>Annex A</b>
-                      <br/>(informative)</h1>
+                   <h1 class="Annex"><b>Annex A</b><br/>(informative)</h1>
                    <div id="AnnexFigure" class="figure">
                       <pre>A &lt;
         B</pre>
@@ -591,19 +577,21 @@ RSpec.describe IsoDoc do
     expect(strip_guid(pres_output
       .gsub("&lt;", "&#x3c;")))
       .to be_xml_equivalent_to presxml
-    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml))
+    output = output.at("//body")
+    expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
     FileUtils.rm_rf "spec/assets/odf1.emf"
-    output = Nokogiri::XML(IsoDoc::WordConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml
+    expect(strip_guid(output.to_xhtml
         .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
-        .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_xml_equivalent_to word
+        .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
+        .gsub(%r{<style>[^>]+</style>}m, "")))
+      .to be_html4_equivalent_to word
   end
 
   it "processes subfigures" do
@@ -809,12 +797,7 @@ RSpec.describe IsoDoc do
          xmlns:w="urn:schemas-microsoft-com:office:word"
          xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
          lang="en">
-        <head>
-          <style>
-            <!--
-            -->
-          </style>
-        </head>
+        <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> <style> </style> </head>
          <body lang="EN-US" link="blue" vlink="#954F72">
            <div class="WordSection1">
              <p> </p>
@@ -1161,12 +1144,7 @@ RSpec.describe IsoDoc do
          xmlns:w="urn:schemas-microsoft-com:office:word"
          xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
          lang="en">
-        <head>
-          <style>
-            <!--
-            -->
-          </style>
-        </head>
+        <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> <style> </style> </head>
          <body lang="EN-US" link="blue" vlink="#954F72">
            <div class="WordSection1">
              <p> </p>
@@ -1509,155 +1487,81 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     html = <<~OUTPUT
-      #{HTML_HDR}
-                      <br/>
-                <div id="fwd">
-                   <h1 class="ForewordTitle">Foreword</h1>
-                   <figure id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
-                      <picture>
-                         <source srcset="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" media="all"/>
-                         <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
-                      </picture>
-                      <figcaption>
-                         Figure 1\u00a0— Split-it-right
-                         <i>sample</i>
-                         divider
-                      </figcaption>
-                   </figure>
-                </div>
-             </div>
-          </body>
-       </html>
+      <div id="fwd">
+        <h1 class="ForewordTitle">Foreword</h1>
+        <figure id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+          <picture>
+            <source srcset="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" media="all"/>
+            <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
+          </picture>
+          <figcaption>Figure 1 — Split-it-right <i>sample</i> divider</figcaption>
+        </figure>
+      </div>
     OUTPUT
     word = <<~OUTPUT
-      <html
-        xmlns:epub="http://www.idpf.org/2007/ops"
-        xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
-        xmlns:w="urn:schemas-microsoft-com:office:word"
-        xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
-        lang="en">
-      <head>
-        <style>
-          <!--
-          -->
-        </style>
-      </head>
-         <body lang="EN-US" link="blue" vlink="#954F72">
-           <div class="WordSection1">
-             <p> </p>
-           </div>
-           <p class="section-break"><br clear="all" class="section"/></p>
-           <div class="WordSection2">
-            <p class="page-break">
-            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-          </p>
-          <div class="TOC" id="_">
-            <p class="zzContents">Table of contents</p>
-          </div>
-                      <p class="page-break">
-                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                </p>
-                <div id="fwd">
-                   <h1 class="ForewordTitle">Foreword</h1>
-                   <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
-                      <img src='_.xml' height="20" width="auto"/>
-                      <p class="FigureTitle" style="text-align:center;">
-                         Figure 1\u00a0— Split-it-right
-                         <i>sample</i>
-                         divider
-                      </p>
-                   </div>
-                </div>
-                <p>\u00a0</p>
-             </div>
-             <p class="section-break">
-                <br clear="all" class="section"/>
-             </p>
-             <div class="WordSection3"/>
-          </body>
-       </html>
+      <div id="fwd">
+         <h1 class="ForewordTitle">Foreword</h1>
+         <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+            <img src='_.xml' height="20" width="auto"/>
+            <p class="FigureTitle" style="text-align:center;">
+               Figure 1\u00a0— Split-it-right
+               <i>sample</i>
+               divider
+            </p>
+         </div>
+      </div>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
     expect(strip_guid(pres_output
       .gsub("&lt;", "&#x3c;")))
       .to be_xml_equivalent_to presxml
-    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml))
+    output = output.at("//div[@id='fwd']")
+    expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
-    output = Nokogiri::XML(IsoDoc::WordConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
-    output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml
+    output = output.at("//div[@id='fwd']")
+    expect(strip_guid(output.to_xhtml
       .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_xml_equivalent_to word
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
+      .gsub(%r{<style>[^>]+</style>}m, "")))
+      .to be_html4_equivalent_to word
 
     word = <<~OUTPUT
-      <html
-        xmlns:epub="http://www.idpf.org/2007/ops"
-        xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
-        xmlns:w="urn:schemas-microsoft-com:office:word"
-        xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
-        lang="en">
-      <head>
-        <style>
-          <!--
-          -->
-        </style>
-      </head>
-         <body lang="EN-US" link="blue" vlink="#954F72">
-           <div class="WordSection1">
-             <p> </p>
-           </div>
-           <p class="section-break"><br clear="all" class="section"/></p>
-           <div class="WordSection2">
-            <p class="page-break">
-            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-          </p>
-          <div class="TOC" id="_">
-            <p class="zzContents">Table of contents</p>
-          </div>
-                     <p class="page-break">
-                  <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-               </p>
-               <div id="fwd">
-                  <h1 class="ForewordTitle">Foreword</h1>
-                  <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
-                     <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
-                     <p class="FigureTitle" style="text-align:center;">
-                        Figure 1\u00a0— Split-it-right
-                        <i>sample</i>
-                        divider
-                     </p>
-                  </div>
-               </div>
-               <p>\u00a0</p>
-            </div>
-            <p class="section-break">
-               <br clear="all" class="section"/>
+      <div id="fwd">
+         <h1 class="ForewordTitle">Foreword</h1>
+         <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+            <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
+            <p class="FigureTitle" style="text-align:center;">
+               Figure 1\u00a0— Split-it-right
+               <i>sample</i>
+               divider
             </p>
-            <div class="WordSection3"/>
-         </body>
-      </html>
+         </div>
+      </div>
     OUTPUT
     input.sub!("doc,tag", "doc1,tag")
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml))
+    output = output.at("//div[@id='fwd']")
+    expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
-    output = Nokogiri::XML(IsoDoc::WordConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml
+    output = output.at("//div[@id='fwd']")
+    expect(strip_guid(output.to_xhtml
       .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_xml_equivalent_to word
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
+      .gsub(%r{<style>[^>]+</style>}m, "")))
+      .to be_html4_equivalent_to word
   end
 
   it "processes raw SVG" do
@@ -1826,41 +1730,36 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     html = <<~OUTPUT
-      #{HTML_HDR}
-                <br/>
-                <div id="fwd">
-                   <h1 class="ForewordTitle">Foreword</h1>
-                   <figure id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
-                     <picture>
-                         <source srcset="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZWFzcGVjdHJhdGlvPSJ4TWlkWU1pbiBzbGljZSI+CiAgICAgICAgICAgICAgICAgICA8Y2lyY2xlIGZpbGw9IiMwMDkiIHI9IjQ1IiBjeD0iNTAiIGN5PSI1MCIvPgogICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTMzLDI2SDc4QTM3LDM3LDAsMCwxLDMzLDgzVjU3SDU5VjQzSDMzWiIgZmlsbD0iI0ZGRiIvPgogICAgICAgICAgICAgICAgPC9zdmc+" media="all"/>
-                         <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZWFzcGVjdHJhdGlvPSJ4TWlkWU1pbiBzbGljZSI+CiAgICAgICAgICAgICAgICAgICA8Y2lyY2xlIGZpbGw9IiMwMDkiIHI9IjQ1IiBjeD0iNTAiIGN5PSI1MCIvPgogICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTMzLDI2SDc4QTM3LDM3LDAsMCwxLDMzLDgzVjU3SDU5VjQzSDMzWiIgZmlsbD0iI0ZGRiIvPgogICAgICAgICAgICAgICAgPC9zdmc+" height="auto" width="auto"/>
-                      </picture>
-                      <figcaption>Figure 1</figcaption>
-                   </figure>
-                   <figure id="_" class="figure">
-                      <div class="svg-container">
-                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
-                            <circle fill="#009" r="45" cx="50" cy="50"/>
-                            <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
-                         </svg>
-                      </div>
-                      <figcaption>Figure 2</figcaption>
-                   </figure>
-                </div>
-             </div>
-          </body>
-       </html>
+      <div id="fwd">
+         <h1 class="ForewordTitle">Foreword</h1>
+         <figure id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+           <picture>
+               <source srcset="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZWFzcGVjdHJhdGlvPSJ4TWlkWU1pbiBzbGljZSI+CiAgICAgICAgICAgICAgICAgICA8Y2lyY2xlIGZpbGw9IiMwMDkiIHI9IjQ1IiBjeD0iNTAiIGN5PSI1MCIvPgogICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTMzLDI2SDc4QTM3LDM3LDAsMCwxLDMzLDgzVjU3SDU5VjQzSDMzWiIgZmlsbD0iI0ZGRiIvPgogICAgICAgICAgICAgICAgPC9zdmc+" media="all"/>
+               <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZWFzcGVjdHJhdGlvPSJ4TWlkWU1pbiBzbGljZSI+CiAgICAgICAgICAgICAgICAgICA8Y2lyY2xlIGZpbGw9IiMwMDkiIHI9IjQ1IiBjeD0iNTAiIGN5PSI1MCIvPgogICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTMzLDI2SDc4QTM3LDM3LDAsMCwxLDMzLDgzVjU3SDU5VjQzSDMzWiIgZmlsbD0iI0ZGRiIvPgogICAgICAgICAgICAgICAgPC9zdmc+" height="auto" width="auto"/>
+            </picture>
+            <figcaption>Figure 1</figcaption>
+         </figure>
+         <figure id="_" class="figure">
+            <div class="svg-container">
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
+                  <circle fill="#009" r="45" cx="50" cy="50"/>
+                  <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
+               </svg>
+            </div>
+            <figcaption>Figure 2</figcaption>
+         </figure>
+      </div>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
     expect(strip_guid(Canon.format_xml(pres_output
       .gsub("&lt;", "&#x3c;"))))
       .to be_equivalent_to Canon.format_xml(presxml)
-    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
-    .convert("test", pres_output, true))
-    output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Canon.format_xml(output.to_xml)))
-      .to be_equivalent_to Canon.format_xml(html)
+    output = IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true)
+    output = Nokogiri::HTML(output).at("//div[@id='fwd']").to_xhtml
+    expect(strip_guid(output))
+      .to be_html5_equivalent_to html
   end
 
   it "processes SVG with viewbox" do
@@ -2085,12 +1984,7 @@ RSpec.describe IsoDoc do
          xmlns:w="urn:schemas-microsoft-com:office:word"
          xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
          lang="en">
-      <head>
-        <style>
-          <!--
-          -->
-        </style>
-      </head>
+      <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> <style> </style> </head>
          <body lang="EN-US" link="blue" vlink="#954F72">
            <div class="WordSection1">
              <p> </p>

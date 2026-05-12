@@ -234,7 +234,7 @@ module IsoDoc
         CSV.parse_line(processed, quote_char: "'")
           .each_with_object({}) do |x, acc|
           x.gsub!(COMMA_PLACEHOLDER, ",")
-          m = /^(.+?)=(.+)?$/.match(x) or next
+          m = /^(.+?)=(.*)?$/.match(x) or next
           acc[m[1].to_sym] = m[2].sub(/^(["'])(.+)\1$/, "\\2")
         end
       end

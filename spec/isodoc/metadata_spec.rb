@@ -29,7 +29,7 @@ RSpec.describe IsoDoc do
         <date type="circulated"><on>2015</on></date>
         <date type="copied"><on>2016</on></date>
         <date type="confirmed"><on>2017</on></date>
-        <date type="updated"><on>2018</on></date>
+        <date type="updated"><on>2016-05-01</on></date>
         <date type="unchanged"><on>2019</on></date>
         <date type="transmitted"><on>2020</on></date>
         <date type="vote-started"><on>2021</on></date>
@@ -39,10 +39,7 @@ RSpec.describe IsoDoc do
         <date type="announced"><on>2025</on></date>
         <date type="stable_until"><on>2026</on></date>
         <edition>2</edition><edition language="en">second edition</edition>
-      <version>
-        <revision-date>2016-05-01</revision-date>
-        <draft>0.4</draft>
-      </version>
+      <version>0.4</version>
         <contributor>
           <role type="author"/>
           <organization>
@@ -216,7 +213,7 @@ RSpec.describe IsoDoc do
         transmitteddate: "2020",
         unchangeddate: "2019",
         unpublished: true,
-        updateddate: "2018",
+        updateddate: "2016-05-01",
         url: "URL A",
         vote_endeddate: "2022",
         vote_starteddate: "2021",
@@ -242,10 +239,8 @@ RSpec.describe IsoDoc do
         <docidentifier>17301-1-3</docidentifier>
         <docnumber>17301</docnumber>
         <date type="published"><on>2011-01</on></date>
-        <version>
-        <draft>12</draft>
-        <revision-date>2016-05</revision-date>
-      </version>
+        <date type="updated"><on>2016-05</on></date>
+        <version>12</version>
         <contributor>
           <role type="author"/>
           <organization>
@@ -348,7 +343,7 @@ RSpec.describe IsoDoc do
         transmitteddate: "XXX",
         unchangeddate: "XXX",
         unpublished: false,
-        updateddate: "XXX",
+        updateddate: "2016-05",
         vote_endeddate: "XXX",
         vote_starteddate: "XXX" }
     expect(metadata(c.info(Nokogiri::XML(input), nil)))
@@ -544,9 +539,8 @@ RSpec.describe IsoDoc do
         <docidentifier>17301-1-3</docidentifier>
         <docnumber>17301</docnumber>
         <date type="published"><on>2011-01</on></date>
-        <version>
-        <revision-date>2016-05</revision-date>
-      </version>
+        <date type="updated"><on>2016-05</on></date>
+        <version>2016-05</version>
         <contributor>
           <role type="author"/>
           <organization>
@@ -612,6 +606,8 @@ RSpec.describe IsoDoc do
         doctype: "International Standard",
         doctype_display: "Standard International",
         docyear: "2016",
+        draft: "2016-05",
+        draftinfo: " (brouillon 2016-05)",
         implementeddate: "XXX",
         issueddate: "XXX",
         iteration: "2",
@@ -621,7 +617,7 @@ RSpec.describe IsoDoc do
         publisher: "International Organization for Standardization et International Electrotechnical Commission",
         receiveddate: "XXX",
         revdate: "2016-05",
-        revdate_monthyear: "Mai 2016",
+        revdate_monthyear: "mai 2016",
         script: "Latn",
         stable_untildate: "XXX",
         stage: "Committee Draft",
@@ -632,7 +628,7 @@ RSpec.describe IsoDoc do
         transmitteddate: "XXX",
         unchangeddate: "XXX",
         unpublished: true,
-        updateddate: "XXX",
+        updateddate: "2016-05",
         vote_endeddate: "XXX",
         vote_starteddate: "XXX" }
     expect(metadata(c.info(Nokogiri::XML(input), nil)))

@@ -17,6 +17,7 @@ module IsoDoc
     include Function::Utils
 
     attr_reader :klass
+    attr_accessor :reqt_models
 
     # Note: if bibrender is no passed in, do not parse references
     def initialize(lang, script, klass, i18n, options = {})
@@ -27,9 +28,6 @@ module IsoDoc
       @options = options
       initialize_i18n(i18n)
       @klass.bibrender ||= options[:bibrender]
-      @reqt_models = @klass.requirements_processor
-        .new({ default: "default", lang:, script:,
-               labels: @i18n.get })
     end
 
     def initialize_empty

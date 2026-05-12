@@ -119,596 +119,531 @@ RSpec.describe IsoDoc do
     INPUT
 
     presxml = <<~OUTPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-         <preface>
-           <clause type="toc" id="_8" displayorder="1">
-             <fmt-title depth="1" id="_25">Table of contents</fmt-title>
-           </clause>
-           <foreword id="fwd" displayorder="2">
-             <title id="_12">Foreword</title>
-             <fmt-title depth="1" id="_26">
-               <semx element="title" source="_12">Foreword</semx>
-             </fmt-title>
-             <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true" autonum="1">
-               <name id="_15">Repeatability and reproducibility of <em>husked</em> rice yield<fn original-id="_1" original-reference="1"><p>X</p></fn></name>
-               <fmt-name id="_27">
-                 <span class="fmt-caption-label">
-                   <span class="fmt-element-name">Table</span>
-                   <semx element="autonum" source="tableD-1">1</semx>
-                 </span>
-                 <span class="fmt-caption-delim"> — </span>
-                 <semx element="name" source="_15">Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1" id="_1" original-reference="1" target="_20"><p>X</p><fmt-fn-label><span class="fmt-caption-label"><sup><semx element="autonum" source="_1">1</semx></sup></span></fmt-fn-label></fn></semx>
-               </fmt-name>
-               <fmt-xref-label>
-                 <span class="fmt-element-name">Table</span>
-                 <semx element="autonum" source="tableD-1">1</semx>
-               </fmt-xref-label>
-               <colgroup>
-                 <col width="30%"/>
-                 <col width="20%"/>
-                 <col width="20%"/>
-                 <col width="20%"/>
-                 <col width="10%"/>
-               </colgroup>
-               <thead>
-                 <tr style="background-color: red;">
-                   <td rowspan="2" align="left">Description</td>
-                   <td colspan="4" align="center">Rice sample</td>
-                 </tr>
-                 <tr>
-                   <td valign="top" align="left" style="background-color: green;">Arborio</td>
-                   <td valign="middle" align="center">Drago<fn reference="a" id="_2" target="_14"><p original-id="_">Parboiled rice.</p><fmt-fn-label><span class="fmt-caption-label"><sup><semx element="autonum" source="_2">a</semx></sup></span></fmt-fn-label></fn></td>
-                   <td valign="bottom" align="center">Balilla<fn reference="a" id="_3" target="_14"><p id="_">Parboiled rice.</p><fmt-fn-label><span class="fmt-caption-label"><sup><semx element="autonum" source="_3">a</semx></sup></span></fmt-fn-label></fn><fn reference="a" id="_4" target="_14"><p id="_">Parboiled rice.</p><fmt-fn-label><span class="fmt-caption-label"><sup><semx element="autonum" source="_4">a</semx></sup></span></fmt-fn-label></fn></td>
-                   <td align="center">Thaibonnet</td>
-                 </tr>
-               </thead>
-               <tbody>
-                 <tr>
-                   <th align="left">Number of laboratories retained after eliminating outliers</th>
-                   <td align="center">13</td>
-                   <td align="center">11</td>
-                   <td align="center">13</td>
-                   <td align="center">13</td>
-                 </tr>
-                 <tr>
-                   <td align="left">Mean value, g/100 g</td>
-                   <td align="center">81,2</td>
-                   <td align="center">82,0</td>
-                   <td align="center">81,8</td>
-                   <td align="center">77,7</td>
-                 </tr>
-               </tbody>
-               <tfoot>
-                 <tr>
-                   <td align="left">Reproducibility limit, <stem type="AsciiMath" id="_23">R</stem><fmt-stem type="AsciiMath"><semx element="stem" source="_23">R</semx></fmt-stem> (= 2,83 <stem type="AsciiMath" id="_24">s_R</stem><fmt-stem type="AsciiMath"><semx element="stem" source="_24">s_R</semx></fmt-stem>)</td>
-                   <td align="center">2,89</td>
-                   <td align="center">0,57</td>
-                   <td align="center">2,26</td>
-                   <td align="center">
-                     <dl>
-                       <dt>6,06</dt>
-                       <dd>Definition</dd>
-                     </dl>
-                   </td>
-                 </tr>
-               </tfoot>
-               <key>
-                 <dl>
-                   <name id="_19">Key</name>
-                   <fmt-name id="_28">
-                     <semx element="name" source="_19">Key</semx>
-                   </fmt-name>
-                   <dt>Drago</dt>
-                   <dd>A type of rice</dd>
-                 </dl>
-               </key>
-               <source status="generalisation" id="_5">
-                 <origin bibitemid="ISO712" type="inline" citeas="">
-                   <localityStack>
-                     <locality type="section">
-                       <referenceFrom>1</referenceFrom>
-                     </locality>
-                   </localityStack>
-                 </origin>
-                 <modification id="_6">
-                   <p id="_">with adjustments</p>
-                 </modification>
-               </source>
-               <fmt-source>[SOURCE: <semx element="source" source="_5"><origin bibitemid="ISO712" type="inline" citeas="" id="_21"><localityStack><locality type="section"><referenceFrom>1</referenceFrom></locality></localityStack></origin><semx element="origin" source="_21"><fmt-xref type="inline" target="ISO712">ISO 712,  Section 1</fmt-xref></semx> — <semx element="modification" source="_6">with adjustments</semx></semx>; <semx element="source" source="_7"><origin bibitemid="ISO712" type="inline" citeas="" id="_22"><localityStack><locality type="section"><referenceFrom>2</referenceFrom></locality></localityStack></origin><semx element="origin" source="_22"><fmt-xref type="inline" target="ISO712">ISO 712,  Section 2</fmt-xref></semx></semx>]</fmt-source>
-               <source status="specialisation" id="_7">
-                 <origin bibitemid="ISO712" type="inline" citeas="">
-                   <localityStack>
-                     <locality type="section">
-                       <referenceFrom>2</referenceFrom>
-                     </locality>
-                   </localityStack>
-                 </origin>
-               </source>
-               <note>
-                 <fmt-name id="_29">
-                   <span class="fmt-caption-label">
-                     <span class="fmt-element-name">NOTE</span>
-                   </span>
-                   <span class="fmt-label-delim">
-                     <tab/>
-                   </span>
-                 </fmt-name>
-                 <p>This is a table about rice</p>
-               </note>
-               <fmt-footnote-container>
-                 <fmt-fn-body id="_14" target="_2" reference="a">
-                   <semx element="fn" source="_2">
-                     <p id="_"><fmt-fn-label><span class="fmt-caption-label"><sup><semx element="autonum" source="_2">a</semx></sup></span><span class="fmt-caption-delim"><tab/></span></fmt-fn-label>Parboiled rice.</p>
-                   </semx>
-                 </fmt-fn-body>
-               </fmt-footnote-container>
-             </table>
-             <table id="tableD-2" unnumbered="true" style="border-width:2px;">
-               <tbody>
-                 <tr>
-                   <td>A</td>
-                 </tr>
-               </tbody>
-             </table>
-           </foreword>
-         </preface>
-         <sections>
-           <references id="_normative_references" obligation="informative" normative="true" displayorder="3">
-             <title id="_13">Normative References</title>
-             <fmt-title depth="1" id="_30">
-               <span class="fmt-caption-label">
-                 <semx element="autonum" source="_normative_references">1</semx>
-                 <span class="fmt-autonum-delim">.</span>
-               </span>
-               <span class="fmt-caption-delim">
-                 <tab/>
-               </span>
-               <semx element="title" source="_13">Normative References</semx>
-             </fmt-title>
-             <fmt-xref-label>
-               <span class="fmt-element-name">Clause</span>
-               <semx element="autonum" source="_normative_references">1</semx>
-             </fmt-xref-label>
-             <bibitem id="ISO712" type="standard">
-               <biblio-tag>ISO 712, </biblio-tag>
-               <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
-               <title format="text/plain">Cereals or cereal products</title>
-               <title type="main" format="text/plain">Cereals and cereal products</title>
-               <docidentifier type="ISO">ISO 712</docidentifier>
-               <docidentifier scope="biblio-tag">ISO 712</docidentifier>
-               <contributor>
-                 <role type="publisher"/>
-                 <organization>
-                   <name>International Organization for Standardization</name>
-                 </organization>
-               </contributor>
-             </bibitem>
-           </references>
-         </sections>
-         <annex id="Annex1" autonum="A" displayorder="4">
-           <variant-title type="toc">
-             <span class="fmt-caption-label">
-               <span class="fmt-element-name">Annex</span>
-               <semx element="autonum" source="Annex1">A</semx>
-             </span>
-           </variant-title>
-           <fmt-title id="_31">
-             <strong>
-               <span class="fmt-caption-label">
-                 <span class="fmt-element-name">Annex</span>
-                 <semx element="autonum" source="Annex1">A</semx>
-               </span>
-             </strong>
-             <br/>
-             <span class="fmt-obligation">(informative)</span>
-           </fmt-title>
-           <fmt-xref-label>
-             <span class="fmt-element-name">Annex</span>
-             <semx element="autonum" source="Annex1">A</semx>
-           </fmt-xref-label>
-           <table id="AnnexTable" autonum="A.1">
-             <fmt-name id="_32">
-               <span class="fmt-caption-label">
-                 <span class="fmt-element-name">Table</span>
-                 <semx element="autonum" source="Annex1">A</semx>
-                 <span class="fmt-autonum-delim">.</span>
-                 <semx element="autonum" source="AnnexTable">1</semx>
-               </span>
-             </fmt-name>
-             <fmt-xref-label>
-               <span class="fmt-element-name">Table</span>
-               <semx element="autonum" source="Annex1">A</semx>
-               <span class="fmt-autonum-delim">.</span>
-               <semx element="autonum" source="AnnexTable">1</semx>
-             </fmt-xref-label>
-             <tbody>
-               <tr>
-                 <td>A</td>
-               </tr>
-             </tbody>
-           </table>
-           <table>
-             <fmt-name id="_33">
-               <span class="fmt-caption-label">
-                 <span class="fmt-element-name">Table</span>
-               </span>
-             </fmt-name>
-             <tbody>
-               <tr>
-                 <td>B</td>
-               </tr>
-             </tbody>
-           </table>
-         </annex>
-         <bibliography>
-         </bibliography>
-         <fmt-footnote-container>
-           <fmt-fn-body id="_20" target="_1" reference="1">
-             <semx element="fn" source="_1">
-               <p><fmt-fn-label><span class="fmt-caption-label"><sup><semx element="autonum" source="_1">1</semx></sup></span><span class="fmt-caption-delim"><tab/></span></fmt-fn-label>X</p>
-             </semx>
-           </fmt-fn-body>
-         </fmt-footnote-container>
-       </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+        <preface>
+          <clause type="toc" id="_8" displayorder="1">
+            <fmt-title depth="1" id="_25">Table of contents</fmt-title>
+          </clause>
+          <foreword id="fwd" displayorder="2">
+            <title id="_12">Foreword</title>
+            <fmt-title depth="1" id="_26">
+              <semx element="title" source="_12">Foreword</semx>
+            </fmt-title>
+            <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true" autonum="1">
+              <name id="_15">Repeatability and reproducibility of <em>husked</em> rice yield<fn original-id="_1" original-reference="1"><p>X</p></fn></name>
+              <fmt-name id="_27">
+                <span class="fmt-caption-label">
+                  <span class="fmt-element-name">Table</span>
+                  <semx element="autonum" source="tableD-1">1</semx>
+                </span>
+                <span class="fmt-caption-delim"> — </span>
+                <semx element="name" source="_15">Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1" id="_1" original-reference="1" target="_20"><p>X</p><fmt-fn-label><span class="fmt-caption-label"><sup><semx element="autonum" source="_1">1</semx></sup></span></fmt-fn-label></fn></semx>
+              </fmt-name>
+              <fmt-xref-label>
+                <span class="fmt-element-name">Table</span>
+                <semx element="autonum" source="tableD-1">1</semx>
+              </fmt-xref-label>
+              <colgroup>
+                <col width="30%"/>
+                <col width="20%"/>
+                <col width="20%"/>
+                <col width="20%"/>
+                <col width="10%"/>
+              </colgroup>
+              <thead>
+                <tr style="background-color: red;">
+                  <td rowspan="2" align="left">Description</td>
+                  <td colspan="4" align="center">Rice sample</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" style="background-color: green;">Arborio</td>
+                  <td valign="middle" align="center">Drago<fn reference="a" id="_2" target="_14"><p original-id="_">Parboiled rice.</p><fmt-fn-label><span class="fmt-caption-label"><sup><semx element="autonum" source="_2">a</semx></sup></span></fmt-fn-label></fn></td>
+                  <td valign="bottom" align="center">Balilla<fn reference="a" id="_3" target="_14"><p id="_">Parboiled rice.</p><fmt-fn-label><span class="fmt-caption-label"><sup><semx element="autonum" source="_3">a</semx></sup></span></fmt-fn-label></fn><fn reference="a" id="_4" target="_14"><p id="_">Parboiled rice.</p><fmt-fn-label><span class="fmt-caption-label"><sup><semx element="autonum" source="_4">a</semx></sup></span></fmt-fn-label></fn></td>
+                  <td align="center">Thaibonnet</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th align="left">Number of laboratories retained after eliminating outliers</th>
+                  <td align="center">13</td>
+                  <td align="center">11</td>
+                  <td align="center">13</td>
+                  <td align="center">13</td>
+                </tr>
+                <tr>
+                  <td align="left">Mean value, g/100 g</td>
+                  <td align="center">81,2</td>
+                  <td align="center">82,0</td>
+                  <td align="center">81,8</td>
+                  <td align="center">77,7</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td align="left">Reproducibility limit, <stem type="AsciiMath" id="_23">R</stem><fmt-stem type="AsciiMath"><semx element="stem" source="_23">R</semx></fmt-stem> (= 2,83 <stem type="AsciiMath" id="_24">s_R</stem><fmt-stem type="AsciiMath"><semx element="stem" source="_24">s_R</semx></fmt-stem>)</td>
+                  <td align="center">2,89</td>
+                  <td align="center">0,57</td>
+                  <td align="center">2,26</td>
+                  <td align="center">
+                    <dl>
+                      <dt>6,06</dt>
+                      <dd>Definition</dd>
+                    </dl>
+                  </td>
+                </tr>
+              </tfoot>
+              <key>
+                <dl>
+                  <name id="_19">Key</name>
+                  <fmt-name id="_28">
+                    <semx element="name" source="_19">Key</semx>
+                  </fmt-name>
+                  <dt>Drago</dt>
+                  <dd>A type of rice</dd>
+                </dl>
+              </key>
+              <source status="generalisation" id="_5">
+                <origin bibitemid="ISO712" type="inline" citeas="">
+                  <localityStack>
+                    <locality type="section">
+                      <referenceFrom>1</referenceFrom>
+                    </locality>
+                  </localityStack>
+                </origin>
+                <modification id="_6">
+                  <p id="_">with adjustments</p>
+                </modification>
+              </source>
+              <fmt-source>[SOURCE: <semx element="source" source="_5"><origin bibitemid="ISO712" type="inline" citeas="" id="_21"><localityStack><locality type="section"><referenceFrom>1</referenceFrom></locality></localityStack></origin><semx element="origin" source="_21"><fmt-xref type="inline" target="ISO712">ISO 712,  Section 1</fmt-xref></semx> — <semx element="modification" source="_6">with adjustments</semx></semx>; <semx element="source" source="_7"><origin bibitemid="ISO712" type="inline" citeas="" id="_22"><localityStack><locality type="section"><referenceFrom>2</referenceFrom></locality></localityStack></origin><semx element="origin" source="_22"><fmt-xref type="inline" target="ISO712">ISO 712,  Section 2</fmt-xref></semx></semx>]</fmt-source>
+              <source status="specialisation" id="_7">
+                <origin bibitemid="ISO712" type="inline" citeas="">
+                  <localityStack>
+                    <locality type="section">
+                      <referenceFrom>2</referenceFrom>
+                    </locality>
+                  </localityStack>
+                </origin>
+              </source>
+              <note>
+                <fmt-name id="_29">
+                  <span class="fmt-caption-label">
+                    <span class="fmt-element-name">NOTE</span>
+                  </span>
+                  <span class="fmt-label-delim">
+                    <tab/>
+                  </span>
+                </fmt-name>
+                <p>This is a table about rice</p>
+              </note>
+              <fmt-footnote-container>
+                <fmt-fn-body id="_14" target="_2" reference="a">
+                  <semx element="fn" source="_2">
+                    <p id="_"><fmt-fn-label><span class="fmt-caption-label"><sup><semx element="autonum" source="_2">a</semx></sup></span><span class="fmt-caption-delim"><tab/></span></fmt-fn-label>Parboiled rice.</p>
+                  </semx>
+                </fmt-fn-body>
+              </fmt-footnote-container>
+            </table>
+            <table id="tableD-2" unnumbered="true" style="border-width:2px;">
+              <tbody>
+                <tr>
+                  <td>A</td>
+                </tr>
+              </tbody>
+            </table>
+          </foreword>
+        </preface>
+        <sections>
+          <references id="_normative_references" obligation="informative" normative="true" displayorder="3">
+            <title id="_13">Normative References</title>
+            <fmt-title depth="1" id="_30">
+              <span class="fmt-caption-label">
+                <semx element="autonum" source="_normative_references">1</semx>
+                <span class="fmt-autonum-delim">.</span>
+              </span>
+              <span class="fmt-caption-delim">
+                <tab/>
+              </span>
+              <semx element="title" source="_13">Normative References</semx>
+            </fmt-title>
+            <fmt-xref-label>
+              <span class="fmt-element-name">Clause</span>
+              <semx element="autonum" source="_normative_references">1</semx>
+            </fmt-xref-label>
+            <bibitem id="ISO712" type="standard">
+              <biblio-tag>ISO 712, </biblio-tag>
+              <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
+              <title format="text/plain">Cereals or cereal products</title>
+              <title type="main" format="text/plain">Cereals and cereal products</title>
+              <docidentifier type="ISO">ISO 712</docidentifier>
+              <docidentifier scope="biblio-tag">ISO 712</docidentifier>
+              <contributor>
+                <role type="publisher"/>
+                <organization>
+                  <name>International Organization for Standardization</name>
+                </organization>
+              </contributor>
+            </bibitem>
+          </references>
+        </sections>
+        <annex id="Annex1" autonum="A" displayorder="4">
+          <variant-title type="toc">
+            <span class="fmt-caption-label">
+              <span class="fmt-element-name">Annex</span>
+              <semx element="autonum" source="Annex1">A</semx>
+            </span>
+          </variant-title>
+          <fmt-title id="_31">
+            <strong>
+              <span class="fmt-caption-label">
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="Annex1">A</semx>
+              </span>
+            </strong>
+            <br/>
+            <span class="fmt-obligation">(informative)</span>
+          </fmt-title>
+          <fmt-xref-label>
+            <span class="fmt-element-name">Annex</span>
+            <semx element="autonum" source="Annex1">A</semx>
+          </fmt-xref-label>
+          <table id="AnnexTable" autonum="A.1">
+            <fmt-name id="_32">
+              <span class="fmt-caption-label">
+                <span class="fmt-element-name">Table</span>
+                <semx element="autonum" source="Annex1">A</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="AnnexTable">1</semx>
+              </span>
+            </fmt-name>
+            <fmt-xref-label>
+              <span class="fmt-element-name">Table</span>
+              <semx element="autonum" source="Annex1">A</semx>
+              <span class="fmt-autonum-delim">.</span>
+              <semx element="autonum" source="AnnexTable">1</semx>
+            </fmt-xref-label>
+            <tbody>
+              <tr>
+                <td>A</td>
+              </tr>
+            </tbody>
+          </table>
+          <table>
+            <fmt-name id="_33">
+              <span class="fmt-caption-label">
+                <span class="fmt-element-name">Table</span>
+              </span>
+            </fmt-name>
+            <tbody>
+              <tr>
+                <td>B</td>
+              </tr>
+            </tbody>
+          </table>
+        </annex>
+        <bibliography>
+        </bibliography>
+        <fmt-footnote-container>
+          <fmt-fn-body id="_20" target="_1" reference="1">
+            <semx element="fn" source="_1">
+              <p><fmt-fn-label><span class="fmt-caption-label"><sup><semx element="autonum" source="_1">1</semx></sup></span><span class="fmt-caption-delim"><tab/></span></fmt-fn-label>X</p>
+            </semx>
+          </fmt-fn-body>
+        </fmt-footnote-container>
+      </iso-standard>
     OUTPUT
 
     html = <<~OUTPUT
-          #{HTML_HDR}
-              <br/>
-               <div id="fwd">
-                  <h1 class="ForewordTitle">Foreword</h1>
-                  <p class="TableTitle" style="text-align:center;">
-                     Table 1\u00a0— Repeatability and reproducibility of
-                     <i>husked</i>
-                     rice yield
-                     <a class="FootnoteRef" href="#fn:_20">
-                        <sup>1</sup>
-                     </a>
-                        <span style="display:none">long desc</span>
-                     </caption>
-                     <colgroup>
-                        <col style="width: 30%;"/>
-                        <col style="width: 20%;"/>
-                        <col style="width: 20%;"/>
-                        <col style="width: 20%;"/>
-                        <col style="width: 10%;"/>
-                     </colgroup>
-                     <thead>
-                        <tr style="background-color: red;">
-                           <td rowspan="2" style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="col">Description</td>
-                           <td colspan="4" style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="colgroup">Rice sample</td>
-                        </tr>
-                        <tr>
-                           <td style="background-color: green;;text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Arborio</td>
-                           <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">
-                              Drago
-                              <a href="#tableD-1a" class="TableFootnoteRef">a</a>
-                           </td>
-                           <td style="text-align:center;vertical-align:bottom;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">
-                              Balilla
-                              <a href="#tableD-1a" class="TableFootnoteRef">a</a>
-                              <a href="#tableD-1a" class="TableFootnoteRef">a</a>
-                           </td>
-                           <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Thaibonnet</td>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr>
-                           <th style="font-weight:bold;text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="row">Number of laboratories retained after eliminating outliers</th>
-                           <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
-                           <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">11</td>
-                           <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
-                           <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
-                        </tr>
-                        <tr>
-                           <td style="text-align:left;border-top:none;border-bottom:solid windowtext 1.5pt;">Mean value, g/100 g</td>
-                           <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;">81,2</td>
-                           <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;">82,0</td>
-                           <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;">81,8</td>
-                           <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;">77,7</td>
-                        </tr>
-                     </tbody>
-                     <tfoot>
-                        <tr>
-                           <td style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">
-                              Reproducibility limit,
-                              <span class="stem">(#(R)#)</span>
-                              (= 2,83
-                              <span class="stem">(#(s_R)#)</span>
-                              )
-                           </td>
-                           <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">2,89</td>
-                           <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">0,57</td>
-                           <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">2,26</td>
-                           <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">
-                              <div class="figdl">
-                                 <dl>
-                                    <dt>
-                                       <p>6,06</p>
-                                    </dt>
-                                    <dd>Definition</dd>
-                                 </dl>
-                              </div>
-                           </td>
-                        </tr>
-                     </tfoot>
-                     <div class="key">
-                     <div class="figdl">
-                        <p class="ListTitle">Key</p>
+      <body lang="en" xml:lang="en">
+         <div class="title-section">
+           <p> </p>
+         </div>
+         <br/>
+         <div class="prefatory-section">
+           <p> </p>
+         </div>
+         <br/>
+         <div class="main-section">
+           <br/>
+           <div id="_" class="TOC">
+             <h1 class="IntroTitle">Table of contents</h1>
+           </div>
+           <br/>
+            <div id="fwd">
+              <h1 class="ForewordTitle">Foreword</h1>
+              <table id="tableD-1" class="MsoISOTable" style="border-width:1px;border-spacing:0;width:70%;page-break-after: avoid;page-break-inside: avoid;table-layout:fixed;" title="tool tip">
+                <caption>Table 1 — Repeatability and reproducibility of <i>husked</i> rice yield<a class="FootnoteRef" href="#fn:_20"><sup>1</sup></a><span style="display:none">long desc</span></caption>
+                <colgroup>
+                  <col style="width: 30%;"/>
+                  <col style="width: 20%;"/>
+                  <col style="width: 20%;"/>
+                  <col style="width: 20%;"/>
+                  <col style="width: 10%;"/>
+                </colgroup>
+                <thead>
+                  <tr style="background-color: red;">
+                    <td rowspan="2" style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="col">Description</td>
+                    <td colspan="4" style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="colgroup">Rice sample</td>
+                  </tr>
+                  <tr>
+                    <td style="background-color: green;;text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Arborio</td>
+                    <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
+                    <td style="text-align:center;vertical-align:bottom;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a><a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
+                    <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Thaibonnet</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th style="font-weight:bold;text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="row">Number of laboratories retained after eliminating outliers</th>
+                    <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
+                    <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">11</td>
+                    <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
+                    <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
+                  </tr>
+                  <tr>
+                    <td style="text-align:left;border-top:none;border-bottom:solid windowtext 1.5pt;">Mean value, g/100 g</td>
+                    <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;">81,2</td>
+                    <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;">82,0</td>
+                    <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;">81,8</td>
+                    <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;">77,7</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:0pt;">Reproducibility limit, <span class="stem">(#(R)#)</span> (= 2,83 <span class="stem">(#(s_R)#)</span>)</td>
+                    <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:0pt;">2,89</td>
+                    <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:0pt;">0,57</td>
+                    <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:0pt;">2,26</td>
+                    <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:0pt;">
+                      <div class="figdl">
                         <dl>
-                           <dt>
-                              <p>Drago</p>
-                           </dt>
-                           <dd>A type of rice</dd>
+                          <dt>
+                            <p>6,06</p>
+                          </dt>
+                          <dd>Definition</dd>
                         </dl>
-                     </div>
-                     </div>
-                     <div class="BlockSource">
-                        <p>
-                           [SOURCE:
-                           <a href="#ISO712">ISO\u00a0712, Section 1</a>
-                           — with adjustments;
-                           <a href="#ISO712">ISO\u00a0712, Section 2</a>
-                           ]
-                        </p>
-                     </div>
-                     <div class="Note">
-                        <p>
-                           <span class="note_label">NOTE\u00a0 </span>
-                           This is a table about rice
-                        </p>
-                     </div>
-                     <aside id="fn:tableD-1a" class="footnote">
-                        <p id="_">
-                           <span class="TableFootnoteRef">a</span>
-                           \u00a0 Parboiled rice.
-                        </p>
-                     </aside>
-                  </table>
-                  <table id="tableD-2" class="MsoISOTable" style="border-width:2px;;">
-                     <tbody>
-                        <tr>
-                           <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">A</td>
-                        </tr>
-                     </tbody>
-                  </table>
-               </div>
-               <div>
-                  <h1>1.\u00a0 Normative References</h1>
-                  <p id="ISO712" class="NormRef">
-                     ISO\u00a0712, International Organization for Standardization.
-                     <i>Cereals and cereal products</i>
-                     .
-                  </p>
-               </div>
-               <br/>
-               <div id="Annex1" class="Section3">
-               <p style="display:none;" class="variant-title-toc">Annex A</p>
-                  <h1 class="Annex">
-                     <b>Annex A</b>
-                     <br/>
-                     (informative)
-                  </h1>
-                  <table id="AnnexTable" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
-                  <caption>Table A.1</caption>
-                     <tbody>
-                        <tr>
-                           <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">A</td>
-                        </tr>
-                     </tbody>
-                  </table>
-                  <table class="MsoISOTable" style="border-width:1px;border-spacing:0;">
-                  <caption>Table</caption>
-                     <tbody>
-                        <tr>
-                           <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">B</td>
-                        </tr>
-                     </tbody>
-                  </table>
-               </div>
-               <aside id="fn:_20" class="footnote">
-                  <p>X</p>
-               </aside>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5" style="border-top:0pt;border-bottom:solid windowtext 1.5pt;">
+                      <div class="key">
+          <div class="figdl"><p class="ListTitle">Key</p><dl><dt><p>Drago</p></dt><dd>A type of rice</dd></dl></div>
+          </div>
+                      <div class="BlockSource">
+                        <p>[SOURCE: <a href="#ISO712">ISO 712,  Section 1</a> — with adjustments;
+          <a href="#ISO712">ISO 712,  Section 2</a>
+        ]</p>
+                      </div>
+                      <div class="Note">
+                        <p><span class="note_label">NOTE  </span>This is a table about rice</p>
+                      </div>
+                      <aside id="fn:tableD-1a" class="footnote">
+          <p id="_"><span class="TableFootnoteRef">a</span>  Parboiled rice.</p>
+        </aside>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+              <table id="tableD-2" class="MsoISOTable" style="border-width:2px;;">
+                <tbody>
+                  <tr>
+                    <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">A</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-         </body>
-      </html>
+            <div><h1>1.  Normative References</h1>
+        <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
+      </div>
+            <br/>
+            <div id="Annex1" class="Section3">
+              <p style="display:none;" class="variant-title-toc">Annex A</p>
+              <h1 class="Annex"><b>Annex A</b><br/>(informative)</h1>
+              <table id="AnnexTable" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+                <caption>Table A.1</caption>
+                <tbody>
+                  <tr>
+                    <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">A</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+                <caption>Table</caption>
+                <tbody>
+                  <tr>
+                    <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">B</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <aside id="fn:_20" class="footnote">
+              <p>X</p>
+            </aside>
+          </div>
+        </body>
     OUTPUT
 
     word = <<~OUTPUT
-      <html
-         xmlns:epub="http://www.idpf.org/2007/ops"
-         xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
-         xmlns:w="urn:schemas-microsoft-com:office:word"
-         xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
-         lang="en">
-      <head>
-        <style>
-          <!--
-          -->
-        </style>
-      </head>
-         <body lang="EN-US" link="blue" vlink="#954F72">
-           <div class="WordSection1">
-             <p> </p>
-           </div>
-           <p class="section-break"><br clear="all" class="section"/></p>
-           <div class="WordSection2">
-            <p class="page-break">
-            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-          </p>
-          <div class="TOC" id="_">
-            <p class="zzContents">Table of contents</p>
+        <body lang="EN-US" link="blue" vlink="#954F72">
+          <div class="WordSection1">
+            <p>&#xa0;</p>
           </div>
-             <p class="page-break">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-             </p>
-             <div id="fwd">
-               <h1 class="ForewordTitle">Foreword</h1>
-               <p class="TableTitle" style="text-align:center;">
-                       Table 1\u00a0— Repeatability and reproducibility of
-                       <i>husked</i>
-                        rice yield
-                       <span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" href="#ftn_20" epub:type="footnote">1</a></span>
-                     </p>
-               <div align="center" class="table_container">
-                 <table id="tableD-1" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;" title="tool tip" summary="long desc" width="70%">
-                   <colgroup>
-                     <col width="30%"/>
-                     <col width="20%"/>
-                     <col width="20%"/>
-                     <col width="20%"/>
-                     <col width="10%"/>
-                   </colgroup>
-                   <thead>
-                     <tr style="background-color: red;">
-                       <td rowspan="2" align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">Description</td>
-                       <td colspan="4" align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;page-break-after:avoid;">Rice sample</td>
-                     </tr>
-                     <tr>
-                       <td valign="top" align="left" style="background-color: green;;page-break-after:avoid;">Arborio</td>
-                       <td valign="middle" align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">
-                           Drago
-                           <a href="#tableD-1a" class="TableFootnoteRef">a</a>
-                         </td>
-                       <td valign="bottom" align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">
-                           Balilla
-                           <a href="#tableD-1a" class="TableFootnoteRef">a</a>
-                           <a href="#tableD-1a" class="TableFootnoteRef">a</a>
-                         </td>
-                       <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">Thaibonnet</td>
-                     </tr>
-                   </thead>
-                   <tbody>
-                     <tr>
-                       <th align="left" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;page-break-after:avoid;">Number of laboratories retained after eliminating outliers</th>
-                       <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;page-break-after:avoid;">13</td>
-                       <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;page-break-after:avoid;">11</td>
-                       <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;page-break-after:avoid;">13</td>
-                       <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;page-break-after:avoid;">13</td>
-                     </tr>
-                     <tr>
-                       <td align="left" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">Mean value, g/100 g</td>
-                       <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">81,2</td>
-                       <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">82,0</td>
-                       <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">81,8</td>
-                       <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">77,7</td>
-                     </tr>
-                   </tbody>
-                   <tfoot>
-                     <tr>
-                       <td align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">
-                           Reproducibility limit,
-                           <span class="stem">(#(R)#)</span>
-                            (= 2,83
-                           <span class="stem">(#(s_R)#)</span>
-                           )
-                         </td>
-                       <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">2,89</td>
-                       <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">0,57</td>
-                       <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">2,26</td>
-                       <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">
-                         <div class="figdl">
-                           <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">6,06<span style="mso-tab-count:1">\u00a0 </span>Definition</p>
-                         </div>
-                       </td>
-                     </tr>
-                   </tfoot>
-                   <div class="key">
-                   <div class="figdl">
-                     <p class="ListTitle">Key</p>
-                     <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">Drago<span style="mso-tab-count:1">\u00a0 </span>A type of rice</p>
-                   </div>
-                   </div>
-                   <div class="BlockSource">
-                     <p>[SOURCE: <a href="#ISO712">ISO\u00a0712, Section 1</a>
-             — with adjustments; <a href="#ISO712">ISO\u00a0712, Section 2</a>]</p>
-                   </div>
-                   <div class="Note">
-                     <p class="Note"><span class="note_label">NOTE<span style="mso-tab-count:1">\u00a0 </span></span>This is a table about rice</p>
-                   </div>
-                   <aside id="ftntableD-1a">
-                     <p id="_">
-                        <span class="TableFootnoteRef">a</span>
-                        <span style="mso-tab-count:1">\u00a0 </span>
-                        Parboiled rice.
-                     </p>
-                  </aside>
-                 </table>
-               </div>
-               <div align="center" class="table_container">
-                 <table id="tableD-2" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-width:2px;;">
-                   <tbody>
-                     <tr>
-                       <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">A</td>
-                     </tr>
-                   </tbody>
-                 </table>
-               </div>
-             </div>
-             <p>\u00a0</p>
-           </div>
-           <p class="section-break">
-             <br clear="all" class="section"/>
-           </p>
-                        <div class="WordSection3">
-                <div>
-                   <h1>1.<span style="mso-tab-count:1">\u00a0 </span>Normative References</h1>
-                   <p id="ISO712" class="NormRef">
-                      ISO\u00a0712, International Organization for Standardization.
-                      <i>Cereals and cereal products</i>
-                      .
-                   </p>
-                </div>
-                <p class="page-break">
-                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                </p>
-                <div id="Annex1" class="Section3">
-               <p style="display:none;" class="variant-title-toc">Annex A</p>
-                   <h1 class="Annex">
-                      <b>Annex A</b>
-                      <br/>(informative)</h1>
-                   <p class="TableTitle" style="text-align:center;">Table A.1</p>
-                   <div align="center" class="table_container">
-                      <table id="AnnexTable" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
-                         <tbody>
-                            <tr>
-                               <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">A</td>
-                            </tr>
-                         </tbody>
-                      </table>
-                   </div>
-                   <p class="TableTitle" style="text-align:center;">Table</p>
-                   <div align="center" class="table_container">
-                      <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
-                         <tbody>
-                            <tr>
-                               <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">B</td>
-                            </tr>
-                         </tbody>
-                      </table>
-                   </div>
-                </div>
-                <aside id="ftn_20">
-                   <p>X</p>
-                </aside>
-             </div>
-          </body>
-       </html>
+          <p class="section-break">
+            <br clear="all" class="section"/>
+          </p>
+          <div class="WordSection2">
+            <p class="page-break">
+              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+            </p>
+            <div id="_" class="TOC">
+              <p class="zzContents">Table of contents</p>
+            </div>
+            <p class="page-break">
+              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+            </p>
+            <div id="fwd">
+              <h1 class="ForewordTitle">Foreword</h1>
+              <p class="TableTitle" style="text-align:center;">Table 1&#xa0;— Repeatability and reproducibility of <i>husked</i> rice yield<span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" epub:type="footnote" href="#ftn_20">1</a></span></p>
+              <div align="center" class="table_container">
+                <table id="tableD-1" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;" title="tool tip" summary="long desc" width="70%">
+                  <colgroup>
+                    <col width="30%"/>
+                    <col width="20%"/>
+                    <col width="20%"/>
+                    <col width="20%"/>
+                    <col width="10%"/>
+                  </colgroup>
+                  <thead>
+                    <tr style="background-color: red;">
+                      <td rowspan="2" align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">Description</td>
+                      <td colspan="4" align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;page-break-after:avoid;">Rice sample</td>
+                    </tr>
+                    <tr>
+                      <td valign="top" align="left" style="background-color: green;;page-break-after:avoid;">Arborio</td>
+                      <td valign="middle" align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
+                      <td valign="bottom" align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a><a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
+                      <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">Thaibonnet</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th align="left" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;page-break-after:avoid;">Number of laboratories retained after eliminating outliers</th>
+                      <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;page-break-after:avoid;">13</td>
+                      <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;page-break-after:avoid;">11</td>
+                      <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;page-break-after:avoid;">13</td>
+                      <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;page-break-after:avoid;">13</td>
+                    </tr>
+                    <tr>
+                      <td align="left" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">Mean value, g/100 g</td>
+                      <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">81,2</td>
+                      <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">82,0</td>
+                      <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">81,8</td>
+                      <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">77,7</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:0pt;mso-border-bottom-alt:0pt;page-break-after:auto;">Reproducibility limit, <span class="stem">(#(R)#)</span> (= 2,83 <span class="stem">(#(s_R)#)</span>)</td>
+                      <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:0pt;mso-border-bottom-alt:0pt;page-break-after:auto;">2,89</td>
+                      <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:0pt;mso-border-bottom-alt:0pt;page-break-after:auto;">0,57</td>
+                      <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:0pt;mso-border-bottom-alt:0pt;page-break-after:auto;">2,26</td>
+                      <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:0pt;mso-border-bottom-alt:0pt;page-break-after:auto;">
+                        <div class="figdl">
+                          <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">6,06<span style="mso-tab-count:1">&#xa0; </span>Definition</p>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="5" style="border-top:0pt;mso-border-top-alt:0pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">
+                        <div class="key">
+          <div class="figdl"><p class="ListTitle">Key</p><p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">Drago<span style="mso-tab-count:1">&#xa0; </span>A type of rice</p></div>
+          </div>
+                        <div class="BlockSource">
+                          <p>[SOURCE: <a href="#ISO712">ISO&#xa0;712,  Section 1</a> — with adjustments;
+          <a href="#ISO712">ISO&#xa0;712,  Section 2</a>
+        ]</p>
+                        </div>
+                        <div class="Note">
+                          <p class="Note"><span class="note_label">NOTE<span style="mso-tab-count:1">&#xa0; </span></span>This is a table about rice</p>
+                        </div>
+                        <aside id="ftntableD-1a">
+          <p id="_"><span class="TableFootnoteRef">a</span><span style="mso-tab-count:1">&#xa0; </span>Parboiled rice.</p>
+        </aside>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <div align="center" class="table_container">
+                <table id="tableD-2" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-width:2px;;">
+                  <tbody>
+                    <tr>
+                      <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">A</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <p>&#xa0;</p>
+          </div>
+          <p class="section-break">
+            <br clear="all" class="section"/>
+          </p>
+          <div class="WordSection3">
+            <div><h1>1.<span style="mso-tab-count:1">&#xa0; </span>Normative References</h1>
+        <p id="ISO712" class="NormRef">ISO&#xa0;712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
+      </div>
+            <p class="page-break">
+              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+            </p>
+            <div id="Annex1" class="Section3">
+              <p style="display:none;" class="variant-title-toc">Annex A</p>
+              <h1 class="Annex"><b>Annex A</b><br/>(informative)</h1>
+              <p class="TableTitle" style="text-align:center;">Table A.1</p>
+              <div align="center" class="table_container">
+                <table id="AnnexTable" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                  <tbody>
+                    <tr>
+                      <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">A</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="TableTitle" style="text-align:center;">Table</p>
+              <div align="center" class="table_container">
+                <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                  <tbody>
+                    <tr>
+                      <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">B</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <aside id="ftn_20">
+              <p>X</p>
+            </aside>
+          </div>
+
+
+      </body>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
     expect(strip_guid(pres_output))
       .to be_xml_equivalent_to presxml
-    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml))
+    output = output.at("//body")
+    expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
-    output = Nokogiri::XML(IsoDoc::WordConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::WordConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml)
+    output = output.at("//body")
+    expect(strip_guid(output.to_xhtml)
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))
       .to be_xml_equivalent_to word
   end
@@ -1063,19 +998,25 @@ RSpec.describe IsoDoc do
       </iso-standard>
     OUTPUT
     html = <<~OUTPUT
-                #{HTML_HDR}
-              <br/>
+           <body lang="en" xml:lang="en">
+         <div class="title-section">
+           <p> </p>
+         </div>
+         <br/>
+         <div class="prefatory-section">
+           <p> </p>
+         </div>
+         <br/>
+         <div class="main-section">
+           <br/>
+           <div id="_" class="TOC">
+             <h1 class="IntroTitle">Table of contents</h1>
+           </div>
+           <br/>
               <div id="fwd">
                   <h1 class="ForewordTitle">Foreword</h1>
-                  <p class="TableTitle" style="text-align:center;">
-                     Table 1\u00a0— Repeatability and reproducibility of
-                     <i>husked</i>
-                     rice yield
-                     <a class="FootnoteRef" href="#fn:_14">
-                        <sup>1</sup>
-                     </a>
-                        <span style="display:none">long desc</span>
-                     </caption>
+                  <table class="plain" id="tableD-1" style="width:70%;page-break-after: avoid;page-break-inside: avoid;table-layout:fixed;" title="tool tip">
+                     <caption>Table 1\u00a0— Repeatability and reproducibility of <i>husked</i> rice yield<a class="FootnoteRef" href="#fn:_14"><sup>1</sup></a><span style="display:none">long desc</span></caption>
                      <colgroup>
                         <col style="width: 30%;"/>
                         <col style="width: 20%;"/>
@@ -1140,7 +1081,8 @@ RSpec.describe IsoDoc do
                               </div>
                            </td>
                         </tr>
-                     </tfoot>
+                        <tr>
+                        <td colspan="5" style="border-top:0pt;border-bottom:solid windowtext 1.5pt;">
                      <div class="key">
                      <div class="figdl">
                         <p class="ListTitle">Key</p>
@@ -1169,182 +1111,140 @@ RSpec.describe IsoDoc do
                            \u00a0 Parboiled rice.
                         </p>
                      </aside>
+                     </td>
+                     </tr>
+                     </tfoot>
                   </table>
                </div>
                <aside id="fn:_14" class="footnote">
                   <p>X</p>
                </aside>
             </div>
-         </body>
-      </html>
+        </body>
     OUTPUT
     word = <<~OUTPUT
-      <html
-        xmlns:epub="http://www.idpf.org/2007/ops"
-        xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
-        xmlns:w="urn:schemas-microsoft-com:office:word"
-        xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
-        lang="en">
-      <head>
-      <style>
-        <!--
-        -->
-      </style>
-      </head>
-            <body lang="EN-US" link="blue" vlink="#954F72">
-              <div class="WordSection1">
-                <p> </p>
-              </div>
-              <p class="section-break"><br clear="all" class="section"/></p>
-              <div class="WordSection2">
-                <p class="page-break">
-                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-              </p>
-              <div class="TOC" id="_">
-                <p class="zzContents">Table of contents</p>
-              </div>
-            <p class="page-break">
-              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-            </p>
-              <div id="fwd">
-                  <h1 class="ForewordTitle">Foreword</h1>
-                  <p class="TableTitle" style="text-align:center;">
-                     Table 1\u00a0— Repeatability and reproducibility of
-                     <i>husked</i>
-                     rice yield
-                     <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
-                        <a class="FootnoteRef" epub:type="footnote" href="#ftn_14">1</a>
-                     </span>
-                  </p>
-                  <div align="center" class="table_container">
-                     <table id="tableD-1" class="MsoNormalTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;page-break-after: avoid;page-break-inside: avoid;" title="tool tip" summary="long desc" width="70%">
-                        <colgroup>
-                           <col width="30%"/>
-                           <col width="20%"/>
-                           <col width="20%"/>
-                           <col width="20%"/>
-                           <col width="10%"/>
-                        </colgroup>
-                        <thead>
-                           <tr style="background-color: red;">
-                              <td rowspan="2" align="left" style="page-break-after:avoid;">Description</td>
-                              <td colspan="4" align="center" style="page-break-after:avoid;">Rice sample</td>
-                           </tr>
-                           <tr>
-                              <td valign="top" align="left" style="background-color: green;;page-break-after:avoid;">Arborio</td>
-                              <td valign="middle" align="center" style="page-break-after:avoid;">
-                                 Drago
-                                 <a href="#tableD-1a" class="TableFootnoteRef">a</a>
-                              </td>
-                              <td valign="bottom" align="center" style="page-break-after:avoid;">
-                                 Balilla
-                                 <a href="#tableD-1a" class="TableFootnoteRef">a</a>
-                              </td>
-                              <td align="center" style="page-break-after:avoid;">Thaibonnet</td>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                              <th align="left" style="font-weight:bold;page-break-after:avoid;">Number of laboratories retained after eliminating outliers</th>
-                              <td align="center" style="page-break-after:avoid;">13</td>
-                              <td align="center" style="page-break-after:avoid;">11</td>
-                              <td align="center" style="page-break-after:avoid;">13</td>
-                              <td align="center" style="page-break-after:avoid;">13</td>
-                           </tr>
-                           <tr>
-                              <td align="left" style="page-break-after:auto;">Mean value, g/100 g</td>
-                              <td align="center" style="page-break-after:auto;">81,2</td>
-                              <td align="center" style="page-break-after:auto;">82,0</td>
-                              <td align="center" style="page-break-after:auto;">81,8</td>
-                              <td align="center" style="page-break-after:auto;">77,7</td>
-                           </tr>
-                        </tbody>
-                        <tfoot>
-                           <tr>
-                              <td align="left" style="page-break-after:auto;">
-                                 Reproducibility limit,
-                                 <span class="stem">(#(R)#)</span>
-                                 (= 2,83
-                                 <span class="stem">(#(s_R)#)</span>
-                                 )
-                              </td>
-                              <td align="center" style="page-break-after:auto;">2,89</td>
-                              <td align="center" style="page-break-after:auto;">0,57</td>
-                              <td align="center" style="page-break-after:auto;">2,26</td>
-                              <td align="center" style="page-break-after:auto;">
-                                 <div class="figdl">
-                                    <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">
-                                       6,06
-                                       <span style="mso-tab-count:1">\u00a0 </span>
-                                       Definition
-                                    </p>
-                                 </div>
-                              </td>
-                           </tr>
-                        </tfoot>
-                        <div class="key">
-                        <div class="figdl">
-                           <p class="ListTitle">Key</p>
-                           <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">
-                              Drago
-                              <span style="mso-tab-count:1">\u00a0 </span>
-                              A type of rice
-                           </p>
-                        </div>
-                        </div>
-                        <div class="BlockSource">
-                           <p>[SOURCE: , Section 1 — with adjustments;
-          , Section 2
-        ]</p>
-                        </div>
-                        <div class="Note">
-                           <p class="Note">
-                              <span class="note_label">
-                                 NOTE
-                                 <span style="mso-tab-count:1">\u00a0 </span>
-                              </span>
-                              This is a table about rice
-                           </p>
-                        </div>
-                        <aside id="ftntableD-1a">
-                           <p id="_">
-                              <span class="TableFootnoteRef">a</span>
-                              <span style="mso-tab-count:1">\u00a0 </span>
-                              Parboiled rice.
-                           </p>
-                        </aside>
-                     </table>
-                  </div>
-               </div>
-               <p>\u00a0</p>
+      <body lang="EN-US" link="blue" vlink="#954F72">
+        <div class="WordSection1">
+          <p> </p>
+        </div>
+        <p class="section-break">
+          <br clear="all" class="section"/>
+        </p>
+        <div class="WordSection2">
+          <p class="page-break">
+            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div id="_" class="TOC">
+            <p class="zzContents">Table of contents</p>
+          </div>
+          <p class="page-break">
+            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div id="fwd">
+            <h1 class="ForewordTitle">Foreword</h1>
+            <p class="TableTitle" style="text-align:center;">Table 1 — Repeatability and reproducibility of <i>husked</i> rice yield<span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" epub:type="footnote" href="#ftn_14">1</a></span></p>
+            <div align="center" class="table_container">
+              <table id="tableD-1" class="MsoNormalTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;page-break-after: avoid;page-break-inside: avoid;" title="tool tip" summary="long desc" width="70%">
+                <colgroup>
+                  <col width="30%"/>
+                  <col width="20%"/>
+                  <col width="20%"/>
+                  <col width="20%"/>
+                  <col width="10%"/>
+                </colgroup>
+                <thead>
+                  <tr style="background-color: red;">
+                    <td rowspan="2" align="left" style="page-break-after:avoid;">Description</td>
+                    <td colspan="4" align="center" style="page-break-after:avoid;">Rice sample</td>
+                  </tr>
+                  <tr>
+                    <td valign="top" align="left" style="background-color: green;;page-break-after:avoid;">Arborio</td>
+                    <td valign="middle" align="center" style="page-break-after:avoid;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
+                    <td valign="bottom" align="center" style="page-break-after:avoid;">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
+                    <td align="center" style="page-break-after:avoid;">Thaibonnet</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th align="left" style="font-weight:bold;page-break-after:avoid;">Number of laboratories retained after eliminating outliers</th>
+                    <td align="center" style="page-break-after:avoid;">13</td>
+                    <td align="center" style="page-break-after:avoid;">11</td>
+                    <td align="center" style="page-break-after:avoid;">13</td>
+                    <td align="center" style="page-break-after:avoid;">13</td>
+                  </tr>
+                  <tr>
+                    <td align="left" style="page-break-after:auto;">Mean value, g/100 g</td>
+                    <td align="center" style="page-break-after:auto;">81,2</td>
+                    <td align="center" style="page-break-after:auto;">82,0</td>
+                    <td align="center" style="page-break-after:auto;">81,8</td>
+                    <td align="center" style="page-break-after:auto;">77,7</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td align="left" style="page-break-after:auto;">Reproducibility limit, <span class="stem">(#(R)#)</span> (= 2,83 <span class="stem">(#(s_R)#)</span>)</td>
+                    <td align="center" style="page-break-after:auto;">2,89</td>
+                    <td align="center" style="page-break-after:auto;">0,57</td>
+                    <td align="center" style="page-break-after:auto;">2,26</td>
+                    <td align="center" style="page-break-after:auto;">
+                      <div class="figdl">
+                        <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">6,06<span style="mso-tab-count:1">  </span>Definition</p>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5" style="border-top:0pt;mso-border-top-alt:0pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">
+                      <div class="key">
+        <div class="figdl"><p class="ListTitle">Key</p><p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">Drago<span style="mso-tab-count:1">  </span>A type of rice</p></div>
+      </div>
+                      <div class="BlockSource">
+                        <p>[SOURCE: ,  Section 1 — with adjustments;
+        ,  Section 2
+      ]</p>
+                      </div>
+                      <div class="Note">
+                        <p class="Note"><span class="note_label">NOTE<span style="mso-tab-count:1">  </span></span>This is a table about rice</p>
+                      </div>
+                      <aside id="ftntableD-1a">
+        <p id="_"><span class="TableFootnoteRef">a</span><span style="mso-tab-count:1">  </span>Parboiled rice.</p>
+      </aside>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
             </div>
-            <p class="section-break">
-               <br clear="all" class="section"/>
-            </p>
-            <div class="WordSection3">
-               <aside id="ftn_14">
-                  <p>X</p>
-               </aside>
-            </div>
-         </body>
-      </html>
+          </div>
+          <p> </p>
+        </div>
+        <p class="section-break">
+          <br clear="all" class="section"/>
+        </p>
+        <div class="WordSection3">
+          <aside id="ftn_14">
+            <p>X</p>
+          </aside>
+        </div>
+      </body>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
     expect(strip_guid(pres_output))
       .to be_xml_equivalent_to presxml
-    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml))
+    output = output.at("//body")
+    expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
-    output = Nokogiri::XML(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true))
+    output = IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)
+    output = Nokogiri::HTML5(output)
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml)
+    output = output.at("//body")
+    expect(strip_guid(output.to_xhtml)
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))
-      .to be_xml_equivalent_to word
+      .to be_html4_equivalent_to word
   end
 
   it "breaks down CSS border shorthand attributes" do
@@ -1439,7 +1339,7 @@ RSpec.describe IsoDoc do
                   rice yield
                </p>
                <div align='center' class='table_container'>
-                 <table id='tableD-1' class='MsoISOTable' style='mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;' title='tool tip' summary='long desc' width='70%'/>
+                 <table id='tableD-1' class='MsoISOTable' style='mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;' title='tool tip' summary='long desc' width='70%'></table>
                </div>
              </div>
              <p>\u00a0</p>
@@ -1528,10 +1428,7 @@ RSpec.describe IsoDoc do
         xmlns:w="urn:schemas-microsoft-com:office:word"
         xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
         lang="en">
-           <head>
-             <style>
-             </style>
-           </head>
+        <head> <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/> <style> </style> </head>
            <body lang='EN-US' link='blue' vlink='#954F72'>
              <div class='WordSection1'>
                <p>\u00a0</p>
@@ -1685,10 +1582,7 @@ RSpec.describe IsoDoc do
         xmlns:w="urn:schemas-microsoft-com:office:word"
         xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
         lang="en">
-        <head>
-          <style>
-          </style>
-        </head>
+        <head> <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/> <style> </style> </head>
         <body lang="EN-US" link="blue" vlink="#954F72">
           <div class="WordSection1">
             <p>\u00a0</p>
@@ -1796,10 +1690,7 @@ RSpec.describe IsoDoc do
         xmlns:w="urn:schemas-microsoft-com:office:word"
         xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
         lang="en">
-        <head>
-          <style>
-          </style>
-        </head>
+        <head> <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/> <style> </style> </head>
         <body lang="EN-US" link="blue" vlink="#954F72">
           <div class="WordSection1">
             <p>\u00a0</p>
@@ -1912,7 +1803,7 @@ RSpec.describe IsoDoc do
         xmlns:w="urn:schemas-microsoft-com:office:word"
         xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
         lang="en">
-        <head> <style> </style> </head>
+        <head> <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/> <style> </style> </head>
                <body lang="EN-US" link="blue" vlink="#954F72">
            <div class="WordSection1">
              <p>\u00a0</p>
@@ -2022,7 +1913,7 @@ RSpec.describe IsoDoc do
         xmlns:w="urn:schemas-microsoft-com:office:word"
         xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
         lang="en">
-        <head> <style> </style> </head>
+        <head> <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/> <style> </style> </head>
                      <body lang="EN-US" link="blue" vlink="#954F72">
            <div class="WordSection1">
              <p>\u00a0</p>
@@ -2140,47 +2031,49 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     html = <<~OUTPUT
-             #{HTML_HDR}
-                            <br/>
-               <div>
-                  <h1 class="ForewordTitle">Foreword</h1>
-                  <table id="tableD-1" class="MsoISOTable" style="border-width:1px;border-spacing:0;width:70%;page-break-after: avoid;page-break-inside: avoid;" title="tool tip">
-                     <caption>
-                     Repeatability and reproducibility of
-                     <i>husked</i>
-                     rice yield
-                        <span style="display:none">long desc</span>
-                     </caption>
-                     <thead>
-                        <tr>
-                           <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="col">X</td>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr>
-                           <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">
-                              <p>1</p>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td style="border-top:none;border-bottom:solid windowtext 1.5pt;">
-                              <table class="MsoISOTable" style="border-width:1px;border-spacing:0;">
-                                 <tbody>
-                                    <tr>
-                                       <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">
-                                          <p>2</p>
-                                       </td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                           </td>
-                        </tr>
-                     </tbody>
-                  </table>
-               </div>
-            </div>
-         </body>
-      </html>
+          <div class="main-section">
+        <br/>
+        <div id="_" class="TOC">
+          <h1 class="IntroTitle">Table of contents</h1>
+        </div>
+        <br/>
+         <div>
+            <h1 class="ForewordTitle">Foreword</h1>
+            <table id="tableD-1" class="MsoISOTable" style="border-width:1px;border-spacing:0;width:70%;page-break-after: avoid;page-break-inside: avoid;" title="tool tip">
+               <caption>
+               Repeatability and reproducibility of
+               <i>husked</i>
+               rice yield
+                  <span style="display:none">long desc</span>
+               </caption>
+               <thead>
+                  <tr>
+                     <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="col">X</td>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">
+                        <p>1</p>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td style="border-top:none;border-bottom:solid windowtext 1.5pt;">
+                        <table class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+                           <tbody>
+                              <tr>
+                                 <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">
+                                    <p>2</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
     OUTPUT
     word = <<~OUTPUT
       <div class="WordSection2">
@@ -2195,8 +2088,8 @@ RSpec.describe IsoDoc do
                 rice yield
              </p>
              <div align="center" class="table_container">
+                   <a name="tableD-1" id="tableD-1"></a>
                 <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;" title="tool tip" summary="long desc" width="70%">
-                   <a name="tableD-1" id="tableD-1"/>
                    <thead>
                       <tr>
                          <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">X</td>
@@ -2231,20 +2124,20 @@ RSpec.describe IsoDoc do
        </div>
     OUTPUT
 
-    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml))
+    output = output.at("//div[@class = 'main-section']")
+    expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
     IsoDoc::WordConvert.new({})
       .convert("test", input, false)
     output = File.read("test.doc")
-      .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
-      .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    output = Nokogiri::XML(output)
-    # output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(output.to_xml
+      .sub(/^.*<html/m, "<html").sub(/<\/html>.*$/m, "")
+    output = Nokogiri::HTML5(output)
+    output = output.at("//div[@class='WordSection2']")
+    expect(strip_guid(output.to_xhtml
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_xml_equivalent_to word
+      .to be_html4_equivalent_to word
   end
 end
