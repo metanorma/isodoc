@@ -147,6 +147,44 @@ RSpec.describe IsoDoc do
     expect(have_cdata_in_script_tags(html)).to be false
   end
 
+  it "generates padding-based sidebar toggle assets" do
+    FileUtils.rm_f "test.html"
+    IsoDoc::HtmlConvert.new(
+      { htmlstylesheet: "spec/assets/sidebar.scss" },
+    ).convert("test", <<~INPUT, false)
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <sections>
+          <clause displayorder="1" id="scope" type="scope">
+            <fmt-title>Scope</fmt-title>
+            <p>Text</p>
+          </clause>
+        </sections>
+      </iso-standard>
+    INPUT
+    html = File.read("test.html")
+    expect(html).to include("const bodyPaddingLeftExpanded")
+    expect(html).to include("const expandedToggleLeft = navWidthExpanded + 'px'")
+    expect(html).to include("const toggleWidth = jqToggle.outerWidth()")
+    expect(html).to include("const collapsedToggleLeft = bandWidth + 'px'")
+    expect(html)
+      .to include("const collapsedBodyPaddingLeft = bandWidth + toggleWidth + 'px'")
+    expect(html).to include(
+      "$('.document-stage-band:visible, .document-type-band:visible')",
+    )
+    expect(html)
+      .to include("isNavVisible ? collapsedBodyPaddingLeft : bodyPaddingLeftExpanded")
+    expect(html)
+      .to include("jqBody.animate({'paddingLeft': bodyPaddingLeft}")
+    expect(html).to include("jqToggle.animate({'left': toggleLeft}")
+    expect(html).not_to include("jqBody.animate({'marginLeft'")
+    expect(html).not_to include("const bodyPaddingLeft = isNavVisible ? '0px'")
+    expect(html).not_to include("'padding-left': '360px'")
+    expect(html).not_to include("'padding-left': '30px'")
+    expect(html).to match(
+      /#toggle \{[^}]*left: 0;[^}]*top: 0;[^}]*z-index: 103;/m,
+    )
+  end
+
   it "generates Headless HTML output docs with null configuration from file" do
     FileUtils.rm_f "spec/assets/iso.html"
     IsoDoc::HeadlessHtmlConvert.new(
