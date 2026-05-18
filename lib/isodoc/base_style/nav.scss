@@ -131,7 +131,9 @@
     background-color: $colorBg;
     color: $colorFg !important;
     cursor: pointer;
-    z-index: 100;
+    left: 0;
+    top: 0;
+    z-index: 103;
 
     span {
       text-align: center;

@@ -1,0 +1,13 @@
+@use 'base_style/nav' as *;
+
+body {
+  @include sidebarNavContainer(360px);
+}
+
+nav {
+  @include sidebarNav(#f7f7f7, 323px, 30px);
+}
+
+#toggle {
+  @include sidebarNavToggle(white, #000);
+}

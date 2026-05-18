@@ -13,24 +13,51 @@
       const jqToggle = $('#toggle');
       const animationSpeed = 'slow';
 
+      if(!jqNav.length || !jqToggle.length) {
+        return;
+      }
+
+      const navWidthExpanded = jqNav.outerWidth();
+      const bodyPaddingLeftExpanded =
+        parseFloat(jqBody.css('paddingLeft')) > 0 ?
+          jqBody.css('paddingLeft') : navWidthExpanded + 'px';
+      const expandedToggleLeft = navWidthExpanded + 'px';
+      let bandWidth = 0;
+
+      $('.document-stage-band:visible, .document-type-band:visible')
+        .each(function() {
+          const bounds = this.getBoundingClientRect();
+          bandWidth = Math.max(bandWidth, bounds.right);
+        });
+
+      const toggleWidth = jqToggle.outerWidth();
+      const collapsedToggleLeft = bandWidth + 'px';
+      const collapsedBodyPaddingLeft = bandWidth + toggleWidth + 'px';
+      jqToggle.css({
+        'left': jqNav.is(':visible') ? expandedToggleLeft : collapsedToggleLeft,
+        'top': '0px'
+      });
+
       jqToggle.on('click', function() {
         const isNavVisible = jqNav.is(':visible');
-        const fullNavWidth = jqNav.outerWidth();
-        const navLeft = isNavVisible ? '-' + fullNavWidth + 'px' : '0px';
-        const bodyMarginLeft = isNavVisible ? '0px' : fullNavWidth + 'px';
+        const navLeft = isNavVisible ? '-' + navWidthExpanded + 'px' : '0px';
+        const bodyPaddingLeft =
+          isNavVisible ? collapsedBodyPaddingLeft : bodyPaddingLeftExpanded;
+        const toggleLeft =
+          isNavVisible ? collapsedToggleLeft : expandedToggleLeft;
 
-        // Stop current animations
         jqNav.stop(true, true);
         jqBody.stop(true, true);
+        jqToggle.stop(true, true);
 
         if(!isNavVisible) {
-            jqNav.show();
+          jqNav.show();
         }
         jqNav.animate({'left': navLeft}, animationSpeed, function() {
           if(isNavVisible) {jqNav.hide()}
         });
-        jqBody.animate({'marginLeft': bodyMarginLeft}, animationSpeed);
-
+        jqBody.animate({'paddingLeft': bodyPaddingLeft}, animationSpeed);
+        jqToggle.animate({'left': toggleLeft}, animationSpeed);
       });
     })();
   </script>
@@ -215,4 +242,3 @@ for (i = 0; i < coll.length; i++) {
   });
 }
 </script>
-
