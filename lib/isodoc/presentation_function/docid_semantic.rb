@@ -34,10 +34,10 @@ module IsoDoc
     # uniformly across both the Pubid-parse path and this fallback.
     def std_docid_semantic_full(ident)
       ident
-        .sub(/^([^0-9]+)(\p{Zs}|$)/, "<span class='publisher'>\\1</span>\\2")
-        .sub(/([0-9]+)/, "<span class='docnumber'>\\1</span>")
-        .sub(/-([0-9]+)/, "-<span class='part'>\\1</span>")
-        .sub(/:([0-9]{4})(?!\d)/, ":<span class='year'>\\1</span>")
+        .sub(/^([^0-9]+)(\p{Zs}|$)/, '<span class="publisher">\1</span>\2')
+        .sub(/([0-9]+)/, '<span class="docnumber">\1</span>')
+        .sub(/-([0-9]+)/, '-<span class="part">\1</span>')
+        .sub(/:([0-9]{4})(?!\d)/, ':<span class="year">\1</span>')
     end
 
     # Default: pass through Pubid's generic class names unchanged. Flavors
