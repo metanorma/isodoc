@@ -16,7 +16,14 @@ module IsoDoc
     end
 
     def std_docid_semantic_parse(id)
-      Pubid::Registry.parse(id).to_s(annotated: true)
+      parsed = Pubid::Registry.parse(id)
+      # Pubid::Ieee in particular happily parses any "letters+digits" token
+      # as an IEEE Std identifier and synthesises an "IEEE Std" prefix that
+      # wasn't in the input (e.g. "REF4" -> "IEEE Std REF4"). Refuse to
+      # annotate when the parser has invented structure not present in the
+      # input -- detected by a non-identity round-trip.
+      return id if parsed.to_s != id
+      parsed.to_s(annotated: true)
     rescue Pubid::Core::Errors::ParseError
       std_docid_semantic_full(id)
     end
