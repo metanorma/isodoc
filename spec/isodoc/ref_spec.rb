@@ -128,6 +128,11 @@ RSpec.describe IsoDoc do
         <title>Internet Calendaring &#x26; Scheduling Core Object Specification (iCalendar)</title>
         <docidentifier type="DOI">ABC 20</docidentifier>
       </bibitem>
+      <bibitem id="ref10d" type="standard">
+        <title format="text/plain">Forthcoming standard with no display docidentifier</title>
+        <docidentifier type="metanorma">[11]</docidentifier>
+        <note format="text/plain" type="Unpublished-Status" reference="1">Under preparation.</note>
+      </bibitem>
       </references>
       </bibliography>
           </iso-standard>
@@ -445,8 +450,6 @@ RSpec.describe IsoDoc do
                <bibitem id="ISO3696" type="standard">
                   <biblio-tag>
                      [5]
-                     <tab/>
-                     ISO\u00a03696
                      <fn id="_9" reference="2" original-reference="_9" target="_19">
                         <p>Under preparation. (Stage at the time of publication ISO/DIS 3696)</p>
                         <fmt-fn-label>
@@ -457,7 +460,8 @@ RSpec.describe IsoDoc do
                            </span>
                         </fmt-fn-label>
                      </fn>
-                     ,
+                     <tab/>
+                     ISO\u00a03696,
                   </biblio-tag>
                   <formattedref>
                      <em>Water for analytical laboratory use</em>
@@ -560,6 +564,29 @@ RSpec.describe IsoDoc do
                   <docidentifier type="metanorma-ordinal">[9]</docidentifier>
                   <docidentifier type="DOI">DOI\u00a0ABC\u00a020</docidentifier>
                </bibitem>
+               <bibitem id="ref10d" type="standard">
+                  <biblio-tag>
+                     [10]
+                     <fn id="_10" reference="3" original-reference="_10" target="_21">
+                        <p>Under preparation.</p>
+                        <fmt-fn-label>
+                           <span class="fmt-caption-label">
+                              <sup>
+                                 <semx element="autonum" source="_10">3</semx>
+                              </sup>
+                           </span>
+                        </fmt-fn-label>
+                     </fn>
+                     <tab/>
+                  </biblio-tag>
+                  <formattedref>
+                     <em>Forthcoming standard with no display docidentifier</em>
+                     .
+                  </formattedref>
+                  <title format="text/plain">Forthcoming standard with no display docidentifier</title>
+                  <docidentifier type="metanorma-ordinal">[10]</docidentifier>
+                  <note format="text/plain" type="Unpublished-Status" reference="1">Under preparation.</note>
+               </bibitem>
             </references>
          </bibliography>
          <fmt-footnote-container>
@@ -594,6 +621,23 @@ RSpec.describe IsoDoc do
                         </span>
                      </fmt-fn-label>
                      Under preparation. (Stage at the time of publication ISO/DIS 3696)
+                  </p>
+               </semx>
+            </fmt-fn-body>
+            <fmt-fn-body id="_21" target="_10" reference="3">
+               <semx element="fn" source="_10">
+                  <p>
+                     <fmt-fn-label>
+                        <span class="fmt-caption-label">
+                           <sup>
+                              <semx element="autonum" source="_10">3</semx>
+                           </sup>
+                        </span>
+                        <span class="fmt-caption-delim">
+                           <tab/>
+                        </span>
+                     </fmt-fn-label>
+                     Under preparation.
                   </p>
                </semx>
             </fmt-fn-body>
@@ -695,11 +739,11 @@ RSpec.describe IsoDoc do
                       </p>
                    </div>
                    <p id="ISO3696" class="Biblio">
-                      [5]\u00a0 ISO\u00a03696
+                      [5]
                       <a class="FootnoteRef" href="#fn:_19">
                          <sup>2</sup>
                       </a>
-                      ,
+                      \u00a0 ISO\u00a03696,
                       <i>Water for analytical laboratory use</i>
                       .
                    </p>
@@ -866,8 +910,6 @@ RSpec.describe IsoDoc do
                <p class="Biblio">
                   <a name="ISO3696" id="ISO3696"/>
                   [5]
-                  <span style="mso-tab-count:1">\u00a0 </span>
-                  ISO\u00a03696
                   <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
                      <a class="FootnoteRef" type="footnote" href="#_ftn2" style="mso-footnote-id:ftn2" name="_ftnref2" title="" id="_ftnref2">
                         <span class="MsoFootnoteReference">
@@ -875,7 +917,9 @@ RSpec.describe IsoDoc do
                         </span>
                      </a>
                   </span>
-                  ,
+
+                  <span style="mso-tab-count:1">\u00a0 </span>
+                  ISO\u00a03696,
                   <i>Water for analytical laboratory use</i>
                   .
                </p>
@@ -2473,8 +2517,6 @@ RSpec.describe IsoDoc do
                         [
                         <strong>A</strong>
                         .]
-                        <tab/>
-                        XYZ
                         <fn reference="1" id="_3" original-reference="1" target="_13">
                            <p id="_">hello</p>
                            <fmt-fn-label>
@@ -2485,7 +2527,8 @@ RSpec.describe IsoDoc do
                               </span>
                            </fmt-fn-label>
                         </fn>
-                        ,
+                        <tab/>
+                        XYZ,
                      </biblio-tag>
                      <formattedref format="application/x-isodoc+xml">
                         <em>Standard</em>
@@ -2510,8 +2553,6 @@ RSpec.describe IsoDoc do
                         [
                         <strong>A</strong>
                         .]
-                        <tab/>
-                        XYZ
                         <fn reference="1" id="_4" original-reference="1" target="_13">
                            <p id="_">hello</p>
                            <fmt-fn-label>
@@ -2522,7 +2563,8 @@ RSpec.describe IsoDoc do
                               </span>
                            </fmt-fn-label>
                         </fn>
-                        ,
+                        <tab/>
+                        XYZ,
                      </biblio-tag>
                      <formattedref format="application/x-isodoc+xml">
                         <em>Standard</em>
@@ -2560,7 +2602,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     PRESXML
     html = <<~OUTPUT
-         <body lang="en">
+         <body lang="en" xml:lang="en">
             <div class="title-section">
                <p>\u00a0</p>
             </div>
@@ -2609,11 +2651,11 @@ RSpec.describe IsoDoc do
                   <div>
                      <p id="iso124" class="Biblio">
                         [<b>A</b>
-                        .]\u00a0 XYZ
+                        .]
                         <a class="FootnoteRef" href="#fn:_13">
                            <sup>1</sup>
                         </a>
-                        ,
+                        \u00a0 XYZ,
                         <i>Standard</i>
                      </p>
                      <p id="_">More text</p>
@@ -2622,11 +2664,11 @@ RSpec.describe IsoDoc do
                      <h2 class="Section3">Bibliography 1</h2>
                      <p id="iso125" class="Biblio">
                         [<b>A</b>
-                        .]\u00a0 XYZ
+                        .]
                         <a class="FootnoteRef" href="#fn:_13">
                            <sup>1</sup>
                         </a>
-                        ,
+                        \u00a0 XYZ,
                         <i>Standard</i>
                      </p>
                   </div>
