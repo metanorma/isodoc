@@ -160,14 +160,15 @@ module IsoDoc
 
     # if ids is just a number, only use that ([1] Non-Standard)
     # else, use both ordinal, as prefix, and ids
+    # The footnote (datefn) always lands between the bracketed ordinal and
+    # the <tab/>, regardless of whether the docidentifier is present, so
+    # placement stays consistent across bibitems.
     def biblio_ref_entry_code(ordinal, ids, _standard, datefn, _bib)
       ret = esc(ids[:ordinal]) || esc(ids[:content]) || esc(ids[:metanorma]) ||
         "[#{esc ordinal.to_s}]"
+      ret = prefix_bracketed_ref("#{ret}#{datefn}")
       if ids[:sdo] && !ids[:sdo].empty?
-        ret = prefix_bracketed_ref(ret)
-        ret += "#{esc ids[:sdo]}#{datefn}, "
-      else
-        ret = prefix_bracketed_ref("#{ret}#{datefn}")
+        ret += "#{esc ids[:sdo]}, "
       end
       ret
     end
