@@ -74,32 +74,46 @@ module IsoDoc
     end
 
     def admonition1(elem)
-      if elem["type"] == "box"
-        admonition_numbered1(elem)
-      elsif elem["notag"] == "true" || elem.at(ns("./name"))
-        prefix_name(elem, { label: admonition_delim(elem) }, nil, "name")
-      else
-        label = admonition_label(elem, nil)
-        prefix_name(elem, { label: admonition_delim(elem) }, label, "name")
-      end
-    end
-
-    def admonition_numbered1(elem)
-      label = admonition_label(elem,
+      lbl = if elem["type"] == "box"
+              admonition_label(elem,
                                @xrefs.anchor(elem["id"] || elem["original-id"],
                                              :label, false))
-      prefix_name(elem, { caption: block_delim }, label, "name")
+            elsif elem["notag"] == "true" then nil
+            elsif elem.at(ns("./name"))
+              admonition_icon(elem)
+            else admonition_label(elem, nil)
+            end
+      prefix_name(elem, admonition_options(elem), lbl, "name")
+    end
+
+    def admonition_options(elem)
+      options = { label: admonition_delim(elem) }
+      elem["type"] == "box" and options = { caption: block_delim }
+      options
     end
 
     def admonition_label(elem, num)
       lbl = if elem["type"] == "box" then @i18n.box
-            else @i18n.admonition[elem["type"]]&.upcase
+            else @i18n.labels.dig("admonition", [elem["type"]])&.upcase
             end
+      icon = admonition_icon(elem)
+      lbl = (icon || "") + (lbl || "")
       labelled_autonum(lbl, elem["id"] || elem["original-id"], num)
     end
 
-    def admonition_delim(_elem)
-      ""
+    def admonition_icon(elem)
+      icon = elem.document
+        .at(ns("//presentation-metadata/admonition-icon-#{elem['type']}"))&.text
+      icon ||= @i18n.labels.dig("admonition-icon", elem["type"])
+      icon and return "<span class='fmt-admonition-icon'>#{icon}</span>"
+    end
+
+    def admonition_delim(elem)
+      if elem["type"] == "box"
+        block_delim
+      else
+        ""
+      end
     end
 
     def table(docxml)
