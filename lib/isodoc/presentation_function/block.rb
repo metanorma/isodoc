@@ -94,7 +94,7 @@ module IsoDoc
 
     def admonition_label(elem, num)
       lbl = if elem["type"] == "box" then @i18n.box
-            else @i18n.labels.dig("admonition", [elem["type"]])&.upcase
+            else @i18n.labels.dig("admonition", elem["type"])&.upcase
             end
       icon = admonition_icon(elem)
       lbl = (icon || "") + (lbl || "")
