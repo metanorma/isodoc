@@ -29,7 +29,7 @@ no_terms_boilerplate: |
 internal_terms_boilerplate: |
         この規格で用いる主な用語及び定義は，次による。
 norm_with_refs_pref: 
-      次に掲げる引用規格は，この規格に引用されることによって，その一部又は全部がこの規格の要 求事項を構成している。これらの引用規格のうち，西暦年を付記してあるものは，記載の年の版を適 用し，その後の改正版(追補を含む。)は適用しない。西暦年の付記がない引用規格は，その最新版(追 補を含む。)を適用する。
+      次に掲げる引用規格は，この規格に引用されることによって，その一部又は全部がこの規格の要求事項を構成している。これらの引用規格のうち，西暦年を付記してあるものは，記載の年の版を適用し，その後の改正版(追補を含む。)は適用しない。西暦年の付記がない引用規格は，その最新版(追補を含む。)を適用する。
 norm_empty_pref: 
           この規格には，引用規格はない。
 external_terms_boilerplate: |
@@ -67,7 +67,6 @@ requirement: 要求
 recommendation: 推奨
 permission: 許可
 box: 枠
-index: 索引
 standard_no: 規格番号
 number: 番号
 # Modspec
@@ -124,20 +123,20 @@ admonition: {
   editorial: 編集者注
 }
 title_prefixes:
-  part: その
-  amendment: 追補
-  corrigendum: 正誤票
-  addendum: 追録
-  supplement: 補遺
-  annex: 附属書
-  appendix: 付録
+  part: "第{{ var1 }}部"
+  amendment: "追補{{ var1 }}"
+  corrigendum: "正誤票{{ var1 }}"
+  addendum: "追録{{ var1 }}"
+  supplement: "補遺{{ var1 }}"
+  annex: "附属書{{ var1 }}"
+  appendix: "付録{{ var1 }}"
 locality: {
                       section: セクション,
                       clause: 箇条,
                       subclause: 細分箇条,
                       part: 部,
                       paragraph: 段落,
-                      chapter: 第章,
+                      chapter: 章,
                       page: ページ,
                       table: 表,
                       annex: 附属書,
