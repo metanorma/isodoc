@@ -104,7 +104,6 @@ module IsoDoc
     end
 
     def designation_annotate(desgn, name, orig)
-      # designation_boldface(desgn)
       designation_expression(desgn, name, orig)
       designation_field(desgn, name, orig)
       designation_grammar(desgn, name)
@@ -112,13 +111,6 @@ module IsoDoc
       designation_pronunciation(desgn, name)
       designation_bookmarks(desgn, name)
       desgn.children = name.children
-    end
-
-    # KILL
-    def designation_boldfacex(desgn)
-      desgn["element"] == "preferred" or return
-      name = desgn.at(ns("./expression/name | ./letter-symbol/name")) or return
-      name.children = "<strong>#{name.children}</strong>"
     end
 
     def designation_expression(desgn, name, orig)

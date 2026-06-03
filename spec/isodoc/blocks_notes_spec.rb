@@ -5,55 +5,55 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword id="fwd">
-          <note id="A" keep-with-next="true" keep-lines-together="true">
+          <note id="A" keep-with-next="true" keep-lines-together="true" type="type1">
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83e">These results are based on a study carried out on three different types of kernel.</p>
       </note>
-          <note id="B" keep-with-next="true" keep-lines-together="true" notag="true" unnumbered="true">
+          <note id="B" keep-with-next="true" keep-lines-together="true" notag="true" unnumbered="true" type="type1,type2">
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
           </foreword></preface>
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface>
-             <clause type="toc" id="_" displayorder="1">
-                <fmt-title id="_" depth="1">Table of contents</fmt-title>
-             </clause>
-             <foreword id="fwd" displayorder="2">
-                <title id="_">Foreword</title>
-                <fmt-title id="_" depth="1">
-                   <semx element="title" source="_">Foreword</semx>
-                </fmt-title>
-                <note id="A" keep-with-next="true" keep-lines-together="true" autonum="1">
-                   <fmt-name id="_">
-                      <span class="fmt-caption-label">
-                         <span class="fmt-element-name">NOTE</span>
-                         <semx element="autonum" source="A">1</semx>
-                      </span>
-                      <span class="fmt-label-delim">
-                         <tab/>
-                      </span>
-                   </fmt-name>
-                   <fmt-xref-label>
-                      <span class="fmt-element-name">Note</span>
-                      <semx element="autonum" source="A">1</semx>
-                   </fmt-xref-label>
-                   <fmt-xref-label container="fwd">
-                      <span class="fmt-xref-container">
-                         <semx element="foreword" source="fwd">Foreword</semx>
-                      </span>
-                      <span class="fmt-comma">,</span>
-                      <span class="fmt-element-name">Note</span>
-                      <semx element="autonum" source="A">1</semx>
-                   </fmt-xref-label>
-                   <p id="_">These results are based on a study carried out on three different types of kernel.</p>
-                </note>
-                <note id="B" keep-with-next="true" keep-lines-together="true" notag="true" unnumbered="true">
-                   <p id="_">These results are based on a study carried out on three different types of kernel.</p>
-                </note>
-             </foreword>
-          </preface>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+           <clause type="toc" id="_" displayorder="1">
+             <fmt-title depth="1" id="_">Table of contents</fmt-title>
+           </clause>
+           <foreword id="fwd" displayorder="2">
+             <title id="_">Foreword</title>
+             <fmt-title depth="1" id="_">
+               <semx element="title" source="_">Foreword</semx>
+             </fmt-title>
+             <note id="A" keep-with-next="true" keep-lines-together="true" type="type1" autonum="1">
+               <fmt-name id="_">
+                 <span class="fmt-caption-label">
+                   <span class="fmt-element-name">NOTE</span>
+                   <semx element="autonum" source="A">1</semx>
+                 </span>
+                 <span class="fmt-label-delim">
+                   <tab/>
+                 </span>
+               </fmt-name>
+               <fmt-xref-label>
+                 <span class="fmt-element-name">Note</span>
+                 <semx element="autonum" source="A">1</semx>
+               </fmt-xref-label>
+               <fmt-xref-label container="fwd">
+                 <span class="fmt-xref-container">
+                   <semx element="foreword" source="fwd">Foreword</semx>
+                 </span>
+                 <span class="fmt-comma">,</span>
+                 <span class="fmt-element-name">Note</span>
+                 <semx element="autonum" source="A">1</semx>
+               </fmt-xref-label>
+               <p id="_">These results are based on a study carried out on three different types of kernel.</p>
+             </note>
+             <note id="B" keep-with-next="true" keep-lines-together="true" notag="true" unnumbered="true" type="type1,type2">
+               <p id="_">These results are based on a study carried out on three different types of kernel.</p>
+             </note>
+           </foreword>
+         </preface>
        </iso-standard>
     OUTPUT
     html = <<~OUTPUT
@@ -61,14 +61,14 @@ RSpec.describe IsoDoc do
         <br/>
         <div id="fwd">
         <h1 class="ForewordTitle">Foreword</h1>
-                       <div id='A' class='Note' style='page-break-after: avoid;page-break-inside: avoid;'>
+                       <div id='A' class='type1 Note' style='page-break-after: avoid;page-break-inside: avoid;'>
                  <p>
                    <span class='note_label'>NOTE 1\u00a0 </span>
                    These results are based on a study carried out on three
                    different types of kernel.
                  </p>
                </div>
-               <div id='B' class='Note' style='page-break-after: avoid;page-break-inside: avoid;'>
+               <div id='B' class='type1 type2 Note' style='page-break-after: avoid;page-break-inside: avoid;'>
                  <p>
                    These results are based on a study carried out on three
                    different types of kernel.
@@ -86,7 +86,7 @@ RSpec.describe IsoDoc do
       </p>
             <div id="fwd">
               <h1 class="ForewordTitle">Foreword</h1>
-                             <div id='A' class='Note' style='page-break-after: avoid;page-break-inside: avoid;'>
+                             <div id='A' class='type1 Note' style='page-break-after: avoid;page-break-inside: avoid;'>
                  <p class='Note'>
                    <span class='note_label'>NOTE 1
                    <span style='mso-tab-count:1'>\u00a0 </span></span>
@@ -94,7 +94,7 @@ RSpec.describe IsoDoc do
                    types of kernel.
                  </p>
                </div>
-               <div id='B' class='Note' style='page-break-after: avoid;page-break-inside: avoid;'>
+               <div id='B' class='type1 type2 Note' style='page-break-after: avoid;page-break-inside: avoid;'>
                  <p class='Note'>
                     These results are based on a study carried out on three different
                    types of kernel.

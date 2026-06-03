@@ -109,8 +109,10 @@ module IsoDoc
       end
 
       def note_attrs(node)
-        attr_code(id: node["id"], class: "Note", style: keep_style(node),
-                  coverpage: node["coverpage"])
+        classes = node["type"]&.split(",") || []
+        classes << "Note"
+        attr_code(id: node["id"], class: classes.join(" "),
+                  style: keep_style(node), coverpage: node["coverpage"])
       end
 
       def note_parse(node, out)

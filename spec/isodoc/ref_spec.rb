@@ -439,7 +439,7 @@ RSpec.describe IsoDoc do
                <p id="ISO20483" class="NormRef">ISO&#xA0;20483:2013-2014, International Organization for Standardization. <i>Cereals and pulses</i>. 2013&#x2013;2014.</p>
                <p id="ref1" class="NormRef">ICC/167, <span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)
        </p>
-               <div id="_2" class="Note NormRef">
+               <div id="_2" class="display Note NormRef">
                  <p><span class="note_label">NOTE&#xA0; </span>This is an annotation of ISO 20483:2013-2014</p>
                </div>
                <p id="zip_ffs" class="NormRef">[2] Title 5</p>
@@ -451,10 +451,10 @@ RSpec.describe IsoDoc do
                <p id="ISSN" class="Biblio">[4]&#xA0; <i>Instruments for analytical laboratory use</i>. n.d. ISSN: ISSN.
      
        </p>
-               <div id="_4" class="Note Biblio">
+               <div id="_4" class="display Note Biblio">
                  <p><span class="note_label">NOTE 1&#xA0; </span>This is an annotation of document ISSN.</p>
                </div>
-               <div id="_5" class="Note Biblio">
+               <div id="_5" class="display Note Biblio">
                  <p><span class="note_label">NOTE 2&#xA0; </span>This is another annotation of document ISSN.</p>
                </div>
                <p id="ISO3696" class="Biblio">[5]<a class="FootnoteRef" href="#fn:_20"><sup>2</sup></a>
@@ -546,7 +546,7 @@ RSpec.describe IsoDoc do
          <a href="http://www.icc.or.at">http://www.icc.or.at</a>
          )
        </p>
-       <div class="Note NormRef">
+       <div class="display Note NormRef">
          <a id="_2" name="_2"/>
          <p class="Note">
            <span class="note_label">
@@ -580,7 +580,7 @@ RSpec.describe IsoDoc do
          <i>Instruments for analytical laboratory use</i>
          . n.d. ISSN: ISSN.
        </p>
-       <div class="Note Biblio">
+       <div class="display Note Biblio">
          <a id="_4" name="_4"/>
          <p class="Note">
            <span class="note_label">
@@ -590,7 +590,7 @@ RSpec.describe IsoDoc do
            This is an annotation of document ISSN.
          </p>
        </div>
-       <div class="Note Biblio">
+       <div class="display Note Biblio">
          <a id="_5" name="_5"/>
          <p class="Note">
            <span class="note_label">
