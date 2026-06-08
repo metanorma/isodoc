@@ -111,13 +111,13 @@ admonition:
   safety precautions: احتياطات السلامة
   editorial: ملاحظة تحريرية
 title_prefixes:
-  part: الجملة
-  amendment: مسودة التعديل
-  corrigendum: التصحيح
-  addendum: الملحق
-  supplement: ملحق
-  annex: ملحق
-  appendix: ملحق
+  part: "{{ var1 }}الجملة"
+  amendment: "{{ var1 }}مسودة التعديل"
+  corrigendum: "{{ var1 }}التصحيح"
+  addendum: "{{ var1 }}الملحق"
+  supplement: "{{ var1 }}ملحق"
+  annex: "{{ var1 }}ملحق"
+  appendix: "{{ var1 }}ملحق"
 locality:
   section: قسم
   clause: فقرة

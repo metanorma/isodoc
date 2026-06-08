@@ -122,13 +122,13 @@ admonition: {
   editorial: Note editorial
 }
 title_prefixes:
-  part: Parte
-  amendment: Nnmienda
-  corrigendum: Corrección
-  addendum: Apéndice
-  supplement: Suplemento
-  annex: Anexo
-  appendix: Apéndice
+  part: "Parte {{ var1 }}"
+  amendment: "Enmienda {{ var1 }}"
+  corrigendum: "Corrección {{ var1 }}"
+  addendum: "Apéndice {{ var1 }}"
+  supplement: "Suplemento {{ var1 }}"
+  annex: "Anexo {{ var1 }}"
+  appendix: "Apéndice {{ var1 }}"
 locality: {
                       section: Sección,
                       clause: Cláusula,

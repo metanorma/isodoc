@@ -120,13 +120,13 @@ admonition: {
   editorial: Note éditoriale
 }
 title_prefixes:
-  part: Partie
-  amendment: Amendement
-  corrigendum: Rectificatif
-  addendum: Additif
-  supplement: Supplément
-  annex: Annexe
-  appendix: Appendice
+  part: "Partie {{ var1 }}"
+  amendment: "Amendement {{ var1 }}"
+  corrigendum: "Rectificatif {{ var1 }}"
+  addendum: "Additif {{ var1 }}"
+  supplement: "Supplément {{ var1 }}"
+  annex: "Annexe {{ var1 }}"
+  appendix: "Appendice {{ var1 }}"
 locality: {
                       section: Section,
                       clause: Article,

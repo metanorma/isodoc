@@ -124,13 +124,13 @@ admonition: {
   editorial: Redaktioneller Hinweis
 }
 title_prefixes:
-  part: Satz
-  amendment: Änderungsentwurf
-  corrigendum: Berichtigung
-  addendum: Nachtrag
-  supplement: Ergänzung
-  annex: Anhang
-  appendix: Anhang
+  part: "Satz {{ var1 }}"
+  amendment: "Änderungsentwurf {{ var1 }}"
+  corrigendum: "Berichtigung {{ var1 }}"
+  addendum: "Nachtrag {{ var1 }}"
+  supplement: "Ergänzung {{ var1 }}"
+  annex: "Anhang {{ var1 }}"
+  appendix: "Anhang {{ var1 }}"
 locality: {
   section: Abschnitt,
   clause: Klausel,

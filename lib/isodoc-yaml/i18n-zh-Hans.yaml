@@ -113,13 +113,13 @@ admonition: {
   editorial: 编辑说明
 }
 title_prefixes:
-  part: 部分
-  amendment: 修正
-  corrigendum: 更正
-  addendum: 附录
-  supplement: 补充文件
-  annex: 附件
-  appendix: 附录
+  part: "第{{ var1 }}部分"
+  amendment: "修正案{{ var1 }}"
+  corrigendum: "技术勘误{{ var1 }}"
+  addendum: "增编{{ var1 }}"
+  supplement: "补充件{{ var1 }}"
+  annex: "附件{{ var1 }}"
+  appendix: "附录{{ var1 }}"
 locality: {
   section: 条,
   clause: 条,

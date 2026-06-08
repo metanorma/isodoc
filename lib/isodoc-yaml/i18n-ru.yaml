@@ -186,13 +186,13 @@ admonition: {
   editorial: Редакционная Заметка
 }
 title_prefixes:
-  part: Часть
-  amendment: Поправка
-  corrigendum: Исправление
-  addendum: Дополнение
-  supplement: Дополнение
-  annex: Приложение
-  appendix: Приложение
+  part: "Часть {{ var1 }}"
+  amendment: "Поправка {{ var1 }}"
+  corrigendum: "Исправление {{ var1 }}"
+  addendum: "Добавление {{ var1 }}"
+  supplement: "Дополнительный документ {{ var1 }}"
+  annex: "Приложение {{ var1 }}"
+  appendix: "Дополнение {{ var1 }}"
 locality: {
                       section: Раздел,
                       clause: Пункт,
