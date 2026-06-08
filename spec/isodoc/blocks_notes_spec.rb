@@ -5,10 +5,10 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword id="fwd">
-          <note id="A" keep-with-next="true" keep-lines-together="true">
+          <note id="A" keep-with-next="true" keep-lines-together="true" type="type1">
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83e">These results are based on a study carried out on three different types of kernel.</p>
       </note>
-          <note id="B" keep-with-next="true" keep-lines-together="true" notag="true" unnumbered="true">
+          <note id="B" keep-with-next="true" keep-lines-together="true" notag="true" unnumbered="true" type="type1,type2">
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
           </foreword></preface>
@@ -61,14 +61,14 @@ RSpec.describe IsoDoc do
         <br/>
         <div id="fwd">
         <h1 class="ForewordTitle">Foreword</h1>
-                       <div id='A' class='Note' style='page-break-after: avoid;page-break-inside: avoid;'>
+                       <div id='A' class='type1 Note' style='page-break-after: avoid;page-break-inside: avoid;'>
                  <p>
                    <span class='note_label'>NOTE 1\u00a0 </span>
                    These results are based on a study carried out on three
                    different types of kernel.
                  </p>
                </div>
-               <div id='B' class='Note' style='page-break-after: avoid;page-break-inside: avoid;'>
+               <div id='B' class='type1 type2 Note' style='page-break-after: avoid;page-break-inside: avoid;'>
                  <p>
                    These results are based on a study carried out on three
                    different types of kernel.
