@@ -31,6 +31,9 @@ stage_dict: {
 substage_dict: {
   withdrawn: fortirita
 }
+admonition-icon: {
+  caution: ⚠️
+}
 array:
     - elem1
     - elem2
