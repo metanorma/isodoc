@@ -25,7 +25,7 @@ RSpec.describe IsoDoc do
                <fmt-title id="_" depth="1">
                   <semx element="title" source="_">Foreword</semx>
                </fmt-title>
-               <note id="A" keep-with-next="true" keep-lines-together="true" autonum="1">
+               <note id="A" keep-with-next="true" keep-lines-together="true" autonum="1" type="type1">
                   <fmt-name id="_">
                      <span class="fmt-caption-label">
                         <span class="fmt-element-name">NOTE</span>
@@ -49,7 +49,7 @@ RSpec.describe IsoDoc do
                   </fmt-xref-label>
                   <p id="_">These results are based on a study carried out on three different types of kernel.</p>
                </note>
-               <note id="B" keep-with-next="true" keep-lines-together="true" notag="true" unnumbered="true">
+               <note id="B" keep-with-next="true" keep-lines-together="true" notag="true" unnumbered="true" type="type1,type2">
                   <p id="_">These results are based on a study carried out on three different types of kernel.</p>
                </note>
             </foreword>
@@ -86,7 +86,7 @@ RSpec.describe IsoDoc do
         </p>
               <div id="fwd">
                 <h1 class="ForewordTitle">Foreword</h1>
-                               <div id='A' class='Note' style='page-break-after: avoid;page-break-inside: avoid;'>
+                               <div id='A' class='type1 Note' style='page-break-after: avoid;page-break-inside: avoid;'>
                    <p class='Note'>
                      <span class='note_label'>NOTE 1
                      <span style='mso-tab-count:1'>\u00a0 </span></span>
@@ -94,7 +94,7 @@ RSpec.describe IsoDoc do
                      types of kernel.
                    </p>
                  </div>
-                 <div id='B' class='Note' style='page-break-after: avoid;page-break-inside: avoid;'>
+                 <div id='B' class='type1 type2 Note' style='page-break-after: avoid;page-break-inside: avoid;'>
                    <p class='Note'>
                       These results are based on a study carried out on three different
                      types of kernel.
