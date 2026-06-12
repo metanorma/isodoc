@@ -8,7 +8,7 @@ RSpec.describe IsoDoc do
       },
     )
 
-    expect(convert.pdf_options(nil, nil)).to eq({ "--syntax-highlight": nil })
+    expect(convert.pdf_options(nil, nil)).to eq({ })
   end
 
   it "test default pdf_options for nil font_manifest_file" do
@@ -21,12 +21,11 @@ RSpec.describe IsoDoc do
       },
     )
 
-    expect(convert.pdf_options(nil, nil)).to eq({ "--syntax-highlight": nil })
+    expect(convert.pdf_options(nil, nil)).to eq({ })
   end
 
   it "test --font-manifest pdf_options" do
     mn2pdf_opts = {
-      "--syntax-highlight": nil,
       font_manifest: "/tmp/manifest.yml",
     }
     convert = IsoDoc::XslfoPdfConvert.new(
@@ -48,8 +47,7 @@ RSpec.describe IsoDoc do
     )
 
     expect(convert.pdf_options(nil, nil))
-      .to eq({ "--param align-cross-elements=" => "clause table note",
-               "--syntax-highlight": nil })
+      .to eq({ "--param align-cross-elements=" => "clause table note" })
   end
 
   it "test --baseassetpath pdf_options" do
@@ -61,8 +59,7 @@ RSpec.describe IsoDoc do
     )
 
     expect(convert.pdf_options(nil, nil))
-      .to eq({ "--param baseassetpath=" => "ABC",
-               "--syntax-highlight": nil })
+      .to eq({ "--param baseassetpath=" => "ABC" })
 
     convert = IsoDoc::XslfoPdfConvert.new(
       {
@@ -71,11 +68,10 @@ RSpec.describe IsoDoc do
     )
 
     expect(convert.pdf_options(nil, nil))
-      .to eq({ "--syntax-highlight": nil })
+      .to eq({ })
 
     expect(convert.pdf_options(nil, "test.xml"))
-      .to eq({ "--param baseassetpath=" => File.expand_path("."),
-               "--syntax-highlight": nil })
+      .to eq({ "--param baseassetpath=" => File.expand_path(".") })
   end
 
   it "test pdf encryption options" do
@@ -113,7 +109,6 @@ RSpec.describe IsoDoc do
                "--keystore" => "m",
                "--keystore-password" => "n",
                "--owner-password" => "b",
-               :"--syntax-highlight" => nil,
                "--user-password" => "c",
              })
   end
@@ -128,7 +123,6 @@ RSpec.describe IsoDoc do
     expect(convert.pdf_options(nil, nil))
       .to eq({
                "--pdf-portfolio" => true,
-               :"--syntax-highlight" => nil,
              })
   end
 
@@ -166,7 +160,6 @@ RSpec.describe IsoDoc do
                              "xsl.pdf")).cleanpath.to_s,
       {
         "--param baseassetpath=" => baseassetpath,
-        "--syntax-highlight": nil,
         "--xsl-file-override" => overridepath,
       },
     )

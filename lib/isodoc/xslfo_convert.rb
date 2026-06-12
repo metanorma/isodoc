@@ -20,7 +20,7 @@ module IsoDoc
                        pdfkeystore: "--keystore",
                        pdfkeystorepassword: "--keystore-password",
                          }.freeze
-    MN2PDF_DEFAULT_ARGS = { "--syntax-highlight": nil }.freeze
+    MN2PDF_DEFAULT_ARGS = { }.freeze
 
     def initialize(options)
       @format = :pdf
