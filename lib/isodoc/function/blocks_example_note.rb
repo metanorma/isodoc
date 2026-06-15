@@ -51,7 +51,26 @@ module IsoDoc
       end
 
       def example_parse(node, out)
-        example_div_parse(node, out)
+        if node["collapsible"] == "true"
+          example_collapsible_parse(node, out)
+        else
+          example_div_parse(node, out)
+        end
+      end
+
+      # HTML5 collapsible example: label in <summary>, body in the example div
+      def example_collapsible_parse(node, out)
+        out.details(open: "open") do |det|
+          name = node.at(ns("./fmt-name"))
+          det.summary do |s|
+            name and children_parse(name, s)
+          end
+          det.div(**example_div_attr(node)) do |div|
+            node.children.each do |n|
+              parse(n, div) unless n.name == "fmt-name"
+            end
+          end
+        end
       end
 
       def block_body_first_elem(node)

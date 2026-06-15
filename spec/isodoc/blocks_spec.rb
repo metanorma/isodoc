@@ -120,6 +120,32 @@ RSpec.describe IsoDoc do
       .to be_html4_equivalent_to word
   end
 
+  it "renders collapsible examples as HTML5 details" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+      <preface><foreword id="fwd" displayorder="2">
+      <example id="samplecode" collapsible="true">
+      <fmt-name id="_">EXAMPLE</fmt-name>
+      <p>Hello</p>
+      </example>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    html = <<~OUTPUT
+      <details open="open">
+        <summary>EXAMPLE</summary>
+        <div id="samplecode" class="example">
+          <p>Hello</p>
+        </div>
+      </details>
+    OUTPUT
+    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true))
+    output = output.at("//details")
+    expect(strip_guid(output.to_xhtml))
+      .to be_html5_equivalent_to html
+  end
+
   it "processes sequences of examples" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
