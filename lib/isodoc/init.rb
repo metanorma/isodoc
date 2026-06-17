@@ -169,6 +169,7 @@ module IsoDoc
       @tocfigures = options[:tocfigures]
       @toctables = options[:toctables]
       @tocrecommendations = options[:tocrecommendations]
+      @tocexamples = options[:tocexamples]
     end
 
     AGENCIES = %w(ISO IEC ITU IETF NIST OGC IEEE BIPM BSI BS JIS IANA UN W3C

@@ -102,6 +102,7 @@ version: Version
 toc_figures: Abbildungsverzeichnis
 toc_tables: Tabellenverzeichnis
 toc_recommendations: Empfehlungenverzeichnis
+toc_examples: Beispielverzeichnis
 month_january: Januar
 month_february: Februar
 month_march: März

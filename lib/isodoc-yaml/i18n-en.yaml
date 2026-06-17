@@ -102,6 +102,7 @@ version: version
 toc_figures: List of figures
 toc_tables: List of tables
 toc_recommendations: List of recommendations
+toc_examples: List of examples
 month_january: January
 month_february: February
 month_march: March

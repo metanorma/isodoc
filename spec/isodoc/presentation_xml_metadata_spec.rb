@@ -56,13 +56,17 @@ RSpec.describe IsoDoc do
           <toc type='recommendation'>
             <title>List of recommendations</title>
           </toc>
+          <toc type='example'>
+            <title>List of examples</title>
+          </toc>
         </metanorma-extension>
       </iso-standard>
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new({ tocfigures: true,
              toctables: true,
-             tocrecommendations: true }
+             tocrecommendations: true,
+             tocexamples: true }
       .merge(presxml_options))
       .convert("test", input, true))
     xml.xpath("//xmlns:preface | //xmlns:localized-strings | //xmlns:sections")
