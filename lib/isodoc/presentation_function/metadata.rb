@@ -93,15 +93,17 @@ module IsoDoc
     end
 
     def toc_metadata(docxml)
-      @tocfigures || @toctables || @tocrecommendations or return
+      @tocfigures || @toctables || @tocrecommendations || @tocexamples or return
       ins = extension_insert(docxml)
       @tocfigures and
         ins.add_child "<toc type='figure'><title>#{@i18n.toc_figures}</title></toc>"
       @toctables and
         ins << "<toc type='table'><title>#{@i18n.toc_tables}</title></toc>"
-      @tocfigures and
+      @tocrecommendations and
         ins << "<toc type='recommendation'><title>#{@i18n.toc_recommendations}" \
         "</title></toc>"
+      @tocexamples and
+        ins << "<toc type='example'><title>#{@i18n.toc_examples}</title></toc>"
     end
 
     def fonts_metadata(xmldoc)

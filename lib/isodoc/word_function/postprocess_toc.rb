@@ -27,6 +27,7 @@ module IsoDoc
         toc += make_table_word_toc(docxml)
         toc += make_figure_word_toc(docxml)
         toc += make_recommendation_word_toc(docxml)
+        toc += make_example_word_toc(docxml)
         toc
       end
 
@@ -91,6 +92,10 @@ module IsoDoc
            recommendationtitle recommendationtesttitle)
       end
 
+      def example_toc_class
+        %w(example-title)
+      end
+
       def toc_word_class_list(classes)
         classes.map { |x| "#{x},1" }.join(",")
       end
@@ -114,6 +119,13 @@ module IsoDoc
         <<~TOC
           <span lang="EN-GB"><span style='mso-element:field-begin'></span><span style='mso-spacerun:yes'>&#xA0;</span>TOC
           \\h \\z \\t "#{toc_word_class_list figure_toc_class}" <span style='mso-element:field-separator'></span></span>
+        TOC
+      end
+
+      def word_toc_example_preface1
+        <<~TOC
+          <span lang="EN-GB"><span style='mso-element:field-begin'></span><span style='mso-spacerun:yes'>&#xA0;</span>TOC
+          \\h \\z \\t "#{toc_word_class_list example_toc_class}" <span style='mso-element:field-separator'></span></span>
         TOC
       end
 
@@ -162,6 +174,21 @@ module IsoDoc
         end
         toc.sub(/(<p class="MsoToc1">)/,
                 %{\\1#{word_toc_reqt_preface1}}) + WORD_TOC_SUFFIX1
+      end
+
+      def example_toc_xpath
+        attr = example_toc_class.map { |x| "@class = '#{x}'" }
+        "//p[#{attr.join(' or ')}]"
+      end
+
+      def make_example_word_toc(docxml)
+        (docxml.at(example_toc_xpath) && @tocexamplestitle) or return ""
+        toc = %{<p class="TOCTitle">#{@tocexamplestitle}</p>}
+        docxml.xpath(example_toc_xpath).each do |h|
+          toc += word_toc_entry(1, header_strip(h))
+        end
+        toc.sub(/(<p class="MsoToc1">)/,
+                %{\\1#{word_toc_example_preface1}}) + WORD_TOC_SUFFIX1
       end
 
       def recommmendation_sort_key(header)

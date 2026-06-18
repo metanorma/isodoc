@@ -45,6 +45,7 @@ module IsoDoc
     # tocfigures: add ToC for figures
     # toctables: add ToC for tables
     # tocrecommendations: add ToC for rcommendations
+    # tocexamples: add ToC for examples
     # fonts: fontist fonts to install
     # fontlicenseagreement: fontist font license agreement
     # modspecidentifierbase: base prefix for any Modspec identifiers

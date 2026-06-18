@@ -91,6 +91,7 @@ version: 版本
 toc_figures: 数字列表
 toc_tables: 表列表
 toc_recommendations: 建议清单
+toc_examples: 示例列表
 month_january: 一月
 month_february: 二月
 month_march: 三月

@@ -161,6 +161,7 @@ module IsoDoc
         @toctablestitle = xml.at(ns("//#{toc}[@type = 'table']/title"))&.text
         @tocrecommendationstitle =
           xml.at(ns("//#{toc}[@type = 'recommendation']/title"))&.text
+        @tocexamplestitle = xml.at(ns("//#{toc}[@type = 'example']/title"))&.text
       end
 
       def table_of_contents(clause, out)
