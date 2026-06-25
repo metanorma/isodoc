@@ -50,19 +50,44 @@ module IsoDoc
                                   precision: num_precision(num.text))
     end
 
+    # The `data-metanorma-numberformat` options metanorma types, by target
+    # type. The single source of truth lives here in isodoc (metanorma's
+    # concern), not in plurimath.
+    NUMBERFORMAT_INTEGER = %i(precision significant digit_count group_digits
+                              fraction_group_digits base).freeze
+    NUMBERFORMAT_SYMBOL = %i(notation exponent_sign number_sign locale
+                             hex_capital).freeze
+    NUMBERFORMAT_NULLABLE = %i(base_prefix base_suffix).freeze
+    # plurimath options metanorma deliberately passes through unchanged (string)
+    NUMBERFORMAT_PASSTHROUGH = %i(fraction_group decimal group times e).freeze
+    NUMBERFORMAT_KNOWN = (NUMBERFORMAT_INTEGER + NUMBERFORMAT_SYMBOL +
+                          NUMBERFORMAT_NULLABLE + NUMBERFORMAT_PASSTHROUGH).freeze
+
     def numberformat_type(ret)
-      %i(precision significant digit_count group_digits fraction_group_digits
-         base)
-        .each do |i|
-        ret[i] &&= ret[i].to_i
-      end
-      %i(notation exponent_sign number_sign locale hex_capital).each do |i|
-        ret[i] &&= ret[i].to_sym
-      end
-      %i(base_prefix base_suffix).each do |i|
+      numberformat_unclassified_warn
+      NUMBERFORMAT_INTEGER.each { |i| ret[i] &&= ret[i].to_i }
+      NUMBERFORMAT_SYMBOL.each { |i| ret[i] &&= ret[i].to_sym }
+      NUMBERFORMAT_NULLABLE.each do |i|
         ["", "nil"].include?(ret[i]) and ret[i] = nil
       end
       ret
+    end
+
+    # Union plurimath's option defaults against metanorma's known lists, and
+    # warn (once) on anything plurimath exposes that metanorma has not
+    # classified -- e.g. a passthrough option added upstream (potentially via a
+    # direct Peter Wyatt request) that we would otherwise be none the wiser of.
+    # DEFAULT_OPTIONS is the passthrough watch-point, not plurimath's entire
+    # option surface. See metanorma/basicdoc-models#35.
+    def numberformat_unclassified_warn
+      @numberformat_warned and return
+      @numberformat_warned = true
+      unknown = Plurimath::Formatter::Standard::DEFAULT_OPTIONS.keys -
+        NUMBERFORMAT_KNOWN
+      unknown.empty? and return
+      warn "[isodoc] plurimath number-format options not classified by " \
+           "metanorma (treated as string passthrough): #{unknown.join(', ')}. " \
+           "Classify them in IsoDoc numberformat_type."
     end
 
     def explicit_number_formatter(num, locale, options)
