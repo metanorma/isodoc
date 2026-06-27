@@ -46,19 +46,31 @@ module IsoDoc
         end
       end
 
-      def bordered_table_style(node, klass)
-        bordered = "border-width:1px;border-spacing:0;"
-        (node["plain"] != "true" && (%w(modspec).include?(klass) || !klass)) or
-          bordered = ""
-        bordered
+      # Bordering is governed by %plain only, NOT by the presence of a custom
+      # @class (metanorma/metanorma-pdfa#33). A non-plain table -- including one
+      # carrying a custom class, or the internal modspec variant -- keeps the
+      # ISO borders. (klass retained for call-site arity / flavour overrides.)
+      def bordered_table_style(node, _klass = nil)
+        node["plain"] == "true" and return ""
+        "border-width:1px;border-spacing:0;"
       end
 
       def table_attrs(node)
         c = node["class"]
         style = table_attrs_style(node, c)
         attr_code(id: node["id"],
-                  class: node["plain"] == "true" ? "plain" : (c || "MsoISOTable"),
+                  class: table_html_class(node, c),
                   style: style, title: node["alt"])
+      end
+
+      # metanorma/metanorma-pdfa#33: a custom @class is ADDITIVE -- it augments
+      # the computed base class (MsoISOTable, or "plain" under %plain) rather
+      # than replacing it, and is orthogonal to bordering. `modspec` stays a
+      # grandfathered internal value with replace semantics.
+      def table_html_class(node, custom)
+        node["plain"] == "true" and return ["plain", custom].compact.join(" ")
+        custom == "modspec" and return "modspec"
+        ["MsoISOTable", custom].compact.join(" ")
       end
 
       def table_attrs_style(node, klass)
@@ -146,10 +158,10 @@ module IsoDoc
         STYLE
       end
 
+      # Cell bordering follows %plain only, not the custom @class (see
+      # bordered_table_style). metanorma/metanorma-pdfa#33
       def table_bordered?(node)
-        node.parent.parent["plain"] == "true" and return false
-        c = node.parent.parent["class"]
-        %w(modspec).include?(c) || !c
+        node.parent.parent["plain"] != "true"
       end
 
       def tr_parse(node, out, ord, totalrows, header)

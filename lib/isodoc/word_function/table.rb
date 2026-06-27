@@ -84,12 +84,14 @@ module IsoDoc
         super.merge(attr_code(ret))
       end
 
+      # %plain or an explicit @style still suppresses the default border; a
+      # custom @class no longer nulls it. The class is HTML-only and is not
+      # emitted to Word output (Word CSS is too inflexible), but a custom-class
+      # table must still render as a normal bordered ISO table.
+      # metanorma/metanorma-pdfa#33
       def table_border_css(node)
-        c = node["class"]
         style = "border-spacing:0;border-width:1px;"
         node["style"] || node["plain"] == "true" and style = ""
-        (%w(modspec).include?(c) || !c) or style = nil
-        node["plain"] == "true" and style = ""
         style
       end
 
