@@ -38,6 +38,14 @@ module IsoDoc
         end
       end
 
+      # metanorma/metanorma-standoc#1197: render an author's custom @class
+      # additively, augmenting a block's built-in HTML class rather than
+      # replacing it. `base` is the block's hardcoded class ("figure",
+      # "Sourcecode", ...); the author class (if any) is appended.
+      def merge_html_class(base, node)
+        [base, node["class"]].compact.join(" ")
+      end
+
       DOCTYPE_HDR = "<!DOCTYPE html SYSTEM " \
                     '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.freeze
 

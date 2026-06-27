@@ -11,7 +11,8 @@ module IsoDoc
       end
 
       def figure_attrs(node)
-        attr_code(id: node["id"], class: "figure", style: keep_style(node))
+        attr_code(id: node["id"], class: merge_html_class("figure", node),
+                  style: keep_style(node))
       end
 
       def figure_parse(node, out)
@@ -58,7 +59,8 @@ module IsoDoc
       end
 
       def sourcecode_attrs(node)
-        attr_code(id: node["id"], class: "Sourcecode", style: keep_style(node))
+        attr_code(id: node["id"], class: merge_html_class("Sourcecode", node),
+                  style: keep_style(node))
       end
 
       def sourcecode_parse(node, out)
