@@ -1,6 +1,68 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
+  # metanorma/metanorma-pdfa#33: a table's custom @class is ADDITIVE on the HTML
+  # class (augments MsoISOTable / "plain"), and is orthogonal to bordering --
+  # bordering is governed by %plain alone, so a custom class no longer strips
+  # the ISO borders. The class is HTML-only; Word keeps its computed class.
+  def table_custom_class_html(table_xml)
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <sections><clause id="c1">#{table_xml}</clause></sections>
+      </iso-standard>
+    INPUT
+    pres = IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    Nokogiri::HTML5(IsoDoc::HtmlConvert.new({}).convert("test", pres, true))
+      .at("//table")
+  end
+
+  it "augments the HTML table class with a custom class, keeping ISO borders" do
+    t = table_custom_class_html(
+      '<table id="t1" class="sortable"><tbody><tr><td>A</td></tr></tbody></table>',
+    )
+    expect(t["class"]).to eq "MsoISOTable sortable"
+    expect(t["style"]).to include "border-width:1px"
+  end
+
+  it "appends a custom class to a %plain table (CSS from scratch)" do
+    t = table_custom_class_html(
+      '<table id="t1" plain="true" class="sortable">' \
+      "<tbody><tr><td>A</td></tr></tbody></table>",
+    )
+    expect(t["class"]).to eq "plain sortable"
+  end
+
+  it "passes multiple space-separated table classes through to HTML" do
+    t = table_custom_class_html(
+      '<table id="t1" class="sortable fixed"><tbody><tr><td>A</td></tr></tbody></table>',
+    )
+    expect(t["class"]).to eq "MsoISOTable sortable fixed"
+  end
+
+  it "leaves a class-less table as MsoISOTable, bordered (backward compat)" do
+    t = table_custom_class_html(
+      '<table id="t1"><tbody><tr><td>A</td></tr></tbody></table>',
+    )
+    expect(t["class"]).to eq "MsoISOTable"
+    expect(t["style"]).to include "border-width:1px"
+  end
+
+  it "does not emit the custom class to Word, but keeps Word borders" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <sections><clause id="c1">
+      <table id="t1" class="sortable"><tbody><tr><td>A</td></tr></tbody></table>
+      </clause></sections></iso-standard>
+    INPUT
+    pres = IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    t = Nokogiri::HTML5(IsoDoc::WordConvert.new({}).convert("test", pres, true))
+      .at("//table")
+    expect(t["class"]).not_to include "sortable"
+    expect(t["style"]).to include "border-width:1px"
+  end
+
   it "processes IsoXML tables" do
     mock_uuid_increment
     input = <<~INPUT

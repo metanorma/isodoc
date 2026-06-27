@@ -46,19 +46,35 @@ module IsoDoc
         end
       end
 
-      def bordered_table_style(node, klass)
-        bordered = "border-width:1px;border-spacing:0;"
-        (node["plain"] != "true" && (%w(modspec).include?(klass) || !klass)) or
-          bordered = ""
-        bordered
+      # Bordering is governed by %plain only, NOT by the presence of a custom
+      # @class (metanorma/metanorma-pdfa#33). A non-plain table -- including one
+      # carrying a custom class, or the internal modspec variant -- keeps the
+      # ISO borders. The internal `rouge-line-table` (sourcecode line numbering)
+      # is the exception: like %plain it is mutually exclusive with MsoISOTable
+      # and takes no ISO border additions.
+      def bordered_table_style(node, klass = nil)
+        node["plain"] == "true" and return ""
+        klass == "rouge-line-table" and return ""
+        "border-width:1px;border-spacing:0;"
       end
 
       def table_attrs(node)
         c = node["class"]
         style = table_attrs_style(node, c)
         attr_code(id: node["id"],
-                  class: node["plain"] == "true" ? "plain" : (c || "MsoISOTable"),
+                  class: table_html_class(node, c),
                   style: style, title: node["alt"])
+      end
+
+      # metanorma/metanorma-pdfa#33: a custom @class is ADDITIVE -- it augments
+      # the computed base class (MsoISOTable, or "plain" under %plain) rather
+      # than replacing it, and is orthogonal to bordering. `modspec` and the
+      # sourcecode line-numbering `rouge-line-table` stay grandfathered internal
+      # values with replace semantics (mutually exclusive with MsoISOTable).
+      def table_html_class(node, custom)
+        node["plain"] == "true" and return ["plain", custom].compact.join(" ")
+        %w(modspec rouge-line-table).include?(custom) and return custom
+        ["MsoISOTable", custom].compact.join(" ")
       end
 
       def table_attrs_style(node, klass)
@@ -146,10 +162,14 @@ module IsoDoc
         STYLE
       end
 
+      # Cell bordering follows %plain only, not the custom @class, with
+      # `rouge-line-table` excluded like %plain (see bordered_table_style).
+      # metanorma/metanorma-pdfa#33
       def table_bordered?(node)
-        node.parent.parent["plain"] == "true" and return false
-        c = node.parent.parent["class"]
-        %w(modspec).include?(c) || !c
+        table = node.parent.parent
+        table["plain"] == "true" and return false
+        table["class"] == "rouge-line-table" and return false
+        true
       end
 
       def tr_parse(node, out, ord, totalrows, header)
