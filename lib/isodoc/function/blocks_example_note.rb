@@ -156,7 +156,11 @@ module IsoDoc
       end
 
       def admonition_class(node)
-        "Admonition #{admonition_subclass(node)}".strip
+        # metanorma/metanorma-standoc#1197: admonition @class is unused by the
+        # type-driven labelling/numbering, so it is repurposed for additive
+        # custom HTML classes appended after the built-in Admonition classes.
+        ["Admonition", admonition_subclass(node), node["class"]]
+          .compact.join(" ").strip
       end
 
       def admonition_subclass(node)
