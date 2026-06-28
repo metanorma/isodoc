@@ -16,7 +16,11 @@ module IsoDoc
       end
 
       def figure_parse(node, out)
-        node["class"] == "pseudocode" || node["type"] == "pseudocode" and
+        # metanorma/metanorma-standoc#1197: "pseudocode" may be one of several
+        # space-separated classes; dispatch on its presence, not equality, so a
+        # custom class alongside it is preserved.
+        node["class"]&.split&.include?("pseudocode") ||
+          node["type"] == "pseudocode" and
           return pseudocode_parse(node, out)
         @in_figure = true
         figure_parse1(node, out)
@@ -33,7 +37,10 @@ module IsoDoc
       end
 
       def pseudocode_attrs(node)
-        attr_code(id: node["id"], class: "pseudocode", style: keep_style(node))
+        classes = node["class"]&.split || []
+        classes.include?("pseudocode") or classes.unshift("pseudocode")
+        attr_code(id: node["id"], class: classes.join(" "),
+                  style: keep_style(node))
       end
 
       def pseudocode_tag
