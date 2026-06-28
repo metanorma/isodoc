@@ -13,7 +13,8 @@ module IsoDoc
         margin-left:0pt;vertical-align:top;" }.freeze
 
       def example_div_attr(node)
-        attr_code(id: node["id"], class: "example", style: keep_style(node))
+        attr_code(id: node["id"], class: merge_html_class("example", node),
+                  style: keep_style(node))
       end
 
       # used if we are boxing examples
@@ -130,6 +131,7 @@ module IsoDoc
       def note_attrs(node)
         classes = node["type"]&.split(",") || []
         classes << "Note"
+        node["class"] and classes << node["class"]
         attr_code(id: node["id"], class: classes.join(" "),
                   style: keep_style(node), coverpage: node["coverpage"])
       end

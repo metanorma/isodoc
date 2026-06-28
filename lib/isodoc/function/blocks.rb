@@ -153,8 +153,7 @@ module IsoDoc
         classtype = "MsoCommentText" if in_comment
         node["type"] == "floating-title" and
           classtype = "h#{node['depth'] || '1'}"
-        classtype ||= node["class"]
-        classtype
+        merge_html_class(classtype, node)
       end
 
       def para_attrs(node)
@@ -189,7 +188,7 @@ module IsoDoc
       end
 
       def quote_attrs(node)
-        ret = para_attrs(node).merge(class: "Quote")
+        ret = para_attrs(node).merge(class: merge_html_class("Quote", node))
         node["type"] == "newcontent" and
           ret[:class] += " AmendNewcontent"
         ret
