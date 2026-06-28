@@ -9,7 +9,7 @@ module IsoDoc
       end
 
       def ul_attrs(node)
-        { id: node["id"], style: keep_style(node) }
+        { id: node["id"], class: node["class"], style: keep_style(node) }
       end
 
       def ul_parse(node, out)
@@ -46,7 +46,7 @@ module IsoDoc
         { # type: node["type"] ? ol_style(node["type"].to_sym) : ol_depth(node),
           type: ol_style(node["type"]&.to_sym),
           start: node["start"],
-          id: node["id"], style: keep_style(node)
+          id: node["id"], class: node["class"], style: keep_style(node)
         }
       end
 

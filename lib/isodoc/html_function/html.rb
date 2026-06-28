@@ -73,7 +73,8 @@ module IsoDoc
       def sourcecode_parse(node, out)
         tag, child_tag = sourcecode_tag(node)
         s = node.at(ns("./fmt-sourcecode")) || node
-        attr = sourcecode_attrs(node).merge(class: "sourcecode")
+        attr = sourcecode_attrs(node)
+          .merge(class: merge_html_class("sourcecode", node))
         out.send tag, **attr do |div|
           sourcecode_pre_wrap(child_tag, s, div)
           annotation_parse(s, div)
