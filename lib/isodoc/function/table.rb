@@ -50,11 +50,11 @@ module IsoDoc
       # @class (metanorma/metanorma-pdfa#33). A non-plain table -- including one
       # carrying a custom class, or the internal modspec variant -- keeps the
       # ISO borders. The internal `rouge-line-table` (sourcecode line numbering)
-      # is the exception: like %plain it is mutually exclusive with MsoISOTable
-      # and takes no ISO border additions.
+      # and `dl` (a definition list rendered as a table) are exceptions: like
+      # %plain they are unbordered and mutually exclusive with MsoISOTable.
       def bordered_table_style(node, klass = nil)
         node["plain"] == "true" and return ""
-        klass == "rouge-line-table" and return ""
+        %w(rouge-line-table dl).include?(klass) and return ""
         "border-width:1px;border-spacing:0;"
       end
 

@@ -94,13 +94,18 @@ module IsoDoc
       # survives. metanorma/metanorma-pdfa#33
       def table_border_css(node)
         style = "border-spacing:0;border-width:1px;"
-        node["style"] || node["plain"] == "true" and style = ""
+        node["style"] || node["plain"] == "true" ||
+          node["class"] == "dl" and style = ""
         node["class"] == "rouge-line-table" and style = nil
         style
       end
 
+      # `dl` (definition list rendered as a table) is unbordered like %plain, and
+      # takes the plain MsoNormalTable Word style rather than the bordered
+      # MsoISOTable.
       def table_class(node)
-        node["plain"] == "true" and return "MsoNormalTable"
+        node["plain"] == "true" || node["class"] == "dl" and
+          return "MsoNormalTable"
         node.text.length > 4000 ? "MsoISOTableBig" : "MsoISOTable"
       end
 
