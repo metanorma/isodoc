@@ -169,7 +169,7 @@ module IsoDoc
       def table_bordered?(node)
         table = node.parent.parent
         table["plain"] == "true" and return false
-        table["class"] == "rouge-line-table" and return false
+        %w(rouge-line-table dl).include?(table["class"]) and return false
         true
       end
 

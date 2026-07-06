@@ -18,7 +18,7 @@ module IsoDoc
         table.at(".//tr").xpath("./td | ./th").each do |td|
           cols += (td["colspan"] ? td["colspan"].to_i : 1)
         end
-        table["plain"] == "true" or
+        table["plain"] == "true" || table["class"] == "dl" or
           s = "style='border-top:0pt;mso-border-top-alt:0pt;" \
               "border-bottom:#{SW1} 1.5pt;mso-border-bottom-alt:#{SW1} 1.5pt;'"
         tfoot.add_child("<tr><td colspan='#{cols}' #{s}/></tr>")
