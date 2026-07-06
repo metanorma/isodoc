@@ -68,12 +68,13 @@ module IsoDoc
 
       # metanorma/metanorma-pdfa#33: a custom @class is ADDITIVE -- it augments
       # the computed base class (MsoISOTable, or "plain" under %plain) rather
-      # than replacing it, and is orthogonal to bordering. `modspec` and the
-      # sourcecode line-numbering `rouge-line-table` stay grandfathered internal
-      # values with replace semantics (mutually exclusive with MsoISOTable).
+      # than replacing it, and is orthogonal to bordering. `modspec`, the
+      # sourcecode line-numbering `rouge-line-table`, and `dl` (a definition list
+      # rendered as a table) stay grandfathered internal values with replace
+      # semantics (mutually exclusive with MsoISOTable).
       def table_html_class(node, custom)
         node["plain"] == "true" and return ["plain", custom].compact.join(" ")
-        %w(modspec rouge-line-table).include?(custom) and return custom
+        %w(modspec rouge-line-table dl).include?(custom) and return custom
         ["MsoISOTable", custom].compact.join(" ")
       end
 
