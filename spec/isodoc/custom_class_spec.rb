@@ -32,6 +32,7 @@ RSpec.describe IsoDoc do
       "p" => ["cc-par", "x"],
       "ul" => ["cc-ul", "<li><p id='l1'>x</p></li>"],
       "ol" => ["cc-ol", "<li><p id='l2'>x</p></li>"],
+      "dl" => ["cc-dl", "<dt>t</dt><dd id='d1'><p id='dp'>x</p></dd>"],
       "note" => ["cc-note", "<p id='p3'>x</p>"],
     }.each do |tag, (token, inner)|
       name = tag.split.first
