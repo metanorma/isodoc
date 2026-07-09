@@ -18,14 +18,14 @@ module IsoDoc
     def logo_expand_pres_metadata(docxml)
       docxml.xpath(ns("//metanorma-extension/presentation-metadata/*"))
         .each do |x|
-          logo_size_pres_metadata_incomplete?(x) or next
-          parts = x.name.split("-")
-          @output_formats.each_key do |f|
-            tagname = "logo-#{parts[1]}-#{f}-#{parts[2..].join('-')}"
-            x.parent.next = <<~XML
-              <presentation-metadata><#{tagname}>#{x.text}</#{tagname}></presentation-metadata>
-            XML
-          end
+        logo_size_pres_metadata_incomplete?(x) or next
+        parts = x.name.split("-")
+        @output_formats.each_key do |f|
+          tagname = "logo-#{parts[1]}-#{f}-#{parts[2..].join('-')}"
+          x.parent.next = <<~XML
+            <presentation-metadata><#{tagname}>#{x.text}</#{tagname}></presentation-metadata>
+          XML
+        end
       end
     end
 
@@ -71,7 +71,7 @@ module IsoDoc
     def save_attachment(attachment, dir)
       n = File.join(dir, File.basename(attachment["name"]))
       c = attachment.text.sub(%r{^data:[^;]+;(?:charset=[^;]+;)?base64,}, "")
-      File.open(n, "wb") { |f| f.write(Base64.decode64(c)) }
+      File.binwrite(n, Base64.decode64(c))
     end
 
     def extension_insert(xml, path = [])
@@ -101,7 +101,7 @@ module IsoDoc
         ins << "<toc type='table'><title>#{@i18n.toc_tables}</title></toc>"
       @tocrecommendations and
         ins << "<toc type='recommendation'><title>#{@i18n.toc_recommendations}" \
-        "</title></toc>"
+               "</title></toc>"
       @tocexamples and
         ins << "<toc type='example'><title>#{@i18n.toc_examples}</title></toc>"
     end
@@ -158,7 +158,7 @@ module IsoDoc
             i18n_name(v1, "#{i18n_safe(k)}.#{i}", lang).each { |x| g << x }
           end
         else
-          g << i18n_tag("#{pref}#{pref.empty? ? '' : '.'}#{i18n_safe(k)}", v,
+          g << i18n_tag("#{pref}#{'.' unless pref.empty?}#{i18n_safe(k)}", v,
                         lang)
         end
       end

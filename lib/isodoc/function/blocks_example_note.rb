@@ -61,10 +61,9 @@ module IsoDoc
 
       # HTML5 collapsible example: label in <summary>, body in the example div
       def example_collapsible_parse(node, out)
-        out.details(open: "open") do |det|
-          name = node.at(ns("./fmt-name"))
+        out.details(**example_collapsible_parse_attr) do |det|
           det.summary do |s|
-            name and children_parse(name, s)
+            name = node.at(ns("./fmt-name")) and children_parse(name, s)
           end
           det.div(**example_div_attr(node)) do |div|
             node.children.each do |n|
@@ -72,6 +71,10 @@ module IsoDoc
             end
           end
         end
+      end
+
+      def example_collapsible_parse_attr
+        @details_open ? { open: "open" } : {}
       end
 
       def block_body_first_elem(node)

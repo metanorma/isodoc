@@ -123,6 +123,8 @@ RSpec.describe IsoDoc do
   it "renders collapsible examples as HTML5 details" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+      <metanorma-extension>
+      </metanorma-extension>
       <preface><foreword id="fwd" displayorder="2">
       <example id="samplecode" collapsible="true">
       <fmt-name id="_">EXAMPLE</fmt-name>
@@ -141,6 +143,32 @@ RSpec.describe IsoDoc do
     OUTPUT
     output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))
+    output = output.at("//details")
+    expect(strip_guid(output.to_xhtml))
+      .to be_html5_equivalent_to html
+
+    input1 = input.sub("<metanorma-extension>", <<~XML)
+      <metanorma-extension><presentation-metadata><html-details-open>true</html-details-open></presentation-metadata>
+    XML
+    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
+      .convert("test", input1, true))
+    output = output.at("//details")
+    expect(strip_guid(output.to_xhtml))
+      .to be_html5_equivalent_to html
+
+    html = <<~OUTPUT
+      <details>
+        <summary>EXAMPLE</summary>
+        <div id="samplecode" class="example">
+          <p>Hello</p>
+        </div>
+      </details>
+    OUTPUT
+    input1 = input.sub("<metanorma-extension>", <<~XML)
+      <metanorma-extension><presentation-metadata><html-details-open>false</html-details-open></presentation-metadata>
+    XML
+    output = Nokogiri::HTML5(IsoDoc::HtmlConvert.new({})
+      .convert("test", input1, true))
     output = output.at("//details")
     expect(strip_guid(output.to_xhtml))
       .to be_html5_equivalent_to html
@@ -458,7 +486,7 @@ RSpec.describe IsoDoc do
                   </div>
                   </div>
                   <div id='_' class='Note'>
-                    <p class='Note'><span class="note_label">NOTE<span style="mso-tab-count:1">\u00a0 </span></span>[durationUnits] 
+                    <p class='Note'><span class="note_label">NOTE<span style="mso-tab-count:1">\u00a0 </span></span>[durationUnits]#{' '}
                       is essentially a duration statement without the "P"
                       prefix. "P" is unnecessary because between "G" and "U" duration is
                       always expressed.</p>
