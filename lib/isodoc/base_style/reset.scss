@@ -145,9 +145,21 @@ div.document-stage-band, div.document-type-band {
   background-color: #333333;
 }
 
-a.TableFootnoteRef, span.TableFootnoteRef, 
+a.TableFootnoteRef, span.TableFootnoteRef,
 a.FootnoteRef, span.FootnoteRef {
-  vertical-align: super; 
+  vertical-align: super;
+}
+
+// A footnote-style link superscripts its content through an inner <sup>, but the
+// link's underline rides up with the anchor's own `vertical-align: super`,
+// leaving a raised underline that reads as a stray dash. Keep the *anchor* on
+// the baseline (so the underline stays at the bottom of the line) and let the
+// inner <sup> alone raise the glyph. The anchor classes are named explicitly
+// because the generic `a:has(> sup)` has lower specificity than the rule above;
+// `sup a` covers the inverse nesting. https://github.com/metanorma/iso-10303/issues/717
+a.TableFootnoteRef, a.FootnoteRef, a.footnote-number,
+sup a, a:has(> sup) {
+  vertical-align: baseline;
 }
 
 .addition {
