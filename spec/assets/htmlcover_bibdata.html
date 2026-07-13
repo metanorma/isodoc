@@ -1,0 +1,3 @@
+<p class="coverpage-bibdata">BIBDATA:
+{%- assign doi = bibdata.docidentifier | where: "type", "DOI" | first -%}
+{{ doi.content }}|{{ bibdata.status.stage.content }}|{{ bibdata.docnumber }}|{{ bibdata.ext.doctype.content }}</p>
