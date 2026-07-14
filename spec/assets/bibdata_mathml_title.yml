@@ -1,0 +1,30 @@
+---
+id: BIPM201904
+type: standard
+title:
+- language: en
+  content: |-
+    Internal Standard Reference Data for qNMR: 4,4-Dimethyl-4-silapentane-1-sulfonic acid-<stem block="false" type="MathML">
+      <math>
+        <mstyle displaystyle="false">
+          <msub>
+            <mi>d</mi>
+            <mn>6</mn>
+          </msub>
+        </mstyle>
+      </math>
+      <asciimath>d_6</asciimath>
+    </stem> [ISRD-07]
+  type: title-main
+  format: text/plain
+docidentifier:
+- content: BIPM-2019/04
+  type: BIPM
+  primary: true
+language:
+- en
+script:
+- Latn
+status:
+  stage:
+    content: published

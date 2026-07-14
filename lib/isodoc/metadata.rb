@@ -1,5 +1,6 @@
 require_relative "metadata_date"
 require_relative "metadata_contributor"
+require_relative "metadata_bibdata"
 
 module IsoDoc
   class Metadata
