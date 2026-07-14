@@ -9,7 +9,7 @@ module IsoDoc
         i = xml.at(ns("//indexsect")) ||
           xml.root.add_child(
             "<indexsect #{add_id_text}>" \
-             "<fmt-title #{add_id_text}>#{@i18n.index}</fmt-title></indexsect>",
+            "<fmt-title #{add_id_text}>#{@i18n.index}</fmt-title></indexsect>",
           ).first
         index = sort_indexterms(xml.xpath(ns("//index")),
                                 xml.xpath(ns("//index-xref[@also = 'false']")),

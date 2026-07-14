@@ -30,9 +30,11 @@ module IsoDoc
         .new(language: @lang, script: @script)
     end
 
-    def docxml_var_init(docxml)
-      doctype_init(docxml)
-      toc_init(docxml)
+    def docxml_var_init(xml)
+      doctype_init(xml)
+      toc_init(xml)
+      @details_open = xml.at(ns("//metanorma-extension/presentation-metadata/" \
+                                "html-details-open"))&.text != "false"
     end
 
     def doctype_init(docxml)
