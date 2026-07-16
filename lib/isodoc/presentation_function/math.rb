@@ -59,7 +59,8 @@ module IsoDoc
                              hex_capital).freeze
     NUMBERFORMAT_NULLABLE = %i(base_prefix base_suffix).freeze
     # plurimath options metanorma deliberately passes through unchanged (string)
-    NUMBERFORMAT_PASSTHROUGH = %i(fraction_group decimal group times e).freeze
+    NUMBERFORMAT_PASSTHROUGH = %i(fraction_group decimal group times e
+                                  padding).freeze
     NUMBERFORMAT_KNOWN = (NUMBERFORMAT_INTEGER + NUMBERFORMAT_SYMBOL +
                           NUMBERFORMAT_NULLABLE + NUMBERFORMAT_PASSTHROUGH).freeze
 
