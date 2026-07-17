@@ -101,9 +101,18 @@ module IsoDoc
       labelled_autonum(lbl, elem["id"] || elem["original-id"], num)
     end
 
+    # The presentation-metadata element is named from the document
+    # attribute :presentation-metadata-admonition-icon-{type}:, whose name
+    # cannot contain spaces; so spaced admonition types ("safety
+    # precautions") address it with spaces replaced by underscores --
+    # underscore, not hyphen, to avoid collision with genuinely hyphenated
+    # type names. Interpolating the raw type made the XPath invalid and
+    # fatal (#760). The i18n lookup keeps the raw type: i18n keys may
+    # legitimately contain spaces.
     def admonition_icon(elem)
+      type = elem["type"]&.tr(" ", "_")
       icon = elem.document
-        .at(ns("//presentation-metadata/admonition-icon-#{elem['type']}"))&.text
+        .at(ns("//presentation-metadata/admonition-icon-#{type}"))&.text
       icon ||= @i18n.labels.dig("admonition-icon", elem["type"])
       icon and return "<span class='fmt-admonition-icon'>#{icon}</span>"
     end
