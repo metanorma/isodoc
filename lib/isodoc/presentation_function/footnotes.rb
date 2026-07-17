@@ -41,9 +41,14 @@ module IsoDoc
       ins = body.at(ns(".//p")) ||
         body.at(ns("./semx")).children.first.before("<p> </p>").previous
       lbl = fn_body_label(fnote)
-      ins.children.first.previous = <<~FNOTE.strip
+      fnote = <<~FNOTE.strip
         <fmt-fn-label><span class='fmt-caption-label'>#{lbl}</span><span class="fmt-caption-delim"><tab/></fmt-fn-label>
       FNOTE
+      if ins.children.first
+        ins.children.first.previous = fnote
+      else
+        ins << fnote
+      end
     end
 
     def fn_ref_label(fnote)
