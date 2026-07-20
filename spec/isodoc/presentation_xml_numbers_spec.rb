@@ -943,7 +943,7 @@ RSpec.describe IsoDoc do
                     </math>
                  </stem>
                  <fmt-stem type="MathML">
-                    <semx element="stem" source="_">30,000</semx>
+                    <semx element="stem" source="_">30,000.00'00'0</semx>
                  </fmt-stem>
                  <stem type="MathML" id="_">
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -1083,14 +1083,14 @@ RSpec.describe IsoDoc do
                                 </mrow>
                              </mrow>
                              <mrow>
-                                <mn>1,000</mn>
+                                <mn>1,000.00'00'0</mn>
                              </mrow>
                           </munderover>
                           <mfenced open="(" close=")">
                              <mtable>
                                 <mtr>
                                    <mtd>
-                                      <mn>1,000</mn>
+                                      <mn>1,000.00'00'0</mn>
                                    </mtd>
                                 </mtr>
                                 <mtr>
@@ -1112,7 +1112,7 @@ RSpec.describe IsoDoc do
                              <mrow>
                                 <mfenced open="(" close=")">
                                    <mrow>
-                                      <mn>1</mn>
+                                      <mn>1.00'00'0</mn>
                                       <mo>−</mo>
                                       <mi>p</mi>
                                    </mrow>
@@ -1130,7 +1130,7 @@ RSpec.describe IsoDoc do
                              <mrow>
                                 <mfenced open="(" close=")">
                                    <mrow>
-                                      <mn>1</mn>
+                                      <mn>1.00'00'0</mn>
                                       <mo>−</mo>
                                       <mi>p</mi>
                                    </mrow>
