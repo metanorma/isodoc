@@ -224,6 +224,13 @@ RSpec.describe IsoDoc do
     m = metadata(c.info(Nokogiri::XML(input
       .sub("<stage-published>false</stage-published>", "")), nil))
     expect(m[:unpublished]).to be false
+
+    # stage/@abbreviation (e.g. from a taste's :docstage-abbrev:) is
+    # authoritative over initials-derivation
+    m = metadata(c.info(Nokogiri::XML(input
+      .sub("<stage>Committee Draft</stage>",
+           "<stage abbreviation='RC'>Committee Draft</stage>")), nil))
+    expect(m[:stageabbr]).to eq "RC"
   end
 
   it "processes IsoXML metadata #2" do

@@ -73,15 +73,29 @@ module IsoDoc
         set(:substage_display, i1)
       (i2 = xml.at(ns("//bibdata/status/iteration"))&.text) and
         set(:iteration, i2)
-      !published && set(:stageabbr, stage_abbr(s.text))
+      # @abbreviation is authoritative (e.g. supplied by a taste through
+      # :docstage-abbrev:); read here rather than in stage_abbr, so that
+      # flavour stage_abbr overrides do not mask it
+      published or
+        set(:stageabbr, s["abbreviation"] || stage_abbr(s.text))
     end
 
     def published_default(xml)
       override = xml.at(ns("//semantic-metadata/stage-published"))&.text
-      default = override || "true"
-      ret = default == "false"
-      set(:unpublished, ret)
-      default == "true"
+      if override.nil?
+        stage = xml.at(ns("//bibdata/status/stage#{NOLANG}"))&.text
+        override = draft_stage?(stage) ? "false" : "true"
+      end
+      set(:unpublished, override == "false")
+      override == "true"
+    end
+
+    # Is the stage a draft (unpublished) stage? Overridable seam for
+    # documents whose XML does not carry semantic-metadata/
+    # stage-published (which is authoritative when present). Base
+    # default preserves historical behaviour: absent flag => published.
+    def draft_stage?(_stage)
+      false
     end
 
     def stage_abbr(docstatus)
