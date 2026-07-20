@@ -1079,4 +1079,68 @@ RSpec.describe IsoDoc do
     expect(strip_guid(pres_output))
       .to be_xml_equivalent_to presxml
   end
+
+  it "processes admonition icons for types containing spaces (#760)" do
+    # The metadata element name substitutes underscores for the spaces in
+    # the admonition type; the raw type used to be interpolated into the
+    # XPath, which was an invalid expression and fatal
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <presentation-metadata>
+            <admonition-icon-safety_precautions>⚠️</admonition-icon-safety_precautions>
+          </presentation-metadata>
+          <preface><foreword id="fwd">
+          <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b69" type="safety precautions">
+        <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Wear gloves.</p>
+      </admonition>
+          <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="safety precautions">
+          <name>Title</name>
+        <p id="_e94663cc-2473-4ccc-9a72-983a74d989f3">Wear gloves.</p>
+      </admonition>
+          </foreword></preface>
+          </iso-standard>
+    INPUT
+    presxml = <<~INPUT
+         <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+        <presentation-metadata>
+          <admonition-icon-safety_precautions>⚠️</admonition-icon-safety_precautions>
+        </presentation-metadata>
+        <preface>
+          <clause type="toc" id="_" displayorder="1">
+            <fmt-title depth="1" id="_">Table of contents</fmt-title>
+          </clause>
+          <foreword id="fwd" displayorder="2">
+            <title id="_">Foreword</title>
+            <fmt-title depth="1" id="_">
+              <semx element="title" source="_">Foreword</semx>
+            </fmt-title>
+            <admonition id="_" type="safety precautions">
+              <fmt-name id="_">
+                <span class="fmt-caption-label">
+                  <span class="fmt-element-name"><span class="fmt-admonition-icon">⚠️</span>SAFETY PRECAUTIONS</span>
+                </span>
+              </fmt-name>
+              <p id="_">Wear gloves.</p>
+            </admonition>
+            <admonition id="_" type="safety precautions">
+              <name id="_">Title</name>
+              <fmt-name id="_">
+                <span class="fmt-caption-label">
+                  <span class="fmt-admonition-icon">⚠️</span>
+                </span>
+                <span class="fmt-caption-delim"/>
+                <semx element="name" source="_">Title</semx>
+              </fmt-name>
+              <p id="_">Wear gloves.</p>
+            </admonition>
+          </foreword>
+        </preface>
+      </iso-standard>
+    INPUT
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(strip_guid(pres_output))
+      .to be_xml_equivalent_to presxml
+  end
 end
