@@ -30,29 +30,38 @@ module IsoDoc
     end
 
     # pubid 2 has no universal Pubid::Registry.parse: try each registered
-    # flavor and keep the first parse that round-trips the input exactly
-    # AND renders annotation markup (some flavors' renderers ignore
-    # `annotated:` and return plain text; prefer one that annotates).
-    # Falls back to the first round-tripper when none annotate.
+    # flavor. Three outcomes:
+    #   1. A flavor round-trips the input AND renders annotation markup —
+    #      return it (some flavors' renderers ignore annotated: and
+    #      return plain text; those need the regex fallback below).
+    #   2. A flavor parses but synthesizes different structure
+    #      (e.g. "REF4" -> "IEEE Std REF4") — return the input unchanged
+    #      (1.x's round-trip guard).
+    #   3. Nothing parses, or a round-tripper renders plain — nil, so the
+    #      caller uses the regex fallback (1.x's ParseError path).
     def pubid_parse(string)
       Pubid.eager_load_flavors!
-      plain_winner = nil
+      parsed_any = false
+      plain_roundtrip = false
       Pubid::Registry.flavors.each_value do |flavor|
         next unless flavor.respond_to?(:parse)
 
         begin
           parsed = flavor.parse(string)
+          parsed_any = true
           next unless parsed.to_s == string
 
           annotated = parsed.to_s(annotated: true)
           return annotated if annotated != parsed.to_s
 
-          plain_winner ||= annotated
+          plain_roundtrip = true
         rescue StandardError
           next
         end
       end
-      plain_winner
+      return string if parsed_any && !plain_roundtrip
+
+      nil
     end
 
     # Regex-based fallback when Pubid::Registry cannot parse the id. Emits
