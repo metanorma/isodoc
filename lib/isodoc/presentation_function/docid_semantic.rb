@@ -16,16 +16,43 @@ module IsoDoc
     end
 
     def std_docid_semantic_parse(id)
-      parsed = Pubid::Registry.parse(id)
+      result = pubid_parse(id)
       # Pubid::Ieee in particular happily parses any "letters+digits" token
       # as an IEEE Std identifier and synthesises an "IEEE Std" prefix that
       # wasn't in the input (e.g. "REF4" -> "IEEE Std REF4"). Refuse to
       # annotate when the parser has invented structure not present in the
       # input -- detected by a non-identity round-trip.
-      return id if parsed.to_s != id
-      parsed.to_s(annotated: true)
-    rescue Pubid::Core::Errors::ParseError
+      return id if result.nil?
+
+      result
+    rescue StandardError
       std_docid_semantic_full(id)
+    end
+
+    # pubid 2 has no universal Pubid::Registry.parse: try each registered
+    # flavor and keep the first parse that round-trips the input exactly
+    # AND renders annotation markup (some flavors' renderers ignore
+    # `annotated:` and return plain text; prefer one that annotates).
+    # Falls back to the first round-tripper when none annotate.
+    def pubid_parse(string)
+      Pubid.eager_load_flavors!
+      plain_winner = nil
+      Pubid::Registry.flavors.each_value do |flavor|
+        next unless flavor.respond_to?(:parse)
+
+        begin
+          parsed = flavor.parse(string)
+          next unless parsed.to_s == string
+
+          annotated = parsed.to_s(annotated: true)
+          return annotated if annotated != parsed.to_s
+
+          plain_winner ||= annotated
+        rescue StandardError
+          next
+        end
+      end
+      plain_winner
     end
 
     # Regex-based fallback when Pubid::Registry cannot parse the id. Emits
