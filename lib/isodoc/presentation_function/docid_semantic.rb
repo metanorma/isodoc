@@ -22,7 +22,7 @@ module IsoDoc
       # wasn't in the input (e.g. "REF4" -> "IEEE Std REF4"). Refuse to
       # annotate when the parser has invented structure not present in the
       # input -- detected by a non-identity round-trip.
-      return id if result.nil?
+      return std_docid_semantic_full(id) if result.nil?
 
       result
     rescue StandardError
