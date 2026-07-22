@@ -30,38 +30,50 @@ module IsoDoc
     end
 
     # pubid 2 has no universal Pubid::Registry.parse: try each registered
-    # flavor. Three outcomes:
+    # flavor. Outcomes:
     #   1. A flavor round-trips the input AND renders annotation markup —
     #      return it (some flavors' renderers ignore annotated: and
     #      return plain text; those need the regex fallback below).
-    #   2. A flavor parses but synthesizes different structure
+    #   2. A flavor parses but synthesizes structure the input lacks
     #      (e.g. "REF4" -> "IEEE Std REF4") — return the input unchanged
     #      (1.x's round-trip guard).
-    #   3. Nothing parses, or a round-tripper renders plain — nil, so the
-    #      caller uses the regex fallback (1.x's ParseError path).
+    #   3. Nothing parses, a round-tripper renders plain, or the parse
+    #      only canonicalizes FORM (e.g. em-dash year -> "--") — nil, so
+    #      the caller uses the regex fallback, which preserves the
+    #      original string (1.x's ParseError path).
     def pubid_parse(string)
       Pubid.eager_load_flavors!
       parsed_any = false
       plain_roundtrip = false
+      canonicalized = false
       Pubid::Registry.flavors.each_value do |flavor|
         next unless flavor.respond_to?(:parse)
 
         begin
           parsed = flavor.parse(string)
           parsed_any = true
-          next unless parsed.to_s == string
+          if parsed.to_s == string
+            annotated = parsed.to_s(annotated: true)
+            return annotated if annotated != parsed.to_s
 
-          annotated = parsed.to_s(annotated: true)
-          return annotated if annotated != parsed.to_s
-
-          plain_roundtrip = true
+            plain_roundtrip = true
+          elsif dash_normalize(parsed.to_s) == dash_normalize(string)
+            canonicalized = true
+          end
         rescue StandardError
           next
         end
       end
-      return string if parsed_any && !plain_roundtrip
+      return string if parsed_any && !plain_roundtrip && !canonicalized
 
       nil
+    end
+
+    # Compare strings ignoring dash FORM (em-dash / double dash / single
+    # dash), so a parse that only canonicalizes punctuation is not
+    # mistaken for structure synthesis.
+    def dash_normalize(string)
+      string.tr("—", "-").gsub("--", "-")
     end
 
     # Regex-based fallback when Pubid::Registry cannot parse the id. Emits
