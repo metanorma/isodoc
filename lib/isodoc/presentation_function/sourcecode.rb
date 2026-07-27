@@ -51,7 +51,19 @@ module IsoDoc
 
     def sourcecode1(elem)
       ret1 = semx_fmt_dup(elem)
-      b = ret1.at(ns(".//body")) and b.replace(b.children)
+      if (b = ret1.at(ns(".//body")))
+        # Remove formatting whitespace *preceding* the body (e.g. the newlines
+        # standoc emits around a <name> with inline markup). Once the body is
+        # unwrapped and the name removed, such stray whitespace would be lexed
+        # as leading blank lines of code. Whitespace after the body and the
+        # verbatim body content itself are untouched, so genuine code
+        # indentation is preserved.
+        b.parent.children.each do |c|
+          c == b and break
+          c.text? && c.text.strip.empty? and c.remove
+        end
+        b.replace(b.children)
+      end
       source_label(elem)
       source_highlight(ret1, elem["linenums"] == "true", elem["lang"])
       callouts(elem)
