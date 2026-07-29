@@ -70,7 +70,17 @@ module IsoDoc
                              elem_name)
         ret[:container] = @klass.get_clause_id(node) if opt[:container]
         ret[:value] = stripsemx(lbl)
+        t = asset_title(node) and ret[:title] = t
         ret
+      end
+
+      # Caption of a numbered asset (its <name>, or a modspec requirement's
+      # <title>), semx-wrapped, so that xrefstyle=full can render
+      # "Table 3, caption" the way clauses render "Clause 6, Title". Returns nil
+      # when the asset has no caption, so anchor_xref_full falls back to short.
+      def asset_title(node)
+        n = node.at(ns("./name")) || node.at(ns("./title")) or return nil
+        semx(node, n.children.to_xml, n.name)
       end
 
       include ::IsoDoc::XrefGen::Util
