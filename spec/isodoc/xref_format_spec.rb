@@ -444,6 +444,28 @@ RSpec.describe IsoDoc do
       .to be_xml_equivalent_to output
   end
 
+  it "renders full-style xrefs to captioned assets with their caption" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <sections><clause id="A"><title>Clause</title>
+      <p id="P">See <xref target="tab1" style="full"/>, <xref target="fig1" style="full"/>, <xref target="ex1" style="full"/> and <xref target="frm1" style="full"/>.</p>
+      <table id="tab1"><name>Testing tables</name><tbody><tr><td>x</td></tr></tbody></table>
+      <figure id="fig1"><name>Big Cats</name></figure>
+      <example id="ex1"><name>An example</name><p>e</p></example>
+      <formula id="frm1"><stem type="AsciiMath">r</stem></formula>
+      </clause></sections>
+      </iso-standard>
+    INPUT
+    p = Nokogiri::XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true))
+      .tap(&:remove_namespaces!).at("//p[@id='P']")
+    # captioned assets (table/figure/example) now expand under full style;
+    # a caption-less asset (formula) keeps the short form
+    expect(p.text.gsub(/\s+/, " ").strip)
+      .to eq "See Table 1, Testing tables, Figure 1, Big Cats, " \
+             "Example, An example and Formula (1)."
+  end
+
   it "cases xrefs" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
