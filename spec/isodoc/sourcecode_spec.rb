@@ -1,6 +1,28 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
+  it "does not leak leading blank lines from a sourcecode title with inline "\
+     "markup (metanorma-pdfa#67)" do
+    # A <name> with inline markup makes standoc serialise the sourcecode with
+    # stray newlines around <name>/<body>; these must not be lexed as leading
+    # blank lines of code.
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface><foreword id="X">
+      <sourcecode id="_" lang="xml">
+      <name id="_">Title with letter <tt>A</tt></name>
+      <body>&lt;P&gt;
+      A
+      &lt;/P&gt;</body></sourcecode>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    pres = IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    fmt = Nokogiri::XML(pres).tap(&:remove_namespaces!).at_xpath("//fmt-sourcecode")
+    expect(fmt.inner_html).not_to match(/\A[\r\n]/)
+  end
+
   it "processes sourcecode" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
