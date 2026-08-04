@@ -68,6 +68,9 @@ module IsoDoc
 
     def ol_label_format(semx, elem)
       template = ol_label_template(elem)[elem.parent["type"].to_sym]
+      # types outside the template set are not decorated, e.g. xml2rfc v2
+      # format strings passed through as ol/@type by metanorma-ietf
+      template or return semx
       template.sub("%", semx)
     end
 
