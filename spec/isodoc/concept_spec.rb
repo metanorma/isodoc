@@ -1150,4 +1150,23 @@ RSpec.describe IsoDoc do
       .at("//xmlns:terms").to_xml))
       .to be_xml_equivalent_to output
   end
+  it "renders generator errormsg in concept in boldface" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface><foreword id="F">
+      <p id="A"><concept><errormsg>term <tt>blah</tt> not resolved via ID <tt>blah</tt></errormsg></concept></p>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
+    xml.remove_namespaces!
+    fmt = xml.at("//fmt-concept//strong")
+    expect(fmt).not_to be_nil
+    expect(fmt.text).to include "not resolved via ID"
+    expect(xml.at("//p[@id = 'A']/concept/errormsg")).not_to be_nil
+    expect(xml.at("//fmt-concept//errormsg")).to be_nil
+  end
 end
