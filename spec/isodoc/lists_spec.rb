@@ -507,6 +507,27 @@ RSpec.describe IsoDoc do
       .to be_html4_equivalent_to word
   end
 
+  it "degrades gracefully on ol types outside the named-template set" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+      <foreword id="F" displayorder="2">
+      <ol id="A" type="R%d">
+      <li id="L1"><p id="P1">Level 1</p></li>
+      </ol>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    pres_output = IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
+    xml.remove_namespaces!
+    lbl = xml.at("//ol[@id = 'A']/li/fmt-name")
+    expect(lbl).not_to be_nil
+    expect(lbl.at("./semx[@element = 'autonum']")).not_to be_nil
+    expect(lbl.at(".//span[@class = 'fmt-label-delim']")).to be_nil
+  end
+
   it "processes mixed ordered and unordered lists" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
