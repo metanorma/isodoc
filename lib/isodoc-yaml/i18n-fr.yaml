@@ -131,6 +131,7 @@ title_prefixes:
 locality: {
                       section: Section,
                       clause: Article,
+                      definition: Définition,
                       part: Partie,
                       paragraph: Alinéa,
                       chapter: Chapitre,
@@ -170,6 +171,9 @@ inflection:
   Clause:
     sg: Article
     pl: Articles
+  Definition:
+    sg: Définition
+    pl: Définitions
   Annex:
     sg: Annexe
     pl: Annexes
