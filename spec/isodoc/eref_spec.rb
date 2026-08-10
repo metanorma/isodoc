@@ -1439,6 +1439,29 @@ RSpec.describe IsoDoc do
       .to be_xml_equivalent_to output
   end
 
+  it "pluralises definition localities in conflated erefs" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface><foreword id="F">
+      <p id="A"><eref type="inline" bibitemid="R1" citeas="JCGM 106:2012"><localityStack><locality type="definition"><referenceFrom>3.3.13</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="definition"><referenceFrom>3.3.15</referenceFrom></locality></localityStack></eref></p>
+      <p id="B"><eref type="inline" bibitemid="R1" citeas="JCGM 106:2012"><localityStack><locality type="definition"><referenceFrom>3.3.13</referenceFrom></locality></localityStack></eref></p>
+      </foreword></preface>
+      <bibliography><references id="N" normative="true"><title>Normative references</title><bibitem id="R1"><docidentifier>JCGM 106:2012</docidentifier></bibitem></references></bibliography>
+      </iso-standard>
+    INPUT
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
+    xml.remove_namespaces!
+    conflated = xml.at("//p[@id = 'A']//fmt-xref")
+    expect(conflated).not_to be_nil
+    expect(conflated.text).to include "Definitions 3.3.13"
+    single = xml.at("//p[@id = 'B']//fmt-xref")
+    expect(single.text).to include "Definition 3.3.13"
+    expect(single.text).not_to include "Definitions"
+  end
+
   it "combines locality stacks with connectives" do
     input = <<~INPUT
       <itu-standard xmlns="https://www.calconnect.org/standards/itu">
