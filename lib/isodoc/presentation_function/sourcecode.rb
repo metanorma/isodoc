@@ -175,9 +175,26 @@ module IsoDoc
       lexer = Rouge::Lexer.find(lang || "plaintext") ||
         Rouge::Lexer.find("plaintext")
       l = Rouge::Lexers::Escape.new(start: "{^^{", end: "}^^}", lang: lexer)
+      source_collapse_markup_newlines(elem)
       source = to_xml(elem.children).gsub("<", "{^^{<").gsub(">", ">}^^}")
       l.lang.reset!
       l.lex(@c.decode(source))
+    end
+
+    # Embedded markup serialised across multiple lines (e.g. pretty-printed
+    # MathML from stem) would be split across line cells by the line-table
+    # formatter, leaving each cell with unbalanced tags: the string reparse
+    # of the table then cascades mis-nested rows, and rendering crashes on
+    # the orphaned rows (metanorma-pdfa#84). Collapse whitespace inside
+    # embedded elements so each occupies a single code line; code text
+    # outside the elements is untouched.
+    def source_collapse_markup_newlines(elem)
+      elem.elements.each do |e|
+        e.xpath(".//text()").each do |t|
+          /[\n\r]/.match?(t.content) and
+            t.content = t.content.gsub(/\s*[\n\r]+\s*/, " ")
+        end
+      end
     end
 
     def source_label(elem)
