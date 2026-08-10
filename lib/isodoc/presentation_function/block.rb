@@ -46,7 +46,8 @@ module IsoDoc
       n = @xrefs.get[elem["id"]] || @xrefs.get[elem["original-id"]]
       lbl = labelled_autonum(@i18n.example, elem["id"] || elem["original-id"],
                              n&.dig(:label))
-      prefix_name(elem, { caption: block_delim }, lbl, "name")
+      prefix_name(elem, { caption: i18n_delim("example", block_delim) }, lbl,
+                  "name")
     end
 
     def note(docxml)
@@ -54,7 +55,7 @@ module IsoDoc
     end
 
     def note_delim(_elem)
-      "<tab/>"
+      i18n_delim("note", "<tab/>")
     end
 
     def note1(elem)
@@ -88,7 +89,8 @@ module IsoDoc
 
     def admonition_options(elem)
       options = { label: admonition_delim(elem) }
-      elem["type"] == "box" and options = { caption: block_delim }
+      elem["type"] == "box" and
+        options = { caption: i18n_delim("admonition", block_delim) }
       options
     end
 
@@ -119,7 +121,7 @@ module IsoDoc
 
     def admonition_delim(elem)
       if elem["type"] == "box"
-        block_delim
+        i18n_delim("admonition", block_delim)
       else
         ""
       end
@@ -157,7 +159,7 @@ module IsoDoc
     end
 
     def table_delim
-      block_delim
+      i18n_delim("table", block_delim)
     end
 
     def table_long_strings_cleanup(docxml)

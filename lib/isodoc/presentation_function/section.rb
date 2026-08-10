@@ -34,7 +34,7 @@ module IsoDoc
     def clausedelim
       ret = super
       (ret && !ret.empty?) or return ret
-      "<span class='fmt-autonum-delim'>#{ret}</span>"
+      "<span class='fmt-clause-delim'>#{ret}</span>"
     end
 
     def clause1(elem)

@@ -91,7 +91,7 @@ module IsoDoc
     end
 
     def annex_delim(_elem)
-      "<br/><br/>"
+      i18n_delim("annex", "<br/><br/>")
     end
   end
 end
