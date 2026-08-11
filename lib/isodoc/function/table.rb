@@ -173,7 +173,11 @@ module IsoDoc
         true
       end
 
-      def tr_parse(node, out, ord, totalrows, header)
+      # Defaults cover the bare-tr dispatch in ToWordHtml#parse, which had
+      # called this with two arguments (unsatisfiable) since 2018: a tr
+      # outside tbody/thead context renders as an unbordered plain row
+      # instead of crashing (metanorma-pdfa#84)
+      def tr_parse(node, out, ord = 0, totalrows = 1, header = false)
         out.tr(**attr_code(style: node["style"])) do |r|
           node.elements.each do |td|
             attrs = make_tr_attr(td, ord, totalrows - 1, header,
