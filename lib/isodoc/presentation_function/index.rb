@@ -22,14 +22,22 @@ module IsoDoc
     def index1(docxml, indexsect, index)
       c = indexsect.add_child("<ul></ul>").first
       index.keys.sort.each do |k|
-        words = index[k].keys.each_with_object({}) do |w, v|
-          v[sortable(w).downcase] = w
-        end
+        words = index_sort_buckets(index[k].keys)
         words.keys.localize(@lang.to_sym).sort.to_a.each do |w|
-          c.add_child index_entries(words, index[k], w)
+          words[w].each { |w1| c.add_child index_entries(w1, index[k]) }
         end
       end
       index1_cleanup(docxml)
+    end
+
+    # Sorting is case-insensitive, so entries differing only in case (or
+    # only in markup, which the sort key strips) share a sort key; they
+    # are kept as distinct entries in a bucket per key, sorted adjacently
+    # (metanorma/metanorma#298: overwriting them lost all but one entry)
+    def index_sort_buckets(keys)
+      keys.compact.each_with_object({}) do |w, v|
+        (v[sortable(w).downcase] ||= []) << w
+      end.transform_values(&:sort)
     end
 
     def index1_cleanup(docxml)
@@ -48,34 +56,31 @@ module IsoDoc
       { xref_lbl: ", ", see_lbl: ", #{see_lbl}", also_lbl: ", #{also_lbl}" }
     end
 
-    def index_entries(words, index, primary)
-      ret = index_entries_head(words[primary],
-                               index.dig(words[primary], nil, nil),
+    def index_entries(primary, index)
+      ret = index_entries_head(primary, index.dig(primary, nil, nil),
                                index_entries_opt)
-      words2 = index[words[primary]]&.keys&.compact
-        &.each_with_object({}) { |w, v| v[w.downcase] = w }
+      words2 = index_sort_buckets(index[primary].keys)
       unless words2.empty?
         ret += "<ul>"
         words2.keys.localize(@lang.to_sym).sort.to_a.each do |w|
-          ret += index_entries2(words2, index[words[primary]], w)
+          words2[w].each { |w1| ret += index_entries2(w1, index[primary]) }
         end
         ret += "</ul>"
       end
       "#{ret}</li>"
     end
 
-    def index_entries2(words, index, secondary)
-      ret = index_entries_head(words[secondary],
-                               index.dig(words[secondary], nil),
+    def index_entries2(secondary, index)
+      ret = index_entries_head(secondary, index.dig(secondary, nil),
                                index_entries_opt)
-      words3 = index[words[secondary]]&.keys&.compact
-        &.each_with_object({}) { |w, v| v[w.downcase] = w }
+      words3 = index_sort_buckets(index[secondary].keys)
       unless words3.empty?
         ret += "<ul>"
         words3.keys.localize(@lang.to_sym).sort.to_a.each do |w|
-          ret += (index_entries_head(words3[w],
-                                     index[words[secondary]][words3[w]],
-                                     index_entries_opt) + "</li>")
+          words3[w].each do |w1|
+            ret += "#{index_entries_head(w1, index[secondary][w1],
+                                         index_entries_opt)}</li>"
+          end
         end
         ret += "</ul>"
       end
@@ -95,12 +100,9 @@ module IsoDoc
 
     def index_entries_see(entries, label)
       see_sort = entries&.dig(label) or return nil
-      x = see_sort.each_with_object({}) do |w, v|
-        v[sortable(w).downcase] = w
-      end
-      x.keys.localize(@lang.to_sym).sort.to_a.map do |k|
-        # see_sort[k]
-        x[k]
+      x = index_sort_buckets(see_sort)
+      x.keys.localize(@lang.to_sym).sort.to_a.flat_map do |k|
+        @index_fold_case ? [index_fold_head(x[k])] : x[k].uniq
       end.join(", ")
     end
 
@@ -116,9 +118,51 @@ module IsoDoc
       index = extract_indexterms(terms)
       index = extract_indexsee(index, see, :see)
       index = extract_indexsee(index, also, :also)
+      @index_fold_case and index_fold_case(index)
       index.keys.sort.each_with_object({}) do |k, v|
         v[sortable(k)[0].upcase.transliterate] ||= {}
         v[sortable(k)[0].upcase.transliterate][k] = index[k]
+      end
+    end
+
+    # Entries differing only in case merge into a single headword, the
+    # lowercase spelling, with the union of their subentries and locators:
+    # ((activity)) mid-sentence and ((Activity)) sentence-initially are
+    # the same entry. Suppressed by the :index-case-sensitive: document
+    # attribute for identifier-heavy documents, where Activity and
+    # activity are distinct case-bearing names (metanorma/metanorma#298).
+    # Applied per level: primaries, then secondaries, then tertiaries.
+    def index_fold_case(index)
+      index_fold_level(index)
+      index.each_value do |sec|
+        index_fold_level(sec)
+        sec.each_value { |ter| index_fold_level(ter) }
+      end
+    end
+
+    def index_fold_level(hash)
+      hash.keys.grep(String).group_by { |w| sortable(w).downcase }
+        .each_value { |ws| ws.size > 1 and index_fold_bucket(hash, ws) }
+    end
+
+    def index_fold_bucket(hash, words)
+      head = index_fold_head(words)
+      (words - [head]).each do |w|
+        index_merge(hash[head], hash[w])
+        hash.delete(w)
+      end
+    end
+
+    def index_fold_head(words)
+      words.find { |w| sortable(w) == sortable(w).downcase } || words.min
+    end
+
+    def index_merge(target, other)
+      other.each do |k, v|
+        if !target.key?(k) then target[k] = v
+        elsif v.is_a?(Array) then target[k].concat(v)
+        else index_merge(target[k], v)
+        end
       end
     end
 

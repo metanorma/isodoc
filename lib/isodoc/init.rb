@@ -35,6 +35,9 @@ module IsoDoc
       toc_init(xml)
       @details_open = xml.at(ns("//metanorma-extension/presentation-metadata/" \
                                 "html-details-open"))&.text != "false"
+      @index_fold_case =
+        xml.at(ns("//metanorma-extension/presentation-metadata/" \
+                  "index-case-sensitive"))&.text != "true"
     end
 
     def doctype_init(docxml)

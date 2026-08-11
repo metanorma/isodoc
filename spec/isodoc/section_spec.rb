@@ -1167,4 +1167,59 @@ RSpec.describe IsoDoc do
     expect(strip_guid(wordxml.at("//div[@class = 'WordSection3']").to_xhtml))
       .to be_xml_equivalent_to doc
   end
+
+  # metanorma/metanorma#298
+  context "index entries differing only in case" do
+    def case_index_input(extension)
+      <<~INPUT
+        <iso-standard xmlns="https://open.ribose.com/standards/bipm">
+          <bibdata>
+            <language>en</language>
+            <script>Latn</script>
+          </bibdata>
+          #{extension}
+          <sections>
+            <clause id="A">
+              <p>A</p>
+              <index><primary>activity</primary><secondary>term</secondary></index>
+              <index><primary>Activity</primary><secondary>ARM object definition</secondary></index>
+              <index><primary>Activity</primary><secondary>mapping specification</secondary></index>
+              <index><primary>Activity</primary><secondary>ARM EXPRESS-G</secondary></index>
+            </clause>
+          </sections>
+        </iso-standard>
+      INPUT
+    end
+
+    def case_index_entries(input)
+      pres_output = IsoDoc::PresentationXMLConvert
+        .new(presxml_options)
+        .convert("test", input, true)
+      Nokogiri::XML(pres_output)
+        .at("//*[local-name() = 'indexsect']")
+        .xpath(".//*[local-name() = 'li']")
+        .map { |li| li.xpath("./text()").text.strip.sub(/,$/, "") }
+    end
+
+    it "folds them into the lowercase headword by default" do
+      entries = case_index_entries(case_index_input(""))
+      expect(entries)
+        .to eq ["activity", "ARM EXPRESS-G", "ARM object definition",
+                "mapping specification", "term"]
+    end
+
+    it "keeps them distinct under index-case-sensitive" do
+      ext = <<~EXT
+        <metanorma-extension>
+          <presentation-metadata>
+            <index-case-sensitive>true</index-case-sensitive>
+          </presentation-metadata>
+        </metanorma-extension>
+      EXT
+      entries = case_index_entries(case_index_input(ext))
+      expect(entries)
+        .to eq ["Activity", "ARM EXPRESS-G", "ARM object definition",
+                "mapping specification", "activity", "term"]
+    end
+  end
 end
