@@ -85,7 +85,7 @@ RSpec.describe IsoDoc do
                <fmt-title id="_" depth="1">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="C">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -107,7 +107,7 @@ RSpec.describe IsoDoc do
                         <semx element="autonum" source="C">1</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="C1">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                      <span class="fmt-caption-delim">
                         <tab/>
@@ -133,7 +133,7 @@ RSpec.describe IsoDoc do
                            <semx element="autonum" source="C1">1</semx>
                            <span class="fmt-autonum-delim">.</span>
                            <semx element="autonum" source="C2">1</semx>
-                           <span class="fmt-autonum-delim">.</span>
+                           <span class="fmt-clause-delim">.</span>
                         </span>
                         <span class="fmt-caption-delim">
                            <tab/>
@@ -164,7 +164,7 @@ RSpec.describe IsoDoc do
                <fmt-title id="_" depth="1">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="C4">2</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -197,20 +197,20 @@ RSpec.describe IsoDoc do
                    </div>
                 </div>
                 <div id="C">
-                   <h1>1.\u00a0 Introduction</h1>
+                   <h1>1<span class="fmt-clause-delim">.</span>\u00a0 Introduction</h1>
                    <p class="h1" id="_">A</p>
                    <div id="C1">
-                      <h2>1.1.\u00a0 Introduction Subsection</h2>
+                      <h2>1.1<span class="fmt-clause-delim">.</span>\u00a0 Introduction Subsection</h2>
                       <p class="h2" id="_">B</p>
                       <div id="C2">
-                         <h3>1.1.1.\u00a0 Introduction Sub-subsection</h3>
+                         <h3>1.1.1<span class="fmt-clause-delim">.</span>\u00a0 Introduction Sub-subsection</h3>
                          <p class="h1" id="_">C</p>
                       </div>
                    </div>
                 </div>
                 <p class="h1" id="_">D</p>
                 <div id="C4">
-                   <h1>2.\u00a0 Clause 2</h1>
+                   <h1>2<span class="fmt-clause-delim">.</span>\u00a0 Clause 2</h1>
                 </div>
              </div>
           </body>
@@ -259,21 +259,21 @@ RSpec.describe IsoDoc do
          <div class="WordSection3">
             <div>
                <a name="C" id="C"/>
-               <h1>1.<span style="mso-tab-count:1">\u00a0 </span>Introduction</h1>
+               <h1>1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Introduction</h1>
                <p class="h1">
                   <a name="_" id="_"/>
                   A
                </p>
                <div>
                   <a name="C1" id="C1"/>
-                  <h2>1.1.<span style="mso-tab-count:1">\u00a0 </span>Introduction Subsection</h2>
+                  <h2>1.1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Introduction Subsection</h2>
                   <p class="h2">
                      <a name="_" id="_"/>
                      B
                   </p>
                   <div>
                      <a name="C2" id="C2"/>
-                     <h3>1.1.1.<span style="mso-tab-count:1">\u00a0 </span>Introduction Sub-subsection</h3>
+                     <h3>1.1.1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Introduction Sub-subsection</h3>
                      <p class="h1">
                         <a name="_" id="_"/>
                         C
@@ -287,7 +287,7 @@ RSpec.describe IsoDoc do
             </p>
             <div>
                <a name="C4" id="C4"/>
-               <h1>2.<span style="mso-tab-count:1">\u00a0 </span>Clause 2</h1>
+               <h1>2<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Clause 2</h1>
             </div>
          </div>
          <div style="mso-element:footnote-list"/>

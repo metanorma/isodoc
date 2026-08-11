@@ -206,7 +206,7 @@ RSpec.describe IsoDoc do
                 <semx element="autonum" source="widgets">3</semx>
                 <span class="fmt-autonum-delim">.</span>
                 <semx element="autonum" source="widgets1">1</semx>
-                <span class="fmt-autonum-delim">.</span>
+                <span class="fmt-clause-delim">.</span>
              </span>
           </fmt-title>
           <fmt-xref-label>

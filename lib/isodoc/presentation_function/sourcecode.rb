@@ -202,7 +202,8 @@ module IsoDoc
           lbl = @xrefs.anchor(elem["id"], :label, false)
         s = labelled_autonum(lower2cap(@i18n.figure), elem["id"], lbl)&.strip
       end
-      prefix_name(elem, { caption: block_delim }, s, "name")
+      prefix_name(elem, { caption: i18n_delim("sourcecode", block_delim) }, s,
+                  "name")
     end
   end
 end

@@ -151,7 +151,7 @@ RSpec.describe IsoDoc do
                <fmt-title id="_" depth="1">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="_">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                </fmt-title>
                <fmt-xref-label>
@@ -215,7 +215,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
              <div id="_">
-               <h1>1.</h1>
+               <h1>1<span class="fmt-clause-delim">.</span></h1>
                <div id="_">
                  <div class="formula">
                     <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>x</mi><mo>=</mo><mo linebreak="newline"/><mi>y</mi></mstyle></math></span>\u00a0 (1)</p>
@@ -235,7 +235,7 @@ RSpec.describe IsoDoc do
       </p>
       <div class="WordSection3">
               <div id="_">
-                <h1>1.</h1>
+                <h1>1<span class="fmt-clause-delim">.</span></h1>
                 <div id="_">
                   <div class="formula">
                   <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>x</mi><mo>=</mo><mo linebreak="newline"/><mi>y</mi></mstyle></math></span><span style="mso-tab-count:1">\u00a0 </span>(1)</p>

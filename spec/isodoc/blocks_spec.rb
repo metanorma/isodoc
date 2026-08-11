@@ -937,7 +937,7 @@ RSpec.describe IsoDoc do
                <fmt-title depth="1" id="_">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="clause1">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -955,7 +955,7 @@ RSpec.describe IsoDoc do
                         <semx element="autonum" source="clause1">1</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="clause1A">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                      <span class="fmt-caption-delim">
                         <tab/>
@@ -977,7 +977,7 @@ RSpec.describe IsoDoc do
                            <semx element="autonum" source="clause1A">1</semx>
                            <span class="fmt-autonum-delim">.</span>
                            <semx element="autonum" source="clause1Aa">1</semx>
-                           <span class="fmt-autonum-delim">.</span>
+                           <span class="fmt-clause-delim">.</span>
                         </span>
                         <span class="fmt-caption-delim">
                            <tab/>
@@ -1002,7 +1002,7 @@ RSpec.describe IsoDoc do
                            <semx element="autonum" source="clause1A">1</semx>
                            <span class="fmt-autonum-delim">.</span>
                            <semx element="autonum" source="clause1Ab">2</semx>
-                           <span class="fmt-autonum-delim">.</span>
+                           <span class="fmt-clause-delim">.</span>
                         </span>
                         <span class="fmt-caption-delim">
                            <tab/>
@@ -1026,7 +1026,7 @@ RSpec.describe IsoDoc do
                         <semx element="autonum" source="clause1">1</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="clause1B">2</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                      <span class="fmt-caption-delim">
                         <tab/>
@@ -1048,7 +1048,7 @@ RSpec.describe IsoDoc do
                            <semx element="autonum" source="clause1B">2</semx>
                            <span class="fmt-autonum-delim">.</span>
                            <semx element="autonum" source="clause1Ba">1</semx>
-                           <span class="fmt-autonum-delim">.</span>
+                           <span class="fmt-clause-delim">.</span>
                         </span>
                         <span class="fmt-caption-delim">
                            <tab/>
@@ -1071,7 +1071,7 @@ RSpec.describe IsoDoc do
                <fmt-title depth="1" id="_">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="clause2">2</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -1300,25 +1300,25 @@ RSpec.describe IsoDoc do
         #{HTML_HDR}
                      <p class='zzSTDTitle1'>Document title</p>
             <div id='clause1'>
-              <h1>1.&nbsp; Clause 1</h1>
+              <h1>1<span class="fmt-clause-delim">.</span>&nbsp; Clause 1</h1>
               <div id='clause1A'>
-                <h2>1.1.&nbsp; Clause 1A</h2>
+                <h2>1.1<span class="fmt-clause-delim">.</span>&nbsp; Clause 1A</h2>
                 <div id='clause1Aa'>
-                  <h3>1.1.1.&nbsp; Clause 1Aa</h3>
+                  <h3>1.1.1<span class="fmt-clause-delim">.</span>&nbsp; Clause 1Aa</h3>
                 </div>
                 <div id='clause1Ab'>
-                  <h3>1.1.2.&nbsp; Clause 1Ab</h3>
+                  <h3>1.1.2<span class="fmt-clause-delim">.</span>&nbsp; Clause 1Ab</h3>
                 </div>
               </div>
               <div id='clause1B'>
-                <h2>1.2.&nbsp; Clause 1B</h2>
+                <h2>1.2<span class="fmt-clause-delim">.</span>&nbsp; Clause 1B</h2>
                 <div id='clause1Ba'>
-                  <h3>1.2.1.&nbsp; Clause 1Ba</h3>
+                  <h3>1.2.1<span class="fmt-clause-delim">.</span>&nbsp; Clause 1Ba</h3>
                 </div>
               </div>
             </div>
             <div id='clause2'>
-              <h1>2.&nbsp; Clause 2</h1>
+              <h1>2<span class="fmt-clause-delim">.</span>&nbsp; Clause 2</h1>
               <p id='A'>And introducing: </p>
               <div class='toc'>
               <div class="ul_wrap">

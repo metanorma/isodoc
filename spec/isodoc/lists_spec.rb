@@ -980,7 +980,7 @@ RSpec.describe IsoDoc do
          <fmt-title depth="1" id="_">
             <span class="fmt-caption-label">
                <semx element="autonum" source="A">1</semx>
-               <span class="fmt-autonum-delim">.</span>
+               <span class="fmt-clause-delim">.</span>
             </span>
             <span class="fmt-caption-delim">
                <tab/>
@@ -1216,7 +1216,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
                <div id="A">
-                  <h1>1.\u00a0 Clause</h1>
+                  <h1>1<span class="fmt-clause-delim">.</span>\u00a0 Clause</h1>
                   <div class="ol_wrap" id="B1">
                      <table class="MsoISOTable" style="border-width:1px;border-spacing:0;">
                         <caption>List Title</caption>
@@ -1364,7 +1364,7 @@ RSpec.describe IsoDoc do
          <fmt-title depth="1" id="_">
             <span class="fmt-caption-label">
                <semx element="autonum" source="A">1</semx>
-               <span class="fmt-autonum-delim">.</span>
+               <span class="fmt-clause-delim">.</span>
             </span>
             <span class="fmt-caption-delim">
                <tab/>

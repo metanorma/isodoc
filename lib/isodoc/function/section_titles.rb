@@ -1,8 +1,19 @@
 module IsoDoc
   module Function
     module Section
+      # Optional per-caption-type delimiter override from i18n: a
+      # +<type>_delimiter+ key, falling back to a shared +caption_delimiter+
+      # key, falling back to the hardcoded default. Uses +@i18n.get+ (hash
+      # lookup, nil for absent keys) rather than +@i18n.<key>+ (which is only
+      # defined for present keys). The keys are absent from the base i18n YAML,
+      # so default behaviour is unchanged unless a flavour or document sets them.
+      def i18n_delim(type, default)
+        @i18n&.get&.dig("#{type}_delimiter") ||
+          @i18n&.get&.dig("caption_delimiter") || default
+      end
+
       def clausedelim
-        "."
+        i18n_delim("clause", ".")
       end
 
       def clausedelimspace(_node, out)

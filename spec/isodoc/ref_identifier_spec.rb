@@ -156,7 +156,7 @@ RSpec.describe IsoDoc do
         <fmt-title id="_" depth="1">
            <span class="fmt-caption-label">
               <semx element="autonum" source="A">1</semx>
-              <span class="fmt-autonum-delim">.</span>
+              <span class="fmt-clause-delim">.</span>
               </span>
               <span class="fmt-caption-delim">
                  <tab/>
@@ -253,7 +253,7 @@ RSpec.describe IsoDoc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_normative_references">1</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -373,7 +373,7 @@ presxml = <<~OUTPUT
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_normative_references">1</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -507,7 +507,7 @@ OUTPUT
                  <fmt-title id="_" depth="1">
                     <span class="fmt-caption-label">
                        <semx element="autonum" source="_normative_references">1</semx>
-                       <span class="fmt-autonum-delim">.</span>
+                       <span class="fmt-clause-delim">.</span>
                     </span>
                     <span class="fmt-caption-delim">
                        <tab/>
@@ -790,7 +790,7 @@ OUTPUT
          <fmt-title id="_" depth="1">
             <span class="fmt-caption-label">
                <semx element="autonum" source="_normative_references">1</semx>
-               <span class="fmt-autonum-delim">.</span>
+               <span class="fmt-clause-delim">.</span>
             </span>
             <span class="fmt-caption-delim">
                <tab/>
@@ -837,7 +837,7 @@ OUTPUT
     html = <<~OUTPUT
       #{HTML_HDR}
              <div>
-               <h1>1.\u00a0 Normative References</h1>
+               <h1>1<span class="fmt-clause-delim">.</span>\u00a0 Normative References</h1>
                <p>
                  The following documents are referred to in the text in such a way that
                  some or all of their content constitutes requirements of this
@@ -923,7 +923,7 @@ OUTPUT
           <fmt-title depth="1" id="_11">
              <span class="fmt-caption-label">
                 <semx element="autonum" source="_normative_references">1</semx>
-                <span class="fmt-autonum-delim">.</span>
+                <span class="fmt-clause-delim">.</span>
              </span>
              <span class="fmt-caption-delim">
                 <tab/>
@@ -1067,7 +1067,7 @@ OUTPUT
                 <h1 class="IntroTitle">Table of contents</h1>
               </div>
                 <div>
-                   <h1>1.\u00a0 Normative References</h1>
+                   <h1>1<span class="fmt-clause-delim">.</span>\u00a0 Normative References</h1>
                    <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                    <p id="ISO712" class="NormRef">
                       [ISO/IEC\u00a0Guide\u00a099:2007], ISO/IEC\u00a0Guide\u00a099:2007
@@ -1181,7 +1181,7 @@ OUTPUT
          <fmt-title id="_" depth="1">
             <span class="fmt-caption-label">
                <semx element="autonum" source="C">1</semx>
-               <span class="fmt-autonum-delim">.</span>
+               <span class="fmt-clause-delim">.</span>
                </span>
                <span class="fmt-caption-delim">
                   <tab/>
@@ -1224,7 +1224,7 @@ OUTPUT
          <fmt-title id="_" depth="1">
             <span class="fmt-caption-label">
                <semx element="autonum" source="C">1</semx>
-               <span class="fmt-autonum-delim">.</span>
+               <span class="fmt-clause-delim">.</span>
                </span>
                <span class="fmt-caption-delim">
                   <tab/>

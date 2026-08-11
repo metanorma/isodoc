@@ -193,7 +193,7 @@ RSpec.describe IsoDoc do
              <fmt-title depth="1" id="_34">
                <span class="fmt-caption-label">
                  <semx element="autonum" source="_normative_references">1</semx>
-                 <span class="fmt-autonum-delim">.</span>
+                 <span class="fmt-clause-delim">.</span>
                </span>
                <span class="fmt-caption-delim">
                  <tab/>
@@ -431,7 +431,7 @@ RSpec.describe IsoDoc do
                </p>
              </div>
              <div>
-               <h1>1.&#xA0; Normative References</h1>
+               <h1>1<span class="fmt-clause-delim">.</span>&#xA0; Normative References</h1>
                <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                <p id="ISO712" class="NormRef">[1], ISO&#xA0;712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
                <p id="ISO16634" class="NormRef">ISO&#xA0;16634:--&#xA0;(all&#xA0;parts)<a class="FootnoteRef" href="#fn:_19"><sup>1</sup></a>
@@ -508,7 +508,7 @@ RSpec.describe IsoDoc do
    </p>
    <div class="WordSection3">
      <div>
-       <h1>1.<span style="mso-tab-count:1">  </span>Normative References</h1>
+       <h1>1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">  </span>Normative References</h1>
        <p class="MsoNormal">The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
        <p class="NormRef">
          <a id="ISO712" name="ISO712"/>
@@ -951,7 +951,7 @@ RSpec.describe IsoDoc do
                <fmt-title depth="1" id="_17">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="_normative_references">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -1068,7 +1068,7 @@ RSpec.describe IsoDoc do
                <fmt-title depth="1" id="_18">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="_normative_references">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -1490,7 +1490,7 @@ RSpec.describe IsoDoc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_normative_references"/>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -1950,7 +1950,7 @@ RSpec.describe IsoDoc do
                <fmt-title id="_" depth="1">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="_normative_references">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -2126,7 +2126,7 @@ RSpec.describe IsoDoc do
                <fmt-title depth="1" id="_15">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="A">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -2176,7 +2176,7 @@ RSpec.describe IsoDoc do
                         <semx element="autonum" source="A">1</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="C">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                      <span class="fmt-caption-delim">
                         <tab/>
@@ -2333,7 +2333,7 @@ RSpec.describe IsoDoc do
                   <h1 class="IntroTitle">Table of contents</h1>
                </div>
                <div>
-                  <h1>1.\u00a0 Normative References</h1>
+                  <h1>1<span class="fmt-clause-delim">.</span>\u00a0 Normative References</h1>
                   <p id="_">Text</p>
                   <div>
                      <p id="iso122" class="Biblio">
@@ -2348,7 +2348,7 @@ RSpec.describe IsoDoc do
                      <p id="_">More text</p>
                   </div>
                   <div>
-                     <h2 class="Section3">1.1.\u00a0 Normative 1</h2>
+                     <h2 class="Section3">1.1<span class="fmt-clause-delim">.</span>\u00a0 Normative 1</h2>
                      <p id="iso123" class="Biblio">
                         [<b>A</b>
                         .], XYZ
@@ -2447,7 +2447,7 @@ RSpec.describe IsoDoc do
                 <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="A">1</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                       </span>
                       <span class="fmt-caption-delim">
                          <tab/>
@@ -2465,7 +2465,7 @@ RSpec.describe IsoDoc do
                          <semx element="autonum" source="A">1</semx>
                  <span class="fmt-autonum-delim">.</span>
                  <semx element="autonum" source="B">1</semx>
-                 <span class="fmt-autonum-delim">.</span>
+                 <span class="fmt-clause-delim">.</span>
                  </span>
                          <span class="fmt-caption-delim">
                             <tab/>
@@ -2486,7 +2486,7 @@ RSpec.describe IsoDoc do
                          <semx element="autonum" source="A">1</semx>
                   <span class="fmt-autonum-delim">.</span>
                   <semx element="autonum" source="C">2</semx>
-                         <span class="fmt-autonum-delim">.</span>
+                         <span class="fmt-clause-delim">.</span>
                          </span>
                          <span class="fmt-caption-delim">
                             <tab/>
@@ -2528,12 +2528,12 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
                  <div>
-                   <h1>1.\u00a0 First References</h1>
+                   <h1>1<span class="fmt-clause-delim">.</span>\u00a0 First References</h1>
                    <div>
-                     <h2 class='Section3'>1.1.\u00a0 Normative References 1</h2>
+                     <h2 class='Section3'>1.1<span class="fmt-clause-delim">.</span>\u00a0 Normative References 1</h2>
                    </div>
                    <div>
-                     <h2 class='Section3'>1.2.\u00a0 Normative References 2</h2>
+                     <h2 class='Section3'>1.2<span class="fmt-clause-delim">.</span>\u00a0 Normative References 2</h2>
                    </div>
                  </div>
                  <br/>

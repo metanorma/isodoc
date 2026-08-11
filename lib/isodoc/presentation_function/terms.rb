@@ -38,7 +38,7 @@ module IsoDoc
     end
 
     def termnote_delim(_elem, lbl)
-      l10n(": ", { prev: lbl })
+      l10n(i18n_delim("termnote", ": "), { prev: lbl })
     end
 
     def termnote1(elem)
