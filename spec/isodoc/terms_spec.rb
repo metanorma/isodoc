@@ -27,7 +27,7 @@ RSpec.describe IsoDoc do
                <fmt-title depth="1" id="_">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="H">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -44,7 +44,7 @@ RSpec.describe IsoDoc do
                         <semx element="autonum" source="H">1</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="J">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                   </fmt-name>
                   <fmt-xref-label>
@@ -75,13 +75,18 @@ RSpec.describe IsoDoc do
 
     html = <<~"OUTPUT"
       #{HTML_HDR}
-                   <div id="H"><h1>1.\u00a0 Terms, Definitions, Symbols and Abbreviated Terms</h1>
-           <p class="TermNum" id="J">1.1.</p>
-             <p class="Terms" style="text-align:left;"><b><dfn>Term2</dfn></b></p>
+             <div id="H">
+               <h1>1<span class="fmt-clause-delim">.</span>&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1>
+               <p class="TermNum" id="J">1.1<span class="fmt-clause-delim">.</span></p>
+               <p class="Terms" style="text-align:left;">
+                 <b>
+                   <dfn>Term2</dfn>
+                 </b>
+               </p>
+             </div>
            </div>
-                 </div>
-               </body>
-           </html>
+         </body>
+       </html>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -194,7 +199,7 @@ RSpec.describe IsoDoc do
                <fmt-title id="_" depth="1">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="terms_and_definitions">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -212,7 +217,7 @@ RSpec.describe IsoDoc do
                         <semx element="autonum" source="terms_and_definitions">1</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="paddy1">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                   </fmt-name>
                   <fmt-xref-label>
@@ -421,7 +426,7 @@ RSpec.describe IsoDoc do
                         <semx element="autonum" source="terms_and_definitions">1</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="paddy">2</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                   </fmt-name>
                   <fmt-xref-label>
@@ -633,80 +638,68 @@ RSpec.describe IsoDoc do
 
     html = <<~"OUTPUT"
       #{HTML_HDR}
-                <div id="terms_and_definitions">
-                   <h1>1.\u00a0 Terms and Definitions</h1>
-                   <p>For the purposes of this document, the following terms and definitions apply.</p>
-                   <p class="TermNum" id="paddy1">1.1.</p>
-                   <p class="Terms" style="text-align:left;">
-                      <b><dfn>paddy</dfn></b>
-                      , &lt;in agriculture, dated&gt; [SOURCE: ISO\u00a07301:2011, Clause 3.1, modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]
-                   </p>
-                   <p id="_">&lt;rice&gt;  rice retaining its husk after threshing</p>
-                   <div id="_" class="example" style="page-break-after: avoid;page-break-inside: avoid;">
-                      <p class="example-title">EXAMPLE 1</p>
-                      <p id="_">Foreign seeds, husks, bran, sand, dust.</p>
-                      <div class="ul_wrap">
-                         <ul>
-                            <li id="_">A</li>
-                         </ul>
-                      </div>
-                   </div>
-                   <div id="_" class="example">
-                      <p class="example-title">EXAMPLE 2</p>
-                      <div class="ul_wrap">
-                         <ul>
-                            <li id="_">A</li>
-                         </ul>
-                      </div>
-                   </div>
-                   <p>[SOURCE: t1 — comment; Termbase IEV, term ID xyz, modified — with adjustments; t1, adapted]</p>
-                   <p class="TermNum" id="paddy">1.2.</p>
-                   <p class="Terms" style="text-align:left;">
-                      <b>
-                         <dfn>paddy</dfn>
-                      </b>
-                   </p>
-                   <p class="AltTerms" style="text-align:left;">
-                      <dfn>paddy rice</dfn>
-                      , &lt;in agriculture&gt;
-                   </p>
-                   <p class="AltTerms" style="text-align:left;">
-                      <dfn>rough rice</dfn>
-                   </p>
-                   <p class="DeprecatedTerms" style="text-align:left;">
-                      DEPRECATED:
-                      <dfn>cargo rice</dfn>
-                   </p>
-                   <p id="_">rice retaining its husk after threshing</p>
-                   <div id="_" class="example">
-                      <p class="example-title">EXAMPLE</p>
-                      <div class="ul_wrap">
-                         <ul>
-                            <li id="_">A</li>
-                         </ul>
-                      </div>
-                   </div>
-                   <div id="_" class="Note" style="page-break-after: avoid;page-break-inside: avoid;">
-                      <p>
-                         <span class="termnote_label">Note 1 to entry: </span>
-                         The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.
-                      </p>
-                   </div>
-                   <div id="_" class="Note">
-                      <p>
-                         <span class="termnote_label">Note 2 to entry: </span>
-                      </p>
-                      <div class="ul_wrap">
-                         <ul>
-                            <li id="_">A</li>
-                         </ul>
-                      </div>
-                      <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
-                   </div>
-                   <p>[SOURCE: ISO\u00a07301:2011, 3.1ISO\u00a07301:2011, clause 3.1]</p>
-                </div>
+             <div id="terms_and_definitions">
+               <h1>1<span class="fmt-clause-delim">.</span>&#xA0; Terms and Definitions</h1>
+               <p>For the purposes of this document, the following terms and definitions apply.</p>
+               <p class="TermNum" id="paddy1">1.1<span class="fmt-clause-delim">.</span></p>
+               <p class="Terms" style="text-align:left;"><b><dfn>paddy</dfn></b>, &lt;in agriculture, dated&gt; [SOURCE: ISO&#xA0;7301:2011,  Clause 3.1, modified &#x2014; The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</p>
+               <p id="_">&lt;rice&gt;  rice retaining its husk after threshing</p>
+               <div id="_" class="example" style="page-break-after: avoid;page-break-inside: avoid;">
+                 <p class="example-title">EXAMPLE 1</p>
+                 <p id="_">Foreign seeds, husks, bran, sand, dust.</p>
+                 <div class="ul_wrap">
+                   <ul>
+                     <li id="_">A</li>
+                   </ul>
+                 </div>
+               </div>
+               <div id="_" class="example">
+                 <p class="example-title">EXAMPLE 2</p>
+                 <div class="ul_wrap">
+                   <ul>
+                     <li id="_">A</li>
+                   </ul>
+                 </div>
+               </div>
+               <p>[SOURCE: t1 &#x2014; comment; Termbase IEV, term ID xyz, modified &#x2014; with adjustments; t1, adapted]</p>
+               <p class="TermNum" id="paddy">1.2<span class="fmt-clause-delim">.</span></p>
+               <p class="Terms" style="text-align:left;">
+                 <b>
+                   <dfn>paddy</dfn>
+                 </b>
+               </p>
+               <p class="AltTerms" style="text-align:left;"><dfn>paddy rice</dfn>, &lt;in agriculture&gt;</p>
+               <p class="AltTerms" style="text-align:left;">
+                 <dfn>rough rice</dfn>
+               </p>
+               <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: <dfn>cargo rice</dfn></p>
+               <p id="_">rice retaining its husk after threshing</p>
+               <div id="_" class="example">
+                 <p class="example-title">EXAMPLE</p>
+                 <div class="ul_wrap">
+                   <ul>
+                     <li id="_">A</li>
+                   </ul>
+                 </div>
+               </div>
+               <div id="_" class="Note" style="page-break-after: avoid;page-break-inside: avoid;">
+                 <p><span class="termnote_label">Note 1 to entry: </span>The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
+               </div>
+               <div id="_" class="Note">
+                 <p>
+                   <span class="termnote_label">Note 2 to entry: </span>
+                 </p>
+                 <div class="ul_wrap">
+                   <ul>
+                     <li id="_">A</li>
+                   </ul>
+                 </div>
+                 <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
+               </div>
+               <p>[SOURCE: ISO&#xA0;7301:2011,  3.1ISO&#xA0;7301:2011,  clause 3.1]</p>
              </div>
-          </body>
+           </div>
+         </body>
        </html>
     OUTPUT
 
@@ -717,73 +710,65 @@ RSpec.describe IsoDoc do
       <p class="section-break">
          <br clear="all" class="section"/>
       </p>
-             <div class="WordSection3">
-                <div id="terms_and_definitions">
-                   <h1>
-                      1.
-                      <span style="mso-tab-count:1">\u00a0 </span>
-                      Terms and Definitions
-                   </h1>
-                   <p>For the purposes of this document, the following terms and definitions apply.</p>
-                   <p class="TermNum" id="paddy1">1.1.</p>
-                   <p class="Terms" style="text-align:left;">
-                      <b>paddy</b>
-                      , &lt;in agriculture, dated&gt; [SOURCE: ISO\u00a07301:2011, Clause 3.1, modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]
-                   </p>
-                   <p id="_">&lt;rice&gt;  rice retaining its husk after threshing</p>
-                   <div id="_" class="example" style="page-break-after: avoid;page-break-inside: avoid;">
-                      <p class="example-title">EXAMPLE 1</p>
-                      <p id="_">Foreign seeds, husks, bran, sand, dust.</p>
-                      <div class="ul_wrap">
-                         <ul>
-                            <li id="_">A</li>
-                         </ul>
-                      </div>
-                   </div>
-                   <div id="_" class="example">
-                      <p class="example-title">EXAMPLE 2</p>
-                      <div class="ul_wrap">
-                         <ul>
-                            <li id="_">A</li>
-                         </ul>
-                      </div>
-                   </div>
-                   <p>[SOURCE: t1 — comment; Termbase IEV, term ID xyz, modified — with adjustments; t1, adapted]</p>
-                   <p class="TermNum" id="paddy">1.2.</p>
-                   <p class="Terms" style="text-align:left;"><b>paddy</b></p>
-                   <p class="AltTerms" style="text-align:left;">paddy rice, &lt;in agriculture&gt;</p>
-                   <p class="AltTerms" style="text-align:left;">rough rice</p>
-                   <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: cargo rice</p>
-                   <p id="_">rice retaining its husk after threshing</p>
-                   <div id="_" class="example">
-                      <p class="example-title">EXAMPLE</p>
-                      <div class="ul_wrap">
-                         <ul>
-                            <li id="_">A</li>
-                         </ul>
-                      </div>
-                   </div>
-                   <div id="_" class="Note" style="page-break-after: avoid;page-break-inside: avoid;">
-                      <p class="Note">
-                         <span class="termnote_label">Note 1 to entry: </span>
-                         The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.
-                      </p>
-                   </div>
-                   <div id="_" class="Note">
-                      <p class="Note">
-                         <span class="termnote_label">Note 2 to entry: </span>
-                      </p>
-                      <div class="ul_wrap">
-                         <ul>
-                            <li id="_">A</li>
-                         </ul>
-                      </div>
-                      <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
-                   </div>
-                   <p>[SOURCE: ISO\u00a07301:2011, 3.1ISO\u00a07301:2011, clause 3.1]</p>
-                </div>
+           <div class="WordSection3">
+             <div id="terms_and_definitions">
+               <h1>1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">&#xA0; </span>Terms and Definitions</h1>
+               <p>For the purposes of this document, the following terms and definitions apply.</p>
+               <p class="TermNum" id="paddy1">1.1<span class="fmt-clause-delim">.</span></p>
+               <p class="Terms" style="text-align:left;"><b>paddy</b>, &lt;in agriculture, dated&gt; [SOURCE: ISO&#xA0;7301:2011,  Clause 3.1, modified &#x2014; The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</p>
+               <p id="_">&lt;rice&gt;  rice retaining its husk after threshing</p>
+               <div id="_" class="example" style="page-break-after: avoid;page-break-inside: avoid;">
+                 <p class="example-title">EXAMPLE 1</p>
+                 <p id="_">Foreign seeds, husks, bran, sand, dust.</p>
+                 <div class="ul_wrap">
+                   <ul>
+                     <li id="_">A</li>
+                   </ul>
+                 </div>
+               </div>
+               <div id="_" class="example">
+                 <p class="example-title">EXAMPLE 2</p>
+                 <div class="ul_wrap">
+                   <ul>
+                     <li id="_">A</li>
+                   </ul>
+                 </div>
+               </div>
+               <p>[SOURCE: t1 &#x2014; comment; Termbase IEV, term ID xyz, modified &#x2014; with adjustments; t1, adapted]</p>
+               <p class="TermNum" id="paddy">1.2<span class="fmt-clause-delim">.</span></p>
+               <p class="Terms" style="text-align:left;">
+                 <b>paddy</b>
+               </p>
+               <p class="AltTerms" style="text-align:left;">paddy rice, &lt;in agriculture&gt;</p>
+               <p class="AltTerms" style="text-align:left;">rough rice</p>
+               <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: cargo rice</p>
+               <p id="_">rice retaining its husk after threshing</p>
+               <div id="_" class="example">
+                 <p class="example-title">EXAMPLE</p>
+                 <div class="ul_wrap">
+                   <ul>
+                     <li id="_">A</li>
+                   </ul>
+                 </div>
+               </div>
+               <div id="_" class="Note" style="page-break-after: avoid;page-break-inside: avoid;">
+                 <p class="Note"><span class="termnote_label">Note 1 to entry: </span>The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
+               </div>
+               <div id="_" class="Note">
+                 <p class="Note">
+                   <span class="termnote_label">Note 2 to entry: </span>
+                 </p>
+                 <div class="ul_wrap">
+                   <ul>
+                     <li id="_">A</li>
+                   </ul>
+                 </div>
+                 <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
+               </div>
+               <p>[SOURCE: ISO&#xA0;7301:2011,  3.1ISO&#xA0;7301:2011,  clause 3.1]</p>
              </div>
-          </body>
+           </div>
+         </body>
        </html>
     WORD
     pres_output = IsoDoc::PresentationXMLConvert
@@ -853,7 +838,7 @@ RSpec.describe IsoDoc do
           <fmt-title id="_" depth="1">
              <span class="fmt-caption-label">
                 <semx element="autonum" source="terms_and_definitions">1</semx>
-                <span class="fmt-autonum-delim">.</span>
+                <span class="fmt-clause-delim">.</span>
              </span>
              <span class="fmt-caption-delim">
                 <tab/>
@@ -871,7 +856,7 @@ RSpec.describe IsoDoc do
                    <semx element="autonum" source="terms_and_definitions">1</semx>
                    <span class="fmt-autonum-delim">.</span>
                    <semx element="autonum" source="paddy1">1</semx>
-                   <span class="fmt-autonum-delim">.</span>
+                   <span class="fmt-clause-delim">.</span>
                 </span>
              </fmt-name>
              <fmt-xref-label>
@@ -1158,7 +1143,7 @@ RSpec.describe IsoDoc do
          <fmt-title depth="1" id="_">
             <span class="fmt-caption-label">
                <semx element="autonum" source="A">1</semx>
-               <span class="fmt-autonum-delim">.</span>
+               <span class="fmt-clause-delim">.</span>
             </span>
             <span class="fmt-caption-delim">
                <tab/>
@@ -1176,7 +1161,7 @@ RSpec.describe IsoDoc do
                   <semx element="autonum" source="A">1</semx>
                   <span class="fmt-autonum-delim">.</span>
                   <semx element="autonum" source="term-term">1</semx>
-                  <span class="fmt-autonum-delim">.</span>
+                  <span class="fmt-clause-delim">.</span>
                </span>
             </fmt-name>
             <fmt-xref-label>
@@ -1318,7 +1303,7 @@ RSpec.describe IsoDoc do
                   <semx element="autonum" source="A">1</semx>
                   <span class="fmt-autonum-delim">.</span>
                   <semx element="autonum" source="term-term-2">2</semx>
-                  <span class="fmt-autonum-delim">.</span>
+                  <span class="fmt-clause-delim">.</span>
                </span>
             </fmt-name>
             <fmt-xref-label>
@@ -1528,7 +1513,7 @@ RSpec.describe IsoDoc do
          <fmt-title depth="1" id="_">
             <span class="fmt-caption-label">
                <semx element="autonum" source="terms_and_definitions">1</semx>
-               <span class="fmt-autonum-delim">.</span>
+               <span class="fmt-clause-delim">.</span>
             </span>
             <span class="fmt-caption-delim">
                <tab/>
@@ -1546,7 +1531,7 @@ RSpec.describe IsoDoc do
                   <semx element="autonum" source="terms_and_definitions">1</semx>
                   <span class="fmt-autonum-delim">.</span>
                   <semx element="autonum" source="paddy1">1</semx>
-                  <span class="fmt-autonum-delim">.</span>
+                  <span class="fmt-clause-delim">.</span>
                </span>
             </fmt-name>
             <fmt-xref-label>
@@ -1709,7 +1694,7 @@ RSpec.describe IsoDoc do
          <fmt-title depth="1" id="_">
             <span class="fmt-caption-label">
                <semx element="autonum" source="terms_and_definitions">1</semx>
-               <span class="fmt-autonum-delim">.</span>
+               <span class="fmt-clause-delim">.</span>
             </span>
             <span class="fmt-caption-delim">
                <tab/>
@@ -1727,7 +1712,7 @@ RSpec.describe IsoDoc do
                   <semx element="autonum" source="terms_and_definitions">1</semx>
                   <span class="fmt-autonum-delim">.</span>
                   <semx element="autonum" source="paddy1">1</semx>
-                  <span class="fmt-autonum-delim">.</span>
+                  <span class="fmt-clause-delim">.</span>
                </span>
             </fmt-name>
             <fmt-xref-label>
@@ -1914,7 +1899,7 @@ RSpec.describe IsoDoc do
           <fmt-title depth="1" id="_">
              <span class="fmt-caption-label">
                 <semx element="autonum" source="terms_and_definitions">1</semx>
-                <span class="fmt-autonum-delim">.</span>
+                <span class="fmt-clause-delim">.</span>
              </span>
              <span class="fmt-caption-delim">
                 <tab/>
@@ -1932,7 +1917,7 @@ RSpec.describe IsoDoc do
                    <semx element="autonum" source="terms_and_definitions">1</semx>
                    <span class="fmt-autonum-delim">.</span>
                    <semx element="autonum" source="paddy1">1</semx>
-                   <span class="fmt-autonum-delim">.</span>
+                   <span class="fmt-clause-delim">.</span>
                 </span>
              </fmt-name>
              <fmt-xref-label>
@@ -1974,7 +1959,7 @@ RSpec.describe IsoDoc do
                    <semx element="autonum" source="terms_and_definitions">1</semx>
                    <span class="fmt-autonum-delim">.</span>
                    <semx element="autonum" source="muddy">2</semx>
-                   <span class="fmt-autonum-delim">.</span>
+                   <span class="fmt-clause-delim">.</span>
                 </span>
              </fmt-name>
              <fmt-xref-label>

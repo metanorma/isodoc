@@ -40,7 +40,7 @@ RSpec.describe IsoDoc do
          <fmt-title depth="1" id="_">
             <span class="fmt-caption-label">
                <semx element="autonum" source="terms_and_definitions">1</semx>
-               <span class="fmt-autonum-delim">.</span>
+               <span class="fmt-clause-delim">.</span>
             </span>
             <span class="fmt-caption-delim">
                <tab/>
@@ -57,7 +57,7 @@ RSpec.describe IsoDoc do
                   <semx element="autonum" source="terms_and_definitions">1</semx>
                   <span class="fmt-autonum-delim">.</span>
                   <semx element="autonum" source="paddy1">1</semx>
-                  <span class="fmt-autonum-delim">.</span>
+                  <span class="fmt-clause-delim">.</span>
                </span>
             </fmt-name>
             <fmt-xref-label>
@@ -113,7 +113,7 @@ RSpec.describe IsoDoc do
                   <semx element="autonum" source="terms_and_definitions">1</semx>
                   <span class="fmt-autonum-delim">.</span>
                   <semx element="autonum" source="paddy2">2</semx>
-                  <span class="fmt-autonum-delim">.</span>
+                  <span class="fmt-clause-delim">.</span>
                </span>
             </fmt-name>
             <fmt-xref-label>
@@ -169,7 +169,7 @@ RSpec.describe IsoDoc do
                   <semx element="autonum" source="terms_and_definitions">1</semx>
                   <span class="fmt-autonum-delim">.</span>
                   <semx element="autonum" source="paddy3">3</semx>
-                  <span class="fmt-autonum-delim">.</span>
+                  <span class="fmt-clause-delim">.</span>
                </span>
             </fmt-name>
             <fmt-xref-label>
@@ -227,7 +227,7 @@ RSpec.describe IsoDoc do
                   <semx element="autonum" source="terms_and_definitions">1</semx>
                   <span class="fmt-autonum-delim">.</span>
                   <semx element="autonum" source="paddy4">4</semx>
-                  <span class="fmt-autonum-delim">.</span>
+                  <span class="fmt-clause-delim">.</span>
                </span>
             </fmt-name>
             <fmt-xref-label>
@@ -326,7 +326,7 @@ RSpec.describe IsoDoc do
          <fmt-title depth="1" id="_">
             <span class="fmt-caption-label">
                <semx element="autonum" source="terms_and_definitions">1</semx>
-               <span class="fmt-autonum-delim">.</span>
+               <span class="fmt-clause-delim">.</span>
             </span>
             <span class="fmt-caption-delim">
                <tab/>
@@ -343,7 +343,7 @@ RSpec.describe IsoDoc do
                   <semx element="autonum" source="terms_and_definitions">1</semx>
                   <span class="fmt-autonum-delim">.</span>
                   <semx element="autonum" source="paddy1">1</semx>
-                  <span class="fmt-autonum-delim">.</span>
+                  <span class="fmt-clause-delim">.</span>
                </span>
             </fmt-name>
             <fmt-xref-label>
@@ -460,7 +460,7 @@ RSpec.describe IsoDoc do
          <fmt-title depth="1" id="_">
             <span class="fmt-caption-label">
                <semx element="autonum" source="terms_and_definitions">1</semx>
-               <span class="fmt-autonum-delim">.</span>
+               <span class="fmt-clause-delim">.</span>
             </span>
             <span class="fmt-caption-delim">
                <tab/>
@@ -477,7 +477,7 @@ RSpec.describe IsoDoc do
                   <semx element="autonum" source="terms_and_definitions">1</semx>
                   <span class="fmt-autonum-delim">.</span>
                   <semx element="autonum" source="paddy1">1</semx>
-                  <span class="fmt-autonum-delim">.</span>
+                  <span class="fmt-clause-delim">.</span>
                </span>
             </fmt-name>
             <fmt-xref-label>
@@ -670,7 +670,7 @@ RSpec.describe IsoDoc do
          <fmt-title depth="1" id="_">
             <span class="fmt-caption-label">
                <semx element="autonum" source="A">1</semx>
-               <span class="fmt-autonum-delim">.</span>
+               <span class="fmt-clause-delim">.</span>
             </span>
             <span class="fmt-caption-delim">
                <tab/>
@@ -687,7 +687,7 @@ RSpec.describe IsoDoc do
                   <semx element="autonum" source="A">1</semx>
                   <span class="fmt-autonum-delim">.</span>
                   <semx element="autonum" source="second">1</semx>
-                  <span class="fmt-autonum-delim">.</span>
+                  <span class="fmt-clause-delim">.</span>
                </span>
             </fmt-name>
             <fmt-xref-label>
@@ -732,7 +732,7 @@ RSpec.describe IsoDoc do
                   <semx element="autonum" source="A">1</semx>
                   <span class="fmt-autonum-delim">.</span>
                   <semx element="autonum" source="C">2</semx>
-                  <span class="fmt-autonum-delim">.</span>
+                  <span class="fmt-clause-delim">.</span>
                </span>
             </fmt-name>
             <fmt-xref-label>
@@ -846,65 +846,40 @@ RSpec.describe IsoDoc do
       </terms>
     OUTPUT
     html = <<~OUTPUT
-      <html lang="en">
-         <head/>
+       <html lang="en">
+         <head></head>
          <body lang="en">
-            <div class="title-section">
-               <p>\u00a0</p>
-            </div>
-            <br/>
-            <div class="prefatory-section">
-               <p>\u00a0</p>
-            </div>
-            <br/>
-            <div class="main-section">
-               <br/>
-               <div id="_" class="TOC">
-                  <h1 class="IntroTitle">Table of contents</h1>
-               </div>
-               <div id="A">
-                  <h1>1.\u00a0 Terms and definitions</h1>
-                  <p class="TermNum" id="second">1.1.</p>
-                  <p class="Terms" style="text-align:left;">
-                     <b><dfn>Second Term</dfn></b>
-                     , &lt;Field, Usage Info 1&gt;
-                  </p>
-                  Definition 1
-                  <p class="TermNum" id="C">1.2.</p>
-                  <p class="Terms" style="text-align:left;">
-                     <b><dfn>First Designation</dfn></b>
-                  </p>
-                  <div class="RelatedTerms" style="text-align:left;">
-               <p>
-                  <b>CONTRAST:</b>
-                  <i>
-                     <b><dfn>Fifth Designation</dfn></b>
-                     , n
-                  </i>
-                  (
-                  <a href="#second">Clause 1.1</a>
-                  )
-               </p>
-               <p>
-                  <b>SEE:</b>
-                  <b>**RELATED TERM NOT FOUND**</b>
-               </p>
-               <p>
-                  <b>SEE ALSO:</b>
-                  <b>**RELATED TERM NOT FOUND**</b>
-               </p>
-               <p>
-                  <b>CONTRAST:</b>
-                  <i>
-                     <a href="#second">Fifth Designation</a>
-                  </i>
-               </p>
-            </div>
-                  Definition 2
-               </div>
-            </div>
+           <div class="title-section">
+             <p>&#xA0;</p>
+           </div>
+           <br />
+           <div class="prefatory-section">
+             <p>&#xA0;</p>
+           </div>
+           <br />
+           <div class="main-section">
+             <br />
+             <div id="_" class="TOC">
+               <h1 class="IntroTitle">Table of contents</h1>
+             </div>
+             <div id="A"><h1>1<span class="fmt-clause-delim">.</span>&#xA0; Terms and definitions</h1>
+     
+             <p class="TermNum" id="second">1.1<span class="fmt-clause-delim">.</span></p>
+         <p class="Terms" style="text-align:left;"><b><dfn>Second Term</dfn></b>, &lt;Field, Usage Info 1&gt;</p>
+         Definition 1
+     
+       <p class="TermNum" id="C">1.2<span class="fmt-clause-delim">.</span></p>
+       <p class="Terms" style="text-align:left;"><b><dfn>First Designation</dfn></b></p>
+     
+     
+     
+       <div class="RelatedTerms" style="text-align:left;"><p><b>CONTRAST:</b> <i><b><dfn>Fifth Designation</dfn></b>, n</i> (<a href="#second">Clause 1.1</a>)</p><p><b>SEE:</b> <b>**RELATED TERM NOT FOUND**</b></p><p><b>SEE ALSO:</b> <b>**RELATED TERM NOT FOUND**</b></p><p><b>CONTRAST:</b> <i><a href="#second">Fifth Designation</a></i></p></div>
+         Definition 2
+     
+           </div>
+           </div>
          </body>
-      </html>
+       </html>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -916,6 +891,7 @@ RSpec.describe IsoDoc do
       .convert("test", pres_output, true)))
       .to be_html5_equivalent_to html
   end
+
   it "renders generator errormsg in related in boldface" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">

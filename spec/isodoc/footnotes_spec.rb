@@ -148,7 +148,7 @@ RSpec.describe IsoDoc do
                <fmt-title depth="1" id="_25">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="A">2</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                </fmt-title>
                <fmt-xref-label>
@@ -195,7 +195,7 @@ RSpec.describe IsoDoc do
                <fmt-title depth="1" id="_26">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="_normative_references">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -370,7 +370,7 @@ RSpec.describe IsoDoc do
                </div>
                <p>B.<a class="FootnoteRef" href="#fn:_18"><sup>2</sup></a><a class="FootnoteRef" href="#fn:_19"><sup>3</sup></a></p>
                <div>
-                  <h1>1.\u00a0 Normative References</h1>
+                  <h1>1<span class="fmt-clause-delim">.</span>\u00a0 Normative References</h1>
                   <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                   <p id="ISO712" class="NormRef">
                      ISO\u00a0712, International Organization for Standardization.
@@ -384,7 +384,7 @@ RSpec.describe IsoDoc do
                   </p>
                </div>
                <div id="A">
-                  <h1>2.</h1>
+                  <h1>2<span class="fmt-clause-delim">.</span></h1>
                   <a class="FootnoteRef" href="#fn:_21">
                      <sup>5</sup>
                   </a>
@@ -450,12 +450,12 @@ RSpec.describe IsoDoc do
          <div class="WordSection3">
            <p>B.<span class="MsoFootnoteReference"><span style="mso-element:field-begin"></span> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"></span>2<span style="mso-element:field-end"></span></span><span class="MsoFootnoteReference"><span style="mso-element:field-begin"></span> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"></span>3<span style="mso-element:field-end"></span></span></p>
            <div>
-             <h1>1.<span style="mso-tab-count:1">  </span>Normative References</h1>
+             <h1>1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">  </span>Normative References</h1>
              <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
              <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products<span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" epub:type="footnote" href="#ftn_20">4</a></span></i>.</p>
            </div>
            <div id="A">
-             <h1>2.</h1>
+             <h1>2<span class="fmt-clause-delim">.</span></h1>
              <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
                <a class="FootnoteRef" epub:type="footnote" href="#ftn_21">5</a>
              </span>
@@ -550,7 +550,7 @@ RSpec.describe IsoDoc do
                </span>
             </p>
             <div>
-               <h1>1.<span style="mso-tab-count:1">\u00a0 </span>Normative References</h1>
+               <h1>1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Normative References</h1>
                <p class="MsoNormal">The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                <p class="NormRef">
                   <a name="ISO712" id="ISO712"/>
@@ -570,7 +570,7 @@ RSpec.describe IsoDoc do
             </div>
             <div>
                <a name="A" id="A"/>
-               <h1>2.</h1>
+               <h1>2<span class="fmt-clause-delim">.</span></h1>
                <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
                   <a class="FootnoteRef" epub:type="footnote" href="#_ftn4" style="mso-footnote-id:ftn4" name="_ftnref4" title="" id="_ftnref4">
                      <span class="MsoFootnoteReference">

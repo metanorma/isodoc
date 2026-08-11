@@ -320,7 +320,7 @@ RSpec.describe IsoDoc do
             <fmt-title depth="1" id="_30">
               <span class="fmt-caption-label">
                 <semx element="autonum" source="_normative_references">1</semx>
-                <span class="fmt-autonum-delim">.</span>
+                <span class="fmt-clause-delim">.</span>
               </span>
               <span class="fmt-caption-delim">
                 <tab/>
@@ -514,7 +514,10 @@ RSpec.describe IsoDoc do
                 </tbody>
               </table>
             </div>
-            <div><h1>1.  Normative References</h1>
+            <div>
+           <h1>1<span class="fmt-clause-delim">.</span>
+             Normative References
+         </h1>
         <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
       </div>
             <br/>
@@ -652,7 +655,7 @@ RSpec.describe IsoDoc do
             <br clear="all" class="section"/>
           </p>
           <div class="WordSection3">
-            <div><h1>1.<span style="mso-tab-count:1">&#xa0; </span>Normative References</h1>
+            <div><h1>1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">&#xa0; </span>Normative References</h1>
         <p id="ISO712" class="NormRef">ISO&#xa0;712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
       </div>
             <p class="page-break">

@@ -249,7 +249,7 @@ RSpec.describe IsoDoc do
                </p>
              </div>
              <div>
-               <h1>1.\u00a0 Normative References</h1>
+               <h1>1<span class="fmt-clause-delim">.</span>\u00a0 Normative References</h1>
                <p id="ISO712" class="NormRef">ISO\u00a0712,
                  <i>Cereals and cereal products</i>
                </p>
@@ -451,7 +451,7 @@ RSpec.describe IsoDoc do
                   </p>
                </div>
                <div>
-                  <h1>1.\u00a0 Normative References</h1>
+                  <h1>1<span class="fmt-clause-delim">.</span>\u00a0 Normative References</h1>
                   <p id="ISO712" class="NormRef">
                      1, ALUFFI, Paolo, David ANDERSON, Milena HERING, Mircea MUSTAŢĂ and Sam PAYNE (eds.).
                      <i>Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</i>

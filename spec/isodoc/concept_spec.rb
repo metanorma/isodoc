@@ -1045,7 +1045,7 @@ RSpec.describe IsoDoc do
           <fmt-title depth="1" id="_">
              <span class="fmt-caption-label">
                 <semx element="autonum" source="terms_and_definitions">1</semx>
-                <span class="fmt-autonum-delim">.</span>
+                <span class="fmt-clause-delim">.</span>
              </span>
              <span class="fmt-caption-delim">
                 <tab/>
@@ -1062,7 +1062,7 @@ RSpec.describe IsoDoc do
                    <semx element="autonum" source="terms_and_definitions">1</semx>
                    <span class="fmt-autonum-delim">.</span>
                    <semx element="autonum" source="paddy1">1</semx>
-                   <span class="fmt-autonum-delim">.</span>
+                   <span class="fmt-clause-delim">.</span>
                 </span>
              </fmt-name>
              <fmt-xref-label>
