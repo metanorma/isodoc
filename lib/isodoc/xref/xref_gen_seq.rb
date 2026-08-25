@@ -105,6 +105,7 @@ module IsoDoc
       end
 
       def sequential_permission_names(clause, container: true)
+        @reqt_models or (warn "reqt_models not set, skipping permission numbering" and return)
         clause.xpath(ns(first_lvl_req)).noblank
           .each_with_object(ReqCounter.new) do |t, c|
             m = @reqt_models.model(t["model"])
@@ -117,6 +118,7 @@ module IsoDoc
       end
 
       def sequential_permission_children(elem, lbl, klass, container: false)
+        @reqt_models or (warn "reqt_models not set, skipping permission children numbering" and return)
         elem.xpath(ns(req_children)).noblank
           .each_with_object(ReqCounter.new) do |t, c|
             m = @reqt_models.model(t["model"])
@@ -229,6 +231,7 @@ container: false)
       end
 
       def hierarchical_permission_names(clauses, num)
+        @reqt_models or (warn "reqt_models not set, skipping hierarchical permission numbering" and return)
         nodeSet(clauses).each_with_object(ReqCounter.new) do |clause, c|
           clause.xpath(ns(first_lvl_req)).noblank.each do |t|
             m = @reqt_models.model(t["model"])

@@ -44,7 +44,7 @@ module IsoDoc
     # bare: do not insert any prefatory material (coverpage, boilerplate)
     # tocfigures: add ToC for figures
     # toctables: add ToC for tables
-    # tocrecommendations: add ToC for rcommendations
+    # tocrecommendations: add ToC for recommendations
     # tocexamples: add ToC for examples
     # fonts: fontist fonts to install
     # fontlicenseagreement: fontist font license agreement
