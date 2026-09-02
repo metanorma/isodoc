@@ -1045,7 +1045,7 @@ RSpec.describe IsoDoc do
           <fmt-title depth="1" id="_">
              <span class="fmt-caption-label">
                 <semx element="autonum" source="terms_and_definitions">1</semx>
-                <span class="fmt-autonum-delim">.</span>
+                <span class="fmt-clause-delim">.</span>
              </span>
              <span class="fmt-caption-delim">
                 <tab/>
@@ -1062,7 +1062,7 @@ RSpec.describe IsoDoc do
                    <semx element="autonum" source="terms_and_definitions">1</semx>
                    <span class="fmt-autonum-delim">.</span>
                    <semx element="autonum" source="paddy1">1</semx>
-                   <span class="fmt-autonum-delim">.</span>
+                   <span class="fmt-clause-delim">.</span>
                 </span>
              </fmt-name>
              <fmt-xref-label>
@@ -1149,5 +1149,24 @@ RSpec.describe IsoDoc do
       .convert("test", input, true))
       .at("//xmlns:terms").to_xml))
       .to be_xml_equivalent_to output
+  end
+  it "renders generator errormsg in concept in boldface" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface><foreword id="F">
+      <p id="A"><concept><errormsg>term <tt>blah</tt> not resolved via ID <tt>blah</tt></errormsg></concept></p>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
+    xml.remove_namespaces!
+    fmt = xml.at("//fmt-concept//strong")
+    expect(fmt).not_to be_nil
+    expect(fmt.text).to include "not resolved via ID"
+    expect(xml.at("//p[@id = 'A']/concept/errormsg")).not_to be_nil
+    expect(xml.at("//fmt-concept//errormsg")).to be_nil
   end
 end

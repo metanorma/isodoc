@@ -51,7 +51,19 @@ module IsoDoc
 
     def sourcecode1(elem)
       ret1 = semx_fmt_dup(elem)
-      b = ret1.at(ns(".//body")) and b.replace(b.children)
+      if (b = ret1.at(ns(".//body")))
+        # Remove formatting whitespace *preceding* the body (e.g. the newlines
+        # standoc emits around a <name> with inline markup). Once the body is
+        # unwrapped and the name removed, such stray whitespace would be lexed
+        # as leading blank lines of code. Whitespace after the body and the
+        # verbatim body content itself are untouched, so genuine code
+        # indentation is preserved.
+        b.parent.children.each do |c|
+          c == b and break
+          c.text? && c.text.strip.empty? and c.remove
+        end
+        b.replace(b.children)
+      end
       source_label(elem)
       source_highlight(ret1, elem["linenums"] == "true", elem["lang"])
       callouts(elem)
@@ -163,9 +175,26 @@ module IsoDoc
       lexer = Rouge::Lexer.find(lang || "plaintext") ||
         Rouge::Lexer.find("plaintext")
       l = Rouge::Lexers::Escape.new(start: "{^^{", end: "}^^}", lang: lexer)
+      source_collapse_markup_newlines(elem)
       source = to_xml(elem.children).gsub("<", "{^^{<").gsub(">", ">}^^}")
       l.lang.reset!
       l.lex(@c.decode(source))
+    end
+
+    # Embedded markup serialised across multiple lines (e.g. pretty-printed
+    # MathML from stem) would be split across line cells by the line-table
+    # formatter, leaving each cell with unbalanced tags: the string reparse
+    # of the table then cascades mis-nested rows, and rendering crashes on
+    # the orphaned rows (metanorma-pdfa#84). Collapse whitespace inside
+    # embedded elements so each occupies a single code line; code text
+    # outside the elements is untouched.
+    def source_collapse_markup_newlines(elem)
+      elem.elements.each do |e|
+        e.xpath(".//text()").each do |t|
+          /[\n\r]/.match?(t.content) and
+            t.content = t.content.gsub(/\s*[\n\r]+\s*/, " ")
+        end
+      end
     end
 
     def source_label(elem)
@@ -173,7 +202,8 @@ module IsoDoc
           lbl = @xrefs.anchor(elem["id"], :label, false)
         s = labelled_autonum(lower2cap(@i18n.figure), elem["id"], lbl)&.strip
       end
-      prefix_name(elem, { caption: block_delim }, s, "name")
+      prefix_name(elem, { caption: i18n_delim("sourcecode", block_delim) }, s,
+                  "name")
     end
   end
 end

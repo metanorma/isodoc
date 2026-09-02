@@ -54,12 +54,11 @@ module IsoDoc
     end
 
     def subfigure_delim
-      ""
-      # "<span class='fmt-label-delim'>)</span>"
+      i18n_delim("subfigure", "")
     end
 
     def figure_delim(_elem)
-      block_delim
+      i18n_delim("figure", block_delim)
     end
 
     def figure_name(elem)

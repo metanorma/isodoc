@@ -135,6 +135,7 @@ title_prefixes:
 locality: {
                       section: Section,
                       clause: Clause,
+                      definition: Definition,
                       part: Part,
                       paragraph: Paragraph,
                       chapter: Chapter,
@@ -174,6 +175,9 @@ inflection:
   Clause:
     sg: Clause
     pl: Clauses
+  Definition:
+    sg: Definition
+    pl: Definitions
   Annex:
     sg: Annex
     pl: Annexes

@@ -8,12 +8,17 @@ module IsoDoc
     def related1(node)
       p, ref, orig = related1_prep(node)
       label = @i18n.relatedterms[orig["type"]].upcase
+      err = node.at(ns("./errormsg"))
       ret = if p && ref
               if p.text == ref.text
                 "<em>#{Common::to_xml(ref)}</em>"
               else
                 "<em>#{to_xml(p)}</em> (#{Common::to_xml(ref)})"
               end
+            elsif err
+              # generator-emitted term-resolution failure reports
+              # (metanorma-model-iso#144) render in boldface
+              "<strong>#{to_xml(err.children)}</strong>"
             else "<strong>**RELATED TERM NOT FOUND**</strong>"
             end
       node.children = (l10n("<p><strong>#{label}:</strong> #{ret}</p>"))

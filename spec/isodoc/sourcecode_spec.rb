@@ -1,6 +1,28 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
+  it "does not leak leading blank lines from a sourcecode title with inline "\
+     "markup (metanorma-pdfa#67)" do
+    # A <name> with inline markup makes standoc serialise the sourcecode with
+    # stray newlines around <name>/<body>; these must not be lexed as leading
+    # blank lines of code.
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface><foreword id="X">
+      <sourcecode id="_" lang="xml">
+      <name id="_">Title with letter <tt>A</tt></name>
+      <body>&lt;P&gt;
+      A
+      &lt;/P&gt;</body></sourcecode>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    pres = IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    fmt = Nokogiri::XML(pres).tap(&:remove_namespaces!).at_xpath("//fmt-sourcecode")
+    expect(fmt.inner_html).not_to match(/\A[\r\n]/)
+  end
+
   it "processes sourcecode" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -1488,5 +1510,50 @@ RSpec.describe IsoDoc do
         \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0<span style="font-variant:small-caps;">B</span></p>
         <p class="pseudocode" style="page-break-after:avoid;"><a name="_" id="_"></a>\u00a0\u00a0<i>C</i></p><p class="SourceTitle" style="text-align:center;">Figure 1\u00a0&#x2014; Label</p></div>
       OUTPUT
+  end
+
+  it "keeps multi-line embedded markup on one line under line numbering" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
+      <preface><foreword id="F">
+      <sourcecode id="A" linenums="true" lang="xml"><body>line one
+      <em>
+        <strong>
+          marked up
+        </strong>
+      </em> tail
+      line three
+      </body></sourcecode>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new({ sourcehighlighter: true }
+      .merge(presxml_options))
+      .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
+    xml.remove_namespaces!
+    expect(xml.xpath("//td//tr")).to be_empty
+    expect(xml.at("//tr[td/sourcecode[.//strong]]")).not_to be_nil
+    expect do
+      IsoDoc::HtmlConvert.new({}).convert("test", pres_output, true)
+    end.not_to raise_error
+  end
+
+  it "renders a bare tr outside table context without crashing" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+      <preface><clause type="toc" id="_" displayorder="1"><fmt-title id="_" depth="1">Contents</fmt-title></clause>
+      <foreword id="F" displayorder="2"><fmt-title id="_">Foreword</fmt-title>
+      <table id="T"><tbody><tr><td>cell
+      <tr id="stray"><td>orphan row</td></tr>
+      </td></tr></tbody></table>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    expect do
+      IsoDoc::HtmlConvert.new({}).convert("test", input, true)
+    end.not_to raise_error
   end
 end

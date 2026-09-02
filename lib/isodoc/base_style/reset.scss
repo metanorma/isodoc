@@ -137,6 +137,18 @@ dl {
   }
 }
 
+// metanorma-taste#150: a symbols definition list holds the AsciiMath *source*
+// string in its dt (HTML renders math client-side via async MathJax, which never
+// reflows the grid), so a long source blows out the max-content term column and
+// pushes every definition far right. Cap the term column of stem-bearing dls so
+// the term-to-definition gap stays bounded; plain/abbreviation dls keep
+// max-content, which is correct for them. 8em is a crude, tunable ceiling.
+// STOPGAP: remove this rule and restore plain max-content once HTML emits
+// server-side MathML (the term column will then size to the rendered symbol).
+dl:has(dt .stem) {
+  grid-template-columns: fit-content(8em) auto;
+}
+
 b, strong {
   font-weight: bold;
 }

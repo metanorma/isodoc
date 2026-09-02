@@ -21,6 +21,9 @@ module IsoDoc
 
     def concept_render(node, defaults)
       opts, render, ref, ret = concept_render_init(node, defaults)
+      # generator-emitted term-resolution failure reports
+      # (metanorma-model-iso#144) render in boldface
+      ret&.xpath(ns(".//errormsg"))&.each { |e| e.name = "strong" }
       ret&.at(ns("./refterm"))&.remove
       ref && opts[:ref] != "false" and render&.next = " "
       concept1_linkmention(ref, render, opts)

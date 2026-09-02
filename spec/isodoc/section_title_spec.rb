@@ -234,7 +234,7 @@ RSpec.describe IsoDoc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="D">1</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -252,7 +252,7 @@ RSpec.describe IsoDoc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="H">3</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -270,7 +270,7 @@ RSpec.describe IsoDoc do
                          <semx element="autonum" source="H">3</semx>
                          <span class="fmt-autonum-delim">.</span>
                          <semx element="autonum" source="I">1</semx>
-                         <span class="fmt-autonum-delim">.</span>
+                         <span class="fmt-clause-delim">.</span>
                       </span>
                       <span class="fmt-caption-delim">
                          <tab/>
@@ -291,7 +291,7 @@ RSpec.describe IsoDoc do
                             <semx element="autonum" source="I">1</semx>
                             <span class="fmt-autonum-delim">.</span>
                             <semx element="autonum" source="J">1</semx>
-                            <span class="fmt-autonum-delim">.</span>
+                            <span class="fmt-clause-delim">.</span>
                          </span>
                       </fmt-name>
                       <fmt-xref-label>
@@ -325,7 +325,7 @@ RSpec.describe IsoDoc do
                          <semx element="autonum" source="H">3</semx>
                          <span class="fmt-autonum-delim">.</span>
                          <semx element="autonum" source="K">2</semx>
-                         <span class="fmt-autonum-delim">.</span>
+                         <span class="fmt-clause-delim">.</span>
                       </span>
                       <span class="fmt-caption-delim">
                          <tab/>
@@ -349,7 +349,7 @@ RSpec.describe IsoDoc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="L">4</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -370,7 +370,7 @@ RSpec.describe IsoDoc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="M">5</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -388,7 +388,7 @@ RSpec.describe IsoDoc do
                          <semx element="autonum" source="M">5</semx>
                          <span class="fmt-autonum-delim">.</span>
                          <semx element="autonum" source="N">1</semx>
-                         <span class="fmt-autonum-delim">.</span>
+                         <span class="fmt-clause-delim">.</span>
                       </span>
                       <span class="fmt-caption-delim">
                          <tab/>
@@ -409,7 +409,7 @@ RSpec.describe IsoDoc do
                          <semx element="autonum" source="M">5</semx>
                          <span class="fmt-autonum-delim">.</span>
                          <semx element="autonum" source="O">2</semx>
-                         <span class="fmt-autonum-delim">.</span>
+                         <span class="fmt-clause-delim">.</span>
                       </span>
                       <span class="fmt-caption-delim">
                          <tab/>
@@ -429,7 +429,7 @@ RSpec.describe IsoDoc do
                          <semx element="autonum" source="M">5</semx>
                          <span class="fmt-autonum-delim">.</span>
                          <semx element="autonum" source="O1">3</semx>
-                         <span class="fmt-autonum-delim">.</span>
+                         <span class="fmt-clause-delim">.</span>
                       </span>
                    </fmt-title>
                    <fmt-xref-label>
@@ -445,7 +445,7 @@ RSpec.describe IsoDoc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="R">2</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -498,7 +498,7 @@ RSpec.describe IsoDoc do
                       <semx element="autonum" source="P">A</semx>
                       <span class="fmt-autonum-delim">.</span>
                       <semx element="autonum" source="Q">1</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -520,7 +520,7 @@ RSpec.describe IsoDoc do
                          <semx element="autonum" source="Q">1</semx>
                          <span class="fmt-autonum-delim">.</span>
                          <semx element="autonum" source="Q1">1</semx>
-                         <span class="fmt-autonum-delim">.</span>
+                         <span class="fmt-clause-delim">.</span>
                       </span>
                       <span class="fmt-caption-delim">
                          <tab/>
@@ -545,7 +545,7 @@ RSpec.describe IsoDoc do
                          <semx element="autonum" source="Q">1</semx>
                          <span class="fmt-autonum-delim">.</span>
                          <semx element="autonum" source="Q2">2</semx>
-                         <span class="fmt-autonum-delim">.</span>
+                         <span class="fmt-clause-delim">.</span>
                       </span>
                       <span class="fmt-caption-delim">
                          <tab/>
@@ -698,23 +698,23 @@ RSpec.describe IsoDoc do
                   <p>Initial admonition</p>
                </div>
                <div id="D">
-                  <h1>1.\u00a0 Scope</h1>
+                  <h1>1<span class="fmt-clause-delim">.</span>\u00a0 Scope</h1>
                   <p id="E">Text</p>
                </div>
                <div>
-                  <h1>2.\u00a0 Normative References</h1>
+                  <h1>2<span class="fmt-clause-delim">.</span>\u00a0 Normative References</h1>
                </div>
                <div id="H">
-                  <h1>3.\u00a0 Terms, Definitions, Symbols and Abbreviated Terms</h1>
+                  <h1>3<span class="fmt-clause-delim">.</span>\u00a0 Terms, Definitions, Symbols and Abbreviated Terms</h1>
                   <div id="I">
-                     <h2>3.1.\u00a0 Normal Terms</h2>
-                     <p class="TermNum" id="J">3.1.1.</p>
+                     <h2>3.1<span class="fmt-clause-delim">.</span>\u00a0 Normal Terms</h2>
+                     <p class="TermNum" id="J">3.1.1<span class="fmt-clause-delim">.</span></p>
                      <p class="Terms" style="text-align:left;">
                         <b><dfn>Term2</dfn></b>
                      </p>
                   </div>
                   <div id="K">
-                     <h2>3.2.\u00a0 Symbols</h2>
+                     <h2>3.2<span class="fmt-clause-delim">.</span>\u00a0 Symbols</h2>
                      <div class="figdl">
                         <dl>
                            <dt>
@@ -726,7 +726,7 @@ RSpec.describe IsoDoc do
                   </div>
                </div>
                <div id="L" class="Symbols">
-                  <h1>4.\u00a0 Symbols and abbreviated terms</h1>
+                  <h1>4<span class="fmt-clause-delim">.</span>\u00a0 Symbols and abbreviated terms</h1>
                   <div class="figdl">
                      <dl>
                         <dt>
@@ -737,15 +737,15 @@ RSpec.describe IsoDoc do
                   </div>
                </div>
                <div id="M">
-                  <h1>5.\u00a0 Clause 4</h1>
+                  <h1>5<span class="fmt-clause-delim">.</span>\u00a0 Clause 4</h1>
                   <div id="N">
-                     <h2>5.1.\u00a0 Introduction</h2>
+                     <h2>5.1<span class="fmt-clause-delim">.</span>\u00a0 Introduction</h2>
                   </div>
                   <div id="O">
-                     <h2>5.2.\u00a0 Clause 4.2</h2>
+                     <h2>5.2<span class="fmt-clause-delim">.</span>\u00a0 Clause 4.2</h2>
                   </div>
                   <div id="O1">
-                     <h2>5.3.</h2>
+                     <h2>5.3<span class="fmt-clause-delim">.</span></h2>
                   </div>
                </div>
                <br/>
@@ -753,12 +753,12 @@ RSpec.describe IsoDoc do
                   <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
                   <p style="display:none;" class="variant-title-toc">Annex A\u00a0 Annex</p>
                   <div id="Q">
-                     <h2>A.1.\u00a0 Annex A.1</h2>
+                     <h2>A.1<span class="fmt-clause-delim">.</span>\u00a0 Annex A.1</h2>
                      <div id="Q1">
-                        <h3>A.1.1.\u00a0 Annex A.1a</h3>
+                        <h3>A.1.1<span class="fmt-clause-delim">.</span>\u00a0 Annex A.1a</h3>
                      </div>
                      <div>
-                        <h3 class="Section3">A.1.2.\u00a0 Annex Bibliography</h3>
+                        <h3 class="Section3">A.1.2<span class="fmt-clause-delim">.</span>\u00a0 Annex Bibliography</h3>
                      </div>
                   </div>
                </div>
@@ -897,40 +897,35 @@ RSpec.describe IsoDoc do
                 </div>
                 <div id="D">
                    <h1>
-                      1.
-                      <span style="mso-tab-count:1">\u00a0 </span>
+                      1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>
                       Scope
                    </h1>
                    <p id="E">Text</p>
                 </div>
                 <div>
                    <h1>
-                      2.
-                      <span style="mso-tab-count:1">\u00a0 </span>
+                      2<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>
                       Normative References
                    </h1>
                 </div>
                 <div id="H">
                    <h1>
-                      3.
-                      <span style="mso-tab-count:1">\u00a0 </span>
+                      3<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>
                       Terms, Definitions, Symbols and Abbreviated Terms
                    </h1>
                    <div id="I">
                       <h2>
-                         3.1.
-                         <span style="mso-tab-count:1">\u00a0 </span>
+                         3.1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>
                          Normal Terms
                       </h2>
-                      <p class="TermNum" id="J">3.1.1.</p>
+                      <p class="TermNum" id="J">3.1.1<span class="fmt-clause-delim">.</span></p>
                       <p class="Terms" style="text-align:left;">
                          <b>Term2</b>
                       </p>
                    </div>
                    <div id="K">
                       <h2>
-                         3.2.
-                         <span style="mso-tab-count:1">\u00a0 </span>
+                         3.2<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>
                          Symbols
                       </h2>
                       <div align="left">
@@ -947,8 +942,7 @@ RSpec.describe IsoDoc do
                 </div>
                 <div id="L" class="Symbols">
                    <h1>
-                      4.
-                      <span style="mso-tab-count:1">\u00a0 </span>
+                      4<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>
                       Symbols and abbreviated terms
                    </h1>
                    <div align="left">
@@ -964,26 +958,23 @@ RSpec.describe IsoDoc do
                 </div>
                 <div id="M">
                    <h1>
-                      5.
-                      <span style="mso-tab-count:1">\u00a0 </span>
+                      5<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>
                       Clause 4
                    </h1>
                    <div id="N">
                       <h2>
-                         5.1.
-                         <span style="mso-tab-count:1">\u00a0 </span>
+                         5.1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>
                          Introduction
                       </h2>
                    </div>
                    <div id="O">
                       <h2>
-                         5.2.
-                         <span style="mso-tab-count:1">\u00a0 </span>
+                         5.2<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>
                          Clause 4.2
                       </h2>
                    </div>
                    <div id="O1">
-                      <h2>5.3.</h2>
+                      <h2>5.3<span class="fmt-clause-delim">.</span></h2>
                    </div>
                 </div>
                 <p class="page-break">
@@ -993,12 +984,12 @@ RSpec.describe IsoDoc do
                    <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
                    <p style="display:none;" class="variant-title-toc">Annex A<span style="mso-tab-count:1">\u00a0 </span>Annex</p>
                    <div id="Q">
-                      <h2>A.1. <span style="mso-tab-count:1">\u00a0 </span>Annex A.1</h2>
+                      <h2>A.1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Annex A.1</h2>
                       <div id="Q1">
-                         <h3>A.1.1. <span style="mso-tab-count:1">\u00a0 </span>Annex A.1a</h3>
+                         <h3>A.1.1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Annex A.1a</h3>
                       </div>
                       <div>
-                         <h3 class="Section3">A.1.2. <span style="mso-tab-count:1">\u00a0 </span>Annex Bibliography</h3>
+                         <h3 class="Section3">A.1.2<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Annex Bibliography</h3>
                       </div>
                    </div>
                 </div>
@@ -1119,7 +1110,7 @@ RSpec.describe IsoDoc do
                      <semx element="autonum" source="P">A</semx>
                      <span class="fmt-autonum-delim">.</span>
                      <semx element="autonum" source="Q">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                </fmt-title>
                <fmt-xref-label>
@@ -1187,7 +1178,7 @@ RSpec.describe IsoDoc do
                        <semx element="autonum" source="P">A</semx>
                        <span class="fmt-autonum-delim">.</span>
                        <semx element="autonum" source="Q">1</semx>
-                       <span class="fmt-autonum-delim">.</span>
+                       <span class="fmt-clause-delim">.</span>
                     </span>
                  </fmt-title>
                  <fmt-xref-label>
@@ -1380,21 +1371,21 @@ pres_output = IsoDoc::PresentationXMLConvert
               <p>Initial admonition</p>
             </div>
             <div id='D'>
-              <h1>1.\u00a0 Scope<br/><br/>Variant 1</h1>
+              <h1>1<span class="fmt-clause-delim">.</span>\u00a0 Scope<br/><br/>Variant 1</h1>
               <p id='E'>Text</p>
             </div>
             <div>
-              <h1>2.\u00a0 Normative References<br/><br/>Variant 1</h1>
+              <h1>2<span class="fmt-clause-delim">.</span>\u00a0 Normative References<br/><br/>Variant 1</h1>
             </div>
             <div id='H'>
-              <h1>3.\u00a0 Terms, Definitions, Symbols and Abbreviated Terms<br/><br/>Variant 1</h1>
+              <h1>3<span class="fmt-clause-delim">.</span>\u00a0 Terms, Definitions, Symbols and Abbreviated Terms<br/><br/>Variant 1</h1>
               <div id='I'>
-                <h2>3.1.\u00a0 Normal Terms<br/><br/>Variant 1</h2>
-                <p class='TermNum' id='J'>3.1.1.</p>
+                <h2>3.1<span class="fmt-clause-delim">.</span>\u00a0 Normal Terms<br/><br/>Variant 1</h2>
+                <p class='TermNum' id='J'>3.1.1<span class="fmt-clause-delim">.</span></p>
                 <p class='Terms' style='text-align:left;'><b><dfn>Term2</dfn></b></p>
               </div>
               <div id='K'>
-                <h2>3.2.\u00a0 Definitions<br/><br/>Variant 1</h2>
+                <h2>3.2<span class="fmt-clause-delim">.</span>\u00a0 Definitions<br/><br/>Variant 1</h2>
                 <div class="figdl">
                 <dl>
                   <dt>
@@ -1406,7 +1397,7 @@ pres_output = IsoDoc::PresentationXMLConvert
               </div>
             </div>
             <div id='L' class='Symbols'>
-              <h1>4.\u00a0 Symbols and abbreviated terms<br/><br/>Variant 1</h1>
+              <h1>4<span class="fmt-clause-delim">.</span>\u00a0 Symbols and abbreviated terms<br/><br/>Variant 1</h1>
               <div class="figdl">
               <dl>
                 <dt>
@@ -1417,15 +1408,15 @@ pres_output = IsoDoc::PresentationXMLConvert
               </div>
             </div>
             <div id='M'>
-              <h1>5.\u00a0 Clause 4<br/><br/>Variant 1</h1>
+              <h1>5<span class="fmt-clause-delim">.</span>\u00a0 Clause 4<br/><br/>Variant 1</h1>
               <div id='N'>
-                <h2>5.1.\u00a0 Introduction<br/><br/>Variant 1</h2>
+                <h2>5.1<span class="fmt-clause-delim">.</span>\u00a0 Introduction<br/><br/>Variant 1</h2>
               </div>
               <div id='O'>
-                <h2>5.2.\u00a0 Clause 4.2<br/><br/>Variant 1</h2>
+                <h2>5.2<span class="fmt-clause-delim">.</span>\u00a0 Clause 4.2<br/><br/>Variant 1</h2>
               </div>
               <div id='O1'>
-                <h2>5.3.</h2>
+                <h2>5.3<span class="fmt-clause-delim">.</span></h2>
               </div>
             </div>
             <br/>
@@ -1434,12 +1425,12 @@ pres_output = IsoDoc::PresentationXMLConvert
               <p style="display:none;" class="variant-title-toc">Annex A\u00a0 Annex</p>
               <p style='display:none;' class='variant-title-sub'>Variant 1</p>
               <div id='Q'>
-                <h2>A.1.\u00a0 Annex A.1<br/><br/>Variant 1</h2>
+                <h2>A.1<span class="fmt-clause-delim">.</span>\u00a0 Annex A.1<br/><br/>Variant 1</h2>
                 <div id='Q1'>
-                  <h3>A.1.1.\u00a0 Annex A.1a<br/><br/>Variant 1</h3>
+                  <h3>A.1.1<span class="fmt-clause-delim">.</span>\u00a0 Annex A.1a<br/><br/>Variant 1</h3>
                 </div>
                 <div>
-                  <h3 class='Section3'>A.1.2.\u00a0 Annex Bibliography<br/><br/>Variant 1</h3>
+                  <h3 class='Section3'>A.1.2<span class="fmt-clause-delim">.</span>\u00a0 Annex Bibliography<br/><br/>Variant 1</h3>
                 </div>
               </div>
             </div>
@@ -1525,23 +1516,23 @@ pres_output = IsoDoc::PresentationXMLConvert
                    <p>Initial admonition</p>
                 </div>
                 <div id="D">
-                   <h1>1. <span style="mso-tab-count:1">\u00a0 </span>Scope<br/><br/>Variant 1</h1>
+                   <h1>1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Scope<br/><br/>Variant 1</h1>
                    <p id="E">Text</p>
                 </div>
                 <div>
-                   <h1>2. <span style="mso-tab-count:1">\u00a0 </span>Normative References<br/><br/>Variant 1</h1>
+                   <h1>2<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Normative References<br/><br/>Variant 1</h1>
                 </div>
                 <div id="H">
-                   <h1>3. <span style="mso-tab-count:1">\u00a0 </span>Terms, Definitions, Symbols and Abbreviated Terms<br/><br/>Variant 1</h1>
+                   <h1>3<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Terms, Definitions, Symbols and Abbreviated Terms<br/><br/>Variant 1</h1>
                    <div id="I">
-                      <h2>3.1. <span style="mso-tab-count:1">\u00a0 </span>Normal Terms<br/><br/>Variant 1</h2>
-                      <p class="TermNum" id="J">3.1.1.</p>
+                      <h2>3.1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Normal Terms<br/><br/>Variant 1</h2>
+                      <p class="TermNum" id="J">3.1.1<span class="fmt-clause-delim">.</span></p>
                       <p class="Terms" style="text-align:left;">
                          <b>Term2</b>
                       </p>
                    </div>
                    <div id="K">
-                      <h2>3.2. <span style="mso-tab-count:1">\u00a0 </span>Definitions<br/><br/>Variant 1</h2>
+                      <h2>3.2<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Definitions<br/><br/>Variant 1</h2>
                       <div align="left">
                          <table class="dl">
                             <tr>
@@ -1555,7 +1546,7 @@ pres_output = IsoDoc::PresentationXMLConvert
                    </div>
                 </div>
                 <div id="L" class="Symbols">
-                   <h1>4. <span style="mso-tab-count:1">\u00a0 </span>Symbols and abbreviated terms<br/><br/>Variant 1</h1>
+                   <h1>4<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Symbols and abbreviated terms<br/><br/>Variant 1</h1>
                    <div align="left">
                       <table class="dl">
                          <tr>
@@ -1568,15 +1559,15 @@ pres_output = IsoDoc::PresentationXMLConvert
                    </div>
                 </div>
                 <div id="M">
-                   <h1>5. <span style="mso-tab-count:1">\u00a0 </span>Clause 4<br/><br/>Variant 1</h1>
+                   <h1>5<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Clause 4<br/><br/>Variant 1</h1>
                    <div id="N">
-                      <h2>5.1. <span style="mso-tab-count:1">\u00a0 </span>Introduction<br/><br/>Variant 1</h2>
+                      <h2>5.1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Introduction<br/><br/>Variant 1</h2>
                    </div>
                    <div id="O">
-                      <h2>5.2. <span style="mso-tab-count:1">\u00a0 </span>Clause 4.2<br/><br/>Variant 1</h2>
+                      <h2>5.2<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Clause 4.2<br/><br/>Variant 1</h2>
                    </div>
                    <div id="O1">
-                      <h2>5.3.</h2>
+                      <h2>5.3<span class="fmt-clause-delim">.</span></h2>
                    </div>
                 </div>
                 <p class="page-break">
@@ -1591,12 +1582,12 @@ pres_output = IsoDoc::PresentationXMLConvert
            </p>
                    <p style="display:none;" class="variant-title-sub">Variant 1</p>
                    <div id="Q">
-                      <h2>A.1. <span style="mso-tab-count:1">\u00a0 </span>Annex A.1<br/><br/>Variant 1</h2>
+                      <h2>A.1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Annex A.1<br/><br/>Variant 1</h2>
                       <div id="Q1">
-                         <h3>A.1.1. <span style="mso-tab-count:1">\u00a0 </span>Annex A.1a<br/><br/>Variant 1</h3>
+                         <h3>A.1.1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Annex A.1a<br/><br/>Variant 1</h3>
                       </div>
                       <div>
-                         <h3 class="Section3">A.1.2. <span style="mso-tab-count:1">\u00a0 </span>Annex Bibliography<br/><br/>Variant 1</h3>
+                         <h3 class="Section3">A.1.2<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Annex Bibliography<br/><br/>Variant 1</h3>
                       </div>
                    </div>
                 </div>
@@ -1748,7 +1739,7 @@ pres_output = IsoDoc::PresentationXMLConvert
                             <semx element="autonum" source="I">1</semx>
                             <span class="fmt-autonum-delim">.</span>
                             <semx element="autonum" source="J">1</semx>
-                            <span class="fmt-autonum-delim">.</span>
+                            <span class="fmt-clause-delim">.</span>
                          </span>
                       </fmt-name>
                       <fmt-xref-label>
@@ -2015,7 +2006,7 @@ pres_output = IsoDoc::PresentationXMLConvert
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="O1">1</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                 </fmt-title>
                 <fmt-xref-label>
@@ -2029,7 +2020,7 @@ pres_output = IsoDoc::PresentationXMLConvert
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="O3">2</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                 </fmt-title>
                 <fmt-xref-label>
@@ -2157,7 +2148,7 @@ pres_output = IsoDoc::PresentationXMLConvert
                <fmt-title id="_" depth="1">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="M">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                       </span>
                      <span class="fmt-caption-delim">
                         <tab/>
@@ -2175,7 +2166,7 @@ pres_output = IsoDoc::PresentationXMLConvert
                         <semx element="autonum" source="M">1</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="N">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                          </span>
                         <span class="fmt-caption-delim">
                            <tab/>
@@ -2196,7 +2187,7 @@ pres_output = IsoDoc::PresentationXMLConvert
                         <semx element="autonum" source="M">1</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="O">2</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                          </span>
                         <span class="fmt-caption-delim">
                            <tab/>
@@ -2219,12 +2210,12 @@ pres_output = IsoDoc::PresentationXMLConvert
     html = <<~"OUTPUT"
       #{HTML_HDR}
                    <div id="M">
-                     <h1>1.\u00a0 Clause 4</h1>
+                     <h1>1<span class="fmt-clause-delim">.</span>\u00a0 Clause 4</h1>
                      <div id="N">
-              <h2>1.1.\u00a0 Introduction</h2>
+              <h2>1.1<span class="fmt-clause-delim">.</span>\u00a0 Introduction</h2>
             </div>
                      <div id="O">
-              <span class="zzMoveToFollowing inline-header"><b>1.2.\u00a0 Clause 4.2\u00a0 </b></span>
+              <span class="zzMoveToFollowing inline-header"><b>1.2<span class="fmt-clause-delim">.</span>\u00a0 Clause 4.2\u00a0 </b></span>
               <p>ABC</p>
             </div>
                    </div>
@@ -2332,7 +2323,7 @@ pres_output = IsoDoc::PresentationXMLConvert
                <fmt-title id="_" depth="1">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="M1">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                </fmt-title>
                <fmt-xref-label>
@@ -2345,7 +2336,7 @@ pres_output = IsoDoc::PresentationXMLConvert
                         <semx element="autonum" source="M1">1</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="N1">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                   </fmt-title>
                   <fmt-xref-label>
@@ -2361,7 +2352,7 @@ pres_output = IsoDoc::PresentationXMLConvert
                         <semx element="autonum" source="M1">1</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="O1">2</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                   </fmt-title>
                   <fmt-xref-label>

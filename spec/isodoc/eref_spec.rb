@@ -249,7 +249,7 @@ RSpec.describe IsoDoc do
                </p>
              </div>
              <div>
-               <h1>1.\u00a0 Normative References</h1>
+               <h1>1<span class="fmt-clause-delim">.</span>\u00a0 Normative References</h1>
                <p id="ISO712" class="NormRef">ISO\u00a0712,
                  <i>Cereals and cereal products</i>
                </p>
@@ -451,7 +451,7 @@ RSpec.describe IsoDoc do
                   </p>
                </div>
                <div>
-                  <h1>1.\u00a0 Normative References</h1>
+                  <h1>1<span class="fmt-clause-delim">.</span>\u00a0 Normative References</h1>
                   <p id="ISO712" class="NormRef">
                      1, ALUFFI, Paolo, David ANDERSON, Milena HERING, Mircea MUSTAŢĂ and Sam PAYNE (eds.).
                      <i>Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</i>
@@ -1437,6 +1437,29 @@ RSpec.describe IsoDoc do
       .convert("test", input, true))
       .at("//xmlns:p[@id = 'A']").to_xml))
       .to be_xml_equivalent_to output
+  end
+
+  it "pluralises definition localities in conflated erefs" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface><foreword id="F">
+      <p id="A"><eref type="inline" bibitemid="R1" citeas="JCGM 106:2012"><localityStack><locality type="definition"><referenceFrom>3.3.13</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="definition"><referenceFrom>3.3.15</referenceFrom></locality></localityStack></eref></p>
+      <p id="B"><eref type="inline" bibitemid="R1" citeas="JCGM 106:2012"><localityStack><locality type="definition"><referenceFrom>3.3.13</referenceFrom></locality></localityStack></eref></p>
+      </foreword></preface>
+      <bibliography><references id="N" normative="true"><title>Normative references</title><bibitem id="R1"><docidentifier>JCGM 106:2012</docidentifier></bibitem></references></bibliography>
+      </iso-standard>
+    INPUT
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
+    xml.remove_namespaces!
+    conflated = xml.at("//p[@id = 'A']//fmt-xref")
+    expect(conflated).not_to be_nil
+    expect(conflated.text).to include "Definitions 3.3.13"
+    single = xml.at("//p[@id = 'B']//fmt-xref")
+    expect(single.text).to include "Definition 3.3.13"
+    expect(single.text).not_to include "Definitions"
   end
 
   it "combines locality stacks with connectives" do

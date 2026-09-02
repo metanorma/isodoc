@@ -88,6 +88,40 @@ RSpec.describe IsoDoc::Metadata do
       .to eq "2222"
   end
 
+  it "folds the raw bibdata/ext subtree into meta[:bibdata][:ext] for Liquid" do
+    input = <<~XML
+      <metanorma xmlns="https://www.metanorma.org/ns/standoc">
+        <bibdata type="standard">
+          <docnumber>24041</docnumber>
+          <status><stage>published</stage></status>
+          <ext>
+            <doctype>standard</doctype>
+            <coverpage-image><image src="cover.png"/></coverpage-image>
+            <innercoverpage-image><image src="a.png"/><image src="b.png"/></innercoverpage-image>
+          </ext>
+        </bibdata>
+      </metanorma>
+    XML
+    ext = info(input)[:bibdata][:ext]
+    # Relaton-modelled field preserved, not clobbered by the raw fold-in
+    expect(ext[:doctype]).to eq({ content: "standard" })
+    # Un-modelled ext elements now reachable; hyphens folded to underscores
+    expect(ext[:coverpage_image]).to eq({ image: { src: "cover.png" } })
+    # Repeated child elements become arrays
+    expect(ext[:innercoverpage_image])
+      .to eq({ image: [{ src: "a.png" }, { src: "b.png" }] })
+  end
+
+  it "does not add meta[:bibdata][:ext] when the document has no ext" do
+    input = <<~XML
+      <metanorma xmlns="https://www.metanorma.org/ns/standoc">
+        <bibdata type="standard"><docnumber>1</docnumber>
+        <status><stage>published</stage></status></bibdata>
+      </metanorma>
+    XML
+    expect(info(input)[:bibdata][:ext]).to be_nil
+  end
+
   it "renders bibdata fields in the HTML cover page through Liquid" do
     FileUtils.rm_f "test.html"
     IsoDoc::HtmlConvert.new(
@@ -100,14 +134,14 @@ RSpec.describe IsoDoc::Metadata do
         <docidentifier type="DOI">10.62973/24-041</docidentifier>
         <docnumber>24041</docnumber>
         <status><stage>published</stage></status>
-        <ext><doctype>standard</doctype></ext>
+        <ext><doctype>standard</doctype><coverpage-image><image src="cover.png"/></coverpage-image></ext>
       </bibdata>
       <sections/>
       </iso-standard>
     INPUT
     html = File.read("test.html")
     expect(html)
-      .to include "BIBDATA:10.62973/24-041|published|24041|standard"
+      .to include "BIBDATA:10.62973/24-041|published|24041|standard|cover.png"
     FileUtils.rm_f "test.html"
   end
 end

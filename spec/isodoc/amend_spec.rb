@@ -111,7 +111,7 @@ RSpec.describe IsoDoc do
                <fmt-title depth="1" id="_">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="A">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -278,7 +278,7 @@ RSpec.describe IsoDoc do
     OUTPUT
     html = <<~OUTPUT
       <div id="A">
-         <h1>1.\u00a0 Change Clause</h1>
+         <h1>1<span class="fmt-clause-delim">.</span>\u00a0 Change Clause</h1>
          <p id="C">
             <i>
                        This table contains information on polygon cells which are not
@@ -444,7 +444,7 @@ RSpec.describe IsoDoc do
                <fmt-title depth="1" id="_">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="A">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -553,7 +553,7 @@ RSpec.describe IsoDoc do
                      <p depth="1" type="floating-title">
                         <span class="fmt-caption-label">
                            <semx element="autonum" source="_">3.1.2.14</semx>
-                           <span class="fmt-autonum-delim">.</span>
+                           <span class="fmt-clause-delim">.</span>
                         </span>
                         <span class="fmt-caption-delim">
                            <tab/>
@@ -620,7 +620,7 @@ RSpec.describe IsoDoc do
                      <p depth="1" type="floating-title">
                         <span class="fmt-caption-label">
                            <semx element="autonum" source="xxx">3.1.2.15</semx>
-                           <span class="fmt-autonum-delim">.</span>
+                           <span class="fmt-clause-delim">.</span>
                         </span>
                         <span class="fmt-caption-delim">
                            <tab/>
@@ -638,7 +638,7 @@ RSpec.describe IsoDoc do
                               <semx element="autonum" source="xxx">3.1.2.15</semx>
                               <span class="fmt-autonum-delim">.</span>
                               <semx element="autonum" source="xxy">1</semx>
-                              <span class="fmt-autonum-delim">.</span>
+                              <span class="fmt-clause-delim">.</span>
                            </span>
                            <span class="fmt-caption-delim">
                               <tab/>
@@ -734,7 +734,7 @@ RSpec.describe IsoDoc do
     INPUT
     html = <<~OUTPUT
       <div id="A">
-         <h1>1.\u00a0 Change Clause</h1>
+         <h1>1<span class="fmt-clause-delim">.</span>\u00a0 Change Clause</h1>
          <p id="_">Add the following terminological entries after 3.1.2.13:</p>
          <div class="Quote AmendNewcontent">
             <div id="F" class="example">
@@ -744,7 +744,7 @@ RSpec.describe IsoDoc do
          </div>
          <div class="Quote AmendNewcontent" id="_">
             <p class="h1">
-               3.1.2.14.\u00a0
+               3.1.2.14<span class="fmt-clause-delim">.</span>\u00a0
                <br/>
                canonical form
             </p>
@@ -771,10 +771,10 @@ RSpec.describe IsoDoc do
             </table>
          </div>
          <div class="Quote AmendNewcontent" id="xxx">
-            <p class="h1">3.1.2.15.\u00a0 container</p>
+            <p class="h1">3.1.2.15<span class="fmt-clause-delim">.</span>\u00a0 container</p>
             <p>This is a container of a subclause.</p>
             <div class="Quote AmendNewcontent" id="xxy">
-               <p class="h2">3.1.2.15.1.\u00a0 non-canonical form</p>
+               <p class="h2">3.1.2.15.1<span class="fmt-clause-delim">.</span>\u00a0 non-canonical form</p>
                <p id="_">
                   date and time expression where all its time scale components are
                   <i>unnormalised</i>
@@ -924,7 +924,7 @@ RSpec.describe IsoDoc do
             <p depth="1" type="floating-title">
                <span class="fmt-caption-label">
                   <semx element="autonum" source="xxx">3.1.2.15</semx>
-                  <span class="fmt-autonum-delim">.</span>
+                  <span class="fmt-clause-delim">.</span>
                </span>
                <span class="fmt-caption-delim">
                   <tab/>
@@ -942,7 +942,7 @@ RSpec.describe IsoDoc do
                      <semx element="autonum" source="xxx">3.1.2.15</semx>
                      <span class="fmt-autonum-delim">.</span>
                      <semx element="autonum" source="xxy">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>

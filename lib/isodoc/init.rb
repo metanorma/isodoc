@@ -7,6 +7,7 @@ module IsoDoc
     def xref_init(lang, script, _klass, i18n, options)
       html = HtmlConvert.new(language: @lang, script: @script)
       @xrefs = Xref.new(lang, script, html, i18n, options)
+      @xrefs
     end
 
     def i18n_init(lang, script, locale, i18nyaml = nil)
@@ -35,6 +36,9 @@ module IsoDoc
       toc_init(xml)
       @details_open = xml.at(ns("//metanorma-extension/presentation-metadata/" \
                                 "html-details-open"))&.text != "false"
+      @index_fold_case =
+        xml.at(ns("//metanorma-extension/presentation-metadata/" \
+                  "index-case-sensitive"))&.text != "true"
     end
 
     def doctype_init(docxml)
