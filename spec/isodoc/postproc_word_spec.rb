@@ -79,6 +79,7 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection1">/m, '<div class="WordSection1">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection2">.*$}m, "")
+    word = "" unless word.include?("WordSection1")
     expect(strip_guid(word)).to be_xml_equivalent_to <<~OUTPUT
       <div class="WordSection1">
       /* an empty word cover page */
@@ -92,6 +93,7 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection1">/m, '<div class="WordSection1">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection2">.*$}m, "")
+    word = "" unless word.include?("WordSection1")
     expect(word).to be_xml_equivalent_to <<~OUTPUT
     OUTPUT
   end

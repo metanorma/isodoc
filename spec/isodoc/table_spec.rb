@@ -549,7 +549,7 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     word = <<~OUTPUT
-        <body lang="EN-US" link="blue" vlink="#954F72">
+        <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
           <div class="WordSection1">
             <p>&#xa0;</p>
           </div>
