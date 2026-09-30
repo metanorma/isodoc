@@ -14,6 +14,7 @@ gem "rake"
 gem "rspec", "~> 3.6"
 gem "rubocop", "~> 1"
 gem "rubocop-performance"
+gem "sassc-embedded", "~> 1"
 gem "simplecov", "~> 0.15"
 gem "timecop", "~> 0.9"
 
