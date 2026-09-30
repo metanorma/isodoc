@@ -66,6 +66,39 @@ RSpec.describe IsoDoc::Metadata do
     expect(m).to have_key(:bibdata)
   end
 
+  it "collapses language-variant edition/stage/doctype for Liquid bibdata" do
+    # Presentation i18n (tag_translate / JIS edition_integer?) emits these
+    # siblings; Relaton models the fields as singular.
+    input = <<~XML
+      <metanorma xmlns="https://www.metanorma.org/ns/standoc">
+        <bibdata type="standard">
+          <docnumber>1</docnumber>
+          <edition language="">1</edition>
+          <edition language="ja">第1版</edition>
+          <edition language="ja" numberonly="true">1</edition>
+          <edition language="en">first edition</edition>
+          <edition language="en" numberonly="true">1</edition>
+          <status>
+            <stage language="">60</stage>
+            <stage language="ja">国際規格</stage>
+            <stage language="en">International Standard</stage>
+          </status>
+          <ext>
+            <doctype language="">handbook</doctype>
+            <doctype language="ja">ガイドブック</doctype>
+            <doctype language="en">Handbook</doctype>
+          </ext>
+        </bibdata>
+      </metanorma>
+    XML
+    m = nil
+    expect { m = info(input) }.not_to raise_error
+    expect(m[:bibdata]).not_to be_nil
+    expect(m[:bibdata][:edition]).to eq({ content: "1" })
+    expect(m[:bibdata][:status][:stage]).to eq({ content: "60" })
+    expect(m[:bibdata][:ext][:doctype]).to eq({ content: "handbook" })
+  end
+
   it "leaves meta[:bibdata] nil when there is no bibdata" do
     m = info("<metanorma xmlns='https://www.metanorma.org/ns/standoc'>" \
              "<sections/></metanorma>")

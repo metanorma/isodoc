@@ -60,6 +60,7 @@ module IsoDoc
       # meta[:bibdata] with the resolved docidentifier.
       # See https://github.com/metanorma/metanorma/issues/558.
       stripped.xpath("//docidentifier[@boilerplate = 'true']").each(&:remove)
+      collapse_lang_variants!(stripped.root)
       bib = BibdataConfig.from_xml(
         "<metanorma>#{stripped.root.to_xml}</metanorma>",
       ).bibdata or return nil
@@ -70,6 +71,36 @@ module IsoDoc
     rescue StandardError => e
       warn "Failed to parse bibdata for Liquid template use: #{e.message}"
       nil
+    end
+
+    # Relaton models these fields as singular. Presentation i18n
+    # (PresentationXMLConvert#tag_translate, JIS #edition_integer?)
+    # intentionally emits language-variant siblings — language="",
+    # language="ja", numberonly="true", … — for rendering; feeding them
+    # to Relaton yields an Array and CollectionTrueMissingError /
+    # IncorrectModelError. Keep the canonical node (no @language, not
+    # @numberonly) so Liquid still sees the source value, matching
+    # Metadata#edition / #docstatus which read the NOLANG node.
+    SINGULAR_LANG_VARIANT_XPATHS = [
+      "./edition",
+      "./status/stage",
+      "./status/substage",
+      "./ext/doctype",
+    ].freeze
+
+    def collapse_lang_variants!(root)
+      SINGULAR_LANG_VARIANT_XPATHS.each do |xpath|
+        collapse_singular_nodes!(root, xpath)
+      end
+    end
+
+    def collapse_singular_nodes!(root, xpath)
+      nodes = root.xpath(xpath)
+      nodes.size > 1 or return
+      keep = nodes.find { |n| n["language"].to_s.empty? && n["numberonly"] != "true" } ||
+             nodes.find { |n| n["language"].to_s.empty? } ||
+             nodes.first
+      nodes.each { |n| n.remove unless n.equal?(keep) }
     end
 
     # The Liquid `bibdata` object is built by round-tripping //bibdata through
