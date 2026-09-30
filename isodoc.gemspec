@@ -39,6 +39,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "relaton-render", "~> 1.3.0"
   spec.add_dependency "roman-numerals"
   spec.add_dependency "rouge", "~> 4.0"
+  spec.add_dependency "sassc-embedded", "~> 1"
   spec.add_dependency "thread_safe"
   spec.add_dependency "twitter_cldr", ">= 6.6.0"
   spec.add_dependency "uuidtools"
