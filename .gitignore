@@ -1,1 +1,26 @@
 spec/assets/img.svg
+
+# Generated test output
+test.doc
+test.err.html
+test.html
+test.presentation.xml
+test_*_files/
+test_*_htmlimages/
+_test_attachments/
+spec/test.html
+spec/test_*_htmlimages/
+spec/assets/iso.doc
+spec/assets/iso.headless.html
+spec/assets/odf1.emf
+spec/assets/test.html
+
+# Tooling
+coverage/
+pkg/
+.rspec_status
+.rubocop-https---*
+.rubocop-remote-*
+
+# Gem library: resolve at install time
+Gemfile.lock
