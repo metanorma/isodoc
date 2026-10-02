@@ -36,7 +36,13 @@ Gem::Specification.new do |spec|
   # spec.add_dependency "metanorma-utils", "~> 1.5.0" # already in isodoc-i18n
   spec.add_dependency "mn2pdf", ">= 2.13"
   spec.add_dependency "mn-requirements", "~> 0.5.0"
-  spec.add_dependency "relaton-render", "~> 1.3.0"
+  # Allowance for the relaton 3.0.0.pre chain (mirrors the relaton-cli
+  # allowance in #824): relaton >= 3.0.0.pre.alpha.6 requires
+  # relaton-render ~> 1.4.0.pre.alpha.1, whose General compat facade
+  # carries render-isodoc's subclass unchanged. Released isodoc lines
+  # keep resolving 1.3.0; only a stack that explicitly adopts the
+  # relaton prerelease co-resolves 1.4.0.pre.
+  spec.add_dependency "relaton-render", ">= 1.3.0", "< 1.5.0"
   spec.add_dependency "roman-numerals"
   spec.add_dependency "rouge", "~> 4.0"
   spec.add_dependency "thread_safe"
