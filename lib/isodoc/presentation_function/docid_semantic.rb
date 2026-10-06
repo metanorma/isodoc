@@ -51,6 +51,8 @@ module IsoDoc
 
         begin
           parsed = flavor.parse(string)
+          next if publisher_replaced?(string, parsed)
+
           parsed_any = true
           if parsed.to_s == string
             annotated = parsed.to_s(annotated: true)
@@ -74,6 +76,16 @@ module IsoDoc
     # mistaken for structure synthesis.
     def dash_normalize(string)
       string.tr("—", "-").gsub("--", "-")
+    end
+
+    # A parser that replaces the input's own leading publisher token
+    # with its own (ASHRAE parsing "IETF 6281" as "ASHRAE Standard
+    # 6281") has not parsed the identifier at all: keep trying, so the
+    # identifier reaches the regex fallback rather than the
+    # plain-string refusal
+    def publisher_replaced?(string, parsed)
+      own = string[/\A[A-Za-z][A-Za-z.-]*(?=\s)/] or return false
+      parsed.to_s[/\A[A-Za-z][A-Za-z.-]*(?=\s)/] != own
     end
 
     # Regex-based fallback when Pubid::Registry cannot parse the id. Emits
