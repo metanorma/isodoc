@@ -4,6 +4,7 @@ module IsoDoc
       seen = {}
       fnotes.each_with_object([]) do |x, m|
         x["reference"] or next # ignore semx-only footnotes
+        add_id(x) unless x["id"] # renderer-emitted fns arrive without ids
         b = fnbody(x, seen) and m << b
         x["target"] = seen[x["reference"]]
         ref = x["hiddenref"] == "true" ? "" : fn_ref_label(x)
@@ -77,6 +78,25 @@ module IsoDoc
       excl = non_document_footnotes(docxml)
       fns = filter_document_footnotes(sects, excl)
       fns = renumber_document_footnotes(fns, 1)
+      @footnote_idx = idx_after(fns)
+      ret = footnote_collect(fns)
+      f = footnote_container(fns, ret) and docxml.root << f
+    end
+
+    def idx_after(fns)
+      fns.flatten.filter_map { |f| f["reference"] }.map(&:to_i).max || 0
+    end
+
+    # The bibliography formattedrefs are inserted by references_render
+    # after the document footnote pass; their footnotes are numbered in
+    # continuation and routed through the same pipeline here
+    def bibliography_footnotes(docxml)
+      fns = docxml.xpath(ns("//formattedref/fn"))
+        .reject { |f| f["reference"].nil? || f["reference"].empty? }
+        .reject { |f| f.at_xpath(ns("./fmt-fn-label")) }
+      fns.empty? and return
+      fns = renumber_document_footnotes(fns.map { |f| [f] },
+                                        @footnote_idx.to_i + 1).flatten
       ret = footnote_collect(fns)
       f = footnote_container(fns, ret) and docxml.root << f
     end

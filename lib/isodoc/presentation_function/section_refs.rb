@@ -6,6 +6,7 @@ module IsoDoc
         bibitem(x, @ref_renderings)
         reference_name(x)
       end
+      bibliography_footnotes(docxml) if respond_to?(:bibliography_footnotes)
       bibliography_bibitem_number(docxml)
       hidden_items(docxml)
       move_norm_ref_to_sections(docxml)
