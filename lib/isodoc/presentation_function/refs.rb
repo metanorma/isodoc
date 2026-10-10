@@ -50,7 +50,8 @@ module IsoDoc
     def bibrender_formattedref(formattedref, bib); end
 
     def bibrender_relaton(bib, renderings)
-      f = renderings[bib["id"]][:formattedref] or return
+      r = renderings[bib["id"]] or return
+      f = r[:formattedref] or return
       f &&= "<formattedref>#{f}</formattedref>"
       if x = bib.at(ns("./formattedref"))
         x.replace(f)
