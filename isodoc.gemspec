@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   end
   spec.required_ruby_version = Gem::Requirement.new(">= 3.3.0")
 
-  spec.add_dependency "base64", ">= 1.1"
+  spec.add_dependency "base64", ">= 0.1.0"
   spec.add_dependency "bigdecimal"
   spec.add_dependency "html2doc", "~> 1.12"
   # spec.add_dependency "isodoc-i18n", "~> 1.5" # already in relaton-render and mn-requirements
