@@ -16,7 +16,10 @@ module IsoDoc
 
     def bibdata_from_xml(model, node)
       node or return
-      model.bibdata = Relaton::Cli.parse_xml(node.adapter_node.native)
+      # Cli.parse_xml's contract is a Nokogiri::XML::Document
+      # (remove_namespaces!, at); under the moxml/leptris adapter the
+      # mapping node's native is not Nokogiri. Convert via markup.
+      model.bibdata = Relaton::Cli.parse_xml(Nokogiri::XML(node.to_xml))
     end
 
     def bibdata_to_xml(model, parent, doc); end
