@@ -10,13 +10,25 @@ module IsoDoc
       bib["suppress_identifier"] == "true" and return nil
       ret = bib.xpath(ns("./docidentifier[@scope = 'biblio-tag']"))
       ret.empty? or return ret.map { |x| to_xml(x.children) }
-      ret = pref_ref_code_parse(bib) or return nil
+      ret = pref_ref_code_markup(bib) || pref_ref_code_parse(bib) or return nil
       ins = bib.at(ns("./docidentifier[last()]"))
       ret.reverse_each do |r|
         id = docid_l10n(r, citation: false)
         ins.next = "<docidentifier scope='biblio-tag'>#{id}</docidentifier>"
       end
       ret
+    end
+
+    # Markup-preserving identifier: when the source docidentifier itself
+    # carries inline structure (semx, sup, sub...), keep that markup for
+    # the biblio-tag instead of the renderer's flat text, which would
+    # drop presentation structure like the sup in "ISO 712<sup>1</sup>".
+    def pref_ref_code_markup(bib)
+      ids = bib.xpath(ns("./docidentifier[not(@scope)]"))
+        .reject { |x| %w(metanorma metanorma-ordinal).include?(x["type"]) }
+        .select { |x| x.elements.any? }
+      ids.empty? and return nil
+      [to_xml(ids.first.children)]
     end
 
     def pref_ref_code_parse(bib)
