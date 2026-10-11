@@ -14,6 +14,11 @@ module IsoDoc
       bib["suppress_identifier"] == true and
         bib.xpath(ns("./docidentifier")).each(&:remove)
       bib["type"] ||= "standard"
+      # The renderer takes flat identifier text; inline markup (semx, sup)
+      # in the source docidentifier yields an empty composition.
+      bib.xpath("./docidentifier").each do |d|
+        d.elements.any? and d.children = d.text
+      end
     end
 
     def bibitem(bib, renderings)
