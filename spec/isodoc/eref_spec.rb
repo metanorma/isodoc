@@ -342,127 +342,95 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <foreword id="_" displayorder="2">
-         <title id="_">Foreword</title>
-         <fmt-title depth="1" id="_">
+        <foreword id="_" displayorder="2">
+          <title id="_">Foreword</title>
+          <fmt-title depth="1" id="_">
             <semx element="title" source="_">Foreword</semx>
-         </fmt-title>
-         <p>
+          </fmt-title>
+          <p>
             <eref type="inline" style="author_date" bibitemid="ISO712" citeas="ISO 712" id="_"/>
             <semx element="eref" source="_">
-               <fmt-link target="http://www.example.com">Aluffi, Anderson, Hering, Mustaţă and Payne 2022</fmt-link>
+              <fmt-link target="http://www.example.com">ALUFFI, 2022</fmt-link>
             </semx>
-         </p>
-         <p>
+          </p>
+          <p>
             <eref type="inline" style="author_date_br" bibitemid="ISO712" citeas="ISO 712" id="_"/>
             <semx element="eref" source="_">
-               <fmt-link target="http://www.example.com">Aluffi, Anderson, Hering, Mustaţă and Payne (2022)</fmt-link>
+              <fmt-link target="http://www.example.com">ALUFFI (2022)</fmt-link>
             </semx>
-         </p>
-         <p>
+          </p>
+          <p>
             <eref type="inline" style="reference_tag" bibitemid="ISO712" citeas="ISO 712" id="_"/>
             <semx element="eref" source="_">
-               <fmt-link target="http://www.example.com">[1]</fmt-link>
+              <fmt-link target="http://www.example.com">1</fmt-link>
             </semx>
-         </p>
-         <p>
+          </p>
+          <p>
             <eref type="inline" style="title" bibitemid="ISO712" citeas="ISO 712" id="_"/>
             <semx element="eref" source="_">
-               <fmt-link target="http://www.example.com">Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</fmt-link>
+              <fmt-link target="http://www.example.com">Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</fmt-link>
             </semx>
-         </p>
-         <p>
+          </p>
+          <p>
             <eref type="inline" style="title_reference_tag" bibitemid="ISO712" citeas="ISO 712" id="_"/>
             <semx element="eref" source="_">
-               <fmt-link target="http://www.example.com">Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday [1]</fmt-link>
+              <fmt-link target="http://www.example.com">Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</fmt-link>
             </semx>
-         </p>
-         <p>
+          </p>
+          <p>
             <eref type="inline" style="short" bibitemid="ISO712" citeas="ISO 712" id="_"/>
             <semx element="eref" source="_">
-                            <fmt-eref type="inline" style="short" bibitemid="ISO712" citeas="1">
-                   <fmt-xref target="ISO712">ALUFFI, Paolo, David ANDERSON, Milena HERING, Mircea MUSTAŢĂ and Sam PAYNE (eds.)</fmt-xref>
-                   .
-                  <em>Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</em>
-                  . First edition. (London Mathematical Society Lecture Note Series 472.) Cambridge, UK: Cambridge University Press. 2022. [1]. DOI: DOI\u00a0https://doi.org/10.1017/9781108877831. ISBN: ISBN\u00a09781108877831. 1 vol.
-               </fmt-eref>
+              <fmt-xref type="inline" style="short" target="ISO712">ALUFFI, 2022</fmt-xref>
             </semx>
-         </p>
-         <p>
+          </p>
+          <p>
             <eref type="inline" style="full" bibitemid="ISO712" citeas="ISO 712" id="_"/>
             <semx element="eref" source="_">
-               <fmt-xref type="inline" style="full" target="ISO712">
-                  ALUFFI, Paolo, David ANDERSON, Milena HERING, Mircea MUSTAŢĂ and Sam PAYNE (eds.).
-                  <em>Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</em>
-                  . First edition. (London Mathematical Society Lecture Note Series 472.) Cambridge, UK: Cambridge University Press. 2022. [1]. DOI: DOI\u00a0https://doi.org/10.1017/9781108877831. ISBN: ISBN\u00a09781108877831.
-                  <fmt-link target="http://www.example.com">http://www.example.com</fmt-link>
-                  . 1 vol.
-               </fmt-xref>
+              <fmt-xref type="inline" style="full" target="ISO712">ALUFFI, Paolo, David ANDERSON, Milena HERING, Mircea MUSTAŢĂ, and Sam PAYNE (eds.). <em>Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</em>. First edition. <em>London Mathematical Society Lecture Note Series</em>, no. 472. Cambridge, UK: Cambridge University Press, 2022. Available from: http://www.example.com.</fmt-xref>
             </semx>
-         </p>
-      </foreword>
+          </p>
+        </foreword>
     OUTPUT
     html = <<~OUTPUT
-         <html lang="en">
-         <head/>
-         <body lang="en">
-            <div class="title-section">
-               <p>\u00a0</p>
-            </div>
-            <br/>
-            <div class="prefatory-section">
-               <p>\u00a0</p>
-            </div>
-            <br/>
-            <div class="main-section">
-               <br/>
-               <div id="_" class="TOC">
+              <div class="title-section">
+                <p>&#xA0;</p>
+              </div>
+              <br />
+              <div class="prefatory-section">
+                <p>&#xA0;</p>
+              </div>
+              <br />
+              <div class="main-section">
+                <br />
+                <div id="_" class="TOC">
                   <h1 class="IntroTitle">Table of contents</h1>
-               </div>
-               <br/>
-               <div id="_">
+                </div>
+                <br />
+                <div id="_">
                   <h1 class="ForewordTitle">Foreword</h1>
                   <p>
-                     <a href="http://www.example.com">Aluffi, Anderson, Hering, Mustaţă and Payne 2022</a>
+                    <a href="http://www.example.com">ALUFFI, 2022</a>
                   </p>
                   <p>
-                     <a href="http://www.example.com">Aluffi, Anderson, Hering, Mustaţă and Payne (2022)</a>
+                    <a href="http://www.example.com">ALUFFI (2022)</a>
                   </p>
                   <p>
-                     <a href="http://www.example.com">[1]</a>
+                    <a href="http://www.example.com">1</a>
                   </p>
                   <p>
-                     <a href="http://www.example.com">Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</a>
+                    <a href="http://www.example.com">Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</a>
                   </p>
                   <p>
-                     <a href="http://www.example.com">Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday [1]</a>
+                    <a href="http://www.example.com">Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</a>
                   </p>
-                                     <p>
-                     <a href="#ISO712">ALUFFI, Paolo, David ANDERSON, Milena HERING, Mircea MUSTAŢĂ and Sam PAYNE (eds.)</a>.
-                     <i>Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</i>
-                     . First edition. (London Mathematical Society Lecture Note Series 472.) Cambridge, UK: Cambridge University Press. 2022. [1]. DOI: DOI\u00a0https://doi.org/10.1017/9781108877831. ISBN: ISBN\u00a09781108877831. 1 vol.
-                  </p>
-                  <p>
-                     ALUFFI, Paolo, David ANDERSON, Milena HERING, Mircea MUSTAŢĂ and Sam PAYNE (eds.).
-                     <i>Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</i>
-                     . First edition. (London Mathematical Society Lecture Note Series 472.) Cambridge, UK: Cambridge University Press. 2022. [1]. DOI: DOI\u00a0https://doi.org/10.1017/9781108877831. ISBN: ISBN\u00a09781108877831.
-                     <a href="http://www.example.com">http://www.example.com</a>
-                     . 1 vol.
-                  </p>
-               </div>
-               <div>
-                  <h1>1<span class="fmt-clause-delim">.</span>\u00a0 Normative References</h1>
-                  <p id="ISO712" class="NormRef">
-                     1, ALUFFI, Paolo, David ANDERSON, Milena HERING, Mircea MUSTAŢĂ and Sam PAYNE (eds.).
-                     <i>Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</i>
-                     . First edition. (London Mathematical Society Lecture Note Series 472.) Cambridge, UK: Cambridge University Press. 2022. [1]. DOI: DOI\u00a0https://doi.org/10.1017/9781108877831. ISBN: ISBN\u00a09781108877831.
-                     <a href="http://www.example.com">http://www.example.com</a>
-                     . 1 vol.
-                  </p>
-               </div>
-            </div>
-         </body>
-      </html>
+                  <p>ALUFFI, 2022</p>
+                  <p>ALUFFI, Paolo, David ANDERSON, Milena HERING, Mircea MUSTA&#x162;&#x102;, and Sam PAYNE (eds.). <i>Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</i>. First edition. <i>London Mathematical Society Lecture Note Series</i>, no. 472. Cambridge, UK: Cambridge University Press, 2022. Available from: http://www.example.com.</p>
+                </div>
+                <div>
+                  <h1>1<span class="fmt-clause-delim">.</span>&#xA0; Normative References</h1>
+                  <p id="ISO712" class="NormRef">1, ALUFFI, Paolo, David ANDERSON, Milena HERING, Mircea MUSTA&#x162;&#x102;, and Sam PAYNE (eds.). <i>Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</i>. First edition. <i>London Mathematical Society Lecture Note Series</i>, no. 472. Cambridge, UK: Cambridge University Press, 2022. Available from: http://www.example.com.</p>
+                </div>
+              </div>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
