@@ -5,15 +5,11 @@ module Relaton
   module Render
     module IsoDoc
       class General < ::Relaton::Render::General
-        Hash.include Metanorma::Utils::Hash
+        STYLE_PATH = File.join(__dir__, "styles/isodoc.yml")
 
-        def config_loc
-          YAML.load_file(File.join(File.dirname(__FILE__),
-                                   "config.yml"))
-        end
-
-        def read_config
-          super.deep_merge(config_loc)
+        def initialize(options = {})
+          options[:style] ||= STYLE_PATH
+          super
         end
       end
     end

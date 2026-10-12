@@ -238,79 +238,68 @@ RSpec.describe IsoDoc do
       </bibliography></iso-standard>
     INPUT
     presxml = <<~PRESXML
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <bibdata>
+         <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+           <bibdata>
              <language current="true">en</language>
-          </bibdata>
-          <preface>
+           </bibdata>
+           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1" id="_">Table of contents</fmt-title>
+               <fmt-title depth="1" id="_">Table of contents</fmt-title>
              </clause>
-          </preface>
-          <sections>
+           </preface>
+           <sections>
              <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
-                <title id="_">Normative References</title>
-                <fmt-title depth="1" id="_">
-                   <span class="fmt-caption-label">
-                      <semx element="autonum" source="_normative_references">1</semx>
-                      <span class="fmt-clause-delim">.</span>
-                   </span>
-                   <span class="fmt-caption-delim">
-                      <tab/>
-                   </span>
-                   <semx element="title" source="_">Normative References</semx>
-                </fmt-title>
-                <fmt-xref-label>
-                   <span class="fmt-element-name">Clause</span>
+               <title id="_">Normative References</title>
+               <fmt-title depth="1" id="_">
+                 <span class="fmt-caption-label">
                    <semx element="autonum" source="_normative_references">1</semx>
-                </fmt-xref-label>
-                <bibitem id="ISO712" type="standard">
-                   <biblio-tag/>
-                   <formattedref>
-                      International Organization for Standardization.
-                      <em>Cereals and cereal products</em>
-                      .
-                   </formattedref>
-                   <title format="text/plain">Cereals or cereal products</title>
-                   <title type="main" format="text/plain">Cereals and cereal products</title>
-                   <contributor>
-                      <role type="publisher"/>
-                      <organization>
-                         <name>International Organization for Standardization</name>
-                      </organization>
-                   </contributor>
-                </bibitem>
+                   <span class="fmt-clause-delim">.</span>
+                 </span>
+                 <span class="fmt-caption-delim">
+                   <tab/>
+                 </span>
+                 <semx element="title" source="_">Normative References</semx>
+               </fmt-title>
+               <fmt-xref-label>
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="_normative_references">1</semx>
+               </fmt-xref-label>
+               <bibitem id="ISO712" type="standard">
+                 <biblio-tag/>
+                 <formattedref><em>Cereals and cereal products</em>. International Organization for Standardization.</formattedref>
+                 <title format="text/plain">Cereals or cereal products</title>
+                 <title type="main" format="text/plain">Cereals and cereal products</title>
+                 <contributor>
+                   <role type="publisher"/>
+                   <organization>
+                     <name>International Organization for Standardization</name>
+                   </organization>
+                 </contributor>
+               </bibitem>
              </references>
-          </sections>
-          <bibliography>
+           </sections>
+           <bibliography>
              <references id="_bibliography" obligation="informative" normative="false" displayorder="3">
-                <title id="_">Bibliography</title>
-                <fmt-title depth="1" id="_">
-                   <semx element="title" source="_">Bibliography</semx>
-                </fmt-title>
-                <bibitem id="ISO713" type="standard">
-                   <biblio-tag>
-                      [1]
-                      <tab/>
-                   </biblio-tag>
-                   <docidentifier type="metanorma-ordinal">[1]</docidentifier>
-                   <formattedref>
-                      International Organization for Standardization.
-                      <em>Cereals and cereal products</em>
-                      .
-                   </formattedref>
-                   <title format="text/plain">Cereals or cereal products</title>
-                   <title type="main" format="text/plain">Cereals and cereal products</title>
-                   <contributor>
-                      <role type="publisher"/>
-                      <organization>
-                         <name>International Organization for Standardization</name>
-                      </organization>
-                   </contributor>
-                </bibitem>
+               <title id="_">Bibliography</title>
+               <fmt-title depth="1" id="_">
+                 <semx element="title" source="_">Bibliography</semx>
+               </fmt-title>
+               <bibitem id="ISO713" type="standard">
+                 <biblio-tag>[1]<tab/></biblio-tag>
+                 <docidentifier type="metanorma-ordinal">[1]</docidentifier>
+                 <formattedref><em>Cereals and cereal products</em>. International Organization for Standardization.</formattedref>
+                 <title format="text/plain">Cereals or cereal products</title>
+                 <title type="main" format="text/plain">Cereals and cereal products</title>
+                 <contributor>
+                   <role type="publisher"/>
+                   <organization>
+                     <name>International Organization for Standardization</name>
+                   </organization>
+                 </contributor>
+               </bibitem>
              </references>
-          </bibliography>
-       </iso-standard>
+           </bibliography>
+         </iso-standard>
     PRESXML
     xml = Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
@@ -358,81 +347,70 @@ RSpec.describe IsoDoc do
       </bibliography></iso-standard>
     INPUT
 presxml = <<~OUTPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <bibdata>
-             <language current="true">en</language>
+            <language current="true">en</language>
           </bibdata>
           <preface>
-             <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1" id="_">Table of contents</fmt-title>
-             </clause>
+            <clause type="toc" id="_" displayorder="1">
+              <fmt-title depth="1" id="_">Table of contents</fmt-title>
+            </clause>
           </preface>
           <sections>
-             <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
-                <title id="_">Normative References</title>
-                <fmt-title depth="1" id="_">
-                   <span class="fmt-caption-label">
-                      <semx element="autonum" source="_normative_references">1</semx>
-                      <span class="fmt-clause-delim">.</span>
-                   </span>
-                   <span class="fmt-caption-delim">
-                      <tab/>
-                   </span>
-                   <semx element="title" source="_">Normative References</semx>
-                </fmt-title>
-                <fmt-xref-label>
-                   <span class="fmt-element-name">Clause</span>
-                   <semx element="autonum" source="_normative_references">1</semx>
-                </fmt-xref-label>
-                <bibitem id="ISO712" type="standard">
-                   <biblio-tag>Cereals\u00a0or\u00a0cereal\u00a0products </biblio-tag>
-                   <formattedref>
-                      International Organization for Standardization.
-                      <em>Cereals and cereal products</em>
-                      .
-                   </formattedref>
-                   <title format="text/plain">Cereals or cereal products</title>
-                   <title type="main" format="text/plain">Cereals and cereal products</title>
-                   <docidentifier type="title" primary="true">Cereals\u00a0or\u00a0cereal\u00a0products</docidentifier>
-                   <contributor>
-                      <role type="publisher"/>
-                      <organization>
-                         <name>International Organization for Standardization</name>
-                      </organization>
-                   </contributor>
-                </bibitem>
-             </references>
+            <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
+              <title id="_">Normative References</title>
+              <fmt-title depth="1" id="_">
+                <span class="fmt-caption-label">
+                  <semx element="autonum" source="_normative_references">1</semx>
+                  <span class="fmt-clause-delim">.</span>
+                </span>
+                <span class="fmt-caption-delim">
+                  <tab/>
+                </span>
+                <semx element="title" source="_">Normative References</semx>
+              </fmt-title>
+              <fmt-xref-label>
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="_normative_references">1</semx>
+              </fmt-xref-label>
+              <bibitem id="ISO712" type="standard">
+                <biblio-tag>Cereals or cereal products </biblio-tag>
+                <formattedref><em>Cereals and cereal products</em>. International Organization for Standardization.</formattedref>
+                <title format="text/plain">Cereals or cereal products</title>
+                <title type="main" format="text/plain">Cereals and cereal products</title>
+                <docidentifier type="title" primary="true">Cereals or cereal products</docidentifier>
+                <contributor>
+                  <role type="publisher"/>
+                  <organization>
+                    <name>International Organization for Standardization</name>
+                  </organization>
+                </contributor>
+              </bibitem>
+            </references>
           </sections>
           <bibliography>
-             <references id="_bibliography" obligation="informative" normative="false" displayorder="3">
-                <title id="_">Bibliography</title>
-                <fmt-title depth="1" id="_">
-                   <semx element="title" source="_">Bibliography</semx>
-                </fmt-title>
-                <bibitem id="ISO713" type="standard">
-                   <biblio-tag>
-                      [1]
-                      <tab/>
-                   </biblio-tag>
-                   <formattedref>
-                      International Organization for Standardization.
-                      <em>Cereals and cereal products</em>
-                      .
-                   </formattedref>
-                   <title format="text/plain">Cereals or cereal products</title>
-                   <title type="main" format="text/plain">Cereals and cereal products</title>
-                   <docidentifier type="metanorma-ordinal">[1]</docidentifier>
-                   <docidentifier type="title" primary="true">Cereals\u00a0or\u00a0cereal\u00a0products\u00a0#2</docidentifier>
-                   <contributor>
-                      <role type="publisher"/>
-                      <organization>
-                         <name>International Organization for Standardization</name>
-                      </organization>
-                   </contributor>
-                </bibitem>
-             </references>
+            <references id="_bibliography" obligation="informative" normative="false" displayorder="3">
+              <title id="_">Bibliography</title>
+              <fmt-title depth="1" id="_">
+                <semx element="title" source="_">Bibliography</semx>
+              </fmt-title>
+              <bibitem id="ISO713" type="standard">
+                <biblio-tag>[1]<tab/></biblio-tag>
+                <formattedref><em>Cereals and cereal products</em>. International Organization for Standardization.</formattedref>
+                <title format="text/plain">Cereals or cereal products</title>
+                <title type="main" format="text/plain">Cereals and cereal products</title>
+                <docidentifier type="metanorma-ordinal">[1]</docidentifier>
+                <docidentifier type="title" primary="true">Cereals or cereal products #2</docidentifier>
+                <contributor>
+                  <role type="publisher"/>
+                  <organization>
+                    <name>International Organization for Standardization</name>
+                  </organization>
+                </contributor>
+              </bibitem>
+            </references>
           </bibliography>
-       </iso-standard>
+        </iso-standard>
 OUTPUT
  xml = Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
@@ -785,54 +763,40 @@ OUTPUT
       </iso-standard>
     INPUT
     presxml = <<~PRESXML
-       <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
-         <title id="_">Normative References</title>
-         <fmt-title id="_" depth="1">
+        <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
+          <title id="_">Normative References</title>
+          <fmt-title depth="1" id="_">
             <span class="fmt-caption-label">
-               <semx element="autonum" source="_normative_references">1</semx>
-               <span class="fmt-clause-delim">.</span>
+              <semx element="autonum" source="_normative_references">1</semx>
+              <span class="fmt-clause-delim">.</span>
             </span>
             <span class="fmt-caption-delim">
-               <tab/>
+              <tab/>
             </span>
             <semx element="title" source="_">Normative References</semx>
-         </fmt-title>
-         <fmt-xref-label>
+          </fmt-title>
+          <fmt-xref-label>
             <span class="fmt-element-name">Clause</span>
             <semx element="autonum" source="_normative_references">1</semx>
-         </fmt-xref-label>
-         <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-         <bibitem id="ISO712" type="standard" suppress_identifier="true">
-            <formattedref>
-               International Organization for Standardization.
-               <em>Cereals and cereal products</em>
-               .
-            </formattedref>
+          </fmt-xref-label>
+          <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+          <bibitem id="ISO712" type="standard" suppress_identifier="true">
+            <formattedref><em>Cereals and cereal products</em>. International Organization for Standardization.</formattedref>
             <title format="text/plain">Cereals or cereal products</title>
             <title type="main" format="text/plain">Cereals and cereal products</title>
-            <docidentifier type="ISO">ISO\u00a0712</docidentifier>
+            <docidentifier type="ISO">ISO 712</docidentifier>
             <contributor>
-               <role type="publisher"/>
-               <organization>
-                  <name>International Organization for Standardization</name>
-               </organization>
+              <role type="publisher"/>
+              <organization>
+                <name>International Organization for Standardization</name>
+              </organization>
             </contributor>
-         </bibitem>
-         <bibitem id="ref1" suppress_identifier="true">
-            <formattedref format="application/x-isodoc+xml">
-               <smallcap>Standard No I.C.C 167</smallcap>
-               .
-               <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em>
-               (see
-               <link target="http://www.icc.or.at" id="_"/>
-               <semx element="link" source="_">
-                  <fmt-link target="http://www.icc.or.at"/>
-               </semx>
-               )
-            </formattedref>
+          </bibitem>
+          <bibitem id="ref1" suppress_identifier="true">
+            <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>. <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target="http://www.icc.or.at" id="_"/><semx element="link" source="_"><fmt-link target="http://www.icc.or.at"/></semx>)</formattedref>
             <docidentifier type="ICC">ICC/167</docidentifier>
-         </bibitem>
-      </references>
+          </bibitem>
+        </references>
     PRESXML
     html = <<~OUTPUT
       #{HTML_HDR}
@@ -846,9 +810,8 @@ OUTPUT
                  (including any amendments) applies.
                </p>
                <p id='ISO712' class='NormRef'>
-                 International Organization for Standardization.
                  <i>Cereals and cereal products</i>
-                 .
+                 . International Organization for Standardization.
                </p>
                <p id='ref1' class='NormRef'>
                  <span style='font-variant:small-caps;'>Standard No I.C.C 167</span>
@@ -918,190 +881,130 @@ OUTPUT
             </iso-standard>
     INPUT
     presxml = <<~PRESXML
-      <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
+        <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
           <title id="_5">Normative References</title>
           <fmt-title depth="1" id="_11">
-             <span class="fmt-caption-label">
-                <semx element="autonum" source="_normative_references">1</semx>
-                <span class="fmt-clause-delim">.</span>
-             </span>
-             <span class="fmt-caption-delim">
-                <tab/>
-             </span>
-             <semx element="title" source="_5">Normative References</semx>
+            <span class="fmt-caption-label">
+              <semx element="autonum" source="_normative_references">1</semx>
+              <span class="fmt-clause-delim">.</span>
+            </span>
+            <span class="fmt-caption-delim">
+              <tab/>
+            </span>
+            <semx element="title" source="_5">Normative References</semx>
           </fmt-title>
           <fmt-xref-label>
-             <span class="fmt-element-name">Clause</span>
-             <semx element="autonum" source="_normative_references">1</semx>
+            <span class="fmt-element-name">Clause</span>
+            <semx element="autonum" source="_normative_references">1</semx>
           </fmt-xref-label>
           <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
           <bibitem id="ISO712" type="standard">
-             <biblio-tag>
-                [ISO/IEC\u00a0Guide\u00a099:2007], ISO/IEC\u00a0Guide\u00a099:2007
-                <fn reference="1" id="_1" original-reference="1" target="_6">
-                   <p original-id="_">Also known as JCGM 200</p>
-                   <fmt-fn-label>
-                      <span class="fmt-caption-label">
-                         <sup>
-                            <semx element="autonum" source="_1">1</semx>
-                         </sup>
-                      </span>
-                   </fmt-fn-label>
-                </fn>
-                ,
-             </biblio-tag>
-             <formattedref>
-                International Organization for Standardization and International Electrotechnical Commission.
-                <em>International vocabulary of metrology\u2009—\u2009Basic and general concepts and associated terms (VIM)</em>
-                . First edition. 2007.
-                <fmt-link target="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</fmt-link>
-                .
-             </formattedref>
-             <title type="title-intro" format="text/plain" language="en" script="Latn">International vocabulary of metrology</title>
-             <title type="title-main" format="text/plain" language="en" script="Latn">Basic and general concepts and associated terms (VIM)</title>
-             <title type="main" format="text/plain" language="en" script="Latn">International vocabulary of metrology\u2009—\u2009Basic and general concepts and associated terms (VIM)</title>
-             <uri type="src">https://www.iso.org/standard/45324.html</uri>
-             <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>
-             <uri type="rss">https://www.iso.org/contents/data/standard/04/53/45324.detail.rss</uri>
-             <uri type="pub">https://isotc.iso.org/livelink/livelink/Open/8389141</uri>
-             <docidentifier type="ISO" primary="true">ISO/IEC\u00a0Guide\u00a099:2007</docidentifier>
-             <docidentifier type="metanorma">[ISO/IEC\u00a0Guide\u00a099:2007]</docidentifier>
-             <docidentifier type="URN">URN\u00a0urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
-             <docidentifier scope="biblio-tag">ISO/IEC\u00a0Guide\u00a099:2007</docidentifier>
-             <docnumber>99</docnumber>
-             <date type="published">
-                <on>2007-12</on>
-             </date>
-             <contributor>
-                <role type="publisher"/>
-                <organization>
-                   <name>International Organization for Standardization</name>
-                   <abbreviation>ISO</abbreviation>
-                   <uri>www.iso.org</uri>
-                </organization>
-             </contributor>
-             <contributor>
-                <role type="publisher"/>
-                <organization>
-                   <name>International Electrotechnical Commission</name>
-                   <abbreviation>IEC</abbreviation>
-                   <uri>www.iec.ch</uri>
-                </organization>
-             </contributor>
-             <edition>1</edition>
-             <language>en</language>
-             <script>Latn</script>
+            <biblio-tag>[ISO/IEC Guide 99:2007], ISO/IEC Guide 99:2007<fn reference="1" id="_1" original-reference="1" target="_6"><p original-id="_">Also known as JCGM 200</p><fmt-fn-label><span class="fmt-caption-label"><sup><semx element="autonum" source="_1">1</semx></sup>
+      </span>
+      </fmt-fn-label>
+      </fn>, </biblio-tag>
+            <formattedref><em>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</em>. Report no. 99. Version 1. International Organization for Standardization; International Electrotechnical Commission, 2007. Available from: https://www.iso.org/standard/45324.html.</formattedref>
+            <title type="title-intro" format="text/plain" language="en" script="Latn">International vocabulary of metrology</title>
+            <title type="title-main" format="text/plain" language="en" script="Latn">Basic and general concepts and associated terms (VIM)</title>
+            <title type="main" format="text/plain" language="en" script="Latn">International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</title>
+            <uri type="src">https://www.iso.org/standard/45324.html</uri>
+            <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>
+            <uri type="rss">https://www.iso.org/contents/data/standard/04/53/45324.detail.rss</uri>
+            <uri type="pub">https://isotc.iso.org/livelink/livelink/Open/8389141</uri>
+            <docidentifier type="ISO" primary="true">ISO/IEC Guide 99:2007</docidentifier>
+            <docidentifier type="metanorma">[ISO/IEC Guide 99:2007]</docidentifier>
+            <docidentifier type="URN">URN urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
+            <docidentifier scope="biblio-tag">ISO/IEC Guide 99:2007</docidentifier>
+            <docnumber>99</docnumber>
+            <date type="published">
+              <on>2007-12</on>
+            </date>
+            <contributor>
+              <role type="publisher"/>
+              <organization>
+                <name>International Organization for Standardization</name>
+                <abbreviation>ISO</abbreviation>
+                <uri>www.iso.org</uri>
+              </organization>
+            </contributor>
+            <contributor>
+              <role type="publisher"/>
+              <organization>
+                <name>International Electrotechnical Commission</name>
+                <abbreviation>IEC</abbreviation>
+                <uri>www.iec.ch</uri>
+              </organization>
+            </contributor>
+            <edition>1</edition>
+            <language>en</language>
+            <script>Latn</script>
           </bibitem>
           <bibitem id="ISO713" type="standard">
-             <biblio-tag>
-                [ISO/IEC\u00a0Guide\u00a099:2007], ISO/IEC\u00a0Guide\u00a099:2007
-                <fn reference="2" id="_2" original-reference="2" target="_7">
-                   <p original-id="_">
-                      Also known as JCGM 200 (
-                      <link target="https://www.iso.org/" id="_8"/>
-                      <semx element="link" source="_8">
-                         <fmt-link target="https://www.iso.org/"/>
-                      </semx>
-                      )
-                   </p>
-                   <fmt-fn-label>
-                      <span class="fmt-caption-label">
-                         <sup>
-                            <semx element="autonum" source="_2">2</semx>
-                         </sup>
-                      </span>
-                   </fmt-fn-label>
-                </fn>
-                ,
-             </biblio-tag>
-             <formattedref>
-                International Organization for Standardization and International Electrotechnical Commission.
-                <em>Another title</em>
-                . First edition. 2007.
-             </formattedref>
-             <title type="title-main" format="text/plain" language="en" script="Latn">Another title</title>
-             <title type="main" format="text/plain" language="en" script="Latn">Another title</title>
-             <docidentifier type="ISO" primary="true">ISO/IEC\u00a0Guide\u00a099:2007</docidentifier>
-             <docidentifier type="metanorma">[ISO/IEC\u00a0Guide\u00a099:2007]</docidentifier>
-             <docidentifier type="URN">URN\u00a0urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
-             <docidentifier scope="biblio-tag">ISO/IEC\u00a0Guide\u00a099:2007</docidentifier>
-             <docnumber>99</docnumber>
-             <date type="published">
-                <on>2007-12</on>
-             </date>
-             <contributor>
-                <role type="publisher"/>
-                <organization>
-                   <name>International Organization for Standardization</name>
-                   <abbreviation>ISO</abbreviation>
-                   <uri>www.iso.org</uri>
-                </organization>
-             </contributor>
-             <contributor>
-                <role type="publisher"/>
-                <organization>
-                   <name>International Electrotechnical Commission</name>
-                   <abbreviation>IEC</abbreviation>
-                   <uri>www.iec.ch</uri>
-                </organization>
-             </contributor>
-             <edition>1</edition>
-             <language>en</language>
-             <script>Latn</script>
+            <biblio-tag>[ISO/IEC Guide 99:2007], ISO/IEC Guide 99:2007<fn reference="2" id="_2" original-reference="2" target="_7"><p original-id="_">Also known as JCGM 200 (<link target="https://www.iso.org/" id="_8"/><semx element="link" source="_8"><fmt-link target="https://www.iso.org/"/></semx>)</p>
+      <fmt-fn-label><span class="fmt-caption-label"><sup><semx element="autonum" source="_2">2</semx></sup>
+      </span>
+      </fmt-fn-label>
+      </fn>, </biblio-tag>
+            <formattedref><em>Another title</em>. Report no. 99. Version 1. International Organization for Standardization; International Electrotechnical Commission, 2007.</formattedref>
+            <title type="title-main" format="text/plain" language="en" script="Latn">Another title</title>
+            <title type="main" format="text/plain" language="en" script="Latn">Another title</title>
+            <docidentifier type="ISO" primary="true">ISO/IEC Guide 99:2007</docidentifier>
+            <docidentifier type="metanorma">[ISO/IEC Guide 99:2007]</docidentifier>
+            <docidentifier type="URN">URN urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
+            <docidentifier scope="biblio-tag">ISO/IEC Guide 99:2007</docidentifier>
+            <docnumber>99</docnumber>
+            <date type="published">
+              <on>2007-12</on>
+            </date>
+            <contributor>
+              <role type="publisher"/>
+              <organization>
+                <name>International Organization for Standardization</name>
+                <abbreviation>ISO</abbreviation>
+                <uri>www.iso.org</uri>
+              </organization>
+            </contributor>
+            <contributor>
+              <role type="publisher"/>
+              <organization>
+                <name>International Electrotechnical Commission</name>
+                <abbreviation>IEC</abbreviation>
+                <uri>www.iec.ch</uri>
+              </organization>
+            </contributor>
+            <edition>1</edition>
+            <language>en</language>
+            <script>Latn</script>
           </bibitem>
-       </references>
+        </references>
     PRESXML
     html = <<~OUTPUT
-              <body lang="en" xml:lang="en">
-            <div class="title-section">
-              <p> </p>
-            </div>
-            <br/>
-            <div class="prefatory-section">
-              <p> </p>
-            </div>
-            <br/>
-            <div class="main-section">
-              <br/>
-              <div id="_" class="TOC">
-                <h1 class="IntroTitle">Table of contents</h1>
-              </div>
-                <div>
-                   <h1>1<span class="fmt-clause-delim">.</span>\u00a0 Normative References</h1>
-                   <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-                   <p id="ISO712" class="NormRef">
-                      [ISO/IEC\u00a0Guide\u00a099:2007], ISO/IEC\u00a0Guide\u00a099:2007
-                      <a class="FootnoteRef" href="#fn:_6">
-                         <sup>1</sup>
-                      </a>
-                      , International Organization for Standardization and International Electrotechnical Commission.
-                      <i>International vocabulary of metrology\u2009—\u2009Basic and general concepts and associated terms (VIM)</i>
-                      . First edition. 2007.
-                      <a href="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</a>
-                      .
-                   </p>
-                   <p id="ISO713" class="NormRef">
-                      [ISO/IEC\u00a0Guide\u00a099:2007], ISO/IEC\u00a0Guide\u00a099:2007
-                      <a class="FootnoteRef" href="#fn:_7">
-                         <sup>2</sup>
-                      </a>
-                      , International Organization for Standardization and International Electrotechnical Commission.
-                      <i>Another title</i>
-                      . First edition. 2007.
-                   </p>
-                </div>
-                <aside id="fn:_6" class="footnote">
-                   <p id="_">Also known as JCGM 200</p>
-                </aside>
-                <aside id="fn:_7" class="footnote">
-                   <p id="_">
-                      Also known as JCGM 200 (
-                      <a href="https://www.iso.org/">https://www.iso.org/</a>
-                      )
-                   </p>
-                </aside>
-             </div>
-          </body>
+                  <div class="title-section">
+                    <p>&#xA0;</p>
+                  </div>
+                  <br />
+                  <div class="prefatory-section">
+                    <p>&#xA0;</p>
+                  </div>
+                  <br />
+                  <div class="main-section">
+                    <br />
+                    <div id="_" class="TOC">
+                      <h1 class="IntroTitle">Table of contents</h1>
+                    </div>
+                    <div>
+                      <h1>1<span class="fmt-clause-delim">.</span>&#xA0; Normative References</h1>
+                      <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+                      <p id="ISO712" class="NormRef">[ISO/IEC&#xA0;Guide&#xA0;99:2007], ISO/IEC&#xA0;Guide&#xA0;99:2007<a class="FootnoteRef" href="#fn:_6"><sup>1</sup></a>, <i>International vocabulary of metrology&#x2009;&#x2014;&#x2009;Basic and general concepts and associated terms (VIM)</i>. Report no. 99. Version 1. International Organization for Standardization; International Electrotechnical Commission, 2007. Available from: https://www.iso.org/standard/45324.html.</p>
+                      <p id="ISO713" class="NormRef">[ISO/IEC&#xA0;Guide&#xA0;99:2007], ISO/IEC&#xA0;Guide&#xA0;99:2007<a class="FootnoteRef" href="#fn:_7"><sup>2</sup></a>, <i>Another title</i>. Report no. 99. Version 1. International Organization for Standardization; International Electrotechnical Commission, 2007.</p>
+                    </div>
+                    <aside id="fn:_6" class="footnote">
+                      <p id="_">Also known as JCGM 200</p>
+                    </aside>
+                    <aside id="fn:_7" class="footnote">
+                      <p id="_">Also known as JCGM 200 (<a href="https://www.iso.org/">https://www.iso.org/</a>)</p>
+                    </aside>
+                  </div>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)

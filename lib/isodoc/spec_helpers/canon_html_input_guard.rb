@@ -73,6 +73,21 @@ module IsoDoc
         super
       end
 
+      # This prepend's frames sit between the spec and canon's matcher;
+      # canon's rebaseliner resolves its rewrite target from the first
+      # non-rspec/non-canon frame, which would land here. Drop these
+      # frames so resolution reaches the actual spec call site.
+      def attempt_rebaseline
+        if Canon::Rebaseliner.enabled? && @rebaseliner_caller
+          @rebaseliner_caller = @rebaseliner_caller.drop_while do |loc|
+            (loc.absolute_path || loc.path).to_s.end_with?(
+              "canon_html_input_guard.rb",
+            )
+          end
+        end
+        super
+      end
+
       private
 
       # Canon's Comparison already understands DocumentFragment nodes,

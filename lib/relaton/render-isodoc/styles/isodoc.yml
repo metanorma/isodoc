@@ -1,0 +1,23 @@
+# The IsoDoc presentation citation style: the author-date reference
+# composition with (a) markup delimiters instead of plain-text
+# emphasis — IsoDoc references embed into PresentationXML, where
+# emphasis is an element (<em>), not the plain-text convention — and
+# (b) no authoritative identifier in the reference composition: the
+# identifier renders as the biblio-tag ahead of the formattedref
+# ("ISO 712, _Cereals_ ..."), never duplicated inside it. Patents
+# keep theirs: the patent number is the citation itself.
+name: "IsoDoc (ISO 690, presentation markup)"
+extends: author-date
+templates:
+  titleOpen: "<em>"
+  titleClose: "</em>"
+  reference: "{{creator}}. {{title}}. {{medium}}. {{edition}}. {{series}}. {{production}}, {{date}}. {{location}}."
+perType:
+  - type: monograph
+    template: "{{creator}}. {{title}}. {{edition}}. {{series}}. {{production}}, {{date}}. {{location}}."
+  - type: report
+    template: "{{creator}}. {{title}}. {{numeration}}. {{edition}}. {{series}}. {{production}}, {{date}}. {{location}}."
+  - type: continuing
+    template: "{{creator}}. {{title}}. {{componentPart}}. {{medium}}. {{edition}}. {{production}}, {{date}}. {{numeration}}. {{location}}."
+  - type: online
+    template: "{{creator}}. {{title}}. {{date}}. {{location}}."
