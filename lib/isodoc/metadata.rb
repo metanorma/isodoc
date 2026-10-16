@@ -141,12 +141,25 @@ module IsoDoc
       set(:edition_display,
           isoxml.at(ns("//bibdata/edition#{currlang}"))&.text)
       set(:docyear, isoxml.at(ns("//bibdata/copyright/from"))&.text)
-      set(:draft, isoxml.at(ns("//bibdata/version"))&.text)
-      revdate = isoxml.at(ns("//bibdata/date[@type='updated']/on"))&.text
+      ver = isoxml.at(ns("//bibdata/version"))
+      set(:draft, draft_from_version(ver))
+      revdate = ver&.at(ns("./revision-date"))&.text ||
+        isoxml.at(ns("//bibdata/date[@type='updated']/on"))&.text
       set(:revdate, revdate)
       set(:revdate_monthyear, monthyr(revdate))
       set(:draftinfo,
           draftinfo(get[:draft], get[:revdate]))
+    end
+
+    # <version> carries either its draft directly (legacy hand-built
+    # documents) or revision-date/draft children (the semantic
+    # pipeline's serialization).
+    def draft_from_version(ver)
+      return nil if ver.nil?
+
+      draft = ver.at(ns("./draft"))&.text
+      draft ||= ver.children.select(&:text?).join.strip
+      draft&.empty? ? nil : draft
     end
 
     def title(isoxml, _out)
