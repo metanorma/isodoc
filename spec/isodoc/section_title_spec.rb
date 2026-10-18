@@ -787,240 +787,118 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     word = <<~OUTPUT
-      <html
-        xmlns:epub="http://www.idpf.org/2007/ops"
-        xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
-        xmlns:w="urn:schemas-microsoft-com:office:word"
-        xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
-        lang="en">
-       <head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"></meta><style></style></head>
-            <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-                <p>\u00a0</p>
-             </div>
-             <p class="section-break">
-                <br clear="all" class="section"/>
-             </p>
-             <div class="WordSection2">
-                <div class="authority">
-                   <div class="boilerplate-copyright">
-                      <div id="_">
-                         <h1>Copyright</h1>
-                      </div>
-                   </div>
-                   <div class="boilerplate-license">
-                      <div id="_">
-                         <h1>License</h1>
-                      </div>
-                   </div>
-                   <div class="boilerplate-legal">
-                      <div id="_">
-                         <h1>Legal</h1>
-                      </div>
-                   </div>
-                   <div class="boilerplate-feedback">
-                      <div id="_">
-                         <h1>Feedback</h1>
-                      </div>
-                   </div>
-                </div>
-                <p class="page-break">
-                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                </p>
-                <div id="_" class="TOC">
-                   <p class="zzContents">Table of contents</p>
-                </div>
-                <p class="page-break">
-                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                </p>
-                <div id="_">
-                   <h1 class="AbstractTitle">Abstract</h1>
-                </div>
-                <p class="page-break">
-                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                </p>
-                <div id="_">
-                   <h1 class="ForewordTitle">Foreword</h1>
-                   <p id="A">This is a preamble</p>
-                </div>
-                <p class="page-break">
-                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                </p>
-                <div class="Section3" id="B">
-                   <h1 class="IntroTitle">Introduction</h1>
-                   <div id="C">
-                      <h2>Introduction Subsection</h2>
-                   </div>
-                </div>
-                <p class="page-break">
-                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                </p>
-                <div id="B1" class="Section3">
-                   <h1 class="IntroTitle">Dedication</h1>
-                </div>
-                <p class="page-break">
-                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                </p>
-                <div id="B2" class="Section3">
-                   <h1 class="IntroTitle">Note to reader</h1>
-                </div>
-                <p class="page-break">
-                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                </p>
-                <div class="Section3" id="_">
-                   <h1 class="IntroTitle">Acknowledgements</h1>
-                </div>
-                <p class="page-break">
-                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                </p>
-                <div class="Section3" id="_">
-                   <h1 class="IntroTitle">Executive Summary</h1>
-                </div>
-                <p>\u00a0</p>
-             </div>
-             <p class="section-break">
-                <br clear="all" class="section"/>
-             </p>
-             <div class="WordSection3">
-                <div id="NN1" class="Note">
-                   <p class="Note">
-                      <span class="note_label">
-                         NOTE
-                         <span style="mso-tab-count:1">\u00a0 </span>
-                      </span>
-                      Initial note
-                   </p>
-                </div>
-                <div id="NN2" class="Admonition">
-                   <p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
-                   <p>Initial admonition</p>
-                </div>
-                <div id="D">
-                   <h1>
-                      1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>
-                      Scope
-                   </h1>
-                   <p id="E">Text</p>
-                </div>
-                <div>
-                   <h1>
-                      2<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>
-                      Normative References
-                   </h1>
-                </div>
-                <div id="H">
-                   <h1>
-                      3<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>
-                      Terms, Definitions, Symbols and Abbreviated Terms
-                   </h1>
-                   <div id="I">
-                      <h2>
-                         3.1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>
-                         Normal Terms
-                      </h2>
-                      <p class="TermNum" id="J">3.1.1<span class="fmt-clause-delim">.</span></p>
-                      <p class="Terms" style="text-align:left;">
-                         <b>Term2</b>
-                      </p>
-                   </div>
-                   <div id="K">
-                      <h2>
-                         3.2<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>
-                         Symbols
-                      </h2>
-                      <div align="left">
-                         <table class="dl">
-                            <tr>
-                               <td valign="top" align="left">
-                                  <p align="left" style="margin-left:0pt;text-align:left;">Symbol</p>
-                               </td>
-                               <td valign="top">Definition</td>
-                            </tr>
-                         </table>
-                      </div>
-                   </div>
-                </div>
-                <div id="L" class="Symbols">
-                   <h1>
-                      4<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>
-                      Symbols and abbreviated terms
-                   </h1>
-                   <div align="left">
-                      <table class="dl">
-                         <tr>
-                            <td valign="top" align="left">
-                               <p align="left" style="margin-left:0pt;text-align:left;">Symbol</p>
-                            </td>
-                            <td valign="top">Definition</td>
-                         </tr>
-                      </table>
-                   </div>
-                </div>
-                <div id="M">
-                   <h1>
-                      5<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>
-                      Clause 4
-                   </h1>
-                   <div id="N">
-                      <h2>
-                         5.1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>
-                         Introduction
-                      </h2>
-                   </div>
-                   <div id="O">
-                      <h2>
-                         5.2<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>
-                         Clause 4.2
-                      </h2>
-                   </div>
-                   <div id="O1">
-                      <h2>5.3<span class="fmt-clause-delim">.</span></h2>
-                   </div>
-                </div>
-                <p class="page-break">
-                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                </p>
-                <div id="P" class="Section3">
-                   <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
-                   <p style="display:none;" class="variant-title-toc">Annex A<span style="mso-tab-count:1">\u00a0 </span>Annex</p>
-                   <div id="Q">
-                      <h2>A.1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Annex A.1</h2>
-                      <div id="Q1">
-                         <h3>A.1.1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Annex A.1a</h3>
-                      </div>
-                      <div>
-                         <h3 class="Section3">A.1.2<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">\u00a0 </span>Annex Bibliography</h3>
-                      </div>
-                   </div>
-                </div>
-                <p class="page-break">
-                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                </p>
-                <div id="P1" class="Section3">
-                <p style="display:none;" class="variant-title-toc">Annex B</p>
-                   <h1 class="Annex"><b>Annex B</b><br/>(normative)</h1>
-                </div>
-                <p class="page-break">
-                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                </p>
-                <div>
-                   <h1 class="Section3">Bibliography</h1>
-                   <div>
-                      <h2 class="Section3">Bibliography Subsection</h2>
-                   </div>
-                </div>
-                <p class="page-break">
-                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                </p>
-                <div class="Section3" id="U1">
-                   <h1 class="IntroTitle">Postface 1</h1>
-                </div>
-                <div class="Section3" id="U2">
-                   <h1 class="IntroTitle">Postface 2</h1>
-                </div>
-             </div>
-          </body>
-       </html>
+      <html xmlns:epub="http://www.idpf.org/2007/ops" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><style><!--
+
+
+      ol
+              {margin-bottom:0cm;}
+      ul
+              {margin-bottom:0cm;}
+
+      table.MsoISOTable tr
+          {page-break-inside:avoid;}
+
+      td { page-break-inside:avoid; }
+      tr { page-break-after:avoid; }
+
+      table.MsoISOTableBig tr
+          {page-break-inside:auto;}
+
+      table.MsoISOTableBig td
+          {page-break-inside:auto;}
+
+      span.stem
+          {font-family:"Cambria Math",serif;
+          mso-ascii-font-family:"Cambria Math";
+          font-style:italic;}
+
+      dt
+          {page-break-inside:avoid;
+          page-break-after:avoid}
+
+      br.section
+          {page-break-before:always;
+          mso-break-type:section-break;}
+      br.pagebreak
+          {page-break-before:always;
+          mso-special-character:line-break;}
+
+      span.addition {
+              color: blue;
+      }
+      span.deletion {
+              color: red;
+              text-decoration: line-through;
+      }
+
+      table.rouge-line-table {
+        border:none;
+        mso-border-alt:none;
+        mso-border-insideh:none;
+        mso-border-insidev:none;
+      }
+
+      td.rouge-code p.Sourcecode {
+        margin: 0px;
+      }
+
+      div.table_container {
+        margin-bottom: 14pt;
+      }
+
+      --></style></head><body lang="EN-US" link="blue" vlink="#954F72"><div class="WordSection1"><p> </p></div><p class="section-break"><br clear="all" class="section"/></p><div class="WordSection2"><div class="authority">
+        <div class="boilerplate-copyright">
+        <div id="_"><h1>Copyright</h1>
+
+        </div>
+        </div>
+        <div class="boilerplate-license">
+        <div id="_"><h1>License</h1>
+
+        </div>
+        </div>
+        <div class="boilerplate-legal">
+        <div id="_"><h1>Legal</h1>
+
+        </div>
+        </div>
+        <div class="boilerplate-feedback">
+        <div id="_"><h1>Feedback</h1>
+
+        </div>
+        </div>
+      </div><p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="_" class="TOC"><p class="zzContents">Table of contents</p></div><p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="_"><h1 class="AbstractTitle">Abstract</h1></div><p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="_"><h1 class="ForewordTitle">Foreword</h1><p id="A">This is a preamble</p></div><p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div class="Section3" id="B"><h1 class="IntroTitle">Introduction</h1><div id="C"><h2>Introduction Subsection</h2>
+
+       </div></div><p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="B1" class="Section3"><h1 class="IntroTitle">Dedication</h1></div><p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="B2" class="Section3"><h1 class="IntroTitle">Note to reader</h1></div><p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div class="Section3" id="_"><h1 class="IntroTitle">Acknowledgements</h1></div><p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div class="Section3" id="_"><h1 class="IntroTitle">Executive Summary</h1></div><p> </p></div><p class="section-break"><br clear="all" class="section"/></p><div class="WordSection3"><div id="NN1" class="Note"><p class="Note"><span class="note_label">NOTE<span style="mso-tab-count:1">  </span></span>Initial note</p></div><div id="NN2" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
+
+        <p>Initial admonition</p></div><div id="D"><h1>1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">  </span>Scope</h1><p id="E">Text</p></div><div><h1>2<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">  </span>Normative References</h1>
+
+       </div><div id="H"><h1>3<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">  </span>Terms, Definitions, Symbols and Abbreviated Terms</h1><div id="I"><h2>3.1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">  </span>Normal Terms</h2>
+
+         <p class="TermNum" id="J">3.1.1<span class="fmt-clause-delim">.</span></p>
+         <p class="Terms" style="text-align:left;"><b>Term2</b></p>
+
+       </div><div id="K"><h2>3.2<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">  </span>Symbols</h2>
+         <div align="left"><table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">Symbol</p></td><td valign="top">Definition</td></tr></table></div>
+       </div></div><div id="L" class="Symbols"><h1>4<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">  </span>Symbols and abbreviated terms</h1><div align="left"><table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">Symbol</p></td><td valign="top">Definition</td></tr></table></div></div><div id="M"><h1>5<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">  </span>Clause 4</h1><div id="N"><h2>5.1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">  </span>Introduction</h2>
+
+       </div><div id="O"><h2>5.2<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">  </span>Clause 4.2</h2>
+
+       </div><div id="O1"><h2>5.3<span class="fmt-clause-delim">.</span></h2>
+       </div></div><p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="P" class="Section3"><h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1><p style="display:none;" class="variant-title-toc">Annex A<span style="mso-tab-count:1">  </span>Annex</p><div id="Q"><h2>A.1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">  </span>Annex A.1</h2>
+
+         <div id="Q1"><h3>A.1.1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">  </span>Annex A.1a</h3>
+
+         </div>
+         <div><h3 class="Section3">A.1.2<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">  </span>Annex Bibliography</h3>
+
+        </div>
+       </div></div><p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="P1" class="Section3"><p style="display:none;" class="variant-title-toc">Annex B</p><h1 class="Annex"><b>Annex B</b><br/>(normative)</h1></div><p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div><h1 class="Section3">Bibliography</h1>
+
+         <div><h2 class="Section3">Bibliography Subsection</h2>
+
+       </div>
+       </div><p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div class="Section3" id="U1"><h1 class="IntroTitle">Postface 1</h1></div><div class="Section3" id="U2"><h1 class="IntroTitle">Postface 2</h1></div></div></body></html>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)

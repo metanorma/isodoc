@@ -62,60 +62,70 @@ RSpec.describe IsoDoc do
       </html>
     OUTPUT
     word = <<~OUTPUT
-      <html
-         xmlns:epub="http://www.idpf.org/2007/ops"
-         xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
-         xmlns:w="urn:schemas-microsoft-com:office:word"
-         xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
-         lang="en">
-        <head> <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/> <style></style> </head>
-        <body lang='EN-US' link='blue' vlink='#954F72'>
-          <div class='WordSection1'>
-            <p>\u00a0</p>
-          </div>
-          <p class="section-break">
-            <br clear='all' class='section'/>
-          </p>
-          <div class='WordSection2'>
-            <p class="page-break">
-              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-            </p>
-            <div id='A'>
-              <h1 class='AbstractTitle'>abstract</h1>
-            </div>
-            <p class="page-break">
-              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-            </p>
-            <div class='Section3' id='B'>
-              <h1 class='IntroTitle'>introduction</h1>
-            </div>
-            <div id="C" class="Note">note</div>
-            <p>\u00a0</p>
-          </div>
-          <p class="section-break">
-            <br clear='all' class='section'/>
-          </p>
-          <div class='WordSection3'>
-            <div id='M'>
-              <h1>Clause 4</h1>
-              <div id='N'>
-                <h2>Introduction</h2>
-              </div>
-              <div id='O'>
-                <span class='zzMoveToFollowing inline-header'>
-                  <b>
-                    Clause 4.2
-                    <span style='mso-tab-count:1'>\u00a0 </span>
-                  </b>
-                </span>
-              </div>
-            </div>
-            <div id='L' class='Admonition'>
-              <p>admonition</p>
-            </div>
-          </div>
-        </body>
-      </html>
+      <html xmlns:epub="http://www.idpf.org/2007/ops" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><style><!--
+
+
+      ol
+              {margin-bottom:0cm;}
+      ul
+              {margin-bottom:0cm;}
+
+      table.MsoISOTable tr
+          {page-break-inside:avoid;}
+
+      td { page-break-inside:avoid; }
+      tr { page-break-after:avoid; }
+
+      table.MsoISOTableBig tr
+          {page-break-inside:auto;}
+
+      table.MsoISOTableBig td
+          {page-break-inside:auto;}
+
+      span.stem
+          {font-family:"Cambria Math",serif;
+          mso-ascii-font-family:"Cambria Math";
+          font-style:italic;}
+
+      dt
+          {page-break-inside:avoid;
+          page-break-after:avoid}
+
+      br.section
+          {page-break-before:always;
+          mso-break-type:section-break;}
+      br.pagebreak
+          {page-break-before:always;
+          mso-special-character:line-break;}
+
+      span.addition {
+              color: blue;
+      }
+      span.deletion {
+              color: red;
+              text-decoration: line-through;
+      }
+
+      table.rouge-line-table {
+        border:none;
+        mso-border-alt:none;
+        mso-border-insideh:none;
+        mso-border-insidev:none;
+      }
+
+      td.rouge-code p.Sourcecode {
+        margin: 0px;
+      }
+
+      div.table_container {
+        margin-bottom: 14pt;
+      }
+
+      --></style></head><body lang="EN-US" link="blue" vlink="#954F72"><div class="WordSection1"><p> </p></div><p class="section-break"><br clear="all" class="section"/></p><div class="WordSection2"><p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="A"><h1 class="AbstractTitle">abstract</h1></div><p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div class="Section3" id="B"><h1 class="IntroTitle">introduction</h1></div><div id="C" class="Note">note</div><p> </p></div><p class="section-break"><br clear="all" class="section"/></p><div class="WordSection3"><div id="M"><h1>Clause 4</h1><div id="N"><h2>Introduction</h2>
+
+       </div><div id="O"><span class="zzMoveToFollowing inline-header"><b>Clause 4.2<span style="mso-tab-count:1">  </span></b></span>
+
+       </div></div><div id="L" class="Admonition"><p>admonition</p></div></div></body></html>
     OUTPUT
     expect(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true)))
