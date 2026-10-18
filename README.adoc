@@ -85,3 +85,18 @@ NOTE: In the HTML stylesheets specific to standards, the Cover page and Intro pa
 This gem relies on https://github.com/metanorma/html2doc[html2doc] to generate Microsoft Word documents.
 
 Please see https://github.com/metanorma/html2doc#converting-document-output-to-native-word-docx[this post-processing procedure] to convert output into a native-`docx` document.
+
+== Stylesheet compilation and `sassc-embedded`
+
+The `.scss` stylesheets under `lib/` are **precompiled to `.css` when this gem is packaged**, not at consumer render time:
+
+* `lib/isodoc/gem_tasks.rb` enhances the standard `rake build` with a `build_scss` step: every `lib/**/*.scss` is compiled to a sibling `.css` (using `sassc-embedded`), the compiled files are packed into the released `.gem`, and are then removed from the git working tree. Compiled stylesheets are never committed.
+
+At runtime, `lib/isodoc/css.rb#precompiled_style_or_original` prefers the sibling `.css` shipped inside the installed gem. **Consumers of released isodoc gems therefore never load `sassc-embedded`** — which is why the gemspec does not declare it.
+
+The runtime SCSS compilation path (`css.rb#convert_scss`, which `require`s `sassc-embedded`) only runs when the sibling `.css` is absent, which is the case when:
+
+* working from a git checkout of this repository (no compiled `.css` on disk), or
+* a downstream project resolves isodoc from git (e.g. `gem "isodoc", github: "metanorma/isodoc"`): bundler installs the gemspec's file list, which carries only `.scss`
+
+NOTE: Downstream maintainers: if your Gemfile pins isodoc from git, your HTML renders will `require "sassc-embedded"` at runtime even though released-gem consumers never do. A downstream `gem "sassc-embedded"` line in that setup is load-bearing, not dead weight — and it becomes droppable once you revert to a released isodoc gem.
