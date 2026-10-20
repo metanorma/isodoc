@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require "sassc-embedded"
-require "isodoc/sassc_importer"
+# sassc-embedded / sassc_importer load lazily in load_scss_paths: every
+# flavor Rakefile requires this file, but only scss compilation needs the
+# (undeclared) sassc dependency.
 require "rake/clean"
 require "tmpdir"
 
