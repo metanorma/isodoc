@@ -100,3 +100,5 @@ The runtime SCSS compilation path (`css.rb#convert_scss`, which `require`s `sass
 * a downstream project resolves isodoc from git (e.g. `gem "isodoc", github: "metanorma/isodoc"`): bundler installs the gemspec's file list, which carries only `.scss`
 
 NOTE: Downstream maintainers: if your Gemfile pins isodoc from git, your HTML renders will `require "sassc-embedded"` at runtime even though released-gem consumers never do. A downstream `gem "sassc-embedded"` line in that setup is load-bearing, not dead weight — and it becomes droppable once you revert to a released isodoc gem.
+
+Conversely, **do not declare `sassc-embedded` in this gem's gemspec** — not as a fix, not as a "missing dependency": released-gem consumers never execute that code path, and adding a compilation toolchain as a hard runtime dependency would burden every consumer for an optional path. The requirement belongs to the consumer's Gemfile precisely when the consumer's resolution pulls `.scss` sources.
