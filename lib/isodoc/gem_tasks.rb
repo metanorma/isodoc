@@ -42,7 +42,17 @@ module IsoDoc
         git_cache_compiled_files && puts("Built scss!")
       end
 
+      # `rake release` packages through bundler/gem_tasks (gem build), which
+      # never invokes the Rake build task — a plain CI release cut shipped
+      # scss-only (no sibling .css), so consumers hit the runtime
+      # sassc-embedded require the README promises they never see. Give
+      # release the same precompile + cleanup pairing as build.
       Rake::Task["build"].enhance [:build_scss] do
+        git_rm_compiled_files
+        Rake::Task[:clean].invoke
+      end
+
+      Rake::Task["release"].enhance [:build_scss] do
         git_rm_compiled_files
         Rake::Task[:clean].invoke
       end
