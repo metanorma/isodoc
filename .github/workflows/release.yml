@@ -50,6 +50,7 @@ jobs:
     uses: metanorma/ci/.github/workflows/rubygems-release.yml@main
     with:
       next_version: ${{ github.event.inputs.next_version }}
+      pre_build_command: bundle exec rake build_scss
       # Opt out of the auto-generated GitHub Release notes floor added in
       # metanorma/ci#354. Notes are written by hand at release time; the
       # workflow skips the ensure-release step entirely and the maintainer
