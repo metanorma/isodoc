@@ -73,7 +73,18 @@ module IsoDoc
     def merge_second_preferred1(desgns, term)
       desgns[1..].each(&:remove)
       ret = l10n(desgns.map { |x| to_xml(x) }.join("; "))
-      term.ancestors("fmt-related").empty? and ret = "<p>#{ret}</p>"
+      # Node#ancestors(selector) matches via XPath per ancestor; this runs
+      # per term, so walk parents directly.
+      in_fmt_related = false
+      parent = term.parent
+      while parent.is_a?(Nokogiri::XML::Element)
+        if parent.name == "fmt-related"
+          in_fmt_related = true
+          break
+        end
+        parent = parent.parent
+      end
+      in_fmt_related or ret = "<p>#{ret}</p>"
       ret
     end
 

@@ -86,8 +86,12 @@ module IsoDoc
     end
 
     def annex_delim_override(elem)
+      if instance_variable_defined?(:@annex_delim_override)
+        return @annex_delim_override
+      end
+
       m = elem.document.root.at(ns("//presentation-metadata/annex-delim"))
-      m ? to_xml(m.children) : annex_delim(elem)
+      @annex_delim_override = m ? to_xml(m.children) : annex_delim(elem)
     end
 
     def annex_delim(_elem)

@@ -78,10 +78,16 @@ module IsoDoc
       %w(&#x2014;)
     end
 
+    # Presentation metadata is fixed for the duration of conversion, but
+    # this runs per list item: the whole-document XPath per <ul> is
+    # quadratic on large documents. Memoize per converter instance.
     def ul_label_list_from_metadata(docxml)
+      if instance_variable_defined?(:@ul_label_list_from_metadata)
+        return @ul_label_list_from_metadata
+      end
+
       list = docxml.xpath(ns("//presentation-metadata/ul-label-list"))
-      list.empty? and return nil
-      list.map(&:text)
+      @ul_label_list_from_metadata = list.empty? ? nil : list.map(&:text)
     end
 
     def ul_label(elem)
@@ -92,10 +98,22 @@ module IsoDoc
     end
 
     def ul_label_value(elem)
-      depth = elem.ancestors("ul, ol").size
+      depth = list_nesting_depth(elem)
       val = ul_label_list_from_metadata(elem.document.root) ||
         ul_label_list(elem)
       val[(depth - 1) % val.size]
+    end
+
+    # Walk parents directly: Node#ancestors(selector) runs an XPath match
+    # per ancestor, which is quadratic on deeply nested lists.
+    def list_nesting_depth(elem)
+      depth = 0
+      node = elem.parent
+      while node.is_a?(Nokogiri::XML::Element)
+        depth += 1 if node.name == "ul" || node.name == "ol"
+        node = node.parent
+      end
+      depth
     end
   end
 end

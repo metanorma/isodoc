@@ -1630,3 +1630,36 @@ RSpec.describe IsoDoc do
       XML
   end
 end
+
+RSpec.describe IsoDoc do
+  it "applies ul-label-list presentation metadata across multiple lists" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <presentation-metadata>
+          <ul-label-list>first</ul-label-list>
+          <ul-label-list>second</ul-label-list>
+        </presentation-metadata>
+        <preface>
+          <foreword displayorder="1" id="fwd">
+            <ul id="outer">
+              <li><p id="p1">One</p>
+                <ul id="inner">
+                  <li><p id="p2">Two</p></li>
+                </ul>
+              </li>
+            </ul>
+            <ul id="another">
+              <li><p id="p3">Three</p></li>
+            </ul>
+          </foreword>
+        </preface>
+      </iso-standard>
+    INPUT
+    doc = IsoDoc::PresentationXMLConvert
+      .new({}).convert("test", input, true)
+    labels = Nokogiri::XML(doc)
+      .xpath("//*[local-name()='li']/*[local-name()='fmt-name']/*[local-name()='semx']")
+      .map(&:text)
+    expect(labels).to eq(%w[first second first])
+  end
+end
