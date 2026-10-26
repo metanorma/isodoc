@@ -46,6 +46,10 @@ Gem::Specification.new do |spec|
   spec.add_dependency "relaton-render", "~> 3.0.0.pre.alpha", "< 5"
   spec.add_dependency "roman-numerals"
   spec.add_dependency "rouge", "~> 4.0"
+  # lib/isodoc/css.rb requires sassc-embedded (SassC::Engine) at
+  # SCSS-compile time; without a declared dependency, fresh minimal
+  # bundles crash at populate_css (metanorma/isodoc#862)
+  spec.add_dependency "sassc-embedded"
   spec.add_dependency "thread_safe"
   spec.add_dependency "twitter_cldr", ">= 6.6.0"
   spec.add_dependency "uuidtools"
