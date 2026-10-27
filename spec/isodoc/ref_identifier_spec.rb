@@ -903,7 +903,7 @@ OUTPUT
       </span>
       </fmt-fn-label>
       </fn>, </biblio-tag>
-            <formattedref><em>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</em>. Report no. 99. Version 1. International Organization for Standardization; International Electrotechnical Commission, 2007. Available from: https://www.iso.org/standard/45324.html.</formattedref>
+            <formattedref><em>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</em>. Report no. 99. First edition. International Organization for Standardization; International Electrotechnical Commission, 2007. Available from: https://www.iso.org/standard/45324.html.</formattedref>
             <title type="title-intro" format="text/plain" language="en" script="Latn">International vocabulary of metrology</title>
             <title type="title-main" format="text/plain" language="en" script="Latn">Basic and general concepts and associated terms (VIM)</title>
             <title type="main" format="text/plain" language="en" script="Latn">International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</title>
@@ -945,7 +945,7 @@ OUTPUT
       </span>
       </fmt-fn-label>
       </fn>, </biblio-tag>
-            <formattedref><em>Another title</em>. Report no. 99. Version 1. International Organization for Standardization; International Electrotechnical Commission, 2007.</formattedref>
+            <formattedref><em>Another title</em>. Report no. 99. First edition. International Organization for Standardization; International Electrotechnical Commission, 2007.</formattedref>
             <title type="title-main" format="text/plain" language="en" script="Latn">Another title</title>
             <title type="main" format="text/plain" language="en" script="Latn">Another title</title>
             <docidentifier type="ISO" primary="true">ISO/IEC Guide 99:2007</docidentifier>
@@ -995,8 +995,8 @@ OUTPUT
                     <div>
                       <h1>1<span class="fmt-clause-delim">.</span>&#xA0; Normative References</h1>
                       <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-                      <p id="ISO712" class="NormRef">[ISO/IEC&#xA0;Guide&#xA0;99:2007], ISO/IEC&#xA0;Guide&#xA0;99:2007<a class="FootnoteRef" href="#fn:_6"><sup>1</sup></a>, <i>International vocabulary of metrology&#x2009;&#x2014;&#x2009;Basic and general concepts and associated terms (VIM)</i>. Report no. 99. Version 1. International Organization for Standardization; International Electrotechnical Commission, 2007. Available from: https://www.iso.org/standard/45324.html.</p>
-                      <p id="ISO713" class="NormRef">[ISO/IEC&#xA0;Guide&#xA0;99:2007], ISO/IEC&#xA0;Guide&#xA0;99:2007<a class="FootnoteRef" href="#fn:_7"><sup>2</sup></a>, <i>Another title</i>. Report no. 99. Version 1. International Organization for Standardization; International Electrotechnical Commission, 2007.</p>
+                      <p id="ISO712" class="NormRef">[ISO/IEC&#xA0;Guide&#xA0;99:2007], ISO/IEC&#xA0;Guide&#xA0;99:2007<a class="FootnoteRef" href="#fn:_6"><sup>1</sup></a>, <i>International vocabulary of metrology&#x2009;&#x2014;&#x2009;Basic and general concepts and associated terms (VIM)</i>. Report no. 99. First edition. International Organization for Standardization; International Electrotechnical Commission, 2007. Available from: https://www.iso.org/standard/45324.html.</p>
+                      <p id="ISO713" class="NormRef">[ISO/IEC&#xA0;Guide&#xA0;99:2007], ISO/IEC&#xA0;Guide&#xA0;99:2007<a class="FootnoteRef" href="#fn:_7"><sup>2</sup></a>, <i>Another title</i>. Report no. 99. First edition. International Organization for Standardization; International Electrotechnical Commission, 2007.</p>
                     </div>
                     <aside id="fn:_6" class="footnote">
                       <p id="_">Also known as JCGM 200</p>
