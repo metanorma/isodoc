@@ -32,18 +32,17 @@ Gem::Specification.new do |spec|
   spec.add_dependency "bigdecimal"
   spec.add_dependency "html2doc", "~> 1.12"
   # spec.add_dependency "isodoc-i18n", "~> 1.5" # already in relaton-render and mn-requirements
-  spec.add_dependency "relaton-cli", ">= 3.0.0.pre.alpha", "< 3.1.0"
+  spec.add_dependency "relaton-cli", ">= 3.0.0", "< 3.1"
   # spec.add_dependency "metanorma-utils", "~> 2.0" # already in isodoc-i18n
   spec.add_dependency "mn2pdf", ">= 2.13"
   spec.add_dependency "mn-requirements", "~> 0.5.0"
-  # Allowance for the relaton 3.0.0.pre family (mirrors the relaton-cli
-  # allowance in #824): relaton 3.0.0.pre requires relaton-render
-  # 3.0.0.pre, which joins the family's versioning and restores the 1.x
-  # leaves as deprecated shims, so flavor stacks boot against it.
+  # Allowance for the relaton 3.0 family (mirrors the relaton-cli
+  # allowance in #824): relaton-render 3.0.0 joins the family's
+  # versioning and restores the 1.x leaves as deprecated shims, so
+  # flavor stacks boot against it.
   # Released isodoc lines keep resolving relaton-render 1.3.0; only a
-  # stack that explicitly adopts the relaton prerelease co-resolves
-  # 3.0.0.pre.
-  spec.add_dependency "relaton-render", "~> 3.0.0.pre.alpha", "< 5"
+  # stack on this floor co-resolves the relaton 3.0 line.
+  spec.add_dependency "relaton-render", "~> 3.0", "< 5"
   spec.add_dependency "roman-numerals"
   spec.add_dependency "rouge", "~> 4.0"
   # lib/isodoc/css.rb requires sassc-embedded (SassC::Engine) at
