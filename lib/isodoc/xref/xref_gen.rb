@@ -118,11 +118,23 @@ module IsoDoc
       def note_anchor_names(sections)
         sections.each do |s|
           notes = s.xpath(child_asset_path("note")) -
-            s.xpath(ns(".//figure//note | .//table//note | //permission//note | " \
-                       "//recommendation//note | //requirement//note"))
+            s.xpath(ns(".//figure//note | .//table//note")) -
+            requirement_nested_notes(s)
           note_anchor_names1(notes, Counter.new)
           note_anchor_names(s.xpath(ns(child_sections)))
         end
+      end
+
+      # Notes under requirement-class blocks are excluded from per-section
+      # asset numbering everywhere. The set is document-wide and constant
+      # for the whole xref pass: an absolute // xpath evaluated on a node
+      # scans the entire document, so re-running it per visited section is
+      # quadratic on sectioned documents (vocabulary corpora carry
+      # thousands of term clauses).
+      def requirement_nested_notes(source)
+        @requirement_nested_notes ||= source.document.xpath(
+          ns("//permission//note | //recommendation//note | //requirement//note")
+        )
       end
 
       def note_anchor_names1(notes, counter)
@@ -167,8 +179,7 @@ module IsoDoc
       def example_anchor_names(sections)
         sections.each do |s|
           notes = s.xpath(child_asset_path("example")) -
-            s.xpath(ns("//permission//note | " \
-                       "//recommendation//note | //requirement//note"))
+            requirement_nested_notes(s)
           example_anchor_names1(notes, Counter.new)
           example_anchor_names(s.xpath(ns(child_sections)))
         end
