@@ -111,6 +111,10 @@ module IsoDoc
 
       def wrap_xml_fragment(value)
         return value unless value.is_a?(String)
+        # XML declarations are legal only at document start; a fragment
+        # carrying one (e.g. `<root/><?xml?>`) blows up the strict wrap
+        # parse. A declaration carries no comparison semantics.
+        value = value.gsub(/<\?xml[^>]*\?>\s*/, "")
         return value if already_wrapped?(value)
 
         wrapped = "<#{XML_FRAG_ROOT}>#{value}</#{XML_FRAG_ROOT}>"
