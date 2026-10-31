@@ -154,7 +154,7 @@ module IsoDoc
       def html_toc_entries_prep(docxml, path)
         docxml.xpath(path.join(" | "))
           .each_with_index.with_object({}) do |(h, i), m|
-            h["id"] ||= "_#{UUIDTools::UUID.random_create}"
+            h["id"] ||= "_#{Metanorma::Utils.random_uuid}"
             m[h["id"]] = i
           end
       end

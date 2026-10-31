@@ -1,14 +1,14 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def add_id_text
-      id = "_#{UUIDTools::UUID.random_create}"
+      id = "_#{Metanorma::Utils.random_uuid}"
       @new_ids[id] = nil
       %(id="#{id}")
     end
 
     def add_id(elem)
       elem["id"] and return
-      id = "_#{UUIDTools::UUID.random_create}"
+      id = "_#{Metanorma::Utils.random_uuid}"
       elem["id"] = id
       @new_ids[id] = nil
     end

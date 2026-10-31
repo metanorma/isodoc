@@ -31,7 +31,7 @@ module IsoDoc
     end
 
     def prefix_name_labels(node)
-      id = "_#{UUIDTools::UUID.random_create}"
+      id = "_#{Metanorma::Utils.random_uuid}"
       @new_ids[id] = nil
       { elem: node["id"], name: id }
     end
