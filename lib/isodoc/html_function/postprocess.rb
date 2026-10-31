@@ -118,7 +118,7 @@ module IsoDoc
 
       def move_image1(img)
         suffix = image_suffix(img)
-        uuid = UUIDTools::UUID.random_create.to_s
+        uuid = Metanorma::Utils.random_uuid
         fname = "#{uuid}.#{suffix}"
         new_full_filename = File.join(tmpimagedir, fname)
         local_filename = image_localfile(img)
@@ -131,7 +131,7 @@ module IsoDoc
           docxml.xpath("//p[@class = 'TermNum'][../#{h}]").each do |p|
             p.name = "h#{h[1].to_i + 1}"
             id = p["id"]
-            p["id"] = "_#{UUIDTools::UUID.random_create}"
+            p["id"] = "_#{Metanorma::Utils.random_uuid}"
             p.wrap("<div id='#{id}'></div>")
           end
         end

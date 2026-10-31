@@ -12,7 +12,7 @@ module IsoDoc
       def get_table_ancestor_id(node)
         table = node.ancestors("table")
         table.empty? and table = node.ancestors("figure")
-        table.empty? and return [nil, UUIDTools::UUID.random_create.to_s]
+        table.empty? and return [nil, Metanorma::Utils.random_uuid]
         [table.last, table.last["id"]]
       end
 
@@ -20,7 +20,7 @@ module IsoDoc
       # do not output footnote text if we have already seen it for this table
 
       def table_footnote_parse(node, out)
-        fn = node["reference"] || UUIDTools::UUID.random_create.to_s
+        fn = node["reference"] || Metanorma::Utils.random_uuid
         table, tid = get_table_ancestor_id(node)
         make_table_footnote_link(out, tid + fn, node.at(ns("./fmt-fn-label")))
         # do not output footnote text if we have already seen it for this table
@@ -49,7 +49,7 @@ module IsoDoc
 
       def footnote_parse(node, out)
         table_footnote?(node) and return table_footnote_parse(node, out)
-        fn = node["target"] # || UUIDTools::UUID.random_create.to_s
+        fn = node["target"] # || Metanorma::Utils.random_uuid
         attrs = { class: "FootnoteRef", href: "#fn:#{fn}" }
         f = node.at(ns("./fmt-fn-label"))
         out.a(**attrs) do |a|

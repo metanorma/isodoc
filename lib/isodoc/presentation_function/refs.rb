@@ -195,7 +195,7 @@ module IsoDoc
       ret = ident_fn(bib)
       date_note = bibnote_extract(bib, "Unpublished-Status")
       date_note.empty? and return ret
-      id = "_#{UUIDTools::UUID.random_create}"
+      id = "_#{Metanorma::Utils.random_uuid}"
       @new_ids[id] = nil
       <<~XML
         #{ret}<fn id='#{id}' reference='#{id}'><p>#{date_note.first.content}</p></fn>
