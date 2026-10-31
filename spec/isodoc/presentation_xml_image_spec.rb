@@ -73,7 +73,7 @@ RSpec.describe IsoDoc do
             '"data:image/emf;base64"')
       .gsub(%r{"data:application/x-msmetafile;base64,[^"]+"},
             '"data:application/x-msmetafile;base64"'))))
-      .to be_equivalent_to (Canon.format_xml(output))
+      .to be_xml_equivalent_to (Canon.format_xml(output))
 
     output = <<~OUTPUT
       <figure id="B" autonum="1">
@@ -127,7 +127,7 @@ RSpec.describe IsoDoc do
             '"data:image/emf;base64"')
       .gsub(%r{"data:application/x-msmetafile;base64,[^"]+"},
             '"data:application/x-msmetafile;base64"'))))
-      .to be_equivalent_to Canon.format_xml(output)
+      .to be_xml_equivalent_to Canon.format_xml(output)
   end
 
   it "converts EPS to SVG files" do
@@ -364,7 +364,7 @@ RSpec.describe IsoDoc do
       .at("//xmlns:figure[@id = 'B']").to_xml
       .gsub(%r{src="[^"]+?\.emf"}, 'src="_.emf"')
       .gsub(%r{src="[^"]+?\.svg"}, 'src="_.svg"'))))
-      .to be_equivalent_to Canon.format_xml(output)
+      .to be_xml_equivalent_to Canon.format_xml(output)
   end
 
   it "converts file EPS to SVG" do
@@ -401,7 +401,7 @@ RSpec.describe IsoDoc do
       .convert("test", input, true))
       .at("//xmlns:figure[@id = 'B']").to_xml
       .gsub(%r{src="[^"]+?\.svg"}, 'src="_.svg"'))))
-      .to be_equivalent_to(output)
+      .to be_xml_equivalent_to(output)
   end
 
   it "captions embedded figures" do
@@ -615,6 +615,6 @@ RSpec.describe IsoDoc do
       .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to (presxml)
+      .to be_xml_equivalent_to (presxml)
   end
 end

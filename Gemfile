@@ -5,9 +5,8 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}" }
 
 gem "benchmark"
-gem "canon"
+gem "canon", "~> 0.3"
 gem "debug"
-gem "equivalent-xml", "~> 0.6"
 gem "guard", "~> 2.14"
 gem "guard-rspec", "~> 4.7"
 gem "rake"

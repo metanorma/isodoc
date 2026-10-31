@@ -666,7 +666,7 @@ RSpec.describe IsoDoc do
       .new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Canon.format_xml(output)
+      .to be_xml_equivalent_to Canon.format_xml(output)
   end
 
   it "processes French" do

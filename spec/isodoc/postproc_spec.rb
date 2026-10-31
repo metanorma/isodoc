@@ -1561,7 +1561,7 @@ RSpec.describe IsoDoc do
       .new(presxml_options)
       .convert("test", input, true)
     expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .to be_xml_equivalent_to Canon.format_xml(presxml)
     # can't use Canon.format_xml because of raw ampersand
     IsoDoc::HtmlConvert.new({ wordstylesheet: "spec/assets/word.css" })
       .convert("test", pres_output, false)
@@ -1570,7 +1570,7 @@ RSpec.describe IsoDoc do
     output = output.sub(/^.*<div id="F">/m, '<div id="F">')
       .sub(/<\/div>.*$/m, "</div>")
     expect(strip_guid(output))
-      .to be_equivalent_to (html)
+      .to be_xml_equivalent_to (html)
 
     IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css" })
       .convert("test", pres_output, false)
@@ -1579,7 +1579,7 @@ RSpec.describe IsoDoc do
     output = output.sub(/^.*<div>\s*<a name="F" id="F"><\/a>/m, '<div><a name="F" id="F">')
       .sub(/<\/div>.*$/m, "</div>")
     expect(strip_guid(output))
-      .to be_equivalent_to (word)
+      .to be_xml_equivalent_to (word)
   end
 
   private

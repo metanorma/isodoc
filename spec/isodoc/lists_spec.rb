@@ -1602,14 +1602,14 @@ RSpec.describe IsoDoc do
           .new(presxml_options)
           .convert("test", input, true))
           .at("//xmlns:clause[@id = 'A']").to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .to be_xml_equivalent_to Canon.format_xml(presxml)
 
     # undercount, overcount colgroup
     expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
             .new(presxml_options)
       .convert("test", input.sub("25,30,25", "25,30,25,25"), true))
             .at("//xmlns:colgroup").to_xml)))
-      .to be_equivalent_to <<~XML
+      .to be_xml_equivalent_to <<~XML
            <colgroup>
            <col width="31.25%"/>
            <col width="37.5%"/>
@@ -1621,7 +1621,7 @@ RSpec.describe IsoDoc do
           .new(presxml_options)
     .convert("test", input.sub("25,30,25", "80"), true))
           .at("//xmlns:colgroup").to_xml)))
-      .to be_equivalent_to <<~XML
+      .to be_xml_equivalent_to <<~XML
            <colgroup>
            <col width="80.0%"/>
            <col width="10.0%"/>
