@@ -1771,7 +1771,7 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)
     expect(strip_guid(Canon.format_xml(pres_output
       .gsub("&lt;", "&#x3c;"))))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .to be_xml_equivalent_to Canon.format_xml(presxml)
     output = IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true)
     output = Nokogiri::HTML(output).at("//div[@id='fwd']").to_xhtml

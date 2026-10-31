@@ -6,7 +6,7 @@ end
 require "bundler/setup"
 require "isodoc"
 require "rspec/matchers"
-require "equivalent-xml"
+require "canon/rspec_matchers"
 require "tzinfo"
 require "canon"
 require_relative "support/uuid_mock"

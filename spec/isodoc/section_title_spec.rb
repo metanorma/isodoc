@@ -1073,7 +1073,7 @@ pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
     expect(strip_guid(Canon.format_xml(pres_output)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+      .to be_xml_equivalent_to Canon.format_xml(presxml)
   end
 
   it "processes section subtitles" do
