@@ -3,6 +3,23 @@ module IsoDoc
     DESIGNATION_ELEMS =
       %w(preferred admitted deprecates related definition source).freeze
 
+    # Union XPaths: one evaluation per term replaces the original six
+    # nested xpath/at pairs (O(terms × designation-elems) XPathContext
+    # setups). The removal set (fmt-name/fmt-xref-label under designation
+    # elements) and the removal targets (empty fmt-* containers) are
+    # disjoint node sets, so evaluating removal after collection preserves
+    # the original interleaved order's outcome.
+    TERMCLEANUP_REMOVE_XPATH =
+      DESIGNATION_ELEMS.flat_map do |w|
+        %w(fmt-name fmt-xref-label).map { |n| "./#{w}//#{n}" }
+      end.join(" | ").freeze
+
+    TERMCLEANUP_TARGET_XPATH =
+      DESIGNATION_ELEMS.map do |w|
+        n = w == "source" ? "fmt-termsource" : "fmt-#{w}"
+        ".//#{n}"
+      end.join(" | ").freeze
+
     def target_desgn_elem(name)
       target = "fmt-#{name}"
       name == "source" and target = "fmt-termsource"
@@ -20,11 +37,9 @@ module IsoDoc
 
     def termcleanup(docxml)
       docxml.xpath(ns("//term")).each do |t|
-        DESIGNATION_ELEMS.each do |w|
-          target = target_desgn_elem(w)
-          t.xpath(ns("./#{w}//fmt-name | ./#{w}//fmt-xref-label")).each(&:remove)
-          f = t.at(ns(".//#{target}"))
-          f&.children&.empty? and f.remove
+        t.xpath(ns(TERMCLEANUP_REMOVE_XPATH)).each(&:remove)
+        t.xpath(ns(TERMCLEANUP_TARGET_XPATH)).each do |f|
+          f.children.empty? and f.remove
         end
       end
     end
