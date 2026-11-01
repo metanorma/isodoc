@@ -136,6 +136,8 @@ module IsoDoc
     # detect whether string which may contain XML markup is empty
     def empty_xml?(str)
       str.blank? and return true
+      # plain text (no markup, no entity refs): emptiness is just whitespace
+      !str.include?("<") && !str.include?("&") and return str.strip.empty?
       x = Nokogiri::XML::DocumentFragment.parse(str)
       x.to_str.strip.empty?
     end
