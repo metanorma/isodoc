@@ -77,6 +77,10 @@ module IsoDoc
       @modspecidentifierbase = options[:modspecidentifierbase]
       @sourcehighlighter = options[:sourcehighlighter]
       @output_formats = options[:output_formats] || {}
+      # Opt-in: wrap unresolved cross-doc erefs in spans carrying their
+      # bibitemid (data-bibitemid), so post-render tooling can resolve
+      # them across separately rendered documents.
+      @unresolved_eref_markers = options[:unresolved_eref_markers]
     end
 
     def init_arrangement(options)
