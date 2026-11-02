@@ -218,7 +218,27 @@ module IsoDoc
       end
 
       def semx_parse(node, out)
-        children_parse(node, out)
+        if @unresolved_eref_markers && node["element"] == "eref" &&
+           !(eref = semx_eref(node)).nil? &&
+           !(bibitemid = eref["bibitemid"]).to_s.empty?
+          unresolved_eref_span(node, out, eref, bibitemid)
+        else
+          children_parse(node, out)
+        end
+      end
+
+      # The <eref> element this <semx element="eref" source="…"> companion
+      # was generated for, looked up by the eref's id.
+      def semx_eref(node)
+        source_id = node["source"] or return nil
+        node.document.at_xpath("//*[local-name()='eref'][@id='#{source_id}']")
+      end
+
+      def unresolved_eref_span(node, out, eref, bibitemid)
+        attrs = { class: "unresolved-eref", "data-bibitemid" => bibitemid }
+        citeas = eref["citeas"]
+        attrs["data-citeas"] = citeas if citeas && !citeas.empty?
+        out.span(**attrs) { |s| children_parse(node, s) }
       end
 
       def children_parse(node, out)
