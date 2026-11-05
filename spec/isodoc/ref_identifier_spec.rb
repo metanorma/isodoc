@@ -883,7 +883,7 @@ OUTPUT
     presxml = <<~PRESXML
         <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
           <title id="_5">Normative References</title>
-          <fmt-title depth="1" id="_11">
+          <fmt-title depth="1" id="_12">
             <span class="fmt-caption-label">
               <semx element="autonum" source="_normative_references">1</semx>
               <span class="fmt-clause-delim">.</span>
@@ -903,7 +903,7 @@ OUTPUT
       </span>
       </fmt-fn-label>
       </fn>, </biblio-tag>
-            <formattedref><em>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</em>. Report no. 99. First edition. International Organization for Standardization; International Electrotechnical Commission, 2007. Available from: https://www.iso.org/standard/45324.html.</formattedref>
+            <formattedref><em>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</em>. Report no. 99. First edition. International Organization for Standardization; International Electrotechnical Commission, 2007. Available at: <link target="https://www.iso.org/standard/45324.html" id="_8">https://www.iso.org/standard/45324.html</link><semx element="link" source="_8"><fmt-link target="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</fmt-link></semx>.</formattedref>
             <title type="title-intro" format="text/plain" language="en" script="Latn">International vocabulary of metrology</title>
             <title type="title-main" format="text/plain" language="en" script="Latn">Basic and general concepts and associated terms (VIM)</title>
             <title type="main" format="text/plain" language="en" script="Latn">International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</title>
@@ -940,7 +940,7 @@ OUTPUT
             <script>Latn</script>
           </bibitem>
           <bibitem id="ISO713" type="standard">
-            <biblio-tag>[ISO/IEC Guide 99:2007], ISO/IEC Guide 99:2007<fn reference="2" id="_2" original-reference="2" target="_7"><p original-id="_">Also known as JCGM 200 (<link target="https://www.iso.org/" id="_8"/><semx element="link" source="_8"><fmt-link target="https://www.iso.org/"/></semx>)</p>
+            <biblio-tag>[ISO/IEC Guide 99:2007], ISO/IEC Guide 99:2007<fn reference="2" id="_2" original-reference="2" target="_7"><p original-id="_">Also known as JCGM 200 (<link target="https://www.iso.org/" id="_9"/><semx element="link" source="_9"><fmt-link target="https://www.iso.org/"/></semx>)</p>
       <fmt-fn-label><span class="fmt-caption-label"><sup><semx element="autonum" source="_2">2</semx></sup>
       </span>
       </fmt-fn-label>
@@ -995,7 +995,7 @@ OUTPUT
                     <div>
                       <h1>1<span class="fmt-clause-delim">.</span>&#xA0; Normative References</h1>
                       <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-                      <p id="ISO712" class="NormRef">[ISO/IEC&#xA0;Guide&#xA0;99:2007], ISO/IEC&#xA0;Guide&#xA0;99:2007<a class="FootnoteRef" href="#fn:_6"><sup>1</sup></a>, <i>International vocabulary of metrology&#x2009;&#x2014;&#x2009;Basic and general concepts and associated terms (VIM)</i>. Report no. 99. First edition. International Organization for Standardization; International Electrotechnical Commission, 2007. Available from: https://www.iso.org/standard/45324.html.</p>
+                      <p id="ISO712" class="NormRef">[ISO/IEC&#xA0;Guide&#xA0;99:2007], ISO/IEC&#xA0;Guide&#xA0;99:2007<a class="FootnoteRef" href="#fn:_6"><sup>1</sup></a>, <i>International vocabulary of metrology&#x2009;&#x2014;&#x2009;Basic and general concepts and associated terms (VIM)</i>. Report no. 99. First edition. International Organization for Standardization; International Electrotechnical Commission, 2007. Available at: <a href="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</a>.</p>
                       <p id="ISO713" class="NormRef">[ISO/IEC&#xA0;Guide&#xA0;99:2007], ISO/IEC&#xA0;Guide&#xA0;99:2007<a class="FootnoteRef" href="#fn:_7"><sup>2</sup></a>, <i>Another title</i>. Report no. 99. First edition. International Organization for Standardization; International Electrotechnical Commission, 2007.</p>
                     </div>
                     <aside id="fn:_6" class="footnote">

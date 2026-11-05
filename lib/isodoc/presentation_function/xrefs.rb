@@ -3,13 +3,29 @@ module IsoDoc
     def fmt_ref(docxml)
       docxml.xpath(ns("//xref | //eref | //origin | //link")).each do |x|
         sem_xml_descendant?(x) and next
-        tag = x.name
-        y = Nokogiri::XML::Node.new("fmt-#{tag}", x.document)
-        x.attributes.keys.reject { |a| a == "id" }.each { |a| y[a] = x[a] }
-        n = semx_fmt_dup(x) # semx/fmt-xref for ease of processing
-        n.children.each { |c| y << c }
-        n << y
-        x.next = n
+        fmt_ref_elem(x)
+      end
+    end
+
+    def fmt_ref_elem(x)
+      tag = x.name
+      y = Nokogiri::XML::Node.new("fmt-#{tag}", x.document)
+      x.attributes.keys.reject { |a| a == "id" }.each { |a| y[a] = x[a] }
+      n = semx_fmt_dup(x) # semx/fmt-xref for ease of processing
+      n.children.each { |c| y << c }
+      n << y
+      x.next = n
+    end
+
+    # Links arriving in markup that is inserted after fmt_ref has run —
+    # the styled eref citation capsules, which embed the reference
+    # rendering of a bibitem (including its availability link) — get the
+    # same semx/fmt-link treatment as document links, or the HTML and DOC
+    # renderers drop them along with the source element
+    def fmt_ref_links(node)
+      node.xpath(ns(".//link")).each do |x|
+        sem_xml_descendant?(x) and next
+        fmt_ref_elem(x)
       end
     end
 
