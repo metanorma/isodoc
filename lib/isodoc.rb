@@ -8,6 +8,14 @@ require "html2doc"
 require "liquid"
 require "htmlentities"
 require "relaton/render"
+# The render engine's batch render_all skips bibitems whose citation
+# template resolves to nothing by rescuing Relaton::Render::Unrenderable
+# — a marker defined by the hyphenated gem entry, which the consolidated
+# "relaton/render" entry does not load. Without it the rescue itself
+# raises NameError on every such bibitem (any formattedref-only
+# reference). Both the standalone relaton-render gem and the
+# consolidated relaton gem ship the marker under this entry.
+require "relaton-render"
 
 require "isodoc/common"
 require "isodoc/convert"
