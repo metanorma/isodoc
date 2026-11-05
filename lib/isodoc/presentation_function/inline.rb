@@ -19,6 +19,9 @@ module IsoDoc
                               link, node)
       non_locality_elems(node).each(&:remove)
       node.add_child(cleanup_entities(link))
+      # citation capsules embed bibitem reference markup, links included;
+      # links inserted after fmt_ref ran need the fmt treatment explicitly
+      fmt_ref_links(node)
       unnest_linkend(node)
     end
     # so not <origin bibitemid="ISO7301" citeas="ISO 7301">

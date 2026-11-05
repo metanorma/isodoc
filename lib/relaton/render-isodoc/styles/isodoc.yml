@@ -5,12 +5,22 @@
 # (b) no authoritative identifier in the reference composition: the
 # identifier renders as the biblio-tag ahead of the formattedref
 # ("ISO 712, _Cereals_ ..."), never duplicated inside it. Patents
-# keep theirs: the patent number is the citation itself.
+# keep theirs: the patent number is the citation itself. And (c) the
+# availability (location) slot renders as the unresolved entries do:
+# "Available at: <link>...</link>" — the PresentationXML link is what
+# the HTML and DOC renderers turn into the citation's anchor. Without
+# the uri template the resolved bibitem's <uri> renders as bare text,
+# and the reader loses the link exactly when the reference is
+# authoritative enough to be machine-resolved (isodoc#882).
 name: "IsoDoc (ISO 690, presentation markup)"
 extends: author-date
+scheme:
+  locale:
+    availableAt: "Available at:"
 templates:
   titleOpen: "<em>"
   titleClose: "</em>"
+  uri: '<link target="{{uri}}">{{uri}}</link>'
   reference: "{{creator}}. {{title}}. {{medium}}. {{edition}}. {{series}}. {{production}}, {{date}}. {{location}}."
 perType:
   - type: monograph
