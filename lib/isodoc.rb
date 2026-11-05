@@ -7,7 +7,7 @@ require "image_size"
 require "html2doc"
 require "liquid"
 require "htmlentities"
-require "relaton-render"
+require "relaton/render"
 
 require "isodoc/common"
 require "isodoc/convert"
