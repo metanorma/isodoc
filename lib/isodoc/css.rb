@@ -100,10 +100,30 @@ module IsoDoc
        File.dirname(filename)]
     end
 
+    def sassc_available?
+      require "sassc-embedded"
+      true
+    rescue LoadError
+      false
+    end
+
     # stripwordcss if HTML stylesheet, !stripwordcss if DOC stylesheet
     def generate_css(filename, stripwordcss)
       filename.nil? and return nil
       filename = precompiled_style_or_original(filename)
+      # The release's precompiled .css twins bake in the DEFAULT font
+      # variables, so a flavor overriding default_fonts would be silently
+      # dropped when its stylesheet is consumed as precompiled
+      # (metanorma-un, metanorma-m3aawg font regressions). When the scss
+      # source is present and the consumer bundle carries the optional
+      # sassc-embedded toolchain, compile at runtime so the flavor's
+      # fonts template in; plain installs without the toolchain keep the
+      # precompiled fallback.
+      scss = filename.sub(/\.css\z/, ".scss")
+      if File.extname(filename) == ".css" && File.file?(scss) &&
+          sassc_available?
+        filename = scss
+      end
       stylesheet = File.read(filename, encoding: "UTF-8")
       stylesheet = preprocess_css(stylesheet, stripwordcss)
       File.extname(filename) == ".scss" and
