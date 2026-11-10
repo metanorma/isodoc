@@ -1,3 +1,3 @@
 module IsoDoc
-  VERSION = "3.7.12".freeze
+  VERSION = "3.7.13".freeze
 end
