@@ -30,6 +30,9 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "base64", ">= 0.1.0"
   spec.add_dependency "bigdecimal"
+  # Bundled gems required directly by lib code: csv in presentation_function/{bibdata,inline}.rb, singleton in xref/xref_anchor.rb (metanorma/metanorma#669)
+  spec.add_dependency "csv"
+  spec.add_dependency "singleton"
   spec.add_dependency "html2doc", "~> 1.12"
   # spec.add_dependency "isodoc-i18n", "~> 1.5" # already in mn-requirements
   spec.add_dependency "relaton", "~> 3.1.1"
