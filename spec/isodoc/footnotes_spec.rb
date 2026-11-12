@@ -1308,4 +1308,47 @@ RSpec.describe IsoDoc do
     expect(strip_guid(pres_output.to_xml))
       .to be_xml_equivalent_to presxml_unannotated
   end
+
+  it "processes footnotes with empty footnote body" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+      <foreword id="F" displayorder="1"><title>Foreword</title>
+      <p>A.<fn reference="1"/></p>
+      </foreword>
+      </preface>
+      </iso-standard>
+    INPUT
+    presxml = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+            <clause type="toc" id="_" displayorder="1">
+               <fmt-title depth="1" id="_">Table of contents</fmt-title>
+            </clause>
+            <foreword id="F" displayorder="2">
+               <title id="_">Foreword</title>
+               <fmt-title depth="1" id="_">
+                  <semx element="title" source="_">Foreword</semx>
+               </fmt-title>
+               <p>A.<fn reference="1" id="_" original-reference="1" target="_"><fmt-fn-label><span class="fmt-caption-label"><sup><semx element="autonum" source="_">1</semx></sup>
+      </span>
+      </fmt-fn-label>
+      </fn>
+      </p>
+            </foreword>
+         </preface>
+         <fmt-footnote-container>
+            <fmt-fn-body id="_" target="_" reference="1">
+               <semx element="fn" source="_"/>
+            </fmt-fn-body>
+         </fmt-footnote-container>
+      </iso-standard>
+    INPUT
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(strip_guid(pres_output)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_xml_equivalent_to presxml
+  end
 end

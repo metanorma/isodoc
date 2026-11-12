@@ -39,7 +39,10 @@ module IsoDoc
 
     def insert_fn_body_ref(fnote, body)
       ins = body.at(ns(".//p")) ||
-        body.at(ns("./semx")).children.first.before("<p> </p>").previous
+        body.at(ns("./semx"))&.children&.first&.before("<p> </p>")&.previous
+      # no footnote body content to attach the label to,
+      # e.g. empty <fn/> element
+      ins or return
       lbl = fn_body_label(fnote)
       fnote = <<~FNOTE.strip
         <fmt-fn-label><span class='fmt-caption-label'>#{lbl}</span><span class="fmt-caption-delim"><tab/></fmt-fn-label>
