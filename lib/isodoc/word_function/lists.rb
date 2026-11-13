@@ -113,6 +113,26 @@ module IsoDoc
         else ""
         end
       end
+
+      # Bulletless lists (ul/ol class="nobullet", from list
+      # type="nobullet"|"no-bullet"|"none") become plain paragraphs: the
+      # list markup is dropped before Html2Doc converts HTML lists to
+      # Word list paragraphs, so no bullet or number marker is generated.
+      # Nested lists keep their own markers. The list wrapper is kept as
+      # a div to preserve the list anchor.
+      def word_nobullet_lists(docxml)
+        docxml.xpath("//ul[@class = 'nobullet'] | //ol[@class = 'nobullet']")
+          .each do |list|
+          list.xpath("./li").each do |li|
+            li.name = "p"
+            li.delete("class")
+            li.first_element_child&.name == "p" and
+              li.first_element_child.replace(li.first_element_child.children)
+          end
+          list.name = "div"
+          list.delete("class")
+        end
+      end
     end
   end
 end

@@ -58,6 +58,7 @@ module IsoDoc
         word_table_pagebreak(docxml)
         word_table_separator(docxml)
         word_admonition_images(docxml)
+        word_nobullet_lists(docxml)
         word_list_continuations(docxml)
         word_example_cleanup(docxml)
         word_pseudocode_cleanup(docxml)

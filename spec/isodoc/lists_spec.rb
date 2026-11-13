@@ -1629,6 +1629,99 @@ RSpec.describe IsoDoc do
         </colgroup>
       XML
   end
+
+  it "marks bulletless lists with class=nobullet in HTML" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+      <clause type="toc" id="_" displayorder="1"> <fmt-title id="_" depth="1">Table of contents</fmt-title> </clause>
+      <foreword id="F" displayorder="2"><fmt-title id="_">Foreword</fmt-title>
+      <ul id="U1" type="nobullet">
+      <li id="U1L1"><p id="P1">No bullets</p></li>
+      </ul>
+      <ol id="O1" type="no-bullet">
+      <li id="O1L1"><p id="P2">No numbers</p></li>
+      </ol>
+      <ol id="O2" type="none">
+      <li id="O2L1"><p id="P3">None style</p></li>
+      </ol>
+      <ul id="U2">
+      <li id="U2L1"><p id="P4">Regular</p></li>
+      </ul>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    html = <<~OUTPUT
+      #{HTML_HDR}
+               <br/>
+               <div id="F">
+                  <h1 class="ForewordTitle">Foreword</h1>
+                  <div class="ul_wrap">
+                     <ul id="U1" class="nobullet">
+                        <li id="U1L1">
+                           <p id="P1">No bullets</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <div class="ol_wrap">
+                     <ol id="O1" class="nobullet">
+                        <li id="O1L1">
+                           <p id="P2">No numbers</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <div class="ol_wrap">
+                     <ol id="O2" class="nobullet">
+                        <li id="O2L1">
+                           <p id="P3">None style</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <div class="ul_wrap">
+                     <ul id="U2">
+                        <li id="U2L1">
+                           <p id="P4">Regular</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </body>
+      </html>
+    OUTPUT
+    expect(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true)))
+      .to be_html5_equivalent_to html
+  end
+
+  it "preserves bulletless list types in presentation XML" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+      <foreword id="F" displayorder="1">
+      <ul id="U1" type="nobullet">
+      <li id="U1L1"><p id="P1">No bullets</p></li>
+      </ul>
+      <ol id="O1" type="no-bullet">
+      <li id="O1L1"><p id="P2">No numbers</p></li>
+      </ol>
+      <ol id="O2" type="none">
+      <li id="O2L1"><p id="P3">None style</p></li>
+      </ol>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    pres_output = IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
+    xml.remove_namespaces!
+    expect(xml.at("//ul[@id = 'U1']")["type"]).to eq("nobullet")
+    expect(xml.at("//ol[@id = 'O1']")["type"]).to eq("no-bullet")
+    expect(xml.at("//ol[@id = 'O2']")["type"]).to eq("none")
+    # no numbering decoration is applied to bulletless ordered lists
+    expect(xml.at("//ol[@id = 'O1']/li/fmt-name/span")).to be_nil
+    expect(xml.at("//ol[@id = 'O2']/li/fmt-name/span")).to be_nil
+  end
 end
 
 RSpec.describe IsoDoc do
