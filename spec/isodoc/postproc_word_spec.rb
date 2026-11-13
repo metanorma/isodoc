@@ -1623,4 +1623,66 @@ RSpec.describe IsoDoc do
     expect(strip_guid(word.to_xhtml))
       .to be_xml_equivalent_to output
   end
+
+  it "renders bulletless lists as plain paragraphs without markers" do
+    FileUtils.rm_f "test.doc"
+    IsoDoc::WordConvert.new(
+      { ulstyle: "l3", olstyle: "l2",
+        wordstylesheet: "spec/assets/word.css" },
+    ).convert("test", <<~INPUT, false)
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface><foreword id="F" displayorder="1"><fmt-title id="_">Foreword</fmt-title>
+      <ul id="U1" type="nobullet">
+      <li id="U1L1"><p id="P1">No bullets one</p></li>
+      <li id="U1L2"><p id="P2">No bullets two</p></li>
+      </ul>
+      <ol id="O1" type="no-bullet">
+      <li id="O1L1"><p id="P3">No numbers</p></li>
+      </ol>
+      <ul id="U2">
+      <li id="U2L1"><p id="P4">Regular bullet</p></li>
+      </ul>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    word = Nokogiri::HTML5(File.read("test.doc")
+      .sub(/^.*<body/m, "<body")
+      .sub(%r{</body>.*$}m, "</body>"))
+    foreword = word.at("//div[a/@name = 'F']")
+    expect(strip_guid(foreword.to_xhtml))
+      .to be_xml_equivalent_to <<~OUTPUT
+        <div>
+          <a name="F" id="F"/>
+          <h1 class="ForewordTitle">Foreword</h1>
+          <div class="ul_wrap">
+            <div>
+              <a name="U1" id="U1"/>
+              <p class="MsoNormal">
+                <a name="U1L1" id="U1L1"/>
+                No bullets one
+              </p>
+              <p class="MsoNormal">
+                <a name="U1L2" id="U1L2"/>
+                No bullets two
+              </p>
+            </div>
+          </div>
+          <div class="ol_wrap">
+            <div>
+              <a name="O1" id="O1"/>
+              <p class="MsoNormal">
+                <a name="O1L1" id="O1L1"/>
+                No numbers
+              </p>
+            </div>
+          </div>
+          <div class="ul_wrap">
+            <p style="mso-list:l3 level1 lfo1;" class="MsoListParagraphCxSpFirst">
+              <a name="U2L1" id="U2L1"/>
+              Regular bullet
+            </p>
+          </div>
+        </div>
+      OUTPUT
+  end
 end

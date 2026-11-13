@@ -1,6 +1,10 @@
 module IsoDoc
   module Function
     module Lists
+      # semantic list types which suppress list markers in rendering:
+      # nobullet (metanorma), no-bullet / none (asciidoctor-derived)
+      NO_BULLET_TYPES = %w(nobullet no-bullet none).freeze
+
       def list_title_parse(node, out)
         name = node.at(ns("./fmt-name")) or return
         out.p class: "ListTitle" do |p|
@@ -8,8 +12,17 @@ module IsoDoc
         end
       end
 
+      # Bulletless lists carry a class, which the stylesheets use to
+      # suppress the list markers (HTML) and which flags the Word
+      # conversion to render the items as plain paragraphs.
+      def list_base_class(node)
+        NO_BULLET_TYPES.include?(node["type"]) and return "nobullet"
+        nil
+      end
+
       def ul_attrs(node)
-        { id: node["id"], class: node["class"], style: keep_style(node) }
+        { id: node["id"], class: merge_html_class(list_base_class(node), node),
+          style: keep_style(node) }
       end
 
       def ul_parse(node, out)
@@ -46,7 +59,9 @@ module IsoDoc
         { # type: node["type"] ? ol_style(node["type"].to_sym) : ol_depth(node),
           type: ol_style(node["type"]&.to_sym),
           start: node["start"],
-          id: node["id"], class: node["class"], style: keep_style(node)
+          id: node["id"],
+          class: merge_html_class(list_base_class(node), node),
+          style: keep_style(node)
         }
       end
 

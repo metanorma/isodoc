@@ -29,6 +29,20 @@
     @include blockTitle();
     text-align: left;
   }
+
+  // Bulletless lists: ul/ol type="nobullet"|"no-bullet"|"none" carry
+  // class="nobullet" in HTML output. Suppress both the native list
+  // markers and the ::before marker glyphs some flavors hang off
+  // list items (e.g. the em-dash bullet).
+  ul.nobullet > li,
+  ol.nobullet > li {
+    list-style: none;
+  }
+
+  ul.nobullet > li > p:first-child::before,
+  ol.nobullet > li::before {
+    content: none !important;
+  }
 }
 
 @mixin figureBlock() {
