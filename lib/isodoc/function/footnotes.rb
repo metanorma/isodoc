@@ -3,7 +3,7 @@ module IsoDoc
     module Footnotes
       def make_table_footnote_link(out, fnid, node)
         attrs = { href: "##{fnid}", class: "TableFootnoteRef" }
-        sup = node.at(ns(".//sup")) and sup.replace(sup.children)
+        sup = node&.at(ns(".//sup")) and sup.replace(sup.children)
         out.a(**attrs) do |a|
           children_parse(node, a)
         end

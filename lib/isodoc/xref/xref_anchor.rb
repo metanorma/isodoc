@@ -78,9 +78,20 @@ module IsoDoc
       # <title>), semx-wrapped, so that xrefstyle=full can render
       # "Table 3, caption" the way clauses render "Clause 6, Title". Returns nil
       # when the asset has no caption, so anchor_xref_full falls back to short.
+      #
+      # Footnote references are dropped from the captured caption: this
+      # capture is taken while parsing the anchors, before the footnote
+      # numbering passes have inserted fmt-fn-label into any copy of the
+      # caption. Embedding it into xrefstyle=full cross-reference text
+      # would inject footnote references that no fmt-fn-label numbering
+      # pass ever reaches, which the HTML/DOC renderers cannot resolve
+      # (and would duplicate the caption's own footnote marker in
+      # unrelated text).
       def asset_title(node)
         n = node.at(ns("./name")) || node.at(ns("./title")) or return nil
-        semx(node, n.children.to_xml, n.name)
+        c = n.dup
+        c.xpath(ns(".//fn | .//fmt-fn-label")).each(&:remove)
+        semx(node, c.children.to_xml, n.name)
       end
 
       include ::IsoDoc::XrefGen::Util
