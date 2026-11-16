@@ -10,7 +10,7 @@ module IsoDoc
       def dt_parse(dterm, term)
         term.p(**attr_code(WORD_DT_ATTRS)) do |p|
           if dterm.elements.empty?
-            p << dterm.text
+            p.text dterm.text
           else
             dterm.children.each { |n| parse(n, p) }
           end

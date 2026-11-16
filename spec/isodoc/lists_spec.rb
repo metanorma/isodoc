@@ -1755,4 +1755,64 @@ RSpec.describe IsoDoc do
       .map(&:text)
     expect(labels).to eq(%w[first second first])
   end
+
+  it "escapes definition list terms containing ampersands and less-than signs (Word)" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface><foreword displayorder="1"><fmt-title id="_">Foreword</fmt-title>
+      <dl id="_732d3f57-4f88-40bf-9ae9-633891edc395">
+      <dt>&amp;</dt>
+      <dd><p id="_1">bitwise AND</p></dd>
+      <dt>&amp;&amp;</dt>
+      <dd><p id="_2">logical AND</p></dd>
+      <dt>&lt;</dt>
+      <dd><p id="_3">less than</p></dd>
+      <dt>&lt;&lt;</dt>
+      <dd><p id="_4">left shift</p></dd>
+      </dl>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    expected_table = <<~TABLE
+      <table id="_" class="dl">
+        <tbody>
+         <tr>
+            <td valign="top" align="left">
+               <p align="left" style="margin-left:0pt;text-align:left;">&amp;</p>
+            </td>
+            <td valign="top">
+               <p id="_1">bitwise AND</p>
+            </td>
+         </tr>
+         <tr>
+            <td valign="top" align="left">
+               <p align="left" style="margin-left:0pt;text-align:left;">&amp;&amp;</p>
+            </td>
+            <td valign="top">
+               <p id="_2">logical AND</p>
+            </td>
+         </tr>
+         <tr>
+            <td valign="top" align="left">
+               <p align="left" style="margin-left:0pt;text-align:left;">&lt;</p>
+            </td>
+            <td valign="top">
+               <p id="_3">less than</p>
+            </td>
+         </tr>
+         <tr>
+            <td valign="top" align="left">
+               <p align="left" style="margin-left:0pt;text-align:left;">&lt;&lt;</p>
+            </td>
+            <td valign="top">
+               <p id="_4">left shift</p>
+            </td>
+         </tr>
+        </tbody>
+      </table>
+    TABLE
+    out = IsoDoc::WordConvert.new({}).convert("test", input, true)
+    table = Nokogiri::HTML5(out).at("table[@class = 'dl']").to_xml
+    expect(strip_guid(table)).to be_xml_equivalent_to expected_table
+  end
 end
