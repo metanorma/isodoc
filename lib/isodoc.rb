@@ -25,4 +25,7 @@ require "metanorma/output"
 require "relaton/render-isodoc/general"
 
 module IsoDoc
+  # bibdata ingestion through relaton's library surface (relaton#581);
+  # see isodoc/bibdata_parser.
+  autoload :BibdataParser, "isodoc/bibdata_parser"
 end

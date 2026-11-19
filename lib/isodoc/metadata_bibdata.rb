@@ -1,6 +1,5 @@
 require "relaton"
 require "relaton/bib"
-require "relaton/cli"
 
 module IsoDoc
   class BibdataConfig < ::Lutaml::Model::Serializable
@@ -18,10 +17,14 @@ module IsoDoc
 
     def bibdata_from_xml(model, node)
       node or return
-      # Cli.parse_xml's contract is a Nokogiri::XML::Document
-      # (remove_namespaces!, at); under the moxml/leptris adapter the
-      # mapping node's native is not Nokogiri. Convert via markup.
-      model.bibdata = Relaton::Cli.parse_xml(Nokogiri::XML(node.to_xml))
+      # Parse through relaton's library surface: relaton 3.1.6+ (#581)
+      # tightened Cli.parse_xml to a String contract whose Moxml path
+      # calls .read on non-string input, so the Nokogiri document this
+      # used to pass died NoMethodError on every compile, and
+      # bibdata_hash_parse rescued it into a silently nil Liquid
+      # bibdata. The mapping node's native is adapter-dependent
+      # (Nokogiri or moxml/leptris), so hand the parser markup.
+      model.bibdata = BibdataParser.from_xml(node.to_xml)
     end
 
     def bibdata_to_xml(model, parent, doc); end
@@ -51,8 +54,8 @@ module IsoDoc
       stripped = Nokogiri::XML(bibdata_xml)
       stripped.remove_namespaces!
       # Drop @boilerplate="true" docidentifiers before handing the
-      # bibdata to Relaton::Cli.parse_xml: their content is an
-      # unresolved Liquid template, and recent relaton-iho /
+      # bibdata to BibdataParser (relaton library surface): their
+      # content is an unresolved Liquid template, and recent relaton-iho /
       # relaton-cc / etc. eagerly call pubid in their docidentifier
       # content= setter, which crashes on raw Liquid syntax. The
       # template variables for substitution come from other bibdata
