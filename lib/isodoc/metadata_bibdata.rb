@@ -1,6 +1,6 @@
 require "relaton"
 require "relaton/bib"
-require "relaton/cli"
+require_relative "bibdata_parser"
 
 module IsoDoc
   class BibdataConfig < ::Lutaml::Model::Serializable
@@ -16,12 +16,12 @@ module IsoDoc
                                                    to: :bibdata_to_xml }
     end
 
+    # Through relaton's library surface, as metanorma#716 does for
+    # collections. Under the moxml/leptris adapter the mapping node's
+    # native is not Nokogiri, so go through markup.
     def bibdata_from_xml(model, node)
       node or return
-      # Cli.parse_xml's contract is a Nokogiri::XML::Document
-      # (remove_namespaces!, at); under the moxml/leptris adapter the
-      # mapping node's native is not Nokogiri. Convert via markup.
-      model.bibdata = Relaton::Cli.parse_xml(Nokogiri::XML(node.to_xml))
+      model.bibdata = BibdataParser.from_xml(node.to_xml)
     end
 
     def bibdata_to_xml(model, parent, doc); end
