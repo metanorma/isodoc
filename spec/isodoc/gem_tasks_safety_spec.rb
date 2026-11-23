@@ -10,6 +10,7 @@ RSpec.describe "IsoDoc::GemTasks build safety" do
     original_ci = ENV.fetch("CI", nil)
     original_css = IsoDoc::GemTasks.css_list.dup
     original_clean = CLEAN.to_a
+    original_clobber = CLOBBER.to_a
     ENV["CI"] = "true"
     Rake.application = Rake::Application.new
     IsoDoc::GemTasks.css_list.clear
@@ -30,6 +31,7 @@ RSpec.describe "IsoDoc::GemTasks build safety" do
     ENV["CI"] = original_ci
     IsoDoc::GemTasks.css_list.replace(original_css)
     CLEAN.clear.include(*original_clean)
+    CLOBBER.clear.include(*original_clobber)
   end
 
   before do
