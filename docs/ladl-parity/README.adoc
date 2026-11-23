@@ -1,6 +1,6 @@
 = Legacy xref and numbering parity catalogue (F-LADL)
 
-This catalogue maps the legacy xref and numbering methods to the MN112 profile constructs and the LADL engine features at the pinned comparison baseline in `coverage.json`.
+This catalogue maps the legacy xref and numbering methods to the MN112 profile constructs and the LADL engine features at the initial implementation baseline.
 
 IMPORTANT: This is a source-grounded mapping. It is not evidence of runtime parity. No legacy code, engine code or comparison was run to produce it, and it contains no parity percentage or golden result.
 
@@ -13,11 +13,10 @@ IMPORTANT: This is a source-grounded mapping. It is not evidence of runtime pari
 |`behaviors.csv` |One row per behavior, with layer, status, method IDs, primary citation, MN112 construct, engine feature and gap IDs.
 |`methods-common.csv` |The 179 common `isodoc` methods, each assigned to one behavior.
 |`methods-flavors.csv` |The 297 flavor and Standoc methods, each assigned to one behavior.
-|`coverage.json` |Pinned repository heads, repository status and coverage counts.
 |`PROFILE-GAPS.adoc` |Gap definitions, source anomalies and owner questions.
 |===
 
-A full method citation is the row's `repo`, the exact head for that repository in `coverage.json`, and the row's `path` and `line`.
+The behavior rows provide primary source citations. The method tables provide the corresponding repository, path and line.
 
 == Status values
 
@@ -72,7 +71,7 @@ Direction is available in the engine through template and sequence fields. The l
 
 == Source scope
 
-The engine comparison baseline is `metanorma/metanorma-ladl@11f897fccc3521b4a35e428e6ae5ade95776e4f2`. Its source file hashes are recorded in `coverage.json`. The classifications describe that baseline; later engine repairs need separate evidence and gap disposition updates.
+The classifications describe the initial engine implementation. Later engine repairs need separate verification and gap disposition updates.
 
 The inventory covers 35 repository clones, 49 files and 476 methods.
 
@@ -109,4 +108,4 @@ A difference outside the envelope is reported as a difference. If an owner accep
 
 == Verification
 
-`check_coverage.py`, kept with the task evidence, checks method IDs, source hashes, citations, CSV references, status values, gap references and the counts in `coverage.json`. Its result is recorded outside this catalogue when it is run.
+Method coverage, citations, cross-references and counts have been checked for completeness. Runtime parity remains unverified.
