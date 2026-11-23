@@ -49,6 +49,7 @@ module IsoDoc
         bibrender_formattedref(f, bib)
       else bibrender_relaton(bib, renderings)
       end
+      strip_retained_semantic_ids(bib)
       bibitem_notes(bib)
     end
 
@@ -64,6 +65,21 @@ module IsoDoc
         bib << f
       else
         bib.children.first.previous = f
+      end
+    end
+
+    # When a bibitem is rendered through relaton, the rendered formattedref
+    # supersedes the retained raw title. The title subtree's renderable ids
+    # are transferred to original-id, mirroring the semx convention on
+    # in-place elements: the FO tree must see each id only once, since FOP
+    # treats a duplicate id as fatal.
+    def strip_retained_semantic_ids(bib)
+      title = bib.at(ns("./title")) or return
+      bib.at(ns("./formattedref")) or return
+      title.xpath("self::*[@id] | .//*[@id]").each do |x|
+        next unless x["id"]
+        x["original-id"] = x["id"]
+        x.delete("id")
       end
     end
 
