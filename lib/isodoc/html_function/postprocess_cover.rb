@@ -152,11 +152,33 @@ module IsoDoc
       end
 
       def html_toc_entries_prep(docxml, path)
+        ids = html_existing_ids(docxml)
         docxml.xpath(path.join(" | "))
           .each_with_index.with_object({}) do |(h, i), m|
-            h["id"] ||= "_#{Metanorma::Utils.random_uuid}"
+            h["id"] ||= html_content_id(h, ids)
             m[h["id"]] = i
           end
+      end
+
+      # HTML adds headings that are absent from the presentation XML. Use the
+      # same content/path-derived identifiers as presentation conversion, but
+      # do not collide with an existing author-supplied anchor.
+      def html_content_id(node, ids)
+        base = Metanorma::Utils.contenthash(node)
+        id = base
+        suffix = 0
+        while ids.key?(id)
+          suffix += 1
+          id = "#{base}-#{suffix}"
+        end
+        ids[id] = true
+        id
+      end
+
+      def html_existing_ids(docxml)
+        docxml.xpath("//*[@id]").each_with_object({}) do |node, ids|
+          ids[node["id"]] = true
+        end
       end
 
       def toc_exclude_class
