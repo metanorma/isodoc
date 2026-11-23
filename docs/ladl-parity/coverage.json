@@ -1,0 +1,301 @@
+{
+  "schema": "ladl-parity-coverage/1",
+  "issue": "F-LADL/metanorma-isodoc#892",
+  "base_commit": "c07705a98be615dfc46c753dd97b78c44073eda1",
+  "evidence_kind": "source-grounded-mapping",
+  "runtime_parity_passed": false,
+  "counts": {
+    "repositories": 35,
+    "files": 49,
+    "methods": 476,
+    "behaviors": 133,
+    "methods_by_status": {
+      "expressible": 3,
+      "partial": 138,
+      "gap": 245,
+      "question": 6,
+      "excluded": 84
+    },
+    "repositories_by_status": {
+      "methods": 18,
+      "xref_file_without_methods": 6,
+      "no_xref_file": 8,
+      "empty_invalid_head": 3
+    }
+  },
+  "unresolved_method_ids": [],
+  "question_method_ids": [
+    168,
+    169,
+    170,
+    171,
+    297,
+    299
+  ],
+  "repositories": [
+    {
+      "repo": "isodoc",
+      "head": "c07705a98be615dfc46c753dd97b78c44073eda1",
+      "files": 13,
+      "methods": 179,
+      "status": "methods"
+    },
+    {
+      "repo": "metanorma-bipm",
+      "head": "38d804b7ab7755acda4cb7b22f2c34057df9d4af",
+      "files": 1,
+      "methods": 24,
+      "status": "methods"
+    },
+    {
+      "repo": "metanorma-bsi",
+      "head": "c267be75f959a253bc82d4b02c13db1bff4a9673",
+      "files": 1,
+      "methods": 16,
+      "status": "methods"
+    },
+    {
+      "repo": "metanorma-cc",
+      "head": "23eb5bfe21b9f5c5fb1cc8b58d364d5432244dae",
+      "files": 1,
+      "methods": 0,
+      "status": "xref_file_without_methods"
+    },
+    {
+      "repo": "metanorma-core",
+      "head": "4dadba56074f2e1c5cac29b2a28db87aa263cdcb",
+      "files": 0,
+      "methods": 0,
+      "status": "no_xref_file"
+    },
+    {
+      "repo": "metanorma-csa",
+      "head": "0c9a34d37cb9047a6c446ff4b94f9c025f0da075",
+      "files": 1,
+      "methods": 0,
+      "status": "xref_file_without_methods"
+    },
+    {
+      "repo": "metanorma-csd",
+      "head": "23eb5bfe21b9f5c5fb1cc8b58d364d5432244dae",
+      "files": 1,
+      "methods": 0,
+      "status": "xref_file_without_methods",
+      "alias_of": "metanorma-cc"
+    },
+    {
+      "repo": "metanorma-en",
+      "head": "HEAD",
+      "files": 0,
+      "methods": 0,
+      "status": "empty_invalid_head"
+    },
+    {
+      "repo": "metanorma-gb",
+      "head": "d67597aa36da3ffc7a520e3fd351f15f41911d08",
+      "files": 1,
+      "methods": 0,
+      "status": "xref_file_without_methods"
+    },
+    {
+      "repo": "metanorma-generic",
+      "head": "cb41786ff4feb4b730a1154a6ff82f2171dbe064",
+      "files": 1,
+      "methods": 0,
+      "status": "xref_file_without_methods"
+    },
+    {
+      "repo": "metanorma-icc",
+      "head": "HEAD",
+      "files": 0,
+      "methods": 0,
+      "status": "empty_invalid_head"
+    },
+    {
+      "repo": "metanorma-iec",
+      "head": "74e017c884f2b6b1811b4dbf8dc055be82176eb2",
+      "files": 1,
+      "methods": 6,
+      "status": "methods"
+    },
+    {
+      "repo": "metanorma-ieee",
+      "head": "b92dd9d16f723f8b9b4abb68ee67b9edc6ac3037",
+      "files": 1,
+      "methods": 10,
+      "status": "methods"
+    },
+    {
+      "repo": "metanorma-ietf",
+      "head": "36964bd89f22e818547b292e02173831ff6ead2a",
+      "files": 1,
+      "methods": 1,
+      "status": "methods"
+    },
+    {
+      "repo": "metanorma-iho",
+      "head": "a1657ab9d50057419229566f5740e000e8e8852b",
+      "files": 1,
+      "methods": 15,
+      "status": "methods"
+    },
+    {
+      "repo": "metanorma-iso",
+      "head": "c11202c7656b8367d3047505bfb5f8157151a228",
+      "files": 9,
+      "methods": 79,
+      "status": "methods"
+    },
+    {
+      "repo": "metanorma-itu",
+      "head": "1c5bf3515d813be7de60e7d8178c7a3648552f63",
+      "files": 2,
+      "methods": 27,
+      "status": "methods"
+    },
+    {
+      "repo": "metanorma-jis",
+      "head": "d678bf45d98281cc269a0d1338ca32563252d723",
+      "files": 1,
+      "methods": 22,
+      "status": "methods"
+    },
+    {
+      "repo": "metanorma-m3aawg",
+      "head": "141bcc472288d97e3115c310240606b48fbbf519",
+      "files": 1,
+      "methods": 1,
+      "status": "methods"
+    },
+    {
+      "repo": "metanorma-mbxif",
+      "head": "75b4c68df188664c1f148ee53e5715a70a1f2b1f",
+      "files": 0,
+      "methods": 0,
+      "status": "no_xref_file"
+    },
+    {
+      "repo": "metanorma-mko",
+      "head": "bf0f89deb6b23b63309a51187d23b20cc050723d",
+      "files": 0,
+      "methods": 0,
+      "status": "no_xref_file"
+    },
+    {
+      "repo": "metanorma-mlit",
+      "head": "HEAD",
+      "files": 0,
+      "methods": 0,
+      "status": "empty_invalid_head"
+    },
+    {
+      "repo": "metanorma-mpfa",
+      "head": "85f11a566c9c00c62dbb58409cb53ca4329dc74f",
+      "files": 1,
+      "methods": 9,
+      "status": "methods"
+    },
+    {
+      "repo": "metanorma-nist",
+      "head": "40029199d3cf17b32d541de28bb14868335eee03",
+      "files": 1,
+      "methods": 8,
+      "status": "methods"
+    },
+    {
+      "repo": "metanorma-ogc",
+      "head": "92a9133e34b38cb1dca6217795170a4137263298",
+      "files": 1,
+      "methods": 12,
+      "status": "methods"
+    },
+    {
+      "repo": "metanorma-oiml",
+      "head": "2a073f3c6de00af6cfa53b0796d7b149f77ff00b",
+      "files": 0,
+      "methods": 0,
+      "status": "no_xref_file"
+    },
+    {
+      "repo": "metanorma-pdfa",
+      "head": "ebe3dea6c5cae61e8f81b3a8aeda3c3e5993ff5e",
+      "files": 0,
+      "methods": 0,
+      "status": "no_xref_file"
+    },
+    {
+      "repo": "metanorma-plateau",
+      "head": "60d02099e5e8f5c9d2a4529f0153965bb9bcf41f",
+      "files": 1,
+      "methods": 10,
+      "status": "methods"
+    },
+    {
+      "repo": "metanorma-ribose",
+      "head": "dc142f99acf24e84ad801ff6413267885d81c5de",
+      "files": 1,
+      "methods": 3,
+      "status": "methods"
+    },
+    {
+      "repo": "metanorma-snap",
+      "head": "987903f0ac6258ea4d1016e38c9b28a628802e5d",
+      "files": 0,
+      "methods": 0,
+      "status": "no_xref_file"
+    },
+    {
+      "repo": "metanorma-standoc",
+      "head": "a381a598ed689aaa3d343be54f5fa59a4c8d4dd2",
+      "files": 5,
+      "methods": 34,
+      "status": "methods"
+    },
+    {
+      "repo": "metanorma-swf",
+      "head": "361526792dadd47695d3874f716fae485be536a1",
+      "files": 0,
+      "methods": 0,
+      "status": "no_xref_file"
+    },
+    {
+      "repo": "metanorma-taste",
+      "head": "36b7e017ed780dc62002a1cbbc17a7b9e8a12b99",
+      "files": 0,
+      "methods": 0,
+      "status": "no_xref_file"
+    },
+    {
+      "repo": "metanorma-un",
+      "head": "345ba67319ae0ce0ca80f01f9d3f5fa67bc8f40e",
+      "files": 1,
+      "methods": 20,
+      "status": "methods"
+    },
+    {
+      "repo": "metanorma-vsd",
+      "head": "6df5f2ae8deb4005ee5962e585b6b1bf0f650d4d",
+      "files": 1,
+      "methods": 0,
+      "status": "xref_file_without_methods"
+    }
+  ],
+  "engine_baseline": {
+    "repo": "metanorma/metanorma-ladl",
+    "head": "11f897fccc3521b4a35e428e6ae5ade95776e4f2",
+    "source_sha256": {
+      "ladl/iso-iec.yaml": "0956734f4dc7c7bd69e26fa2511635d4486093e5cc87e385e087a99d2b780592",
+      "lib/metanorma/ladl.rb": "b843ceb21da42beac9e9758a431935ceee9ba2f2247f8e95e95ab639c0e46424",
+      "lib/metanorma/ladl/content_element.rb": "89cdff75b513278a7994a7c22b8089f03c37715bb23f5ac88b323a4dc0d9289b",
+      "lib/metanorma/ladl/document_adapter.rb": "7d99d7660916759215d581b37ccfbf0a037cbb53509b34d9dedb3d6db4d1e325",
+      "lib/metanorma/ladl/engine.rb": "041c42457c0bd448e1bd14daaa68bfe5afa140dce926a6094c20d2de3e64f246",
+      "lib/metanorma/ladl/errors.rb": "7ef55e90cf988ee38eeb864b9579a02ff39fc26133e870cd6579e504c59a8350",
+      "lib/metanorma/ladl/instance.rb": "33e48e17f716eae989dfb14177b14f03e19fa9aecf5d5df2c0af7aceb39d7b22",
+      "lib/metanorma/ladl/lml_codec.rb": "c65845fb016e087ad4ea0469bbf2bfb0cc04c23db2fa604f0267b929a290620b",
+      "lib/metanorma/ladl/profile.rb": "752dc5fdf03bd83f3dbcbcfda0071f7453c71c291d623a33f9305c7be7accbb5",
+      "lib/metanorma/ladl/sequence.rb": "c476896be3a033ffc70ad60558176dc8fd5f44d00ecaba035739d0c732ac7114",
+      "lib/metanorma/ladl/version.rb": "ffa145767339ad56c205514b21c7871d326318f632bdc9717f5ca87a61021668"
+    },
+    "classification_meaning": "Static mapping against this initial engine baseline; later engine fixes require new runtime evidence and disposition updates."
+  }
+}

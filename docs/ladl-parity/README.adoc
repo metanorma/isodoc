@@ -1,0 +1,112 @@
+= Legacy xref and numbering parity catalogue (F-LADL)
+
+This catalogue maps the legacy xref and numbering methods to the MN112 profile constructs and the LADL engine features at the pinned comparison baseline in `coverage.json`.
+
+IMPORTANT: This is a source-grounded mapping. It is not evidence of runtime parity. No legacy code, engine code or comparison was run to produce it, and it contains no parity percentage or golden result.
+
+== Files
+
+[cols="1,3"]
+|===
+|File |Content
+
+|`behaviors.csv` |One row per behavior, with layer, status, method IDs, primary citation, MN112 construct, engine feature and gap IDs.
+|`methods-common.csv` |The 179 common `isodoc` methods, each assigned to one behavior.
+|`methods-flavors.csv` |The 297 flavor and Standoc methods, each assigned to one behavior.
+|`coverage.json` |Pinned repository heads, repository status and coverage counts.
+|`PROFILE-GAPS.adoc` |Gap definitions, source anomalies and owner questions.
+|===
+
+A full method citation is the row's `repo`, the exact head for that repository in `coverage.json`, and the row's `path` and `line`.
+
+== Status values
+
+[cols="1,1,3"]
+|===
+|Status |Methods |Meaning
+
+|`expressible` |3 |An existing MN112 construct and engine feature can state the behavior. A flavor profile still has to be written and tested.
+|`partial` |138 |A specific construct covers part of the behavior, and the named gaps cover the rest.
+|`gap` |245 |No implemented construct covers the behavior.
+|`question` |6 |The meaning depends on an owner decision or on source facts missing from the inventory.
+|`excluded` |84 |The method assigns no label. The behavior row states the reason.
+|===
+
+These counts classify source methods. They must not be read as a percentage of parity.
+
+== Layers and dispatch
+
+The `common` layer is the `isodoc` base. The `flavor-override` layer holds flavor methods. The `excluded` layer holds non-label helpers, DOCX renderers, citation rendering, validation rules and Standoc semantic cleanup.
+
+The `dispatch` column has three values:
+
+* `base` is a method in `isodoc`.
+* `same` is a flavor method whose name also exists in the indexed `isodoc` methods.
+* `new` is a flavor method with no same-named indexed `isodoc` method.
+
+`same` is a name match. It does not prove which parent the method overrides, because the inventory does not record superclasses, mixins or constants (gap G22). Some flavors override ISO behavior instead of `isodoc` behavior, and `super` calls in the method bodies are the only inheritance evidence available.
+
+== Coverage by topic
+
+[cols="2,3"]
+|===
+|Topic |Behaviors
+
+|Flavor layout and counter reset |`C09`, `C15`, `C16`, `C19`, and each flavor's order and asset rows
+|Clause and annex hierarchy |`C10` to `C13`, and each flavor's `clause-hierarchy` rows
+|Figures, tables, equations |`C20` to `C23`, and each flavor's `figures` and `equations` rows
+|Notes and examples |`C25` to `C28`, `ISO-10`, `BSI-8`, `IEEE-5`, `IEEE-6`
+|List levels and prefixes |`C18`, `C31`, `C32`, `ISO-7`, `JIS-1`, `ITU-1`, `NIST-1`, `PLA-1`, `BSI-7`
+|Local, global and context labels |`C02`, `C03`, `C34`, `ISO-2`
+|Parent labels |`C10`, `C12`, `C20`, and gaps G01 to G03
+|Conditional counts |`C35`, `C25`, `C28`, `ISO-10`
+|Localization and direction |`C05`, `C08`, `ISO-11`, gap G08
+|IDs, anchors and link targets |`C02`, `C04`, `C07`, `C33`, `ISO-6`, `ISO-9`
+|Markup |`C01`, `C34`, `C36`, `ISO-1`, gap G09
+|Flavor-specific numbering |`category=flavor-special` and `category=numbering-algorithm`
+|===
+
+Legacy `:arabic` means Western digits. It maps to `DecimalNumericSequence`. The engine's `ArabicNumericSequence` produces Arabic-Indic digits and is a different behavior.
+
+Direction is available in the engine through template and sequence fields. The legacy xref methods have no matching per-label direction field, so direction needs its own comparison evidence.
+
+== Source scope
+
+The engine comparison baseline is `metanorma/metanorma-ladl@11f897fccc3521b4a35e428e6ae5ade95776e4f2`. Its source file hashes are recorded in `coverage.json`. The classifications describe that baseline; later engine repairs need separate evidence and gap disposition updates.
+
+The inventory covers 35 repository clones, 49 files and 476 methods.
+
+* 18 repositories contribute methods.
+* 6 repositories (CC, CSA, CSD, GB, Generic, VSD) have an xref file with no method definitions.
+* 8 repositories have a valid head and no matching xref file.
+* 3 repositories (EN, ICC, MLIT) are empty, with an invalid `HEAD` and no files. No behavior is inferred for them.
+
+CSD and CC are at the same commit, consistent with CSD redirecting to CC. Heads are pinned local provenance and are not a claim about the latest remote state.
+
+== Normalization envelope for the ISO legacy and native comparison
+
+The comparison may normalize only the differences listed here. Each normalization must be applied to both sides and must be reported with a count.
+
+[cols="2,3"]
+|===
+|May normalize |Rule
+
+|Generated footer timestamp |Mask only the known native-harness timestamp field. The S-ISO delivery card tracks retiring this nondeterminism. Authored date content stays compared.
+|Random generated IDs |Rename UUID-form generated IDs to first-seen tokens on each side, and rewrite references with the same mapping. Link topology stays compared.
+|XML serialization |Canonicalize attribute order, namespace declaration placement and insignificant inter-element whitespace.
+|===
+
+The comparison must not normalize any of these:
+
+* label text, numbers, separators, delimiters, case or language
+* element names and label field values
+* link targets or the element a link resolves to
+* counter order or reset behavior
+* authored content, including authored dates and authored IDs
+* `semx`, `fmt-*` or direction markup, unless an owner approves a named exception
+
+A difference outside the envelope is reported as a difference. If an owner accepts one, record it by gap or anomaly ID with the affected element, instead of widening the normalizer.
+
+== Verification
+
+`check_coverage.py`, kept with the task evidence, checks method IDs, source hashes, citations, CSV references, status values, gap references and the counts in `coverage.json`. Its result is recorded outside this catalogue when it is run.
