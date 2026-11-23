@@ -189,9 +189,8 @@ module IsoDoc
       basename = File.basename(filename, ".*")
       compiled_path = File.join(File.dirname(filename), "#{basename}.css")
       content = uncomment_out_liquid(compile_scss(filename))
-      File.open(compiled_path, "w:UTF-8") do |f|
-        f.write(content)
-      end
+      # Preserve the hashed compiler bytes when Windows text mode expands LF.
+      File.binwrite(compiled_path, content)
       @@css_list << compiled_path
       CLEAN << compiled_path
       Digest::SHA256.hexdigest(content)

@@ -59,6 +59,27 @@ RSpec.describe "IsoDoc::GemTasks build safety" do
     expect(@packaged).to be false
   end
 
+  it "preserves compiler bytes when text files translate newlines on Windows" do
+    File.binwrite("lib/style.scss", "a::after {\n  content: \"café\";\n}\n")
+    expected = IsoDoc::GemTasks.uncomment_out_liquid(
+      IsoDoc::GemTasks.compile_scss("lib/style.scss"),
+    )
+    allow(File).to receive(:open).and_wrap_original do |open, path, *args, **options, &block|
+      mode = args.first.to_s
+      if path == "lib/style.css" && mode.start_with?("w") && !mode.include?("b")
+        options[:newline] = :crlf
+      end
+      open.call(path, *args, **options, &block)
+    end
+
+    install_and_build
+
+    expect(@packaged).to be true
+    expect(File.binread("lib/style.css")).to eq(expected.b)
+    expect(Digest::SHA256.file("lib/style.css").hexdigest)
+      .to eq(Digest::SHA256.hexdigest(expected))
+  end
+
   ["build", "release"].each do |task|
     [nil, "true"].each do |ci|
       it "rejects stale CSS after compiler failure before #{task} with CI=#{ci.inspect}" do
