@@ -1,0 +1,121 @@
+= LADL profile and engine gaps against legacy numbering
+
+Every gap below comes from reading the pinned legacy source and the copied engine and `iso-iec.yaml`.
+None of the traces were executed.
+A gap entry is a required decision or implementation, not a claim that a given document currently fails.
+
+Engine references are relative to `lib/metanorma/ladl/`.
+Unsupported features must keep failing explicitly.
+They must not be approximated to make a comparison pass.
+
+== Blocking the ISO comparison
+
+[cols="1,3,3,2"]
+|===
+|Gap |Legacy behavior |Engine or profile as implemented |Required resolution
+
+|G01
+|Clause labels join the full parent label at any depth, so a third-level clause is `1.1.1`.
+|`SubclauseLabeller` names `ClauseLabeller` as parent, and `%pn` reads that parent's value (`engine.rb:107`, `engine.rb:141`). Static trace: the first child of `1.1` renders as `1.1`, duplicating its parent's label.
+|Add a recursive labeller or a compound-parent placeholder to MN112 and the engine.
+
+|G02
+|Annex subclauses recurse: `A.1.1`.
+|Every annex descendant clause has type `clause` and binds to the annex scope (`document_adapter.rb:70`). Static trace: `A.1.1` is counted as a sibling of `A.1` and renders as `A.2`.
+|Bind by depth and use a recursive parent label.
+
+|G03
+|Subfigure numbering restarts in each parent figure.
+|`SubfigureLabeller` binds to `DocumentContext`, so the second figure's subfigures continue the first figure's sequence. Its parent is `FigureLabeller`, so a subfigure in an annex figure raises `MissingParent`.
+|Add a figure context and an annex-aware parent.
+
+|G04
+|`@number`, `@branch-number` and `@subsequence` override or continue counters (`xref_counter.rb:52-129`).
+|`Sequence#value` depends only on position.
+|Define MN112 semantics for authored overrides. Do not drop these attributes.
+
+|G05
+|`@hidden=true` consumes no number (`xref_counter.rb:158`).
+|The adapter checks only `@unnumbered` (`document_adapter.rb:68`), so hidden nodes consume a position.
+|Add hidden-node handling to the adapter.
+
+|G06
+|`clause_order_*` XPath lists define numbering order and partition preface, main, annex and back matter.
+|The engine counts in adapter traversal order and has no partition or order construct.
+|Add an ordering construct, or an adapter contract per flavor.
+
+|G10
+|Notes in figures, tables and requirements have separate counters. ISO also leaves `units` and `requirement` notes uncounted.
+|Figures and tables are not context owners, so their notes join the enclosing clause's count. No type filter exists.
+|Add asset contexts and a type filter.
+
+|G11
+|Only top-level `ol` is a numbered list. Items honor `@start` and `@type`, and depth styles continue to 10.
+|Every `Lists::List` binds as `list`, including nested lists. `@start` and `@type` are ignored. Depth above 4 raises `TreeError`.
+|Restrict list binding and add start, type and depth support.
+
+|G20
+|An anchor carries `label`, `xref`, `value`, `elem`, `type`, `subtype`, `title`, `level`, `container` and `bare_xref`.
+|`Label` has only `local`, `global`, `value`, `direction`, `global_direction` and `labeller`. Profile local text also differs: it is `Clause %n` where legacy `label` is the bare number.
+|Decide the field mapping before comparing output.
+|===
+
+== Required for full flavor coverage
+
+[cols="1,3,3"]
+|===
+|Gap |Legacy behavior |Current state
+
+|G07 |Labels and counters vary by `@obligation`, `@type`, `@class`, doctype, committee, and document options. |Profile conditions are limited to `element_count_gt`, `element_count_eq` and `element_count_lt` (`profile.rb:178`).
+|G08 |Labels use i18n keys, script-aware casing, inflection and `l10n`. |Patterns are literal text. A single profile cannot serve several languages.
+|G09 |Labels contain `semx` provenance, `fmt-*` spans and delimiter markup. |Output is plain strings.
+|G12 |Letter counters roll over with an optional skip of `I`. List letters use `chr` and leave the alphabet after 26. |The engine alphabet is bijective with no skip rule. Past 26 this is a deliberate difference to decide, not a value to copy.
+|G13 |JIS uses Japanese spellout, IEV uses zero-padded compound numbers, and UN cycles styles by level. |No such algorithms exist. Custom `CharacterSequence` Unicode alphabets are supported as finite data, but named CJK, Hebrew and Cyrillic numeric algorithms are not implemented.
+|G14 |Requirements, source code, admonitions, paragraphs, definition lists, term notes, term examples, bibliography notes, bookmarks, appendices, commentary and section titles are numbered. |The adapter has no type for them.
+|G15 |Unnumbered and preface clauses derive labels from titles or `[id]`. |Templates cannot read titles.
+|G16 |Xref text depends on style, source container, compound locations, capitalization and missing-target handling. |Native metadata plus the HTML consumer cover stored label selection only.
+|G17 |Amendment directives change numbering before labelling. |No equivalent exists.
+|G18 |BIPM and Plateau delegate part of their numbering to an embedded ISO `Xref`. |One profile per engine, with no composition.
+|G19 |Root flavors have their own numbering. |Only the ISO/IEC profile input exists, and broad root flavors still need explicit registration.
+|G21 |Hierarchical assets count across all descendants of a top-level clause. |`ClauseContext` restarts at every clause depth, so no top-clause scope exists.
+|G22 |Dispatch depends on superclasses, mixins and constants. |The inventory records method bodies only. See the owner questions below.
+|===
+
+== Source anomalies
+
+These were found by reading the source and were not executed.
+Parity must not silently reproduce or fix them.
+
+[cols="1,2,4"]
+|===
+|ID |Citation |Finding
+
+|A1
+|`metanorma-iso@c11202c7656b8367d3047505bfb5f8157151a228:lib/isodoc/iso/xref_figure.rb:62`
+|`sequential_figure_class_names` calls `c.print` where `c` is a Hash. `Kernel#print` is private, so a classed figure on this path should raise `NoMethodError` unless something else defines it.
+
+|A2
+|`metanorma-iec@74e017c884f2b6b1811b4dbf8dc055be82176eb2:lib/isodoc/iec/xref.rb:51`
+|`annex_name_lbl` opens a `span` and closes it with `</fmt>`.
+
+|A3
+|`metanorma-ieee@b92dd9d16f723f8b9b4abb68ee67b9edc6ac3037:lib/isodoc/ieee/xref.rb:75`
+|A single term note is not incremented, but `value` and `xref` still read the counter, so they carry `0`.
+
+|A4
+|`metanorma-plateau@60d02099e5e8f5c9d2a4529f0153965bb9bcf41f:lib/isodoc/plateau/xref.rb:101`
+|`list_item_value` returns the merged anchor Hash instead of the `[label, xref]` pair its base method returns.
+
+|A5
+|`metanorma-iho@a1657ab9d50057419229566f5740e000e8e8852b:lib/isodoc/iho/xref.rb:100`
+|`annex_names1` calls `.text` on the annex `@obligation`, but the first annex group also matches annexes with no `@obligation`, which would raise on a nil value.
+|===
+
+== Owner questions
+
+. *MN112 hierarchy (G01, G02, G03):* should the fix be a recursive labeller, or a new compound-parent placeholder? A recursive labeller is the recommended option because it keeps one declaration per element type.
+. *Authored overrides (G04):* should `@number` and related attributes be first-class MN112 input? Recommended yes, because they are authored content.
+. *Letter overflow (G12):* should legacy non-letter output past 26 list items be preserved? Recommended no, recorded as an approved semantic difference.
+. *Anomalies A1 to A5:* for each one, should the native engine match the legacy result or the evident intent?
+. *Dispatch provenance (G22):* can the inventory be extended to capture superclass, `include`, `prepend` and constant values? Six repositories have an xref file with no `def`, so their inheritance cannot be stated from the current inputs.
+. *CSD and CC:* both clones are at the same head. Should CSD be recorded only as an alias of CC in later reports?
