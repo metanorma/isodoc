@@ -31,6 +31,12 @@ RSpec.describe IsoDoc::Metadata do
       File.read("spec/assets/bibdata_mathml_title.yml"),
       permitted_classes: [Date, Symbol], symbolize_names: true,
     )
+    # The pretty-printer's whitespace between embedded MathML tags depends
+    # on the XML serialiser version (leptris 1.9.442 changed it), so compare
+    # the title markup without inter-tag whitespace.
+    [actual, expected].each do |h|
+      h[:title].each { |t| t[:content] = t[:content].gsub(/>\s+</, "><") }
+    end
     expect(actual).to eq expected
   end
 
