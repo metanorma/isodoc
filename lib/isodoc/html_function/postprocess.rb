@@ -127,11 +127,12 @@ module IsoDoc
       end
 
       def term_header(docxml)
+        ids = html_existing_ids(docxml)
         %w(h1 h2 h3 h4 h5 h6 h7 h8).each do |h|
           docxml.xpath("//p[@class = 'TermNum'][../#{h}]").each do |p|
             p.name = "h#{h[1].to_i + 1}"
             id = p["id"]
-            p["id"] = "_#{Metanorma::Utils.random_uuid}"
+            p["id"] = html_content_id(p, ids)
             p.wrap("<div id='#{id}'></div>")
           end
         end

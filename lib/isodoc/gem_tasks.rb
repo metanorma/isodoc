@@ -5,6 +5,7 @@
 # (undeclared) sassc dependency.
 require "rake/clean"
 require "tmpdir"
+require "digest"
 
 module IsoDoc
   module GemTasks
@@ -19,27 +20,45 @@ module IsoDoc
     end
 
     def install
+      scss_sources = {}
+      packaging = false
+      compiled_outputs = {}
       rule ".css" => [proc { |tn| tn.sub(/\.css$/, ".scss") }] do |current_task|
         puts(current_task)
-        compile_scss_task(current_task)
+        compiled_outputs[current_task.name] = compile_scss_task(current_task)
       rescue StandardError => e
-        notify_broken_compilation(e, current_task)
+        restore_scss_sources(scss_sources)
+        fail_on_error = packaging
+        packaging = false
+        notify_broken_compilation(e, current_task, fail_on_error: fail_on_error)
       end
 
       scss_files = Rake::FileList["lib/**/*.scss"]
       source_files = scss_files.ext(".css")
 
       task :comment_out_liquid do
+        packaging = true
+        scss_sources = scss_files.to_h { |name| [name, File.binread(name)] }
         process_css_files(scss_files) do |file_name|
           comment_out_liquid(File.read(file_name, encoding: "UTF-8"))
         end
+      rescue StandardError
+        restore_scss_sources(scss_sources)
+        packaging = false
+        raise
       end
 
       task build_scss: [:comment_out_liquid].push(*source_files) do
         process_css_files(scss_files) do |file_name|
           uncomment_out_liquid(File.read(file_name, encoding: "UTF-8"))
         end
+        validate_compiled_files(source_files, compiled_outputs)
         git_cache_compiled_files && puts("Built scss!")
+      rescue StandardError
+        restore_scss_sources(scss_sources)
+        raise
+      ensure
+        packaging = false
       end
 
       # `rake release` packages through bundler/gem_tasks (gem build), which
@@ -62,13 +81,30 @@ module IsoDoc
       ENV["CI"] == nil
     end
 
-    def notify_broken_compilation(error, current_task)
+    def notify_broken_compilation(error, current_task, fail_on_error: false)
       puts("Cannot compile #{current_task} because of #{error.message}")
-      return unless interactive?
+      raise error if fail_on_error || !interactive?
 
       puts("continue anyway[y|n]?")
       answer = $stdin.gets.strip
       exit(0) unless %w[y yes].include?(answer.strip.downcase)
+    end
+
+    def restore_scss_sources(sources)
+      sources.each { |name, content| File.binwrite(name, content) }
+    end
+
+    def validate_compiled_files(source_files, compiled_outputs = {})
+      # Mixin/variable-only modules legitimately compile to empty CSS. Match
+      # every asset against this build's successful compiler result instead
+      # of accepting a stale sibling or rejecting valid zero-byte output.
+      missing = source_files.reject do |name|
+        File.file?(name) && compiled_outputs[name] &&
+          Digest::SHA256.file(name).hexdigest == compiled_outputs[name]
+      end
+      return if missing.empty?
+
+      raise "Missing or changed compiled CSS: #{missing.join(', ')}"
     end
 
     def git_cache_compiled_files
@@ -153,11 +189,11 @@ module IsoDoc
       basename = File.basename(filename, ".*")
       compiled_path = File.join(File.dirname(filename), "#{basename}.css")
       content = uncomment_out_liquid(compile_scss(filename))
-      File.open(compiled_path, "w:UTF-8") do |f|
-        f.write(content)
-      end
+      # Preserve the hashed compiler bytes when Windows text mode expands LF.
+      File.binwrite(compiled_path, content)
       @@css_list << compiled_path
       CLEAN << compiled_path
+      Digest::SHA256.hexdigest(content)
     end
   end
 end
