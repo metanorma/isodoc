@@ -181,7 +181,16 @@ module IsoDoc
         end, "or"))
       else
         ret = loc2xref(list[0])
-        list[1..].each { |l| ret = i18n_chain_boolean(ret, l) }
+        list[1..].each do |l|
+          # entries with no connective (an erefstack authored without
+          # one) are comma-joined; the boolean chain needs a connective
+          # word to localise, and would send "chain_" on nil
+          ret = if l[:conn]
+                  i18n_chain_boolean(ret, l)
+                else
+                  connectives_spans("#{ret}, #{loc2xref(l)}")
+                end
+        end
         if list[0][:conn] == "from" && list[0][:custom]
           # TODO: languages with mandatory from, include from in chain_to
           ret = connectives_spans("<conn>#{list[0][:custom]}</conn> ") + ret
