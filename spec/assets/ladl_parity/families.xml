@@ -1,0 +1,63 @@
+<iso-standard xmlns="http://riboseinc.com/isoxml">
+<preface>
+<abstract id="abstract"><p>Abstract</p></abstract>
+<foreword id="foreword"><title>Foreword</title></foreword>
+<introduction id="intro"><title>Introduction</title>
+<clause id="intro_sub"><title>Intro sub</title>
+<clause id="intro_subsub"><title>Intro subsub</title></clause>
+</clause>
+</introduction>
+<acknowledgements id="ack"><title>Acknowledgements</title></acknowledgements>
+</preface>
+<sections>
+<clause id="scope" type="scope"><title>Scope</title></clause>
+<terms id="terms"><title>Terms</title>
+<term id="term1"><preferred><expression><name>alpha</name></expression></preferred>
+<term id="term1_sub"><preferred><expression><name>alpha sub</name></expression></preferred></term>
+</term>
+<term id="term2"><preferred><expression><name>beta</name></expression></preferred></term>
+<term id="term3"><preferred><expression><name>gamma</name></expression></preferred></term>
+</terms>
+<clause id="c5"><title>Requirements</title>
+<requirement id="req1" model="default"><identifier>R1</identifier><description><p>Shall</p></description>
+<requirement id="req1_nested" model="default"><description><p>Nested shall</p></description></requirement>
+</requirement>
+<requirement id="req2" model="default"><description><p>Shall two</p></description></requirement>
+<recommendation id="rec1" model="default"><description><p>Should</p></description></recommendation>
+<recommendation id="rec2" model="default"><description><p>Should two</p></description></recommendation>
+<permission id="perm1" model="default"><description><p>May</p></description></permission>
+<permission id="perm2" model="default"><description><p>May two</p></description></permission>
+<table id="tbl"><name>Table</name><tbody><tr><td>x<fn reference="2" id="fn_tbl"><p>Table footnote</p></fn></td></tr></tbody></table>
+<p id="p1">Text<fn reference="1" id="fn1"><p>Footnote one</p></fn> more<fn reference="3" id="fn3"><p>Footnote three</p></fn></p>
+<clause id="c5_1"><title>Sub</title>
+<clause id="c5_1_1"><title>Subsub</title>
+<clause id="c5_1_1_1"><title>Subsubsub</title></clause>
+</clause>
+</clause>
+</clause>
+</sections>
+<annex id="annexA" obligation="normative"><title>Annex</title>
+<clause id="annexA_1"><title>Annex clause</title>
+<clause id="annexA_1_1"><title>Annex subclause</title>
+<clause id="annexA_1_1_1"><title>Annex subsub</title></clause>
+</clause>
+<note id="annexA_note1"><p>Annex note one</p></note>
+<note id="annexA_note2"><p>Annex note two</p></note>
+<example id="annexA_ex1"><p>Annex example</p></example>
+</clause>
+<requirement id="annexA_req" model="default"><description><p>Annex shall</p></description></requirement>
+<appendix id="appendix1"><title>Appendix one</title>
+<clause id="appendix1_c"><title>Appendix clause</title></clause>
+</appendix>
+<appendix id="appendix2"><title>Appendix two</title></appendix>
+</annex>
+<bibliography>
+<references id="normrefs" normative="true"><title>Normative references</title>
+<bibitem id="ref1"><title>Ref</title><docidentifier>ISO 1</docidentifier></bibitem>
+<bibitem id="ref1b"><title>Ref b</title><docidentifier>ISO 3</docidentifier></bibitem>
+</references>
+<references id="bibl" normative="false"><title>Bibliography</title>
+<bibitem id="ref2"><title>Ref two</title><docidentifier>ISO 2</docidentifier></bibitem>
+</references>
+</bibliography>
+</iso-standard>

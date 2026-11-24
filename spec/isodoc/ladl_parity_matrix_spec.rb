@@ -48,6 +48,26 @@ if LADL_PARITY_LOADABLE
         .to eq ["unsupported"]
     end
 
+    it "separates profile gaps from tree-mapping and label differences" do
+      causes = %w[term1 req1 fn1 appendix1 figure1 c4_2 note1]
+        .map { |id| rows[id].cause }
+      expect(causes).to eq %w[profile-gap profile-gap profile-gap
+                              profile-gap - tree-mapping label-difference]
+    end
+
+    it "covers the iec, ieee, itu, jis, ogc and bipm xref overrides" do
+      expect(described_class::Generator.available_flavors)
+        .to include("iec", "ieee", "itu", "jis", "ogc", "bipm")
+    end
+
+    it "flags the unsupported families in the families fixture" do
+      families = File.expand_path("../assets/ladl_parity/families.xml",
+                                  __dir__)
+      expect(described_class.gaps([families]))
+        .to include("- term:", "- requirement:", "- footnote:", "- bibitem:",
+                    "- preface-abstract:", "- appendix-clause:")
+    end
+
     it "renders a markdown matrix for each available flavor" do
       md = described_class.generate(fixture)
       headings = described_class::Generator.available_flavors
