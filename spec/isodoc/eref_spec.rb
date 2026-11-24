@@ -1812,4 +1812,35 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)))
       .to be_xml_equivalent_to output
   end
+  it "comma-joins an erefstack with no connectives" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
+        <sections>
+       <clause id="A1" inline-header="false" obligation="normative">
+       <title>Section</title>
+       <p id="A2">
+       <erefstack><eref bibitemid="ISO712" citeas="ISO 712" type="inline"><display-text>ISO 712</display-text></eref><eref bibitemid="ISO8000" citeas="ISO 8000" type="inline"><display-text>ISO 8000</display-text></eref></erefstack>
+       </p>
+       </clause>
+       </sections>
+       <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
+       <bibitem id="ISO712" type="standard">
+         <title format="text/plain">Cereals or cereal products</title>
+         <docidentifier type="ISO">ISO 712</docidentifier>
+       </bibitem>
+       <bibitem id="ISO8000" type="standard">
+         <title format="text/plain">Quantity and unit code</title>
+         <docidentifier type="ISO">ISO 8000</docidentifier>
+       </bibitem>
+       </references></bibliography>
+       </iso-standard>
+    INPUT
+    output = IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    expect(strip_guid(Nokogiri::XML(output).at("//xmlns:p").to_xml))
+      .to include("ISO 712")
+    expect(strip_guid(Nokogiri::XML(output).at("//xmlns:p").to_xml))
+      .to include(", ")
+  end
 end
