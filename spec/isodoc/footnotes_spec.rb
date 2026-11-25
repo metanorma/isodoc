@@ -1411,9 +1411,11 @@ RSpec.describe "table footnote identifier determinism" do
   it "derives the reference-less footnote anchor from the node content" do
     html = compile("test")
     href = html
-      .scan(/href="#(#{Regexp.escape("_t1")}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})"/)
+      .scan(/href="#fn:(#{Regexp.escape("_t1")}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})"/)
       .flatten
-    expect(href.length).to eq(1)
+    anchors = html.scan(/<a [^>]*TableFootnoteRef[^>]*>[^<]*/).uniq
+    bodies = html.scan(/<aside [^>]*>/).uniq
+    expect(href.length).to eq(1), "anchors: #{anchors}; bodies: #{bodies}"
     # the footnote body is anchored to the same minted reference
     expect(html).to include("id=\"fn:#{href.first}\"")
   end
