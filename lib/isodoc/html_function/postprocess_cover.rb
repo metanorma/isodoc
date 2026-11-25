@@ -137,8 +137,20 @@ module IsoDoc
         dest = docxml.at("//div[@id = 'toc']") or return
         if source = docxml.at("//div[@class = 'TOC']")
           dest << to_xml(source.remove.children)
+          toc_retarget_source_anchors(dest, source["id"])
         end
         dest
+      end
+
+      # The ToC clause headings moved into the destination carry anchor
+      # permalinks minted by heading_anchors, pointing at the id of the
+      # ToC clause div that has just been removed. Retarget them at the
+      # destination the headings now live in, so they do not dangle.
+      def toc_retarget_source_anchors(dest, source_id)
+        dest.xpath(".//a[@class = 'anchor' or @class = 'header']" \
+                   "[@href = '##{source_id}']").each do |a|
+          a["href"] = "##{dest['id']}"
+        end
       end
 
       def html_toc_entries(docxml, path)

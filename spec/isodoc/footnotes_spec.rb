@@ -1352,3 +1352,92 @@ RSpec.describe IsoDoc do
       .to be_xml_equivalent_to presxml
   end
 end
+
+RSpec.describe "table footnote identifier determinism" do
+  # metanorma/isodoc#919: a table footnote lacking a reference attribute
+  # used to mint its published anchor from Metanorma::Utils.random_uuid;
+  # it is now derived from the node content, so compiling the same
+  # document twice must produce the same anchors.
+  let(:presxml) do
+    <<~XML
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+        <bibdata>
+          <title language="en" type="main">Synthetic document</title>
+          <docidentifier type="ISO">99999</docidentifier>
+          <edition>1</edition>
+          <language>en</language>
+          <script>Latn</script>
+          <status><stage>60</stage><substage>60</substage></status>
+        </bibdata>
+        <sections>
+          <clause id="c1" displayorder="1">
+            <fmt-title depth="1" id="_c1_title">Tables</fmt-title>
+            <table id="_t1">
+              <tbody>
+                <tr>
+                  <td>
+                    <p id="p1">Cell<fn id="_f1" target="_fb1"><fmt-fn-label><span>a</span></fmt-fn-label></fn></p>
+                  </td>
+                </tr>
+              </tbody>
+              <fmt-footnote-container>
+                <fmt-fn-body id="_fb1" target="_f1">
+                  <fmt-fn-label><span>a</span></fmt-fn-label>
+                  <p id="_p2">Table footnote body.</p>
+                </fmt-fn-body>
+              </fmt-footnote-container>
+            </table>
+          </clause>
+        </sections>
+      </iso-standard>
+    XML
+  end
+
+  def compile(name)
+    Dir.mktmpdir("isodoc-fn") do |dir|
+      html = Dir.chdir(dir) do
+        IsoDoc::HtmlConvert.new({}).convert(name, presxml, false)
+        File.read("#{name}.html", encoding: "UTF-8")
+      end
+      html
+    end
+  end
+
+  it "compiles a reference-less table footnote identically twice" do
+    expect(compile("test1")).to eq(compile("test2"))
+  end
+
+  it "derives the reference-less footnote anchor from the node content" do
+    html = compile("test")
+    href = html
+      .scan(/href="#(#{Regexp.escape("_t1")}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})"/)
+      .flatten
+    expect(href.length).to eq(1)
+    # the footnote body is anchored to the same minted reference
+    expect(html).to include("id=\"fn:#{href.first}\"")
+  end
+
+  # metanorma/isodoc#919: the missing-anchor cases used to crash with
+  # `undefined method '+' for nil` (footnotes.rb) or `nil.at` further down
+  # the same path; they now raise a diagnostic naming the degenerate input.
+  it "raises a diagnostic for a table footnote inside an id-less table" do
+    xml = presxml.sub("<table id=\"_t1\">", "<table>")
+    expect do
+      Dir.mktmpdir("isodoc-fn") do |dir|
+        Dir.chdir(dir) do
+          IsoDoc::HtmlConvert.new({}).convert("test", xml, false)
+        end
+      end
+    end.to raise_error(
+      RuntimeError,
+      /for <fn> \(reference: nil, target: "_fb1"\): ancestor table element has no id attribute/,
+    )
+  end
+
+  it "reports no table or figure anchor for a footnote outside one" do
+    converter = IsoDoc::HtmlConvert.new({})
+    fragment = Nokogiri::HTML("<html><body><div><p>Text</p></div></body></html>")
+    expect(converter.get_table_ancestor_id(fragment.at("//p")))
+      .to eq([nil, nil])
+  end
+end

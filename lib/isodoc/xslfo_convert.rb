@@ -37,8 +37,14 @@ module IsoDoc
       ret
     end
 
+    # Ruby-side directory naming only: XSL-FO stylesheets and the mn2pdf
+    # invocation are untouched. The tmp image directory is not populated in
+    # the XSL-FO path (images travel inside the presentation XML and are
+    # resolved via baseassetpath), but the name minted here is
+    # deterministic like the other converters.
+    # https://github.com/metanorma/isodoc/issues/861
     def tmpimagedir_suffix
-      "_#{SecureRandom.hex(8)}_pdfimages"
+      "_pdfimages"
     end
 
     def pdf_stylesheet(_docxml)
