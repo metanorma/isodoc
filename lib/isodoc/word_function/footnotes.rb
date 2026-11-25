@@ -1,13 +1,17 @@
 module IsoDoc
   module WordFunction
     module Footnotes
+      # Word bookmark ids for _Toc and _Ref bookmarks. Minted from a
+      # document-scoped counter so that DOCX output is deterministic:
+      # identical input yields identical ids on every run (isodoc#923).
+      # The `%09d` shape keeps Word's _TocNNNNNNNNN convention.
       def bookmarkid
-        ret = "X"
-        until !@bookmarks_allocated[ret]
-          ret = Random.rand(1000000000)
-        end
+        @bookmarkid_counter ||= 0
+        ret = @bookmarkid_counter += 1
+        ret += 1 while @bookmarks_allocated[ret]
         @bookmarks_allocated[ret] = true
-        sprintf "%09d", ret
+        @bookmarkid_counter = ret
+        format "%09d", ret
       end
 
       # Word footnote body id scheme: `ftn` prefix, no colon (Word bookmark
