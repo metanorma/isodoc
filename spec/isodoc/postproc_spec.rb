@@ -554,7 +554,7 @@ RSpec.describe IsoDoc do
     html = File.read("test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
-    expect(Dir["spec/test_htmlimages/*.png"]).not_to be_empty
+    expect(Dir["test_htmlimages/*.png"]).not_to be_empty
     expect(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png"))
       .to be_xml_equivalent_to <<~OUTPUT
         <main class="main-section">
