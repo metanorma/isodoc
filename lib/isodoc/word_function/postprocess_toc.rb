@@ -32,7 +32,7 @@ module IsoDoc
       end
 
       def word_toc_entry(toclevel, heading)
-        bookmark = bookmarkid # Random.rand(1000000000)
+        bookmark = bookmarkid
         <<~TOC
           <p class="MsoToc#{toclevel}"><span class="MsoHyperlink"><span lang="EN-GB" style='mso-no-proof:yes'>
           <a href="#_Toc#{bookmark}">#{heading}<span lang="EN-GB" class="MsoTocTextSpan">
