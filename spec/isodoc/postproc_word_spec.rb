@@ -1580,7 +1580,7 @@ RSpec.describe IsoDoc do
                   <tr>
                      <td valign="bottom" align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;" width="30.0%">
                         Balilla
-                        <a href="#tableD-1a" class="TableFootnoteRef">
+                        <a href="#ftntableD-1a" class="TableFootnoteRef">
 
 
                                       a
@@ -1588,7 +1588,7 @@ RSpec.describe IsoDoc do
 
                              </a>
                         <span class="TableFootnoteRef">, </span>
-                        <a href="#tableD-1a" class="TableFootnoteRef">
+                        <a href="#ftntableD-1a" class="TableFootnoteRef">
 
 
                                       a

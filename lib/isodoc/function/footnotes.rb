@@ -1,8 +1,16 @@
 module IsoDoc
   module Function
     module Footnotes
+      # The footnote body id scheme (prefix + id), used both for the footnote
+      # body id and for the anchor href that targets it: the two MUST be the
+      # same string, so the pair is single-sourced here. HTML default;
+      # overridden by the Word function for its `ftn` bookmark naming.
+      def fn_body_id(id)
+        "fn:#{id}"
+      end
+
       def make_table_footnote_link(out, fnid, node)
-        attrs = { href: "##{fnid}", class: "TableFootnoteRef" }
+        attrs = { href: "##{fn_body_id(fnid)}", class: "TableFootnoteRef" }
         sup = node&.at(ns(".//sup")) and sup.replace(sup.children)
         out.a(**attrs) do |a|
           children_parse(node, a)
@@ -50,7 +58,7 @@ module IsoDoc
       def footnote_parse(node, out)
         table_footnote?(node) and return table_footnote_parse(node, out)
         fn = node["target"] # || Metanorma::Utils.random_uuid
-        attrs = { class: "FootnoteRef", href: "#fn:#{fn}" }
+        attrs = { class: "FootnoteRef", href: "##{fn_body_id(fn)}" }
         f = node.at(ns("./fmt-fn-label"))
         out.a(**attrs) do |a|
           children_parse(f, a)
