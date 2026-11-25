@@ -183,4 +183,44 @@ RSpec.describe IsoDoc::Metadata do
       .to include "BIBDATA:10.62973/24-041|published|24041|standard|cover.png"
     FileUtils.rm_f "test.html"
   end
+
+  word_input = <<~INPUT
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <bibdata type="standard">
+      <docidentifier primary="true" type="OGC">24-041</docidentifier>
+      <docidentifier type="DOI">10.62973/24-041</docidentifier>
+      <docnumber>24041</docnumber>
+      <status><stage>published</stage></status>
+      <ext><doctype>standard</doctype><coverpage-image><image src="cover.png"/></coverpage-image></ext>
+    </bibdata>
+    <sections/>
+    </iso-standard>
+  INPUT
+
+  it "renders bibdata fields in the Word cover page through Liquid" do
+    FileUtils.rm_f "test.doc"
+    IsoDoc::WordConvert.new(
+      { wordstylesheet: "spec/assets/word.css",
+        htmlstylesheet: "spec/assets/html.scss",
+        wordcoverpage: "spec/assets/htmlcover_bibdata.html" },
+    ).convert("test", word_input, false)
+    expect(File.read("test.doc"))
+      .to include "BIBDATA:10.62973/24-041|published|24041|standard|cover.png"
+    FileUtils.rm_f "test.doc"
+  end
+
+  it "renders nested bibdata fields in the Word header through Liquid" do
+    FileUtils.rm_f "test.doc"
+    IsoDoc::WordConvert.new(
+      { wordstylesheet: "spec/assets/word.css",
+        htmlstylesheet: "spec/assets/html.scss",
+        header: "spec/assets/header_bibdata.html" },
+    ).convert("test", word_input, false)
+    header = File.read("test.doc")
+      .sub(%r{\A.*?Content-ID: <header.html>.*?\r?\n\r?\n}m, "")
+      .sub(/------=_NextPart.*\z/m, "")
+    expect(Base64.decode64(header).force_encoding("UTF-8"))
+      .to include "HEADER BIBDATA:10.62973/24-041|published|24041|standard|test"
+    FileUtils.rm_f "test.doc"
+  end
 end

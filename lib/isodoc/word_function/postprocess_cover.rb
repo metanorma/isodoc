@@ -114,7 +114,9 @@ module IsoDoc
         meta = @meta.get.merge(@labels ? { labels: @labels } : {})
           .merge(@meta.labels ? { labels: @meta.labels } : {})
         meta[:filename] = filename
-        meta.transform_keys(&:to_s)
+        # all levels, as in populate_template: nested hashes such as
+        # meta[:bibdata] must reach Liquid with string keys
+        meta.stringify_all_keys
       end
 
       def word_section_breaks(docxml)
