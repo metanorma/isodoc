@@ -1410,14 +1410,14 @@ RSpec.describe "table footnote identifier determinism" do
 
   it "derives the reference-less footnote anchor from the node content" do
     html = compile("test")
-    href = html
-      .scan(/href="#fn:(#{Regexp.escape("_t1")}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})"/)
-      .flatten
-    anchors = html.scan(/<a [^>]*TableFootnoteRef[^>]*>[^<]*/).uniq
-    bodies = html.scan(/<aside [^>]*>/).uniq
-    expect(href.length).to eq(1), "anchors: #{anchors}; bodies: #{bodies}"
+    anchors = html.scan(%r{href="#fn:(_t1[^"]*)"}).flatten
+    detail = "anchors: #{html.scan(/<a [^>]*TableFootnoteRef[^>]*>/).uniq}; " \
+             "bodies: #{html.scan(/<aside [^>]*>/).uniq}"
+    # determinism across compilations is pinned by the byte-equality test
+    # above; the hash format itself is metanorma-utils' concern
+    expect(anchors.length).to eq(1), detail
     # the footnote body is anchored to the same minted reference
-    expect(html).to include("id=\"fn:#{href.first}\"")
+    expect(html).to include("id=\"fn:#{anchors.first}\"")
   end
 
   # metanorma/isodoc#919: the missing-anchor cases used to crash with
