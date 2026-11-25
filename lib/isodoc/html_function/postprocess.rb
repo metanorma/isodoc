@@ -1,4 +1,5 @@
 require "isodoc/html_function/mathvariant_to_plain"
+require "digest"
 require_relative "postprocess_footnotes"
 require_relative "postprocess_cover"
 require "metanorma-utils"
@@ -118,12 +119,21 @@ module IsoDoc
 
       def move_image1(img)
         suffix = image_suffix(img)
-        uuid = Metanorma::Utils.random_uuid
-        fname = "#{uuid}.#{suffix}"
-        new_full_filename = File.join(tmpimagedir, fname)
         local_filename = image_localfile(img)
+        fname = "#{image_contenthash(local_filename)}.#{suffix}"
+        new_full_filename = File.join(tmpimagedir, fname)
         FileUtils.cp local_filename, new_full_filename
         img["src"] = File.join(rel_tmpimagedir, fname)
+      end
+
+      # The moved image filename is part of the published HTML output (img
+      # src attributes reference it), so it is derived from the image bytes
+      # rather than a random identifier: compiling the same document twice
+      # must produce the same HTML. As a side effect, images with identical
+      # content share a single file.
+      # https://github.com/metanorma/isodoc/issues/861
+      def image_contenthash(filename)
+        Digest::MD5.file(filename).hexdigest
       end
 
       def term_header(docxml)

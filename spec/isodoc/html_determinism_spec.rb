@@ -1,4 +1,7 @@
 require "spec_helper"
+require "fileutils"
+require "tmpdir"
+require "digest"
 
 RSpec.describe "HTML heading identifier determinism" do
   let(:input) do
@@ -95,5 +98,113 @@ RSpec.describe "HTML heading identifier determinism" do
     expect(document.at("div#term-alpha > h2")["id"]).to eq("#{base}-1")
     ids = document.xpath("//*[@id]").map { |node| node["id"] }
     expect(ids.uniq.length).to eq(ids.length)
+  end
+end
+
+RSpec.describe "HTML compilation determinism" do
+  # End-to-end regression for metanorma/isodoc#861: compiling the same
+  # document twice must produce byte-identical HTML. The document
+  # exercises the three places where identifiers or image paths are
+  # minted during HTML postprocessing:
+  # - TOC-linked clause headings without ids (html_toc_entries_prep),
+  # - term headings (term_header),
+  # - moved images (move_image1) and the image directory name
+  #   (tmpimagedir_suffix).
+  let(:image_path) do
+    File.expand_path(File.join(File.dirname(__FILE__), "..", "assets",
+                               "rice_image1.png"))
+  end
+
+  let(:semantic_xml) do
+    <<~XML
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <bibdata>
+          <title language="en" type="main">Synthetic document</title>
+          <docidentifier type="ISO">99999</docidentifier>
+          <edition>1</edition>
+          <language>en</language>
+          <script>Latn</script>
+          <status><stage>60</stage><substage>60</substage></status>
+        </bibdata>
+        <sections>
+          <clause id="scope" obligation="normative" inline-header="false" displayorder="1">
+            <title>Scope</title>
+            <p id="p-scope">This document is a synthetic test.</p>
+          </clause>
+          <terms id="terms" obligation="normative" displayorder="2">
+            <title>Terms and definitions</title>
+            <p id="p-terms">For the purposes of this document, the following terms apply.</p>
+            <term id="term-alpha">
+              <preferred><expression><name>alpha</name></expression></preferred>
+            </term>
+            <term id="term-beta">
+              <preferred><expression><name>beta</name></expression></preferred>
+            </term>
+          </terms>
+          <clause id="figures" obligation="normative" displayorder="3">
+            <title>Figures</title>
+            <figure id="fig-1">
+              <fmt-name>Figure 1</fmt-name>
+              <image src="#{image_path}" mimetype="image/png" id="_img1"/>
+            </figure>
+          </clause>
+        </sections>
+      </iso-standard>
+    XML
+  end
+
+  def compile_twice
+    presxml = IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", semantic_xml, true)
+
+    renders = []
+    2.times do
+      Dir.mktmpdir("isodoc-determinism") do |dir|
+        html = Dir.chdir(dir) do
+          IsoDoc::HtmlConvert.new(
+            { htmlintropage: File.expand_path(
+              File.join(File.dirname(__FILE__), "..", "assets",
+                        "htmlintro.html"),
+            ),
+              htmlstylesheet: File.expand_path(
+                File.join(File.dirname(__FILE__), "..", "assets", "html.scss"),
+              ) },
+          ).convert("test", presxml, false)
+          File.read("test.html", encoding: "UTF-8")
+        end
+        renders << html
+      end
+    end
+    renders
+  end
+
+  it "produces byte-identical HTML across compilations" do
+    first, second = compile_twice
+    expect(second).to eq(first)
+  end
+
+  it "moves images to a content-derived path" do
+    first, = compile_twice
+    srcs = first.scan(%r{src="test_htmlimages/[^"]+"}).uniq
+    expected = "test_htmlimages/#{Digest::MD5.file(image_path).hexdigest}.png"
+    expect(srcs).to eq(["src=\"#{expected}\""])
+  end
+
+  it "generates stable TOC targets for id-less headings" do
+    first, second = compile_twice
+    doc = Nokogiri::HTML(first)
+    heading_ids = doc.xpath("//main//h1[not(@class = 'IntroTitle')]")
+      .map { |h| h["id"] }
+    second_ids = Nokogiri::HTML(second)
+      .xpath("//main//h1[not(@class = 'IntroTitle')]").map { |h| h["id"] }
+
+    expect(heading_ids).to all(be_truthy)
+    expect(heading_ids).to eq(second_ids)
+    # clause targets referenced from the ToC resolve to ids in the document
+    %w(scope terms).each do |id|
+      hrefs = doc.xpath("//div[@id = 'toc']//a/@href").map(&:text)
+      expect(hrefs).to include("##{id}")
+      expect(doc.xpath("//*[@id = '#{id}']")).not_to be_empty
+    end
   end
 end

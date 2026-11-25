@@ -8,8 +8,12 @@ module IsoDoc
     include HtmlFunction::Form
     include HtmlFunction::Html
 
+    # The image directory name is part of the published HTML output (img
+    # src attributes reference it), so it is derived from the document
+    # filename alone: compiling the same document twice must produce the
+    # same HTML. https://github.com/metanorma/isodoc/issues/861
     def tmpimagedir_suffix
-      "_#{SecureRandom.hex(8)}_htmlimages"
+      "_htmlimages"
     end
 
     def initialize(options)
