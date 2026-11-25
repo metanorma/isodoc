@@ -10,6 +10,7 @@ require "htmlentities"
 require "relaton/render"
 
 require "isodoc/common"
+require "isodoc/asset_store"
 require "isodoc/convert"
 require "isodoc/metadata"
 require "isodoc/html_convert"

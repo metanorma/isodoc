@@ -16,10 +16,9 @@ module IsoDoc
       super
     end
 
-    def convert(filename, file = nil, debug = false, output_filename = nil)
-      ret = super
-      FileUtils.rm_rf tmpimagedir
-      ret
-    end
+    # Images are embedded into the output by Html2Doc, not moved through
+    # the asset store; the base convert's teardown removes the work root
+    # when this converter derived it itself, and the compile driver owns
+    # it otherwise.
   end
 end

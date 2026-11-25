@@ -5,10 +5,6 @@ module IsoDoc
   class HeadlessHtmlConvert < ::IsoDoc::Convert
     include HtmlFunction::Html
 
-    def tmpimagedir_suffix
-      "_#{SecureRandom.hex(8)}_headlessimages"
-    end
-
     def initialize(options)
       @format = :html
       @suffix = "headless.html"
@@ -22,11 +18,21 @@ module IsoDoc
       result = convert1(docxml, filename, dir)
       return result if debug
 
-      postprocess(result, "#{filename}.tmp.html", dir)
-      FileUtils.rm_rf dir
-      strip_head("#{filename}.tmp.html",
-                 output_filename || "#{filename}.#{@suffix}")
-      FileUtils.rm_rf ["#{filename}.tmp.html", tmpimagedir]
+      tmp_html = File.join(leg_workdir, "#{File.basename(filename)}.tmp.html")
+      postprocess(result, tmp_html, dir)
+      strip_head(tmp_html, output_filename || "#{filename}.#{@suffix}")
+    ensure
+      teardown_workdir unless debug
+    end
+
+    # The headless fragment is assembled into larger outputs by the
+    # consumers, which relocate or encode image targets themselves; the
+    # emitted references stay document-keyed and content-addressed, and
+    # no asset set is materialized beside the fragment.
+    def materialize_asset(_name, _artifact_dir); end
+
+    def rel_asset_path
+      "#{File.basename(@filename)}_headlessimages"
     end
 
     def strip_head(input, output)

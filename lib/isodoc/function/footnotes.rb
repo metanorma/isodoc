@@ -20,7 +20,7 @@ module IsoDoc
       def get_table_ancestor_id(node)
         table = node.ancestors("table")
         table.empty? and table = node.ancestors("figure")
-        table.empty? and return [nil, Metanorma::Utils.random_uuid]
+        table.empty? and return [nil, nil]
         [table.last, table.last["id"]]
       end
 
@@ -28,13 +28,36 @@ module IsoDoc
       # do not output footnote text if we have already seen it for this table
 
       def table_footnote_parse(node, out)
-        fn = node["reference"] || Metanorma::Utils.random_uuid
+        # The footnote reference forms part of the published anchor
+        # (href="#fn:<table id><reference>"), so when the source lacks a
+        # reference attribute it is derived from the node content rather
+        # than a random identifier: compiling the same document twice
+        # must produce the same output.
+        fn = node["reference"] || Metanorma::Utils::contenthash(node)
         table, tid = get_table_ancestor_id(node)
+        tid or raise table_footnote_ancestor_error(node, table)
         make_table_footnote_link(out, tid + fn, node.at(ns("./fmt-fn-label")))
         # do not output footnote text if we have already seen it for this table
         @seen_footnote.include?(tid + fn) and return
         update_table_fn_body_ref(node, table, tid + fn)
         @seen_footnote << (tid + fn)
+      end
+
+      # Table footnotes are anchored to the id of their ancestor table or
+      # figure. A footnote outside one, or inside one that carries no id,
+      # cannot form that anchor: fail with a diagnostic naming the
+      # degenerate input instead of crashing on `nil + String`.
+      def table_footnote_ancestor_error(node, table)
+        context = if table
+                    "ancestor #{table.name} element has no id attribute"
+                  else
+                    "no ancestor table or figure"
+                  end
+        "Cannot generate table footnote anchor for <#{node.name}> " \
+          "(reference: #{node['reference'].inspect}, " \
+          "target: #{node['target'].inspect}): #{context}. " \
+          "Table footnotes must occur inside a table or figure carrying " \
+          "an id attribute."
       end
 
       def update_table_fn_body_ref(fnote, table, reference)
@@ -57,7 +80,7 @@ module IsoDoc
 
       def footnote_parse(node, out)
         table_footnote?(node) and return table_footnote_parse(node, out)
-        fn = node["target"] # || Metanorma::Utils.random_uuid
+        fn = node["target"]
         attrs = { class: "FootnoteRef", href: "##{fn_body_id(fn)}" }
         f = node.at(ns("./fmt-fn-label"))
         out.a(**attrs) do |a|

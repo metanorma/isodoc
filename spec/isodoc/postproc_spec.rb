@@ -523,7 +523,7 @@ RSpec.describe IsoDoc do
 
   it "moves images in HTML #1" do
     FileUtils.rm_f "test.html"
-    FileUtils.rm_rf Dir.glob "test_*_htmlimages"
+    FileUtils.rm_rf "test_htmlimages"
     IsoDoc::HtmlConvert.new(
       { wordstylesheet: "spec/assets/word.css",
         htmlstylesheet: "spec/assets/html.scss" },
@@ -554,9 +554,8 @@ RSpec.describe IsoDoc do
     html = File.read("test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
-    expect(`ls test_*_htmlimages`).to match(/\.png$/)
-    expect(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png")
-    .gsub(/test_[^_]+_htmlimages/, "test_htmlimages"))
+    expect(Dir["spec/test_htmlimages/*.png"]).not_to be_empty
+    expect(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png"))
       .to be_xml_equivalent_to <<~OUTPUT
         <main class="main-section">
            <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
@@ -618,9 +617,8 @@ RSpec.describe IsoDoc do
     html = File.read("test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
-    expect(`ls test_*_htmlimages`).to match(/\.png$/)
-    expect(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png")
-           .gsub(/test_[^_]+_htmlimages/, "test_htmlimages"))
+    expect(Dir["test_htmlimages/*.png"]).not_to be_empty
+    expect(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png"))
       .to be_xml_equivalent_to <<~OUTPUT
             <main class='main-section'>
           <button onclick='topFunction()' id='myBtn' title='Go to top'>Top</button>
@@ -800,7 +798,7 @@ RSpec.describe IsoDoc do
 
   it "moves images in HTML with no file suffix" do
     FileUtils.rm_f "test.html"
-    FileUtils.rm_rf Dir.glob "test_*_htmlimages"
+    FileUtils.rm_rf "test_htmlimages"
     IsoDoc::HtmlConvert.new(
       { wordstylesheet: "spec/assets/word.css",
         htmlstylesheet: "spec/assets/html.scss" },
@@ -819,9 +817,8 @@ RSpec.describe IsoDoc do
     html = File.read("test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
-    expect(`ls test_*_htmlimages`).to match(/\.png$/)
-    expect(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png")
-    .gsub(/test_[^_]+_htmlimages/, "test_htmlimages"))
+    expect(Dir["test_htmlimages/*.png"]).not_to be_empty
+    expect(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png"))
       .to be_xml_equivalent_to <<~OUTPUT
         <main class='main-section'>
              <button onclick='topFunction()' id='myBtn' title='Go to top'>Top</button>
@@ -867,9 +864,8 @@ RSpec.describe IsoDoc do
     html = File.read("spec/test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
-    expect(`ls test_*_htmlimages`).to match(/\.png$/)
-    expect(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png")
-           .gsub(/test_[^_]+_htmlimages/, "test_htmlimages"))
+    expect(Dir["spec/test_htmlimages/*.png"]).not_to be_empty
+    expect(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png"))
       .to be_xml_equivalent_to <<~OUTPUT
                    <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
                      <br />
@@ -896,7 +892,7 @@ RSpec.describe IsoDoc do
 
   it "encodes images in HTML as data URIs" do
     FileUtils.rm_f "test.html"
-    FileUtils.rm_rf Dir.glob "test_*_htmlimages"
+    FileUtils.rm_rf "test_htmlimages"
     IsoDoc::HtmlConvert
       .new(htmlstylesheet: "spec/assets/html.scss", datauriimage: true)
       .convert("test", <<~"INPUT", false)
@@ -936,7 +932,7 @@ RSpec.describe IsoDoc do
 
   it "encodes images in HTML as data URIs, using relative file location" do
     FileUtils.rm_f "spec/test.html"
-    FileUtils.rm_rf Dir.glob "test_*_htmlimages"
+    FileUtils.rm_rf "test_htmlimages"
     IsoDoc::HtmlConvert
       .new({ htmlstylesheet: "assets/html.scss", datauriimage: true })
       .convert("spec/test", <<~"INPUT", false)
@@ -1413,7 +1409,7 @@ RSpec.describe IsoDoc do
       </html>
     INPUT
     c = IsoDoc::HtmlConvert.new(htmlstylesheet: "spec/assets/html.scss")
-    c.init_file("test", false)
+    c.init_file("test", "", false)
     result = c.toHTML(input.dup, "test.html")
     expect(result).to include("<br />")
     expect(result).not_to include("<br></br>")

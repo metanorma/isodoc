@@ -14,10 +14,11 @@ module IsoDoc
       @maxheight = 800
     end
 
-    def tmpimagedir_suffix
-      "_#{SecureRandom.hex(8)}_pdfimages"
-    end
-
+    # The intermediate HTML handed to the PDF renderer is a transient
+    # artifact inside the compile's work root, where it resolves the
+    # store's assets beside itself (rel_asset_path default); the work
+    # root teardown removes it with the compile. Ruby-side naming only,
+    # the PDF rendering pipeline itself is untouched.
     def convert(input_filename, file = nil, debug = false, output_filename = nil)
       file = File.read(input_filename, encoding: "utf-8") if file.nil?
       @openmathdelim, @closemathdelim = extract_delims(file)
@@ -25,13 +26,14 @@ module IsoDoc
       result = convert1(docxml, filename, dir)
       return result if debug
 
-      postprocess(result, "#{filename}.tmp.html", dir)
-      FileUtils.rm_rf dir
+      tmp_html = File.join(leg_workdir, "#{File.basename(filename)}.tmp.html")
+      postprocess(result, tmp_html, dir)
       ::Metanorma::Output::Pdf.new.convert(
-        "#{filename}.tmp.html",
+        tmp_html,
         output_filename || "#{filename}.#{@suffix}",
       )
-      FileUtils.rm_rf ["#{filename}.tmp.html", tmpimagedir]
+    ensure
+      teardown_workdir unless debug
     end
 
     def xref_parse(node, out)
