@@ -116,8 +116,8 @@ module IsoDoc
     def init_locations(options)
       @libdir ||= File.dirname(__FILE__)
       @baseassetpath = options[:baseassetpath]
-      @tmpimagedir_suffix = tmpimagedir_suffix
-      @tmpfilesdir_suffix = tmpfilesdir_suffix
+      @workdir = options[:workdir]
+      @workdir_owner = @workdir.nil?
       @sourcefilename = options[:sourcefilename]
       @files_to_delete = []
       @tempfile_cache = []

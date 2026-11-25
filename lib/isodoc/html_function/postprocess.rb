@@ -15,7 +15,8 @@ module IsoDoc
 
       def toHTML(result, filename)
         result = from_xhtml(html_cleanup(to_xhtml(result)))
-        result = from_xhtml(move_images(resize_images(to_xhtml(result))))
+        result = from_xhtml(move_images(resize_images(to_xhtml(result)),
+                                        File.dirname(filename)))
         result = html5(empty_tags(script_cdata(inject_script(result))))
         # Unescape &#x26; to & in href attributes after all Nokogiri processing
         result = unescape_amp_in_hrefs(result)
@@ -94,14 +95,42 @@ module IsoDoc
       end
 
       # presupposes that the image source is local
-      def move_images(docxml)
-        FileUtils.rm_rf tmpimagedir
-        FileUtils.mkdir tmpimagedir
+      def move_images(docxml, artifact_dir)
         docxml.xpath("//*[local-name() = 'img'][@src]").each do |i|
           /^data:/.match? i["src"] and next
-          @datauriimage ? datauri(i) : move_image1(i)
+          @datauriimage ? datauri(i) : move_image1(i, artifact_dir)
         end
         docxml
+      end
+
+      # Ingest the image into the compile's shared asset store under its
+      # content address, reference it through rel_asset_path, and
+      # materialize it beside the consuming artifact. Identical images
+      # share one stored file, and emitted names carry no entropy.
+      def move_image1(img, artifact_dir)
+        local_filename = image_localfile(img)
+        name = asset_store.add(local_filename, image_suffix(img))
+        img["src"] = File.join(rel_asset_path, name)
+        materialize_asset(name, artifact_dir)
+      end
+
+      # How the consuming artifact references assets of the store. The
+      # default is store-relative: converters whose transient artifact
+      # lives inside the compile's work root resolve the store beside
+      # themselves. Converters publishing artifacts that outlive the work
+      # root override this (see HtmlConvert, HeadlessHtmlConvert).
+      def rel_asset_path
+        "assets"
+      end
+
+      # Copy a stored asset next to the consuming artifact, so emitted
+      # references resolve after the work root is gone. Content addressing
+      # deduplicates: each unique image is copied once per artifact.
+      def materialize_asset(name, artifact_dir)
+        dest = File.join(artifact_dir, rel_asset_path, name)
+        File.exist?(dest) and return
+        FileUtils.mkdir_p(File.dirname(dest))
+        FileUtils.cp asset_store.path(name), dest
       end
 
       def datauri(img)
@@ -114,16 +143,6 @@ module IsoDoc
         type and !type.empty? and return type
         !matched.nil? and matched[:suffix] and return matched[:suffix]
         "png"
-      end
-
-      def move_image1(img)
-        suffix = image_suffix(img)
-        uuid = Metanorma::Utils.random_uuid
-        fname = "#{uuid}.#{suffix}"
-        new_full_filename = File.join(tmpimagedir, fname)
-        local_filename = image_localfile(img)
-        FileUtils.cp local_filename, new_full_filename
-        img["src"] = File.join(rel_tmpimagedir, fname)
       end
 
       def term_header(docxml)

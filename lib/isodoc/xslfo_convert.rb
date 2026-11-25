@@ -37,10 +37,6 @@ module IsoDoc
       ret
     end
 
-    def tmpimagedir_suffix
-      "_#{SecureRandom.hex(8)}_pdfimages"
-    end
-
     def pdf_stylesheet(_docxml)
       nil
     end
@@ -88,6 +84,8 @@ module IsoDoc
         filename, output_fname || output_filename(input_fname),
         @xsl, opts
       )
+    ensure
+      teardown_workdir unless debug
     end
 
     def convert_prep(input_fname, file, debug)
@@ -117,7 +115,6 @@ module IsoDoc
       temp_file.write docxml
       temp_file.flush
       @tempfile_cache << temp_file # Add to cache to prevent garbage collection
-      FileUtils.rm_rf dir
 
       [temp_file, docxml, temp_file.path]
     end

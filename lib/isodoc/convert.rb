@@ -1,10 +1,12 @@
 require "isodoc/common"
+require "isodoc/asset_store"
+require "digest"
 require "fileutils"
 require "tempfile"
+require "tmpdir"
 require_relative "i18n"
 require_relative "css"
 require_relative "init"
-require "securerandom"
 require "mn-requirements"
 
 module IsoDoc
@@ -52,6 +54,10 @@ module IsoDoc
     # sourcehighlighter: whether to apply sourcecode highlighting
     # semantic_xml_insert: whether to insert into presentation XML
     #   a copy of semantic XML
+    # workdir: work root for this compile, hosting the shared asset store
+    #   and per-converter scratch directories. Supplied by the compile
+    #   driver (Metanorma::Compile), which owns its lifecycle; when absent,
+    #   the root is derived deterministically from the source content.
     # output_formats: hash of supported output formats and suffixes
     def initialize(options) # rubocop:disable Lint/MissingSuper
       @options = options_preprocess(options)
@@ -64,14 +70,6 @@ module IsoDoc
       init_i18n(@options)
       init_rendering(@options)
       init_arrangement(@options)
-    end
-
-    def tmpimagedir_suffix
-      "_#{SecureRandom.hex(8)}_images"
-    end
-
-    def tmpfilesdir_suffix
-      "_#{SecureRandom.hex(8)}_files"
     end
 
     def html_doc_path(*file)
@@ -111,7 +109,7 @@ module IsoDoc
 
     def convert_init(file, input_filename, debug)
       docxml = Nokogiri::XML(file, &:huge)
-      filename, dir = init_file(input_filename, debug)
+      filename, dir = init_file(input_filename, file, debug)
       docxml.root.default_namespace = ""
       docxml_var_init(docxml)
       convert_i18n_init(docxml)
@@ -157,7 +155,16 @@ module IsoDoc
       debug and return result
       output_filename ||= "#{filename}.#{@suffix}"
       postprocess(result, output_filename, dir)
-      FileUtils.rm_rf dir
+    ensure
+      # The compile driver owns the work root when it supplies one; a
+      # root this converter derived for itself is removed with the
+      # conversion. Debug runs keep everything for inspection.
+      teardown_workdir unless debug
+    end
+
+    # Remove the work root if and only if this converter created it.
+    def teardown_workdir
+      @workdir && @workdir_owner and FileUtils.rm_rf(@workdir)
     end
 
     def middle_clause(_docxml = nil)
