@@ -246,7 +246,7 @@ module IsoDoc
           node.at(ns(".//fmt-fn-label"))&.remove
         tag = node.parent.name == "fmt-footnote-container" ? "aside" : "div"
         id = node["is_table"] ? node["reference"] : node["id"]
-        out.send tag, id: "fn:#{id}", class: "footnote" do |div|
+        out.send tag, id: fn_body_id(id), class: "footnote" do |div|
           children_parse(node, div)
         end
       end

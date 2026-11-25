@@ -476,8 +476,8 @@ RSpec.describe IsoDoc do
                       </tr>
                       <tr>
                         <td style="background-color: green;;text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Arborio</td>
-                        <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
-                        <td style="text-align:center;vertical-align:bottom;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a><a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
+                        <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Drago<a href="#fn:tableD-1a" class="TableFootnoteRef">a</a></td>
+                        <td style="text-align:center;vertical-align:bottom;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Balilla<a href="#fn:tableD-1a" class="TableFootnoteRef">a</a><a href="#fn:tableD-1a" class="TableFootnoteRef">a</a></td>
                         <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Thaibonnet</td>
                       </tr>
                     </thead>
@@ -619,8 +619,8 @@ RSpec.describe IsoDoc do
                     </tr>
                     <tr>
                       <td valign="top" align="left" style="background-color: green;;page-break-after:avoid;">Arborio</td>
-                      <td valign="middle" align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
-                      <td valign="bottom" align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a><a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
+                      <td valign="middle" align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">Drago<a href="#ftntableD-1a" class="TableFootnoteRef">a</a></td>
+                      <td valign="bottom" align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">Balilla<a href="#ftntableD-1a" class="TableFootnoteRef">a</a><a href="#ftntableD-1a" class="TableFootnoteRef">a</a></td>
                       <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">Thaibonnet</td>
                     </tr>
                   </thead>
@@ -1134,11 +1134,11 @@ RSpec.describe IsoDoc do
                            <td style="background-color: green;;text-align:left;vertical-align:top;" scope="col">Arborio</td>
                            <td style="text-align:center;vertical-align:middle;" scope="col">
                               Drago
-                              <a href="#tableD-1a" class="TableFootnoteRef">a</a>
+                              <a href="#fn:tableD-1a" class="TableFootnoteRef">a</a>
                            </td>
                            <td style="text-align:center;vertical-align:bottom;" scope="col">
                               Balilla
-                              <a href="#tableD-1a" class="TableFootnoteRef">a</a>
+                              <a href="#fn:tableD-1a" class="TableFootnoteRef">a</a>
                            </td>
                            <td style="text-align:center;" scope="col">Thaibonnet</td>
                         </tr>
@@ -1260,8 +1260,8 @@ RSpec.describe IsoDoc do
                   </tr>
                   <tr>
                     <td valign="top" align="left" style="background-color: green;;page-break-after:avoid;">Arborio</td>
-                    <td valign="middle" align="center" style="page-break-after:avoid;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
-                    <td valign="bottom" align="center" style="page-break-after:avoid;">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
+                    <td valign="middle" align="center" style="page-break-after:avoid;">Drago<a href="#ftntableD-1a" class="TableFootnoteRef">a</a></td>
+                    <td valign="bottom" align="center" style="page-break-after:avoid;">Balilla<a href="#ftntableD-1a" class="TableFootnoteRef">a</a></td>
                     <td align="center" style="page-break-after:avoid;">Thaibonnet</td>
                   </tr>
                 </thead>

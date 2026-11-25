@@ -10,12 +10,19 @@ module IsoDoc
         sprintf "%09d", ret
       end
 
+      # Word footnote body id scheme: `ftn` prefix, no colon (Word bookmark
+      # names may not contain punctuation). Pairs with `fn_body_id` so that
+      # footnote anchors and their bodies cannot drift apart.
+      def fn_body_id(id)
+        "ftn#{id}"
+      end
+
       def fmt_fn_body_parse(node, out)
         node.at(ns(".//fmt-fn-label"))&.remove
         aside = node.parent.name == "fmt-footnote-container"
         tag = aside ? "aside" : "div"
         id = node["is_table"] ? node["reference"] : node["id"]
-        out.send tag, id: "ftn#{id}" do |div|
+        out.send tag, id: fn_body_id(id) do |div|
           children_parse(node, div)
         end
       end
@@ -63,7 +70,7 @@ module IsoDoc
           semx.name = "a"
           semx["class"] = "FootnoteRef"
           semx["epub:type"] = "footnote"
-          semx["href"] = "#ftn#{node['target']}"
+          semx["href"] = "##{fn_body_id(node['target'])}"
         end
       end
     end
