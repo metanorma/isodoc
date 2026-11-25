@@ -1,0 +1,76 @@
+<iso-standard xmlns="http://riboseinc.com/isoxml">
+<preface>
+<foreword id="foreword"><title>Foreword</title>
+<note id="fw_note"><p>Foreword note</p></note>
+</foreword>
+<introduction id="intro"><title>Introduction</title>
+<clause id="intro_sub"><title>Intro sub</title></clause>
+</introduction>
+</preface>
+<sections>
+<clause id="scope" type="scope"><title>Scope</title>
+<p>Scope text.</p>
+</clause>
+<terms id="terms"><title>Terms</title>
+<term id="term1"><preferred><expression><name>alpha</name></expression></preferred></term>
+<term id="term2"><preferred><expression><name>beta</name></expression></preferred></term>
+</terms>
+<clause id="c4"><title>Body</title>
+<clause id="c4_1"><title>First subclause</title>
+<clause id="c4_1_1"><title>Nested subclause</title></clause>
+<note id="note_only"><p>Single note</p></note>
+</clause>
+<clause id="c4_2"><title>Second subclause</title>
+<note id="note1"><p>First note</p></note>
+<note id="note2"><p>Second note</p></note>
+<example id="example1"><p>First example</p></example>
+<example id="example2"><p>Second example</p></example>
+<formula id="formula1"><stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math></stem></formula>
+<formula id="formula2"><stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>y</mi></math></stem></formula>
+<figure id="figure1"><name>Figure one</name><image src="a.png" id="_i1" mimetype="image/png"/></figure>
+<figure id="figure2"><name>Figure two</name>
+<figure id="figure2a"><image src="b.png" id="_i2" mimetype="image/png"/></figure>
+<figure id="figure2b"><image src="c.png" id="_i3" mimetype="image/png"/></figure>
+</figure>
+<table id="table1"><name>Table one</name><tbody><tr><td>x</td></tr></tbody></table>
+<table id="table2"><name>Table two</name><tbody><tr><td>y</td></tr></tbody></table>
+<ol id="ol1">
+<li id="ol1_a"><p>One</p>
+<ol id="ol1_nested"><li id="ol1_a1"><p>Two</p>
+<ol id="ol1_nested2"><li id="ol1_a1i"><p>Three</p>
+<ol id="ol1_nested3"><li id="ol1_a1i1"><p>Four</p></li></ol>
+</li></ol></li></ol></li>
+<li id="ol1_b"><p>Other</p></li>
+</ol>
+<ul id="ul1"><li id="ul1_a"><p>Bullet</p></li></ul>
+<requirement id="req1" model="default"><identifier>R1</identifier><description><p>Shall</p></description></requirement>
+<recommendation id="rec1" model="default"><description><p>Should</p></description></recommendation>
+<permission id="perm1" model="default"><description><p>May</p></description></permission>
+<p id="para_fn">Text<fn reference="1" id="fn1"><p>Footnote</p></fn></p>
+</clause>
+</clause>
+</sections>
+<annex id="annexA" obligation="normative"><title>Annex</title>
+<clause id="annexA_1"><title>Annex clause</title>
+<clause id="annexA_1_1"><title>Annex subclause</title></clause>
+<note id="annexA_note"><p>Annex note</p></note>
+<example id="annexA_example"><p>Annex example</p></example>
+</clause>
+<figure id="annexA_fig"><name>Annex figure</name><image src="d.png" id="_i4" mimetype="image/png"/></figure>
+<table id="annexA_table"><name>Annex table</name><tbody><tr><td>z</td></tr></tbody></table>
+<formula id="annexA_formula"><stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>z</mi></math></stem></formula>
+<ol id="annexA_ol"><li id="annexA_ol_a"><p>Annex item</p></li></ol>
+<appendix id="appendix1"><title>Appendix</title></appendix>
+</annex>
+<annex id="annexB" obligation="informative"><title>Second annex</title>
+<clause id="annexB_1"><title>Clause</title></clause>
+</annex>
+<bibliography>
+<references id="normrefs" normative="true"><title>Normative references</title>
+<bibitem id="ref1"><title>Ref</title><docidentifier>ISO 1</docidentifier></bibitem>
+</references>
+<references id="bibl" normative="false"><title>Bibliography</title>
+<bibitem id="ref2"><title>Ref two</title><docidentifier>ISO 2</docidentifier></bibitem>
+</references>
+</bibliography>
+</iso-standard>
