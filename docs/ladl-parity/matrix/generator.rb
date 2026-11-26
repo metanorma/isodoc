@@ -23,10 +23,58 @@ module LadlParity
     "generic" => ["IsoDoc::Generic::Xref",
                   "IsoDoc::Generic::PresentationXMLConvert",
                   "metanorma-generic"],
+    "iec" => ["IsoDoc::Iec::Xref", "IsoDoc::Iec::PresentationXMLConvert",
+              "metanorma-iec"],
+    "ieee" => ["IsoDoc::Ieee::Xref", "IsoDoc::Ieee::PresentationXMLConvert",
+               "metanorma-ieee"],
+    "itu" => ["IsoDoc::Itu::Xref", "IsoDoc::Itu::PresentationXMLConvert",
+              "metanorma-itu"],
+    "jis" => ["IsoDoc::Jis::Xref", "IsoDoc::Jis::PresentationXMLConvert",
+              "metanorma-jis"],
+    "ogc" => ["IsoDoc::Ogc::Xref", "IsoDoc::Ogc::PresentationXMLConvert",
+              "metanorma-ogc"],
+    "bipm" => ["IsoDoc::Bipm::Xref", "IsoDoc::Bipm::PresentationXMLConvert",
+               "metanorma-bipm"],
   }.freeze
 
+  # [LADL type, LADL context] a labeller must exist for, per element kind,
+  # for the profile to be able to label it. A kind absent from this table has
+  # no LADL type at all. Used to tell true profile gaps from tree-mapping
+  # artefacts: if the profile lacks the pair, no tree could make it work.
+  NATURAL = {
+    "clause" => %w[clause DocumentContext],
+    "terms-clause" => %w[clause DocumentContext],
+    "normative-references" => %w[clause DocumentContext],
+    "subclause" => %w[subclause ClauseContext],
+    "annex" => %w[annex DocumentContext],
+    "annex-clause" => %w[clause AnnexContext],
+    "annex-subclause" => %w[subclause AnnexClauseContext],
+    "note" => %w[note ClauseContext], "note-single" => %w[note ClauseContext],
+    "example" => %w[example ClauseContext],
+    "annex-note" => %w[note AnnexContext],
+    "annex-example" => %w[example AnnexContext],
+    "formula" => %w[formula DocumentContext],
+    "annex-formula" => %w[formula AnnexContext],
+    "figure" => %w[figure DocumentContext],
+    "annex-figure" => %w[figure AnnexContext],
+    "subfigure" => %w[subfigure DocumentContext],
+    "table" => %w[table DocumentContext],
+    "annex-table" => %w[table AnnexContext],
+    "ordered-list" => %w[list ClauseContext],
+    "annex-ordered-list" => %w[list AnnexContext],
+    "unordered-item" => %w[list_item_unordered ListContext],
+    "ordered-item-level1" => %w[list_item_ordered_level1 ListContext],
+    "ordered-item-level2" => %w[list_item_ordered_level2 ListContext],
+    "ordered-item-level3" => %w[list_item_ordered_level3 ListContext],
+    "ordered-item-level4" => %w[list_item_ordered_level4 ListContext]
+  }.freeze
+
+  # Kinds whose numbers the script's flat context mapping can distort.
+  TREE_SENSITIVE = %w[subclause].freeze
+
   Row = Struct.new(:id, :kind, :ladl_type, :xref_label, :ladl_value,
-                   :xref_xref, :ladl_local, :ladl_global, :verdict, :note)
+                   :xref_xref, :ladl_local, :ladl_global, :verdict, :note,
+                   :cause)
 
   class Generator
     def self.available_flavors
@@ -126,7 +174,30 @@ module LadlParity
         rrow.ladl_global = node&.label&.global
         rrow.verdict = verdict(rrow)
       end
+      rrow.cause = cause(rrow)
       rrow
+    end
+
+    # Why a row is not `same`: profile-gap (the profile has no labeller for
+    # the element's type and context), tree-mapping (the profile can label it
+    # but the script's tree mapping is too coarse), label-difference (both
+    # engines label it and the labels differ).
+    def cause(row)
+      return "-" if row.verdict == "same"
+      return "profile-gap" unless profile_pairs.include?(NATURAL[row.kind])
+      return "tree-mapping" if row.verdict == "unsupported" ||
+        TREE_SENSITIVE.include?(row.kind)
+
+      "label-difference"
+    end
+
+    def profile_pairs
+      @profile_pairs ||= begin
+        require "metanorma/ladl"
+        Metanorma::Ladl::Profile.iso_iec.labellers.map do |lbl|
+          [lbl.type, lbl.context.to_s]
+        end
+      end
     end
 
     # The cross-reference text is the contract: isodoc anchor(:xref) must
@@ -174,12 +245,14 @@ module LadlParity
       when "references"
         elem["normative"] == "true" ? "normative-references" : "bibliography"
       when "bibitem" then "bibitem"
-      when "foreword", "introduction" then "preface-#{elem.name}"
+      when "foreword", "introduction", "abstract", "acknowledgements"
+        "preface-#{elem.name}"
       end
     end
 
     def clause_kind(anc, annex)
       return "preface-clause" if anc.include?("preface")
+      return "appendix-clause" if anc.include?("appendix")
 
       depth = anc.count("clause")
       if annex
@@ -296,15 +369,37 @@ module LadlParity
 
     def detail(rows)
       lines = ["| id | kind | isodoc label | LADL value | isodoc xref | " \
-               "LADL local | LADL global | verdict |",
-               "|---|---|---|---|---|---|---|---|"]
+               "LADL local | LADL global | verdict | cause |",
+               "|---|---|---|---|---|---|---|---|---|"]
       rows.each do |rrow|
         lines << "| #{rrow.id} | #{rrow.kind} | #{cell(rrow.xref_label)} | " \
                  "#{cell(rrow.ladl_value)} | #{cell(rrow.xref_xref)} | " \
                  "#{cell(rrow.ladl_local)} | #{cell(rrow.ladl_global)} | " \
-                 "#{rrow.verdict} |"
+                 "#{rrow.verdict} | #{rrow.cause} |"
       end
       lines.join("\n")
+    end
+
+    # One line per profile-gap kind: flavors that show it and example ids.
+    # `gap` accumulates {kind => {flavors:, ids:}} across fixtures.
+    def collect_gaps(gap, rows_by_flavor)
+      rows_by_flavor.each do |flavor, rows|
+        rows.select { |r| r.cause == "profile-gap" }.each do |r|
+          gap[r.kind] ||= { flavors: [], ids: [] }
+          gap[r.kind][:flavors] |= [flavor]
+          gap[r.kind][:ids] |= [r.id]
+        end
+      end
+      gap
+    end
+
+    def gap_lines(gap)
+      gap.map do |kind, info|
+        needs = NATURAL[kind]&.join("/") || "a labeller type for #{kind}"
+        "- #{kind}: iso_iec profile has no labeller (needs #{needs}); " \
+          "e.g. #{info[:ids].first(4).join(', ')}; flavors: " \
+          "#{info[:flavors].join(' ')}"
+      end
     end
 
     def totals(rows)
@@ -327,6 +422,11 @@ module LadlParity
              "presentation adapter. Some `unsupported` or `different` " \
              "rows (annex notes and examples, nested subclause depth) may " \
              "reflect that tree mapping rather than the profile itself.", "",
+             "`cause` splits non-same rows: `profile-gap` (profile has no " \
+             "labeller for the type and context, so no tree could help), " \
+             "`tree-mapping` (the profile can label it, the script's flat " \
+             "tree is too coarse) and `label-difference` (both label it, " \
+             "labels differ).", "",
              "## Summary by kind", "", summary(rows_by_flavor), ""]
       rows_by_flavor.each do |flavor, rows|
         out << "## #{flavor}: #{totals(rows)}" << "" << detail(rows) << ""
@@ -335,13 +435,23 @@ module LadlParity
     end
   end
 
-  def self.generate(fixture)
+  def self.rows_by_flavor(fixture)
     gen = Generator.new(fixture)
-    flavors = Generator.available_flavors
-    rows = flavors.to_h { |f| [f, gen.rows(f)] }
+    Generator.available_flavors.to_h { |f| [f, gen.rows(f)] }
+  end
+
+  def self.generate(fixture)
     require "metanorma/ladl/version"
-    Render.markdown(rows, fixture: File.basename(fixture),
-                          ladl_version: Metanorma::Ladl::VERSION)
+    Render.markdown(rows_by_flavor(fixture), fixture: File.basename(fixture),
+                                             ladl_version: Metanorma::Ladl::VERSION)
+  end
+
+  def self.gaps(fixtures)
+    gap = Array(fixtures).each_with_object({}) do |fixture, acc|
+      Render.collect_gaps(acc, rows_by_flavor(fixture))
+    end
+    ["# LADL profile gaps (iso_iec) seen in the parity matrix", "",
+     *Render.gap_lines(gap)].join("\n")
   end
 end
 
@@ -351,6 +461,10 @@ if $PROGRAM_NAME == __FILE__
   default = File.expand_path("../../../spec/assets/ladl_parity/basic.xml",
                              __dir__)
   fixture = ARGV[0] || default
+  if ARGV[0] == "--gaps"
+    puts LadlParity.gaps(ARGV[1..])
+    exit
+  end
   md = LadlParity.generate(fixture)
   if ARGV[1]
     File.write(ARGV[1], md)

@@ -1,5 +1,6 @@
 # Gemfile for the isodoc xref vs LADL parity matrix (isodoc#892).
-# Usage: BUNDLE_GEMFILE=Gemfile.ladl-parity bundle exec ruby docs/ladl-parity/matrix/generator.rb
+# Usage: BUNDLE_GEMFILE=Gemfile.ladl-parity bundle exec ruby
+#   docs/ladl-parity/matrix/generator.rb
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}" }
 
@@ -10,6 +11,7 @@ gem "metanorma-ladl", github: "metanorma/metanorma-ladl",
                       ref: "4d18d9ab98745bcbf6cf41221fb4eca2f084a07d" # PR #1
 gem "metanorma-generic"
 gem "metanorma-iso"
+%w[iec ieee itu jis ogc bipm].each { |flv| gem "metanorma-#{flv}" }
 gem "rspec", "~> 3.6"
 gem "rubocop", "~> 1"
 gem "rubocop-performance"
