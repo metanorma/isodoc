@@ -5,8 +5,12 @@ module IsoDoc
   class HeadlessHtmlConvert < ::IsoDoc::Convert
     include HtmlFunction::Html
 
+    # The image directory name appears verbatim in the published headless
+    # HTML (img src attributes reference it), so it is derived from the
+    # document filename alone: compiling the same document twice must
+    # produce the same HTML. https://github.com/metanorma/isodoc/issues/861
     def tmpimagedir_suffix
-      "_#{SecureRandom.hex(8)}_headlessimages"
+      "_headlessimages"
     end
 
     def initialize(options)

@@ -14,8 +14,13 @@ module IsoDoc
       @maxheight = 800
     end
 
+    # The image directory name appears verbatim in the intermediate HTML
+    # handed to the PDF renderer, so it is derived from the document
+    # filename alone: Ruby-side naming only, the PDF rendering pipeline
+    # itself is untouched.
+    # https://github.com/metanorma/isodoc/issues/861
     def tmpimagedir_suffix
-      "_#{SecureRandom.hex(8)}_pdfimages"
+      "_pdfimages"
     end
 
     def convert(input_filename, file = nil, debug = false, output_filename = nil)

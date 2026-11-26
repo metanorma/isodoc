@@ -66,8 +66,14 @@ module IsoDoc
       init_arrangement(@options)
     end
 
+    # The image directory name is derived from the document filename alone:
+    # compiling the same document twice must produce the same working paths.
+    # The directory is transient (never referenced by published output for
+    # the converters that use this base implementation), but deterministic
+    # naming keeps every path this class mints stable.
+    # https://github.com/metanorma/isodoc/issues/861
     def tmpimagedir_suffix
-      "_#{SecureRandom.hex(8)}_images"
+      "_images"
     end
 
     def tmpfilesdir_suffix
