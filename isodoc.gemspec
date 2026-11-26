@@ -39,7 +39,11 @@ Gem::Specification.new do |spec|
   # std_docid_semantic parses through the pubid monogem's flavor
   # registry (Pubid.eager_load_flavors!) — 2.x API, no per-flavor gems
   spec.add_dependency "pubid", "~> 2.0.3"
-  # spec.add_dependency "metanorma-utils", "~> 2.0" # already in isodoc-i18n
+  # contenthash (Metanorma::Utils.contenthash) is called directly in
+  # table-footnote and term-anchor paths; it exists from metanorma-utils
+  # 2.0.0. Declared directly — do not rely on the isodoc-i18n transitive
+  # floor (which could resolve a 1.x utils without the method).
+  spec.add_dependency "metanorma-utils", "~> 2.0"
   spec.add_dependency "mn2pdf", ">= 2.13"
   spec.add_dependency "mn-requirements", "~> 0.5.0"
   spec.add_dependency "roman-numerals"
