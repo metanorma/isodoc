@@ -153,9 +153,9 @@ RSpec.describe "HTML compilation determinism" do
     XML
   end
 
-  def compile_twice
+  def compile_twice(xml = semantic_xml)
     presxml = IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", semantic_xml, true)
+      .convert("test", xml, true)
 
     renders = []
     2.times do
@@ -207,5 +207,46 @@ RSpec.describe "HTML compilation determinism" do
       expect(hrefs).to include("##{id}")
       expect(doc.xpath("//*[@id = '#{id}']")).not_to be_empty
     end
+  end
+  it "leaves no dangling links to the removed ToC clause div" do
+    # html_toc_init moves the ToC clause heading into the ToC destination
+    # and removes the clause div it used to live in: the permalinks minted
+    # on that heading pointed at the removed div's id, so they now point
+    # at the destination instead.
+    first, = compile_twice(<<~XML)
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <bibdata>
+          <title language="en" type="main">Synthetic document</title>
+          <docidentifier type="ISO">99999</docidentifier>
+          <edition>1</edition>
+          <language>en</language>
+          <script>Latn</script>
+          <status><stage>60</stage><substage>60</substage></status>
+        </bibdata>
+        <preface>
+          <clause type="toc" id="toc-clause" displayorder="1">
+            <title>Table of contents</title>
+          </clause>
+          <foreword id="fwd" displayorder="2">
+            <title>Foreword</title>
+            <p>Hello.</p>
+          </foreword>
+        </preface>
+        <sections>
+          <clause id="scope" obligation="normative" displayorder="3">
+            <title>Scope</title>
+            <p id="p-scope">This document is a synthetic test.</p>
+          </clause>
+        </sections>
+      </iso-standard>
+    XML
+
+    doc = Nokogiri::HTML(first)
+    ids = doc.xpath("//*[@id]").map { |n| n["id"] }
+    hrefs = doc.xpath("//*[@href]")
+      .map { |n| n["href"] }.grep(/\A#/).map { |h| h.sub(/\A#/, "") }
+
+    expect(hrefs).not_to include("toc-clause")
+    expect(hrefs - ids).to be_empty
   end
 end
