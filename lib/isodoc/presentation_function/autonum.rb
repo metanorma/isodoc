@@ -22,17 +22,24 @@ module IsoDoc
     end
 
     def prefix_name_prep(node, elem)
-      lbls = prefix_name_labels(node)
-      name = node.at(ns("./#{elem}")) and name["id"] = lbls[:name]
+      name = node.at(ns("./#{elem}"))
+      lbls = prefix_name_labels(node, elem, name)
+      name and name["id"] = lbls[:name]
       ins = name || node.add_first_child("<sentinel/>").elements.first
       node["unnumbered"] or
         number = @xrefs.anchor(node["id"], :value, false)&.strip
       [name, ins, lbls, number]
     end
 
-    def prefix_name_labels(node)
-      id = "_#{Metanorma::Utils.random_uuid}"
-      @new_ids[id] = nil
+    # the minted id addresses the name element when it exists; when it
+    # does not, the id goes unused, but a mint still takes place, so
+    # that mint ordering is stable regardless of document shape
+    def prefix_name_labels(node, elem, name)
+      if name
+        id = minted_id(Metanorma::Utils.contenthash(name), shaped: true)
+      else
+        id = minted_id("#{elem}\t#{node['id']}")
+      end
       { elem: node["id"], name: id }
     end
 

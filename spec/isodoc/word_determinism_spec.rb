@@ -26,13 +26,9 @@ RSpec.describe "Word output determinism" do
     File.binread("#{prefix}.doc")
   end
 
-  # html2doc mints entropy outside isodoc's control (MIME boundary salt,
-  # image part uuids); scrub it to isolate isodoc's contribution.
-  def scrub(doc)
-    doc.gsub(/_NextPart_[0-9a-f.]+/, "_NextPart")
-      .gsub(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/, "UUID")
-  end
-
+  # html2doc 1.12.2+ carries deterministic MIME boundaries and
+  # content-addressed image parts (isodoc#920); the interim scrub of its
+  # entropy is superseded, and the comparison runs on raw bytes.
   it "mints bookmark ids from a deterministic per-document counter" do
     first = IsoDoc::WordConvert.new({})
     second = IsoDoc::WordConvert.new({})
@@ -47,6 +43,6 @@ RSpec.describe "Word output determinism" do
   end
 
   it "produces byte-identical Word output across runs" do
-    expect(scrub(compile("det_run"))).to eq(scrub(compile("det_run")))
+    expect(compile("det_run")).to eq(compile("det_run"))
   end
 end
