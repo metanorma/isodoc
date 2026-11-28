@@ -163,12 +163,33 @@ module IsoDoc
       r.xpath(".//td[@class = 'rouge-code']/pre").each do |pre|
         %w(style).each { |n| elem[n] and pre[n] = elem[n] }
         pre.name = "sourcecode"
-        pre.children = to_xml(pre.children).sub(/\s+$/, "")
+        pre.children = to_xml(unwrap_rouge_code(pre.children)).sub(/\s+$/, "")
       end
       r.xpath(".//tr[@id]").each do |tr| # disambig Rouge ids
         tr["id"] = "#{elem['source']}_#{tr['id']}"
       end
       r
+    end
+
+    # Rouge 5's HTMLLineTable wraps each code cell in <pre><code> (a
+    # hardcoded example formatter, no opt-out); Rouge 4 emitted spans
+    # directly under <pre>. Unwrap so the emitted markup is the same
+    # under both.
+    def unwrap_rouge_code(children)
+      codes = children.select do |c|
+        c.element? && c.name == "code" && c.keys.empty?
+      end
+      return children if codes.empty?
+
+      unwrapped = Nokogiri::XML::DocumentFragment.parse("")
+      children.each do |c|
+        if c.element? && c.name == "code" && c.keys.empty?
+          c.children.each { |ch| unwrapped.add_child(ch) }
+        else
+          unwrapped.add_child(c)
+        end
+      end
+      unwrapped.children
     end
 
     def source_lex(elem, lang)

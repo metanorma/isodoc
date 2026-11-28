@@ -47,7 +47,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "mn2pdf", ">= 2.13"
   spec.add_dependency "mn-requirements", "~> 0.5.0"
   spec.add_dependency "roman-numerals"
-  spec.add_dependency "rouge", "~> 4.0"
+  spec.add_dependency "rouge", "~> 5.0"
   # lib/isodoc/css.rb requires sassc-embedded (SassC::Engine) at
   # SCSS-compile time; without a declared dependency, fresh minimal
   # bundles crash at populate_css (metanorma/isodoc#862)
