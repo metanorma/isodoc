@@ -1,16 +1,14 @@
+require "digest"
+
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
-    def add_id_text
-      id = "_#{Metanorma::Utils.random_uuid}"
-      @new_ids[id] = nil
-      %(id="#{id}")
+    def add_id_text(content = nil)
+      %(id="#{minted_id(content)}")
     end
 
     def add_id(elem)
       elem["id"] and return
-      id = "_#{Metanorma::Utils.random_uuid}"
-      elem["id"] = id
-      @new_ids[id] = nil
+      elem["id"] = minted_id(Metanorma::Utils.contenthash(elem), shaped: true)
     end
 
     def id_validate(docxml)
@@ -138,6 +136,34 @@ module IsoDoc
           x[e[1]] = ids[x[e[1]]]
         end
       end
+    end
+
+    private
+
+    # Ids minted during Presentation XML conversion are derived from
+    # content at mint time, carrying the same MD5/UUID shaping as
+    # Metanorma::Utils.contenthash. They are therefore stable across
+    # runs of the same input, and contenthash_id_cleanup converges them
+    # unchanged in the steady state. Seeds recurring within one compile
+    # are disambiguated by a deterministic re-hash, so minted ids stay
+    # unique; call sites without content (inherited flavors) fall back
+    # to the deterministic mint ordinal.
+    def minted_id(seed, shaped: false)
+      count = @minted_seeds[seed] += 1
+      id = if count > 1
+             contenthash_str("#{seed}\t#{count}")
+           elsif shaped
+             seed
+           else
+             contenthash_str(seed.to_s)
+           end
+      @new_ids[id] = nil
+      id
+    end
+
+    def contenthash_str(str)
+      Digest::MD5.hexdigest(str)
+        .sub(/^(.{8})(.{4})(.{4})(.{4})(.{12})$/, "_\\1-\\2-\\3-\\4-\\5")
     end
   end
 end

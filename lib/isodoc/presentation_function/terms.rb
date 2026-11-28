@@ -87,9 +87,10 @@ module IsoDoc
 
     def multidef(_elem, defn, fmt_defn)
       ret = defn.each_with_object([]) do |f, m|
-        m << "<li #{add_id_text}>#{to_xml(semx_fmt_dup(f))}</li>"
+        c = to_xml(semx_fmt_dup(f))
+        m << "<li #{add_id_text(c)}>#{c}</li>"
       end
-      fmt_defn << "<ol #{add_id_text}>#{ret.join("\n")}</ol>"
+      fmt_defn << "<ol #{add_id_text(ret.join("\n"))}>#{ret.join("\n")}</ol>"
     end
 
     def singledef(_elem, defn, fmt_defn)

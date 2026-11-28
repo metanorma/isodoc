@@ -1,24 +1,20 @@
 require_relative "spec_helper"
 
-RSpec.describe "Metanorma::Utils.random_uuid mock" do
+RSpec.describe "Presentation XML id mint mock" do
   describe "mock_uuid_increment" do
-    before do
+    it "mints incrementing ids from a fresh converter" do
       mock_uuid_increment
-    end
+      klass = IsoDoc::PresentationXMLConvert.new(language: "en", script: "Latn")
 
-    it "returns incrementing numbers for each call to random_uuid" do
-      expect(Metanorma::Utils.random_uuid).to eq("1")
-      expect(Metanorma::Utils.random_uuid).to eq("2")
-      expect(Metanorma::Utils.random_uuid).to eq("3")
-    end
-
-    it "works with string interpolation" do
-      uuid = Metanorma::Utils.random_uuid
-      expect("id_#{uuid}").to eq("id_1")
+      expect(klass.add_id_text("x")).to eq('id="_1"')
+      expect(klass.add_id_text("y")).to eq('id="_2"')
     end
 
     it "resets the counter for each test" do
-      expect(Metanorma::Utils.random_uuid).to eq("1")
+      mock_uuid_increment
+      klass = IsoDoc::PresentationXMLConvert.new(language: "en", script: "Latn")
+
+      expect(klass.add_id_text("x")).to eq('id="_1"')
     end
   end
 end

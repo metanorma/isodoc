@@ -30,6 +30,8 @@ module IsoDoc
       @format = :presentation
       @suffix = "presentation.xml"
       @new_ids = {} # guids assigned within Presentation XML
+      # content seeds already minted, for deterministic disambiguation
+      @minted_seeds = Hash.new(0)
       super
     end
 

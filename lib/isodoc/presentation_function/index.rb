@@ -8,8 +8,9 @@ module IsoDoc
       if xml.at(ns("//index"))
         i = xml.at(ns("//indexsect")) ||
           xml.root.add_child(
-            "<indexsect #{add_id_text}>" \
-            "<fmt-title #{add_id_text}>#{@i18n.index}</fmt-title></indexsect>",
+            "<indexsect #{add_id_text(@i18n.index)}>" \
+            "<fmt-title #{add_id_text(@i18n.index)}>" \
+            "#{@i18n.index}</fmt-title></indexsect>",
           ).first
         index = sort_indexterms(xml.xpath(ns("//index")),
                                 xml.xpath(ns("//index-xref[@also = 'false']")),
@@ -88,7 +89,7 @@ module IsoDoc
     end
 
     def index_entries_head(head, entries, opt)
-      ret = "<li #{add_id_text}>#{head}"
+      ret = "<li #{add_id_text(head)}>#{head}"
       xref = entries&.dig(:xref)&.join(", ")
       see = index_entries_see(entries, :see)
       also = index_entries_see(entries, :also)
